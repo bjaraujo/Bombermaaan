@@ -308,7 +308,7 @@ void CSDLInput::MakeKeyFriendlyNames (void)
             case KEYBOARD_APPS          : strcpy (m_KeyFriendlyName[Key], "APP-MENU"); break;
 
             default :
-                c = snprintf(m_KeyFriendlyName[Key], sizeof(m_KeyFriendlyName[Key]),
+                c = _snprintf(m_KeyFriendlyName[Key], sizeof(m_KeyFriendlyName[Key]),
                          "UNKNOWN KEY %d", Key);
                 if (c == -1)
                     m_KeyFriendlyName[Key][sizeof(m_KeyFriendlyName[Key])-1] = '\0';

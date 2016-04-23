@@ -78,6 +78,14 @@ if (${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
 		PATHS ${DirectX_LIB_SEARCH_PATH}
 		DOC "The directory where ddraw resides")
 
+    find_library (DirectX_DINPUT_LIBRARY dinput
+		PATHS ${DirectX_LIB_SEARCH_PATH}
+		DOC "The directory where dinput resides")
+
+    find_library (DirectX_DXGUID_LIBRARY dxguid
+		PATHS ${DirectX_LIB_SEARCH_PATH}
+		DOC "The directory where dxguid resides")
+        
 	find_library (DirectX_D3DX_LIBRARY d3dx
 		PATHS ${DirectX_LIB_SEARCH_PATH}
 		DOC "The directory where d3dx resides")
