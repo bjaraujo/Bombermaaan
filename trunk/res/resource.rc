@@ -1,0 +1,215 @@
+/************************************************************************************
+
+    Copyright (C) 2000-2002, 2007 Thibaut Tollemer
+    Copyright (C) 2007, 2008 Bernd Arnold
+
+    This file is part of Bombermaaan.
+
+    Bombermaaan is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Bombermaaan is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Bombermaaan.  If not, see <http://www.gnu.org/licenses/>.
+
+************************************************************************************/
+
+
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "windows.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// French (France) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_FRA)
+#ifdef _WIN32
+LANGUAGE LANG_FRENCH, SUBLANG_FRENCH
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+BMP_ARENA_FIRE          BITMAP  DISCARDABLE     "IMAGE\\arena_fire.bmp"
+BMP_ARENA_FLAME         BITMAP  DISCARDABLE     "IMAGE\\arena_flame.bmp"
+BMP_ARENA_FLOOR         BITMAP  DISCARDABLE     "IMAGE\\arena_floor.bmp"
+BMP_ARENA_FLY           BITMAP  DISCARDABLE     "IMAGE\\arena_fly.bmp"
+BMP_ARENA_ITEM          BITMAP  DISCARDABLE     "IMAGE\\arena_item.bmp"
+BMP_ARENA_BOMB          BITMAP  DISCARDABLE     "IMAGE\\arena_bomb.bmp"
+BMP_DRAWGAME_FLAG       BITMAP  DISCARDABLE     "IMAGE\\drawgame_flag.bmp"
+BMP_BOARD_BACKGROUND    BITMAP  DISCARDABLE     "IMAGE\\board_background.bmp"
+BMP_BOARD_CLOCK_BOTTOM  BITMAP  DISCARDABLE     "IMAGE\\board_clock_bottom.bmp"
+BMP_BOARD_CLOCK_TOP     BITMAP  DISCARDABLE     "IMAGE\\board_clock_top.bmp"
+BMP_BOARD_HEADS         BITMAP  DISCARDABLE     "IMAGE\\board_heads.bmp"
+BMP_BOARD_SCORE         BITMAP  DISCARDABLE     "IMAGE\\board_score.bmp"
+BMP_BOARD_TIME          BITMAP  DISCARDABLE     "IMAGE\\board_time.bmp"
+BMP_ARENA_WALL          BITMAP  DISCARDABLE     "IMAGE\\arena_wall.bmp"
+BMP_WINNER_BACKGROUND_1 BITMAP  DISCARDABLE     "IMAGE\\winner_background_1.bmp"
+BMP_DRAWGAME_MAIN       BITMAP  DISCARDABLE     "IMAGE\\drawgame_main.bmp"
+BMP_GLOBAL_FONT         BITMAP  DISCARDABLE     "IMAGE\\global_font.bmp"
+BMP_VICTORY_BOMBER      BITMAP  DISCARDABLE     "IMAGE\\victory_bomber.bmp"
+BMP_VICTORY_CROWD       BITMAP  DISCARDABLE     "IMAGE\\victory_crowd.bmp"
+BMP_VICTORY_TITLE       BITMAP  DISCARDABLE     "IMAGE\\victory_title.bmp"
+BMP_VICTORY_WALL        BITMAP  DISCARDABLE     "IMAGE\\victory_wall.bmp"
+BMP_DRAWGAME_FUMES      BITMAP  DISCARDABLE     "IMAGE\\drawgame_fumes.bmp"
+BMP_WINNER_TITLE        BITMAP  DISCARDABLE     "IMAGE\\winner_title.bmp"
+BMP_WINNER_COIN         BITMAP  DISCARDABLE     "IMAGE\\winner_coin.bmp"
+BMP_WINNER_LIGHTS       BITMAP  DISCARDABLE     "IMAGE\\winner_lights.bmp"
+BMP_WINNER_SPARKS       BITMAP  DISCARDABLE     "IMAGE\\winner_sparks.bmp"
+BMP_WINNER_BOMBER       BITMAP  DISCARDABLE     "IMAGE\\winner_bomber.bmp"
+BMP_MENU_BACKGROUND_1   BITMAP  DISCARDABLE     "IMAGE\\menu_background_1.bmp"
+BMP_MENU_FRAME_1        BITMAP  DISCARDABLE     "IMAGE\\menu_frame_1.bmp"
+BMP_MENU_BOMBER         BITMAP  DISCARDABLE     "IMAGE\\menu_bomber.bmp"
+BMP_MENU_HAND           BITMAP  DISCARDABLE     "IMAGE\\menu_hand.bmp"
+BMP_WINNER_CROSS        BITMAP  DISCARDABLE     "IMAGE\\winner_cross.bmp"
+BMP_VICTORY_CONFETTIS_LARGE BITMAP  DISCARDABLE     "IMAGE\\victory_confettis_large.bmp"
+BMP_VICTORY_CONFETTIS_MEDIUM BITMAP  DISCARDABLE     "IMAGE\\victory_confettis_medium.bmp"
+BMP_VICTORY_CONFETTIS_SMALL BITMAP  DISCARDABLE     "IMAGE\\victory_confettis_small.bmp"
+BMP_PAUSE               BITMAP  DISCARDABLE     "IMAGE\\arena_pause.bmp"
+BMP_HURRY               BITMAP  DISCARDABLE     "IMAGE\\arena_hurry.bmp"
+BMP_MENU_FRAME_2        BITMAP  DISCARDABLE     "IMAGE\\menu_frame_2.bmp"
+BMP_ARENA_FUMES         BITMAP  DISCARDABLE     "IMAGE\\arena_fumes.bmp"
+BMP_BOARD_DRAWGAME      BITMAP  DISCARDABLE     "IMAGE\\board_drawgame.bmp"
+BMP_TITLE_BACKGROUND    BITMAP  DISCARDABLE     "IMAGE\\title_background.bmp"
+BMP_TITLE_BOMBERS       BITMAP  DISCARDABLE     "IMAGE\\title_bombers.bmp"
+BMP_TITLE_MENU_ITEMS    BITMAP  DISCARDABLE     "IMAGE\\title_menu_items.bmp"
+BMP_TITLE_TITLE         BITMAP  DISCARDABLE     "IMAGE\\title_title.bmp"
+BMP_CONTROLS_BACKGROUND_1 BITMAP  DISCARDABLE     "IMAGE\\controls_background_1.bmp"
+BMP_CONTROLS_BACKGROUND_2 BITMAP  DISCARDABLE     "IMAGE\\controls_background_2.bmp"
+BMP_CONTROLS_BACKGROUND_3 BITMAP  DISCARDABLE     "IMAGE\\controls_background_3.bmp"
+BMP_MENU_BACKGROUND_2   BITMAP  DISCARDABLE     "IMAGE\\menu_background_2.bmp"
+BMP_MENU_BACKGROUND_3   BITMAP  DISCARDABLE     "IMAGE\\menu_background_3.bmp"
+BMP_WINNER_BACKGROUND_3 BITMAP  DISCARDABLE     "IMAGE\\winner_background_3.bmp"
+BMP_WINNER_BACKGROUND_2 BITMAP  DISCARDABLE     "IMAGE\\winner_background_2.bmp"
+BMP_TITLE_CLOUD_1       BITMAP  DISCARDABLE     "IMAGE\\title_cloud_1.bmp"
+BMP_TITLE_CLOUD_2       BITMAP  DISCARDABLE     "IMAGE\\title_cloud_2.bmp"
+BMP_TITLE_CLOUD_3       BITMAP  DISCARDABLE     "IMAGE\\title_cloud_3.bmp"
+BMP_LEVEL_MINI_BOMBERS  BITMAP  DISCARDABLE     "IMAGE\\level_mini_bombers.bmp"
+BMP_LEVEL_MINI_TILES    BITMAP  DISCARDABLE     "IMAGE\\level_mini_tiles.bmp"
+BMP_ARENA_BOMBER_DEATH  BITMAP  DISCARDABLE     "IMAGE\\arena_bomber_death.bmp"
+BMP_ARENA_BOMBER_LIFT   BITMAP  DISCARDABLE     "IMAGE\\arena_bomber_lift.bmp"
+BMP_ARENA_BOMBER_THROW  BITMAP  DISCARDABLE     "IMAGE\\arena_bomber_throw.bmp"
+BMP_ARENA_BOMBER_WALK   BITMAP  DISCARDABLE     "IMAGE\\arena_bomber_walk.bmp"
+BMP_ARENA_BOMBER_WALK_HOLD BITMAP  DISCARDABLE     "IMAGE\\arena_bomber_walk_hold.bmp"
+BMP_ARENA_BOMBER_PUNCH  BITMAP  DISCARDABLE     "IMAGE\\arena_bomber_punch.bmp"
+BMP_ARENA_BOMBER_STUNT  BITMAP  DISCARDABLE     "IMAGE\\arena_bomber_stunt.bmp"
+BMP_ARENA_ARROWS        BITMAP  DISCARDABLE     "IMAGE\\arena_arrows.bmp"
+BMP_MENU_HAND_TITLE     BITMAP  DISCARDABLE     "IMAGE\\menu_hand_title.bmp"
+BMP_ARENA_REMOTE_BOMB   BITMAP  DISCARDABLE     "IMAGE\\arena_remote_bomb.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// SOUND
+//
+
+SND_EXPLOSION_02_2      SOUND   DISCARDABLE     "SOUND\\EXPLOSION_02_2.ogg"
+SND_BOMBER_DEATH        SOUND   DISCARDABLE     "SOUND\\BOMBER_DEATH.ogg"
+SND_EXPLOSION_01_1      SOUND   DISCARDABLE     "SOUND\\EXPLOSION_01_1.ogg"
+SND_EXPLOSION_01_2      SOUND   DISCARDABLE     "SOUND\\EXPLOSION_01_2.ogg"
+SND_EXPLOSION_02_1      SOUND   DISCARDABLE     "SOUND\\EXPLOSION_02_1.ogg"
+SND_BOMB_DROP           SOUND   DISCARDABLE     "SOUND\\BOMB_DROP.ogg"
+SND_EXPLOSION_05_2      SOUND   DISCARDABLE     "SOUND\\EXPLOSION_05_2.ogg"
+SND_EXPLOSION_03_2      SOUND   DISCARDABLE     "SOUND\\EXPLOSION_03_2.ogg"
+SND_EXPLOSION_04_1      SOUND   DISCARDABLE     "SOUND\\EXPLOSION_04_1.ogg"
+SND_EXPLOSION_04_2      SOUND   DISCARDABLE     "SOUND\\EXPLOSION_04_2.ogg"
+SND_EXPLOSION_05_1      SOUND   DISCARDABLE     "SOUND\\EXPLOSION_05_1.ogg"
+SND_EXPLOSION_03_1      SOUND   DISCARDABLE     "SOUND\\EXPLOSION_03_1.ogg"
+SND_EXPLOSION_08_2      SOUND   DISCARDABLE     "SOUND\\EXPLOSION_08_2.ogg"
+SND_EXPLOSION_06_2      SOUND   DISCARDABLE     "SOUND\\EXPLOSION_06_2.ogg"
+SND_EXPLOSION_07_1      SOUND   DISCARDABLE     "SOUND\\EXPLOSION_07_1.ogg"
+SND_EXPLOSION_07_2      SOUND   DISCARDABLE     "SOUND\\EXPLOSION_07_2.ogg"
+SND_EXPLOSION_08_1      SOUND   DISCARDABLE     "SOUND\\EXPLOSION_08_1.ogg"
+SND_EXPLOSION_06_1      SOUND   DISCARDABLE     "SOUND\\EXPLOSION_06_1.ogg"
+SND_MATCH_MUSIC_1_NORMAL SOUND   DISCARDABLE     "SOUND\\MATCH_MUSIC_1_NORMAL.MOD"
+SND_EXPLOSION_09_2      SOUND   DISCARDABLE     "SOUND\\EXPLOSION_09_2.ogg"
+SND_EXPLOSION_10_1      SOUND   DISCARDABLE     "SOUND\\EXPLOSION_10_1.ogg"
+SND_EXPLOSION_10_2      SOUND   DISCARDABLE     "SOUND\\EXPLOSION_10_2.ogg"
+SND_MATCH_MUSIC_1_FAST  SOUND   DISCARDABLE     "SOUND\\MATCH_MUSIC_1_FAST.MOD"
+SND_EXPLOSION_09_1      SOUND   DISCARDABLE     "SOUND\\EXPLOSION_09_1.ogg"
+SND_MENU_MUSIC          SOUND   DISCARDABLE     "SOUND\\MENU_MUSIC.S3M"
+SND_MENU_NEXT           SOUND   DISCARDABLE     "SOUND\\MENU_NEXT.ogg"
+SND_MENU_PREVIOUS       SOUND   DISCARDABLE     "SOUND\\MENU_PREVIOUS.ogg"
+SND_MENU_BEEP           SOUND   DISCARDABLE     "SOUND\\MENU_BEEP.ogg"
+SND_MENU_ERROR          SOUND   DISCARDABLE     "SOUND\\MENU_ERROR.ogg"
+SND_PICK_ITEM_1         SOUND   DISCARDABLE     "SOUND\\PICK_ITEM_1.ogg"
+SND_PICK_ITEM_2         SOUND   DISCARDABLE     "SOUND\\PICK_ITEM_2.ogg"
+SND_RING_DING           SOUND   DISCARDABLE     "SOUND\\RING_DING.ogg"
+SND_WALL_CLAP_1         SOUND   DISCARDABLE     "SOUND\\WALL_CLAP_1.ogg"
+SND_WALL_CLAP_2         SOUND   DISCARDABLE     "SOUND\\WALL_CLAP_2.ogg"
+SND_WINNER              SOUND   DISCARDABLE     "SOUND\\WINNER.ogg"
+SND_SICK_1              SOUND   DISCARDABLE     "SOUND\\SICK_1.ogg"
+SND_SICK_2              SOUND   DISCARDABLE     "SOUND\\SICK_2.ogg"
+SND_SICK_3              SOUND   DISCARDABLE     "SOUND\\SICK_3.ogg"
+SND_HURRY               SOUND   DISCARDABLE     "SOUND\\HURRY.ogg"
+SND_DRAW_GAME           SOUND   DISCARDABLE     "SOUND\\DRAW_GAME.ogg"
+SND_VICTORY             SOUND   DISCARDABLE     "SOUND\\VICTORY.ogg"
+SND_PAUSE               SOUND   DISCARDABLE     "SOUND\\PAUSE.ogg"
+SND_BREAK_1             SOUND   DISCARDABLE     "SOUND\\BREAK_1.ogg"
+SND_BREAK_2             SOUND   DISCARDABLE     "SOUND\\BREAK_2.ogg"
+SND_ITEM_FUMES          SOUND   DISCARDABLE     "SOUND\\ITEM_FUMES.ogg"
+SND_CONTROLS_MUSIC      SOUND   DISCARDABLE     "SOUND\\CONTROLS_MUSIC.S3M"
+SND_TITLE_MUSIC         SOUND   DISCARDABLE     "SOUND\\TITLE_MUSIC.S3M"
+SND_BOMB_BOUNCE         SOUND   DISCARDABLE     "SOUND\\BOMB_BOUNCE.ogg"
+SND_BOMBER_THROW        SOUND   DISCARDABLE     "SOUND\\BOMBER_THROW.ogg"
+SND_BOMBER_PUNCH        SOUND   DISCARDABLE     "SOUND\\BOMBER_PUNCH.ogg"
+SND_BOMBER_LOSE_ITEM    SOUND   DISCARDABLE     "SOUND\\BOMBER_LOSE_ITEM.ogg"
+#endif    // French (France) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

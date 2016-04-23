@@ -1,0 +1,19 @@
+
+PROJECT(res)
+
+SET(RES_HEADERS
+resource.h
+StdAfx.h
+)
+
+SET(RES_SOURCES
+res.cpp
+StdAfx.cpp
+)
+
+SOURCE_GROUP("Header Files" FILES ${RES_HEADERS})
+SOURCE_GROUP("Source Files" FILES ${RES_SOURCES})
+
+ADD_LIBRARY(res SHARED ${RES_HEADERS} ${RES_SOURCES})
+
+
