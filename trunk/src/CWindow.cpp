@@ -136,7 +136,7 @@ CWindow::CWindow (HINSTANCE hInstance, const char *pWindowTitle, int IconResourc
     }
 
     // If an icon was specified
-    if (IconResourceID != -1)
+	if (IconResourceID != -1)
     {
         // Check if the resource ID seems to be valid
         ASSERT (IconResourceID >= 0);

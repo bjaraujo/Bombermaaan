@@ -123,6 +123,7 @@ CWindow.cpp
 CWinner.cpp
 StdAfx.cpp
 WinMain.cpp
+Bombermaaan.rc
 )
 
 FIND_PACKAGE(SDL REQUIRED)
@@ -143,6 +144,8 @@ ${CMAKE_CURRENT_SOURCE_DIR}/../res
 ${CMAKE_CURRENT_SOURCE_DIR}/../dep/tinyxml
 ${CMAKE_CURRENT_SOURCE_DIR}/../dep/simpleini
 )
+
+ADD_DEFINITIONS(-DTIXML_USE_STL)
 
 ADD_EXECUTABLE(BomberMaan WIN32 ${BOMBERMAAN_HEADERS} ${BOMBERMAAN_SOURCES})
 

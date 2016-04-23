@@ -1,0 +1,1 @@
+PATH=$(SDLDIR)\lib\x86;$(SDLMIXERDIR)\lib\x86;%PATH%
