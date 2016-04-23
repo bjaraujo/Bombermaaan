@@ -2,11 +2,11 @@
 
 ## Copyright
 
-This bombermaaan is an extension of the of ...
-2000-2002, 2007 Thibaut Tollemer
-2007, 2008 Bernd Arnold
-2008 Jerome Bigot
-2008 Markus Drescher
+This bombermaaan is based on the work of:
+- 2000-2002, 2007 Thibaut Tollemer
+- 2007, 2008 Bernd Arnold
+- 2008 Jerome Bigot
+- 2008 Markus Drescher
 
 ## License
 
@@ -134,10 +134,10 @@ unavailable.
 
 ## Credits
 
-2000-2002, 2007 Thibaut Tollemer
-2007, 2008 Bernd Arnold
-2008 Jerome Bigot
-2008 Markus Drescher
+- 2000-2002, 2007 Thibaut Tollemer
+- 2007, 2008 Bernd Arnold
+- 2008 Jerome Bigot
+- 2008 Markus Drescher
 
 Bombermaaan is using TinyXML from <a href="https://sourceforge.net/projects/tinyxml">https://sourceforge.net/projects/tinyxml</a>.
 
