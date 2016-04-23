@@ -2,7 +2,7 @@
 PROJECT(res)
 
 SET(RES_HEADERS
-resource.h
+res.h
 StdAfx.h
 )
 

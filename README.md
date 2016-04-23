@@ -153,3 +153,9 @@ The Bombermaaan project is hosted on SourceForge.net.
 
 Check <a href="http://bombermaaan.sourceforge.net/">http://bombermaaan.sourceforge.net/</a> for the latest news.
 
+## Compiling
+
+Set SDLDIR and SDLMIXERDIR environment variables and run cmake.
+
+
+

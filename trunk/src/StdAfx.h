@@ -115,20 +115,7 @@ using namespace std;
 #include "CDebug.h"
 #include "CTimer.h"
 
-#if defined(WIN32) && !defined(CROSS)
-#  ifdef USE_32_PIXELS_PER_BLOCK
-#    include "..\RES32\resource.h"
-#  else
-#    include "..\RES\resource.h"
-#  endif
-#else
-#  ifdef USE_32_PIXELS_PER_BLOCK
-#    include "../RES32/resource.h"
-#  else
-#    include "../RES/resource.h"
-#  endif
-#endif
-#include "RESOURCE.H"
+#include "resource.h"
 
 // Originally taken from CGame.h
 //! Describes how the game should currently be updated
