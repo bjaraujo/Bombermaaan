@@ -75,7 +75,7 @@ SOCKET          ClientSocket = INVALID_SOCKET;
 
 // Define the name of the DLL (where sprites and sound samples are stored)
 #ifdef WIN32
-	#define NAME_OF_BOMBERMAN_DLL "BomberMaanRes.dll"
+	#define NAME_OF_BOMBERMAN_DLL "BomberMaan32.dll"
 #else
 	#define NAME_OF_BOMBERMAN_DLL "libbombermaaan.so"
 #endif

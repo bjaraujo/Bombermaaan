@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Bombermaaan>
+    <!-- Configuration settings for the Bombermaaan game (http://bombermaaan.sf.net/) -->
+    <Configuration>
+        <ConfigRevision value="1" />
+        <TimeUp minutes="0" seconds="55" />
+        <TimeStart minutes="2" seconds="30" />
+        <BattleCount value="3" />
+        <LevelFileNumber value="0" />
+        <DisplayMode value="3" />
+        <BomberTypes bomber0="1" bomber1="1" bomber2="2" bomber3="0" bomber4="0" />
+        <PlayerInputs bomber0="0" bomber1="1" bomber2="2" bomber3="3" bomber4="4" />
+        <ControlList>
+            <Control id="0" control0="200" control1="208" control2="203" control3="205" control4="45" control5="44" />
+            <Control id="1" control0="72" control1="76" control2="75" control3="77" control4="21" control5="20" />
+            <Control id="2" control0="23" control1="37" control2="36" control3="38" control4="9" control5="8" />
+            <Control id="3" control0="35" control1="49" control2="48" control3="50" control4="6" control5="5" />
+            <Control id="4" control0="200" control1="208" control2="203" control3="205" control4="157" control5="54" />
+            <Control id="5" control0="0" control1="1" control2="2" control3="3" control4="4" control5="5" />
+            <Control id="6" control0="0" control1="1" control2="2" control3="3" control4="4" control5="5" />
+            <Control id="7" control0="0" control1="1" control2="2" control3="3" control4="4" control5="5" />
+            <Control id="8" control0="0" control1="1" control2="2" control3="3" control4="4" control5="5" />
+            <Control id="9" control0="0" control1="1" control2="2" control3="3" control4="4" control5="5" />
+        </ControlList>
+    </Configuration>
+</Bombermaaan>
