@@ -28,7 +28,7 @@
  *  \brief Handling game options, saving to and reading from file
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "COptions.h"
 #include "CInput.h"
 #include "CArena.h"

@@ -25,7 +25,7 @@
  *  \brief The scores
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CScores.h"
 #include "COptions.h"
 

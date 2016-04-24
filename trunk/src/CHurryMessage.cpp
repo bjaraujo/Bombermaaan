@@ -25,7 +25,7 @@
  *  \brief The hurry message
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CHurryMessage.h"
 #include "CSound.h"
 #include "CScroller.h"

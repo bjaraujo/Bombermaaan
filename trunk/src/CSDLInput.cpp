@@ -25,7 +25,7 @@
  *  \brief SDL input devices on Linux
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CSDLInput.h"
 
 //******************************************************************************************************************************

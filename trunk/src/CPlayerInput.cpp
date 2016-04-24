@@ -26,7 +26,7 @@
  *  \brief Player's input device
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CPlayerInput.h"
 #include "COptions.h"
 #include "CInput.h"

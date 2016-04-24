@@ -29,7 +29,7 @@
  *  - Ca sert a rien d'enregistrer les centres d'explosions et les bombers vivants ou entrain de mourir dans la vue.
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CArena.h"
 #include "CDisplay.h"
 #include "COptions.h"

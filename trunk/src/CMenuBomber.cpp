@@ -25,7 +25,7 @@
  *  \brief The menu where you can choose the bombers
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CMenuBomber.h"
 #include "CDisplay.h"
 #include "CInput.h"

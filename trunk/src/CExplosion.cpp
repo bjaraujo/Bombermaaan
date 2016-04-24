@@ -25,7 +25,7 @@
  *  \brief Explosions
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CExplosion.h"
 #include "CArena.h"
 #include "CWall.h"

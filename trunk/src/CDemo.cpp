@@ -26,7 +26,7 @@
  *  \brief The demo
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CDemo.h"
 #include "CDisplay.h"
 #include "CInput.h"

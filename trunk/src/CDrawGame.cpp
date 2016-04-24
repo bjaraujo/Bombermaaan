@@ -25,7 +25,7 @@
  *  \brief Draw game - no player won
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CDrawGame.h"
 #include "CDisplay.h"
 #include "CInput.h"

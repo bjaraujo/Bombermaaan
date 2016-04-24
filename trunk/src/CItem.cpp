@@ -26,7 +26,7 @@
  *  \brief Item a bomber may pick
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CItem.h"
 #include "CArena.h"
 #include "CBomber.h"

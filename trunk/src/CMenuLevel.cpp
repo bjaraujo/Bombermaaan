@@ -27,7 +27,7 @@
  *  \brief The menu where you can choose a level
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CMenuLevel.h"
 #include "CDisplay.h"
 #include "CInput.h"

@@ -25,7 +25,7 @@
  *  \brief Arena closer (walls falling down)
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CArenaCloser.h"
 #include "CArena.h"
 #include "COptions.h"

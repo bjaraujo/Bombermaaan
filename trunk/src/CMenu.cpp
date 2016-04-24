@@ -25,7 +25,7 @@
  *  \brief Menu
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CMenu.h"
 #include "CGame.h"
 #include "CDisplay.h"

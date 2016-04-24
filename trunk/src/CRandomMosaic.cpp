@@ -25,7 +25,7 @@
  *  \brief A random mosaic
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CRandomMosaic.h"
 #include "CMosaic.h"
 

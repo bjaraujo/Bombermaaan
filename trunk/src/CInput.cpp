@@ -25,7 +25,7 @@
  *  \brief Input
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CInput.h"
 #include "COptions.h"
 

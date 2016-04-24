@@ -26,7 +26,7 @@
  *  \brief Title screen (main screen of Bombermaaan at program start)
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CTitle.h"
 #include "CDisplay.h"
 #include "CInput.h"

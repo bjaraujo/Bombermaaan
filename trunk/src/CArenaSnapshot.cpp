@@ -26,7 +26,7 @@
  *  \brief Arena snapshot for network exchange
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CArenaSnapshot.h"
 
 #include <string.h>

@@ -284,7 +284,7 @@ inline int CDirectInput::GetJoystickCount (void)
 inline void CDirectInput::OpenJoystick (int Joystick)
 {
     // Check if the joystick number is correct
-    ASSERT (Joystick >= 0 && Joystick < m_pJoysticks.size ());
+    ASSERT(Joystick >= 0 && Joystick < static_cast<int>(m_pJoysticks.size()));
 
     // Try to acquire the joystick
     HRESULT hRet = m_pJoysticks[Joystick]->pDevice->Acquire ();
@@ -299,7 +299,7 @@ inline void CDirectInput::OpenJoystick (int Joystick)
 inline bool CDirectInput::IsJoystickOpened (int Joystick)
 {
     // Check if the joystick number is correct
-    ASSERT (Joystick >= 0 && Joystick < m_pJoysticks.size ());
+    ASSERT(Joystick >= 0 && Joystick < static_cast<int>(m_pJoysticks.size()));
 
     // Return the opened state of this joystick
     return m_pJoysticks[Joystick]->Opened;
@@ -308,7 +308,7 @@ inline bool CDirectInput::IsJoystickOpened (int Joystick)
 inline void CDirectInput::CloseJoystick (int Joystick)
 {
     // Check if the joystick number is correct
-    ASSERT (Joystick >= 0 && Joystick < m_pJoysticks.size ());
+    ASSERT(Joystick >= 0 && Joystick < static_cast<int>(m_pJoysticks.size()));
 
     // Release access to this joystick
     m_pJoysticks[Joystick]->pDevice->Unacquire ();
@@ -320,7 +320,7 @@ inline void CDirectInput::CloseJoystick (int Joystick)
 inline int CDirectInput::GetJoystickAxisX (int Joystick)
 {
     // Check if the joystick number is correct
-    ASSERT (Joystick >= 0 && Joystick < m_pJoysticks.size ());
+    ASSERT(Joystick >= 0 && Joystick < static_cast<int>(m_pJoysticks.size()));
 
     // Return the value of the X axis of this joystick
     return m_pJoysticks[Joystick]->State.lX;
@@ -329,7 +329,7 @@ inline int CDirectInput::GetJoystickAxisX (int Joystick)
 inline int CDirectInput::GetJoystickAxisY (int Joystick)
 {
     // Check if the joystick number is correct
-    ASSERT (Joystick >= 0 && Joystick < m_pJoysticks.size ());
+    ASSERT(Joystick >= 0 && Joystick < static_cast<int>(m_pJoysticks.size()));
 
     // Return the value of the Y axis of this joystick
     return m_pJoysticks[Joystick]->State.lY;
@@ -338,7 +338,7 @@ inline int CDirectInput::GetJoystickAxisY (int Joystick)
 inline bool CDirectInput::GetJoystickButton (int Joystick, int Button)
 {
     // Check if the joystick number is correct
-    ASSERT (Joystick >= 0 && Joystick < m_pJoysticks.size ());
+    ASSERT(Joystick >= 0 && Joystick < static_cast<int>(m_pJoysticks.size()));
 
     // Assert the button number is correct
     ASSERT (Button >= 0 && Button < MAX_JOYSTICK_BUTTONS);

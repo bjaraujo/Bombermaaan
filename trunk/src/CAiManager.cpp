@@ -25,7 +25,7 @@
  *  \brief The AI management functions
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CAiManager.h"
 #include "CAiBomber.h"
 #include "COptions.h"

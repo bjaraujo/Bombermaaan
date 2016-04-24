@@ -25,7 +25,7 @@
  *  \brief Implementation of the CWindow class
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CWindow.h"
 
 #ifndef WIN32

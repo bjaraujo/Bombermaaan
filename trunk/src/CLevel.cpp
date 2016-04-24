@@ -27,7 +27,7 @@
  *  \brief Handling a level
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CLevel.h"
 //#include "COptions.h"
 //#include "CInput.h"

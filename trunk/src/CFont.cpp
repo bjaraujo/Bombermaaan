@@ -25,7 +25,7 @@
  *  \brief Font
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CFont.h"
 #include "CDisplay.h"
 

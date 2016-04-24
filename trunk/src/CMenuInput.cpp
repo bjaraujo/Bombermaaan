@@ -25,7 +25,7 @@
  *  \brief Handling inputs during the menu
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CMenuInput.h"
 #include "CDisplay.h"
 #include "CInput.h"

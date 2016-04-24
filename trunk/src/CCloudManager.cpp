@@ -25,7 +25,7 @@
  *  \brief The cloud manager
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CCloudManager.h"
 #include "CDisplay.h"
 

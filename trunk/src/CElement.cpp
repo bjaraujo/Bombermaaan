@@ -25,7 +25,7 @@
  *  \brief An element of the arena
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CElement.h"
 #include "CArenaSnapshot.h"
 

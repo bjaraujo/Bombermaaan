@@ -25,7 +25,7 @@
  *  \brief Direct draw function calls on Windows
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CDirectDraw.h"
 
 static const char* GetDirectDrawError (HRESULT hRet);

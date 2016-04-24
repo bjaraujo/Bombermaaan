@@ -27,7 +27,7 @@
  *  \brief The match (bombers are playing)
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CMatch.h"
 #include "CDisplay.h"
 #include "CInput.h"

@@ -26,7 +26,7 @@
  *  \brief The console (helpful during development)
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CConsole.h"
 
 //******************************************************************************************************************************

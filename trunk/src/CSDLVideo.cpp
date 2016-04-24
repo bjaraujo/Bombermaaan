@@ -25,7 +25,7 @@
  *  \brief SDL video on Linux
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CSDLVideo.h"
 #include "BombermaaanIco.h"
 

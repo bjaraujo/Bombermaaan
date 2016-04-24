@@ -25,7 +25,7 @@
  *  \brief Handling input devices on Windows
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CDirectInput.h"
 
 static const char* GetDirectInputError (HRESULT hRet);
@@ -431,7 +431,7 @@ void CDirectInput::UpdateKeyboard (void)
 void CDirectInput::UpdateJoystick (int Joystick)
 {
     // Check if the joystick number is correct
-    ASSERT (Joystick >= 0 && Joystick < m_pJoysticks.size ());
+    ASSERT (Joystick >= 0 && Joystick < static_cast<int>(m_pJoysticks.size()));
 
     // Check if the joystick is at least supposed to be opened
     ASSERT (m_pJoysticks[Joystick]->Opened);

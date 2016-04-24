@@ -25,7 +25,7 @@
  *  \brief Pause message
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CPauseMessage.h"
 #include "CSound.h"
 #include "CScroller.h"

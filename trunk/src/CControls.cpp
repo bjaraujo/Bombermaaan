@@ -26,7 +26,7 @@
  *  \brief The control settings screen
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CControls.h"
 #include "CGame.h"
 #include "COptions.h"

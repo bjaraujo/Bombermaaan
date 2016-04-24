@@ -17,7 +17,7 @@
     You should have received a copy of the GNU General Public License
     along with Bombermaaan.  If not, see <http://www.gnu.org/licenses/>.
 
-************************************************************************************/
+    ************************************************************************************/
 
 
 /**
@@ -25,7 +25,7 @@
  *  \brief Entry point of the program for both Linux and Windows
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CGame.h"
 
 /**
@@ -46,7 +46,7 @@
  */
 
 #ifdef WIN32
-int APIENTRY WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdline, int nCmdShow)
+int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdline, int nCmdShow)
 #else
 int main (int argc, char **argv)
 #endif
@@ -55,15 +55,15 @@ int main (int argc, char **argv)
     HINSTANCE hInstance = 0;
     char **lpCmdline = argv;
 #endif
-	
+
     // Create the CGame instance    
-    CGame Game (hInstance, lpCmdline);
+    CGame Game(hInstance, lpCmdline);
 
     // If creating the game failed
 #ifdef WIN32
-	if (!Game.Create(lpCmdline))
+    if (!Game.Create(lpCmdline))
 #else
-	if (!Game.Create(lpCmdline, argc))
+    if (!Game.Create(lpCmdline, argc))
 #endif
     {
         // Get out, failure
@@ -71,13 +71,13 @@ int main (int argc, char **argv)
     }
 
     //! Show the game window (CGame::ShowWindow())
-    Game.ShowWindow ();
+    Game.ShowWindow();
 
     // Update the game (CGame::MesagePump())
-    Game.MessagePump ();
+    Game.MessagePump();
 
     // Destroy everything (CGame::Destroy())
-    Game.Destroy ();
+    Game.Destroy();
 
     // Everything went right
     return true;

@@ -56,7 +56,7 @@
  */
 
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CBomber.h"
 #include "CArena.h"
 #include "CBomb.h"

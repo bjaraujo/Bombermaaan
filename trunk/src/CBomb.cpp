@@ -27,7 +27,7 @@
  *  \brief The bomb
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CBomb.h"
 #include "CArena.h"
 #include "CItem.h"

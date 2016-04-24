@@ -25,7 +25,7 @@
  *  \brief The menu base
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CMenuBase.h"
 #include "CMenu.h"
 #include "CDisplay.h"

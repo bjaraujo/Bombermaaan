@@ -25,7 +25,7 @@
  *  \brief The screen basics
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CModeScreen.h"
 #include "CDisplay.h"
 #include "CInput.h"

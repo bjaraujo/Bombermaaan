@@ -25,7 +25,7 @@
  *  \brief The yes/no menu
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CMenuYesNo.h"
 #include "CDisplay.h"
 #include "CInput.h"

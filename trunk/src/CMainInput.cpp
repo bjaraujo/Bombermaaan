@@ -26,7 +26,7 @@
  *  \brief The main input device for menu and system controls
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CMainInput.h"
 
 //******************************************************************************************************************************

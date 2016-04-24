@@ -26,7 +26,7 @@
  *  \brief Bomber bot
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CAiArena.h"
 #include "CAiBomber.h"
 

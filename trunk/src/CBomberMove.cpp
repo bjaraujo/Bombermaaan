@@ -26,7 +26,7 @@
  *  \brief Bomber moves
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CBomberMove.h"
 #include "CBomber.h"
 #include "CArena.h"
@@ -314,6 +314,13 @@ void CBomberMove::Update (float DeltaTime)
         // Update Block coordinates
         m_BlockX = m_pArena->ToBlock (m_iX + BLOCK_SIZE / 2);
         m_BlockY = m_pArena->ToBlock (m_iY + BLOCK_SIZE / 2);
+
+        ASSERT(m_BlockX >= 0);
+        ASSERT(m_BlockX < ARENA_WIDTH);
+
+        ASSERT(m_BlockY >= 0);
+        ASSERT(m_BlockY < ARENA_HEIGHT);
+
     }
 
     // If the bomber is holding a bomb

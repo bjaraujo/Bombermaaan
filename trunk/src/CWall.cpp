@@ -25,7 +25,7 @@
  *  \brief Wall element of the arena
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CWall.h"
 #include "CBomber.h"
 #include "CArena.h"

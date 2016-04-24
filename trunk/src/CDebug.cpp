@@ -26,7 +26,7 @@
  *  \brief Utilities for debugging
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CDebug.h"
 #include "CGame.h"
 #include "CTimer.h"

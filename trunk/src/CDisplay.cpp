@@ -28,7 +28,7 @@
  *  \brief Load and display sprites, change screen mode
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CDisplay.h"
 
 #include "res.h"

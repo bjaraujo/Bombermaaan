@@ -26,7 +26,7 @@
  *  \brief Floor in the arena
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CFloor.h"         // CFloor
 #include "CDisplay.h"       // CDisplay
 #include "CArena.h"         // CArena and arena values

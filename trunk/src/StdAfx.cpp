@@ -25,5 +25,5 @@
  *  \brief Pre-compiled file
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 

@@ -25,7 +25,7 @@
  *  \brief Mosaic background in menus
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CMosaic.h"
 #include "CDisplay.h"
 

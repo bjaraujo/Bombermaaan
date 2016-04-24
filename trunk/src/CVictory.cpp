@@ -26,7 +26,7 @@
  *  \brief The victory screen (after a player has won all matches)
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CVictory.h"
 #include "CGame.h"
 

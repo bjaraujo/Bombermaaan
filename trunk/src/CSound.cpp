@@ -27,7 +27,7 @@
  *  \brief Sound
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CSound.h"
 
 #include "res.h"

@@ -26,7 +26,7 @@
  *  \brief The winner screen (after a match has ended and one bomber has won the match)
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CWinner.h"
 #include "CScores.h"
 #include "CMatch.h"

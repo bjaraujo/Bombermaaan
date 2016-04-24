@@ -25,7 +25,7 @@
  *  \brief The AI arena
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CAiArena.h"
 
 #define AIARENADEBUG_SPRITELAYER        70

@@ -25,7 +25,7 @@
  *  \brief The board during a match showing time and bombers' health and wins
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CBoard.h"
 #include "CClock.h"
 #include "CDisplay.h"

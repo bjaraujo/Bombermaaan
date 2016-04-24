@@ -25,7 +25,7 @@
  *  \brief The menu where you can set match options
  */
 
-#include "STDAFX.H"
+#include "StdAfx.h"
 #include "CMenuLevel.h"
 #include "CDisplay.h"
 #include "CInput.h"
