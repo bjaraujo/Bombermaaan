@@ -245,7 +245,7 @@ bool CDirectDraw::Create (int Width, int Height, int Depth, bool FullScreen)
         theLog.WriteLine ("DirectDraw      => Initializing DirectDraw interface for fullscreen mode %dx%dx%d.", m_Width, m_Height, m_Depth);
          
         // Get exclusive mode
-        hRet = m_pDD->SetCooperativeLevel (m_hWnd, DDSCL_EXCLUSIVE | DDSCL_FULLSCREEN);
+        hRet = m_pDD->SetCooperativeLevel (m_hWnd, DDSCL_ALLOWMODEX | DDSCL_MULTITHREADED | DDSCL_EXCLUSIVE | DDSCL_FULLSCREEN);
         
         // If it failed
         if (hRet != DD_OK)
