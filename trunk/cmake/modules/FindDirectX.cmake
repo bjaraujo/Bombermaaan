@@ -32,6 +32,8 @@ if (${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
 			"$ENV{ProgramFiles(x86)}/Microsoft DirectX SDK (November 2007)"
 			"$ENV{ProgramFiles}/Microsoft DirectX SDK (August 2007)"
 			"$ENV{ProgramFiles(x86)}/Microsoft DirectX SDK (August 2007)"
+			"$ENV{ProgramFiles}/Microsoft DirectX SDK (April 2007)"
+			"$ENV{ProgramFiles(x86)}/Microsoft DirectX SDK (April 2007)"
 			"$ENV{ProgramFiles}/Microsoft DirectX SDK"
 			"$ENV{ProgramFiles(x86)}/Microsoft DirectX SDK"
 		DOC "DirectX SDK root directory"
