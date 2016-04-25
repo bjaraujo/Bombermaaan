@@ -66,8 +66,8 @@ CDirectInput::~CDirectInput (void)
 
 struct SEnumParam
 {
-    LPDIRECTINPUT7 pDI;
-    vector<LPDIRECTINPUTDEVICE7> pDevices;
+    LPDIRECTINPUT8 pDI;
+    vector<LPDIRECTINPUTDEVICE8> pDevices;
 };
 
 //******************************************************************************************************************************
@@ -77,15 +77,14 @@ struct SEnumParam
 static BOOL CALLBACK CreateInputDevice (LPCDIDEVICEINSTANCE pDeviceInstance, LPVOID pParameter)
 {
     // The DirectInput device that will be created
-    LPDIRECTINPUTDEVICE7 pDevice;
+    LPDIRECTINPUTDEVICE8 pDevice;
     
     // The parameter is a SEnumParam
     SEnumParam *pEnumParam = (SEnumParam *) pParameter;
     
     // Create the directinput device
-    HRESULT hRet = pEnumParam->pDI->CreateDeviceEx (pDeviceInstance->guidInstance, // Device unique identifier
-                                                    IID_IDirectInputDevice7,       // Ask for DI7 device
-                                                    (void**)&pDevice,              // Give pointer to device
+    HRESULT hRet = pEnumParam->pDI->CreateDevice (pDeviceInstance->guidInstance, // Device unique identifier
+                                                    &pDevice,                    // Give pointer to device
                                                     NULL);
     // If it failed
     if (hRet != DI_OK)
@@ -114,7 +113,7 @@ bool CDirectInput::Create (void)
     if (!m_Ready)
     {
         // Create the directinput object
-        HRESULT hRet = DirectInputCreateEx (m_hInstance, DIRECTINPUT_VERSION, IID_IDirectInput7, (void**)&m_pDI, NULL); 
+		HRESULT hRet = DirectInput8Create(m_hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&m_pDI, NULL);
         
         // If it failed
         if (hRet != DI_OK)
@@ -133,7 +132,7 @@ bool CDirectInput::Create (void)
             theLog.WriteLine ("DirectInput     => DirectInput object was created successfully.");
         }
 
-        hRet = m_pDI->CreateDeviceEx (GUID_SysKeyboard, IID_IDirectInputDevice7, (void**)&m_pKeyboard, NULL); 
+        hRet = m_pDI->CreateDevice (GUID_SysKeyboard, &m_pKeyboard, NULL); 
 
         if (hRet != DI_OK)
         {
@@ -208,7 +207,7 @@ bool CDirectInput::Create (void)
         EnumParam.pDI = m_pDI;
         
         // Create all joysticks that are installed in Windows
-        hRet = m_pDI->EnumDevices (DIDEVTYPE_JOYSTICK, CreateInputDevice, &EnumParam, DIEDFL_ALLDEVICES);
+        hRet = m_pDI->EnumDevices (DI8DEVTYPE_JOYSTICK, CreateInputDevice, &EnumParam, DIEDFL_ALLDEVICES);
         
         // Assert it's not an unexpected return value
         ASSERT (hRet == DI_OK);
@@ -216,7 +215,7 @@ bool CDirectInput::Create (void)
         // The EnumParam contains the input devices, browse them
         for (unsigned int Index = 0 ; Index < EnumParam.pDevices.size() ; Index++)
         {
-            LPDIRECTINPUTDEVICE7 pDevice = EnumParam.pDevices[Index];
+            LPDIRECTINPUTDEVICE8 pDevice = EnumParam.pDevices[Index];
 
             // Set the joystick data format
             hRet = pDevice->SetDataFormat (&c_dfDIJoystick);
@@ -364,7 +363,7 @@ void CDirectInput::Destroy (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CDirectInput::UpdateDevice (LPDIRECTINPUTDEVICE7 pDevice, void *pState, int StateSize)
+bool CDirectInput::UpdateDevice (LPDIRECTINPUTDEVICE8 pDevice, void *pState, int StateSize)
 {
     HRESULT hRet;
     bool Opened = false;

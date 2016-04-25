@@ -28,7 +28,7 @@
 #ifndef __CDIRECTINPUT_H__
 #define __CDIRECTINPUT_H__
 
-#define DIRECTINPUT_VERSION 0x0700 // Use DirectInput 7
+#define DIRECTINPUT_VERSION 0x0800 // Use DirectInput 7
 #include <DINPUT.H>
 
 //******************************************************************************************************************************
@@ -151,7 +151,7 @@
 
 struct SJoystick
 {
-    LPDIRECTINPUTDEVICE7    pDevice;        //!< Pointer on the DirectInput input device
+    LPDIRECTINPUTDEVICE8    pDevice;        //!< Pointer on the DirectInput input device
     DIJOYSTATE              State;          //!< Most recent state of the joystick, filled on last update
     bool                    Opened;         //!< Is the joystick _supposed_ to be opened? Updated on each general update.
 };
@@ -167,9 +167,9 @@ private:
     bool                    m_Ready;
     HINSTANCE               m_hInstance;    //!< Handle to the application instance (needed to use DirectInput)
     HWND                    m_hWnd;         //!< Handle to the window (needed to use DirectInput)
-    LPDIRECTINPUT7          m_pDI;          //!< DirectInput object pointer
+    LPDIRECTINPUT8          m_pDI;          //!< DirectInput object pointer
   
-    LPDIRECTINPUTDEVICE7    m_pKeyboard;                    //!< DirectInput device of the system keyboard
+    LPDIRECTINPUTDEVICE8    m_pKeyboard;                    //!< DirectInput device of the system keyboard
     bool                    m_KeyboardOpened;               //!< Is the system keyboard _supposed_ to be opened?
     char                    m_KeyState [MAX_KEYS];          //!< State of each key on the system keyboard
     char                    m_KeyRealName [MAX_KEYS][MAX_PATH]; //!< Real name (the one given by Windows) of each key on the system keyboard
@@ -177,7 +177,7 @@ private:
 
     vector<SJoystick*>      m_pJoysticks;   //!< All joystick DirectInput devices installed in Windows
 
-    bool                    UpdateDevice (LPDIRECTINPUTDEVICE7 pDevice, void *pState, int StateSize);
+    bool                    UpdateDevice (LPDIRECTINPUTDEVICE8 pDevice, void *pState, int StateSize);
     void                    MakeKeyFriendlyNames (void);
     
 public:

@@ -129,28 +129,8 @@ Bombermaaan.rc
 FIND_PACKAGE(SDL REQUIRED)
 FIND_PACKAGE(SDL_mixer REQUIRED)
 
-IF(WIN32)
-    FIND_PACKAGE(DirectX REQUIRED COMPONENTS ddraw dxgui dinput)
-ENDIF(WIN32)
-
 SOURCE_GROUP("Header Files" FILES ${BOMBERMAAN_HEADERS})
 SOURCE_GROUP("Source Files" FILES ${BOMBERMAAN_SOURCES})
-
-IF(MSVC)
-    SET(VC_INCLUDE_DIR "$(VC_IncludePath)" CACHE FILEPATH "$(VC_IncludePath)")
-    SET(WINSDK_INCLUDE_DIR "$(WindowsSDK_IncludePath)" CACHE FILEPATH "$(WindowsSDK_IncludePath)")
-
-    INCLUDE_DIRECTORIES(
-        ${WINSDK_INCLUDE_DIR}
-        ${VC_INCLUDE_DIR}
-    )    
-ENDIF(MSVC)
-
-IF(WIN32)
-    INCLUDE_DIRECTORIES(
-        ${DirectX_D3D9_INCLUDE_DIR}
-    )
-ENDIF(WIN32)
 
 INCLUDE_DIRECTORIES(
     ${SDL_INCLUDE_DIR}
@@ -171,10 +151,10 @@ ENDIF(WIN32)
 IF(WIN32)
     TARGET_LINK_LIBRARIES(BomberMaan 
         ws2_32
+		ddraw
+		dinput8
+		dxguid
         tinyxml
-        ${DirectX_DDRAW_LIBRARY}
-        ${DirectX_DINPUT_LIBRARY}
-        ${DirectX_DXGUID_LIBRARY}
         ${SDL_LIBRARY}
         ${SDL_MIXER_LIBRARIES}
     )
