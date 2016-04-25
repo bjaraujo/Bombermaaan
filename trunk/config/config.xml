@@ -7,7 +7,7 @@
         <TimeStart minutes="2" seconds="30" />
         <BattleCount value="3" />
         <LevelFileNumber value="0" />
-        <DisplayMode value="3" />
+        <DisplayMode value="4" />
         <BomberTypes bomber0="1" bomber1="1" bomber2="2" bomber3="0" bomber4="0" />
         <PlayerInputs bomber0="0" bomber1="1" bomber2="2" bomber3="3" bomber4="4" />
         <ControlList>

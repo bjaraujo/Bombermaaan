@@ -664,8 +664,17 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
 
     char IpAddressString[32];
 #ifdef WIN32
-    const char *pos = strstr(pCommandLine, "-c");
-    if (pos == NULL) pos = strstr(pCommandLine, "--client");
+    const char *pos = strstr(pCommandLine, "-client");
+	
+	if (pos != NULL)
+		strcpy(IpAddressString, pos + 8);
+
+	if (pos == NULL)
+	{
+		pos = strstr(pCommandLine, "-c");
+		if (pos != NULL)
+			strcpy(IpAddressString, pos + 3);
+	}
 
     // client mode and ip address given?
     if (pos != NULL && strlen(pCommandLine) > (unsigned int)(pos - pCommandLine + 2))
@@ -673,7 +682,6 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
         OutputDebugString("*** STARTING GAME AS CLIENT\n");
         NetworkMode = NETWORKMODE_CLIENT;
 
-        strcpy(IpAddressString, strstr(pCommandLine, "-c") + 3);
     }
     else if (strstr(pCommandLine, "-s") != NULL ||
         strstr(pCommandLine, "--server") != NULL)
@@ -795,8 +803,6 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
             {
                 theConsole.Write("connect failed\n");
                 close(MySocket);
-                // ?
-                //while(1) { }
                 return false;
             }
         }
