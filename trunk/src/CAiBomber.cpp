@@ -62,7 +62,31 @@ CAiBomber::CAiBomber (void)
 {
     m_pDisplay = NULL;
     m_pArena = NULL;
+    m_pBomber = NULL;
     m_Player = -1;
+    
+    m_NumAccessible = 0;
+    m_StopTimeLeft  = 0.0f;
+    m_ItemGoalBlockX = 0;
+    m_ItemGoalBlockY = 0;
+    m_ItemDropBomb = false;
+    m_BlockWalk = 0;
+    m_WalkTime = 0.0f;
+    m_ComputerMode = COMPUTERMODE_THINK;
+	m_BomberMove = BOMBERMOVE_NONE;
+    m_BomberAction = BOMBERACTION_NONE;
+    m_BomberMoveTimeLeft = 0.0f;
+    m_BlockHereX = 0;
+    m_BlockHereY = 0;
+    m_BlockUpX = 0;
+    m_BlockUpY = 0;
+    m_BlockDownX = 0;
+    m_BlockDownY = 0;
+    m_BlockLeftX = 0;
+    m_BlockLeftY = 0;
+    m_BlockRightX = 0;
+    m_BlockRightY = 0;
+    
 }
 
 //******************************************************************************************************************************
