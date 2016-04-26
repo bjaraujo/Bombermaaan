@@ -57,6 +57,19 @@ CAiArena::CAiArena (void)
 {
     m_pArena = NULL;
     m_pDisplay = NULL;
+    
+	for (int BlockX = 0; BlockX < ARENA_WIDTH; BlockX++)
+	{
+		for (int BlockY = 0; BlockY < ARENA_HEIGHT; BlockY++)
+		{
+			m_Danger[BlockX][BlockY] = DANGER_NONE;
+			m_DangerTimeLeft[BlockX][BlockY] = 0.0f;
+			m_DeadEnd[BlockX][BlockY] = -1;
+			m_SoftWallNear[BlockX][BlockY] = 0;
+			m_WallBurn[BlockX][BlockY] = false;
+		}
+	}
+
 }
 
 //******************************************************************************************************************************

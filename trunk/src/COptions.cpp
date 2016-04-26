@@ -62,6 +62,18 @@
 
 COptions::COptions (void)
 {
+    
+    m_TimeStartMinutes = 0;
+    m_TimeStartSeconds = 0;
+    m_TimeUpMinutes = 0;
+    m_TimeUpSeconds = 0;
+    m_PlayerCount = 0;
+    m_BattleCount = 0;
+
+    m_DisplayMode = DISPLAYMODE_NONE;
+
+    m_Level = 0;
+    
 }
 
 //******************************************************************************************************************************

@@ -59,10 +59,8 @@
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CLevel::CLevel ( std::string filename_full, std::string filename_short )
+CLevel::CLevel ( std::string filename_full, std::string filename_short ) : m_Filename_full(filename_full), m_Filename_short(filename_short) 
 {
-    m_Filename_full = filename_full;
-    m_Filename_short = filename_short;
 
     int i, j;
 

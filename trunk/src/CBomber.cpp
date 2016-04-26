@@ -258,6 +258,41 @@ CBomber::CBomber (void) : CElement()
     
     // Initialize pointer
     p_Options = NULL;
+    
+    m_BomberAction = BOMBERACTION_NONE;
+	m_LastBomberAction = BOMBERACTION_NONE;
+    m_Sprite = 0;
+    m_Page = 0;
+    m_Timer = 0;
+    m_SickTimer = 0.0f;
+    m_TotalBombs = 0;
+    m_UsedBombs = 0;
+    m_FlameSize = 0;
+    m_Speed = 0;
+	m_Sickness = SICK_NOTSICK;
+    m_NumberOfBombItems = 0;
+    m_NumberOfFlameItems = 0;
+    m_NumberOfRollerItems = 0;
+    m_NumberOfRemoteItems = 0;
+    m_NumberOfKickItems = 0;
+    m_NumberOfThrowItems = 0;
+    m_NumberOfPunchItems = 0;
+    m_ReturnedItems = false;
+    m_Player = 0;
+    m_Dead = DEAD_ALIVE;
+    m_Victorious = false;
+    m_JustGotSick = false;
+    m_LiftingTimeElapsed = 0.0f;
+	m_ThrowingTimeElapsed = 0.0f;
+	m_PunchingTimeElapsed = 0.0f;
+	m_StuntTimeElapsed = 0.0f;
+	m_BomberState = BOMBERSTATE_WALK;
+    m_BombIndex = 0;
+    m_MakeInvisible = false;
+    m_CountBomberActionDuration = BOMBERACTION_NONE;
+    m_BomberActionDuration = 0.0f;
+    m_dropMassBombPossible = false;
+    
 }
 
 //******************************************************************************************************************************

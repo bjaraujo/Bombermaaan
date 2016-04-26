@@ -156,6 +156,34 @@ int CBomb::m_BounceMoveY[NUMBER_OF_BOMBFLY_DIRECTIONS][3] =
 CBomb::CBomb (void) : CElement()
 {
     
+    m_iX = 0;
+    m_iY = 0;
+    m_X = 0.0f;
+    m_Y = 0.0f;
+    m_BlockX = 0;
+    m_BlockY = 0;
+    m_Sprite = 0;
+    m_Timer = 0.0f;
+    m_HasToStopMoving = false;
+    m_OwnerPlayer = 0;
+    m_KickerPlayer = 0;
+    m_Checked = false;
+    m_Dead = false;
+    m_FlameSize = 0;
+    m_ElapsedTime = 0.0f;
+    m_TimeLeft = 0.0f;
+    m_BeingHeld = false;
+    m_BeingLifted = false;
+    m_BeingPunched = false;
+    m_FlightTimer = 0.0f;
+    m_FlightFrame = 0;
+    m_Warping = false;
+	m_Remote = false;
+
+	m_BombKick = BOMBKICK_NONE;
+	m_BombFly = BOMBFLY_NONE;
+	m_FlightType = BOMBFLIGHTTYPE_NONE;
+    
 }
 
 //******************************************************************************************************************************

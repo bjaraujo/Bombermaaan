@@ -113,6 +113,7 @@ public:
         // Initialize some members
         m_Time = 0.0;
         m_DeltaTime = 0.0f;
+        m_DeltaTimeAtPause = 0.0f;
         m_Pause = false;
         m_Speed = 1.0f;
     }

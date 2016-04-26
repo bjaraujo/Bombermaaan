@@ -44,6 +44,9 @@
 CArenaSnapshot::CArenaSnapshot (void)
 {
     m_Position = 0;
+    
+    ZeroMemory(m_Buffer, ARENA_SNAPSHOT_SIZE);
+
 }
 
 //******************************************************************************************************************************
