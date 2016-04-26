@@ -1034,7 +1034,7 @@ void CDirectDraw::UpdateAll(void)
     static WORD wRBitCount = (WORD)-1;
     static WORD wGBitCount = (WORD)-1;
     static WORD wBBitCount = (WORD)-1;
-    static WORD BPP;
+    static DWORD BPP;
 
     // While all the drawing requests have not been executed
     while (!m_DrawingRequests.empty())
@@ -1151,7 +1151,7 @@ void CDirectDraw::UpdateAll(void)
                             Result = ((SourceColour & 0xF7DE) >> 1) +
                                 ((DestColour & 0xF7DE) >> 1);
 
-                            *((WORD*)SurfacePointer) = Result;
+                            *((DWORD*)SurfacePointer) = Result;
                             SurfacePointer += 2;
                         } while (--X > 0);
                         SurfacePointer += Skip;
