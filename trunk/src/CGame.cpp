@@ -802,7 +802,7 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
             if (connect(MySocket, (LPSOCKADDR)&SocketAddress, sizeof(SOCKADDR_IN)) == SOCKET_ERROR)
             {
                 theConsole.Write("connect failed\n");
-                _close(MySocket);
+                Destroy();
                 return false;
             }
         }

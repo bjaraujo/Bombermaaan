@@ -508,10 +508,14 @@ void CMatch::ProcessPlayerCommands (void)
                         break;
                     }
 #endif
+
                     bufsize -= Received;
+
                 }
                 while ((unsigned int)Received < sizeof(CommandChunk));
                     
+                //theConsole.Write("recv : %d\n", Received);
+
                 if (Received == sizeof(CommandChunk))
                 {
                     memcpy((char *)&CommandChunk, recvBuf, sizeof(CommandChunk));
@@ -587,10 +591,14 @@ void CMatch::ProcessPlayerCommands (void)
                         break;
                     }
 #endif
+
                     bufsize -= Received;
+
                 }
                 while ((unsigned int)Received < sizeof(Snapshot));
                     
+                theConsole.Write("recv : %d\n", Received);
+
                 if (Received == sizeof(Snapshot))
                 {
                     memcpy((char *)&Snapshot, recvBuf, sizeof(Snapshot));

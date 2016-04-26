@@ -331,18 +331,9 @@ bool CDisplay::LoadSprites (int SpriteTableWidth,
     // Create the sprites by giving the sprite table information and the handle to the bitmap.
     // If it fails
 #ifdef WIN32
-    if (!m_DirectDraw.LoadSprites (SpriteTableWidth,
+    if (!m_DirectDraw.LoadSprites(SpriteTableWidth, SpriteTableHeight, SpriteWidth, SpriteHeight, Transparent, hBitmap))
 #else
-    if (!m_SDLVideo.LoadSprites (SpriteTableWidth,
-#endif
-                                   SpriteTableHeight, 
-                                   SpriteWidth, 
-                                   SpriteHeight, 
-                                   Transparent,
-#ifdef WIN32
-                                   hBitmap))
-#else
-                                   BMP_ID))
+    if (!m_SDLVideo.LoadSprites (SpriteTableWidth, SpriteTableHeight, SpriteWidth, SpriteHeight, Transparent, BMP_ID))
 #endif
     {
         // Get out, failure

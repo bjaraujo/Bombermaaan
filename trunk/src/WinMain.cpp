@@ -25,6 +25,10 @@
  *  \brief Entry point of the program for both Linux and Windows
  */
 
+#ifdef _DEBUG
+#include <vld.h> 
+#endif
+
 #include "StdAfx.h"
 #include "CGame.h"
 
