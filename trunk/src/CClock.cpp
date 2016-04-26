@@ -34,7 +34,21 @@
 
 CClock::CClock (void)
 {
-    // Nothing to do
+    
+    m_Date = 0.0f;
+    m_Hours = 0;
+    m_Minutes = 0;
+    m_Seconds = 0;
+    m_Seconds100 = 0;
+    m_StartHours = 0;
+    m_StartMinutes = 0;
+    m_StartSeconds = 0;
+    m_StartSeconds100 = 0;
+    m_Pause = false;
+
+	m_ClockType = CLOCKTYPE_COUNTDOWN;
+	m_ClockMode = CLOCKMODE_MS;
+    
 }
 
 //******************************************************************************************************************************

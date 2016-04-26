@@ -111,6 +111,13 @@ CBoard::CBoard (void)
     m_pTimer = NULL;
     m_pScores = NULL;
     m_pArena = NULL;
+    
+    m_ClockBottomTimer = 0.0f;
+    m_ClockTopTimer = 0.0f;
+    m_ClockBottomSprite = 0;
+    m_ClockTopSprite = 0;
+	m_AnimateClock = false;
+    
 }
 
 //******************************************************************************************************************************
