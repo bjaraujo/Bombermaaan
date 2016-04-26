@@ -115,7 +115,11 @@ void CMenu::Create (void)
     // in the object's constructor. If it has already been
     // created/destroyed, then the current menu mode is the
     // last one that was set.
-    StartMenuMode (m_MenuMode);
+    //StartMenuMode (m_MenuMode);
+    
+    // Start always to choose bomber
+    StartMenuMode (MENUMODE_BOMBER);
+
 }
     
 //******************************************************************************************************************************
@@ -417,7 +421,7 @@ void CMenu::StartMenuMode (EMenuMode MenuMode)
         case MENUMODE_BOMBER     : m_MenuBomber.Create (); break;
         case MENUMODE_INPUT      : m_MenuInput.Create (); break;
         case MENUMODE_MATCH      : m_MenuMatch.Create (); break;
-        case MENUMODE_LEVEL      : m_MenuLevel.Create (); break;
+        case MENUMODE_LEVEL      : m_MenuLevel.Create(); break;
     }
 }
 

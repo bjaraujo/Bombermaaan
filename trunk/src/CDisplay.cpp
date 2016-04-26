@@ -145,7 +145,7 @@ bool CDisplay::Create (int Width, int Height, bool FullScreen)
             !LoadSprites (4,      1,      6,      6,      true,     BMP_WINNER_LIGHTS             ) ||
             !LoadSprites (4,      2,      16,     16,     true,     BMP_WINNER_SPARKS             ) ||
             !LoadSprites (1,      1,      158,    16,     true,     BMP_WINNER_TITLE              ) ||
-            !LoadSprites (1,      1,      32,     135,    false,    BMP_VICTORY_WALL              ) ||
+            !LoadSprites (1,      1,      32,     405,    false,    BMP_VICTORY_WALL              ) ||
             !LoadSprites (9,      1,      14,     16,     true,     BMP_VICTORY_CROWD             ) ||
             !LoadSprites (14,     5,      36,     61,     true,     BMP_VICTORY_BOMBER            ) ||
             !LoadSprites (1,      1,      192,    60,     true,     BMP_VICTORY_TITLE             ) ||

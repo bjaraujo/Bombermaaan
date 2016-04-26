@@ -41,13 +41,13 @@
 #define VICTORY_SCREEN_DURATION         10.0f
 
 // The width of the victory view
-#define VICTORY_VIEW_WIDTH              (15*16)     // The width as in the 16-pixels version
-#define VICTORY_VIEW_HEIGHT             (26+13*16)  // The height as in the 16-pixels version
+#define VICTORY_VIEW_WIDTH              (15*32)     // The width as in the 16-pixels version
+#define VICTORY_VIEW_HEIGHT             (26+13*32)  // The height as in the 16-pixels version
 
 // Display origin                               
 #ifdef USE_32_PIXELS_PER_BLOCK
-#define VICTORY_DISPLAY_ORIGIN_X        120       //!< Display origin of the victory screen
-#define VICTORY_DISPLAY_ORIGIN_Y        110       
+#define VICTORY_DISPLAY_ORIGIN_X        0       //!< Display origin of the victory screen
+#define VICTORY_DISPLAY_ORIGIN_Y        0       
 #else
 #define VICTORY_DISPLAY_ORIGIN_X        0       //!< Display origin of the victory screen
 #define VICTORY_DISPLAY_ORIGIN_Y        0       
@@ -55,13 +55,13 @@
                                                 
 // Background
 #define VICTORYWALL_TILE_SPRITE         0       //!< Wall tile sprite number
-#define VICTORYWALL_TILES_COUNT         8       //!< How many wall tiles to draw?
+#define VICTORYWALL_TILES_COUNT         16       //!< How many wall tiles to draw?
 #define VICTORYWALL_TILES_INITIAL_X     -9      //!< Position where to draw the first wall tile
 #define VICTORYWALL_TILES_INITIAL_Y     100
 #define VICTORYWALL_TILE_SPACE_X        32      //!< Space (in pixels) between two wall tile X positions
 
 // Crowd
-#define CROWD_TILES_COUNT_X         23                          //!< How many crowd tiles to draw in a row
+#define CROWD_TILES_COUNT_X         46                          //!< How many crowd tiles to draw in a row
 #define CROWD_TILES_COUNT_Y         8                           //!< How many crowd tiles to draw in a column
 #define CROWD_STATES_COUNT          2                           //!< How many states can the crowd have
 #define CROWD_OFFSET_GETUP          -1                          //!< Y position offset to use for bombers that get up
@@ -110,8 +110,8 @@
 #define LOSER_BOMBER_SPACE_X                30          //!< Space (in pixels) between two losers X positions
 #define WINNER_BOMBER_SPACE_X               30          //!< Space (in pixels) between two winners X positions
 #define LOSER_BOMBER_SPACE_EDGE             10          //!< Space (in pixels) between the right edge and the loser to the right
-#define WINNER_BOMBER_POSITION_Y            120         //!< Y Position where to draw winner sprites
-#define LOSER_BOMBER_POSITION_Y             140         //!< Y Position where to draw loser sprites
+#define WINNER_BOMBER_POSITION_Y            220         //!< Y Position where to draw winner sprites
+#define LOSER_BOMBER_POSITION_Y             240         //!< Y Position where to draw loser sprites
 #define BOMBER_SPRITES_COUNT_PER_COLOR      14          //!< How many bomber sprites per color?
 
 // Confettis

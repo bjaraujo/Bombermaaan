@@ -597,7 +597,7 @@ void CMatch::ProcessPlayerCommands (void)
                 }
                 while ((unsigned int)Received < sizeof(Snapshot));
                     
-                theConsole.Write("recv : %d\n", Received);
+                //theConsole.Write("recv : %d\n", Received);
 
                 if (Received == sizeof(Snapshot))
                 {

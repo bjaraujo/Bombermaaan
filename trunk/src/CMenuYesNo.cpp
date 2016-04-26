@@ -200,7 +200,7 @@ EGameMode CMenuYesNo::Update (EGameMode CurrentGameMode)
                 {
                     case GAMEMODE_MENU :  NextGameMode = GAMEMODE_TITLE; break;
                     case GAMEMODE_TITLE : NextGameMode = GAMEMODE_EXIT;  break;
-                    default :             NextGameMode = GAMEMODE_MENU;  break;
+                    default:              NextGameMode = GAMEMODE_TITLE;  break;  // NextGameMode = GAMEMODE_MENU
                 }
             }
 
