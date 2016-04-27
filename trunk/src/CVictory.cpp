@@ -324,7 +324,7 @@ EGameMode CVictory::Update (void)
         //---------------------------
         // Check if we have to exit
         //---------------------------
-    
+        
         if (m_ModeTime >= VICTORY_BLACKSCREEN_DURATION + VICTORY_SCREEN_DURATION)
         {
             // Remember we have to exit this mode

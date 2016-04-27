@@ -216,7 +216,7 @@ void CMenuLevel::OnDisplay (void)
                                         1, 
                                         1);                     
             }
-            else if (BlockType == BLOCKTYPE_RANDOM)
+            else if (BlockType == BLOCKTYPE_SOFTWALL || BlockType == BLOCKTYPE_RANDOM)
             {
                 m_pDisplay->DrawSprite (MINI_ARENA_POSITION_X + X * MINI_ARENA_TILE_SIZE, 
                                         MINI_ARENA_POSITION_Y + Y * MINI_ARENA_TILE_SIZE, 
@@ -231,6 +231,7 @@ void CMenuLevel::OnDisplay (void)
             {
                 bool Shadow = (Y - 1 >= 0 && 
                                (m_pOptions->GetBlockType(X, Y - 1) == BLOCKTYPE_HARDWALL ||
+                                m_pOptions->GetBlockType(X, Y - 1) == BLOCKTYPE_SOFTWALL ||
                                 m_pOptions->GetBlockType(X, Y - 1) == BLOCKTYPE_RANDOM));
 
                 m_pDisplay->DrawSprite (MINI_ARENA_POSITION_X + X * MINI_ARENA_TILE_SIZE, 
