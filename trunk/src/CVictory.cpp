@@ -315,6 +315,7 @@ EGameMode CVictory::Update (void)
         {
             // Start playing the victory sound
             m_pSound->PlaySample (SAMPLE_VICTORY);
+            m_pSound->PlaySample (SAMPLE_VICTORY_VOICE);
 
             // Don't do this more than once
             m_PlayedSound = true;

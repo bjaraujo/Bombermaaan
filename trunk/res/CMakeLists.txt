@@ -131,6 +131,7 @@ sound/SICK_2.ogg
 sound/SICK_3.ogg
 sound/TITLE_MUSIC.S3M
 sound/VICTORY.ogg
+sound/VICTORY_VOICE.ogg
 sound/WALL_CLAP_1.ogg
 sound/WALL_CLAP_2.ogg
 sound/WINNER.ogg

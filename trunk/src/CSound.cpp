@@ -132,6 +132,7 @@ bool CSound::Create (void)
         !LoadSample (SAMPLE_SICK_2                , SND_SICK_2                 ) ||
         !LoadSample (SAMPLE_SICK_3                , SND_SICK_3                 ) ||
         !LoadSample (SAMPLE_VICTORY               , SND_VICTORY                ) ||
+        !LoadSample (SAMPLE_VICTORY_VOICE         , SND_VICTORY_VOICE          ) ||
         !LoadSample (SAMPLE_WALL_CLAP_1           , SND_WALL_CLAP_1            ) ||
         !LoadSample (SAMPLE_WALL_CLAP_2           , SND_WALL_CLAP_2            ) ||
         !LoadSample (SAMPLE_WINNER                , SND_WINNER                 ))

@@ -151,12 +151,13 @@
 #define BMP_MENU_HAND_TITLE             353
 #define BMP_ARENA_REMOTE_BOMB           354
 #define SND_DRAW_GAME_VOICE             355
+#define SND_VICTORY_VOICE               356
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        355
+#define _APS_NEXT_RESOURCE_VALUE        500
 #define _APS_NEXT_COMMAND_VALUE         40001
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           101
