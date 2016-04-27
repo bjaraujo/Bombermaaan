@@ -92,6 +92,7 @@ sound/BREAK_1.ogg
 sound/BREAK_2.ogg
 sound/CONTROLS_MUSIC.S3M
 sound/DRAW_GAME.ogg
+sound/DRAW_GAME_VOICE.ogg
 sound/EXPLOSION_01_1.ogg
 sound/EXPLOSION_01_2.ogg
 sound/EXPLOSION_02_1.ogg

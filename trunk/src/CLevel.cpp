@@ -237,7 +237,8 @@ bool CLevel::LoadVersion1( ifstream& File ) {
             switch(Line.c_str()[x])
             {
                 case '*' : m_ArenaData[x][y] = BLOCKTYPE_HARDWALL;    break;
-                case '-' : m_ArenaData[x][y] = BLOCKTYPE_RANDOM;      break;
+                case '-' : m_ArenaData[x][y] = BLOCKTYPE_SOFTWALL;      break;
+                case '?' : m_ArenaData[x][y] = BLOCKTYPE_RANDOM;      break;
                 case ' ' : m_ArenaData[x][y] = BLOCKTYPE_FREE;        break;
                 case '1' : m_ArenaData[x][y] = BLOCKTYPE_WHITEBOMBER; break;
                 case '2' : m_ArenaData[x][y] = BLOCKTYPE_BLACKBOMBER; break;
@@ -381,7 +382,8 @@ bool CLevel::LoadVersion2( std::string filename )
             switch(arenaLine.at(x))
             {
                 case '*' : m_ArenaData[x][y] = BLOCKTYPE_HARDWALL;    break;
-                case '-' : m_ArenaData[x][y] = BLOCKTYPE_RANDOM;      break;
+                case '-' : m_ArenaData[x][y] = BLOCKTYPE_SOFTWALL;      break;
+                case '?' : m_ArenaData[x][y] = BLOCKTYPE_RANDOM;      break;
                 case ' ' : m_ArenaData[x][y] = BLOCKTYPE_FREE;        break;
                 case '1' : m_ArenaData[x][y] = BLOCKTYPE_WHITEBOMBER; break;
                 case '2' : m_ArenaData[x][y] = BLOCKTYPE_BLACKBOMBER; break;

@@ -39,6 +39,7 @@
 enum EBlockType
 {
     BLOCKTYPE_HARDWALL,     //!< There must be a hard wall here
+    BLOCKTYPE_SOFTWALL,     //!< There must be a soft wall here
     BLOCKTYPE_RANDOM,       //!< There must be either a soft wall, or a free place here (random)
     BLOCKTYPE_FREE,         //!< There must be a free place here 
     BLOCKTYPE_WHITEBOMBER,  //!< The white bomber must start here

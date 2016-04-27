@@ -97,6 +97,7 @@ bool CSound::Create (void)
         !LoadSample (SAMPLE_BREAK_1               , SND_BREAK_1                ) ||
         !LoadSample (SAMPLE_BREAK_2               , SND_BREAK_2                ) ||
         !LoadSample (SAMPLE_DRAW_GAME             , SND_DRAW_GAME              ) ||
+        !LoadSample (SAMPLE_DRAW_GAME_VOICE       , SND_DRAW_GAME_VOICE        ) ||
         !LoadSample (SAMPLE_EXPLOSION_01_1        , SND_EXPLOSION_01_1         ) ||
         !LoadSample (SAMPLE_EXPLOSION_01_2        , SND_EXPLOSION_01_2         ) ||
         !LoadSample (SAMPLE_EXPLOSION_02_1        , SND_EXPLOSION_02_1         ) ||

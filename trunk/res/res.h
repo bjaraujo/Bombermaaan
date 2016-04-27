@@ -150,6 +150,7 @@
 #define BMP_ARENA_ARROWS                352
 #define BMP_MENU_HAND_TITLE             353
 #define BMP_ARENA_REMOTE_BOMB           354
+#define SND_DRAW_GAME_VOICE             355
 
 // Next default values for new objects
 // 

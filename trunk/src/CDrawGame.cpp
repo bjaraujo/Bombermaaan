@@ -198,6 +198,7 @@ EGameMode CDrawGame::Update (void)
         {
             // Start playing the draw game sound
             m_pSound->PlaySample (SAMPLE_DRAW_GAME);
+            m_pSound->PlaySample (SAMPLE_DRAW_GAME_VOICE);
 
             // Don't do this more than once
             m_PlayedSound = true;

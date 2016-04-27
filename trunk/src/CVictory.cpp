@@ -111,7 +111,7 @@
 #define WINNER_BOMBER_SPACE_X               30          //!< Space (in pixels) between two winners X positions
 #define LOSER_BOMBER_SPACE_EDGE             10          //!< Space (in pixels) between the right edge and the loser to the right
 #define WINNER_BOMBER_POSITION_Y            220         //!< Y Position where to draw winner sprites
-#define LOSER_BOMBER_POSITION_Y             240         //!< Y Position where to draw loser sprites
+#define LOSER_BOMBER_POSITION_Y             120         //!< Y Position where to draw loser sprites
 #define BOMBER_SPRITES_COUNT_PER_COLOR      14          //!< How many bomber sprites per color?
 
 // Confettis

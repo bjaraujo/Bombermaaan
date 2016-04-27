@@ -131,6 +131,13 @@ void CArena::Create (void)
                     break;
                 }
                 
+                case BLOCKTYPE_SOFTWALL:
+                {
+                    // Create a soft wall
+                    NewWall(X, Y, WALL_SOFT);
+                    break;
+                }
+
                 case BLOCKTYPE_RANDOM :
                 {
                     // With a probability of X%
