@@ -115,11 +115,8 @@ void CMenu::Create (void)
     // in the object's constructor. If it has already been
     // created/destroyed, then the current menu mode is the
     // last one that was set.
-    //StartMenuMode (m_MenuMode);
+    StartMenuMode (m_MenuMode);
     
-    // Start always to choose bomber
-    StartMenuMode (MENUMODE_BOMBER);
-
 }
     
 //******************************************************************************************************************************

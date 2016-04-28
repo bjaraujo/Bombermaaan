@@ -957,9 +957,10 @@ void CGame::OnWindowActive(void)
     if (!m_MenuYesNo.IsActive())
     {
         //! - Update the object corresponding to the current game mode and let it tell the next game mode
-        if (GetGameModeObject(m_GameMode) != NULL)
-            NextGameMode = GetGameModeObject(m_GameMode)->Update();
-    }
+		if (GetGameModeObject(m_GameMode) != NULL)
+			NextGameMode = GetGameModeObject(m_GameMode)->Update();
+
+	}
 
     //! If the mode screen object corresponding to the current game mode
     //! is not asking for changing the game mode 
@@ -968,6 +969,10 @@ void CGame::OnWindowActive(void)
         //! - Then let the menu yes/no ask for changing the game mode if needed.
         //! - Manage the menu yes/no and get the appropriate game mode to set
         NextGameMode = m_MenuYesNo.Update(m_GameMode);
+
+		if (NextGameMode == GAMEMODE_TITLE)
+			m_Menu.SetMenuMode(MENUMODE_BOMBER);
+
     }
 
     //! Make the display black
@@ -1028,8 +1033,8 @@ void CGame::StartGameMode(EGameMode GameMode)
     }
     // If we don't have to exit the game
     else
-    {
-        // Create the object corresponding to the new game mode
+    {		
+		// Create the object corresponding to the new game mode
         if (GetGameModeObject(m_GameMode) != NULL)
             GetGameModeObject(m_GameMode)->Create();
     }
