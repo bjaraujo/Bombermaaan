@@ -561,18 +561,29 @@ bool COptions::LoadLevels( std::string dynamicDataFolder, std::string pgmFolder 
     
     theLog.WriteLine( "Options         => Loading level files '%s'.", levelFilePath_pgmFolderMask.c_str() );
 
+    struct fileInfo
+    {
+        std::string fileNameWithoutPath;
+        std::string fileNameWithPath;
+    };
+
+    std::vector<fileInfo> files;
+
     FindHandle = _findfirst( levelFilePath_pgmFolderMask.c_str(), &FindData );
     
     if (FindHandle != -1)
     {
         do 
         {
-            std::string fileNameWithoutPath( FindData.name );
-            std::string fileNameWithPath( levelFilePath_pgmFolder );
-            fileNameWithPath.append( FindData.name );
 
-            // Create a new CLevel element and add it to the level container
-            m_Levels.push_back( CLevel( fileNameWithPath, fileNameWithoutPath ) );
+            fileInfo file;
+
+            file.fileNameWithoutPath = FindData.name;
+            file.fileNameWithPath = levelFilePath_pgmFolder;
+            file.fileNameWithPath.append(FindData.name);
+
+            files.push_back(file);
+
         }
         while (_findnext(FindHandle, &FindData) != -1);
     }
@@ -614,12 +625,13 @@ bool COptions::LoadLevels( std::string dynamicDataFolder, std::string pgmFolder 
         {
             do 
             {
-                std::string fileNameWithoutPath( FindData.name );
-                std::string fileNameWithPath( levelFilePath_dynamicDataFolder );
-                fileNameWithPath.append( FindData.name );
+                fileInfo file;
 
-                // Create a new CLevel element and add it to the level container
-                m_Levels.push_back( CLevel( fileNameWithPath, fileNameWithoutPath ) );
+                file.fileNameWithoutPath = FindData.name;
+                file.fileNameWithPath = levelFilePath_dynamicDataFolder;
+                file.fileNameWithPath.append(FindData.name);
+
+                files.push_back(file);
             }
             while (_findnext(FindHandle, &FindData) != -1);
         }
@@ -628,6 +640,18 @@ bool COptions::LoadLevels( std::string dynamicDataFolder, std::string pgmFolder 
 
     }
 
+    //---------------------
+    // Sort
+    //---------------------
+    sort(files.begin(), files.end(),
+        [&](const fileInfo& a, const fileInfo& b) {return (a.fileNameWithoutPath < b.fileNameWithoutPath);}
+    );
+
+    for (std::vector<fileInfo>::iterator it = files.begin(); it != files.end(); ++it)
+    {
+        // Create a new CLevel element and add it to the level container
+        m_Levels.push_back(CLevel(it->fileNameWithPath, it->fileNameWithoutPath));
+    }
 
     //---------------------
     // Check for a problem
