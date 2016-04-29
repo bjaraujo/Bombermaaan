@@ -554,6 +554,7 @@ bool CSDLVideo::LoadSprites (int SpriteTableWidth,
 #ifdef WIN32
 	// Info structure on the bitmap, contains the size info
 	BITMAP Bitmap;
+	LONG size;
 
 	// Get the bitmap's attributes
 	// If it fails
@@ -567,12 +568,22 @@ bool CSDLVideo::LoadSprites (int SpriteTableWidth,
 		return false;
 	}
 
-	ddsd = SDL_CreateRGBSurfaceFrom(Bitmap.bmBits, Bitmap.bmWidth, Bitmap.bmHeight, Bitmap.bmBitsPixel, Bitmap.bmWidthBytes, 0, 0, 0, 0);
+	if ((size = GetBitmapBits(hBitmap, 0, 0)))
+	{
+		if ((Bitmap.bmBits = malloc(size)))
+		{
+			if (GetBitmapBits(hBitmap, size, Bitmap.bmBits))
+				ddsd = SDL_CreateRGBSurfaceFrom(Bitmap.bmBits, Bitmap.bmWidth, Bitmap.bmHeight, Bitmap.bmBitsPixel, Bitmap.bmWidthBytes, 0, 0, 0, 0);
+
+			free(Bitmap.bmBits);
+		}
+	}
 
 #else
 	SDL_RWops *rwBitmap;
-	LPVOID pData;
+
 	DWORD DataSize;
+	LPVOID pData;
 
 	// Prepare a new surface from the BMP
 	DataSize = GetObject(hBitmap, 0, &pData);
@@ -748,8 +759,9 @@ void CSDLVideo::FreeSprites (void)
 
 void CSDLVideo::UpdateAll (void)
 {
-    // While all the drawing requests have not been executed
-    while (!m_DrawingRequests.empty())
+    
+	// While all the drawing requests have not been executed
+	while (!m_DrawingRequests.empty())
     {   
         // Save the top drawing request
         const SDrawingRequest &DR = m_DrawingRequests.top();
