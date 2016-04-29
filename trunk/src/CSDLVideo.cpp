@@ -545,33 +545,55 @@ bool CSDLVideo::LoadSprites (int SpriteTableWidth,
                              HBITMAP hBitmap)
 {
     HRESULT hRet = 0;
-    SDL_RWops *rwBitmap;
 
-    LPVOID pData;
-    DWORD DataSize;
+	SSurface Surface;
 
-    // Prepare a new surface from the BMP
-    DataSize = GetObject (hBitmap, 0, &pData);
-    if (DataSize == 0)
-    {
-        // Log failure
-        theLog.WriteLine ("SDLVideo        => !!! Could not get the bitmap's (res id: %d) attributes.", hBitmap);
-        theLog.LogLastError ();
+	// Create a SDLVideo surface for this bitmap
+	SDL_Surface *ddsd;
 
-        // Get out
-        return false;
-    }
+#ifdef WIN32
+	// Info structure on the bitmap, contains the size info
+	BITMAP Bitmap;
 
-    SSurface Surface;
+	// Get the bitmap's attributes
+	// If it fails
+	if (GetObject(hBitmap, sizeof(Bitmap), &Bitmap) == 0)
+	{
+		// Log failure
+		theLog.WriteLine("DirectDraw      => !!! Could not get the bitmap's attributes.");
+		theLog.LogLastError();
 
-    // Create a SDLVideo surface for this bitmap
-    SDL_Surface *ddsd;
-	
-    rwBitmap = SDL_RWFromMem(pData, DataSize);
-    
+		// Get out
+		return false;
+	}
+
+	ddsd = SDL_CreateRGBSurfaceFrom(Bitmap.bmBits, Bitmap.bmWidth, Bitmap.bmHeight, Bitmap.bmBitsPixel, Bitmap.bmWidthBytes, 0, 0, 0, 0);
+
+#else
+	SDL_RWops *rwBitmap;
+	LPVOID pData;
+	DWORD DataSize;
+
+	// Prepare a new surface from the BMP
+	DataSize = GetObject(hBitmap, 0, &pData);
+	if (DataSize == 0)
+	{
+		// Log failure
+		theLog.WriteLine("SDLVideo        => !!! Could not get the bitmap's (res id: %d) attributes.", hBitmap);
+		theLog.LogLastError();
+
+		// Get out
+		return false;
+	}
+
+	rwBitmap = SDL_RWFromMem(pData, DataSize);
+
 	ddsd = SDL_LoadBMP_RW(rwBitmap, 0);
-    SDL_FreeRW(rwBitmap);
-	
+
+	SDL_FreeRW(rwBitmap);
+
+#endif
+		
     // If it failed
     if (ddsd == NULL)
     {

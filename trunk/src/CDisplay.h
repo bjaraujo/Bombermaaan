@@ -29,7 +29,7 @@
 #ifndef __CDISPLAY_H__
 #define __CDISPLAY_H__
 
-#ifdef WIN32
+#ifdef DIRECTX
 #include "CDirectDraw.h"
 #else
 #include "CSDLVideo.h"
@@ -57,7 +57,7 @@ class CDisplay
 private:
 
     HMODULE         m_hModule;          //!< Connection to the resources
-#ifdef WIN32
+#ifdef DIRECTX
     CDirectDraw  	m_DirectDraw;         //!< Object used for display
 #else
     CSDLVideo  	 	m_SDLVideo;           //!< Object used for display
@@ -84,7 +84,7 @@ public:
     inline void     DrawSprite (int PositionX, int PositionY, RECT *pZone, RECT *pClip, int SpriteTable, int Sprite, int SpriteLayer, int PriorityInLayer); //!< Record a drawing request that will be executed on next call to Update
     inline void     DrawDebugRectangle (int PositionX, int PositionY, int w, int h, BYTE r, BYTE g, BYTE b, int SpriteLayer, int PriorityInLayer); //!< Record a drawing request for debug purposes
     inline void     RemoveAllDebugRectangles(void);
-#ifndef WIN32
+#ifndef DIRECTX
     inline CSDLVideo& GetSDLVideo(void);
 #endif
     bool            IsDisplayModeAvailable (EDisplayMode DisplayMode);
@@ -96,7 +96,7 @@ public:
 
 inline void CDisplay::SetWindowHandle (HWND hWnd)
 {
-#ifdef WIN32
+#ifdef DIRECTX
     m_DirectDraw.SetWindowHandle (hWnd);
 #else
     m_SDLVideo.SetWindowHandle (hWnd);
@@ -110,7 +110,7 @@ inline void CDisplay::SetModuleHandle (HMODULE hModule)
 
 inline void CDisplay::SetOrigin (int OriginX, int OriginY)
 {
-#ifdef WIN32
+#ifdef DIRECTX
     m_DirectDraw.SetOrigin (m_ViewOriginX + OriginX, m_ViewOriginY + OriginY);
 #else
     m_SDLVideo.SetOrigin (m_ViewOriginX + OriginX, m_ViewOriginY + OriginY);
@@ -119,7 +119,7 @@ inline void CDisplay::SetOrigin (int OriginX, int OriginY)
 
 inline void CDisplay::Clear (void)
 {
-#ifdef WIN32
+#ifdef DIRECTX
     m_DirectDraw.Clear ();
 #else
     m_SDLVideo.Clear ();
@@ -128,7 +128,7 @@ inline void CDisplay::Clear (void)
 
 inline void CDisplay::Update (void)
 {
-#ifdef WIN32
+#ifdef DIRECTX
     m_DirectDraw.UpdateAll ();
 #else
     m_SDLVideo.UpdateAll ();
@@ -137,7 +137,7 @@ inline void CDisplay::Update (void)
 
 inline void CDisplay::OnWindowMove (void)
 {
-#ifdef WIN32
+#ifdef DIRECTX
     m_DirectDraw.OnWindowMove ();
 #else
     m_SDLVideo.OnWindowMove ();
@@ -146,7 +146,7 @@ inline void CDisplay::OnWindowMove (void)
 
 inline void CDisplay::OnPaint (void)
 {
-#ifdef WIN32
+#ifdef DIRECTX
     m_DirectDraw.UpdateScreen ();
 #else
     m_SDLVideo.UpdateScreen ();
@@ -155,7 +155,7 @@ inline void CDisplay::OnPaint (void)
 
 inline void CDisplay::DrawSprite (int PositionX, int PositionY, RECT *pZone, RECT *pClip, int SpriteTable, int Sprite, int SpriteLayer, int PriorityInLayer)
 {
-#ifdef WIN32
+#ifdef DIRECTX
     m_DirectDraw.DrawSprite (PositionX, PositionY, pZone, pClip, SpriteTable, Sprite, SpriteLayer, PriorityInLayer);
 #else
     m_SDLVideo.DrawSprite (PositionX, PositionY, pZone, pClip, SpriteTable, Sprite, SpriteLayer, PriorityInLayer);
@@ -164,7 +164,7 @@ inline void CDisplay::DrawSprite (int PositionX, int PositionY, RECT *pZone, REC
 
 inline void CDisplay::DrawDebugRectangle (int PositionX, int PositionY, int w, int h, BYTE r, BYTE g, BYTE b, int SpriteLayer, int PriorityInLayer)
 {
-#ifdef WIN32
+#ifdef DIRECTX
     m_DirectDraw.DrawDebugRectangle (PositionX, PositionY, w, h, r, g, b, SpriteLayer, PriorityInLayer);
 #else
     m_SDLVideo.DrawDebugRectangle (PositionX, PositionY, w, h, r, g, b, SpriteLayer, PriorityInLayer);
@@ -173,14 +173,14 @@ inline void CDisplay::DrawDebugRectangle (int PositionX, int PositionY, int w, i
 
 inline void CDisplay::RemoveAllDebugRectangles (void)
 {
-#ifdef WIN32
+#ifdef DIRECTX
     m_DirectDraw.RemoveAllDebugRectangles();
 #else
     m_SDLVideo.RemoveAllDebugRectangles();
 #endif
 }
 
-#ifndef WIN32
+#ifndef DIRECTX
 inline CSDLVideo& CDisplay::GetSDLVideo(void) {
     return m_SDLVideo;
 }
