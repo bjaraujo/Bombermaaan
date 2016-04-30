@@ -1015,7 +1015,7 @@ void CArena::DeleteBomb (int Index)
     ASSERT (!m_Prediction);
     ASSERT (Index >= 0 && Index < MaxBombs());
     ASSERT (m_Bombs[Index].Exist());
-    //ASSERT (m_BombsInUse > 0);
+    ASSERT (m_BombsInUse > 0);
 
     m_Bombs[Index].Destroy();
     m_BombsInUse--;
