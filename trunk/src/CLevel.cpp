@@ -33,6 +33,7 @@
 //#include "CInput.h"
 #include "CArena.h"
 #include <sstream>
+#include <iomanip>
 #include "SimpleIni.h"
 
 //******************************************************************************************************************************
@@ -373,7 +374,7 @@ bool CLevel::LoadVersion2( std::string filename )
     for (int y = 0 ; y < ARENA_HEIGHT ; y++)
     {
         std::ostringstream oss;
-        oss << "Line." << y;
+		oss << "Line." << std::setw(2) << std::setfill('0') << y;
         std::string keyName = oss.str();
 
         std::string arenaLine = iniFile.GetValue( "Map", keyName.c_str(), "" );
