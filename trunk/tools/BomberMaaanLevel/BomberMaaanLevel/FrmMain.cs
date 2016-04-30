@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BomberMaanLevel
+namespace BomberMaaanLevel
 {
     public partial class FrmMain : Form
     {

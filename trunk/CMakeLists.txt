@@ -2,7 +2,7 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
 #Name your project here
-PROJECT(BomberMaan)
+PROJECT(BomberMaaan)
 
 SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/modules/")
 
