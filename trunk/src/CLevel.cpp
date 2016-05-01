@@ -245,19 +245,25 @@ bool CLevel::LoadVersion1( ifstream& File ) {
             // According to the character value, store the corresponding block type in the current position and level
             switch(Line.c_str()[x])
             {
-                case '*' : m_ArenaData[x][y] = BLOCKTYPE_HARDWALL;    break;
-                case '-' : m_ArenaData[x][y] = BLOCKTYPE_SOFTWALL;      break;
-                case '?' : m_ArenaData[x][y] = BLOCKTYPE_RANDOM;      break;
-                case ' ' : m_ArenaData[x][y] = BLOCKTYPE_FREE;        break;
-                case '1' : m_ArenaData[x][y] = BLOCKTYPE_WHITEBOMBER; break;
-                case '2' : m_ArenaData[x][y] = BLOCKTYPE_BLACKBOMBER; break;
-                case '3' : m_ArenaData[x][y] = BLOCKTYPE_REDBOMBER;   break;
-                case '4' : m_ArenaData[x][y] = BLOCKTYPE_BLUEBOMBER;  break;
-                case '5' : m_ArenaData[x][y] = BLOCKTYPE_GREENBOMBER; break;
+                case '*' : m_ArenaData[x][y] = BLOCKTYPE_HARDWALL;       break;
+                case '-' : m_ArenaData[x][y] = BLOCKTYPE_SOFTWALL;       break;
+                case '?' : m_ArenaData[x][y] = BLOCKTYPE_RANDOM;         break;
+                case ' ' : m_ArenaData[x][y] = BLOCKTYPE_FREE;           break;
+                case '1' : m_ArenaData[x][y] = BLOCKTYPE_WHITEBOMBER;    break;
+                case '2' : m_ArenaData[x][y] = BLOCKTYPE_BLACKBOMBER;    break;
+                case '3' : m_ArenaData[x][y] = BLOCKTYPE_REDBOMBER;      break;
+                case '4' : m_ArenaData[x][y] = BLOCKTYPE_BLUEBOMBER;     break;
+                case '5' : m_ArenaData[x][y] = BLOCKTYPE_GREENBOMBER;    break;
                 case 'R' : m_ArenaData[x][y] = BLOCKTYPE_MOVEBOMB_RIGHT; break;
                 case 'D' : m_ArenaData[x][y] = BLOCKTYPE_MOVEBOMB_DOWN;  break;
                 case 'L' : m_ArenaData[x][y] = BLOCKTYPE_MOVEBOMB_LEFT;  break;
                 case 'U' : m_ArenaData[x][y] = BLOCKTYPE_MOVEBOMB_UP;    break;
+				case 'B' : m_ArenaData[x][y] = BLOCKTYPE_ITEM_BOMB;      break;
+				case 'K' : m_ArenaData[x][y] = BLOCKTYPE_ITEM_KICK;      break;
+				case 'F' : m_ArenaData[x][y] = BLOCKTYPE_ITEM_FLAMES;    break;
+				case 'S' : m_ArenaData[x][y] = BLOCKTYPE_ITEM_SKATE;     break;
+				case 'P' : m_ArenaData[x][y] = BLOCKTYPE_ITEM_PUNCH;     break;
+				case 'T' : m_ArenaData[x][y] = BLOCKTYPE_ITEM_THROW;     break;
                 default  : 
                 {
                     // Log there is a problem

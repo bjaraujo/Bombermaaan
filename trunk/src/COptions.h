@@ -130,8 +130,8 @@ public:
     inline int          GetControl (int PlayerInput, int Control);
     inline void         SetControl (int PlayerInput, int Control, int Value);
     inline EBlockType   GetBlockType (int X, int Y);
-    inline int            GetNumberOfItemsInWalls (EItemType ItemType);
-    inline int            GetInitialBomberSkills (EBomberSkills BomberSkill);
+    inline int          GetNumberOfItemsInWalls (EItemType ItemType);
+    inline int          GetInitialBomberSkills (EBomberSkills BomberSkill);
     inline void         SetLevel (int Level);
     inline int          GetLevel (void);
     inline int          GetNumberOfLevels (void);

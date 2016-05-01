@@ -38,19 +38,25 @@
 
 enum EBlockType
 {
-    BLOCKTYPE_HARDWALL,     //!< There must be a hard wall here
-    BLOCKTYPE_SOFTWALL,     //!< There must be a soft wall here
-    BLOCKTYPE_RANDOM,       //!< There must be either a soft wall, or a free place here (random)
-    BLOCKTYPE_FREE,         //!< There must be a free place here 
-    BLOCKTYPE_WHITEBOMBER,  //!< The white bomber must start here
-    BLOCKTYPE_BLACKBOMBER,  //!< The black bomber must start here
-    BLOCKTYPE_REDBOMBER,    //!< The red bomber must start here
-    BLOCKTYPE_BLUEBOMBER,   //!< The blue bomber must start here
-    BLOCKTYPE_GREENBOMBER,  //!< The green bomber must start here
+    BLOCKTYPE_HARDWALL,			//!< There must be a hard wall here
+    BLOCKTYPE_SOFTWALL,			//!< There must be a soft wall here
+    BLOCKTYPE_RANDOM,			//!< There must be either a soft wall, or a free place here (random)
+    BLOCKTYPE_FREE,				//!< There must be a free place here 
+    BLOCKTYPE_WHITEBOMBER,		//!< The white bomber must start here
+    BLOCKTYPE_BLACKBOMBER,		//!< The black bomber must start here
+    BLOCKTYPE_REDBOMBER,		//!< The red bomber must start here
+    BLOCKTYPE_BLUEBOMBER,		//!< The blue bomber must start here
+    BLOCKTYPE_GREENBOMBER,		//!< The green bomber must start here
     BLOCKTYPE_MOVEBOMB_RIGHT,   //!< A bomb starts moving right if placed here
     BLOCKTYPE_MOVEBOMB_DOWN,    //!< A bomb starts moving down if placed here
     BLOCKTYPE_MOVEBOMB_LEFT,    //!< A bomb starts moving left if placed here
-    BLOCKTYPE_MOVEBOMB_UP       //!< A bomb starts moving up if placed here
+    BLOCKTYPE_MOVEBOMB_UP,      //!< A bomb starts moving up if placed here
+	BLOCKTYPE_ITEM_BOMB,		//!< A bomb item if placed here
+	BLOCKTYPE_ITEM_FLAMES,		//!< A flames item if placed here
+	BLOCKTYPE_ITEM_SKATE,		//!< A skate item if placed here 
+	BLOCKTYPE_ITEM_KICK,		//!< A kick item if placed here
+	BLOCKTYPE_ITEM_THROW,		//!< A throw item if placed here
+	BLOCKTYPE_ITEM_PUNCH		//!< A punch item if placed here
 };
 
 //******************************************************************************************************************************
