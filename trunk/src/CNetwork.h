@@ -65,18 +65,19 @@ private:
     
 public:
 
-                 CNetwork ();
-                 ~CNetwork (void);
+                   CNetwork ();
+                   ~CNetwork (void);
     
-    ENetworkMode NetworkMode();
-	void		 SetNetworkMode(ENetworkMode NetworkMode);
+    ENetworkMode   NetworkMode();
+	void		   SetNetworkMode(ENetworkMode NetworkMode);
 
-    bool         Connect(const char* IpAddressString);
-	bool		 Disconnect();
+    bool           Connect(const char* IpAddressString);
+	bool		   Disconnect();
 
-	int          Send(ESocketType SocketType, const char* buf, size_t len, int flags);
-	int          Receive(ESocketType SocketType, char* buf, size_t len, int flags);
-    
+	bool           Send(ESocketType SocketType, const char* buf, size_t len, int flags);
+	int            Receive(ESocketType SocketType, char* buf, size_t len, int flags);
+	unsigned char  GetCheckSum(const char* buf, size_t len);
+
 };
 
 //******************************************************************************************************************************

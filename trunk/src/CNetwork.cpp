@@ -81,6 +81,16 @@ void CNetwork::SetNetworkMode(ENetworkMode NetworkMode)
 bool CNetwork::Connect (const char* IpAddressString)
 {
         
+#ifdef WIN32
+	WSAData WsaData;
+
+	if (WSAStartup(MAKEWORD(1, 1), &WsaData) != 0)
+	{
+		theConsole.Write("WSAStartup failed\n");
+		return false;
+	}
+#endif
+
     if (m_NetworkMode == NETWORKMODE_SERVER)
     {
 
@@ -206,14 +216,32 @@ bool CNetwork::Disconnect ()
  *  Send packet 
  */
 
-int CNetwork::Send (ESocketType SocketType, const char* buf, size_t len, int flags)
+bool CNetwork::Send (ESocketType SocketType, const char* buf, size_t len, int flags)
 {
 
+	int Sent = SOCKET_ERROR;
+
     if (SocketType == SOCKET_SERVER)
-        return send(m_Socket, buf, len, flags);
+		Sent = send(m_Socket, buf, len, flags);
     else if (SocketType == SOCKET_CLIENT)
-        return send(m_ClientSocket, buf, len, flags);
+		Sent = send(m_ClientSocket, buf, len, flags);
     
+#ifdef WIN32
+	if (Sent == SOCKET_ERROR)
+	{
+		theConsole.Write("sent error: %d\n", WSAGetLastError());
+		return false;
+	}
+#else
+	if (Sent == -1)
+	{
+		theConsole.Write("sent error : %d\n", Sent);
+		return false;
+	}
+#endif
+
+	return true;
+
 }
 
 //******************************************************************************************************************************
@@ -231,8 +259,34 @@ int CNetwork::Receive (ESocketType SocketType, char* buf, size_t len, int flags)
         
     if (SocketType == SOCKET_SERVER)
         return recv(m_Socket, buf, len, 0);
-    else if (SocketType == SOCKET_CLIENT)
-        return recv(m_ClientSocket, buf, len, 0);
+	else if (SocketType == SOCKET_CLIENT)
+		return recv(m_ClientSocket, buf, len, 0);
+	else
+		return 0;
+
+}
+
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+
+unsigned char CNetwork::GetCheckSum(const char* buf, size_t len)
+{
+
+	int sum = 0;
+
+	if (len > 0)
+	{
+		for (int i = 0; i < len; ++i) {
+			sum += buf[i];
+		}
+
+		sum %= 256;
+	}
+
+	char ch = sum;
+
+	return ~ch + 1;
 
 }
 

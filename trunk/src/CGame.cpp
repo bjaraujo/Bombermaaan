@@ -714,16 +714,6 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
 
     if (m_Network.NetworkMode() != NETWORKMODE_LOCAL)
     {
-#ifdef WIN32
-        WSAData WsaData;
-
-        if (WSAStartup(MAKEWORD(1, 1), &WsaData) != 0)
-        {
-            theConsole.Write("WSAStartup failed\n");
-            return false;
-        }
-#endif
-
 		if (!m_Network.Connect(IpAddressString))
 		{
 			Destroy();
