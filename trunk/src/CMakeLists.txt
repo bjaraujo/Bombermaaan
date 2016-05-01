@@ -45,6 +45,7 @@ CMenuMatch.h
 CMenuYesNo.h
 CModeScreen.h
 CMosaic.h
+CNetwork.h
 COptions.h
 CPauseMessage.h
 CPlayerInput.h
@@ -107,6 +108,7 @@ CMenuMatch.cpp
 CMenuYesNo.cpp
 CModeScreen.cpp
 CMosaic.cpp
+CNetwork.cpp
 COptions.cpp
 CPauseMessage.cpp
 CPlayerInput.cpp

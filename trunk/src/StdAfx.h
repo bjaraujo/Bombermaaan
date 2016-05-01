@@ -37,7 +37,6 @@
 #include <time.h>
 
 #ifdef WIN32
-#include <winsock2.h>
 
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
@@ -46,9 +45,6 @@
 #else
 #include "winreplace.h"
 #include <errno.h>
-#include <arpa/inet.h>
-#include <sys/io.h>
-#include <sys/socket.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>

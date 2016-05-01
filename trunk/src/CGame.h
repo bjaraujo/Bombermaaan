@@ -44,23 +44,7 @@
 #include "CTitle.h"
 #include "CControls.h"
 #include "CDemo.h"
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-// enum EGameMode is now in STDAFX.H
-
-enum ENetworkMode
-{
-    NETWORKMODE_LOCAL,
-    NETWORKMODE_SERVER,
-    NETWORKMODE_CLIENT
-};
-
-extern ENetworkMode    NetworkMode;
-extern SOCKET          MySocket;
-extern SOCKET          ClientSocket;
+#include "CNetwork.h"
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -98,7 +82,9 @@ private:
     CControls       m_Controls;             //!< Controls screen object
     CDemo           m_Demo;                 //!< Demo screen object in which we show a match betweeen computer players.
     CMenuYesNo      m_MenuYesNo;            //!< Yes/No message box object
-        
+	
+	CNetwork		m_Network;				//!< Network object
+
 #ifndef WIN32
     string          m_WindowTitle;
 #endif

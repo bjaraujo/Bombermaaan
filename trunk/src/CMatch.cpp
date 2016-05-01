@@ -39,7 +39,6 @@
 #include "CPauseMessage.h"
 #include "CHurryMessage.h"
 
-
 #include "CCommandChunk.h"
 #include "CArenaSnapshot.h"
 
@@ -107,17 +106,17 @@ void CMatch::Create (void)
     // Don't force a draw game at the beginning of the match
     m_ForceDrawGame = false;
 
-    if (NetworkMode != NETWORKMODE_LOCAL)
+    if (m_pNetwork->NetworkMode() != NETWORKMODE_LOCAL)
     {
-        m_pOptions->SetTimeStart(2, 0);
-        m_pOptions->SetTimeUp(0, 35);
+        m_pOptions->SetTimeStart(2, 35);
+        m_pOptions->SetTimeUp(0, 30);
         
         m_pOptions->SetBomberType(2, BOMBERTYPE_OFF);
         m_pOptions->SetBomberType(3, BOMBERTYPE_OFF);
         m_pOptions->SetBomberType(4, BOMBERTYPE_OFF);
         m_pOptions->SetBattleCount(3);
 
-        if (NetworkMode == NETWORKMODE_SERVER)
+		if (m_pNetwork->NetworkMode() == NETWORKMODE_SERVER)
         {
             m_pOptions->SetBomberType(0, BOMBERTYPE_MAN);
             m_pOptions->SetBomberType(1, BOMBERTYPE_NET);
@@ -127,16 +126,20 @@ void CMatch::Create (void)
 #else
             DWORD TickCount = time(NULL);
 #endif
-            send(ClientSocket, (const char*)&TickCount, sizeof(DWORD), 0);
+
+			m_pNetwork->Send(SOCKET_CLIENT, (const char*)&TickCount, sizeof(DWORD), 0);
+
             SEED_RANDOM(TickCount);
         }
-        else if (NetworkMode == NETWORKMODE_CLIENT)
+		else if (m_pNetwork->NetworkMode() == NETWORKMODE_CLIENT)
         {
             m_pOptions->SetBomberType(0, BOMBERTYPE_NET);
             m_pOptions->SetBomberType(1, BOMBERTYPE_MAN);
         
             DWORD TickCount;
-            int Received = recv(MySocket, (char*)&TickCount, sizeof(DWORD), 0);
+
+			int Received = m_pNetwork->Receive(SOCKET_SERVER, (char*)&TickCount, sizeof(DWORD), 0);
+
 #ifdef WIN32
                 if (Received == SOCKET_ERROR)
                     theConsole.Write("recv error : %d\n", WSAGetLastError());
@@ -144,8 +147,8 @@ void CMatch::Create (void)
                 if (Received == -1)
                     theConsole.Write("recv error : %d\n", Received);
 #endif
-            SEED_RANDOM(TickCount);
-        }
+
+		}
     }
 
     CreateMainComponents ();
@@ -412,93 +415,38 @@ void CMatch::ProcessPlayerCommands (void)
                         }
                     }
 
-                    if (NetworkMode == NETWORKMODE_SERVER)
-                    {
-                        //int Dummy = 12;
-                        //send(ClientSocket, (const char*)&Dummy, sizeof(Dummy), 0);
-
-                        /*int BomberCommands[2];
-                        BomberCommands[0] = BomberMove;
-                        BomberCommands[1] = BomberAction;
-                        send(ClientSocket, (const char*)BomberCommands, sizeof(BomberCommands), 0);*/
-                    }
-                    else if (NetworkMode == NETWORKMODE_CLIENT)
+                    if (m_pNetwork->NetworkMode() == NETWORKMODE_CLIENT)
                     {
                         CommandChunk.Store(BomberMove, BomberAction, m_pTimer->GetDeltaTime());
-                        
-                        /*int BomberCommands[2];
-                        BomberCommands[0] = BomberMove;
-                        BomberCommands[1] = BomberAction;
-                        send(MySocket, (const char*)BomberCommands, sizeof(BomberCommands), 0);*/
                     }
                 }
             }
             // If this player plays and is a network player
             else if (m_pOptions->GetBomberType (Player) == BOMBERTYPE_NET)
             {
-                if (NetworkMode == NETWORKMODE_SERVER)
-                {
-                    // If its bomber is still alive
-                    if (m_Arena.GetBomber (Player).IsAlive())
-                    {
-                        // Predire ici ce que fait ce bomber en lui envoyant une commande.
+ 
+				// TODO:
 
-                        /*
-                        int BomberCommands[2];
-                        recv(ClientSocket, (char*)BomberCommands, sizeof(BomberCommands), 0);
-
-                        EBomberMove BomberMove = (EBomberMove)BomberCommands[0];
-                        EBomberAction BomberAction = (EBomberAction)BomberCommands[1];
-
-                        // Send these bomber move and bomber action to the bomber
-                        m_Arena.GetBomber(Player).Command (BomberMove, BomberAction);*/
-                    }
-                }
-                else if (NetworkMode == NETWORKMODE_CLIENT)
-                {
-                    //int Dummy;
-                    //recv(MySocket, (char*)&Dummy, sizeof(Dummy), 0);
-
-                    // If its bomber is still alive
-                    if (m_Arena.GetBomber (Player).IsAlive())
-                    {
-                        // Predire ici ce que fait ce bomber en lui envoyant une commande.
-
-                        /*
-                        int BomberCommands[2];
-                        recv(MySocket, (char*)BomberCommands, sizeof(BomberCommands), 0);
-
-                        EBomberMove BomberMove = (EBomberMove)BomberCommands[0];
-                        EBomberAction BomberAction = (EBomberAction)BomberCommands[1];
-
-                        // Send these bomber move and bomber action to the bomber
-                        m_Arena.GetBomber(Player).Command (BomberMove, BomberAction);
-                        */
-                    }
-                }
-            }
+			}
         }
 
         TimeElapsedSinceLastCommandChunk += m_pTimer->GetDeltaTime();
         if (TimeElapsedSinceLastCommandChunk >= 0.050f)
         {
-            unsigned int bufsize;
-            char *recvBuf;
-            int Received;
-            
-            if (NetworkMode == NETWORKMODE_SERVER)
+
+			if (m_pNetwork->NetworkMode() == NETWORKMODE_SERVER)
             {
                 // Receive client command chunk
-                bufsize = sizeof(CommandChunk);
-                recvBuf = new char[bufsize];
-                Received = 0;
+				int bufsize = sizeof(CommandChunk);
+                char* recvBuf = new char[bufsize];
+                int Received = 0;
                 
                 do {
-                    Received += recv(ClientSocket, &recvBuf[Received], bufsize, 0);
+					Received += m_pNetwork->Receive(SOCKET_CLIENT, &recvBuf[Received], bufsize, 0);
 #ifdef WIN32
                     if (Received == SOCKET_ERROR)
                     {
-                        theConsole.Write("recv error : %d\n", WSAGetLastError());
+                        theConsole.Write("recv error (server): %d\n", WSAGetLastError());
                         break;
                     }
 #else
@@ -509,10 +457,11 @@ void CMatch::ProcessPlayerCommands (void)
                     }
 #endif
 
-                    bufsize -= Received;
+                    bufsize -= Received;					
+					//theConsole.Write("bufsize: %d\n", bufsize);
 
                 }
-                while ((unsigned int)Received < sizeof(CommandChunk));
+                while (Received < sizeof(CommandChunk));
                     
                 //theConsole.Write("recv : %d\n", Received);
 
@@ -546,23 +495,31 @@ void CMatch::ProcessPlayerCommands (void)
 
                 // Make a snapshot of the arena and send it to the client
                 m_Arena.WriteSnapshot(Snapshot);
-                int Sent = send(ClientSocket, (const char*)&Snapshot, sizeof(Snapshot), 0);
+				int Sent = m_pNetwork->Send(SOCKET_CLIENT, (const char*)&Snapshot, sizeof(Snapshot), 0);
 #ifdef WIN32
                 if (Sent == SOCKET_ERROR)
-                    theConsole.Write("sent error : %d\n", WSAGetLastError());
+				{
+                    theConsole.Write("sent error (server): %d\n", WSAGetLastError());
+				}
 #else
                 if (Sent == -1)
                     theConsole.Write("sent error : %d\n", Sent);
 #endif
 
             }
-            else if (NetworkMode == NETWORKMODE_CLIENT)
+			else if (m_pNetwork->NetworkMode() == NETWORKMODE_CLIENT)
             {
+
+				char* sendBuf = (char*)&CommandChunk;	
+
                 // Send client command chunk to the server
-                int Sent = send(MySocket, (const char*)&CommandChunk, sizeof(CommandChunk), 0);
+				int Sent = m_pNetwork->Send(SOCKET_SERVER, sendBuf, sizeof(CommandChunk), 0);
+
 #ifdef WIN32
-                if (Sent == SOCKET_ERROR)
-                    theConsole.Write("sent error : %d\n", WSAGetLastError());
+				if (Sent == SOCKET_ERROR){
+
+					theConsole.Write("sent error (client): %d\n", WSAGetLastError());
+				}
 #else
                 if (Sent == -1)
                     theConsole.Write("sent error : %d\n", Sent);
@@ -572,17 +529,17 @@ void CMatch::ProcessPlayerCommands (void)
                 CommandChunk.Reset();
 
                 // Receive and apply the arena snapshot from the server
-                bufsize = sizeof(Snapshot);
-                recvBuf = new char[bufsize];
-                Received = 0;
+				int bufsize = sizeof(Snapshot);
+				char* recvBuf = new char[bufsize];
+                int Received = 0;
                 
                 do {
-                    Received += recv(MySocket, &recvBuf[Received], bufsize, 0);
+					Received += m_pNetwork->Receive(SOCKET_SERVER, &recvBuf[Received], bufsize, 0);
 #ifdef WIN32
                     if (Received == SOCKET_ERROR)
                     {
-                        theConsole.Write("recv error : %d\n", WSAGetLastError());
-                        break;
+                        theConsole.Write("recv error (client): %d\n", WSAGetLastError());
+						break;
                     }
 #else
                     if (Received == -1)
@@ -593,13 +550,14 @@ void CMatch::ProcessPlayerCommands (void)
 #endif
 
                     bufsize -= Received;
+					//theConsole.Write("bufsize: %d\n", bufsize);
 
                 }
-                while ((unsigned int)Received < sizeof(Snapshot));
-                    
+                while (Received < sizeof(Snapshot));
+
                 //theConsole.Write("recv : %d\n", Received);
 
-                if (Received == sizeof(Snapshot))
+				if (Received == sizeof(Snapshot))
                 {
                     memcpy((char *)&Snapshot, recvBuf, sizeof(Snapshot));
                     m_Arena.ReadSnapshot(Snapshot);

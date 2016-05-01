@@ -40,10 +40,6 @@
 #include "CScores.h"
 #include "CControls.h"
 
-ENetworkMode    NetworkMode = NETWORKMODE_LOCAL;
-SOCKET          MySocket = INVALID_SOCKET;
-SOCKET          ClientSocket = INVALID_SOCKET;
-
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -55,7 +51,7 @@ SOCKET          ClientSocket = INVALID_SOCKET;
 //#define ENABLE_DEBUG_LOG
 
 // Define this if the console window should be enabled
-//#define ENABLE_CONSOLE
+#define ENABLE_CONSOLE
 
 // Define this if you want the console to filter repeated message
 //#define ENABLE_CONSOLE_REPEATED_MESSAGE_FILTERING
@@ -559,6 +555,8 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
     m_Match.SetTimer(&m_Timer);
     m_Match.SetScores(&m_Scores);
     m_Match.SetSound(&m_Sound);
+	
+	m_Match.SetNetwork(&m_Network);
 
     // Set the objects the demo object has to communicate with
     m_Demo.SetDisplay(&m_Display);
@@ -682,14 +680,14 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
     if (pos != NULL && strlen(pCommandLine) > (unsigned int)(pos - pCommandLine + 2))
     {
         OutputDebugString("*** STARTING GAME AS CLIENT\n");
-        NetworkMode = NETWORKMODE_CLIENT;
+		m_Network.SetNetworkMode(NETWORKMODE_CLIENT);
 
     }
     else if (strstr(pCommandLine, "-s") != NULL ||
         strstr(pCommandLine, "--server") != NULL)
     {
         OutputDebugString("*** STARTING GAME AS SERVER\n");
-        NetworkMode = NETWORKMODE_SERVER;
+		m_Network.SetNetworkMode(NETWORKMODE_SERVER);
     }
 #else
     for (int i = 0; i < pCommandLineCount; i++)
@@ -714,7 +712,7 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
     }
 #endif
 
-    if (NetworkMode != NETWORKMODE_LOCAL)
+    if (m_Network.NetworkMode() != NETWORKMODE_LOCAL)
     {
 #ifdef WIN32
         WSAData WsaData;
@@ -726,88 +724,8 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
         }
 #endif
 
-        MySocket = socket(AF_INET, SOCK_STREAM, 0);
-
-        if (MySocket == INVALID_SOCKET)
-        {
-            theConsole.Write("socket failed\n");
-            return false;
-        }
-
-        if (NetworkMode == NETWORKMODE_SERVER)
-        {
-            SOCKADDR_IN SocketAddress;
-            SocketAddress.sin_family = AF_INET;
-            SocketAddress.sin_addr.s_addr = INADDR_ANY;
-            SocketAddress.sin_port = htons(12345);
-
-            theConsole.Write("bind\n");
-
-            if (bind(MySocket, (LPSOCKADDR)&SocketAddress, sizeof(SOCKADDR)) == SOCKET_ERROR)
-            {
-                theConsole.Write("bind failed\n");
-#ifdef WIN32
-                closesocket(MySocket);
-#else
-                close(MySocket);
-#endif
-                return false;
-            }
-
-            theConsole.Write("listen\n");
-
-            if (listen(MySocket, SOMAXCONN) == SOCKET_ERROR)
-            {
-                theConsole.Write("listen failed\n");
-#ifdef WIN32
-                closesocket(MySocket);
-#else
-                close(MySocket);
-#endif
-                return false;
-            }
-
-            theConsole.Write("accept\n");
-
-            SOCKADDR_IN Address;
-            int Size = sizeof(SOCKADDR);
-
-#ifdef WIN32
-            ClientSocket = accept(MySocket, (LPSOCKADDR)&Address, &Size);
-#else
-            ClientSocket = accept(MySocket, (LPSOCKADDR)&Address, (socklen_t *)&Size);
-#endif
-
-            if (ClientSocket == INVALID_SOCKET)
-            {
-                theConsole.Write("accept failed\n");
-                return false;
-            }
-        }
-        else if (NetworkMode == NETWORKMODE_CLIENT)
-        {
-            theConsole.Write("connect to %s\n", IpAddressString);
-
-            u_long RemoteAddress = inet_addr(IpAddressString);
-
-            if (RemoteAddress == INADDR_NONE)
-            {
-                theConsole.Write("The address %s is not a dotted IP address.\n");
-                return false;
-            }
-
-            SOCKADDR_IN SocketAddress;
-            SocketAddress.sin_family = AF_INET;
-            memcpy(&SocketAddress.sin_addr, &RemoteAddress, sizeof(u_long));
-            SocketAddress.sin_port = htons(12345);
-
-            if (connect(MySocket, (LPSOCKADDR)&SocketAddress, sizeof(SOCKADDR_IN)) == SOCKET_ERROR)
-            {
-                theConsole.Write("connect failed\n");
-                Destroy();
-                return false;
-            }
-        }
+		if (!m_Network.Connect(IpAddressString))
+			Destroy();
 
         // Set the current game mode
         StartGameMode(GAMEMODE_MATCH);
@@ -843,25 +761,7 @@ void CGame::Destroy(void)
     // Terminate game mode and set no game mode
     FinishGameMode();
 
-    if (NetworkMode != NETWORKMODE_LOCAL)
-    {
-#ifdef WIN32
-        closesocket(MySocket);
-        closesocket(ClientSocket);
-
-        if (WSACleanup() == SOCKET_ERROR)
-        {
-            if (WSAGetLastError() == WSAEINPROGRESS)
-            {
-                WSACancelBlockingCall();
-                WSACleanup();
-            }
-        }
-#else
-        close(MySocket);
-        close(ClientSocket);
-#endif
-    }
+	m_Network.Disconnect();
 
 #ifdef ENABLE_SOUND
 
