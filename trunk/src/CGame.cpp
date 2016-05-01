@@ -725,7 +725,10 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
 #endif
 
 		if (!m_Network.Connect(IpAddressString))
+		{
 			Destroy();
+			return false;
+		}
 
         // Set the current game mode
         StartGameMode(GAMEMODE_MATCH);
