@@ -56,7 +56,9 @@ enum EBlockType
 	BLOCKTYPE_ITEM_ROLLER,		//!< A roller item if placed here 
 	BLOCKTYPE_ITEM_KICK,		//!< A kick item if placed here
 	BLOCKTYPE_ITEM_THROW,		//!< A throw item if placed here
-	BLOCKTYPE_ITEM_PUNCH		//!< A punch item if placed here
+	BLOCKTYPE_ITEM_PUNCH,		//!< A punch item if placed here
+	BLOCKTYPE_ITEM_SKULL,		//!< A skull item if placed here : TODO
+	BLOCKTYPE_ITEM_REMOTES		//!< A remotes item if placed here : TODO
 };
 
 //******************************************************************************************************************************

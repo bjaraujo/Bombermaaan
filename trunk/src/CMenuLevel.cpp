@@ -251,7 +251,15 @@ void CMenuLevel::OnDisplay (void)
                     case BLOCKTYPE_MOVEBOMB_DOWN:     spriteNumberAction = 5;   break;
                     case BLOCKTYPE_MOVEBOMB_LEFT:     spriteNumberAction = 6;   break;
                     case BLOCKTYPE_MOVEBOMB_UP:       spriteNumberAction = 7;   break;
-                    default: break;
+					case BLOCKTYPE_ITEM_BOMB:         spriteNumberAction = 8;   break;
+					case BLOCKTYPE_ITEM_FLAME:        spriteNumberAction = 9;   break;
+					case BLOCKTYPE_ITEM_KICK:         spriteNumberAction = 10;  break;
+					case BLOCKTYPE_ITEM_ROLLER:       spriteNumberAction = 11;   break;
+					case BLOCKTYPE_ITEM_SKULL:        spriteNumberAction = 12;   break;
+					case BLOCKTYPE_ITEM_THROW:        spriteNumberAction = 13;   break;
+					case BLOCKTYPE_ITEM_PUNCH:        spriteNumberAction = 14;   break;
+					case BLOCKTYPE_ITEM_REMOTES:      spriteNumberAction = 15;   break;
+					default: break;
                 }
 
                 if ( spriteNumberAction != -1 ) 
