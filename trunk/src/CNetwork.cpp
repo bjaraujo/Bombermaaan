@@ -277,7 +277,7 @@ unsigned char CNetwork::GetCheckSum(const char* buf, size_t len)
 
 	if (len > 0)
 	{
-		for (int i = 0; i < len; ++i) {
+		for (size_t i = 0; i < len; ++i) {
 			sum += buf[i];
 		}
 
@@ -298,7 +298,7 @@ bool CNetwork::SendCommandChunk(const CCommandChunk& CommandChunk)
 {
 
 	// Send header
-	char* headerBuf = new char[20];
+	unsigned char* headerBuf = new unsigned char[20];
 
 	// Packet start Id
 	headerBuf[0] = 0x03;
@@ -377,10 +377,10 @@ bool CNetwork::ReceiveCommandChunk(CCommandChunk& CommandChunk)
 
 	if (Received == sizeof(CommandChunk) + 1)
 	{
+
 		if ((int)this->GetCheckSum(recvBuf, sizeof(CommandChunk)) == (int)recvBuf[Received - 1])
-		{
 			memcpy((char *)&CommandChunk, recvBuf, sizeof(CommandChunk));
-		}
+
 	}
 	else
 	{
@@ -401,7 +401,7 @@ bool CNetwork::SendSnapshot(const CArenaSnapshot& Snapshot)
 {
 
 	// Send header
-	char* headerBuf = new char[20];
+	unsigned char* headerBuf = new unsigned char[20];
 
 	// Packet start Id
 	headerBuf[0] = 0x03;
@@ -480,10 +480,10 @@ bool CNetwork::ReceiveSnapshot(CArenaSnapshot& Snapshot)
 
 	if (Received == sizeof(Snapshot) + 1)
 	{
+
 		if ((int)this->GetCheckSum(recvBuf, sizeof(Snapshot)) == (int)recvBuf[Received - 1])
-		{
 			memcpy((char *)&Snapshot, recvBuf, sizeof(Snapshot));
-		}
+
 	}
 	else
 	{
@@ -499,7 +499,7 @@ bool CNetwork::ReceiveSnapshot(CArenaSnapshot& Snapshot)
 bool CNetwork::SendFooter(ESocketType SocketType)
 {
 
-	char*footerBuf = new char[15];
+	unsigned char*footerBuf = new unsigned char[15];
 
 	// Packet end Id
 	footerBuf[0] = 0x13;
@@ -521,6 +521,8 @@ bool CNetwork::SendFooter(ESocketType SocketType)
 
 	// Send footer to the client
 	this->Send(SocketType, (const char*)&footerBuf, 15, 0);
+
+	return true;
 
 }
 
@@ -569,6 +571,8 @@ bool CNetwork::ReceiveFooter(ESocketType SocketType)
 		}
 
 	} while (Received > 0);
+
+	return true;
 
 }
 
