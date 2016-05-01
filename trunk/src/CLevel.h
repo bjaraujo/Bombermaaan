@@ -52,8 +52,8 @@ enum EBlockType
     BLOCKTYPE_MOVEBOMB_LEFT,    //!< A bomb starts moving left if placed here
     BLOCKTYPE_MOVEBOMB_UP,      //!< A bomb starts moving up if placed here
 	BLOCKTYPE_ITEM_BOMB,		//!< A bomb item if placed here
-	BLOCKTYPE_ITEM_FLAMES,		//!< A flames item if placed here
-	BLOCKTYPE_ITEM_SKATE,		//!< A skate item if placed here 
+	BLOCKTYPE_ITEM_FLAME,		//!< A flame item if placed here
+	BLOCKTYPE_ITEM_ROLLER,		//!< A roller item if placed here 
 	BLOCKTYPE_ITEM_KICK,		//!< A kick item if placed here
 	BLOCKTYPE_ITEM_THROW,		//!< A throw item if placed here
 	BLOCKTYPE_ITEM_PUNCH		//!< A punch item if placed here

@@ -77,7 +77,7 @@
 #endif
 
 // Bombermaaan version (build is suffixed with an "e" if the build is an experimental release)
-#define BOMBERMAAAN_VERSION_STRING      "1.4.1"
+#define BOMBERMAAAN_VERSION_STRING      "1.5.0"
 #define BOMBERMAAAN_BUILD_STRING        "658e"
 
 //******************************************************************************************************************************

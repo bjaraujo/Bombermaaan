@@ -194,6 +194,55 @@ void CArena::Create (void)
                     
                     break;
                 }
+
+				case BLOCKTYPE_ITEM_BOMB:
+				{
+
+					NewItem (X, Y, ITEM_BOMB, false, false);
+					break;
+
+				}
+
+				case BLOCKTYPE_ITEM_FLAME:
+				{
+
+					NewItem(X, Y, ITEM_FLAME, false, false);
+					break;
+
+				}
+
+				case BLOCKTYPE_ITEM_KICK:
+				{
+
+					NewItem(X, Y, ITEM_KICK, false, false);
+					break;
+
+				}
+
+				case BLOCKTYPE_ITEM_PUNCH:
+				{
+
+					NewItem(X, Y, ITEM_PUNCH, false, false);
+					break;
+
+				}
+
+				case BLOCKTYPE_ITEM_ROLLER:
+				{
+
+					NewItem(X, Y, ITEM_ROLLER, false, false);
+					break;
+
+				}
+
+				case BLOCKTYPE_ITEM_THROW:
+				{
+
+					NewItem(X, Y, ITEM_THROW, false, false);
+					break;
+
+				}
+
                 default :
                     break;
             }
@@ -729,7 +778,7 @@ void CArena::WriteSnapshot (CArenaSnapshot& Snapshot)
         for (int BlockY = 0; BlockY < ARENA_HEIGHT; BlockY++)
             Snapshot.WriteInteger(m_BlockHas[BlockX][BlockY]);*/
 
-    // further attributes
+    // Further attributes
     Snapshot.WriteBoolean(m_Prediction);
 }
 
