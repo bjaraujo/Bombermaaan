@@ -351,7 +351,7 @@ bool CNetwork::ReceiveCommandChunk(CCommandChunk& CommandChunk)
 {
 
 	// Receive client command chunk
-	int bufsize = sizeof(CommandChunk) + 1;
+	int bufsize = sizeof(CommandChunk) + 21;
 	char* recvBuf = new char[bufsize];
 	int Received = 0;
 
@@ -361,13 +361,13 @@ bool CNetwork::ReceiveCommandChunk(CCommandChunk& CommandChunk)
 		if (Received == SOCKET_ERROR)
 		{
 			theConsole.Write("recv error (server): %d\n", WSAGetLastError());
-			return false;
+			break;
 		}
 #else
 		if (Received == -1)
 		{
 			theConsole.Write("recv error : %d\n", Received);
-			return false;
+			break;
 		}
 #endif
 
@@ -375,7 +375,7 @@ bool CNetwork::ReceiveCommandChunk(CCommandChunk& CommandChunk)
 
 	} while (Received < sizeof(CommandChunk));
 
-	if (Received == sizeof(CommandChunk) + 1)
+	if (Received == sizeof(CommandChunk) + 21)
 	{
 
 		if ((int)this->GetCheckSum(recvBuf, sizeof(CommandChunk)) == (int)recvBuf[Received - 1])
@@ -478,7 +478,7 @@ bool CNetwork::ReceiveSnapshot(CArenaSnapshot& Snapshot)
 
 	} while (Received < sizeof(Snapshot));
 
-	if (Received == sizeof(Snapshot) + 1)
+	if (Received == sizeof(Snapshot) + 21)
 	{
 
 		if ((int)this->GetCheckSum(recvBuf, sizeof(Snapshot)) == (int)recvBuf[Received - 1])
@@ -529,7 +529,7 @@ bool CNetwork::SendFooter(ESocketType SocketType)
 bool CNetwork::ReceiveFooter(ESocketType SocketType)
 {
 
-	char* ch;
+	char* ch = new char[1];
 
 	int Received = 0;
 
@@ -539,7 +539,7 @@ bool CNetwork::ReceiveFooter(ESocketType SocketType)
 
 		Received = this->Receive(SocketType, ch, 1, 0);
 
-		if (*ch == 0x13)
+		if ((unsigned char)ch[0] == 0x13)
 		{
 
 			char*footerBuf = new char[15];
