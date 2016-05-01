@@ -436,38 +436,8 @@ void CMatch::ProcessPlayerCommands (void)
 
 			if (m_pNetwork->NetworkMode() == NETWORKMODE_SERVER)
             {
-                // Receive client command chunk
-				int bufsize = sizeof(CommandChunk);
-                char* recvBuf = new char[bufsize];
-                int Received = 0;
-                
-                do {
-					Received += m_pNetwork->Receive(SOCKET_CLIENT, &recvBuf[Received], bufsize, 0);
-#ifdef WIN32
-                    if (Received == SOCKET_ERROR)
-                    {
-                        theConsole.Write("recv error (server): %d\n", WSAGetLastError());
-                        break;
-                    }
-#else
-                    if (Received == -1)
-                    {
-                        theConsole.Write("recv error : %d\n", Received);
-                        break;
-                    }
-#endif
 
-                    bufsize -= Received;					
-
-                }
-                while (Received < sizeof(CommandChunk));
-                    
-                if (Received == sizeof(CommandChunk))
-                {
-                    memcpy((char *)&CommandChunk, recvBuf, sizeof(CommandChunk));
-                }
-                
-                delete[] recvBuf;
+				m_pNetwork->ReceiveCommandChunk(CommandChunk);
                 
                 // Scan all the players
                 for (int Player = 0 ; Player < MAX_PLAYERS ; Player++)
@@ -492,58 +462,24 @@ void CMatch::ProcessPlayerCommands (void)
 
                 // Make a snapshot of the arena and send it to the client
                 m_Arena.WriteSnapshot(Snapshot);
-				m_pNetwork->Send(SOCKET_CLIENT, (const char*)&Snapshot, sizeof(Snapshot), 0);
-
-				// Send a checksum
-				unsigned char ckSum = m_pNetwork->GetCheckSum((const char*)&Snapshot, sizeof(Snapshot));
-				m_pNetwork->Send(SOCKET_CLIENT, (const char*)&ckSum, 1, 0);
+				
+				// Send snapshot to the client
+				m_pNetwork->SendSnapshot(Snapshot);
 
             }
 			else if (m_pNetwork->NetworkMode() == NETWORKMODE_CLIENT)
             {
 
                 // Send client command chunk to the server
-				m_pNetwork->Send(SOCKET_SERVER, (char*)&CommandChunk, sizeof(CommandChunk), 0);
-                
-                // Command chunk was sent, reset it.
-                CommandChunk.Reset();
+				m_pNetwork->SendCommandChunk(CommandChunk);
 
-                // Receive and apply the arena snapshot from the server
-				int bufsize = sizeof(Snapshot) + 1;
-				char* recvBuf = new char[bufsize];
-                int Received = 0;
-                
-                do {
-					Received += m_pNetwork->Receive(SOCKET_SERVER, &recvBuf[Received], bufsize, 0);
-#ifdef WIN32
-                    if (Received == SOCKET_ERROR)
-                    {
-                        theConsole.Write("recv error (client): %d\n", WSAGetLastError());
-						break;
-                    }
-#else
-                    if (Received == -1)
-                    {
-                        theConsole.Write("recv error : %d\n", Received);
-                        break;
-                    }
-#endif
+				// Command chunk was sent, reset it.
+				CommandChunk.Reset();
 
-                    bufsize -= Received;
+				// If successfull apply it
+				if (m_pNetwork->ReceiveSnapshot(Snapshot))
+					m_Arena.ReadSnapshot(Snapshot);
 
-                }
-                while (Received < sizeof(Snapshot));
-
-				if (Received == sizeof(Snapshot) + 1)
-                {
-					theConsole.Write("checksum1 : %d\n", m_pNetwork->GetCheckSum(recvBuf, sizeof(Snapshot)));
-					theConsole.Write("checksum2 : %d\n", (unsigned char)recvBuf[Received - 1]);
-
-					memcpy((char *)&Snapshot, recvBuf, sizeof(Snapshot));
-                    m_Arena.ReadSnapshot(Snapshot);
-                }
-                
-                delete[] recvBuf;
             }
 
             TimeElapsedSinceLastCommandChunk = 0.0f;

@@ -293,3 +293,282 @@ unsigned char CNetwork::GetCheckSum(const char* buf, size_t len)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
+
+bool CNetwork::SendCommandChunk(const CCommandChunk& CommandChunk)
+{
+
+	// Send header
+	char* headerBuf = new char[20];
+
+	// Packet start Id
+	headerBuf[0] = 0x03;
+	headerBuf[2] = 0x08;
+	headerBuf[3] = 0x45;
+	headerBuf[4] = 0x88;
+	headerBuf[5] = 0x45;
+	headerBuf[6] = 0x08;
+	headerBuf[7] = 0xA6;
+	headerBuf[8] = 0xA6;
+	headerBuf[9] = 0x03;
+
+	// Type Id
+	headerBuf[10] = 'C';
+	headerBuf[11] = 'O';
+	headerBuf[10] = 'M';
+	headerBuf[11] = 'M';
+	headerBuf[12] = 'A';
+	headerBuf[13] = 'N';
+	headerBuf[14] = 'D';
+	headerBuf[15] = 0x00;
+	headerBuf[16] = 0x00;
+	headerBuf[17] = 0x00;
+	headerBuf[19] = 0x00;
+
+	// Send header to the client
+	this->Send(SOCKET_SERVER, (const char*)&headerBuf, 20, 0);
+
+	delete[] headerBuf;
+
+	// Send client command chunk to the server
+	this->Send(SOCKET_SERVER, (char*)&CommandChunk, sizeof(CommandChunk), 0);
+
+	// Send a checksum to the server
+	unsigned char ckSum = this->GetCheckSum((const char*)&CommandChunk, sizeof(CommandChunk));
+	this->Send(SOCKET_SERVER, (const char*)&ckSum, 1, 0);
+
+	// Send a footer
+	this->SendFooter(SOCKET_SERVER);
+
+	return true;
+
+}
+
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+
+bool CNetwork::ReceiveCommandChunk(CCommandChunk& CommandChunk)
+{
+
+	// Receive client command chunk
+	int bufsize = sizeof(CommandChunk) + 1;
+	char* recvBuf = new char[bufsize];
+	int Received = 0;
+
+	do {
+		Received += this->Receive(SOCKET_CLIENT, &recvBuf[Received], bufsize, 0);
+#ifdef WIN32
+		if (Received == SOCKET_ERROR)
+		{
+			theConsole.Write("recv error (server): %d\n", WSAGetLastError());
+			return false;
+		}
+#else
+		if (Received == -1)
+		{
+			theConsole.Write("recv error : %d\n", Received);
+			return false;
+		}
+#endif
+
+		bufsize -= Received;
+
+	} while (Received < sizeof(CommandChunk));
+
+	if (Received == sizeof(CommandChunk) + 1)
+	{
+		if ((int)this->GetCheckSum(recvBuf, sizeof(CommandChunk)) == (int)recvBuf[Received - 1])
+		{
+			memcpy((char *)&CommandChunk, recvBuf, sizeof(CommandChunk));
+		}
+	}
+	else
+	{
+		this->ReceiveFooter(SOCKET_CLIENT);
+	}
+
+	delete[] recvBuf;
+
+	return true;
+
+}
+
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+
+bool CNetwork::SendSnapshot(const CArenaSnapshot& Snapshot)
+{
+
+	// Send header
+	char* headerBuf = new char[20];
+
+	// Packet start Id
+	headerBuf[0] = 0x03;
+	headerBuf[2] = 0x08;
+	headerBuf[3] = 0x45;
+	headerBuf[4] = 0x88;
+	headerBuf[5] = 0x45;
+	headerBuf[6] = 0x08;
+	headerBuf[7] = 0xA6;
+	headerBuf[8] = 0xA6;
+	headerBuf[9] = 0x03;
+
+	// Type Id
+	headerBuf[10] = 'S';
+	headerBuf[11] = 'N';
+	headerBuf[10] = 'A';
+	headerBuf[11] = 'P';
+	headerBuf[12] = 'S';
+	headerBuf[13] = 'H';
+	headerBuf[14] = 'O';
+	headerBuf[15] = 'T';
+	headerBuf[16] = 0x00;
+	headerBuf[17] = 0x00;
+	headerBuf[19] = 0x00;
+
+	// Send header to the client
+	this->Send(SOCKET_CLIENT, (const char*)&headerBuf, 20, 0);
+
+	delete[] headerBuf;
+
+	// Send snapshot to the client
+	this->Send(SOCKET_CLIENT, (const char*)&Snapshot, sizeof(Snapshot), 0);
+
+	// Send a checksum
+	unsigned char ckSum = this->GetCheckSum((const char*)&Snapshot, sizeof(Snapshot));
+	this->Send(SOCKET_CLIENT, (const char*)&ckSum, 1, 0);
+
+	// Send a footer
+	this->SendFooter(SOCKET_CLIENT);
+
+	return true;
+
+}
+
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+
+bool CNetwork::ReceiveSnapshot(CArenaSnapshot& Snapshot)
+{
+
+	// Receive and apply the arena snapshot from the server
+	int bufsize = sizeof(Snapshot) + 21;
+	char* recvBuf = new char[bufsize];
+	int Received = 0;
+
+	do {
+		Received += this->Receive(SOCKET_SERVER, &recvBuf[Received], bufsize, 0);
+#ifdef WIN32
+		if (Received == SOCKET_ERROR)
+		{
+			theConsole.Write("recv error (client): %d\n", WSAGetLastError());
+			break;
+		}
+#else
+		if (Received == -1)
+		{
+			theConsole.Write("recv error : %d\n", Received);
+			break;
+		}
+#endif
+
+		bufsize -= Received;
+
+	} while (Received < sizeof(Snapshot));
+
+	if (Received == sizeof(Snapshot) + 1)
+	{
+		if ((int)this->GetCheckSum(recvBuf, sizeof(Snapshot)) == (int)recvBuf[Received - 1])
+		{
+			memcpy((char *)&Snapshot, recvBuf, sizeof(Snapshot));
+		}
+	}
+	else
+	{
+		this->ReceiveFooter(SOCKET_SERVER);
+	}
+
+	delete[] recvBuf;
+
+	return true;
+
+}
+
+bool CNetwork::SendFooter(ESocketType SocketType)
+{
+
+	char*footerBuf = new char[15];
+
+	// Packet end Id
+	footerBuf[0] = 0x13;
+	footerBuf[1] = 0x18;
+	footerBuf[2] = 0x55;
+	footerBuf[3] = 0x98;
+	footerBuf[4] = 0x55;
+	footerBuf[5] = 0x18;
+	footerBuf[6] = 0xA6;
+	footerBuf[7] = 0xA6;
+	footerBuf[8] = 0xA6;
+	footerBuf[9] = 0x13;
+
+	footerBuf[10] = 'E';
+	footerBuf[11] = 'N';
+	footerBuf[12] = 'D';
+	footerBuf[13] = 0x00;
+	footerBuf[14] = 0x00;
+
+	// Send footer to the client
+	this->Send(SocketType, (const char*)&footerBuf, 15, 0);
+
+}
+
+bool CNetwork::ReceiveFooter(ESocketType SocketType)
+{
+
+	char* ch;
+
+	int Received = 0;
+
+	// Read until the end of the packet
+	do 
+	{
+
+		Received = this->Receive(SocketType, ch, 1, 0);
+
+		if (*ch == 0x13)
+		{
+
+			char*footerBuf = new char[15];
+
+			this->Receive(SocketType, footerBuf, 14, 0);
+
+			for (int i = 0; i < 13; i++)
+				footerBuf[i + 1] = footerBuf[i];
+
+			bool isEnd = (footerBuf[0] == 0x13) &&
+				(footerBuf[1] == 0x18) &&
+				(footerBuf[2] == 0x55) &&
+				(footerBuf[3] == 0x98) &&
+				(footerBuf[4] == 0x55) &&
+				(footerBuf[5] == 0x18) &&
+				(footerBuf[6] == 0xA6) &&
+				(footerBuf[7] == 0xA6) &&
+				(footerBuf[8] == 0xA6) &&
+				(footerBuf[9] == 0x13) &&
+				(footerBuf[10] == 'E') &&
+				(footerBuf[11] == 'N') &&
+				(footerBuf[12] == 'D') &&
+				(footerBuf[13] == 0x00) &&
+				(footerBuf[14] == 0x00);
+
+			if (isEnd)
+				break;
+
+		}
+
+	} while (Received > 0);
+
+}
+

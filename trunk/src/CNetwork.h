@@ -36,6 +36,9 @@
 #include <sys/socket.h>
 #endif
     
+#include "CCommandChunk.h"
+#include "CArenaSnapshot.h"
+
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -77,6 +80,15 @@ public:
 	bool           Send(ESocketType SocketType, const char* buf, size_t len, int flags);
 	int            Receive(ESocketType SocketType, char* buf, size_t len, int flags);
 	unsigned char  GetCheckSum(const char* buf, size_t len);
+
+	bool           SendCommandChunk(const CCommandChunk& CommandChunk);
+	bool           ReceiveCommandChunk(CCommandChunk& CommandChunk);
+
+	bool           SendSnapshot(const CArenaSnapshot& Snapshot);
+	bool           ReceiveSnapshot(CArenaSnapshot& Snapshot);
+
+	bool           SendFooter(ESocketType SocketType);
+	bool           ReceiveFooter(ESocketType SocketType);
 
 };
 
