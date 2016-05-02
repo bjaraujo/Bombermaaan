@@ -116,6 +116,33 @@
   <ItemGroup>
     <None Include="Resources\ItemThrow.bmp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WhiteBomber.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BlackBomber.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RedBomber.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BlueBomber.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GreenBomber.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MoveRight.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MoveDown.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MoveLeft.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MoveUp.bmp" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
