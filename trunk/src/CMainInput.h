@@ -29,7 +29,7 @@
 #ifndef __CMAININPUT_H__
 #define __CMAININPUT_H__
 
-#ifdef WIN32
+#ifdef DIRECTX
 #  include "CDirectInput.h"
 #else
 #  include "CSDLInput.h"

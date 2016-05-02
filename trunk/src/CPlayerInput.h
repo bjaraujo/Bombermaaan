@@ -30,7 +30,8 @@
 #define __CPLAYERINPUT_H__
 
 #include "COptions.h"
-#ifdef WIN32
+
+#ifdef DIRECTX
 #include "CDirectInput.h"
 #else
 #include "CSDLInput.h"

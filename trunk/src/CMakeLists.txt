@@ -20,8 +20,6 @@ CConsole.h
 CControls.h
 CDebug.h
 CDemo.h
-CDirectDraw.h
-CDirectInput.h
 CDisplay.h
 CDrawGame.h
 CElement.h
@@ -83,8 +81,6 @@ CConsole.cpp
 CControls.cpp
 CDebug.cpp
 CDemo.cpp
-CDirectDraw.cpp
-CDirectInput.cpp
 CDisplay.cpp
 CDrawGame.cpp
 CElement.cpp
@@ -128,11 +124,21 @@ WinMain.cpp
 Bombermaaan.rc
 )
 
+SET(BOMBERMAAAN_DX_HEADERS
+	CDirectDraw.h
+	CDirectInput.h
+)
+
+SET(BOMBERMAAAN_DX_SOURCES
+	CDirectDraw.cpp
+	CDirectInput.cpp
+)
+
 FIND_PACKAGE(SDL REQUIRED)
 FIND_PACKAGE(SDL_mixer REQUIRED)
 
-SOURCE_GROUP("Header Files" FILES ${BOMBERMAAAN_HEADERS})
-SOURCE_GROUP("Source Files" FILES ${BOMBERMAAAN_SOURCES})
+SOURCE_GROUP("Header Files" FILES ${BOMBERMAAAN_HEADERS} ${BOMBERMAAAN_DX_HEADERS})
+SOURCE_GROUP("Source Files" FILES ${BOMBERMAAAN_SOURCES} ${BOMBERMAAAN_DX_SOURCES})
 
 INCLUDE_DIRECTORIES(
     ${SDL_INCLUDE_DIR}
@@ -142,24 +148,41 @@ INCLUDE_DIRECTORIES(
     ${CMAKE_CURRENT_SOURCE_DIR}/../dep/simpleini
 )
 
-ADD_DEFINITIONS(-DTIXML_USE_STL -DDIRECTX -D_CRT_SECURE_NO_WARNINGS)
+ADD_DEFINITIONS(-DTIXML_USE_STL -D_CRT_SECURE_NO_WARNINGS)
+
+IF(USE_DIRECTX)
+		ADD_DEFINITIONS(-DDIRECTX)
+ENDIF(USE_DIRECTX)
 
 IF(WIN32)
-    ADD_EXECUTABLE(BomberMaaan WIN32 ${BOMBERMAAAN_HEADERS} ${BOMBERMAAAN_SOURCES})
+	IF(USE_DIRECTX)
+		ADD_EXECUTABLE(BomberMaaan WIN32 ${BOMBERMAAAN_HEADERS} ${BOMBERMAAAN_SOURCES} ${BOMBERMAAAN_DX_HEADERS} ${BOMBERMAAAN_DX_SOURCES})
+	ELSE(USE_DIRECTX)
+		ADD_EXECUTABLE(BomberMaaan WIN32 ${BOMBERMAAAN_HEADERS} ${BOMBERMAAAN_SOURCES})		
+	ENDIF(USE_DIRECTX)
 ELSE(WIN32)
     ADD_EXECUTABLE(BomberMaaan ${BOMBERMAAAN_HEADERS} ${BOMBERMAAAN_SOURCES})
 ENDIF(WIN32)
 
 IF(WIN32)
-    TARGET_LINK_LIBRARIES(BomberMaaan 
-        ws2_32
-		ddraw
-		dinput8
-		dxguid
-        tinyxml
-        ${SDL_LIBRARY}
-        ${SDL_MIXER_LIBRARIES}
-    )
+    IF(USE_DIRECTX)
+        TARGET_LINK_LIBRARIES(BomberMaaan 
+            ws2_32
+            ddraw
+            dinput8
+            dxguid
+            tinyxml
+            ${SDL_LIBRARY}
+            ${SDL_MIXER_LIBRARIES}
+        )
+    ELSE(USE_DIRECTX)
+        TARGET_LINK_LIBRARIES(BomberMaaan 
+            ws2_32
+            tinyxml
+            ${SDL_LIBRARY}
+            ${SDL_MIXER_LIBRARIES}
+        )    
+    ENDIF(USE_DIRECTX)
 ELSE(WIN32)
     TARGET_LINK_LIBRARIES(BomberMaaan 
         tinyxml
