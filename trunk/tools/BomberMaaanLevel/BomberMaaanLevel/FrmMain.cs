@@ -15,11 +15,14 @@ namespace BomberMaaanLevel
 
         private LevelManager levelManager = new LevelManager();
 
-        const int imageWidth = 50;
-        const int imageHeight = 50;
+        private const int imageWidth = 50;
+        private const int imageHeight = 50;
 
-        const int nbTilesX = 15;
-        const int nbTilesY = 13;
+        private const int nbTilesX = 15;
+        private const int nbTilesY = 13;
+
+        private int ci = -1;
+        private int cj = -1;
 
         PictureBox[,] sTiles = new PictureBox[nbTilesX, nbTilesY];
 
@@ -54,6 +57,9 @@ namespace BomberMaaanLevel
 
                     TileId aTileId = new TileId(i, j);
 
+                    aTile.Width = imageWidth;
+                    aTile.Height = imageHeight;
+
                     aTile.Tag = aTileId; 
                     aTile.Click += aTile_Click;
 
@@ -63,8 +69,49 @@ namespace BomberMaaanLevel
                 }
             }
 
+            int k = 0;
+            int l = 0;
+
+            int [] spacing = new int[4]  { 4,  5, 4, 8};
+
+            foreach (EBlockType val in Enum.GetValues(typeof(EBlockType)))
+            {
+                PictureBox aBlockType = new PictureBox();
+
+                aBlockType.Left = 800 + l * imageWidth;
+                aBlockType.Top = k * imageHeight + 30;
+                aBlockType.Width = imageWidth;
+                aBlockType.Height = imageHeight;
+                aBlockType.SizeMode = PictureBoxSizeMode.StretchImage;
+
+                k++;
+
+                if (k >= spacing[l])
+                {
+                    k = 0;
+                    l++;
+                }
+
+                aBlockType.Image = GetImage(val);
+
+                aBlockType.Click += aBlockType_Click;
+
+                this.Controls.Add(aBlockType);
+            }
+
             this.Width = 1100;
             this.Height = 736;
+
+        }
+
+        void aBlockType_Click(object sender, EventArgs e)
+        {
+
+            PictureBox aPicBox = (PictureBox)sender;
+
+            EBlockType aBlockType = (EBlockType)aPicBox.Tag;
+
+            Select(aBlockType);
 
         }
 
@@ -75,7 +122,10 @@ namespace BomberMaaanLevel
 
             TileId aTileId = (TileId)(aPicBox).Tag;
 
-            ShowSelection(aPicBox, aTileId.i, aTileId.j);
+            ci = aTileId.i;
+            cj = aTileId.j;
+
+            ShowSelection(aPicBox);
 
         }
 
@@ -108,7 +158,7 @@ namespace BomberMaaanLevel
                 case EBlockType.BLOCKTYPE_SOFTWALL:
                     return Resource1.SoftWall;
                 case EBlockType.BLOCKTYPE_RANDOM:
-                    break;
+                    return Resource1.Random;
                 case EBlockType.BLOCKTYPE_FREE:
                     return Resource1.Free;
                 case EBlockType.BLOCKTYPE_WHITEBOMBER:
@@ -143,12 +193,27 @@ namespace BomberMaaanLevel
                     return Resource1.ItemPunch;
                 case EBlockType.BLOCKTYPE_ITEM_SKULL:
                 case EBlockType.BLOCKTYPE_ITEM_REMOTES:
-                case EBlockType.BLOCKTYPE_UNKNOWN:
                 default:
                     break;
             }
 
             return Resource1.Free;
+
+        }
+
+        private void UpdateTile(int i, int j)
+        {
+
+            PictureBox aPicBox = sTiles[i, j];
+
+            aPicBox.Left = i * imageWidth + 10;
+            aPicBox.Top = j * imageHeight + 30;
+            aPicBox.Width = imageWidth;
+            aPicBox.Height = imageHeight;
+            aPicBox.SizeMode = PictureBoxSizeMode.StretchImage;
+
+            EBlockType aBlockType = levelManager.BlockType(i, j);
+            aPicBox.Image = GetImage(aBlockType);
 
         }
 
@@ -159,16 +224,8 @@ namespace BomberMaaanLevel
             {
                 for (int j = 0; j < nbTilesY; j++)
                 {
-                    PictureBox aPicBox = sTiles[i, j];
 
-                    aPicBox.Left = i * imageWidth + 10;
-                    aPicBox.Top = j * imageHeight + 30;
-                    aPicBox.Width = imageWidth;
-                    aPicBox.Height = imageHeight;
-                    aPicBox.SizeMode = PictureBoxSizeMode.StretchImage;
-
-                    EBlockType aBlockType = levelManager.BlockType(i, j);
-                    aPicBox.Image = GetImage(aBlockType);
+                    this.UpdateTile(i, j);
 
                 }
             }
@@ -195,7 +252,7 @@ namespace BomberMaaanLevel
 
         }
 
-        private void ShowSelection(PictureBox aPicBox, int i, int j)
+        private void ShowSelection(PictureBox aPicBox)
         {
 
             this.ClearSelection();
@@ -203,10 +260,17 @@ namespace BomberMaaanLevel
             aPicBox.BackColor = Color.Red;
             aPicBox.Padding = new System.Windows.Forms.Padding(1);
 
-            EBlockType aBlockType = levelManager.BlockType(i, j);
-            //aPic.Image = GetImage(aBlockType);
-    
-                
+            EBlockType aBlockType = levelManager.BlockType(ci, cj);
+            //aPicBox.Image = GetImage(aBlockType);
+            
+        }
+
+        private void Select(EBlockType aBlockType)
+        {
+
+            levelManager.SetBlockType(ci, cj, aBlockType);
+
+            this.UpdateTile(ci, cj);
 
         }
 

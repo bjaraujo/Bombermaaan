@@ -11,7 +11,6 @@ namespace BomberMaaanLevel
 
     enum EBlockType
     {
-        BLOCKTYPE_UNKNOWN,
         BLOCKTYPE_HARDWALL,			//!< There must be a hard wall here
         BLOCKTYPE_SOFTWALL,			//!< There must be a soft wall here
         BLOCKTYPE_RANDOM,			//!< There must be either a soft wall, or a free place here (random)
@@ -74,6 +73,91 @@ namespace BomberMaaanLevel
             return anIniFile.IniReadValue("General", "Description");
         }
 
+        public void SetBlockType(int i, int j, EBlockType aBlockType)
+        {
+
+            string aLine = anIniFile.IniReadValue("Map", String.Format("Line.{0:00}", j));
+
+            char aNewChar = ' ';
+
+            switch (aBlockType)
+            {
+                case EBlockType.BLOCKTYPE_HARDWALL:
+                    aNewChar = '*';
+                    break;
+                case EBlockType.BLOCKTYPE_SOFTWALL:
+                    aNewChar = '-';
+                    break;
+                case EBlockType.BLOCKTYPE_RANDOM:
+                    aNewChar = '?';
+                    break;
+                case EBlockType.BLOCKTYPE_FREE:
+                    aNewChar = ' ';
+                    break;
+                case EBlockType.BLOCKTYPE_WHITEBOMBER:
+                    aNewChar = '1';
+                    break;
+                case EBlockType.BLOCKTYPE_BLACKBOMBER:
+                    aNewChar = '2';
+                    break;
+                case EBlockType.BLOCKTYPE_REDBOMBER:
+                    aNewChar = '3';
+                    break;
+                case EBlockType.BLOCKTYPE_BLUEBOMBER:
+                    aNewChar = '4';
+                    break;
+                case EBlockType.BLOCKTYPE_GREENBOMBER:
+                    aNewChar = '5';
+                    break;
+                case EBlockType.BLOCKTYPE_MOVEBOMB_RIGHT:
+                    aNewChar = 'R';
+                    break;
+                case EBlockType.BLOCKTYPE_MOVEBOMB_DOWN:
+                    aNewChar = 'D';
+                    break;
+                case EBlockType.BLOCKTYPE_MOVEBOMB_LEFT:
+                    aNewChar = 'L';
+                    break;
+                case EBlockType.BLOCKTYPE_MOVEBOMB_UP:
+                    aNewChar = 'U';
+                    break;
+                case EBlockType.BLOCKTYPE_ITEM_BOMB:
+                    aNewChar = 'B';
+                    break;
+                case EBlockType.BLOCKTYPE_ITEM_FLAME:
+                    aNewChar = 'F';
+                    break;
+                case EBlockType.BLOCKTYPE_ITEM_ROLLER:
+                    aNewChar = 'S';
+                    break;
+                case EBlockType.BLOCKTYPE_ITEM_KICK:
+                    aNewChar = 'K';
+                    break;
+                case EBlockType.BLOCKTYPE_ITEM_THROW:
+                    aNewChar = 'T';
+                    break;
+                case EBlockType.BLOCKTYPE_ITEM_PUNCH:
+                    aNewChar = 'P';
+                    break;
+                case EBlockType.BLOCKTYPE_ITEM_SKULL:
+                    aNewChar = ' '; // TODO
+                    break;
+                case EBlockType.BLOCKTYPE_ITEM_REMOTES:
+                    aNewChar = ' '; // TODO
+                    break;
+                default:
+                    break;
+            }
+
+            StringBuilder sbLine = new StringBuilder(aLine);
+            sbLine[i] = aNewChar;
+
+            aLine = sbLine.ToString();
+
+            anIniFile.IniWriteValue("Map", String.Format("Line.{0:00}", j), aLine);
+
+        }
+
         public EBlockType BlockType(int i, int j)
         {
 
@@ -121,7 +205,7 @@ namespace BomberMaaanLevel
                 case 'T': // ITEM_THROW; 
                     return EBlockType.BLOCKTYPE_ITEM_THROW;
                 default:
-                    return EBlockType.BLOCKTYPE_UNKNOWN;
+                    return EBlockType.BLOCKTYPE_FREE;
             }
 
         }
