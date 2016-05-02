@@ -37,7 +37,7 @@ namespace BomberMaaanLevel
     class LevelManager
     {
 
-        IniFile anIniFile;
+        IniFile anIniFile = null;
 
         public bool OpenFile(string aFileName)
         {
@@ -50,31 +50,49 @@ namespace BomberMaaanLevel
 
         public int MaxPlayers()
         {
+            if (anIniFile == null)
+                return 0;
+
             return Int32.Parse(anIniFile.IniReadValue("General", "MaxPlayers"));
         }
 
         public int MinPlayers()
         {
+            if (anIniFile == null)
+                return 0;
+
             return Int32.Parse(anIniFile.IniReadValue("General", "MinPlayers"));
         }
 
         public string Creator()
         {
+            if (anIniFile == null)
+                return "";
+
             return anIniFile.IniReadValue("General", "Creator");
         }
 
         public string Comment()
         {
+            if (anIniFile == null)
+                return "";
+
             return anIniFile.IniReadValue("General", "Comment");
         }
 
         public string Description()
         {
+            if (anIniFile == null)
+                return "";
+
             return anIniFile.IniReadValue("General", "Description");
         }
 
         public void SetBlockType(int i, int j, EBlockType aBlockType)
         {
+
+            if (anIniFile == null)
+                return;
 
             string aLine = anIniFile.IniReadValue("Map", String.Format("Line.{0:00}", j));
 
@@ -160,6 +178,9 @@ namespace BomberMaaanLevel
 
         public EBlockType BlockType(int i, int j)
         {
+
+            if (anIniFile == null)
+                return EBlockType.BLOCKTYPE_FREE;
 
             string aLine = anIniFile.IniReadValue("Map", String.Format("Line.{0:00}", j));
             char aChar = aLine.Substring(i, 1)[0];

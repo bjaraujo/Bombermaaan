@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace BomberMaaanLevel
 {
@@ -57,11 +58,16 @@ namespace BomberMaaanLevel
 
                     TileId aTileId = new TileId(i, j);
 
+                    aTile.Top = -100;
+                    aTile.Left = -100;
                     aTile.Width = imageWidth;
                     aTile.Height = imageHeight;
 
                     aTile.Tag = aTileId; 
                     aTile.Click += aTile_Click;
+
+                    aTile.BackColor = Color.Gray;
+                    aTile.Padding = new System.Windows.Forms.Padding(1);
 
                     this.Controls.Add(aTile);
 
@@ -92,6 +98,7 @@ namespace BomberMaaanLevel
                     l++;
                 }
 
+                aBlockType.Tag = val;
                 aBlockType.Image = GetImage(val);
 
                 aBlockType.Click += aBlockType_Click;
@@ -106,6 +113,12 @@ namespace BomberMaaanLevel
 
         void aBlockType_Click(object sender, EventArgs e)
         {
+
+            if (ci == -1)
+                return;
+
+            if (cj == -1)
+                return;
 
             PictureBox aPicBox = (PictureBox)sender;
 
@@ -143,6 +156,8 @@ namespace BomberMaaanLevel
                 levelManager.OpenFile(theDialog.FileName);
 
                 UpdateMap();
+
+                this.Text = "BomberMaaan Level Editor" + " - " + Path.GetFileName(theDialog.FileName);
 
             }
 
@@ -245,7 +260,7 @@ namespace BomberMaaanLevel
                     PictureBox aPicBox = sTiles[i, j];
 
                     aPicBox.BackColor = Color.Gray;
-                    aPicBox.Padding = new System.Windows.Forms.Padding(0);
+                    aPicBox.Padding = new System.Windows.Forms.Padding(1);
 
                 }
             }
@@ -271,6 +286,13 @@ namespace BomberMaaanLevel
             levelManager.SetBlockType(ci, cj, aBlockType);
 
             this.UpdateTile(ci, cj);
+
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            Application.Exit();
 
         }
 
