@@ -11,17 +11,17 @@ Description =
 
 [Map]
 Line.00 = ***************
-Line.01 = *B B S F S B B*
+Line.01 = *B F S F S F B*
 Line.02 = * *-* * * *-* *
-Line.03 = *B - - - - - B*
+Line.03 = *F - - - - - F*
 Line.04 = * *-*-*-*-*-* *
 Line.05 = *K --1   3 --P*
 Line.06 = * * * *5* * * *
 Line.07 = *P --4   2 --K*
 Line.08 = * *-*-*-*-*-* *
-Line.09 = *B - - - - - B*
+Line.09 = *F - - - - - F*
 Line.10 = * *-* * * *-* *
-Line.11 = *B B S F S B B*
+Line.11 = *B F S F S F B*
 Line.12 = ***************
 
 [Settings]

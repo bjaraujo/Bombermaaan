@@ -90,7 +90,7 @@ SBomberSpriteTable CBomber::m_BomberSpriteTables[MAX_NUMBER_OF_STATES] =
 #define SPEED_SLOW      76                //!< Speed with SLOW sickness
 #define SPEED_FAST      450               //!< Speed with FAST sickness
 #define SPEED_NORMAL    120               //!< Normal speed
-#define SPEED_INC       14                //!< Speed increase each time a roller item is picked up
+#define SPEED_INC       25                //!< Speed increase each time a roller item is picked up
 
 #else
 
