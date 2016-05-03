@@ -415,7 +415,7 @@ void CBomb::ManageMove (float DeltaTime)
         // If the move is no more than one pixel then there is no problem. 
         // Otherwise move pixel by pixel in order not to avoid any collision.
         
-        while (true)
+		while (true)
         {
             // Check if the bomb has to change its direction (initiated by a block) and whether it is centered
             if (m_BombFly == BOMBFLY_NONE)

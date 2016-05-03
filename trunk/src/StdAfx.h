@@ -103,6 +103,8 @@ using namespace std;
 #define VIEW_WIDTH                      (ARENA_WIDTH * BLOCK_SIZE)          // Size of the game view from left to right in pixels (size of client area in windowed mode)
 #define VIEW_HEIGHT                     (26 + ARENA_HEIGHT * BLOCK_SIZE)    // Size of the game view from top to bottom in pixels (size of client area in windowed mode)
 
+#define MAX_ITER       50
+
 #include "CLog.h"
 #include "CConsole.h"
 #include "CDebug.h"

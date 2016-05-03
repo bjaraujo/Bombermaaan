@@ -394,8 +394,6 @@ void CBomberMove::ReadSnapshot (CArenaSnapshot& Snapshot)
 #define TurnLimit           (HalfBlock / 4)
 #define BlockedLimit        (-HalfBlock + (HalfBlock / 4))
 
-#define MaxIterations       50
-
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -426,10 +424,8 @@ bool CBomberMove::TryMove (float fPixels)
 	int iter = 0;
 
     // Try until bomber coordinates are modified or bomber is blocked
-	while (iter < MaxIterations)
+	while (iter++ < MAX_ITER)
     {
-
-		iter++;
 
         // Not turning
         if (m_Turning == TURNING_NOTTURNING)
@@ -1003,10 +999,8 @@ ECanMove CBomberMove::CanMove (EBomberMove TestMove)
 	int iter = 0;
 
     // Try until bomber coordinates are modified or bomber is blocked
-	while (iter < MaxIterations)
+	while (iter++ < MAX_ITER)
     {
-
-		iter++;
 
         // Not turning
         if (Turning == TURNING_NOTTURNING)
@@ -1574,10 +1568,8 @@ ETurning CBomberMove::TurnTest (EBomberMove TestMove)
 	int iter = 0;
 
     // Try until bomber coordinates are modified or bomber is blocked
-	while (iter < MaxIterations)
+	while (iter++ < MAX_ITER)
 	{
-
-		iter++;
 
         // Not turning
         if (Turning == TURNING_NOTTURNING)

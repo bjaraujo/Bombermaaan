@@ -3,6 +3,7 @@ PROJECT(BomberMaaan)
 
 SET(BOMBERMAAAN_HEADERS
 BombermaaanIco.h
+Bombermaaan.h
 CAiArena.h
 CAiBomber.h
 CAiManager.h
