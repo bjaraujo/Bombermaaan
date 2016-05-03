@@ -138,15 +138,7 @@ void CMatch::Create (void)
         
             DWORD TickCount;
 
-			int Received = m_pNetwork->Receive(SOCKET_SERVER, (char*)&TickCount, sizeof(DWORD), 0);
-
-#ifdef WIN32
-                if (Received == SOCKET_ERROR)
-                    theConsole.Write("recv error : %d\n", WSAGetLastError());
-#else
-                if (Received == -1)
-                    theConsole.Write("recv error : %d\n", Received);
-#endif
+			m_pNetwork->Receive(SOCKET_SERVER, (char*)&TickCount, sizeof(DWORD), 0);
 
 		}
     }

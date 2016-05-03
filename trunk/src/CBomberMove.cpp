@@ -394,6 +394,8 @@ void CBomberMove::ReadSnapshot (CArenaSnapshot& Snapshot)
 #define TurnLimit           (HalfBlock / 4)
 #define BlockedLimit        (-HalfBlock + (HalfBlock / 4))
 
+#define MaxIterations       50
+
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -421,9 +423,14 @@ bool CBomberMove::TryMove (float fPixels)
     int X = int(m_X) + HalfBlock;   // Modified integer current coordinates (x+hb and y+hb to point to center)
     int Y = int(m_Y) + HalfBlock;   // Note : we Have to compute int(m_X) and int(m_Y) because they change
     
+	int iter = 0;
+
     // Try until bomber coordinates are modified or bomber is blocked
-    while (true)
+	while (iter < MaxIterations)
     {
+
+		iter++;
+
         // Not turning
         if (m_Turning == TURNING_NOTTURNING)
         {
@@ -993,9 +1000,14 @@ ECanMove CBomberMove::CanMove (EBomberMove TestMove)
     int X = m_iX + HalfBlock;   // Modified integer current coordinates (x+hb and y+hb to point to center)
     int Y = m_iY + HalfBlock;
     
+	int iter = 0;
+
     // Try until bomber coordinates are modified or bomber is blocked
-    while (true)
+	while (iter < MaxIterations)
     {
+
+		iter++;
+
         // Not turning
         if (Turning == TURNING_NOTTURNING)
         {
@@ -1558,10 +1570,15 @@ ETurning CBomberMove::TurnTest (EBomberMove TestMove)
     // Compute coordinates
     int X = m_iX + HalfBlock;       // Modified integer current coordinates (x+hb and y+hb to point to center)
     int Y = m_iY + HalfBlock;
-    
+
+	int iter = 0;
+
     // Try until bomber coordinates are modified or bomber is blocked
-    while (true)
-    {
+	while (iter < MaxIterations)
+	{
+
+		iter++;
+
         // Not turning
         if (Turning == TURNING_NOTTURNING)
         {
