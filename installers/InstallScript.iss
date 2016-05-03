@@ -67,29 +67,3 @@ Filename: {app}\Bombermaaan.exe; Description: {cm:LaunchProgram,Bombermaaan}; Fl
 [Dirs]
 Name: {app}\Levels
 
-[Registry]
-Root: HKLM; Subkey: Software\Bombermaaan\Version {#APP_VERSION_INFO}; ValueType: string; ValueName: InstallDirectory; ValueData: {app}\; Flags: uninsdeletekey; Tasks: ; Languages: 
-Root: HKLM; Subkey: Software\Bombermaaan\Version {#APP_VERSION_INFO}; ValueType: string; ValueName: Version; ValueData: {#APP_VERSION_INFO}; Flags: uninsdeletekey; Tasks: ; Languages: 
-
-[Code]
-function InitializeSetup(): Boolean;
-var
-	InstalledInPath: String;
-begin
-	Result := true;
-	InstalledInPath := '';
-
-	RegQueryStringValue( HKLM,
-	                     'Software\Microsoft\Windows\CurrentVersion\Uninstall\' + ExpandConstant( '{#APPID}' ) + '_is1',
-	                     'Inno Setup: App Path',
-	                     InstalledInPath );
-
-	if InstalledInPath <> '' then begin
-		MsgBox( 'Bombermaaan is already installed in ' + #13 +
-		        InstalledInPath + '.' + #13#13 +
-		        'Please uninstall Bombermaaan first. Sorry for the inconvenience - I hope this is not necessary in the future. Setup aborted.',
-				mbError, MB_OK
-				);
-		Result := false;
-	end
-end;
