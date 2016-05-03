@@ -102,6 +102,8 @@ shutil.copy2(os.environ.get('SDLMIXERDIR') + '/lib/x86/libogg-0.dll', strNewFold
 shutil.copy2(os.environ.get('SystemRoot') + '/System32/msvcr120.dll', strNewFolder + '/msvcr120.dll')
 shutil.copy2(os.environ.get('SystemRoot') + '/System32/msvcp120.dll', strNewFolder + '/msvcp120.dll')
 
+shutil.copy2('COPYING.txt', strNewFolder + '/COPYING.txt')
+
 os.mkdir(strNewFolder + '/Levels')
 
 for file in glob.glob('trunk/levels/*.TXT'):
