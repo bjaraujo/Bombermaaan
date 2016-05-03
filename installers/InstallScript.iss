@@ -56,14 +56,7 @@ Source: ..\releases\Bombermaaan_{#APP_VERSION_INFO}\SDL_mixer.dll; DestDir: {app
 Source: ..\releases\Bombermaaan_{#APP_VERSION_INFO}\smpeg.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\releases\Bombermaaan_{#APP_VERSION_INFO}\msvcp120.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\releases\Bombermaaan_{#APP_VERSION_INFO}\msvcr120.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\releases\Bombermaaan_{#APP_VERSION_INFO}\Levels\L001.TXT; DestDir: {app}\Levels\
-Source: ..\releases\Bombermaaan_{#APP_VERSION_INFO}\Levels\L002.TXT; DestDir: {app}\Levels\
-Source: ..\releases\Bombermaaan_{#APP_VERSION_INFO}\Levels\L003.TXT; DestDir: {app}\Levels\
-Source: ..\releases\Bombermaaan_{#APP_VERSION_INFO}\Levels\L004.TXT; DestDir: {app}\Levels\
-Source: ..\releases\Bombermaaan_{#APP_VERSION_INFO}\Levels\L005.TXT; DestDir: {app}\Levels\
-Source: ..\releases\Bombermaaan_{#APP_VERSION_INFO}\Levels\L006.TXT; DestDir: {app}\Levels\
-Source: ..\releases\Bombermaaan_{#APP_VERSION_INFO}\Levels\L007.TXT; DestDir: {app}\Levels\
-Source: ..\releases\Bombermaaan_{#APP_VERSION_INFO}\Levels\L008.TXT; DestDir: {app}\Levels\
+Source: ..\releases\Bombermaaan_{#APP_VERSION_INFO}\Levels\*.TXT; DestDir: {app}\Levels\
 
 [Icons]
 Name: {commondesktop}\Bombermaaan; Filename: {app}\Bombermaaan.exe; Tasks: desktopicon; Parameters: --use-appdata-dir
