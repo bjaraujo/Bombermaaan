@@ -40,6 +40,8 @@
 #include "CScores.h"
 #include "CControls.h"
 
+#include "Bombermaaan.h"
+
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -76,10 +78,6 @@
 #define NAME_OF_BOMBERMAN_DLL "libBomberMaaan32.so"
 #endif
 
-// Bombermaaan version (build is suffixed with an "e" if the build is an experimental release)
-#define BOMBERMAAAN_VERSION_STRING      "1.5.0"
-#define BOMBERMAAAN_BUILD_STRING        "658e"
-
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -108,9 +106,7 @@ CGame::CGame (HINSTANCE hInstance, char** pCommandLine)
 
     std::string windowTitle = "Bombermaaan ";
 
-    windowTitle.append(BOMBERMAAAN_VERSION_STRING);
-    windowTitle.append(" - Build ");
-    windowTitle.append(BOMBERMAAAN_BUILD_STRING);
+	windowTitle.append(APP_VERSION_INFO);
 
     // The compile date is only added in the 32-pixels-version since the window title bar in the 16-pixels-version is too small
 #ifdef USE_32_PIXELS_PER_BLOCK
@@ -471,7 +467,7 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
 #endif
 
     // Log date and time of compile and the full path to the exe file
-    theLog.WriteLine("Game            => Bombermaaan " BOMBERMAAAN_VERSION_STRING " - Build " BOMBERMAAAN_BUILD_STRING ".");
+    theLog.WriteLine("Game            => Bombermaaan " APP_VERSION_INFO);
     theLog.WriteLine("Game            => Built at " __TIME__ " on " __DATE__ ".");
     theLog.WriteLine("Game            => Program name: '%s'.",
 #ifdef WIN32
