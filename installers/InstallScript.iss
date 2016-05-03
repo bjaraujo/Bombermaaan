@@ -18,7 +18,7 @@
 AppId={#APPID}
 AppName=Bombermaaan
 AppVerName=Bombermaaan {#APP_VERSION_INFO}
-AppPublisher=The Bombermaaan team
+AppPublisher=The Bombermaaan Team
 AppPublisherURL=https://github.com/billyaraujo/bombermaaan
 AppSupportURL=http://bombermaaan.sourceforge.net/
 AppUpdatesURL=http://bombermaaan.sourceforge.net/
