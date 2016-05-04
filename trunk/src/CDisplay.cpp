@@ -293,9 +293,9 @@ bool CDisplay::IsDisplayModeAvailable (EDisplayMode DisplayMode)
         case DISPLAYMODE_FULL2    : return m_DirectDraw.IsModeAvailable (512, 384, 32);
         case DISPLAYMODE_FULL3    : return m_DirectDraw.IsModeAvailable (640, 480, 32);
 #else
-        case DISPLAYMODE_FULL1    : return m_SDLVideo.IsModeAvailable (320, 240, 16);
-        case DISPLAYMODE_FULL2    : return m_SDLVideo.IsModeAvailable (512, 384, 16);
-        case DISPLAYMODE_FULL3    : return m_SDLVideo.IsModeAvailable (640, 480, 16);
+        case DISPLAYMODE_FULL1    : return m_SDLVideo.IsModeAvailable (320, 240, 32);
+        case DISPLAYMODE_FULL2    : return m_SDLVideo.IsModeAvailable (512, 384, 32);
+        case DISPLAYMODE_FULL3    : return m_SDLVideo.IsModeAvailable (640, 480, 32);
 #endif
         case DISPLAYMODE_WINDOWED : return true;
         default                   : return false; // Should never happen

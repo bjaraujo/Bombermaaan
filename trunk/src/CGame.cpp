@@ -914,7 +914,7 @@ void CGame::StartGameMode(EGameMode GameMode)
         m_Display.Create(DISPLAYMODE_WINDOWED);
 
         // Close the window
-#ifdef WIN32
+#ifdef DIRECTX
         PostMessage(m_hWnd, WM_CLOSE, 0, 0);
 #else
         SDL_Event quitevent;
@@ -1116,6 +1116,7 @@ void CGame::OnKeyUp(WPARAM wParam, LPARAM lParam)
         // Assume we have to change the display mode
         bool SetDisplayMode = true;
 
+#ifdef DIRECTX 
         //! Change display mode if this is a F1-F4 key
         switch (wParam)
         {
@@ -1129,7 +1130,22 @@ void CGame::OnKeyUp(WPARAM wParam, LPARAM lParam)
         case VK_F4: DisplayMode = DISPLAYMODE_WINDOWED; break;
         default: SetDisplayMode = false; break;
         }
-
+#else
+		//! Change display mode if this is a F1-F4 key
+		switch (wParam)
+		{
+			//! Display modes #1 and #2 are not available in the 32-pixels version
+			//! since the screen isn't large enough (so disable F1 and F2 keys)
+#ifndef USE_32_PIXELS_PER_BLOCK
+		case SDLK_F1: DisplayMode = DISPLAYMODE_FULL1; break;
+		case SDLK_F2: DisplayMode = DISPLAYMODE_FULL2; break;
+#endif
+		case SDLK_F3: DisplayMode = DISPLAYMODE_FULL3; break;
+		case SDLK_F4: DisplayMode = DISPLAYMODE_WINDOWED; break;
+		default: SetDisplayMode = false; break;
+		}
+#endif
+		
         // If we have to change the display mode 
         // and the new display mode to set is available on the graphic card
         if (SetDisplayMode && m_Display.IsDisplayModeAvailable(DisplayMode))
