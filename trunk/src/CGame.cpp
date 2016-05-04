@@ -1038,7 +1038,7 @@ void CGame::OnMove(WPARAM wParam, LPARAM lParam)
 
 void CGame::OnKeyDown(WPARAM wParam, LPARAM lParam)
 {
-#ifndef WIN32
+#ifndef DIRECTX
     if (wParam >= 0 && wParam < MAX_KEYS) {
         CMainInput m_pMainInput = m_Input.GetMainInput();
 
@@ -1081,7 +1081,7 @@ void CGame::OnKeyUp(WPARAM wParam, LPARAM lParam)
 
 #endif // ENABLE_DEBUG_KEYS
 
-#ifndef WIN32
+#ifndef DIRECTX
     if (wParam >= 0 && wParam < MAX_KEYS) {
         CMainInput m_pMainInput = m_Input.GetMainInput();
         CSDLInput *m_pDirectInput = m_pMainInput.GetDirectInput();
