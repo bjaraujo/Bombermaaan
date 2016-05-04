@@ -29,7 +29,7 @@
 #include "CSDLVideo.h"
 #include "BombermaaanIco.h"
 
-static const char* GetSDLVideoError (HRESULT hRet);
+static const char* GetSDLVideoError ();
 static void AddDisplayMode (int width, int height, int depth, LPVOID lpContext);
 
 //******************************************************************************************************************************
@@ -304,7 +304,7 @@ void CSDLVideo::UpdateScreen (void)
         // Log failure
         if (hRet != 0) {
 	        theLog.WriteLine ("SDLVideo        => !!! Updating failed (switching primary/backbuffer).");
-	        theLog.WriteLine ("SDLVideo        => !!! SDLVideo error is : %s.", GetSDLVideoError(hRet));
+	        theLog.WriteLine ("SDLVideo        => !!! SDLVideo error is : %s.", GetSDLVideoError());
         }
     }
 }
@@ -537,24 +537,24 @@ bool CSDLVideo::SetTransparentColor (int Red, int Green, int Blue)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CSDLVideo::LoadSprites (int SpriteTableWidth, 
-                             int SpriteTableHeight, 
-                             int SpriteWidth, 
-                             int SpriteHeight, 
-                             bool Transparent, 
-                             HBITMAP hBitmap)
+bool CSDLVideo::LoadSprites(int SpriteTableWidth,
+	int SpriteTableHeight,
+	int SpriteWidth,
+	int SpriteHeight,
+	bool Transparent,
+	HBITMAP hBitmap)
 {
-    HRESULT hRet = 0;
+	HRESULT hRet = 0;
 
 	SSurface Surface;
 
 	// Create a SDLVideo surface for this bitmap
-	SDL_Surface *ddsd;
+	SDL_Surface *ddsd = NULL;
 
 #ifdef WIN32
+
 	// Info structure on the bitmap, contains the size info
 	BITMAP Bitmap;
-	LONG size;
 
 	// Get the bitmap's attributes
 	// If it fails
@@ -568,16 +568,57 @@ bool CSDLVideo::LoadSprites (int SpriteTableWidth,
 		return false;
 	}
 
-	if ((size = GetBitmapBits(hBitmap, 0, 0)))
-	{
-		if ((Bitmap.bmBits = malloc(size)))
-		{
-			if (GetBitmapBits(hBitmap, size, Bitmap.bmBits))
-				ddsd = SDL_CreateRGBSurfaceFrom(Bitmap.bmBits, Bitmap.bmWidth, Bitmap.bmHeight, Bitmap.bmBitsPixel, Bitmap.bmWidthBytes, 0, 0, 0, 0);
+	GetObject(hBitmap, sizeof(Bitmap), &Bitmap);
 
-			free(Bitmap.bmBits);
+	SDL_Surface *surf = SDL_CreateRGBSurface(SDL_SWSURFACE, Bitmap.bmWidth, Bitmap.bmHeight, Bitmap.bmBitsPixel, 0x000000ff, 0x0000ff00, 0x00ff0000, 0xff000000);
+
+	Uint8* bits = new Uint8[Bitmap.bmWidthBytes * Bitmap.bmHeight];
+	Uint8* temp = new Uint8[Bitmap.bmWidthBytes * Bitmap.bmHeight];
+
+	memcpy(temp, Bitmap.bmBits, Bitmap.bmWidthBytes * Bitmap.bmHeight);
+
+	Uint8 *ptemp;
+	Uint8 *pbits = bits;
+
+	for (int y = Bitmap.bmHeight - 1; y >= 0; y--)
+	{
+
+		ptemp = temp + y * Bitmap.bmWidthBytes;
+
+		for (int x = 0; x < Bitmap.bmWidthBytes; x++)
+		{
+			*pbits = *ptemp;
+			pbits++;
+			ptemp++;
 		}
+
 	}
+
+	delete[] temp;
+
+	/*
+	//Now reverse BGR data to be RGB
+	for (int i = 0; i < Bitmap.bmWidthBytes * Bitmap.bmHeight - 4; i += 4)
+	{
+
+		Uint8 aux = bits[i];
+		bits[i] = bits[i + 2];
+		bits[i + 2] = aux;
+
+	}
+	*/
+
+	//Now just copy bits onto surface
+	memcpy(surf->pixels, bits, Bitmap.bmWidthBytes * Bitmap.bmHeight);
+
+	delete[] bits;
+
+	//Finally, convert surface to display format so it displays correctly
+
+	ddsd = SDL_DisplayFormat(surf);
+
+	SDL_FreeSurface(surf);
+
 
 #else
 	SDL_RWops *rwBitmap;
@@ -604,72 +645,47 @@ bool CSDLVideo::LoadSprites (int SpriteTableWidth,
 	SDL_FreeRW(rwBitmap);
 
 #endif
-		
-    // If it failed
-    if (ddsd == NULL)
-    {
-        // Log failure
-        theLog.WriteLine ("SDLVideo        => !!! Could not create surface.");
-        theLog.WriteLine ("SDLVideo        => !!! SDLVideo error is : %s.", GetSDLVideoError(hRet));
 
-        // Get out
-        return false;
-    }
-    
-    // check pixel format. If BitsPerPixel > 24 convert to 24 bit
-    if (ddsd->format->BitsPerPixel > 24)
-    {
-        SDL_PixelFormat newPixelFormat;
-        memcpy(&newPixelFormat, ddsd->format, sizeof(SDL_PixelFormat));
-        
-        newPixelFormat.BitsPerPixel = 24;
-        newPixelFormat.BytesPerPixel = 3;
-        
-        SDL_Surface *newDdsd = SDL_ConvertSurface(ddsd, &newPixelFormat, SDL_HWSURFACE|SDL_SRCCOLORKEY);
-        if (newDdsd == NULL)
-        {
-            // Log failure
-            theLog.WriteLine ("SDLVideo        => !!! Could not convert surface to 24 BitPerPixel format.");
-            theLog.WriteLine ("SDLVideo        => !!! SDLVideo error is : %s.", GetSDLVideoError(hRet));
+	// If it failed
+	if (ddsd == NULL)
+	{
+		// Log failure
+		theLog.WriteLine("SDLVideo        => !!! Could not create surface.");
+		theLog.WriteLine("SDLVideo        => !!! SDLVideo error is : %s.", GetSDLVideoError());
 
-            // Get out
-            return false;
-        }
-        
-        // delete old surface
-        SDL_FreeSurface(ddsd);
-        ddsd = newDdsd;
-    }
+		// Get out
+		return false;
+	}
 
-    // Blit the bitmap onto the SDLVideo surface
+	// Blit the bitmap onto the SDLVideo surface
 	Surface.pSurface = ddsd;
 
-    //----------------------------------------------
-    // Set the surface transparency color if needed
-    //----------------------------------------------
+	//----------------------------------------------
+	// Set the surface transparency color if needed
+	//----------------------------------------------
 
-    // If the sprite table uses transparency
-    if (Transparent)
-    {
-        // Apply the color key to the surface
-		hRet = SDL_SetColorKey(ddsd, SDL_SRCCOLORKEY|SDL_RLEACCEL,
+	// If the sprite table uses transparency
+	if (Transparent)
+	{
+		// Apply the color key to the surface
+		hRet = SDL_SetColorKey(ddsd, SDL_SRCCOLORKEY | SDL_RLEACCEL,
 			SDL_MapRGBA(ddsd->format, 0x00, 0xff, 0x00, 0xff));
-		
-        // If it failed
-        if (hRet != 0)
-        {
-            // Log failure
-            theLog.WriteLine ("SDLVideo        => !!! Could not set colorkey.");
-            theLog.WriteLine ("SDLVideo        => !!! SDLVideo error is : %s.", GetSDLVideoError(hRet));
 
-            // Get out
-            return false;
-        }
-    }
+		// If it failed
+		if (hRet != 0)
+		{
+			// Log failure
+			theLog.WriteLine("SDLVideo        => !!! Could not set colorkey.");
+			theLog.WriteLine("SDLVideo        => !!! SDLVideo error is : %s.", GetSDLVideoError());
 
-    //-----------------------
-    // Store the new surface
-    //-----------------------
+			// Get out
+			return false;
+		}
+	}
+
+	//-----------------------
+	// Store the new surface
+	//-----------------------
 
     // Add the surface to the surface container
     m_Surfaces.push_back(Surface);
@@ -783,9 +799,9 @@ void CSDLVideo::UpdateAll (void)
 		DestRect.h = 0;
 
 		// Blit the surface zone on the back buffer
-		if (SDL_BlitSurface(m_Surfaces[pSprite->SurfaceNumber].pSurface,
-			&SourceRect, m_pPrimary, &DestRect) < 0) {
+		if (SDL_BlitSurface(m_Surfaces[pSprite->SurfaceNumber].pSurface, &SourceRect, m_pPrimary, &DestRect) < 0) {
 			// blitting failed
+			theLog.WriteLine("SDLVideo        => !!! SDLVideo error is : %s.", GetSDLVideoError());
 		}
 
         // Pop the drawing request to go to the next
@@ -847,10 +863,10 @@ void CSDLVideo::UpdateAll (void)
             reals = SDL_DisplayFormatAlpha(rectangle);
             
             // Blit the surface zone on the back buffer
-		    if (reals != NULL && SDL_BlitSurface(reals,
-			    &SourceRect, m_pPrimary, &DestRect) < 0) {
-			    // blitting failed
-		    }
+		    if (reals != NULL && SDL_BlitSurface(reals, &SourceRect, m_pPrimary, &DestRect) < 0) {
+				// blitting failed
+				theLog.WriteLine("SDLVideo        => !!! SDLVideo error is : %s.", GetSDLVideoError());
+			}
         }
         
         SDL_FreeSurface(rectangle);
@@ -890,7 +906,7 @@ bool CSDLVideo::IsModeAvailable (int Width, int Height, int Depth)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-static const char* GetSDLVideoError (HRESULT hRet)
+static const char* GetSDLVideoError ()
 {
     return SDL_GetError();
 }
