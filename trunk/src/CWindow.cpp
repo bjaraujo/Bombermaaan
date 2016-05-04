@@ -28,7 +28,7 @@
 #include "StdAfx.h"
 #include "CWindow.h"
 
-#ifndef DIRECTX
+#ifndef DIRECTX_VIDEO
 #include "SDL.h"
 #endif
 
@@ -87,7 +87,7 @@ CWindow::CWindow (HINSTANCE hInstance, const char *pWindowTitle, int IconResourc
     m_Active = false;
 
     // Init the window class
-#ifdef DIRECTX
+#ifdef DIRECTX_VIDEO
     WNDCLASSEX WndClassEx;
     WndClassEx.cbSize = sizeof(WNDCLASSEX);
     WndClassEx.lpszClassName = "Class name";
@@ -163,7 +163,7 @@ CWindow::CWindow (HINSTANCE hInstance, const char *pWindowTitle, int IconResourc
 CWindow::~CWindow ()
 {
     // If the window exists
-#ifdef DIRECTX
+#ifdef DIRECTX_VIDEO
     if (m_hWnd != NULL)
     {
         // Destroy the window
@@ -183,7 +183,7 @@ CWindow::~CWindow ()
 
 void CWindow::SetClientSize (int ClientWidth, int ClientHeight)
 {
-#ifdef DIRECTX
+#ifdef DIRECTX_VIDEO
     RECT rc;
     SetRect (&rc, 0, 0, ClientWidth, ClientHeight);
     AdjustWindowRectEx (&rc, GetWindowStyle(m_hWnd), (int)GetMenu (m_hWnd), GetWindowExStyle (m_hWnd));
@@ -240,7 +240,7 @@ void CWindow::WinProc (unsigned int msg, WPARAM wParam, LPARAM lParam)
 
 void CWindow::ShowWindow () 
 { 
-#ifdef DIRECTX
+#ifdef DIRECTX_VIDEO
     ::ShowWindow (m_hWnd, SW_SHOW); 
     UpdateWindow (m_hWnd);
 #endif
@@ -259,7 +259,7 @@ void CWindow::ShowWindow ()
 
 void CWindow::MessagePump ()
 {
-#ifdef DIRECTX
+#ifdef DIRECTX_INPUT
     MSG msg;
 
     while (true)
@@ -303,6 +303,14 @@ void CWindow::MessagePump ()
         {  
             switch(event.type)
             {  
+                case SDL_KEYDOWN:
+                    WinProc(WM_KEYDOWN, event.key.keysym.sym, event.key.keysym.mod);
+                    break;
+
+                case SDL_KEYUP:
+                    WinProc(WM_KEYUP, event.key.keysym.sym, event.key.keysym.mod);
+                    break;
+
                 case SDL_JOYAXISMOTION:  // Handle Joystick Motion
                     WinProc(SDL_JOYAXISMOTION, (WPARAM)&event.jaxis, (LPARAM)&event);
                     break;
@@ -417,7 +425,7 @@ void CWindow::OnActivateApp (WPARAM wParam, LPARAM lParam)
 void CWindow::OnSize (WPARAM wParam, LPARAM lParam) 
 { 
     // Check to see if we are losing our window...
-#ifdef DIRECTX
+#ifdef DIRECTX_VIDEO
     m_Active = (wParam != SIZE_MAXHIDE && wParam != SIZE_MINIMIZED);
 #endif
 }
@@ -547,7 +555,7 @@ bool CWindow::OnSysCommand (WPARAM wParam, LPARAM lParam)
 
 void CWindow::OnClose (WPARAM wParam, LPARAM lParam) 
 { 
-#ifdef DIRECTX
+#ifdef DIRECTX_VIDEO
 	DestroyWindow (m_hWnd); // Posts WM_DESTROY
 #endif
 }
@@ -566,7 +574,7 @@ void CWindow::OnClose (WPARAM wParam, LPARAM lParam)
 
 void CWindow::OnDestroy (WPARAM wParam, LPARAM lParam) 
 { 
-#ifdef DIRECTX
+#ifdef DIRECTX_VIDEO
 	PostQuitMessage (0); // Posts WM_QUIT
 #endif
 }

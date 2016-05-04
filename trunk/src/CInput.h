@@ -30,7 +30,7 @@
 
 class CTimer;
 
-#ifdef DIRECTX
+#ifdef DIRECTX_INPUT
 #include "CDirectInput.h"
 #else
 #include "CSDLInput.h"
@@ -56,7 +56,7 @@ private:
 
     COptions*               m_pOptions;         //!< Link to options object to use
     CTimer*                 m_pTimer;           //!< Link to timer object to use
-#ifdef DIRECTX
+#ifdef DIRECTX_INPUT
     CDirectInput            m_DirectInput;      //!< DirectInput object managing the DirectInput interface
 #else
     CSDLInput               m_DirectInput;      //!< SDLInput object managing the DirectInput interface
@@ -75,7 +75,7 @@ public:
     bool                    Create (void);                              //!< Initialize the object
     void                    Destroy (void);                             //!< Uninitialize the object
     inline CMainInput&      GetMainInput (void);
-#ifdef DIRECTX
+#ifdef DIRECTX_INPUT
     inline CDirectInput&    GetDirectInput (void);
 #else
     inline CSDLInput&       GetDirectInput (void);
@@ -117,7 +117,7 @@ inline CMainInput& CInput::GetMainInput (void)
     return m_MainInput;
 }
 
-#ifdef DIRECTX
+#ifdef DIRECTX_INPUT
 inline CDirectInput& CInput::GetDirectInput (void)
 #else
 inline CSDLInput& CInput::GetDirectInput (void)

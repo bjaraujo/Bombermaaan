@@ -31,7 +31,7 @@
 
 #include "COptions.h"
 
-#ifdef DIRECTX
+#ifdef DIRECTX_INPUT
 #include "CDirectInput.h"
 #else
 #include "CSDLInput.h"
