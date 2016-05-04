@@ -303,14 +303,6 @@ void CWindow::MessagePump ()
         {  
             switch(event.type)
             {  
-                case SDL_KEYDOWN:
-                    WinProc(WM_KEYDOWN, event.key.keysym.sym, event.key.keysym.mod);
-                    break;
-
-                case SDL_KEYUP:
-                    WinProc(WM_KEYUP, event.key.keysym.sym, event.key.keysym.mod);
-                    break;
-
                 case SDL_JOYAXISMOTION:  // Handle Joystick Motion
                     WinProc(SDL_JOYAXISMOTION, (WPARAM)&event.jaxis, (LPARAM)&event);
                     break;
@@ -333,6 +325,7 @@ void CWindow::MessagePump ()
                             WinProc(WM_ACTIVATEAPP, 0, 0);
                     }
                     break;
+
                 case SDL_QUIT:
                     WinProc(WM_CLOSE, (WPARAM)&event, 0);
                     quit = true;

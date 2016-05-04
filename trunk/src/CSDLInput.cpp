@@ -83,6 +83,8 @@ bool CSDLInput::Create (void)
         // Reset the keyboard state
         memset (m_KeyState, 0, MAX_KEYS);
         
+        //SDL_EnableKeyRepeat(100, SDL_DEFAULT_REPEAT_INTERVAL);
+
         // Prepare the friendly name for each key
         MakeKeyFriendlyNames ();
 
@@ -167,9 +169,27 @@ bool CSDLInput::UpdateDevice (SDL_Joystick *pDevice, void *pState, int StateSize
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
+bool CSDLInput::UpdateDevice(void *pState, int StateSize)
+{
+
+    Uint8* keyState = SDL_GetKeyState(NULL);
+
+    for (int i = 0; i < StateSize; i++)
+        SetKey(i, keyState[i] == 1);
+
+    return true;
+}
+
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+
 
 void CSDLInput::UpdateKeyboard (void)
 {
+
+    UpdateDevice(m_KeyState, MAX_KEYS);
+
 }
 
 //******************************************************************************************************************************

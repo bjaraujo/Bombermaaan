@@ -185,6 +185,7 @@ private:
 
     vector<SJoystick*>      m_pJoysticks;   //!< All joystick SDLInput devices installed in the system
 
+    bool                    UpdateDevice(void *pState, int StateSize);
     bool                    UpdateDevice (SDL_Joystick *pDevice, void *pState, int StateSize);
     void                    MakeKeyFriendlyNames (void);
     
@@ -253,7 +254,7 @@ inline bool CSDLInput::GetKey (int Key)
     // Assert the key number is correct
     ASSERT (Key >= 0 && Key < MAX_KEYS);
 
-	// Return the state of the key
+    // Return the state of the key
     return (m_KeyState[Key] & 0x80) != 0;
 }
 

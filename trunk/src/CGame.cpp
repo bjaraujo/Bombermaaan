@@ -1038,30 +1038,8 @@ void CGame::OnMove(WPARAM wParam, LPARAM lParam)
 
 void CGame::OnKeyDown(WPARAM wParam, LPARAM lParam)
 {
-#ifndef DIRECTX
-    if (wParam >= 0 && wParam < MAX_KEYS) {
-        CMainInput m_pMainInput = m_Input.GetMainInput();
 
-        CSDLInput *m_pDirectInput = m_pMainInput.GetDirectInput();
 
-        // update main menu input
-        m_pDirectInput->SetKey(wParam, true);
-        m_pMainInput.Update();
-
-        // update player input (for each player with keyboard)
-        CPlayerInput m_pPlayerInput;
-        int i;
-
-        for (i = 0; i < NUMBER_OF_KEYBOARD_CONFIGURATIONS; i++) {
-            m_pPlayerInput = m_Input.GetPlayerInput(i);
-            m_pDirectInput = m_pPlayerInput.GetDirectInput();
-
-            m_pDirectInput->SetKey(wParam, true);
-            m_pPlayerInput.Update();
-        }
-
-    }
-#endif
 }
 
 
@@ -1080,29 +1058,6 @@ void CGame::OnKeyUp(WPARAM wParam, LPARAM lParam)
     theDebug.HandleKey(wParam, lParam);
 
 #endif // ENABLE_DEBUG_KEYS
-
-#ifndef DIRECTX
-    if (wParam >= 0 && wParam < MAX_KEYS) {
-        CMainInput m_pMainInput = m_Input.GetMainInput();
-        CSDLInput *m_pDirectInput = m_pMainInput.GetDirectInput();
-
-        // update main menu input
-        m_pDirectInput->SetKey(wParam, false);
-        m_pMainInput.Update();
-
-        // update player input (for each player with keyboard)
-        CPlayerInput m_pPlayerInput;
-        int i;
-
-        for (i = 0; i < NUMBER_OF_KEYBOARD_CONFIGURATIONS; i++) {
-            m_pPlayerInput = m_Input.GetPlayerInput(i);
-            m_pDirectInput = m_pPlayerInput.GetDirectInput();
-
-            m_pDirectInput->SetKey(wParam, false);
-            m_pPlayerInput.Update();
-        }
-    }
-#endif
 
     // If the CTRL key is not pressed while the key specified by wParam is released
 #ifdef WIN32
