@@ -570,15 +570,29 @@ bool CSDLVideo::LoadSprites(int SpriteTableWidth,
 
 	GetObject(hBitmap, sizeof(Bitmap), &Bitmap);
 
-	SDL_Surface *surf = SDL_CreateRGBSurface(SDL_SWSURFACE, Bitmap.bmWidth, Bitmap.bmHeight, Bitmap.bmBitsPixel, 0x000000ff, 0x0000ff00, 0x00ff0000, 0xff000000);
+	Uint32 rmask, gmask, bmask, amask;
 
-	Uint8* bits = new Uint8[Bitmap.bmWidthBytes * Bitmap.bmHeight];
-	Uint8* temp = new Uint8[Bitmap.bmWidthBytes * Bitmap.bmHeight];
+#if SDL_BYTEORDER == SDL_BIG_ENDIAN
+	rmask = 0xff000000;
+	gmask = 0x00ff0000;
+	bmask = 0x0000ff00;
+	amask = 0x000000ff;
+#else
+	rmask = 0x000000ff;
+	gmask = 0x0000ff00;
+	bmask = 0x00ff0000;
+	amask = 0xff000000;
+#endif
+
+	SDL_Surface *surf = SDL_CreateRGBSurface(SDL_SWSURFACE, Bitmap.bmWidth, Bitmap.bmHeight, Bitmap.bmBitsPixel, rmask, gmask, bmask, amask);
+
+	BYTE* bits = new BYTE[Bitmap.bmWidthBytes * Bitmap.bmHeight];
+	BYTE* temp = new BYTE[Bitmap.bmWidthBytes * Bitmap.bmHeight];
 
 	memcpy(temp, Bitmap.bmBits, Bitmap.bmWidthBytes * Bitmap.bmHeight);
 
-	Uint8 *ptemp;
-	Uint8 *pbits = bits;
+	BYTE *ptemp;
+	BYTE *pbits = bits;
 
 	for (int y = Bitmap.bmHeight - 1; y >= 0; y--)
 	{
@@ -596,17 +610,24 @@ bool CSDLVideo::LoadSprites(int SpriteTableWidth,
 
 	delete[] temp;
 
-	/*
+	LONG a = Bitmap.bmWidthBytes;
+
+	int p = 0;
+
 	//Now reverse BGR data to be RGB
-	for (int i = 0; i < Bitmap.bmWidthBytes * Bitmap.bmHeight - 4; i += 4)
+	for (int j = 0; j < Bitmap.bmHeight; j++)
 	{
+		for (int i = 0; i < Bitmap.bmWidthBytes - 3; i += 3)
+		{
 
-		Uint8 aux = bits[i];
-		bits[i] = bits[i + 2];
-		bits[i + 2] = aux;
+			p = Bitmap.bmWidthBytes * j + i;
 
+			BYTE aux = bits[p];
+			bits[p] = bits[p + 2];
+			bits[p + 2] = aux;
+
+		}
 	}
-	*/
 
 	//Now just copy bits onto surface
 	memcpy(surf->pixels, bits, Bitmap.bmWidthBytes * Bitmap.bmHeight);
@@ -848,17 +869,14 @@ void CSDLVideo::UpdateAll (void)
 #endif
 
         // create surface
-        SDL_Surface *rectangle = SDL_CreateRGBSurface(SDL_HWSURFACE|SDL_SRCALPHA,
-            SourceRect.w, SourceRect.h, 32, rmask, gmask, bmask, amask);
+        SDL_Surface *rectangle = SDL_CreateRGBSurface(SDL_HWSURFACE|SDL_SRCALPHA, SourceRect.w, SourceRect.h, 32, rmask, gmask, bmask, amask);
         
         SDL_Surface *reals = NULL;
         
         SDL_SetAlpha(rectangle, SDL_SRCALPHA|SDL_RLEACCEL, 128);
         
         // fill with rectangle
-        if (rectangle != NULL &&
-            SDL_FillRect(rectangle, NULL,
-                         SDL_MapRGBA(rectangle->format, r, g, b, 128)) == 0)
+        if (rectangle != NULL && SDL_FillRect(rectangle, NULL, SDL_MapRGBA(rectangle->format, r, g, b, 128)) == 0)
         {
             reals = SDL_DisplayFormatAlpha(rectangle);
             

@@ -67,12 +67,12 @@ bool CDisplay::Create (int Width, int Height, bool FullScreen)
     ASSERT (m_hModule != NULL);
 #endif
 
+	int Depth = 32;
+
     // If no display mode has been set yet or the current display mode is not the right one
 #ifdef DIRECTX
-	int Depth = 32;
 	if (!m_DirectDraw.IsModeSet (Width, Height, Depth, FullScreen))
 #else
-	int Depth = 24;
 	if (!m_SDLVideo.IsModeSet(Width, Height, Depth, FullScreen))
 #endif
     {

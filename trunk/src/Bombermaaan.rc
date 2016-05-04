@@ -63,8 +63,8 @@ END
 // http://msdn.microsoft.com/en-us/library/aa381058%28VS.85%29.aspx
 // http://msdn.microsoft.com/en-us/library/aa381049(VS.85).aspx
 1 VERSIONINFO
-  FILEVERSION 1,5,7,880
-  PRODUCTVERSION 1,5,7,880
+  FILEVERSION 1,5,7,920
+  PRODUCTVERSION 1,5,7,920
   FILEOS VOS_NT_WINDOWS32
   FILETYPE VFT_APP
   FILESUBTYPE VFT2_UNKNOWN
@@ -74,13 +74,13 @@ BEGIN
     BLOCK "040904E4"
     BEGIN
       VALUE "CompanyName", "http://bombermaaan.sourceforge.net/\0"
-      VALUE "FileVersion", "1.5.7.880"
+      VALUE "FileVersion", "1.5.7.920"
       VALUE "FileDescription", "Bombermaaan executable file"
       VALUE "InternalName", "Bombermaaan.exe"
       VALUE "LegalCopyright", "Copyright (C) 2000-2002, 2007, 2008 Thibaut Tollemer, Bernd Arnold, Jerome Bigot, Markus Drescher"
       VALUE "OriginalFilename", "Bombermaaan.exe\0"
       VALUE "ProductName", "Bombermaaan\0"
-      VALUE "ProductVersion", "1.5.7.880"
+      VALUE "ProductVersion", "1.5.7.920"
       VALUE "Comments", "Bombermaaan is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>."
     END
     BLOCK "VarFileInfo"
