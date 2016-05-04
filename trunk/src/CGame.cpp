@@ -50,7 +50,7 @@
 #define ENABLE_LOG
 
 // Define this if the debug log file should be enabled
-//#define ENABLE_DEBUG_LOG
+// #define ENABLE_DEBUG_LOG
 
 // Define this if the console window should be enabled
 // #define ENABLE_CONSOLE
@@ -164,7 +164,7 @@ CGame::CGame (HINSTANCE hInstance, char** pCommandLine)
     }
 #endif
 
-#ifdef WIN32
+#ifdef DIRECTX
     SetWindowText(m_hWnd, windowTitle.c_str());
 #else
     // keep the window text in mind
@@ -541,7 +541,10 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
     m_Display.SetModuleHandle(m_hModule);
 #else
     m_Display.SetModuleHandle (NULL);
-    SDL_WM_SetCaption(m_WindowTitle.c_str(), NULL);
+#endif
+
+#ifndef DIRECTX
+	SDL_WM_SetCaption(m_WindowTitle.c_str(), NULL);
 #endif
 
     // Set the objects the match object has to communicate with

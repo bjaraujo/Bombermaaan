@@ -85,7 +85,7 @@ private:
 	
 	CNetwork		m_Network;				//!< Network object
 
-#ifndef WIN32
+#ifndef DIRECTX
     string          m_WindowTitle;
 #endif
 

@@ -119,11 +119,11 @@ bool CSDLVideo::Create (int Width, int Height, int Depth, bool FullScreen)
 		// Log success
         theLog.WriteLine ("SDLVideo        => All modes available");
         
-        // so, add 240x234 (window), 320 x 240, 512 x 384, 640 x 480 in 16 bits
-        AddDisplayMode(240, 234, 16, (LPVOID *)&m_AvailableDisplayModes);
-        AddDisplayMode(320, 240, 16, (LPVOID *)&m_AvailableDisplayModes);
-        AddDisplayMode(512, 384, 16, (LPVOID *)&m_AvailableDisplayModes);
-        AddDisplayMode(640, 480, 16, (LPVOID *)&m_AvailableDisplayModes);
+        // so, add 240x234 (window), 320 x 240, 512 x 384, 640 x 480 in 32 bits
+        AddDisplayMode(240, 234, 32, (LPVOID *)&m_AvailableDisplayModes);
+        AddDisplayMode(320, 240, 32, (LPVOID *)&m_AvailableDisplayModes);
+        AddDisplayMode(512, 384, 32, (LPVOID *)&m_AvailableDisplayModes);
+        AddDisplayMode(640, 480, 32, (LPVOID *)&m_AvailableDisplayModes);
         
 		// so this mode is possible
 		validMode = true;
@@ -135,7 +135,7 @@ bool CSDLVideo::Create (int Width, int Height, int Depth, bool FullScreen)
 				(modes[i]->w == 320 && modes[i]->h == 240) ||
 				(modes[i]->w == 512 && modes[i]->h == 384) ||
 				(modes[i]->w == 640 && modes[i]->h == 480)) {
-				AddDisplayMode(modes[i]->w, modes[i]->h, 16,
+				AddDisplayMode(modes[i]->w, modes[i]->h, 32,
 					(LPVOID *)&m_AvailableDisplayModes);
 				
 				// is our requested mode possbile?
@@ -782,12 +782,12 @@ void CSDLVideo::UpdateAll (void)
 		DestRect.w = 0;
 		DestRect.h = 0;
 
-        // Blit the surface zone on the back buffer
+		// Blit the surface zone on the back buffer
 		if (SDL_BlitSurface(m_Surfaces[pSprite->SurfaceNumber].pSurface,
 			&SourceRect, m_pPrimary, &DestRect) < 0) {
 			// blitting failed
 		}
-			
+
         // Pop the drawing request to go to the next
         m_DrawingRequests.pop();
     }
