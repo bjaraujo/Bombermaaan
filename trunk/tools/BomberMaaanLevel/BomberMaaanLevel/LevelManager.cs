@@ -48,6 +48,55 @@ namespace BomberMaaanLevel
 
         }
 
+        public bool NewFile(string aFileName)
+        {
+
+            anIniFile = new IniFile(aFileName);
+
+            anIniFile.IniWriteValue("General", "Width", "15");
+            anIniFile.IniWriteValue("General", "Height", "13");
+            anIniFile.IniWriteValue("General", "MaxPlayers", "5");
+            anIniFile.IniWriteValue("General", "MinPlayers", "1");
+            anIniFile.IniWriteValue("General", "Creator", "");
+            anIniFile.IniWriteValue("General", "Priority", "0");
+            anIniFile.IniWriteValue("General", "Comment", "");
+            anIniFile.IniWriteValue("General", "Description", "");
+
+            anIniFile.IniWriteValue("Map", "Line.00", "***************");
+            anIniFile.IniWriteValue("Map", "Line.01", "*             *");
+            anIniFile.IniWriteValue("Map", "Line.02", "*             *");
+            anIniFile.IniWriteValue("Map", "Line.03", "*             *");
+            anIniFile.IniWriteValue("Map", "Line.04", "*             *");
+            anIniFile.IniWriteValue("Map", "Line.05", "*             *");
+            anIniFile.IniWriteValue("Map", "Line.06", "*             *");
+            anIniFile.IniWriteValue("Map", "Line.07", "*             *");
+            anIniFile.IniWriteValue("Map", "Line.08", "*             *");
+            anIniFile.IniWriteValue("Map", "Line.09", "*             *");
+            anIniFile.IniWriteValue("Map", "Line.10", "*             *");
+            anIniFile.IniWriteValue("Map", "Line.11", "*             *");
+            anIniFile.IniWriteValue("Map", "Line.12", "***************");
+
+            anIniFile.IniWriteValue("Settings", "ItemsInWalls.Bombs", "5");
+            anIniFile.IniWriteValue("Settings", "ItemsInWalls.Flames", "3");
+            anIniFile.IniWriteValue("Settings", "ItemsInWalls.Kicks", "3");
+            anIniFile.IniWriteValue("Settings", "ItemsInWalls.Rollers", "5");
+            anIniFile.IniWriteValue("Settings", "ItemsInWalls.Skulls", "1");
+            anIniFile.IniWriteValue("Settings", "ItemsInWalls.Throws", "2");
+            anIniFile.IniWriteValue("Settings", "ItemsInWalls.Punches", "2");
+            anIniFile.IniWriteValue("Settings", "BomberSkillsAtStart.FlameSize", "2");
+            anIniFile.IniWriteValue("Settings", "BomberSkillsAtStart.MaxBombs", "1");
+            anIniFile.IniWriteValue("Settings", "BomberSkillsAtStart.BombItems", "0");
+            anIniFile.IniWriteValue("Settings", "BomberSkillsAtStart.FlameItems", "0");
+            anIniFile.IniWriteValue("Settings", "BomberSkillsAtStart.RollerItems", "0");
+            anIniFile.IniWriteValue("Settings", "BomberSkillsAtStart.KickItems", "0");
+            anIniFile.IniWriteValue("Settings", "BomberSkillsAtStart.ThrowItems", "0");
+            anIniFile.IniWriteValue("Settings", "BomberSkillsAtStart.PunchItems", "0");
+            anIniFile.IniWriteValue("Settings", "ContaminationsNotUsed", "None");
+
+            return true;
+
+        }
+
         public int MaxPlayers()
         {
             if (anIniFile == null)

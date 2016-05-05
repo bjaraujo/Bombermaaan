@@ -296,5 +296,26 @@ namespace BomberMaaanLevel
 
         }
 
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            SaveFileDialog theDialog = new SaveFileDialog();
+
+            theDialog.Title = "Open Text File";
+            theDialog.Filter = "TXT files|*.txt";
+
+            if (theDialog.ShowDialog() == DialogResult.OK)
+            {
+
+                levelManager.NewFile(theDialog.FileName);
+
+                UpdateMap();
+
+                this.Text = "BomberMaaan Level Editor" + " - " + Path.GetFileName(theDialog.FileName);
+
+            }
+
+        }
+
     }
 }
