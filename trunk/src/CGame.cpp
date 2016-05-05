@@ -164,7 +164,7 @@ CGame::CGame (HINSTANCE hInstance, char** pCommandLine)
     }
 #endif
 
-#ifdef DIRECTX_VIDEO
+#ifdef DIRECTX_DRAW
     SetWindowText(m_hWnd, windowTitle.c_str());
 #else
     // keep the window text in mind
@@ -509,7 +509,7 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
     }
 #endif
 
-#ifdef DIRECTX_VIDEO
+#ifdef DIRECTX_DRAW
     if ((SDL_Init(SDL_INIT_AUDIO) == -1)) // in WIN32 we need AUDIO for SDL_mixer (replacing FMOD)
 #else
     if ((SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_JOYSTICK) == -1))
@@ -543,7 +543,7 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
     m_Display.SetModuleHandle (NULL);
 #endif
 
-#ifndef DIRECTX_VIDEO
+#ifndef DIRECTX_DRAW
 	SDL_WM_SetCaption(m_WindowTitle.c_str(), NULL);
 #endif
 
@@ -914,7 +914,7 @@ void CGame::StartGameMode(EGameMode GameMode)
         m_Display.Create(DISPLAYMODE_WINDOWED);
 
         // Close the window
-#ifdef DIRECTX_VIDEO
+#ifdef DIRECTX_DRAW
         PostMessage(m_hWnd, WM_CLOSE, 0, 0);
 #else
         SDL_Event quitevent;
@@ -1071,7 +1071,7 @@ void CGame::OnKeyUp(WPARAM wParam, LPARAM lParam)
         // Assume we have to change the display mode
         bool SetDisplayMode = true;
 
-#ifdef DIRECTX_VIDEO 
+#ifdef DIRECTX_DRAW 
         //! Change display mode if this is a F1-F4 key
         switch (wParam)
         {

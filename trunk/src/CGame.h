@@ -85,7 +85,7 @@ private:
 	
 	CNetwork		m_Network;				//!< Network object
 
-#ifndef DIRECTX_VIDEO
+#ifndef DIRECTX_DRAW
     string          m_WindowTitle;
 #endif
 

@@ -28,7 +28,7 @@
 #include "StdAfx.h"
 #include "CWindow.h"
 
-#ifndef DIRECTX_VIDEO
+#ifndef DIRECTX_DRAW
 #include "SDL.h"
 #endif
 
@@ -87,7 +87,7 @@ CWindow::CWindow (HINSTANCE hInstance, const char *pWindowTitle, int IconResourc
     m_Active = false;
 
     // Init the window class
-#ifdef DIRECTX_VIDEO
+#ifdef DIRECTX_DRAW
     WNDCLASSEX WndClassEx;
     WndClassEx.cbSize = sizeof(WNDCLASSEX);
     WndClassEx.lpszClassName = "Class name";
@@ -163,7 +163,7 @@ CWindow::CWindow (HINSTANCE hInstance, const char *pWindowTitle, int IconResourc
 CWindow::~CWindow ()
 {
     // If the window exists
-#ifdef DIRECTX_VIDEO
+#ifdef DIRECTX_DRAW
     if (m_hWnd != NULL)
     {
         // Destroy the window
@@ -183,7 +183,7 @@ CWindow::~CWindow ()
 
 void CWindow::SetClientSize (int ClientWidth, int ClientHeight)
 {
-#ifdef DIRECTX_VIDEO
+#ifdef DIRECTX_DRAW
     RECT rc;
     SetRect (&rc, 0, 0, ClientWidth, ClientHeight);
     AdjustWindowRectEx (&rc, GetWindowStyle(m_hWnd), (int)GetMenu (m_hWnd), GetWindowExStyle (m_hWnd));
@@ -240,7 +240,7 @@ void CWindow::WinProc (unsigned int msg, WPARAM wParam, LPARAM lParam)
 
 void CWindow::ShowWindow () 
 { 
-#ifdef DIRECTX_VIDEO
+#ifdef DIRECTX_DRAW
     ::ShowWindow (m_hWnd, SW_SHOW); 
     UpdateWindow (m_hWnd);
 #endif
@@ -425,7 +425,7 @@ void CWindow::OnActivateApp (WPARAM wParam, LPARAM lParam)
 void CWindow::OnSize (WPARAM wParam, LPARAM lParam) 
 { 
     // Check to see if we are losing our window...
-#ifdef DIRECTX_VIDEO
+#ifdef DIRECTX_DRAW
     m_Active = (wParam != SIZE_MAXHIDE && wParam != SIZE_MINIMIZED);
 #endif
 }
@@ -555,7 +555,7 @@ bool CWindow::OnSysCommand (WPARAM wParam, LPARAM lParam)
 
 void CWindow::OnClose (WPARAM wParam, LPARAM lParam) 
 { 
-#ifdef DIRECTX_VIDEO
+#ifdef DIRECTX_DRAW
 	DestroyWindow (m_hWnd); // Posts WM_DESTROY
 #endif
 }
@@ -574,7 +574,7 @@ void CWindow::OnClose (WPARAM wParam, LPARAM lParam)
 
 void CWindow::OnDestroy (WPARAM wParam, LPARAM lParam) 
 { 
-#ifdef DIRECTX_VIDEO
+#ifdef DIRECTX_DRAW
 	PostQuitMessage (0); // Posts WM_QUIT
 #endif
 }
