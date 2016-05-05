@@ -1,0 +1,21 @@
+1.
+---------------------------
+Microsoft Visual C++ Runtime Library
+---------------------------
+Assertion failed!
+
+Program: BomberMaaan.exe
+File: bombermaaan\trunk\src\CBomb.h
+Line: 247
+
+Expression: !m_BeingPunched
+
+For information on how your program can cause an assertion
+failure, see the Visual C++ documentation on asserts
+
+(Press Retry to debug the application - JIT must be enabled)
+---------------------------
+Abort   Retry   Ignore   
+---------------------------
+
+
