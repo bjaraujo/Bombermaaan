@@ -288,7 +288,7 @@ inline void CBomb::SetBeingPunched (void)
 
 inline bool CBomb::IsOnFloor (void)
 {
-    return (!m_BeingLifted && !m_BeingHeld && m_FlightType == BOMBFLIGHTTYPE_NONE);
+	return (!m_BeingLifted && !m_BeingHeld && !m_BeingPunched && m_FlightType == BOMBFLIGHTTYPE_NONE);
 }
 
 inline void CBomb::SetBlock (int BlockX, int BlockY)
