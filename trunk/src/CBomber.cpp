@@ -474,6 +474,7 @@ void CBomber::Crush ()
     debugLog.WriteDebugMsg( DEBUGSECT_BOMBER, "Bomber crushing [id=%d, x=%02d, y=%02d].", m_Player, m_BomberMove.GetBlockX(), m_BomberMove.GetBlockY() );
 
     Die ();
+
 }
 
 //******************************************************************************************************************************

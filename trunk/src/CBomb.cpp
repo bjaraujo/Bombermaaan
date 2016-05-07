@@ -100,6 +100,8 @@ int CBomb::m_BounceMoveY[NUMBER_OF_BOMBFLY_DIRECTIONS][3] =
 // Time (in seconds) before the bomb explodes when touched by a flame
 #define EXPLODE_SOON            0.080f
 
+#define MAX_TIME_TO_EXPLODE     10.0f
+
 // Speed of a moving bomb (in pixels per second)
 #ifdef USE_32_PIXELS_PER_BLOCK
 #define SPEED_BOMBMOVE          220
@@ -667,27 +669,28 @@ bool CBomb::Update (float DeltaTime)
     
     // If the bomb is not dead
     if (!m_Dead)
-    {    
+    {
         // If there is no bomber doing something on this bomb and it is not flying,
         // then it can tick and explode.
         // Note: The states set by a bomber (lifted, held, punched) must be reset 
         //       when a bomber dies or the bomb will never explode (see CBomber::Die()).
         if (!m_BeingLifted && !m_BeingHeld && !m_BeingPunched && m_BombFly == BOMBFLY_NONE)
-        {        
-			// dont update timer if it is a not activated remote bomb
-			if (!m_Remote || (m_TimeLeft <= EXPLODE_SOON))
-
-				// If the bomb has some ticks left before exploding
-				if (m_TimeLeft > 0.0f)
-				{
-					// Make the bomb explode if time is up
-					m_TimeLeft -= DeltaTime;
-					if (m_TimeLeft <= 0.0f)
-					{
-						Explode ();
-						m_TimeLeft = 0.0f;
-					}
-				}
+        {
+            // dont update timer if it is a not activated remote bomb
+            if (!m_Remote || (m_TimeLeft <= EXPLODE_SOON))
+            { 
+                // If the bomb has some ticks left before exploding
+                if (m_TimeLeft > 0.0f)
+                {
+                    // Make the bomb explode if time is up
+                    m_TimeLeft -= DeltaTime;
+                    if (m_TimeLeft <= 0.0f)
+                    {
+                        Explode();
+                        m_TimeLeft = 0.0f;
+                    }
+                }
+            }
         }
         
         // Kick this bomb by special blocks
@@ -735,6 +738,24 @@ bool CBomb::Update (float DeltaTime)
         m_Timer += DeltaTime;
     }
 
+    if (!m_pArena->GetBomber(GetOwnerPlayer()).IsAlive())
+    {
+        if (m_Remote)
+        {
+            // Explode remotes when bomber is dead
+            Explode();
+        }
+        else if (m_ElapsedTime > MAX_TIME_TO_EXPLODE)
+        {
+            // Too much time has passed so force remove
+            theLog.WriteLine("Warning: bomb took too much time to explode. Should be removed from Arena!");
+
+            m_Dead = true;
+            m_Checked = true;
+        }
+
+    }
+
     // The bomb can only be destroyed by the arena if the
     // owner bomber knows one of its bomb is dead.
     return m_Dead && m_Checked;
@@ -760,23 +781,23 @@ void CBomb::Display (void)
 
     // Draw the bomb sprite. Priority is not used.
     if (!m_Remote)
-		m_pDisplay->DrawSprite (m_iX, 
-                            m_iY, 
-                            NULL,                            // Draw entire sprite
-                            &Clip,                           // Clip sprite to arena view !!!
-                            ARENA_BOMB_SPRITETABLE, 
-                            m_Sprite, 
-                            SpriteTable,
-                            PRIORITY_UNUSED);
-	else
-		m_pDisplay->DrawSprite (m_iX, 
-                            m_iY, 
-                            NULL,                            // Draw entire sprite
-                            &Clip,                           // Clip sprite to arena view !!!
-                            ARENA_REMOTE_BOMB_SPRITETABLE, 
-                            m_Sprite, 
-                            SpriteTable,
-                            PRIORITY_UNUSED);
+        m_pDisplay->DrawSprite(m_iX,
+        m_iY,
+        NULL,                            // Draw entire sprite
+        &Clip,                           // Clip sprite to arena view !!!
+        ARENA_BOMB_SPRITETABLE,
+        m_Sprite,
+        SpriteTable,
+        PRIORITY_UNUSED);
+    else
+        m_pDisplay->DrawSprite(m_iX,
+        m_iY,
+        NULL,                            // Draw entire sprite
+        &Clip,                           // Clip sprite to arena view !!!
+        ARENA_REMOTE_BOMB_SPRITETABLE,
+        m_Sprite,
+        SpriteTable,
+        PRIORITY_UNUSED);
 }
 
 //******************************************************************************************************************************
@@ -1379,15 +1400,15 @@ void CBomb::CenterOnBlock (void)
 
 void CBomb::_Debug_WriteToLog() {
 
-	theLog.WriteLine( "Exist=%d", Exist() );
-	theLog.WriteLine( "Dead=%d", m_Dead );
-	theLog.WriteLine( "OnFloor=%d", IsOnFloor() );
-	theLog.WriteLine( "Checked=%d", m_Checked );
-	theLog.WriteLine( "BlockX=%d,BlockY=%d", m_BlockX, m_BlockY );
-    theLog.WriteLine( "OwnerPlayer=%d", m_OwnerPlayer );
-    theLog.WriteLine( "TimeLeft=%f", m_TimeLeft );
-    theLog.WriteLine( "BombFly=%d", m_BombFly );
-    theLog.WriteLine( "BeingHeld=%d,BeingLifted=%d,BeingPunched=%d", m_BeingHeld, m_BeingLifted, m_BeingPunched );
+    theLog.WriteLine("Exist=%d", Exist());
+    theLog.WriteLine("Dead=%d", m_Dead);
+    theLog.WriteLine("OnFloor=%d", IsOnFloor());
+    theLog.WriteLine("Checked=%d", m_Checked);
+    theLog.WriteLine("BlockX=%d,BlockY=%d", m_BlockX, m_BlockY);
+    theLog.WriteLine("OwnerPlayer=%d", m_OwnerPlayer);
+    theLog.WriteLine("TimeLeft=%f", m_TimeLeft);
+    theLog.WriteLine("BombFly=%d", m_BombFly);
+    theLog.WriteLine("BeingHeld=%d,BeingLifted=%d,BeingPunched=%d", m_BeingHeld, m_BeingLifted, m_BeingPunched);
 
 }
 
