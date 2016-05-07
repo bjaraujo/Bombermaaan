@@ -1196,7 +1196,7 @@ void CGame::OnSize(WPARAM wParam, LPARAM lParam)
 
 // When the window is active and a jostick axis changes,
 // this method will be called.
-#ifndef WIN32
+#ifndef DIRECTX_INPUT
 void CGame::OnJoystickAxis (WPARAM wParam, LPARAM lParam)
 {
     SDL_JoyAxisEvent *jaxis;
@@ -1247,7 +1247,7 @@ void CGame::OnJoystickAxis (WPARAM wParam, LPARAM lParam)
 // When the window is active and a jostick button is pressed/released,
 // this method will be called.
 
-#ifndef WIN32
+#ifndef DIRECTX_INPUT
 void CGame::OnJoystickButton (WPARAM wParam, LPARAM lParam)
 {
     SDL_JoyButtonEvent *jbutton;

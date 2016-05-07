@@ -96,7 +96,7 @@ private:
     void            OnPaint        (WPARAM wParam, LPARAM lParam);
     bool            OnSysCommand   (WPARAM wParam, LPARAM lParam);
     void            OnSize         (WPARAM wParam, LPARAM lParam);
-#ifndef WIN32
+#ifndef DIRECTX_INPUT
     void            OnJoystickAxis (WPARAM wParam, LPARAM lParam);             // SDL_JOYAXISMOTION
     void            OnJoystickButton (WPARAM wParam, LPARAM lParam);       // SDL_JOYBUTTONDOWN/-UP
 #endif

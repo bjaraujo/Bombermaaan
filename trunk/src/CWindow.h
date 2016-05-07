@@ -66,7 +66,7 @@ protected:
     virtual bool OnSysCommand (WPARAM wParam, LPARAM lParam);               // WM_SYSCOMMAND
     virtual void OnClose (WPARAM wParam, LPARAM lParam);                    // WM_CLOSE
     virtual void OnDestroy (WPARAM wParam, LPARAM lParam);                  // WM_DESTROY
-	#ifndef WIN32
+	#ifndef DIRECTX_INPUT
 	virtual void OnJoystickAxis (WPARAM wParam, LPARAM lParam);             // SDL_JOYAXISMOTION
     virtual void OnJoystickButton (WPARAM wParam, LPARAM lParam);           // SDL_JOYBUTTONDOWN/-UP
 	#endif
