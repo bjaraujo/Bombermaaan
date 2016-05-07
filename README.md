@@ -1,6 +1,6 @@
 # Bombermaaan
 
-![Main Screen](https://raw.githubusercontent.com/billyaraujo/bombrmaaan/screenshots/ss01.png) ![Game Play 1](https://raw.githubusercontent.com/billyaraujo/bombrmaaan/screenshots/ss02.png) ![Game Play 2](https://raw.githubusercontent.com/billyaraujo/bombrmaaan/screenshots/ss03.png)
+![Main Screen](https://raw.githubusercontent.com/billyaraujo/bombermaaan/master/screenshots/ss01.png) ![Game Play 1](https://raw.githubusercontent.com/billyaraujo/bombermaaan/master/screenshots/ss02.png) ![Game Play 2](https://raw.githubusercontent.com/billyaraujo/bombermaaan/master/screenshots/ss03.png)
 
 ## Copyright
 
