@@ -1831,11 +1831,17 @@ void CBomber::Stunt (void)
     // Reset the stunt timer, so that a stunt bomber can be stunt for a longer time
     m_StuntTimeElapsed = 0.0f;
 
+    // If the bomber is just lifting this bomb
+    if (m_BomberState == BOMBERSTATE_LIFT) {
+        // End the lifting and make the bomber hold the bomb
+        m_pArena->GetBomb(m_BombIndex).SetBeingHeld();
+        m_BomberState = BOMBERSTATE_WALK_HOLD;
+    }
+
     // Check the bomber state before making the bomber stunt
     switch (m_BomberState)
     {
-        // If the bomber is lifting, holding or throwing a bomb
-        case BOMBERSTATE_LIFT:          // Added LIFT action too 
+        // If the bomber is holding or throwing a bomb
         case BOMBERSTATE_WALK_HOLD:
         case BOMBERSTATE_THROW:
         {
