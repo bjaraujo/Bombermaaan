@@ -100,7 +100,7 @@ int CBomb::m_BounceMoveY[NUMBER_OF_BOMBFLY_DIRECTIONS][3] =
 // Time (in seconds) before the bomb explodes when touched by a flame
 #define EXPLODE_SOON            0.080f
 
-#define MAX_TIME_TO_EXPLODE     10.0f
+#define MAX_TIME_TO_EXPLODE     5.0f
 
 // Speed of a moving bomb (in pixels per second)
 #ifdef USE_32_PIXELS_PER_BLOCK
@@ -742,13 +742,34 @@ bool CBomb::Update (float DeltaTime)
     {
         if (m_Remote)
         {
-            // Explode remotes when bomber is dead
+            // Explode remotes when bomber is dies
             Explode();
         }
         else if (m_ElapsedTime > MAX_TIME_TO_EXPLODE)
         {
+
+            // Shouldn't reach here!
+            // If bomber is dead only SetChecked should be called immediately?
+            // This should remove bomb from displaying in the Arena...
+
             // Too much time has passed so force remove
             theLog.WriteLine("Warning: bomb took too much time to explode. Should be removed from Arena!");
+
+            theLog.WriteLine("--------------------------");
+
+            if (m_Dead)
+                theLog.WriteLine("m_Dead: TRUE");
+            else
+                theLog.WriteLine("m_Dead: FALSE");
+
+            if (m_Checked)
+                theLog.WriteLine("m_Checked: TRUE");
+            else
+                theLog.WriteLine("m_Checked: FALSE");
+
+            theLog.WriteLine("--------------------------");
+
+            _Debug_WriteToLog();
 
             m_Dead = true;
             m_Checked = true;

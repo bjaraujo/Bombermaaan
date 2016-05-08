@@ -1,4 +1,5 @@
-1.
+1. Assertion failed !m_BeingPunched (SOLVED)
+
 ---------------------------
 Microsoft Visual C++ Runtime Library
 ---------------------------
@@ -18,4 +19,21 @@ failure, see the Visual C++ documentation on asserts
 Abort   Retry   Ignore   
 ---------------------------
 
+2. Bomb does not disappear from Arena can't even be crushed by walls. 
+Seems that it is being held by dead bomber.
+
+09:36:34  Warning: bomb took too much time to explode. Should be removed from Arena!
+09:36:34  --------------------------
+09:36:34  m_Dead: FALSE
+09:36:34  m_Checked: FALSE
+09:36:34  --------------------------
+09:36:34  Exist=1
+09:36:34  Dead=0
+09:36:34  OnFloor=0
+09:36:34  Checked=0
+09:36:34  BlockX=6,BlockY=10
+09:36:34  OwnerPlayer=4
+09:36:34  TimeLeft=1.807376
+09:36:34  BombFly=0
+09:36:34  BeingHeld=0,BeingLifted=1,BeingPunched=0
 
