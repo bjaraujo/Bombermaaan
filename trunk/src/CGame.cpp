@@ -695,7 +695,7 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
             strncmp(pCommandLine[i], "--server", 8) == 0)
         {
             printf("*** STARTING GAME AS SERVER\n");
-            NetworkMode = NETWORKMODE_SERVER;
+            m_Network.SetNetworkMode(NETWORKMODE_SERVER);
             break;
         }
         else if ((strncmp(pCommandLine[i], "-c", 2) == 0 ||
@@ -703,7 +703,7 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
             pCommandLineCount > i + 1)
         {
             printf("*** STARTING GAME AS CLIENT\n");
-            NetworkMode = NETWORKMODE_CLIENT;
+            m_Network.SetNetworkMode(NETWORKMODE_CLIENT);
 
             strcpy(IpAddressString, pCommandLine[i+1]);
             break;

@@ -8,8 +8,8 @@ StdAfx.h
 
 SET(RES_SOURCES
 res.cpp
-StdAfx.cpp
 resource.rc
+StdAfx.cpp
 )
 
 SET(RES_RESOURCES_IMAGES

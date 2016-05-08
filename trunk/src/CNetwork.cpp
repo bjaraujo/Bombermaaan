@@ -197,8 +197,8 @@ bool CNetwork::Disconnect ()
             }
         }
 #else
-        close(MySocket);
-        close(ClientSocket);
+        close(m_Socket);
+        close(m_ClientSocket);
 #endif
     }
 

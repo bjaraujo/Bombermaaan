@@ -28,11 +28,14 @@
  *  \brief Handling game options, saving to and reading from file
  */
 
+#include <sstream>
+#include <vector>
+#include <algorithm>
+
 #include "StdAfx.h"
 #include "COptions.h"
 #include "CInput.h"
 #include "CArena.h"
-#include <sstream>
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -55,6 +58,12 @@
 #if NUMBER_OF_KEYBOARD_CONFIGURATIONS != CONFIGURATION_JOYSTICK_1
 #error "Mismatch between first joystick input and number of keyboard configurations"
 #endif
+
+struct SFileInfo
+{
+    std::string fileNameWithoutPath;
+    std::string fileNameWithPath;
+};
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -544,6 +553,7 @@ bool COptions::LoadLevels( std::string dynamicDataFolder, std::string pgmFolder 
             levelFilePath_pgmFolder.append("/");
 #endif
     }
+
 #ifdef WIN32
     levelFilePath_pgmFolder.append( "Levels\\" );
 #else
@@ -561,13 +571,7 @@ bool COptions::LoadLevels( std::string dynamicDataFolder, std::string pgmFolder 
     
     theLog.WriteLine( "Options         => Loading level files '%s'.", levelFilePath_pgmFolderMask.c_str() );
 
-    struct fileInfo
-    {
-        std::string fileNameWithoutPath;
-        std::string fileNameWithPath;
-    };
-
-    std::vector<fileInfo> files;
+    std::vector<SFileInfo> files;
 
     FindHandle = _findfirst( levelFilePath_pgmFolderMask.c_str(), &FindData );
     
@@ -576,7 +580,7 @@ bool COptions::LoadLevels( std::string dynamicDataFolder, std::string pgmFolder 
         do 
         {
 
-            fileInfo file;
+            SFileInfo file;
 
             file.fileNameWithoutPath = FindData.name;
             file.fileNameWithPath = levelFilePath_pgmFolder;
@@ -601,6 +605,7 @@ bool COptions::LoadLevels( std::string dynamicDataFolder, std::string pgmFolder 
 
         std::string levelFilePath_dynamicDataFolder;
         levelFilePath_dynamicDataFolder = dynamicDataFolder;
+
 #ifdef WIN32
         levelFilePath_dynamicDataFolder.append( "Levels\\" );
 #else
@@ -610,7 +615,6 @@ bool COptions::LoadLevels( std::string dynamicDataFolder, std::string pgmFolder 
         std::string levelFilePath_dynamicDataFolderMask;
         levelFilePath_dynamicDataFolderMask = levelFilePath_dynamicDataFolder;
         levelFilePath_dynamicDataFolderMask.append( "*.TXT" );
-
 
         //-------------------------------------------
         // Determine number of level files available
@@ -625,7 +629,7 @@ bool COptions::LoadLevels( std::string dynamicDataFolder, std::string pgmFolder 
         {
             do 
             {
-                fileInfo file;
+                SFileInfo file;
 
                 file.fileNameWithoutPath = FindData.name;
                 file.fileNameWithPath = levelFilePath_dynamicDataFolder;
@@ -643,11 +647,13 @@ bool COptions::LoadLevels( std::string dynamicDataFolder, std::string pgmFolder 
     //---------------------
     // Sort
     //---------------------
+#ifdef WIN32
     sort(files.begin(), files.end(),
-        [&](const fileInfo& a, const fileInfo& b) {return (a.fileNameWithoutPath < b.fileNameWithoutPath);}
+        [&](const SFileInfo& a, const SFileInfo& b) {return (a.fileNameWithoutPath < b.fileNameWithoutPath);}
     );
+#endif
 
-    for (std::vector<fileInfo>::iterator it = files.begin(); it != files.end(); ++it)
+    for (std::vector<SFileInfo>::iterator it = files.begin(); it != files.end(); ++it)
     {
         // Create a new CLevel element and add it to the level container
         m_Levels.push_back(CLevel(it->fileNameWithPath, it->fileNameWithoutPath));

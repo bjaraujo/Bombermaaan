@@ -20,7 +20,9 @@
 ************************************************************************************/
 
 
-// RES.cpp : Defines the entry point for the DLL application.
+#ifdef WIN32
+
+// res.cpp : Defines the entry point for the DLL application.
 //
 
 #include "StdAfx.h"
@@ -33,3 +35,4 @@ BOOL APIENTRY DllMain( HANDLE hModule,
     return TRUE;
 }
 
+#endif
