@@ -1822,12 +1822,12 @@ void CBomber::TryKickBomb (int BlockX, int BlockY, EBombKick BombKick)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CBomber::Stunt (void)
+void CBomber::Stunt(void)
 {
     // A bomb bouncing on the bomber's head doesn't do anything if he is dying
     if (m_BomberState == BOMBERSTATE_DEATH)
         return;
-    
+
     // Reset the stunt timer, so that a stunt bomber can be stunt for a longer time
     m_StuntTimeElapsed = 0.0f;
 
@@ -1839,24 +1839,26 @@ void CBomber::Stunt (void)
     }
 
     // Check the bomber state before making the bomber stunt
-    switch (m_BomberState)
+    // If the bomber still has the bomb
+    if (m_BombIndex != -1)
     {
-        // If the bomber is holding or throwing a bomb
+        switch (m_BomberState)
+        {
+            // If the bomber is holding or throwing a bomb
         case BOMBERSTATE_WALK_HOLD:
         case BOMBERSTATE_THROW:
-        {
-            // If the bomber still has the bomb
-            if (m_BombIndex != -1)  
-            {
-                // Throw the bomb in the current direction he is heading
-                MakeBombFly (BOMBFLIGHTTYPE_THROW);
-            }
-
+            // Throw the bomb in the current direction he is heading
+            MakeBombFly(BOMBFLIGHTTYPE_THROW);
             break;
-        }
+        case BOMBFLIGHTTYPE_PUNCH:
+            // Make him punch the bomb now (with no bomber punching animation).
+            MakeBombFly(BOMBFLIGHTTYPE_PUNCH);
+            break;
         default:
             break;
+        }
     }
+
 
     /**
      * The bomber will lose one item if it has at least one. The descending order is:

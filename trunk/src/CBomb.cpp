@@ -738,6 +738,13 @@ bool CBomb::Update (float DeltaTime)
 
     if (!m_pArena->GetBomber(GetOwnerPlayer()).IsAlive())
     {
+
+        m_Checked = true;
+
+        m_BeingHeld = false;
+        m_BeingLifted = false;
+        m_BeingPunched = false;
+
         if (m_Remote)
         {
             // Explode remotes when bomber is dies
