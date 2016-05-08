@@ -434,6 +434,15 @@ void CBomber::Die (void)
                         MakeBombFly(BOMBFLIGHTTYPE_PUNCH);
                     }
                     //! @todo check if another else assert(0) makes sense since we still have a bomb (m_BombIndex != -1)
+                    else
+                    {
+
+                        // TODO: CLEAN THIS UP!
+                        // Shoudn't reach this section!
+                        theLog.WriteLine("--------->");
+                        theLog.WriteLine("BOMBERSTATE=%d", m_BomberState);
+
+                    }
                 }
 
                 m_Dead = DEAD_DYING;
@@ -1825,9 +1834,10 @@ void CBomber::Stunt (void)
     // Check the bomber state before making the bomber stunt
     switch (m_BomberState)
     {
-        // If the bomber is holding or throwing a bomb
-        case BOMBERSTATE_WALK_HOLD :
-        case BOMBERSTATE_THROW :
+        // If the bomber is lifting, holding or throwing a bomb
+        case BOMBERSTATE_LIFT:          // Added LIFT action too 
+        case BOMBERSTATE_WALK_HOLD:
+        case BOMBERSTATE_THROW:
         {
             // If the bomber still has the bomb
             if (m_BombIndex != -1)  

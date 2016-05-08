@@ -19,8 +19,8 @@ failure, see the Visual C++ documentation on asserts
 Abort   Retry   Ignore   
 ---------------------------
 
-2. Bomb does not disappear from Arena can't even be crushed by walls. 
-Seems that it is being held by dead bomber.
+2. Bomb does not disappear from Arena can't even be crushed by walls. Bomber who owns it is dead.
+Seems that it is being lifted by dead bomber.
 
 09:36:34  Warning: bomb took too much time to explode. Should be removed from Arena!
 09:36:34  --------------------------

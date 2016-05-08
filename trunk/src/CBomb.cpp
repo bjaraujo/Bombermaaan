@@ -100,8 +100,6 @@ int CBomb::m_BounceMoveY[NUMBER_OF_BOMBFLY_DIRECTIONS][3] =
 // Time (in seconds) before the bomb explodes when touched by a flame
 #define EXPLODE_SOON            0.080f
 
-#define MAX_TIME_TO_EXPLODE     5.0f
-
 // Speed of a moving bomb (in pixels per second)
 #ifdef USE_32_PIXELS_PER_BLOCK
 #define SPEED_BOMBMOVE          220
@@ -745,9 +743,10 @@ bool CBomb::Update (float DeltaTime)
             // Explode remotes when bomber is dies
             Explode();
         }
-        else if (m_ElapsedTime > MAX_TIME_TO_EXPLODE)
+        else if (m_ElapsedTime > 5.0f)
         {
 
+            // TODO: CLEAN THIS UP!
             // Shouldn't reach here!
             // If bomber is dead only SetChecked should be called immediately?
             // This should remove bomb from displaying in the Arena...
