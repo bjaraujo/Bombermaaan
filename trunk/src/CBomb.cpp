@@ -747,36 +747,8 @@ bool CBomb::Update (float DeltaTime)
 
         if (m_Remote)
         {
-            // Explode remotes when bomber is dies
+            // Explode remotes when bomber dies
             Explode();
-        }
-        else if (m_ElapsedTime > 5.0f)
-        {
-
-            // TODO: CLEAN THIS UP!
-            // Shouldn't reach here!
-            // If bomber is dead only SetChecked should be called immediately?
-            // This should remove bomb from displaying in the Arena...
-
-            // Too much time has passed so force remove
-            theLog.WriteLine("Warning: bomb took too much time to explode. Should be removed from Arena!");
-
-            theLog.WriteLine("--------------------------");
-
-            if (m_Dead)
-                theLog.WriteLine("m_Dead: TRUE");
-            else
-                theLog.WriteLine("m_Dead: FALSE");
-
-            if (m_Checked)
-                theLog.WriteLine("m_Checked: TRUE");
-            else
-                theLog.WriteLine("m_Checked: FALSE");
-
-            theLog.WriteLine("--------------------------");
-
-            _Debug_WriteToLog();
-
         }
 
     }
