@@ -770,8 +770,6 @@ bool CBomb::Update (float DeltaTime)
 
             _Debug_WriteToLog();
 
-            m_Dead = true;
-            m_Checked = true;
         }
 
     }

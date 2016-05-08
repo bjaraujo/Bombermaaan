@@ -417,9 +417,9 @@ void CMatch::ProcessPlayerCommands (void)
             else if (m_pOptions->GetBomberType (Player) == BOMBERTYPE_NET)
             {
  
-				// TODO:
+                // TODO:
 
-			}
+            }
         }
 
         TimeElapsedSinceLastCommandChunk += m_pTimer->GetDeltaTime();

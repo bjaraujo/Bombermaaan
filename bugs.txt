@@ -1,4 +1,4 @@
-1. Assertion failed !m_BeingPunched (SOLVED)
+1. Assertion failed (SOLVED)
 
 ---------------------------
 Microsoft Visual C++ Runtime Library
@@ -36,4 +36,25 @@ Seems that it is being lifted by dead bomber.
 09:36:34  TimeLeft=1.807376
 09:36:34  BombFly=0
 09:36:34  BeingHeld=0,BeingLifted=1,BeingPunched=0
+
+3. Assertion failed! 
+
+---------------------------
+Microsoft Visual C++ Runtime Library
+---------------------------
+Assertion failed!
+
+Program: ...maaan\build\msvc12-win32\src\Debug\BomberMaaan.exe
+File: F:\Billy\Programming\Bombermaaan\trunk\src\CBomb.cpp
+Line: 903
+
+Expression: !m_BeingLifted
+
+For information on how your program can cause an assertion
+failure, see the Visual C++ documentation on asserts
+
+(Press Retry to debug the application - JIT must be enabled)
+---------------------------
+Abort   Retry   Ignore   
+---------------------------
 
