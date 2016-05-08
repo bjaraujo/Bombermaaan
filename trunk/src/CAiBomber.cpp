@@ -588,17 +588,21 @@ bool CAiBomber::EnemyNearRemoteFuseBomb (CBomb& bomb)
     // Scan the players
     for (int Index = 0 ; Index < MAX_PLAYERS ; Index++)
     {
+
+        if (!m_pArena->GetArena()->GetBomber(Index).Exist() ||
+            !m_pArena->GetArena()->GetBomber(Index).IsAlive())
+            continue;
+
         // If the current player is not the one we are controlling
         // and the bomber of this player exists and is alive
         // and its distance to the bomb (on the x or y axis)
         // is less or equal the bomb's flamesize
         // do this with 70% probability
+
         BomberX = m_pArena->GetArena()->GetBomber(Index).GetBlockX();
         BomberY = m_pArena->GetArena()->GetBomber(Index).GetBlockY();
         
         if (Index != m_Player &&
-            m_pArena->GetArena()->GetBomber(Index).Exist() && 
-            m_pArena->GetArena()->GetBomber(Index).IsAlive() && 
             ((BomberX == BombX && ABS(BomberY - BombY) <= bomb.GetFlameSize()) ||
             (BomberY == BombY && ABS(BomberX - BombX) <= bomb.GetFlameSize())) &&
             RANDOM(100) < 70)

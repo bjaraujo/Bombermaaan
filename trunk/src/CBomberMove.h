@@ -145,6 +145,10 @@ inline void CBomberMove::SetArena (CArena* pArena)
 
 inline int CBomberMove::GetBlockX (void) 
 { 
+
+    if (m_BlockX < 0)
+        m_BlockX = m_BlockX;
+
     ASSERT(m_BlockX >= 0);
     ASSERT(m_BlockX < ARENA_WIDTH);
 

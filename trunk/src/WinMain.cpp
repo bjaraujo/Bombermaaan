@@ -25,7 +25,7 @@
  *  \brief Entry point of the program for both Linux and Windows
  */
 
-#ifdef _DEBUG
+#ifdef _DEBUG_MEMORY
 #include <vld.h> 
 #endif
 
