@@ -74,15 +74,9 @@
 #define CLOCKBOTTOM_POSITION_X          4       // Position of the board clock from board origin
 #define CLOCKBOTTOM_POSITION_Y          9
 #define TIME_DIGIT_SPACE                8       // X offset to add for next digit when drawing board time
-#ifdef USE_32_PIXELS_PER_BLOCK
 #define SCORE_INITIAL_POSITION_X        79      // Position of the first bomber head to draw in the board
 #define SCORE_INITIAL_POSITION_Y        5
 #define SCORE_NEXT_X_OFFSET             35      // X offset to add for next bomber head position in the board
-#else
-#define SCORE_INITIAL_POSITION_X        64      // Position of the first bomber head to draw in the board
-#define SCORE_INITIAL_POSITION_Y        5
-#define SCORE_NEXT_X_OFFSET             30      // X offset to add for next bomber head position in the board
-#endif
 #define HEAD_TO_SCORE_X_OFFSET          17      // Offset to add to go from the bomber head position to the corresponding score
 #define HEAD_TO_SCORE_Y_OFFSET          4
 #define BOARD_BACKGROUND_POSITION_X     0       // Position on the board background from board origin

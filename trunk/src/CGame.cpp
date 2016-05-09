@@ -108,8 +108,6 @@ CGame::CGame (HINSTANCE hInstance, char** pCommandLine)
 
 	windowTitle.append(APP_VERSION_INFO);
 
-    // The compile date is only added in the 32-pixels-version since the window title bar in the 16-pixels-version is too small
-#ifdef USE_32_PIXELS_PER_BLOCK
     windowTitle.append(" - Compiled ");
 
     // At the end, the windowTitle is "... - Compiled YYYY-MM-DD"
@@ -162,7 +160,6 @@ CGame::CGame (HINSTANCE hInstance, char** pCommandLine)
     else {
         windowTitle.append(__DATE__ + 4, 2);
     }
-#endif
 
 #ifdef DIRECTX_DRAW
     SetWindowText(m_hWnd, windowTitle.c_str());
@@ -1077,10 +1074,6 @@ void CGame::OnKeyUp(WPARAM wParam, LPARAM lParam)
         {
             //! Display modes #1 and #2 are not available in the 32-pixels version
             //! since the screen isn't large enough (so disable F1 and F2 keys)
-#ifndef USE_32_PIXELS_PER_BLOCK
-        case VK_F1 : DisplayMode = DISPLAYMODE_FULL1; break;
-        case VK_F2 : DisplayMode = DISPLAYMODE_FULL2; break;
-#endif
         case VK_F3: DisplayMode = DISPLAYMODE_FULL3; break;
         case VK_F4: DisplayMode = DISPLAYMODE_WINDOWED; break;
         default: SetDisplayMode = false; break;
@@ -1091,10 +1084,6 @@ void CGame::OnKeyUp(WPARAM wParam, LPARAM lParam)
 		{
 			//! Display modes #1 and #2 are not available in the 32-pixels version
 			//! since the screen isn't large enough (so disable F1 and F2 keys)
-#ifndef USE_32_PIXELS_PER_BLOCK
-		case SDLK_F1: DisplayMode = DISPLAYMODE_FULL1; break;
-		case SDLK_F2: DisplayMode = DISPLAYMODE_FULL2; break;
-#endif
 		case SDLK_F3: DisplayMode = DISPLAYMODE_FULL3; break;
 		case SDLK_F4: DisplayMode = DISPLAYMODE_WINDOWED; break;
 		default: SetDisplayMode = false; break;

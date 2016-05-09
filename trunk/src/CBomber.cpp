@@ -85,21 +85,10 @@ SBomberSpriteTable CBomber::m_BomberSpriteTables[MAX_NUMBER_OF_STATES] =
 //******************************************************************************************************************************
 
 // Bomber speeds (in pixels per second)
-#ifdef USE_32_PIXELS_PER_BLOCK
-
 #define SPEED_SLOW      76                //!< Speed with SLOW sickness
 #define SPEED_FAST      450               //!< Speed with FAST sickness
 #define SPEED_NORMAL    120               //!< Normal speed
 #define SPEED_INC       25                //!< Speed increase each time a roller item is picked up
-
-#else
-
-#define SPEED_SLOW      38                //!< Speed with SLOW sickness
-#define SPEED_FAST      225               //!< Speed with FAST sickness
-#define SPEED_NORMAL    60                //!< Normal speed
-#define SPEED_INC       7                 //!< Speed increase each time a roller item is picked up
-
-#endif
                                                             
 //! Sick flashing animation times (in seconds)
 #define ANIMSICK_TIME1      0.090f
@@ -218,13 +207,8 @@ SBomberSpriteTable CBomber::m_BomberSpriteTables[MAX_NUMBER_OF_STATES] =
 #define RETURNITEMS_WAIT        0.8f
 
 // Offset when drawing the bomber sprite
-#ifdef USE_32_PIXELS_PER_BLOCK
 #define BOMBER_OFFSETX  (-6)
 #define BOMBER_OFFSETY  (-12)
-#else
-#define BOMBER_OFFSETX  (-3)
-#define BOMBER_OFFSETY  (-6)
-#endif
 
 /**
  *  \brief Manhattan distance

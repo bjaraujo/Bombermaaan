@@ -43,13 +43,8 @@
 
 #define FONT_SPRITELAYER            1       //!< Sprite layer where to draw characters using the font
 
-#ifdef USE_32_PIXELS_PER_BLOCK
 #define FRAME_POSITION_X            30      //!< Position of the menu frame
 #define FRAME_POSITION_Y            52
-#else
-#define FRAME_POSITION_X            15      //!< Position of the menu frame
-#define FRAME_POSITION_Y            26
-#endif
 #define FRAME_SPRITETABLE           31      //!< Sprite table number of the menu frame
 #define FRAME_SPRITE                0       //!< Sprite number of the menu frame sprite 
 #define FRAME_PRIORITY              1       //!< Priority to use in the menu sprite layer when drawing the frame

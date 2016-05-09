@@ -66,48 +66,26 @@
 #define NUMBER_OF_MENU_ITEMS                    5
 #define FIRST_MENU_ITEM                         0
 #define LAST_MENU_ITEM                          (NUMBER_OF_MENU_ITEMS - 1)
-#ifdef USE_32_PIXELS_PER_BLOCK
 #define FIRST_MENU_ITEM_POSITION_Y              180
 #define ALL_MENU_ITEMS_POSITION_X               195
-#else
-#define FIRST_MENU_ITEM_POSITION_Y              93
-#define ALL_MENU_ITEMS_POSITION_X               126
-#endif
 #define MENU_ITEM_SPRITE_TABLE                  45
 #define MENU_ITEM_SPRITE_LAYER                  0
 #define MENU_ITEM_SPRITE_PRIORITY_IN_LAYER      2
-#ifdef USE_32_PIXELS_PER_BLOCK
 #define SPACE_X_FROM_MENU_ITEM_TO_CURSOR_HAND   -40
-#else
-#define SPACE_X_FROM_MENU_ITEM_TO_CURSOR_HAND   -20
-#endif
 #define CURSOR_HAND_SPRITE_TABLE                64
 #define CURSOR_HAND_SPRITE                      0
 #define CURSOR_HAND_SPRITE_LAYER                0
 #define CURSOR_HAND_SPRITE_PRIORITY_IN_LAYER    2
-#ifdef USE_32_PIXELS_PER_BLOCK
 #define SPACE_Y_BETWEEN_MENU_ITEMS              30
-#else
-#define SPACE_Y_BETWEEN_MENU_ITEMS              15
-#endif
 
 // Definitions for the animated hand
 #define MOVING_HAND_TIMEPERIOD                  0.06f   //!< Time period for calculating the moving hand position
-#ifdef USE_32_PIXELS_PER_BLOCK
 #define MOVING_HAND_DISTANCE_1                  (-20)
 #define MOVING_HAND_DISTANCE_2                  (-18)
 #define MOVING_HAND_DISTANCE_3                  (-13)
 #define MOVING_HAND_DISTANCE_4                  (-6)
 #define MOVING_HAND_DISTANCE_5                  (-2)
 #define MOVING_HAND_DISTANCE_6                  (0)
-#else
-#define MOVING_HAND_DISTANCE_1                  (-10)
-#define MOVING_HAND_DISTANCE_2                  (-9)
-#define MOVING_HAND_DISTANCE_3                  (-6)
-#define MOVING_HAND_DISTANCE_4                  (-3)
-#define MOVING_HAND_DISTANCE_5                  (-1)
-#define MOVING_HAND_DISTANCE_6                  (0)
-#endif
 
 #define MENU_ITEM_GAME                          0
 #define MENU_ITEM_DEMO                          1

@@ -65,9 +65,6 @@ using namespace std;
 #define ASSERT assert
 #endif
 
-//! Define this if the 32-pixels-per-block version should be used (needs the RES32 directory, where the DLL is built) - default is 16 pixels per block
-#define USE_32_PIXELS_PER_BLOCK
-
 //! Define this if the Ctrl+F5 key should output all bombs to the log file for debugging purposes
 #define _DEBUG_FLAG_1
 
@@ -93,13 +90,8 @@ using namespace std;
 #define MAX_DRAWGAME_SCORE              5       //!< Maximum score for draw games
 #define ARENA_WIDTH                     15      //!< Arena width in blocks
 #define ARENA_HEIGHT                    13      //!< Arena height in blocks
-#ifdef USE_32_PIXELS_PER_BLOCK
 #define BLOCK_SIZE                      32      //!< Block size in pixels
 #define BLOCK_POSITION_SHIFT            8       //!< Shift number when translating position<->block : i.e. position >> 4
-#else
-#define BLOCK_SIZE                      16      //!< Block size in pixels
-#define BLOCK_POSITION_SHIFT            4       //!< Shift number when translating position<->block : i.e. position >> 4
-#endif
 #define VIEW_WIDTH                      (ARENA_WIDTH * BLOCK_SIZE)          // Size of the game view from left to right in pixels (size of client area in windowed mode)
 #define VIEW_HEIGHT                     (26 + ARENA_HEIGHT * BLOCK_SIZE)    // Size of the game view from top to bottom in pixels (size of client area in windowed mode)
 

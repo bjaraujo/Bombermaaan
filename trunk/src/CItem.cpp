@@ -101,13 +101,8 @@
 #define ANIM_FIRE7      6
 
 // Offset when drawing fire sprites
-#ifdef USE_32_PIXELS_PER_BLOCK
 #define FIRE_OFFSETX        (-10)
 #define FIRE_OFFSETY        (-(54-32))
-#else
-#define FIRE_OFFSETX        (-5)
-#define FIRE_OFFSETY        (-(27-16))
-#endif
 
 #define ARENA_ITEM_SPRITETABLE              3
 #define ARENA_FIRE_SPRITETABLE              6
@@ -510,11 +505,7 @@ void CItem::Display (void)
                 // If the fumes animation is playing
                 if (m_Fumes)
                 {
-                    #ifdef USE_32_PIXELS_PER_BLOCK
-                        int fumesOffset = 16;
-                    #else
-                        int fumesOffset = 8;
-                    #endif
+                    int fumesOffset = 16;
                     // Draw the upper left part of the fumes
                     m_pDisplay->DrawSprite (m_iX - fumesOffset,
                                             m_iY - fumesOffset,
