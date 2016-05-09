@@ -84,7 +84,6 @@ bool CSound::Create(void)
 
     Mix_AllocateChannels(32); // this was the default in FMOD
 
-
 #ifndef LOAD_FROM_FILE
     if (!LoadSample(SAMPLE_BOMB_DROP, SND_BOMB_DROP) ||
         !LoadSample(SAMPLE_BOMBER_DEATH, SND_BOMBER_DEATH) ||
@@ -265,6 +264,31 @@ bool CSound::LoadSample(ESample Sample, int ResourceID)
     // Open Sample
     m_Samples[Sample] = Mix_LoadWAV_RW(rwSample, 0);
     SDL_FreeRW(rwSample);
+
+    if (!m_Samples[Sample])
+    {
+        // Log failure
+        theLog.WriteLine("Sound           => !!! Could not open sample %d because %s", ResourceID, Mix_GetError());
+
+        // Get out
+        return false;
+    }
+
+    // Everything went right
+    return true;
+}
+
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+
+bool CSound::LoadSample(ESample Sample, int ResourceID, const char *file)
+{
+
+    // Check if the sample slot is free
+    ASSERT(m_Samples[Sample] == NULL);
+
+    m_Samples[Sample] = Mix_LoadWAV(file);
 
     if (!m_Samples[Sample])
     {

@@ -279,9 +279,9 @@ bool CDisplay::Create(EDisplayMode DisplayMode)
     case DISPLAYMODE_FULL2: return Create(512, 384, true);
     case DISPLAYMODE_FULL3: return Create(640, 480, true);
     case DISPLAYMODE_WINDOWED: return Create(VIEW_WIDTH, VIEW_HEIGHT, false);
-    default                   : return false; // Should never happen
+    default: return false; // Should never happen
     }
-    }
+}
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -326,12 +326,7 @@ bool CDisplay::IsDisplayModeAvailable(EDisplayMode DisplayMode)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CDisplay::LoadSprites(int SpriteTableWidth,
-    int SpriteTableHeight,
-    int SpriteWidth,
-    int SpriteHeight,
-    bool Transparent,
-    int BMP_ID)
+bool CDisplay::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, int BMP_ID)
 {
 #ifdef WIN32
     // Load the bitmap as a resource
@@ -377,6 +372,27 @@ bool CDisplay::LoadSprites(int SpriteTableWidth,
         return false;
     }
 #endif
+
+    // Everything went right
+    return true;
+}
+
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+
+bool CDisplay::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, const char *file)
+{
+
+#ifdef DIRECTX_DRAW
+    if (!m_DirectDraw.LoadSprites(SpriteTableWidth, SpriteTableHeight, SpriteWidth, SpriteHeight, Transparent, file))
+#else
+    if (!m_SDLVideo.LoadSprites(SpriteTableWidth, SpriteTableHeight, SpriteWidth, SpriteHeight, Transparent, file))
+#endif
+    {
+        // Get out, failure
+        return false;
+    }
 
     // Everything went right
     return true;

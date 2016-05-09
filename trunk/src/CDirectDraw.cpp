@@ -762,12 +762,7 @@ bool CDirectDraw::SetTransparentColor(int Red, int Green, int Blue)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CDirectDraw::LoadSprites(int SpriteTableWidth,
-    int SpriteTableHeight,
-    int SpriteWidth,
-    int SpriteHeight,
-    bool Transparent,
-    HBITMAP hBitmap)
+bool CDirectDraw::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, HBITMAP hBitmap)
 {
     HRESULT hRet;
 
@@ -981,6 +976,17 @@ bool CDirectDraw::LoadSprites(int SpriteTableWidth,
 
     // Everything went right
     return true;
+}
+
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+
+bool CDirectDraw::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, const char* file)
+{
+
+    // TODO:
+
 }
 
 //******************************************************************************************************************************

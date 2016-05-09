@@ -199,7 +199,8 @@ public:
     void                    Destroy (void);
     bool                    SetTransparentColor (int Red, int Green, int Blue);
     bool                    LoadSprites (int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, HBITMAP hBitmap);
-    void                    FreeSprites (void);
+    bool                    LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, const char* file);
+    void                    FreeSprites(void);
     void                    OnWindowMove (void);
     inline void             OnPaint (void);
     void                    Clear (void);

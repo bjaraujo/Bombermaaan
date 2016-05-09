@@ -18,7 +18,7 @@
     You should have received a copy of the GNU General Public License
     along with Bombermaaan.  If not, see <http://www.gnu.org/licenses/>.
 
-************************************************************************************/
+    ************************************************************************************/
 
 
 /**
@@ -112,45 +112,47 @@ private:
     HMODULE m_hModule;                          //!< Connection to the resources
     bool m_GlobalPause;                         //!< Is the sound paused?
     bool m_SoundOK;                             //!< Could SDL_mixer be initialized? This may be false if there is no sound card
-    Mix_Chunk *m_Samples [NUM_SAMPLES];         //!< The available samples
+    Mix_Chunk *m_Samples[NUM_SAMPLES];         //!< The available samples
     Mix_Music *m_CurrentSong;                   //!< The current song
     ESong m_ESong;                              //!< current song number
     //AudioDevicePtr m_Device;
-		
-    bool GetSoundResource (int ResourceID, LPVOID &pData, DWORD &DataSize);
-    bool LoadSample (ESample Sample, int ResourceID);
-    void FreeSample (ESample Sample);
-    bool LoadSong (ESong Song, int ResourceID);
-    void FreeSong (ESong Song);
+
+    bool GetSoundResource(int ResourceID, LPVOID &pData, DWORD &DataSize);
+    bool LoadSample(ESample Sample, int ResourceID);
+    bool LoadSample(ESample Sample, int ResourceID, const char *file);
+
+    void FreeSample(ESample Sample);
+    bool LoadSong(ESong Song, int ResourceID);
+    void FreeSong(ESong Song);
 
 public:
 
-    CSound (void);
-    ~CSound (void);
+    CSound(void);
+    ~CSound(void);
 
-    inline void SetModuleHandle (HMODULE hModule);             //!< Set the connection to the resources
-    bool        Create (void);                                 //!< Initialize the object
-    void        Destroy (void);                                //!< Uninitialize the object
-    void        SetPause (bool Pause);                         //!< Pause or resume the sound
-    inline bool IsPaused (void);
-    void        PlaySong (ESong Song);                         //!< Start playing a song
-    void        StopSong (ESong Song);                         //!< Stop playing a specific song
-    void        PlaySample (ESample Sample);                   //!< Start playing a sample
+    inline void SetModuleHandle(HMODULE hModule);             //!< Set the connection to the resources
+    bool        Create(void);                                 //!< Initialize the object
+    void        Destroy(void);                                //!< Uninitialize the object
+    void        SetPause(bool Pause);                         //!< Pause or resume the sound
+    inline bool IsPaused(void);
+    void        PlaySong(ESong Song);                         //!< Start playing a song
+    void        StopSong(ESong Song);                         //!< Stop playing a specific song
+    void        PlaySample(ESample Sample);                   //!< Start playing a sample
     void        StopAllSamples();                              //!< Stops all samples
-    void        SetSampleVolume (int VolumePerCent);           //!< Set the volume for all samples
-    void        SetSongVolume (ESong Song, int VolumePerCent); //!< Set the volume for a specific song
+    void        SetSampleVolume(int VolumePerCent);           //!< Set the volume for all samples
+    void        SetSongVolume(ESong Song, int VolumePerCent); //!< Set the volume for a specific song
 };
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline void CSound::SetModuleHandle (HMODULE hModule)
+inline void CSound::SetModuleHandle(HMODULE hModule)
 {
     m_hModule = hModule;
 }
 
-inline bool CSound::IsPaused (void)
+inline bool CSound::IsPaused(void)
 {
     return m_GlobalPause;
 }
