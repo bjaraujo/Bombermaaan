@@ -329,6 +329,7 @@ void CSound::FreeSample(ESample Sample)
 
 bool CSound::LoadSong(ESong Song, int ResourceID)
 {
+
     SDL_RWops *rwSong;
 
     // Check if the song slot is free
@@ -350,6 +351,28 @@ bool CSound::LoadSong(ESong Song, int ResourceID)
     // Open Sample
     m_CurrentSong = Mix_LoadMUS_RW(rwSong);
     SDL_FreeRW(rwSong);
+
+    if (!m_CurrentSong) {
+        // Log failure
+        theLog.WriteLine("Sound           => !!! Could not load song %d because %s.", ResourceID, Mix_GetError());
+
+        // Get out
+        return false;
+    }
+
+    // Everything went right
+    return true;
+}
+
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+
+bool CSound::LoadSong(ESong Song, int ResourceID, const char* file)
+{
+
+    // Open Sample
+    m_CurrentSong = Mix_LoadMUS(file);
 
     if (!m_CurrentSong) {
         // Log failure
@@ -486,19 +509,39 @@ void CSound::PlaySong(ESong Song)
         if (m_ESong != Song || m_CurrentSong == NULL) {
             switch (Song) {
             case SONG_MATCH_MUSIC_1_NORMAL:
+#ifndef LOAD_FROM_FILE
                 result = LoadSong(SONG_MATCH_MUSIC_1_NORMAL, SND_MATCH_MUSIC_1_NORMAL);
+#else
+                result = LoadSong(SONG_MATCH_MUSIC_1_NORMAL, SND_MATCH_MUSIC_1_NORMAL, "match_music_1_normal.mod");
+#endif
                 break;
             case SONG_MATCH_MUSIC_1_FAST:
+#ifndef LOAD_FROM_FILE
                 result = LoadSong(SONG_MATCH_MUSIC_1_FAST, SND_MATCH_MUSIC_1_FAST);
+#else
+                result = LoadSong(SONG_MATCH_MUSIC_1_FAST, SND_MATCH_MUSIC_1_FAST, "match_music_1_fast.mod");
+#endif
                 break;
             case SONG_MENU_MUSIC:
+#ifndef LOAD_FROM_FILE
                 result = LoadSong(SONG_MENU_MUSIC, SND_MENU_MUSIC);
+#else
+                result = LoadSong(SONG_MENU_MUSIC, SND_MENU_MUSIC, "menu_music.s3m");
+#endif
                 break;
             case SONG_CONTROLS_MUSIC:
+#ifndef LOAD_FROM_FILE
                 result = LoadSong(SONG_CONTROLS_MUSIC, SND_CONTROLS_MUSIC);
+#else
+                result = LoadSong(SONG_CONTROLS_MUSIC, SND_CONTROLS_MUSIC, "controls_music.s3m");
+#endif
                 break;
             case SONG_TITLE_MUSIC:
+#ifndef LOAD_FROM_FILE
                 result = LoadSong(SONG_TITLE_MUSIC, SND_TITLE_MUSIC);
+#else
+                result = LoadSong(SONG_TITLE_MUSIC, SND_TITLE_MUSIC, "title_music.s3m");
+#endif
                 break;
             default:
                 result = false;

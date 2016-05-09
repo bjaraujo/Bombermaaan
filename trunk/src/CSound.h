@@ -123,6 +123,7 @@ private:
 
     void FreeSample(ESample Sample);
     bool LoadSong(ESong Song, int ResourceID);
+    bool LoadSong(ESong Song, int ResourceID, const char* file);
     void FreeSong(ESong Song);
 
 public:

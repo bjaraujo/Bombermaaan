@@ -176,7 +176,7 @@ bool CDisplay::Create(int Width, int Height, bool FullScreen)
         }
 #else
         if (
-            !LoadSprites(2, 1, 32, 32, false, BMP_ARENA_FLOOR, "arena_fire.bmp") ||
+            !LoadSprites(2, 1, 32, 32, false, BMP_ARENA_FLOOR, "arena_floor.bmp") ||
             !LoadSprites(7, 1, 32, 32, true, BMP_ARENA_WALL, "arena_wall.bmp") ||
             !LoadSprites(28, 1, 32, 32, true, BMP_ARENA_FLAME, "arena_flame.bmp") ||
             !LoadSprites(16, 1, 32, 32, false, BMP_ARENA_ITEM, "arena_item.bmp") ||
