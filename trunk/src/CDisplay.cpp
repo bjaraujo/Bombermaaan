@@ -381,7 +381,7 @@ bool CDisplay::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spri
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CDisplay::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, const char *file)
+bool CDisplay::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, int BMP_ID, const char *file)
 {
 
 #ifdef DIRECTX_DRAW
