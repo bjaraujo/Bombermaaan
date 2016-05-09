@@ -762,7 +762,7 @@ bool CSDLVideo::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spr
 {
     
     SSurface Surface;
-
+    
     SDL_Surface *ddsd = SDL_LoadBMP(file);
 
     // If it failed

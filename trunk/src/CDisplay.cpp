@@ -63,7 +63,7 @@ CDisplay::~CDisplay(void)
 bool CDisplay::Create(int Width, int Height, bool FullScreen)
 {
     // Check if we have a connection with the resources
-#ifdef WIN32
+#ifndef LOAD_FROM_FILE
     ASSERT(m_hModule != NULL);
 #endif
 
