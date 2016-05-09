@@ -63,7 +63,7 @@ CDisplay::~CDisplay(void)
 bool CDisplay::Create(int Width, int Height, bool FullScreen)
 {
     // Check if we have a connection with the resources
-#ifndef LOAD_FROM_FILE
+#ifndef LOAD_RESOURCES_FROM_FILE
     ASSERT(m_hModule != NULL);
 #endif
 
@@ -100,7 +100,7 @@ bool CDisplay::Create(int Width, int Height, bool FullScreen)
         }
 #endif
 
-#ifndef LOAD_FROM_FILE
+#ifndef LOAD_RESOURCES_FROM_FILE
         // Load the sprite tables. If at least one sprite table could not be loaded
         if (
             !LoadSprites(2, 1, 32, 32, false, BMP_ARENA_FLOOR) ||

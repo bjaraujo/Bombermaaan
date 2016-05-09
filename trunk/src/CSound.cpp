@@ -84,7 +84,7 @@ bool CSound::Create(void)
 
     Mix_AllocateChannels(32); // this was the default in FMOD
 
-#ifndef LOAD_FROM_FILE
+#ifndef LOAD_RESOURCES_FROM_FILE
     if (!LoadSample(SAMPLE_BOMB_DROP, SND_BOMB_DROP) ||
         !LoadSample(SAMPLE_BOMBER_DEATH, SND_BOMBER_DEATH) ||
         !LoadSample(SAMPLE_BOMB_BOUNCE, SND_BOMB_BOUNCE) ||
@@ -509,35 +509,35 @@ void CSound::PlaySong(ESong Song)
         if (m_ESong != Song || m_CurrentSong == NULL) {
             switch (Song) {
             case SONG_MATCH_MUSIC_1_NORMAL:
-#ifndef LOAD_FROM_FILE
+#ifndef LOAD_RESOURCES_FROM_FILE
                 result = LoadSong(SONG_MATCH_MUSIC_1_NORMAL, SND_MATCH_MUSIC_1_NORMAL);
 #else
                 result = LoadSong(SONG_MATCH_MUSIC_1_NORMAL, SND_MATCH_MUSIC_1_NORMAL, "match_music_1_normal.mod");
 #endif
                 break;
             case SONG_MATCH_MUSIC_1_FAST:
-#ifndef LOAD_FROM_FILE
+#ifndef LOAD_RESOURCES_FROM_FILE
                 result = LoadSong(SONG_MATCH_MUSIC_1_FAST, SND_MATCH_MUSIC_1_FAST);
 #else
                 result = LoadSong(SONG_MATCH_MUSIC_1_FAST, SND_MATCH_MUSIC_1_FAST, "match_music_1_fast.mod");
 #endif
                 break;
             case SONG_MENU_MUSIC:
-#ifndef LOAD_FROM_FILE
+#ifndef LOAD_RESOURCES_FROM_FILE
                 result = LoadSong(SONG_MENU_MUSIC, SND_MENU_MUSIC);
 #else
                 result = LoadSong(SONG_MENU_MUSIC, SND_MENU_MUSIC, "menu_music.s3m");
 #endif
                 break;
             case SONG_CONTROLS_MUSIC:
-#ifndef LOAD_FROM_FILE
+#ifndef LOAD_RESOURCES_FROM_FILE
                 result = LoadSong(SONG_CONTROLS_MUSIC, SND_CONTROLS_MUSIC);
 #else
                 result = LoadSong(SONG_CONTROLS_MUSIC, SND_CONTROLS_MUSIC, "controls_music.s3m");
 #endif
                 break;
             case SONG_TITLE_MUSIC:
-#ifndef LOAD_FROM_FILE
+#ifndef LOAD_RESOURCES_FROM_FILE
                 result = LoadSong(SONG_TITLE_MUSIC, SND_TITLE_MUSIC);
 #else
                 result = LoadSong(SONG_TITLE_MUSIC, SND_TITLE_MUSIC, "title_music.s3m");

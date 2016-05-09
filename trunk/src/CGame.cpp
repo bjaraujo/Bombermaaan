@@ -479,7 +479,7 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
     theDebug.Create();
 
     // If the resource file does not exist
-#ifndef LOAD_FROM_FILE
+#ifndef LOAD_RESOURCES_FROM_FILE
     if (GetFileAttributes(NAME_OF_BOMBERMAN_DLL) == (DWORD)-1)
     {
         // Failure
