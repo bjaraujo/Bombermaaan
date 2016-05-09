@@ -198,7 +198,7 @@ SND_BOMB_BOUNCE         SOUND   DISCARDABLE     "sound\\BOMB_BOUNCE.ogg"
 SND_BOMBER_THROW        SOUND   DISCARDABLE     "sound\\BOMBER_THROW.ogg"
 SND_BOMBER_PUNCH        SOUND   DISCARDABLE     "sound\\BOMBER_PUNCH.ogg"
 SND_BOMBER_LOSE_ITEM    SOUND   DISCARDABLE     "sound\\BOMBER_LOSE_ITEM.ogg"
-#endif    // French (France) resources
+#endif
 /////////////////////////////////////////////////////////////////////////////
 
 

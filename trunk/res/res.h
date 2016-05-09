@@ -23,7 +23,7 @@
 
 //{{NO_DEPENDENCIES}}
 // Microsoft Developer Studio generated include file.
-// Used by resource.rc
+// Used by res.rc
 //
 #define BMP_ARENA_FIRE                  229
 #define BMP_ARENA_FLAME                 230
@@ -64,6 +64,38 @@
 #define BMP_VICTORY_CONFETTIS_LARGE     262
 #define BMP_VICTORY_CONFETTIS_MEDIUM    263
 #define BMP_VICTORY_CONFETTIS_SMALL     264
+#define BMP_PAUSE                       309
+#define BMP_HURRY                       310
+#define BMP_ARENA_FUMES                 316
+#define BMP_BOARD_DRAWGAME              318
+#define BMP_TITLE_BACKGROUND            319
+#define BMP_TITLE_BOMBERS               320
+#define BMP_TITLE_MENU_ITEMS            321
+#define BMP_TITLE_TITLE                 322
+#define BMP_CONTROLS_BACKGROUND_1       323
+#define BMP_CONTROLS_BACKGROUND_2       324
+#define BMP_CONTROLS_BACKGROUND_3       325
+#define BMP_MENU_BACKGROUND_2           326
+#define BMP_MENU_BACKGROUND_3           327
+#define BMP_WINNER_BACKGROUND_3         328
+#define BMP_WINNER_BACKGROUND_2         329
+#define BMP_TITLE_CLOUD_1               330
+#define BMP_TITLE_CLOUD_2               331
+#define BMP_TITLE_CLOUD_3               332
+#define BMP_ARENA_ARROWS                352
+#define BMP_MENU_HAND_TITLE             353
+#define BMP_ARENA_REMOTE_BOMB           354
+#define BMP_MENU_FRAME_2                313
+#define BMP_LEVEL_MINI_BOMBERS          335
+#define BMP_LEVEL_MINI_TILES            336
+#define BMP_ARENA_BOMBER_DEATH          338
+#define BMP_ARENA_BOMBER_LIFT           339
+#define BMP_ARENA_BOMBER_THROW          340
+#define BMP_ARENA_BOMBER_WALK           341
+#define BMP_ARENA_BOMBER_WALK_HOLD      342
+#define BMP_ARENA_BOMBER_PUNCH          343
+#define BMP_ARENA_BOMBER_STUNT          350
+
 #define SND_EXPLOSION_02_2              266
 #define SND_BOMBER_DEATH                267
 #define SND_EXPLOSION_01_1              268
@@ -106,58 +138,17 @@
 #define SND_SICK_3                      306
 #define SND_HURRY                       307
 #define SND_DRAW_GAME                   308
-#define BMP_PAUSE                       309
-#define BMP_HURRY                       310
 #define SND_VICTORY                     311
 #define SND_PAUSE                       312
-#define BMP_MENU_FRAME_2                313
 #define SND_BREAK_1                     314
 #define SND_BREAK_2                     315
-#define BMP_ARENA_FUMES                 316
 #define SND_ITEM_FUMES                  317
-#define BMP_BOARD_DRAWGAME              318
-#define BMP_TITLE_BACKGROUND            319
-#define BMP_TITLE_BOMBERS               320
-#define BMP_TITLE_MENU_ITEMS            321
-#define BMP_TITLE_TITLE                 322
-#define BMP_CONTROLS_BACKGROUND_1       323
-#define BMP_CONTROLS_BACKGROUND_2       324
-#define BMP_CONTROLS_BACKGROUND_3       325
-#define BMP_MENU_BACKGROUND_2           326
-#define BMP_MENU_BACKGROUND_3           327
-#define BMP_WINNER_BACKGROUND_3         328
-#define BMP_WINNER_BACKGROUND_2         329
-#define BMP_TITLE_CLOUD_1               330
-#define BMP_TITLE_CLOUD_2               331
-#define BMP_TITLE_CLOUD_3               332
 #define SND_CONTROLS_MUSIC              333
 #define SND_TITLE_MUSIC                 334
-#define BMP_LEVEL_MINI_BOMBERS          335
-#define BMP_LEVEL_MINI_TILES            336
-#define BMP_ARENA_BOMBER_DEATH          338
-#define BMP_ARENA_BOMBER_LIFT           339
-#define BMP_ARENA_BOMBER_THROW          340
-#define BMP_ARENA_BOMBER_WALK           341
-#define BMP_ARENA_BOMBER_WALK_HOLD      342
-#define BMP_ARENA_BOMBER_PUNCH          343
 #define SND_BOMB_BOUNCE                 345
 #define SND_BOMBER_THROW                346
 #define SND_BOMBER_PUNCH                349
-#define BMP_ARENA_BOMBER_STUNT          350
 #define SND_BOMBER_LOSE_ITEM            351
-#define BMP_ARENA_ARROWS                352
-#define BMP_MENU_HAND_TITLE             353
-#define BMP_ARENA_REMOTE_BOMB           354
 #define SND_DRAW_GAME_VOICE             355
 #define SND_VICTORY_VOICE               356
 
-// Next default values for new objects
-// 
-#ifdef APSTUDIO_INVOKED
-#ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        500
-#define _APS_NEXT_COMMAND_VALUE         40001
-#define _APS_NEXT_CONTROL_VALUE         1000
-#define _APS_NEXT_SYMED_VALUE           101
-#endif
-#endif
