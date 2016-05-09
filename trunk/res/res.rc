@@ -142,7 +142,7 @@ BMP_ARENA_REMOTE_BOMB   BITMAP  DISCARDABLE     "image\\arena_remote_bomb.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //
-// SOUND
+// Sound
 //
 
 SND_EXPLOSION_02_2      SOUND   DISCARDABLE     "sound\\explosion_02_2.ogg"
