@@ -25,12 +25,11 @@
 // res.cpp : Defines the entry point for the DLL application.
 //
 
-#include "StdAfx.h"
+#include <windows.h>
 
 BOOL APIENTRY DllMain( HANDLE hModule, 
                        DWORD  ul_reason_for_call, 
-                       LPVOID lpReserved
-					 )
+                       LPVOID lpReserved)
 {
     return TRUE;
 }
