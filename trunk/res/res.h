@@ -25,8 +25,6 @@
 // Microsoft Developer Studio generated include file.
 // Used by resource.rc
 //
-#define BMP_ARENA_SICK                  227
-#define BMP_ARENA_BOMBER                228
 #define BMP_ARENA_FIRE                  229
 #define BMP_ARENA_FLAME                 230
 #define BMP_ARENA_FLOOR                 231
