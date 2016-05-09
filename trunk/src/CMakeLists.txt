@@ -182,21 +182,21 @@ IF(WIN32)
             dxguid
             tinyxml
             ${SDL_LIBRARY}
-            ${SDL_MIXER_LIBRARIES}
+            ${SDLMIXER_LIBRARY}
         )
     ELSE(USE_DIRECTX)
         TARGET_LINK_LIBRARIES(BomberMaaan 
             ws2_32
             tinyxml
             ${SDL_LIBRARY}
-            ${SDL_MIXER_LIBRARIES}
+            ${SDLMIXER_LIBRARY}
         )    
     ENDIF(USE_DIRECTX)      
 ELSE(WIN32)
     TARGET_LINK_LIBRARIES(BomberMaaan 
         tinyxml
         ${SDL_LIBRARY}
-        ${SDL_MIXER_LIBRARIES}
+        ${SDLMIXER_LIBRARY}
     )
 ENDIF(WIN32)
 
@@ -205,3 +205,4 @@ ADD_DEPENDENCIES(BomberMaaan BomberMaaan32)
 IF(WIN32)
     ADD_CUSTOM_COMMAND(TARGET BomberMaaan PRE_BUILD COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/../scripts/IncVersion.py WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../scripts)
 ENDIF(WIN32)
+
