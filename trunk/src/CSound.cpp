@@ -19,7 +19,7 @@
     You should have received a copy of the GNU General Public License
     along with Bombermaaan.  If not, see <http://www.gnu.org/licenses/>.
 
-************************************************************************************/
+    ************************************************************************************/
 
 
 /**
@@ -37,7 +37,7 @@
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CSound::CSound (void)
+CSound::CSound(void)
 {
     // No connection to the resources yet
     m_hModule = NULL;
@@ -48,13 +48,13 @@ CSound::CSound (void)
     // Reset the sample and song pointers
     int i;
 
-    for (i = 0 ; i < NUM_SAMPLES ; i++) {
+    for (i = 0; i < NUM_SAMPLES; i++) {
         m_Samples[i] = NULL;
     }
-    
+
     m_CurrentSong = NULL;
     m_ESong = SONG_NONE;
-    
+
     m_SoundOK = false;
 }
 
@@ -62,7 +62,7 @@ CSound::CSound (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CSound::~CSound (void)
+CSound::~CSound(void)
 {
     // Nothing to do
 }
@@ -71,75 +71,127 @@ CSound::~CSound (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CSound::Create (void)
+bool CSound::Create(void)
 {
-	
+
     if (Mix_OpenAudio(44100, AUDIO_S16LSB, 2, 1024) < 0) {
         // failure
-        theLog.WriteLine ("Sound           => !!! Could not initialise SDL_mixer Library. Error is : %s", Mix_GetError());
+        theLog.WriteLine("Sound           => !!! Could not initialise SDL_mixer Library. Error is : %s", Mix_GetError());
 
         // Get out
         return false;
     }
-    
-    Mix_AllocateChannels(32); // this was the default in FMOD
-	
-    //---------------------
-    // Load the sound data
-    //---------------------
 
-    if (!LoadSample (SAMPLE_BOMB_DROP             , SND_BOMB_DROP              ) ||
-        !LoadSample (SAMPLE_BOMBER_DEATH          , SND_BOMBER_DEATH           ) ||
-        !LoadSample (SAMPLE_BOMB_BOUNCE           , SND_BOMB_BOUNCE            ) ||
-        !LoadSample (SAMPLE_BOMBER_PUNCH          , SND_BOMBER_PUNCH           ) ||
-        !LoadSample (SAMPLE_BOMBER_THROW          , SND_BOMBER_THROW           ) ||
-        !LoadSample (SAMPLE_BOMBER_LOSE_ITEM      , SND_BOMBER_LOSE_ITEM       ) ||
-        !LoadSample (SAMPLE_BREAK_1               , SND_BREAK_1                ) ||
-        !LoadSample (SAMPLE_BREAK_2               , SND_BREAK_2                ) ||
-        !LoadSample (SAMPLE_DRAW_GAME             , SND_DRAW_GAME              ) ||
-        !LoadSample (SAMPLE_DRAW_GAME_VOICE       , SND_DRAW_GAME_VOICE        ) ||
-        !LoadSample (SAMPLE_EXPLOSION_01_1        , SND_EXPLOSION_01_1         ) ||
-        !LoadSample (SAMPLE_EXPLOSION_01_2        , SND_EXPLOSION_01_2         ) ||
-        !LoadSample (SAMPLE_EXPLOSION_02_1        , SND_EXPLOSION_02_1         ) ||
-        !LoadSample (SAMPLE_EXPLOSION_02_2        , SND_EXPLOSION_02_2         ) ||
-        !LoadSample (SAMPLE_EXPLOSION_03_1        , SND_EXPLOSION_03_1         ) ||
-        !LoadSample (SAMPLE_EXPLOSION_03_2        , SND_EXPLOSION_03_2         ) ||
-        !LoadSample (SAMPLE_EXPLOSION_04_1        , SND_EXPLOSION_04_1         ) ||
-        !LoadSample (SAMPLE_EXPLOSION_04_2        , SND_EXPLOSION_04_2         ) ||
-        !LoadSample (SAMPLE_EXPLOSION_05_1        , SND_EXPLOSION_05_1         ) ||
-        !LoadSample (SAMPLE_EXPLOSION_05_2        , SND_EXPLOSION_05_2         ) ||
-        !LoadSample (SAMPLE_EXPLOSION_06_1        , SND_EXPLOSION_06_1         ) ||
-        !LoadSample (SAMPLE_EXPLOSION_06_2        , SND_EXPLOSION_06_2         ) ||
-        !LoadSample (SAMPLE_EXPLOSION_07_1        , SND_EXPLOSION_07_1         ) ||
-        !LoadSample (SAMPLE_EXPLOSION_07_2        , SND_EXPLOSION_07_2         ) ||
-        !LoadSample (SAMPLE_EXPLOSION_08_1        , SND_EXPLOSION_08_1         ) ||
-        !LoadSample (SAMPLE_EXPLOSION_08_2        , SND_EXPLOSION_08_2         ) ||
-        !LoadSample (SAMPLE_EXPLOSION_09_1        , SND_EXPLOSION_09_1         ) ||
-        !LoadSample (SAMPLE_EXPLOSION_09_2        , SND_EXPLOSION_09_2         ) ||
-        !LoadSample (SAMPLE_EXPLOSION_10_1        , SND_EXPLOSION_10_1         ) ||
-        !LoadSample (SAMPLE_EXPLOSION_10_2        , SND_EXPLOSION_10_2         ) ||
-        !LoadSample (SAMPLE_HURRY                 , SND_HURRY                  ) ||
-        !LoadSample (SAMPLE_ITEM_FUMES            , SND_ITEM_FUMES             ) ||
-        !LoadSample (SAMPLE_MENU_NEXT             , SND_MENU_NEXT              ) ||
-        !LoadSample (SAMPLE_MENU_PREVIOUS         , SND_MENU_PREVIOUS          ) ||
-        !LoadSample (SAMPLE_MENU_BEEP             , SND_MENU_BEEP              ) ||
-        !LoadSample (SAMPLE_MENU_ERROR            , SND_MENU_ERROR             ) ||
-        !LoadSample (SAMPLE_PAUSE                 , SND_PAUSE                  ) ||
-        !LoadSample (SAMPLE_PICK_ITEM_1           , SND_PICK_ITEM_1            ) ||
-        !LoadSample (SAMPLE_PICK_ITEM_2           , SND_PICK_ITEM_2            ) ||
-        !LoadSample (SAMPLE_RING_DING             , SND_RING_DING              ) ||
-        !LoadSample (SAMPLE_SICK_1                , SND_SICK_1                 ) ||
-        !LoadSample (SAMPLE_SICK_2                , SND_SICK_2                 ) ||
-        !LoadSample (SAMPLE_SICK_3                , SND_SICK_3                 ) ||
-        !LoadSample (SAMPLE_VICTORY               , SND_VICTORY                ) ||
-        !LoadSample (SAMPLE_VICTORY_VOICE         , SND_VICTORY_VOICE          ) ||
-        !LoadSample (SAMPLE_WALL_CLAP_1           , SND_WALL_CLAP_1            ) ||
-        !LoadSample (SAMPLE_WALL_CLAP_2           , SND_WALL_CLAP_2            ) ||
-        !LoadSample (SAMPLE_WINNER                , SND_WINNER                 ))
+    Mix_AllocateChannels(32); // this was the default in FMOD
+
+
+#ifndef LOAD_FROM_FILE
+    if (!LoadSample(SAMPLE_BOMB_DROP, SND_BOMB_DROP) ||
+        !LoadSample(SAMPLE_BOMBER_DEATH, SND_BOMBER_DEATH) ||
+        !LoadSample(SAMPLE_BOMB_BOUNCE, SND_BOMB_BOUNCE) ||
+        !LoadSample(SAMPLE_BOMBER_PUNCH, SND_BOMBER_PUNCH) ||
+        !LoadSample(SAMPLE_BOMBER_THROW, SND_BOMBER_THROW) ||
+        !LoadSample(SAMPLE_BOMBER_LOSE_ITEM, SND_BOMBER_LOSE_ITEM) ||
+        !LoadSample(SAMPLE_BREAK_1, SND_BREAK_1) ||
+        !LoadSample(SAMPLE_BREAK_2, SND_BREAK_2) ||
+        !LoadSample(SAMPLE_DRAW_GAME, SND_DRAW_GAME) ||
+        !LoadSample(SAMPLE_DRAW_GAME_VOICE, SND_DRAW_GAME_VOICE) ||
+        !LoadSample(SAMPLE_EXPLOSION_01_1, SND_EXPLOSION_01_1) ||
+        !LoadSample(SAMPLE_EXPLOSION_01_2, SND_EXPLOSION_01_2) ||
+        !LoadSample(SAMPLE_EXPLOSION_02_1, SND_EXPLOSION_02_1) ||
+        !LoadSample(SAMPLE_EXPLOSION_02_2, SND_EXPLOSION_02_2) ||
+        !LoadSample(SAMPLE_EXPLOSION_03_1, SND_EXPLOSION_03_1) ||
+        !LoadSample(SAMPLE_EXPLOSION_03_2, SND_EXPLOSION_03_2) ||
+        !LoadSample(SAMPLE_EXPLOSION_04_1, SND_EXPLOSION_04_1) ||
+        !LoadSample(SAMPLE_EXPLOSION_04_2, SND_EXPLOSION_04_2) ||
+        !LoadSample(SAMPLE_EXPLOSION_05_1, SND_EXPLOSION_05_1) ||
+        !LoadSample(SAMPLE_EXPLOSION_05_2, SND_EXPLOSION_05_2) ||
+        !LoadSample(SAMPLE_EXPLOSION_06_1, SND_EXPLOSION_06_1) ||
+        !LoadSample(SAMPLE_EXPLOSION_06_2, SND_EXPLOSION_06_2) ||
+        !LoadSample(SAMPLE_EXPLOSION_07_1, SND_EXPLOSION_07_1) ||
+        !LoadSample(SAMPLE_EXPLOSION_07_2, SND_EXPLOSION_07_2) ||
+        !LoadSample(SAMPLE_EXPLOSION_08_1, SND_EXPLOSION_08_1) ||
+        !LoadSample(SAMPLE_EXPLOSION_08_2, SND_EXPLOSION_08_2) ||
+        !LoadSample(SAMPLE_EXPLOSION_09_1, SND_EXPLOSION_09_1) ||
+        !LoadSample(SAMPLE_EXPLOSION_09_2, SND_EXPLOSION_09_2) ||
+        !LoadSample(SAMPLE_EXPLOSION_10_1, SND_EXPLOSION_10_1) ||
+        !LoadSample(SAMPLE_EXPLOSION_10_2, SND_EXPLOSION_10_2) ||
+        !LoadSample(SAMPLE_HURRY, SND_HURRY) ||
+        !LoadSample(SAMPLE_ITEM_FUMES, SND_ITEM_FUMES) ||
+        !LoadSample(SAMPLE_MENU_NEXT, SND_MENU_NEXT) ||
+        !LoadSample(SAMPLE_MENU_PREVIOUS, SND_MENU_PREVIOUS) ||
+        !LoadSample(SAMPLE_MENU_BEEP, SND_MENU_BEEP) ||
+        !LoadSample(SAMPLE_MENU_ERROR, SND_MENU_ERROR) ||
+        !LoadSample(SAMPLE_PAUSE, SND_PAUSE) ||
+        !LoadSample(SAMPLE_PICK_ITEM_1, SND_PICK_ITEM_1) ||
+        !LoadSample(SAMPLE_PICK_ITEM_2, SND_PICK_ITEM_2) ||
+        !LoadSample(SAMPLE_RING_DING, SND_RING_DING) ||
+        !LoadSample(SAMPLE_SICK_1, SND_SICK_1) ||
+        !LoadSample(SAMPLE_SICK_2, SND_SICK_2) ||
+        !LoadSample(SAMPLE_SICK_3, SND_SICK_3) ||
+        !LoadSample(SAMPLE_VICTORY, SND_VICTORY) ||
+        !LoadSample(SAMPLE_VICTORY_VOICE, SND_VICTORY_VOICE) ||
+        !LoadSample(SAMPLE_WALL_CLAP_1, SND_WALL_CLAP_1) ||
+        !LoadSample(SAMPLE_WALL_CLAP_2, SND_WALL_CLAP_2) ||
+        !LoadSample(SAMPLE_WINNER, SND_WINNER))
     { // songs are loaded when they are needed
         // Failure, get out (error is logged by the LoadSample() and LoadSong() methods)
         return false;
     }
+#else
+    if (!LoadSample(SAMPLE_BOMB_DROP, SND_BOMB_DROP, "bomb_drop.ogg") ||
+        !LoadSample(SAMPLE_BOMBER_DEATH, SND_BOMBER_DEATH, "bomber_death.ogg") ||
+        !LoadSample(SAMPLE_BOMB_BOUNCE, SND_BOMB_BOUNCE, "bomb_bounce.ogg") ||
+        !LoadSample(SAMPLE_BOMBER_PUNCH, SND_BOMBER_PUNCH, "bomber_punch.ogg") ||
+        !LoadSample(SAMPLE_BOMBER_THROW, SND_BOMBER_THROW, "bomber_throw.ogg") ||
+        !LoadSample(SAMPLE_BOMBER_LOSE_ITEM, SND_BOMBER_LOSE_ITEM, "bomber_lose_item.ogg") ||
+        !LoadSample(SAMPLE_BREAK_1, SND_BREAK_1, "break_1.ogg") ||
+        !LoadSample(SAMPLE_BREAK_2, SND_BREAK_2, "break_2.ogg") ||
+        !LoadSample(SAMPLE_DRAW_GAME, SND_DRAW_GAME, "draw_game.ogg") ||
+        !LoadSample(SAMPLE_DRAW_GAME_VOICE, SND_DRAW_GAME_VOICE, "draw_game_voice.ogg") ||
+        !LoadSample(SAMPLE_EXPLOSION_01_1, SND_EXPLOSION_01_1, "explosion_01_1.ogg") ||
+        !LoadSample(SAMPLE_EXPLOSION_01_2, SND_EXPLOSION_01_2, "explosion_01_2.ogg") ||
+        !LoadSample(SAMPLE_EXPLOSION_02_1, SND_EXPLOSION_02_1, "explosion_02_1.ogg") ||
+        !LoadSample(SAMPLE_EXPLOSION_02_2, SND_EXPLOSION_02_2, "explosion_02_2.ogg") ||
+        !LoadSample(SAMPLE_EXPLOSION_03_1, SND_EXPLOSION_03_1, "explosion_03_1.ogg") ||
+        !LoadSample(SAMPLE_EXPLOSION_03_2, SND_EXPLOSION_03_2, "explosion_03_2.ogg") ||
+        !LoadSample(SAMPLE_EXPLOSION_04_1, SND_EXPLOSION_04_1, "explosion_04_1.ogg") ||
+        !LoadSample(SAMPLE_EXPLOSION_04_2, SND_EXPLOSION_04_2, "explosion_04_2.ogg") ||
+        !LoadSample(SAMPLE_EXPLOSION_05_1, SND_EXPLOSION_05_1, "explosion_05_1.ogg") ||
+        !LoadSample(SAMPLE_EXPLOSION_05_2, SND_EXPLOSION_05_2, "explosion_05_2.ogg") ||
+        !LoadSample(SAMPLE_EXPLOSION_06_1, SND_EXPLOSION_06_1, "explosion_06_1.ogg") ||
+        !LoadSample(SAMPLE_EXPLOSION_06_2, SND_EXPLOSION_06_2, "explosion_06_2.ogg") ||
+        !LoadSample(SAMPLE_EXPLOSION_07_1, SND_EXPLOSION_07_1, "explosion_07_1.ogg") ||
+        !LoadSample(SAMPLE_EXPLOSION_07_2, SND_EXPLOSION_07_2, "explosion_07_2.ogg") ||
+        !LoadSample(SAMPLE_EXPLOSION_08_1, SND_EXPLOSION_08_1, "explosion_08_1.ogg") ||
+        !LoadSample(SAMPLE_EXPLOSION_08_2, SND_EXPLOSION_08_2, "explosion_08_2.ogg") ||
+        !LoadSample(SAMPLE_EXPLOSION_09_1, SND_EXPLOSION_09_1, "explosion_09_1.ogg") ||
+        !LoadSample(SAMPLE_EXPLOSION_09_2, SND_EXPLOSION_09_2, "explosion_09_2.ogg") ||
+        !LoadSample(SAMPLE_EXPLOSION_10_1, SND_EXPLOSION_10_1, "explosion_10_1.ogg") ||
+        !LoadSample(SAMPLE_EXPLOSION_10_2, SND_EXPLOSION_10_2, "explosion_10_2.ogg") ||
+        !LoadSample(SAMPLE_HURRY, SND_HURRY, "hurry.ogg") ||
+        !LoadSample(SAMPLE_ITEM_FUMES, SND_ITEM_FUMES, "item_fumes.ogg") ||
+        !LoadSample(SAMPLE_MENU_NEXT, SND_MENU_NEXT, "menu_next.ogg") ||
+        !LoadSample(SAMPLE_MENU_PREVIOUS, SND_MENU_PREVIOUS, "menu_previous.ogg") ||
+        !LoadSample(SAMPLE_MENU_BEEP, SND_MENU_BEEP, "menu_beep.ogg") ||
+        !LoadSample(SAMPLE_MENU_ERROR, SND_MENU_ERROR, "menu_error.ogg") ||
+        !LoadSample(SAMPLE_PAUSE, SND_PAUSE, "pause.ogg") ||
+        !LoadSample(SAMPLE_PICK_ITEM_1, SND_PICK_ITEM_1, "pick_item_1.ogg") ||
+        !LoadSample(SAMPLE_PICK_ITEM_2, SND_PICK_ITEM_2, "pick_item_2.ogg") ||
+        !LoadSample(SAMPLE_RING_DING, SND_RING_DING, "ring_ding.ogg") ||
+        !LoadSample(SAMPLE_SICK_1, SND_SICK_1, "sick_1.ogg") ||
+        !LoadSample(SAMPLE_SICK_2, SND_SICK_2, "sick_2.ogg") ||
+        !LoadSample(SAMPLE_SICK_3, SND_SICK_3, "sick_3.ogg") ||
+        !LoadSample(SAMPLE_VICTORY, SND_VICTORY, "victory.ogg") ||
+        !LoadSample(SAMPLE_VICTORY_VOICE, SND_VICTORY_VOICE, "victory_voice.ogg") ||
+        !LoadSample(SAMPLE_WALL_CLAP_1, SND_WALL_CLAP_1, "wall_clap_1.ogg") ||
+        !LoadSample(SAMPLE_WALL_CLAP_2, SND_WALL_CLAP_2, "wall_clap_2.ogg") ||
+        !LoadSample(SAMPLE_WINNER, SND_WINNER, "winner.ogg"))
+    { // songs are loaded when they are needed
+        // Failure, get out (error is logged by the LoadSample() and LoadSong() methods)
+        return false;
+    }
+#endif
 
     m_SoundOK = true;
 
@@ -151,10 +203,10 @@ bool CSound::Create (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CSound::Destroy (void)
+void CSound::Destroy(void)
 {
     int i;
-	
+
     // If the sound works
     if (m_SoundOK)
     {
@@ -162,7 +214,7 @@ void CSound::Destroy (void)
         Mix_HaltChannel(-1);
 
         // Stop and free all samples that are playing
-        for (i = 0 ; i < NUM_SAMPLES ; i++)
+        for (i = 0; i < NUM_SAMPLES; i++)
         {
             if (m_Samples[i] != NULL)
             {
@@ -190,39 +242,39 @@ void CSound::Destroy (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CSound::LoadSample (ESample Sample, int ResourceID)
+bool CSound::LoadSample(ESample Sample, int ResourceID)
 {
     SDL_RWops *rwSample;
 
     // Check if the sample slot is free
-    ASSERT (m_Samples[Sample] == NULL);
+    ASSERT(m_Samples[Sample] == NULL);
 
     LPVOID pData;
     DWORD DataSize;
 
     // If we could not get the sound resource information
-    if (!GetSoundResource (ResourceID, pData, DataSize))
+    if (!GetSoundResource(ResourceID, pData, DataSize))
     {
         // Get out
         return false;
     }
-    
+
     // Convert pData to SDL_RWops
     rwSample = SDL_RWFromMem(pData, DataSize);
-  
+
     // Open Sample
     m_Samples[Sample] = Mix_LoadWAV_RW(rwSample, 0);
     SDL_FreeRW(rwSample);
-	
+
     if (!m_Samples[Sample])
     {
         // Log failure
-        theLog.WriteLine ("Sound           => !!! Could not open sample %d because %s", ResourceID, Mix_GetError());
-			
+        theLog.WriteLine("Sound           => !!! Could not open sample %d because %s", ResourceID, Mix_GetError());
+
         // Get out
         return false;
     }
-	
+
     // Everything went right
     return true;
 }
@@ -231,7 +283,7 @@ bool CSound::LoadSample (ESample Sample, int ResourceID)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CSound::FreeSample (ESample Sample)
+void CSound::FreeSample(ESample Sample)
 {
     // If the sample slot is not free
     if (m_Samples[Sample] != NULL)
@@ -241,7 +293,7 @@ void CSound::FreeSample (ESample Sample)
 
         // free sample
         Mix_FreeChunk(m_Samples[Sample]);
-			
+
         // Free the sample slot
         m_Samples[Sample] = NULL;
     }
@@ -251,38 +303,38 @@ void CSound::FreeSample (ESample Sample)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CSound::LoadSong (ESong Song, int ResourceID)
+bool CSound::LoadSong(ESong Song, int ResourceID)
 {
     SDL_RWops *rwSong;
 
     // Check if the song slot is free
-    ASSERT (m_CurrentSong == NULL);
+    ASSERT(m_CurrentSong == NULL);
 
     LPVOID pData;
     DWORD DataSize;
 
     // If we could not get the sound resource information
-    if (!GetSoundResource (ResourceID, pData, DataSize))
+    if (!GetSoundResource(ResourceID, pData, DataSize))
     {
         // Get out
         return false;
     }
-    
+
     // Convert pData to SDL_RWops
     rwSong = SDL_RWFromMem(pData, DataSize);
-  
+
     // Open Sample
     m_CurrentSong = Mix_LoadMUS_RW(rwSong);
     SDL_FreeRW(rwSong);
-	
+
     if (!m_CurrentSong) {
         // Log failure
-        theLog.WriteLine ("Sound           => !!! Could not load song %d because %s.", ResourceID, Mix_GetError());
-        
+        theLog.WriteLine("Sound           => !!! Could not load song %d because %s.", ResourceID, Mix_GetError());
+
         // Get out
         return false;
     }
-		
+
     // Everything went right
     return true;
 }
@@ -291,16 +343,16 @@ bool CSound::LoadSong (ESong Song, int ResourceID)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CSound::FreeSong (ESong Song)
+void CSound::FreeSong(ESong Song)
 {
     // If the song slot is not free
     if (m_CurrentSong != NULL)
     {
         Mix_HaltMusic();
         Mix_FreeMusic(m_CurrentSong);
-			
+
         // Free the song slot
-        m_CurrentSong	= NULL;
+        m_CurrentSong = NULL;
     }
 }
 
@@ -308,59 +360,59 @@ void CSound::FreeSong (ESong Song)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CSound::GetSoundResource (int ResourceID, LPVOID &pData, DWORD &DataSize)
+bool CSound::GetSoundResource(int ResourceID, LPVOID &pData, DWORD &DataSize)
 {
     // Find the resource file
-    HRSRC hResource = FindResource (m_hModule, MAKEINTRESOURCE(ResourceID), "SOUND");
+    HRSRC hResource = FindResource(m_hModule, MAKEINTRESOURCE(ResourceID), "SOUND");
 
     // If it failed
     if (hResource == NULL)
     {
         // Log failure
-        theLog.WriteLine ("Sound           => !!! Could not find resource.");
-        theLog.LogLastError ();
+        theLog.WriteLine("Sound           => !!! Could not find resource.");
+        theLog.LogLastError();
 
         // Get out
         return false;
     }
 
     // Load the resource file into memory
-    HGLOBAL hGlobal = LoadResource (m_hModule, hResource);
+    HGLOBAL hGlobal = LoadResource(m_hModule, hResource);
 
     // If it failed
     if (hGlobal == NULL)
     {
         // Log failure
-        theLog.WriteLine ("Sound           => !!! Could not load resource.");
-        theLog.LogLastError ();
+        theLog.WriteLine("Sound           => !!! Could not load resource.");
+        theLog.LogLastError();
 
         // Get out
         return false;
     }
 
     // Get the address of the resource file in memory
-    pData = LockResource (hGlobal);
+    pData = LockResource(hGlobal);
 
     // If it failed
     if (pData == NULL)
     {
         // Log failure
-        theLog.WriteLine ("Sound           => !!! Could not lock resource.");
-        theLog.LogLastError ();
+        theLog.WriteLine("Sound           => !!! Could not lock resource.");
+        theLog.LogLastError();
 
         // Get out
         return false;
     }
 
     // Get the size (in bytes) of the PNG resource file
-    DataSize = SizeofResource (m_hModule, hResource);
+    DataSize = SizeofResource(m_hModule, hResource);
 
     // If it failed
     if (DataSize == 0)
     {
         // Log failure
-        theLog.WriteLine ("Sound           => !!! Could not get resource size.");
-        theLog.LogLastError ();
+        theLog.WriteLine("Sound           => !!! Could not get resource size.");
+        theLog.LogLastError();
 
         // Get out
         return false;
@@ -374,18 +426,18 @@ bool CSound::GetSoundResource (int ResourceID, LPVOID &pData, DWORD &DataSize)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CSound::SetPause (bool Pause)
+void CSound::SetPause(bool Pause)
 {
     // If the sound works
     if (m_SoundOK)
-    {    
+    {
         if (Pause)
-        {    
+        {
             Mix_PauseMusic();
         }
         else
         {
-            Mix_ResumeMusic();	
+            Mix_ResumeMusic();
         }
 
         m_GlobalPause = Pause;
@@ -396,39 +448,39 @@ void CSound::SetPause (bool Pause)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CSound::PlaySong (ESong Song)
+void CSound::PlaySong(ESong Song)
 {
     bool result = true;
     // If the sound works
     if (m_SoundOK)
-    {    
+    {
         // If a song exists free it unless it is the same
         if (m_CurrentSong != NULL && m_ESong != Song) FreeSong(Song);
-		
+
         // note: songs are loaded dynamically because of an error in libmikmod (used by SDL_mixer)
         // load new song (if necessary)
         if (m_ESong != Song || m_CurrentSong == NULL) {
             switch (Song) {
-                case SONG_MATCH_MUSIC_1_NORMAL:
-                    result = LoadSong   (SONG_MATCH_MUSIC_1_NORMAL    , SND_MATCH_MUSIC_1_NORMAL);
-                    break;
-                case SONG_MATCH_MUSIC_1_FAST:
-                    result = LoadSong   (SONG_MATCH_MUSIC_1_FAST      , SND_MATCH_MUSIC_1_FAST  );
-                    break;
-                case SONG_MENU_MUSIC:
-                    result = LoadSong   (SONG_MENU_MUSIC              , SND_MENU_MUSIC          );
-                    break;
-                case SONG_CONTROLS_MUSIC:
-                    result = LoadSong   (SONG_CONTROLS_MUSIC          , SND_CONTROLS_MUSIC      );
-                    break;
-                case SONG_TITLE_MUSIC:
-                    result = LoadSong   (SONG_TITLE_MUSIC             , SND_TITLE_MUSIC         );
-                    break;
-                default:
-                    result = false;
+            case SONG_MATCH_MUSIC_1_NORMAL:
+                result = LoadSong(SONG_MATCH_MUSIC_1_NORMAL, SND_MATCH_MUSIC_1_NORMAL);
+                break;
+            case SONG_MATCH_MUSIC_1_FAST:
+                result = LoadSong(SONG_MATCH_MUSIC_1_FAST, SND_MATCH_MUSIC_1_FAST);
+                break;
+            case SONG_MENU_MUSIC:
+                result = LoadSong(SONG_MENU_MUSIC, SND_MENU_MUSIC);
+                break;
+            case SONG_CONTROLS_MUSIC:
+                result = LoadSong(SONG_CONTROLS_MUSIC, SND_CONTROLS_MUSIC);
+                break;
+            case SONG_TITLE_MUSIC:
+                result = LoadSong(SONG_TITLE_MUSIC, SND_TITLE_MUSIC);
+                break;
+            default:
+                result = false;
             }
         }
-	
+
         if (result)
         {
             // Start playing this song (-1 infinite loop)
@@ -442,11 +494,11 @@ void CSound::PlaySong (ESong Song)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CSound::StopSong (ESong Song)
+void CSound::StopSong(ESong Song)
 {
     // If the sound works
     if (m_SoundOK)
-    {    
+    {
         // If the song exists
         if (m_CurrentSong != NULL)
         {
@@ -460,11 +512,11 @@ void CSound::StopSong (ESong Song)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CSound::PlaySample (ESample Sample)
-{    
+void CSound::PlaySample(ESample Sample)
+{
     // If the sound works
     if (m_SoundOK)
-    {    
+    {
         // If the sample exists
         if (m_Samples[Sample] != NULL)
         {
@@ -479,7 +531,7 @@ void CSound::PlaySample (ESample Sample)
 //******************************************************************************************************************************
 
 void CSound::StopAllSamples()
-{    
+{
     // If the sound works
     if (m_SoundOK)
     {
@@ -492,11 +544,11 @@ void CSound::StopAllSamples()
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CSound::SetSampleVolume (int VolumePerCent)
+void CSound::SetSampleVolume(int VolumePerCent)
 {
     // If the sound works
     if (m_SoundOK)
-    {    
+    {
         // Set the volume of all samples
         Mix_Volume(-1, VolumePerCent * MIX_MAX_VOLUME / 100);
     }
@@ -506,11 +558,11 @@ void CSound::SetSampleVolume (int VolumePerCent)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CSound::SetSongVolume (ESong Song, int VolumePerCent)
+void CSound::SetSongVolume(ESong Song, int VolumePerCent)
 {
     // If the sound works
     if (m_SoundOK)
-    {    
+    {
         // If this song exists
         if (m_CurrentSong != NULL)
         {
