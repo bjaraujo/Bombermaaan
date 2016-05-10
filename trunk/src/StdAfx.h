@@ -97,6 +97,9 @@ using namespace std;
 
 #define MAX_ITER       50
 
+#define IMAGE_FOLDER "Images"
+#define SOUND_FOLDER "Sounds"
+
 #include "CLog.h"
 #include "CConsole.h"
 #include "CDebug.h"
