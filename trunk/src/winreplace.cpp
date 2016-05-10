@@ -372,7 +372,7 @@ bool QueryPerformanceCounter(PLARGE_INTEGER counter)
 int GetObject(HBITMAP hBitmap, int ignored, LPVOID *lpvObject)
 {
     // type == BITMAP
-    currentResource = getResource(0, hBitmap, &currentResourceLen);
+    //currentResource = getResource(0, hBitmap, &currentResourceLen);
     
     if (currentResource == NULL)
         return 0;
@@ -404,7 +404,7 @@ HRSRC FindResource( HMODULE hModule, int name, LPCSTR type )
     else
         return NULL;
     
-    currentResource = getResource(t, name, &currentResourceLen);
+    //currentResource = getResource(t, name, &currentResourceLen);
     
     if (currentResource != NULL)
         return (HRSRC)1234; // the handler is being ignored
