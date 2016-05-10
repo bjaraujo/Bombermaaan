@@ -69,10 +69,8 @@ private:
     {
         __int64 EndClock;
 
-#ifdef WIN32
         // Get the number of counts
         QueryPerformanceCounter((LARGE_INTEGER*)&EndClock);
-#endif
 
         // Return the number of seconds
         return (double)(EndClock - m_StartClock) * m_InvRate;
@@ -109,13 +107,11 @@ public:
 
         // Get the number of counts
         // If it failed
-#ifdef WIN32
         if(!QueryPerformanceCounter((LARGE_INTEGER*)&m_StartClock))
         {
             // Log failure
             theLog.WriteLine ("Timer           => !!! QueryPerformanceCounter failed.");
         }
-#endif
 
         // Initialize some members
         m_Time = 0.0;
