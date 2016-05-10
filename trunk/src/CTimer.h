@@ -87,13 +87,11 @@ public:
         // Get the number of counts per second
         // If it failed
 
-#ifdef WIN32
         if(!QueryPerformanceFrequency((LARGE_INTEGER*)&Rate))
         {
             // Log failure
             theLog.WriteLine ("Timer           => !!! QueryPerformanceFrequency failed.");
         }
-#endif
 
         // Usually the rate will be 1193180
         // If the rate is zero
