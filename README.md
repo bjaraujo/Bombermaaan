@@ -159,5 +159,8 @@ Check <a href="http://bombermaaan.sourceforge.net/">http://bombermaaan.sourcefor
 
 Set SDLDIR and SDLMIXERDIR environment variables and run cmake.
 
+To install in Linux set LOAD_RESOURCES_FROM_FILE = TRUE and USE_DIRECTX = FALSE in CMake options.
+
+
 
 

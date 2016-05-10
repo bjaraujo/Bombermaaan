@@ -763,7 +763,17 @@ bool CSDLVideo::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spr
     
     SSurface Surface;
     
-    SDL_Surface *ddsd = SDL_LoadBMP(file);
+	std::string path(IMAGE_FOLDER);
+
+#ifdef WIN32
+	path.append("\\");
+#else
+	path.append("/");
+#endif
+
+	path.append(file);
+
+	SDL_Surface *ddsd = SDL_LoadBMP(path.c_str());
 
     // If it failed
     if (ddsd == NULL)

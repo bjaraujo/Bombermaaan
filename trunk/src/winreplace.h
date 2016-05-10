@@ -243,4 +243,5 @@ extern "C"
 {
     unsigned char *getResource(int type, int id, unsigned long *len);
 }
+
 #endif
