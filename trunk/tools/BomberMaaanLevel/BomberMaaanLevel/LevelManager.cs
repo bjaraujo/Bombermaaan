@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 using Ini;
 
@@ -50,6 +51,8 @@ namespace BomberMaaanLevel
 
         public bool NewFile(string aFileName)
         {
+
+            File.WriteAllText(aFileName, "; Bombermaaan level file version=2");
 
             anIniFile = new IniFile(aFileName);
 

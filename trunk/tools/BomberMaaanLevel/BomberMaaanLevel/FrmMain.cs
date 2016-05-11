@@ -148,7 +148,7 @@ namespace BomberMaaanLevel
             OpenFileDialog theDialog = new OpenFileDialog();
 
             theDialog.Title = "Open Text File";
-            theDialog.Filter = "TXT files|*.txt";
+            theDialog.Filter = "TXT files|*.TXT";
 
             if (theDialog.ShowDialog() == DialogResult.OK)
             {
@@ -302,7 +302,7 @@ namespace BomberMaaanLevel
             SaveFileDialog theDialog = new SaveFileDialog();
 
             theDialog.Title = "Open Text File";
-            theDialog.Filter = "TXT files|*.txt";
+            theDialog.Filter = "TXT files|*.TXT";
 
             if (theDialog.ShowDialog() == DialogResult.OK)
             {
