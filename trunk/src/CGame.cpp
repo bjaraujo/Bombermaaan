@@ -479,7 +479,7 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
     theDebug.Create();
 
     // If the resource file does not exist
-#ifndef LOAD_RESOURCES_FROM_FILE
+#ifndef LOAD_RESOURCES_FROM_FILES
     if (GetFileAttributes(NAME_OF_BOMBERMAN_DLL) == (DWORD)-1)
     {
         // Failure
@@ -541,7 +541,7 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
 #endif
 
 #ifndef DIRECTX_DRAW
-	SDL_WM_SetCaption(m_WindowTitle.c_str(), NULL);
+    SDL_WM_SetCaption(m_WindowTitle.c_str(), NULL);
 #endif
 
     // Set the objects the match object has to communicate with
@@ -551,8 +551,8 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
     m_Match.SetTimer(&m_Timer);
     m_Match.SetScores(&m_Scores);
     m_Match.SetSound(&m_Sound);
-	
-	m_Match.SetNetwork(&m_Network);
+
+    m_Match.SetNetwork(&m_Network);
 
     // Set the objects the demo object has to communicate with
     m_Demo.SetDisplay(&m_Display);
