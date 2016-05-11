@@ -326,8 +326,6 @@ inline bool CArena::GetBlockHas (int BlockX, int BlockY, TBlockHas BlockHas)
     ASSERT (BlockX >= 0 && BlockX < ARENA_WIDTH);    
     ASSERT (BlockY >= 0 && BlockY < ARENA_HEIGHT);
 
-    
-
     // Return if the specified block has the required combination
     return (m_BlockHas[BlockX][BlockY] & BlockHas) != 0;
 }
