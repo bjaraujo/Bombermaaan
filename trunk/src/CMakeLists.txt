@@ -136,11 +136,11 @@ CDirectInput.cpp
 )
 
 SET(WINREPLACE_HEADERS
-winreplace.h
+WinReplace.h
 )
 
 SET(WINREPLACE_SOURCES
-winreplace.cpp
+WinReplace.cpp
 )
 
 FIND_PACKAGE(SDL REQUIRED)
