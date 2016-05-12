@@ -58,9 +58,13 @@
 #define CURSOR_HAND_SPRITE          0       //!< Sprite number of the cursor hand in the sprite table
 #define CURSOR_HAND_PRIORITY        0       //!< Priority to use when drawing the menu's bomber hand sprites
 
+#define TEAM_VS_TEXT_POSITION_Y     140     //!< Position Y of the vs text that is centered on the X axis
+
+#define BOMBER_TEAM_1_COLX			0       //!< Column Team A
+#define BOMBER_TEAM_2_COLX			140     //!< Column Team B
+
 #define TITLE_STRING                "TEAM"         //!< String of the menu's title centered on the X axis
-#define TEAMID_A_STRING             "TEAM A"         //!< String of a menu item centered on the X axis
-#define TEAMID_B_STRING             "TEAM B"         //!< String of a menu item centered on the X axis
+#define TEAM_VS_STRING              "VS"           //!< String of a menu item centered on the X axis
 
 #define BLINKING_TIME                           0.100f      //!< Time (in seconds) the bomber head has to spend blinking
 #define NOT_BLINKING_MINIMUM_TIME               3.0f        //!< Minimum time (in seconds) the bomber head has to spend without blinking
@@ -110,7 +114,15 @@ void CMenuTeam::OnDestroy (void)
 void CMenuTeam::OnUp (void)
 {
 
+	// Make the cursor go up
+	m_CursorPlayer--;
 
+	// If it is now out of bounds
+	if (m_CursorPlayer < 0)
+	{
+		// Wrap : make the cursor point to the last player
+		m_CursorPlayer = MAX_PLAYERS - 1;
+	}
 }
 
 //******************************************************************************************************************************
@@ -119,7 +131,15 @@ void CMenuTeam::OnUp (void)
 
 void CMenuTeam::OnDown(void)
 {
+	// Make the cursor go down
+	m_CursorPlayer++;
 
+	// If it is now out of bounds
+	if (m_CursorPlayer > MAX_PLAYERS - 1)
+	{
+		// Wrap : make the cursor point to the first player
+		m_CursorPlayer = 0;
+	}
 }
 
 //******************************************************************************************************************************
@@ -129,8 +149,9 @@ void CMenuTeam::OnDown(void)
 void CMenuTeam::OnLeft(void)
 {
     
-    // TODO: Move bomber to the left
-    
+	if (m_pOptions->GetBomberTeam(m_CursorPlayer) == BOMBERTEAM_2)
+		m_pOptions->SetBomberTeam(m_CursorPlayer, BOMBERTEAM_1);
+
 }
 
 //******************************************************************************************************************************
@@ -140,7 +161,8 @@ void CMenuTeam::OnLeft(void)
 void CMenuTeam::OnRight(void)
 {
     
-    // TODO: Move bomber to the right
+	if (m_pOptions->GetBomberTeam(m_CursorPlayer) == BOMBERTEAM_1)
+		m_pOptions->SetBomberTeam(m_CursorPlayer, BOMBERTEAM_2);
 
 }
 
@@ -188,6 +210,9 @@ void CMenuTeam::OnDisplay (void)
     m_pFont->SetTextColor (FONTCOLOR_WHITE);
     m_pFont->DrawCenteredX (0, VIEW_WIDTH - 1, TITLE_TEXT_POSITION_Y, TITLE_STRING); 
 
+	m_pFont->SetTextColor(FONTCOLOR_GREEN);
+	m_pFont->DrawCenteredX(0, VIEW_WIDTH - 1, TEAM_VS_TEXT_POSITION_Y, TEAM_VS_STRING);
+
     // Y Position where to write the text with the font object
     int PositionY = INITIAL_TEXT_POSITION_Y;
 
@@ -196,17 +221,24 @@ void CMenuTeam::OnDisplay (void)
     {
 
 		// TODO:
+		
+		int PositionX = 0;
 
-        // Draw the bomber head corresponding to the current player
-        m_pDisplay->DrawSprite (INITIAL_TEXT_POSITION_X + BOMBER_HEAD_SPACE_X,
-                                PositionY + BOMBER_HEAD_SPACE_Y,
-                                NULL,
-                                NULL,
-                                BOMBER_HEAD_SPRITE_TABLE,
-                                Player, // Blinking bomber head sprite or not
-                                MENUTEAM_SPRITELAYER,
-                                BOMBER_HEAD_PRIORITY);
-        
+		if (m_pOptions->GetBomberTeam(Player) == BOMBERTEAM_1)
+			PositionX = BOMBER_TEAM_1_COLX;
+		else if (m_pOptions->GetBomberTeam(Player) == BOMBERTEAM_2)
+			PositionX = BOMBER_TEAM_2_COLX;
+
+		// Draw the bomber head corresponding to the current player
+		m_pDisplay->DrawSprite(INITIAL_TEXT_POSITION_X + BOMBER_HEAD_SPACE_X + PositionX,
+								PositionY + BOMBER_HEAD_SPACE_Y,
+								NULL,
+								NULL,
+								BOMBER_HEAD_SPRITE_TABLE,
+								Player, // Blinking bomber head sprite or not
+								MENUTEAM_SPRITELAYER,
+								BOMBER_HEAD_PRIORITY);
+		
         // If the cursor hand is pointing to the current player
         if (m_CursorPlayer == Player)
         {

@@ -54,6 +54,16 @@ enum EBomberType
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
+enum EBomberTeam
+{
+	BOMBERTEAM_1,     //!< The bomber team 1
+	BOMBERTEAM_2,     //!< The bomber team 2
+};
+
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+
 enum EActionAIAlive
 {
     ACTIONONLYAIPLAYERSALIVE_CONTINUEGAME,      //!< The game continues when only AI players are alive
@@ -90,7 +100,8 @@ private:
     int                 m_TimeUpMinutes;                //!< How many minutes in the time when the arena starts closing?
     int                 m_TimeUpSeconds;                //!< How many seconds in the time when the arena starts closing?
     EBomberType         m_BomberType [MAX_PLAYERS];     //!< Bomber type for each player
-    int                 m_PlayerCount;                  //!< Total number of players in the battle
+	EBomberTeam         m_BomberTeam[MAX_PLAYERS];      //!< Bomber team for each player
+	int                 m_PlayerCount;                  //!< Total number of players in the battle
     int                 m_BattleCount;                  //!< How many battles to win in order to be victorious
     int                 m_PlayerInput [MAX_PLAYERS];    //!< Player input to use for each player
     EDisplayMode        m_DisplayMode;                  //!< Current display mode to use in the CDisplay object
@@ -142,6 +153,9 @@ public:
 
 	inline void			SetTeamMode(bool TeamMode);
 	inline bool		    IsTeamMode();
+
+	inline EBomberTeam  GetBomberTeam(int Player);                          //!< Get the bomber team of the specified player
+	inline void         SetBomberTeam(int Player, EBomberTeam BomberTeam); //!< Set the bomber team of the specified player
 
 };
 
@@ -302,6 +316,16 @@ inline void COptions::SetTeamMode(bool TeamMode)
 inline bool COptions::IsTeamMode(void)
 {
 	return m_TeamMode;
+}
+
+inline EBomberTeam COptions::GetBomberTeam(int Player)
+{
+	return m_BomberTeam[Player];
+}
+
+inline void COptions::SetBomberTeam(int Player, EBomberTeam BomberTeam)
+{
+	m_BomberTeam[Player] = BomberTeam;
 }
 
 //******************************************************************************************************************************
