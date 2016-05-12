@@ -52,7 +52,7 @@ class CHurryMessage;
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-#define NO_WINNER_PLAYER    -1      //<! Value for a winner player number if there is no winner
+#define NO_WINNER_TEAM      -1      //<! Value for a winner team number if there is no winner
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -70,13 +70,13 @@ private:
 	
 	CTeam           m_Teams[MAX_BOMBERS];       //!< Teams object 
 
-	CNetwork*		m_pNetwork;                  //!< Network pointer
+	CNetwork*       m_pNetwork;                  //!< Network pointer
 
     CAiManager      m_AiManager;                //!< Computer brain
     //! @todo Check why m_NoComputer is there (didn't find references)
     bool            m_NoComputer;               //!< True if no computer is playing in this match
     bool            m_MatchOver;                //!< Is match over? (ie. there is a result : winner or draw game)
-    int             m_WinnerPlayer;             //!< Number of the player who won if there is a winner
+    int             m_WinnerTeam;               //!< Number of the team that won if there is a winner
     ESong           m_CurrentSong;              //!< Current song being played
     bool            m_IsSongPlaying;            //!< Is the match song playing?
     bool            m_NoticedTimeUp;            //!< Did we notice that time is up and do what is necessary?
@@ -119,9 +119,11 @@ public:
     void            Destroy (void);                     //!< Uninitialize the object
     void            OpenInput (void);                   //!< Get access to the input this object needs
     void            CloseInput (void);                  //!< Release access to the input this object needs
-    inline int      GetWinnerPlayer (void);             //!< Get the number of the player who won this match
     EGameMode       Update (void);                      //!< Update the object and return what game mode should be set
     void            Display (void);                     //!< Display on the screen
+
+    inline int      GetWinnerTeam(void);                //!< Get the number of the team that won this match
+    inline bool     IsPlayerWinner(int Player);         //!< Get the if player has won this match
 
 #ifdef _DEBUG_FLAG_1
     void            _Debug_WriteBombsToLog();           //!< Only used for debugging!
@@ -181,9 +183,19 @@ inline void CMatch::SetNetwork(CNetwork *pNetwork)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline int CMatch::GetWinnerPlayer (void)
+inline int CMatch::GetWinnerTeam (void)
 {
-    return m_WinnerPlayer;
+    return m_WinnerTeam;
+}
+
+inline bool CMatch::IsPlayerWinner(int Player)
+{
+    
+    if (m_Arena.GetBomber(Player).GetTeam()->GetTeamId() == m_WinnerTeam)
+        return true;
+    else
+        return false;
+
 }
 
 //******************************************************************************************************************************

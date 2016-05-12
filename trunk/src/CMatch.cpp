@@ -92,8 +92,8 @@ void CMatch::Create (void)
 
     // No match result for the moment
     m_MatchOver = false;
-    m_WinnerPlayer = NO_WINNER_PLAYER;
-    
+    m_WinnerTeam = NO_WINNER_TEAM;
+
     m_IsSongPlaying = false;
     m_NoticedTimeUp = false;
 
@@ -448,10 +448,10 @@ void CMatch::ProcessPlayerCommands (void)
         if (TimeElapsedSinceLastCommandChunk >= 0.050f)
         {
 
-			if (m_pNetwork->NetworkMode() == NETWORKMODE_SERVER)
+            if (m_pNetwork->NetworkMode() == NETWORKMODE_SERVER)
             {
 
-				m_pNetwork->ReceiveCommandChunk(CommandChunk);
+                m_pNetwork->ReceiveCommandChunk(CommandChunk);
                 
                 // Scan all the players
                 for (int Player = 0 ; Player < MAX_PLAYERS ; Player++)
@@ -740,7 +740,7 @@ void CMatch::ManageMatchOver (void)
             if (m_Arena.GetBomber(Player).Exist())
             {
                 // If this bomber is alive
-                if (m_Arena.GetBomber(Player).IsAlive())        
+                if (m_Arena.GetBomber(Player).IsAlive())
                 {
                     // Add one alive bomber
                     AliveCount++;
@@ -752,6 +752,37 @@ void CMatch::ManageMatchOver (void)
                     DyingCount++;
                 }
             }
+        }
+
+        int TeamCountAlive[MAX_BOMBERS];     // Number of bombers on each team
+        int TeamCountDying[MAX_BOMBERS];     // Number of bombers on each team
+
+        for (int Team = 0; Team < MAX_BOMBERS; Team++)
+        {
+            TeamCountAlive[Team] = 0;
+            TeamCountDying[Team] = 0;
+        }
+
+        for (int Player = 0; Player < m_Arena.MaxBombers(); Player++)
+        {
+            int Team = m_Arena.GetBomber(Player).GetTeam()->GetTeamId();
+
+            if (m_Arena.GetBomber(Player).IsAlive())
+                TeamCountAlive[Team]++;
+            else if (m_Arena.GetBomber(Player).IsDying())
+                TeamCountDying[Team]++;
+        }
+
+        int CountTeamsAlive = 0;
+        int CountTeamsDying = 0;
+
+        for (int Team = 0; Team < MAX_BOMBERS; Team++)
+        {
+            if (TeamCountAlive[Team] > 0)
+                CountTeamsAlive++;
+
+            if (TeamCountDying[Team] > 0)
+                CountTeamsDying++;
         }
 
         // If no bomber is alive and there are only dying bombers
@@ -767,7 +798,7 @@ void CMatch::ManageMatchOver (void)
             m_MatchOver = true;
         
             // There is no winner
-            m_WinnerPlayer = NO_WINNER_PLAYER;
+            m_WinnerTeam = NO_WINNER_TEAM;
 
             // Tell the arena to stop closing if it is
             m_Arena.GetArenaCloser().Stop ();
@@ -788,7 +819,7 @@ void CMatch::ManageMatchOver (void)
             m_MatchOver = true;
         
             // There is no winner
-            m_WinnerPlayer = NO_WINNER_PLAYER;
+            m_WinnerTeam = NO_WINNER_TEAM;
 
             // Tell the arena to stop closing if it is
             m_Arena.GetArenaCloser().Stop ();
@@ -811,54 +842,55 @@ void CMatch::ManageMatchOver (void)
                 }
             }
         }
-        // If one bomber is alive and none is dying then a bomber that team has won the match
-        else if (AliveCount == 1 && DyingCount == 0) 
+        // If one team is alive then that team has won the match
+        else if (CountTeamsAlive == 1 && CountTeamsDying == 0)
         {
+
             // Match is over
             m_MatchOver = true;
 
-            // Seek the only bomber that is still alive
-            for (int Player = 0 ; Player < m_Arena.MaxBombers() ; Player++)
+            for (int Team = 0; Team < m_Arena.MaxTeams(); Team++)
+            {
+                if (TeamCountAlive[Team] > 0)
+                {
+
+                    // Save the winner player
+                    m_WinnerTeam = Team;
+
+                    // Tell the team it is victorious
+                    m_Teams[Team].Victorious();
+
+                    break;
+                }
+            }
+
+            for (int Player = 0; Player < m_Arena.MaxBombers(); Player++)
             {
                 // If the bomber exists and is alive
                 if (m_Arena.GetBomber(Player).Exist() &&
                     m_Arena.GetBomber(Player).IsAlive())
                 {
-                    // Save the winner player
-                    m_WinnerPlayer = Player;
-                
                     // Send him no commands so as to avoid a bug where he keeps walking
-                    m_Arena.GetBomber(Player).Command (BOMBERMOVE_NONE, BOMBERACTION_NONE);
+                    m_Arena.GetBomber(Player).Command(BOMBERMOVE_NONE, BOMBERACTION_NONE);
 
-                    // Tell the bomber he is victorious
-                    m_Arena.GetBomber(Player).GetTeam()->Victorious();
-                
-                    // Get out since there is only one bomber
-                    break;
                 }
             }
-
             // Play the bell sound (ding ding ding ding ding!)
-            m_pSound->PlaySample (SAMPLE_RING_DING);
-        
+            m_pSound->PlaySample(SAMPLE_RING_DING);
+
             // Stop the match song which was playing
-            m_pSound->StopSong (m_CurrentSong);
+            m_pSound->StopSong(m_CurrentSong);
 
             // Tell the arena to stop closing if it is
-            m_Arena.GetArenaCloser().Stop ();
+            m_Arena.GetArenaCloser().Stop();
 
             // Make the board's clock animation stop
-            m_Board.SetClockAnimation (false);
+            m_Board.SetClockAnimation(false);
 
             // Determine mode time when we have to start the last black screen
             m_ExitModeTime = m_ModeTime + PAUSE_WINNER;
+
         }
-		else if (1 == 2) // TREAT TEAM MODE
-		{
-			// TODO
-
-
-		}
         else if (m_pOptions->GetTimeUpMinutes() == 0 && m_pOptions->GetTimeUpSeconds() == 0 &&
                  (m_pOptions->GetTimeStartMinutes() != 0 || m_pOptions->GetTimeStartSeconds() != 0) &&
                  m_Clock.GetMinutes() == 0 && m_Clock.GetSeconds() == 0)
@@ -867,7 +899,7 @@ void CMatch::ManageMatchOver (void)
             m_MatchOver = true;
 
             // There is no winner
-            m_WinnerPlayer = NO_WINNER_PLAYER;
+            m_WinnerTeam = NO_WINNER_TEAM;
 
             // Seek the alive bombers
             for (int Player = 0 ; Player < m_Arena.MaxBombers() ; Player++)
@@ -954,7 +986,7 @@ EGameMode CMatch::Update (void)
     else
     {
         // If it's a draw game
-        if (m_WinnerPlayer == NO_WINNER_PLAYER)
+        if (m_WinnerTeam == NO_WINNER_TEAM)
         {
             // Ask for a game mode change to draw game screen
             return GAMEMODE_DRAWGAME;

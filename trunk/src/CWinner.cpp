@@ -191,7 +191,13 @@ void CWinner::Create (void)
     m_SadBomberSpriteOffset = BOMBER_SAD_SPRITE_0;
 
     // Update the winner player's score in the scores object
-    m_pScores->RaisePlayerScore (m_pMatch->GetWinnerPlayer());
+    int Team = m_pMatch->GetWinnerTeam();
+
+    for (int Player = 0; Player < MAX_PLAYERS; Player++)
+    {
+        if (m_pMatch->IsPlayerWinner(Player))
+            m_pScores->RaisePlayerScore(Player);
+    }
 
     m_PlayedSound = false;
 
@@ -412,17 +418,18 @@ EGameMode CWinner::Update (void)
     else
     {
         // If the score of the winner player is what's needed to be victorious
-        if (m_pScores->GetPlayerScore(m_pMatch->GetWinnerPlayer()) == m_pOptions->GetBattleCount())
-        {            
-            // Ask for a game mode switch to victory screen to congratulate the victorious player
-            return GAMEMODE_VICTORY;
-        }
-        // If the score of the winner player is not the score to reach
-        else
+        for (int Player = 0; Player < MAX_PLAYERS; Player++)
         {
-            // Ask for a game mode switch to match screen to continue the battle!
-            return GAMEMODE_MATCH;
+            if (m_pScores->GetPlayerScore(m_pMatch->IsPlayerWinner(Player)) == m_pOptions->GetBattleCount())
+            {            
+                // Ask for a game mode switch to victory screen to congratulate the victorious player
+                return GAMEMODE_VICTORY;
+            }
         }
+
+        // Ask for a game mode switch to match screen to continue the battle!
+        return GAMEMODE_MATCH;
+
     }
 
     // Stay in this game mode
@@ -593,7 +600,7 @@ void CWinner::Display (void)
                 // Determine the bomber sprite. It depends on the bomber color and on its happiness.
                 // The bomber is happy if he just won the match.
                 int BomberSprite = Player * BOMBER_SPRITES_COUNT_PER_COLOR      // Determines the color
-                                 + (m_pMatch->GetWinnerPlayer() == Player ?     // Determines happiness
+                                 + (m_pMatch->IsPlayerWinner(Player) ?     // Determines happiness
                                        m_HappyBomberSpriteOffset : m_SadBomberSpriteOffset);
 
                 // Draw the bomber head
@@ -612,7 +619,7 @@ void CWinner::Display (void)
                     // Don't animate coin by default (use the static sprite's index)
                     int currentCoinSprite = COINS_STATIC_SPRITE;
                     // Animate coin only if it is the last coin and this is the winning player
-                    if ( Coin + 1 == m_pScores->GetPlayerScore( Player ) && m_pMatch->GetWinnerPlayer() == Player ) {
+                    if (Coin + 1 == m_pScores->GetPlayerScore(Player) && m_pMatch->IsPlayerWinner(Player)) {
                         // m_CoinSpriteOffset is always increased, so we use the modulo operator
                         currentCoinSprite = m_CoinSpriteOffset % COINS_SPRITE_COUNT;
                     }

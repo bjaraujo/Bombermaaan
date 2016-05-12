@@ -70,8 +70,8 @@
 
 CMenuMatch::CMenuMatch (void) : CMenuBase ()
 {
-    m_Options[0] = OPTION_BATTLE;
-	m_Options[1] = OPTION_MODE;
+    m_Options[0] = OPTION_MODE;
+    m_Options[1] = OPTION_BATTLE;
     m_Options[2] = OPTION_TIME;
     m_Options[3] = OPTION_TIMEUP;
 }
@@ -146,6 +146,15 @@ void CMenuMatch::OnLeft (void)
     // Modify the value of the option field that is currently pointed by the cursor hand
     switch (m_Options[m_CursorOption])
     {
+
+        case OPTION_MODE:
+        {
+
+            m_pOptions->SetTeamMode(!m_pOptions->IsTeamMode());
+
+            break;
+        }
+
         case OPTION_BATTLE :
         {
             // If the current number of battles is the minimum
@@ -163,14 +172,6 @@ void CMenuMatch::OnLeft (void)
 
             break;
         }
-
-		case OPTION_MODE:
-		{
-
-			m_pOptions->SetTeamMode(!m_pOptions->IsTeamMode());
-
-			break;
-		}
 
         case OPTION_TIME:
         {
@@ -219,6 +220,16 @@ void CMenuMatch::OnRight (void)
     // Modify the value of the option field that is currently pointed by the cursor hand
     switch (m_Options[m_CursorOption])
     {
+
+        case OPTION_MODE:
+        {
+
+            m_pOptions->SetTeamMode(!m_pOptions->IsTeamMode());
+
+            break;
+
+        }
+
         case OPTION_BATTLE :
         {
             // If the current number of battles is the maximum
@@ -236,15 +247,6 @@ void CMenuMatch::OnRight (void)
 
             break;
         }
-
-		case OPTION_MODE:
-		{
-
-			m_pOptions->SetTeamMode(!m_pOptions->IsTeamMode());
-
-			break;
-
-		}
 
         case OPTION_TIME:
         {
@@ -344,6 +346,22 @@ void CMenuMatch::OnDisplay (void)
     {
         switch (m_Options[Option])
         {
+
+            case OPTION_MODE:
+            {
+                // Set the right font text color and write the text for the name of current field
+                m_pFont->SetTextColor(FONTCOLOR_GREEN);
+                m_pFont->Draw(INITIAL_TEXT_POSITION_X, PositionY, MODE_STRING);
+
+                // Set the right font text color and write the value of the field
+                m_pFont->SetTextColor(FONTCOLOR_BLUE);
+                m_pFont->Draw(INITIAL_TEXT_POSITION_X + VALUE_TEXT_SPACE_X,
+                    PositionY,
+                    "%s",
+                    m_pOptions->IsTeamMode() ? TEAM_MODE_STRING : SINGLE_MODE_STRING);
+                break;
+            }
+
             case OPTION_BATTLE :
             {
                 // Set the right font text color and write the text for the name of current field
@@ -358,21 +376,6 @@ void CMenuMatch::OnDisplay (void)
                                m_pOptions->GetBattleCount());
                 break;
             }
-
-			case OPTION_MODE:
-			{
-				// Set the right font text color and write the text for the name of current field
-				m_pFont->SetTextColor(FONTCOLOR_GREEN);
-				m_pFont->Draw(INITIAL_TEXT_POSITION_X, PositionY, MODE_STRING);
-
-				// Set the right font text color and write the value of the field
-				m_pFont->SetTextColor(FONTCOLOR_BLUE);
-				m_pFont->Draw(INITIAL_TEXT_POSITION_X + VALUE_TEXT_SPACE_X,
-					PositionY,
-					"%s",
-					m_pOptions->IsTeamMode() ? TEAM_MODE_STRING : SINGLE_MODE_STRING);
-				break;
-			}
 
             case OPTION_TIME :
             {

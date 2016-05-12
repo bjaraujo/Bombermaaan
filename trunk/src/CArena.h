@@ -95,6 +95,7 @@ typedef int TBlockHas;
 #define MAX_ITEMS       50
 #define MAX_EXPLOSIONS  50
 #define MAX_BOMBERS     MAX_PLAYERS
+#define MAX_TEAMS       MAX_PLAYERS
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -168,7 +169,8 @@ public:
     inline int              MaxItems       (void);
     inline int              MaxExplosions  (void);
     inline int              MaxBombers     (void);
-    
+    inline int              MaxTeams       (void);
+
     inline int              BombsInUse     (void);
         
     void                    NewFloor        (int BlockX, int BlockY, EBlockType BlockType);
@@ -305,6 +307,11 @@ inline int CArena::MaxExplosions (void)
 inline int CArena::MaxBombers (void)   
 { 
     return MAX_BOMBERS; 
+}
+
+inline int CArena::MaxTeams(void)
+{
+    return MAX_TEAMS;
 }
 
 /**

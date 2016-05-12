@@ -38,9 +38,9 @@
 
 enum EMatchOption
 {
+    OPTION_MODE,
     OPTION_BATTLE,
-	OPTION_MODE,
-	OPTION_TIME,
+    OPTION_TIME,
     OPTION_TIMEUP
 };
 
