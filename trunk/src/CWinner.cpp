@@ -420,7 +420,7 @@ EGameMode CWinner::Update (void)
         // If the score of the winner player is what's needed to be victorious
         for (int Player = 0; Player < MAX_PLAYERS; Player++)
         {
-            if (m_pScores->GetPlayerScore(m_pMatch->IsPlayerWinner(Player)) == m_pOptions->GetBattleCount())
+            if (m_pScores->GetPlayerScore(Player) == m_pOptions->GetBattleCount())
             {            
                 // Ask for a game mode switch to victory screen to congratulate the victorious player
                 return GAMEMODE_VICTORY;

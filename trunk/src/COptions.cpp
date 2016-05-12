@@ -209,12 +209,12 @@ void COptions::SetDefaultValues(void)
     m_BomberType[3] = BOMBERTYPE_OFF;
     m_BomberType[4] = BOMBERTYPE_OFF;
 
-	// Set the bomber teams
-	m_BomberTeam[0] = BOMBERTEAM_1;
-	m_BomberTeam[1] = BOMBERTEAM_1;
-	m_BomberTeam[2] = BOMBERTEAM_2;
-	m_BomberTeam[3] = BOMBERTEAM_2;
-	m_BomberTeam[4] = BOMBERTEAM_2;
+    // Set the bomber teams
+    m_BomberTeam[0] = BOMBERTEAM_A;
+    m_BomberTeam[1] = BOMBERTEAM_A;
+    m_BomberTeam[2] = BOMBERTEAM_B;
+    m_BomberTeam[3] = BOMBERTEAM_B;
+    m_BomberTeam[4] = BOMBERTEAM_B;
 
     // Initialise player inputs
     for (int i = 0 ; i < MAX_PLAYERS ; i++)

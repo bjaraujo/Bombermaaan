@@ -56,8 +56,8 @@ enum EBomberType
 
 enum EBomberTeam
 {
-	BOMBERTEAM_1,     //!< The bomber team 1
-	BOMBERTEAM_2,     //!< The bomber team 2
+    BOMBERTEAM_A,     //!< The bomber team A
+    BOMBERTEAM_B,     //!< The bomber team B
 };
 
 //******************************************************************************************************************************

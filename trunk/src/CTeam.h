@@ -46,7 +46,7 @@ public:
     
     void            SetTeamId(int TeamId);
     int             GetTeamId();
-    void            Victorious (void);
+    void            SetVictorious(bool Victorious);
     bool            IsVictorious(void);
     
 };

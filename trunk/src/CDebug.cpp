@@ -217,10 +217,10 @@ void CDebug::HandleKey (DWORD VirtualKeyCode, DWORD Modifier)
             }
 
 #ifdef _DEBUG_FLAG_1
-			case VK_F5:
-				theConsole.Write( "CDebug::HandleKey(...): Ctrl+F5 was pressed. Writing bombs to log...\n" );
-				m_pMatch->_Debug_WriteBombsToLog();
-				break;
+            case VK_F5:
+                theConsole.Write("CDebug::HandleKey(...): Ctrl+F5 was pressed. Writing bombs to log...\n");
+                m_pMatch->_Debug_WriteBombsToLog();
+                break;
 #endif
 
             case VK_NUMPAD0 : m_IsComputerConsoleActive[0] = !m_IsComputerConsoleActive[0]; break;

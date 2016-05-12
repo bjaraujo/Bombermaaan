@@ -17,7 +17,7 @@
     You should have received a copy of the GNU General Public License
     along with Bombermaaan.  If not, see <http://www.gnu.org/licenses/>.
 
-************************************************************************************/
+    ************************************************************************************/
 
 
 /**
@@ -39,7 +39,7 @@
 //******************************************************************************************************************************
 
 #define MENUTEAM_SPRITELAYER       1                //!< Sprite layer where to draw sprites
-                                                            
+
 #define TITLE_TEXT_POSITION_Y       90      //!< Position Y of the title text that is centered on the X axis
 
 #define INITIAL_TEXT_POSITION_X     191     //!< Initial position of the text "BOMBER"
@@ -60,8 +60,9 @@
 
 #define TEAM_VS_TEXT_POSITION_Y     140     //!< Position Y of the vs text that is centered on the X axis
 
-#define BOMBER_TEAM_1_COLX			0       //!< Column Team A
-#define BOMBER_TEAM_2_COLX			140     //!< Column Team B
+#define BOMBER_NO_TEAM_COLX         70      //!< No team (center)
+#define BOMBER_TEAM_A_COLX          0       //!< Column Team A
+#define BOMBER_TEAM_B_COLX          140     //!< Column Team B
 
 #define TITLE_STRING                "TEAM"         //!< String of the menu's title centered on the X axis
 #define TEAM_VS_STRING              "VS"           //!< String of a menu item centered on the X axis
@@ -70,12 +71,12 @@
 #define NOT_BLINKING_MINIMUM_TIME               3.0f        //!< Minimum time (in seconds) the bomber head has to spend without blinking
 #define NOT_BLINKING_MAXIMUM_ADDITIONAL_TIME    5000        //!< Maximum additional time (Caution : IN MILLISECONDS)
 
-        
+
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CMenuTeam::CMenuTeam (void) : CMenuBase ()
+CMenuTeam::CMenuTeam(void) : CMenuBase()
 {
 
 }
@@ -84,7 +85,7 @@ CMenuTeam::CMenuTeam (void) : CMenuBase ()
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CMenuTeam::~CMenuTeam (void)
+CMenuTeam::~CMenuTeam(void)
 {
     // Nothing to do
 }
@@ -93,7 +94,7 @@ CMenuTeam::~CMenuTeam (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMenuTeam::OnCreate (void)
+void CMenuTeam::OnCreate(void)
 {
     // Make the hand cursor point to the first option
     m_CursorPlayer = 0;
@@ -103,7 +104,7 @@ void CMenuTeam::OnCreate (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMenuTeam::OnDestroy (void)
+void CMenuTeam::OnDestroy(void)
 {
 }
 
@@ -111,18 +112,18 @@ void CMenuTeam::OnDestroy (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMenuTeam::OnUp (void)
+void CMenuTeam::OnUp(void)
 {
 
-	// Make the cursor go up
-	m_CursorPlayer--;
+    // Make the cursor go up
+    m_CursorPlayer--;
 
-	// If it is now out of bounds
-	if (m_CursorPlayer < 0)
-	{
-		// Wrap : make the cursor point to the last player
-		m_CursorPlayer = MAX_PLAYERS - 1;
-	}
+    // If it is now out of bounds
+    if (m_CursorPlayer < 0)
+    {
+        // Wrap : make the cursor point to the last player
+        m_CursorPlayer = MAX_PLAYERS - 1;
+    }
 }
 
 //******************************************************************************************************************************
@@ -131,15 +132,15 @@ void CMenuTeam::OnUp (void)
 
 void CMenuTeam::OnDown(void)
 {
-	// Make the cursor go down
-	m_CursorPlayer++;
+    // Make the cursor go down
+    m_CursorPlayer++;
 
-	// If it is now out of bounds
-	if (m_CursorPlayer > MAX_PLAYERS - 1)
-	{
-		// Wrap : make the cursor point to the first player
-		m_CursorPlayer = 0;
-	}
+    // If it is now out of bounds
+    if (m_CursorPlayer > MAX_PLAYERS - 1)
+    {
+        // Wrap : make the cursor point to the first player
+        m_CursorPlayer = 0;
+    }
 }
 
 //******************************************************************************************************************************
@@ -148,9 +149,9 @@ void CMenuTeam::OnDown(void)
 
 void CMenuTeam::OnLeft(void)
 {
-    
-	if (m_pOptions->GetBomberTeam(m_CursorPlayer) == BOMBERTEAM_2)
-		m_pOptions->SetBomberTeam(m_CursorPlayer, BOMBERTEAM_1);
+
+    if (m_pOptions->GetBomberTeam(m_CursorPlayer) == BOMBERTEAM_B)
+        m_pOptions->SetBomberTeam(m_CursorPlayer, BOMBERTEAM_A);
 
 }
 
@@ -160,9 +161,9 @@ void CMenuTeam::OnLeft(void)
 
 void CMenuTeam::OnRight(void)
 {
-    
-	if (m_pOptions->GetBomberTeam(m_CursorPlayer) == BOMBERTEAM_1)
-		m_pOptions->SetBomberTeam(m_CursorPlayer, BOMBERTEAM_2);
+
+    if (m_pOptions->GetBomberTeam(m_CursorPlayer) == BOMBERTEAM_A)
+        m_pOptions->SetBomberTeam(m_CursorPlayer, BOMBERTEAM_B);
 
 }
 
@@ -173,7 +174,7 @@ void CMenuTeam::OnRight(void)
 void CMenuTeam::OnPrevious(void)
 {
     // Go to the previous screen
-    Exit (MENUACTION_PREVIOUS);
+    Exit(MENUACTION_PREVIOUS);
 }
 
 //******************************************************************************************************************************
@@ -182,21 +183,12 @@ void CMenuTeam::OnPrevious(void)
 
 void CMenuTeam::OnNext(void)
 {
-    
+
     // Play the menu next sound
-    m_pSound->PlaySample (SAMPLE_MENU_NEXT);
+    m_pSound->PlaySample(SAMPLE_MENU_NEXT);
 
     // Go to the next screen
-    Exit (MENUACTION_NEXT);
-
- }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-void CMenuTeam::OnUpdate(void)
-{ 
+    Exit(MENUACTION_NEXT);
 
 }
 
@@ -204,53 +196,63 @@ void CMenuTeam::OnUpdate(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMenuTeam::OnDisplay (void)
+void CMenuTeam::OnUpdate(void)
+{
+
+}
+
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+
+void CMenuTeam::OnDisplay(void)
 {
     // Set the right font text color and write the menu title string
-    m_pFont->SetTextColor (FONTCOLOR_WHITE);
-    m_pFont->DrawCenteredX (0, VIEW_WIDTH - 1, TITLE_TEXT_POSITION_Y, TITLE_STRING); 
+    m_pFont->SetTextColor(FONTCOLOR_WHITE);
+    m_pFont->DrawCenteredX(0, VIEW_WIDTH - 1, TITLE_TEXT_POSITION_Y, TITLE_STRING);
 
-	m_pFont->SetTextColor(FONTCOLOR_GREEN);
-	m_pFont->DrawCenteredX(0, VIEW_WIDTH - 1, TEAM_VS_TEXT_POSITION_Y, TEAM_VS_STRING);
+    m_pFont->SetTextColor(FONTCOLOR_GREEN);
+    m_pFont->DrawCenteredX(0, VIEW_WIDTH - 1, TEAM_VS_TEXT_POSITION_Y, TEAM_VS_STRING);
 
     // Y Position where to write the text with the font object
     int PositionY = INITIAL_TEXT_POSITION_Y;
 
     // Scan the players
-    for (int Player = 0 ; Player < MAX_PLAYERS ; Player++)
+    for (int Player = 0; Player < MAX_PLAYERS; Player++)
     {
 
-		// TODO:
-		
-		int PositionX = 0;
+        int PositionX = 0;
 
-		if (m_pOptions->GetBomberTeam(Player) == BOMBERTEAM_1)
-			PositionX = BOMBER_TEAM_1_COLX;
-		else if (m_pOptions->GetBomberTeam(Player) == BOMBERTEAM_2)
-			PositionX = BOMBER_TEAM_2_COLX;
+        if (m_pOptions->GetBomberTeam(Player) == BOMBERTEAM_A)
+            PositionX = BOMBER_TEAM_A_COLX;
+        else if (m_pOptions->GetBomberTeam(Player) == BOMBERTEAM_B)
+            PositionX = BOMBER_TEAM_B_COLX;
 
-		// Draw the bomber head corresponding to the current player
-		m_pDisplay->DrawSprite(INITIAL_TEXT_POSITION_X + BOMBER_HEAD_SPACE_X + PositionX,
-								PositionY + BOMBER_HEAD_SPACE_Y,
-								NULL,
-								NULL,
-								BOMBER_HEAD_SPRITE_TABLE,
-								Player, // Blinking bomber head sprite or not
-								MENUTEAM_SPRITELAYER,
-								BOMBER_HEAD_PRIORITY);
-		
+        if (m_pOptions->GetBomberType(Player) == BOMBERTYPE_OFF)
+            PositionX = BOMBER_NO_TEAM_COLX;
+
+        // Draw the bomber head corresponding to the current player
+        m_pDisplay->DrawSprite(INITIAL_TEXT_POSITION_X + BOMBER_HEAD_SPACE_X + PositionX,
+            PositionY + BOMBER_HEAD_SPACE_Y,
+            NULL,
+            NULL,
+            BOMBER_HEAD_SPRITE_TABLE,
+            Player, // Blinking bomber head sprite or not
+            MENUTEAM_SPRITELAYER,
+            BOMBER_HEAD_PRIORITY);
+
         // If the cursor hand is pointing to the current player
         if (m_CursorPlayer == Player)
         {
             // Draw the cursor hand sprite in front of the corresponding bomber head
-            m_pDisplay->DrawSprite (INITIAL_TEXT_POSITION_X + CURSOR_HAND_SPACE_X,
-                                    PositionY + CURSOR_HAND_SPACE_Y,
-                                    NULL,
-                                    NULL,
-                                    CURSOR_HAND_SPRITE_TABLE,
-                                    CURSOR_HAND_SPRITE,
-                                    MENUTEAM_SPRITELAYER,
-                                    CURSOR_HAND_PRIORITY);
+            m_pDisplay->DrawSprite(INITIAL_TEXT_POSITION_X + CURSOR_HAND_SPACE_X,
+                PositionY + CURSOR_HAND_SPACE_Y,
+                NULL,
+                NULL,
+                CURSOR_HAND_SPRITE_TABLE,
+                CURSOR_HAND_SPRITE,
+                MENUTEAM_SPRITELAYER,
+                CURSOR_HAND_PRIORITY);
         }
 
         // Go down

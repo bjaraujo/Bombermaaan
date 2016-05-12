@@ -19,7 +19,7 @@
     You should have received a copy of the GNU General Public License
     along with Bombermaaan.  If not, see <http://www.gnu.org/licenses/>.
 
-************************************************************************************/
+    ************************************************************************************/
 
 
 /**
@@ -59,13 +59,13 @@ CCommandChunk CommandChunk;
 float TimeElapsedSinceLastCommandChunk = 0.0f;
 CArenaSnapshot Snapshot;
 
-CMatch::CMatch (void) : CModeScreen()
-{   
+CMatch::CMatch(void) : CModeScreen()
+{
     // Set the objects the board has to communicate with
-    m_Board.SetClock (&m_Clock);
-    m_Board.SetArena (&m_Arena);
+    m_Board.SetClock(&m_Clock);
+    m_Board.SetArena(&m_Arena);
 
-    m_AiManager.SetArena (&m_Arena);
+    m_AiManager.SetArena(&m_Arena);
 
     m_pPauseMessage = NULL;
     m_pHurryMessage = NULL;
@@ -75,7 +75,7 @@ CMatch::CMatch (void) : CModeScreen()
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CMatch::~CMatch (void)
+CMatch::~CMatch(void)
 {
     // Nothing to do!
 }
@@ -86,7 +86,7 @@ CMatch::~CMatch (void)
 
 // Before using a CMatch, you must create it.
 
-void CMatch::Create (void)
+void CMatch::Create(void)
 {
     CModeScreen::Create();
 
@@ -110,13 +110,13 @@ void CMatch::Create (void)
     {
         m_pOptions->SetTimeStart(2, 35);
         m_pOptions->SetTimeUp(0, 30);
-        
+
         m_pOptions->SetBomberType(2, BOMBERTYPE_OFF);
         m_pOptions->SetBomberType(3, BOMBERTYPE_OFF);
         m_pOptions->SetBomberType(4, BOMBERTYPE_OFF);
         m_pOptions->SetBattleCount(3);
 
-		if (m_pNetwork->NetworkMode() == NETWORKMODE_SERVER)
+        if (m_pNetwork->NetworkMode() == NETWORKMODE_SERVER)
         {
             m_pOptions->SetBomberType(0, BOMBERTYPE_MAN);
             m_pOptions->SetBomberType(1, BOMBERTYPE_NET);
@@ -127,57 +127,60 @@ void CMatch::Create (void)
             DWORD TickCount = time(NULL);
 #endif
 
-			m_pNetwork->Send(SOCKET_CLIENT, (const char*)&TickCount, sizeof(DWORD), 0);
+            m_pNetwork->Send(SOCKET_CLIENT, (const char*)&TickCount, sizeof(DWORD), 0);
 
             SEED_RANDOM(TickCount);
         }
-		else if (m_pNetwork->NetworkMode() == NETWORKMODE_CLIENT)
+        else if (m_pNetwork->NetworkMode() == NETWORKMODE_CLIENT)
         {
             m_pOptions->SetBomberType(0, BOMBERTYPE_NET);
             m_pOptions->SetBomberType(1, BOMBERTYPE_MAN);
-        
+
             DWORD TickCount;
 
-			m_pNetwork->Receive(SOCKET_SERVER, (char*)&TickCount, sizeof(DWORD), 0);
+            m_pNetwork->Receive(SOCKET_SERVER, (char*)&TickCount, sizeof(DWORD), 0);
 
-		}
+        }
     }
 
-    CreateMainComponents ();
+    CreateMainComponents();
 
     // Set computerPlayersPresent to true when there are AI players in this match
     computerPlayersPresent = false;
-    for ( int i = 0; i < MAX_BOMBERS; i++ ) {
-        if ( m_pOptions->GetBomberType( i ) == BOMBERTYPE_COM ) {
+    for (int i = 0; i < MAX_BOMBERS; i++) {
+        if (m_pOptions->GetBomberType(i) == BOMBERTYPE_COM) {
             computerPlayersPresent = true;
         }
     }
-    
-    if ( computerPlayersPresent ) {
+
+    if (computerPlayersPresent) {
         m_AiManager.SetDisplay(m_pDisplay);
         m_AiManager.Create(m_pOptions);
     }
 
-	for (int i = 0; i < MAX_BOMBERS; i++)
-		m_Teams[i].SetTeamId(i);
+    for (int i = 0; i < MAX_TEAMS; i++)
+    {
+        m_Teams[i].SetTeamId(i);
+        m_Teams[i].SetVictorious(false);
+    }
 
-	if (m_pOptions->IsTeamMode())
-	{
-		// Set in selected team
-		for (int i = 0; i < MAX_BOMBERS; i++) {
-			if (m_pOptions->GetBomberTeam(i) == BOMBERTEAM_1)
-				m_Arena.GetBomber(i).SetTeam(&m_Teams[0]);
-			else if (m_pOptions->GetBomberTeam(i) == BOMBERTEAM_2)
-				m_Arena.GetBomber(i).SetTeam(&m_Teams[1]);
-		}
-	}
-	else
-	{
-		// Each bomber is its own team
-		for (int i = 0; i < MAX_BOMBERS; i++) {
-			m_Arena.GetBomber(i).SetTeam(&m_Teams[i]);
-		}
-	}
+    if (m_pOptions->IsTeamMode())
+    {
+        // Set in selected team
+        for (int i = 0; i < MAX_BOMBERS; i++) {
+            if (m_pOptions->GetBomberTeam(i) == BOMBERTEAM_A)
+                m_Arena.GetBomber(i).SetTeam(&m_Teams[0]);
+            else if (m_pOptions->GetBomberTeam(i) == BOMBERTEAM_B)
+                m_Arena.GetBomber(i).SetTeam(&m_Teams[1]);
+        }
+    }
+    else
+    {
+        // Each bomber is its own team
+        for (int i = 0; i < MAX_BOMBERS; i++) {
+            m_Arena.GetBomber(i).SetTeam(&m_Teams[i]);
+        }
+    }
 
 }
 
@@ -185,17 +188,17 @@ void CMatch::Create (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMatch::CreateMainComponents (void)
+void CMatch::CreateMainComponents(void)
 {
     // Create the main components of the match
-    m_Board.Create ();
-    m_Arena.Create ();
-    m_Clock.Create (CLOCKTYPE_COUNTDOWN,                    // Time decreases until zero
-                    CLOCKMODE_MS,                           // Compute minutes and seconds
-                    0,                                      // Start hours
-                    m_pOptions->GetTimeStartMinutes(),      // Start minutes
-                    m_pOptions->GetTimeStartSeconds(),      // Start seconds
-                    0);                                     // Start seconds100
+    m_Board.Create();
+    m_Arena.Create();
+    m_Clock.Create(CLOCKTYPE_COUNTDOWN,                    // Time decreases until zero
+        CLOCKMODE_MS,                           // Compute minutes and seconds
+        0,                                      // Start hours
+        m_pOptions->GetTimeStartMinutes(),      // Start minutes
+        m_pOptions->GetTimeStartSeconds(),      // Start seconds
+        0);                                     // Start seconds100
 }
 
 //******************************************************************************************************************************
@@ -204,11 +207,11 @@ void CMatch::CreateMainComponents (void)
 
 // When a CMatch is not needed anymore, you should destroy it
 
-void CMatch::Destroy (void)
+void CMatch::Destroy(void)
 {
     CModeScreen::Destroy();
 
-    if ( computerPlayersPresent ) {
+    if (computerPlayersPresent) {
         m_AiManager.Destroy();
     }
 
@@ -222,7 +225,7 @@ void CMatch::Destroy (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMatch::DestroyPauseMessage (void)
+void CMatch::DestroyPauseMessage(void)
 {
     // Delete the pause message object
     if (m_pPauseMessage != NULL)
@@ -236,7 +239,7 @@ void CMatch::DestroyPauseMessage (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMatch::DestroyHurryUpMessage (void)
+void CMatch::DestroyHurryUpMessage(void)
 {
     // Delete the hurry message object
     if (m_pHurryMessage != NULL)
@@ -250,25 +253,25 @@ void CMatch::DestroyHurryUpMessage (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMatch::DestroyMainComponents (void)
+void CMatch::DestroyMainComponents(void)
 {
     // Destroy the main components of the match
-    m_Board.Destroy ();
-    m_Clock.Destroy ();
-    m_Arena.Destroy ();
+    m_Board.Destroy();
+    m_Clock.Destroy();
+    m_Arena.Destroy();
 }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMatch::StopSong (void)
+void CMatch::StopSong(void)
 {
     // If the song is being played
     if (m_IsSongPlaying)
     {
         // Stop playing the match song
-        m_pSound->StopSong (m_CurrentSong);
+        m_pSound->StopSong(m_CurrentSong);
     }
 }
 
@@ -283,10 +286,10 @@ void CMatch::StopSong (void)
  *  @see CloseInput()
  */
 
-void CMatch::OpenInput (void)
-{   
+void CMatch::OpenInput(void)
+{
     // Scan the players
-    for (int Player = 0 ; Player < MAX_PLAYERS ; Player++)
+    for (int Player = 0; Player < MAX_PLAYERS; Player++)
     {
         // If this player plays and is human
         if (m_pOptions->GetBomberType(Player) == BOMBERTYPE_MAN
@@ -309,10 +312,10 @@ void CMatch::OpenInput (void)
  *  @see OpenInput()
  */
 
-void CMatch::CloseInput (void)
+void CMatch::CloseInput(void)
 {
     // Scan the players
-    for (int Player = 0 ; Player < MAX_PLAYERS ; Player++)
+    for (int Player = 0; Player < MAX_PLAYERS; Player++)
     {
         // If this player plays and is human
         if (m_pOptions->GetBomberType(Player) == BOMBERTYPE_MAN
@@ -332,13 +335,13 @@ void CMatch::CloseInput (void)
  *  \brief Start playing the match song if it hasn't started.
  */
 
-void CMatch::PlaySong (void)
+void CMatch::PlaySong(void)
 {
     // If there is no song playing right now
     if (!m_IsSongPlaying)
     {
         // Start playing the match song
-        m_pSound->PlaySong (SONG_MATCH_MUSIC_1_NORMAL);
+        m_pSound->PlaySong(SONG_MATCH_MUSIC_1_NORMAL);
 
         // Save current song number
         m_CurrentSong = SONG_MATCH_MUSIC_1_NORMAL;
@@ -356,31 +359,31 @@ void CMatch::PlaySong (void)
  *  \brief Receive player commands.
  */
 
-void CMatch::ProcessPlayerCommands (void)
-{        
+void CMatch::ProcessPlayerCommands(void)
+{
     // If the match is not paused
     if (m_pPauseMessage == NULL)
     {
         // Do the AI stuff only when there are AI players
-        if ( computerPlayersPresent ) {
+        if (computerPlayersPresent) {
             m_AiManager.Update(m_pTimer->GetDeltaTime());
         }
 
         // Scan the players
-        for (int Player = 0 ; Player < MAX_PLAYERS ; Player++)
+        for (int Player = 0; Player < MAX_PLAYERS; Player++)
         {
             // If this player plays and is a human
-            if (m_pOptions->GetBomberType (Player) == BOMBERTYPE_MAN &&
+            if (m_pOptions->GetBomberType(Player) == BOMBERTYPE_MAN &&
                 m_Arena.GetBomber(Player).Exist())
-            {   
+            {
                 // If its bomber is still alive
-                if (m_Arena.GetBomber (Player).IsAlive())
+                if (m_Arena.GetBomber(Player).IsAlive())
                 {
                     EBomberMove BomberMove = BOMBERMOVE_NONE;
                     EBomberAction BomberAction = BOMBERACTION_NONE;
-                           
+
                     // Get his player input using the options object
-                    int PlayerInput = m_pOptions->GetPlayerInput (Player);
+                    int PlayerInput = m_pOptions->GetPlayerInput(Player);
 
                     // If this player input is opened
                     if (m_pInput->GetPlayerInput(PlayerInput).IsOpened())
@@ -390,10 +393,10 @@ void CMatch::ProcessPlayerCommands (void)
 
                         // Save the player's controls state
                         //! @see CInput, CPlayerInput::GetPlayerInput()
-                        bool Up      = m_pInput->GetPlayerInput(PlayerInput).TestUp();
-                        bool Down    = m_pInput->GetPlayerInput(PlayerInput).TestDown();
-                        bool Left    = m_pInput->GetPlayerInput(PlayerInput).TestLeft();
-                        bool Right   = m_pInput->GetPlayerInput(PlayerInput).TestRight();
+                        bool Up = m_pInput->GetPlayerInput(PlayerInput).TestUp();
+                        bool Down = m_pInput->GetPlayerInput(PlayerInput).TestDown();
+                        bool Left = m_pInput->GetPlayerInput(PlayerInput).TestLeft();
+                        bool Right = m_pInput->GetPlayerInput(PlayerInput).TestRight();
                         bool Action1 = m_pInput->GetPlayerInput(PlayerInput).TestAction1();
                         bool Action2 = m_pInput->GetPlayerInput(PlayerInput).TestAction2();
 
@@ -408,13 +411,13 @@ void CMatch::ProcessPlayerCommands (void)
                         else if (Left)          BomberMove = BOMBERMOVE_LEFT;
                         else if (Right)         BomberMove = BOMBERMOVE_RIGHT;
                         else                    BomberMove = BOMBERMOVE_NONE;
-                
+
                         if (Action1)        BomberAction = BOMBERACTION_ACTION1;
                         else if (Action2)   BomberAction = BOMBERACTION_ACTION2;
                         else                BomberAction = BOMBERACTION_NONE;
 
                         // Send these bomber move and bomber action to the bomber
-                        m_Arena.GetBomber(Player).Command (BomberMove, BomberAction);
+                        m_Arena.GetBomber(Player).Command(BomberMove, BomberAction);
                     }
                     // If the player input is not opened
                     else
@@ -425,7 +428,7 @@ void CMatch::ProcessPlayerCommands (void)
                         // If it's still not opened...
                         if (m_pInput->GetPlayerInput(PlayerInput).IsOpened())
                         {
-                    
+
                         }
                     }
 
@@ -436,9 +439,9 @@ void CMatch::ProcessPlayerCommands (void)
                 }
             }
             // If this player plays and is a network player
-            else if (m_pOptions->GetBomberType (Player) == BOMBERTYPE_NET)
+            else if (m_pOptions->GetBomberType(Player) == BOMBERTYPE_NET)
             {
- 
+
                 // TODO:
 
             }
@@ -452,20 +455,20 @@ void CMatch::ProcessPlayerCommands (void)
             {
 
                 m_pNetwork->ReceiveCommandChunk(CommandChunk);
-                
+
                 // Scan all the players
-                for (int Player = 0 ; Player < MAX_PLAYERS ; Player++)
+                for (int Player = 0; Player < MAX_PLAYERS; Player++)
                 {
                     // If this is the client's bomber
-                    if (m_pOptions->GetBomberType (Player) == BOMBERTYPE_NET)
-                    {   
+                    if (m_pOptions->GetBomberType(Player) == BOMBERTYPE_NET)
+                    {
                         // If the client's bomber is alive
-                        if (m_Arena.GetBomber (Player).IsAlive())
+                        if (m_Arena.GetBomber(Player).IsAlive())
                         {
                             // Apply the command chunk to the bomber
-                            for (int Step = 0 ; Step < CommandChunk.GetNumberOfSteps() ; Step++)
+                            for (int Step = 0; Step < CommandChunk.GetNumberOfSteps(); Step++)
                             {
-                                m_Arena.GetBomber(Player).Command (CommandChunk.GetStepMove(Step), CommandChunk.GetStepAction(Step));
+                                m_Arena.GetBomber(Player).Command(CommandChunk.GetStepMove(Step), CommandChunk.GetStepAction(Step));
                                 m_Arena.UpdateSingleBomber(Player, CommandChunk.GetStepDuration(Step));
                             }
 
@@ -476,23 +479,23 @@ void CMatch::ProcessPlayerCommands (void)
 
                 // Make a snapshot of the arena and send it to the client
                 m_Arena.WriteSnapshot(Snapshot);
-				
-				// Send snapshot to the client
-				m_pNetwork->SendSnapshot(Snapshot);
+
+                // Send snapshot to the client
+                m_pNetwork->SendSnapshot(Snapshot);
 
             }
-			else if (m_pNetwork->NetworkMode() == NETWORKMODE_CLIENT)
+            else if (m_pNetwork->NetworkMode() == NETWORKMODE_CLIENT)
             {
 
                 // Send client command chunk to the server
-				m_pNetwork->SendCommandChunk(CommandChunk);
+                m_pNetwork->SendCommandChunk(CommandChunk);
 
-				// Command chunk was sent, reset it.
-				CommandChunk.Reset();
+                // Command chunk was sent, reset it.
+                CommandChunk.Reset();
 
-				// If successfull apply it
-				if (m_pNetwork->ReceiveSnapshot(Snapshot))
-					m_Arena.ReadSnapshot(Snapshot);
+                // If successfull apply it
+                if (m_pNetwork->ReceiveSnapshot(Snapshot))
+                    m_Arena.ReadSnapshot(Snapshot);
 
             }
 
@@ -509,30 +512,30 @@ void CMatch::ProcessPlayerCommands (void)
 // Manage the pause
 //------------------
 
-void CMatch::ManagePauseMessage (void)
+void CMatch::ManagePauseMessage(void)
 {
     // Check if a joystick pressed the "start" button
     // There is no check which joystick had requested the pause, so the pause can be ended
     // by every joystick and even the keyboard
     bool joystickRequestedPause = false;
 
-    for ( int Player = 0; Player < MAX_PLAYERS; Player++ ) {
+    for (int Player = 0; Player < MAX_PLAYERS; Player++) {
 
         // If this player plays and is a human
-        if (m_pOptions->GetBomberType (Player) == BOMBERTYPE_MAN &&
+        if (m_pOptions->GetBomberType(Player) == BOMBERTYPE_MAN &&
             m_Arena.GetBomber(Player).Exist())
-        {   
+        {
             // If its bomber is still alive
-            if (m_Arena.GetBomber (Player).IsAlive())
+            if (m_Arena.GetBomber(Player).IsAlive())
             {
                 // Get his player input using the options object
-                int PlayerInputNr = m_pOptions->GetPlayerInput (Player);
+                int PlayerInputNr = m_pOptions->GetPlayerInput(Player);
 
                 // If this player input is opened
                 if (m_pInput->GetPlayerInput(PlayerInputNr).IsOpened()) {
 
-                    if ( m_pInput->GetPlayerInput(PlayerInputNr).TestPause() ) {
-                        joystickRequestedPause  = true;
+                    if (m_pInput->GetPlayerInput(PlayerInputNr).TestPause()) {
+                        joystickRequestedPause = true;
                     }
 
                 }
@@ -542,13 +545,13 @@ void CMatch::ManagePauseMessage (void)
     }
 
     // If the pause control is active
-    if (m_pInput->GetMainInput().TestPause() || joystickRequestedPause )
+    if (m_pInput->GetMainInput().TestPause() || joystickRequestedPause)
     {
         // If the pause message is not created
         if (m_pPauseMessage == NULL)
         {
             // Create the pause message
-            m_pPauseMessage = new CPauseMessage (m_pDisplay, m_pSound);
+            m_pPauseMessage = new CPauseMessage(m_pDisplay, m_pSound);
         }
         // If the pause message is created but is waiting for pause toggle
         else if (m_pPauseMessage->IsWaiting())
@@ -562,10 +565,10 @@ void CMatch::ManagePauseMessage (void)
     if (m_pPauseMessage != NULL)
     {
         // Update the pause message
-        m_pPauseMessage->Update (m_pTimer->GetDeltaTime());
-        
+        m_pPauseMessage->Update(m_pTimer->GetDeltaTime());
+
         // Update joysticks
-        for ( int i = 0; i < MAX_PLAYERS; i++ ) {
+        for (int i = 0; i < MAX_PLAYERS; i++) {
             m_pInput->GetPlayerInput(m_pOptions->GetPlayerInput(i)).Update();
         }
 
@@ -583,29 +586,29 @@ void CMatch::ManagePauseMessage (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMatch::UpdateMatch (void)
+void CMatch::UpdateMatch(void)
 {
     // If the match is not paused
     if (m_pPauseMessage == NULL)
     {
         int AliveCount_Human = 0;   // Number of alive human bombers
-        int AliveCount_AI    = 0;   // Number of alive computer controlled bombers
+        int AliveCount_AI = 0;   // Number of alive computer controlled bombers
 
         // Count human and AI bombers
-        for (int Player = 0 ; Player < m_Arena.MaxBombers() ; Player++)
+        for (int Player = 0; Player < m_Arena.MaxBombers(); Player++)
         {
             // If this bomber exists
             if (m_Arena.GetBomber(Player).Exist())
             {
                 // If this bomber is alive
-                if (m_Arena.GetBomber(Player).IsAlive())        
+                if (m_Arena.GetBomber(Player).IsAlive())
                 {
                     // Count number of human and AI alive bombers
-                    switch ( m_Arena.GetBomber(Player).GetBomberType() ) {
-                        case BOMBERTYPE_MAN:
-                        case BOMBERTYPE_NET:    AliveCount_Human++; break;
-                        case BOMBERTYPE_COM:    AliveCount_AI++;    break;
-                        default:                break; // #3078839
+                    switch (m_Arena.GetBomber(Player).GetBomberType()) {
+                    case BOMBERTYPE_MAN:
+                    case BOMBERTYPE_NET:    AliveCount_Human++; break;
+                    case BOMBERTYPE_COM:    AliveCount_AI++;    break;
+                    default:                break; // #3078839
                     }
 
                 }
@@ -614,25 +617,25 @@ void CMatch::UpdateMatch (void)
 
         bool ForceArenaClosing = false;
 
-        if ( AliveCount_Human == 0 && AliveCount_AI > 1 ) {
+        if (AliveCount_Human == 0 && AliveCount_AI > 1) {
 
-            switch ( m_pOptions->GetOption_ActionWhenOnlyAIPlayersLeft() ) {
-                case ACTIONONLYAIPLAYERSALIVE_ENDMATCHDRAWGAME: m_ForceDrawGame = true;     break;
-                case ACTIONONLYAIPLAYERSALIVE_STARTCLOSING:     ForceArenaClosing = true;   break;
-                case ACTIONONLYAIPLAYERSALIVE_SPEEDUPGAME:      m_pTimer->SetSpeed( 7.0f ); break;
-                case ACTIONONLYAIPLAYERSALIVE_CONTINUEGAME:     break;
-                default: ASSERT( false );
+            switch (m_pOptions->GetOption_ActionWhenOnlyAIPlayersLeft()) {
+            case ACTIONONLYAIPLAYERSALIVE_ENDMATCHDRAWGAME: m_ForceDrawGame = true;     break;
+            case ACTIONONLYAIPLAYERSALIVE_STARTCLOSING:     ForceArenaClosing = true;   break;
+            case ACTIONONLYAIPLAYERSALIVE_SPEEDUPGAME:      m_pTimer->SetSpeed(7.0f); break;
+            case ACTIONONLYAIPLAYERSALIVE_CONTINUEGAME:     break;
+            default: ASSERT(false);
             }
 
-            if ( ForceArenaClosing ) {
+            if (ForceArenaClosing) {
                 // Stop the match music song (the normal one)
-                m_pSound->StopSong( SONG_MATCH_MUSIC_1_NORMAL );
+                m_pSound->StopSong(SONG_MATCH_MUSIC_1_NORMAL);
             }
 
         }
 
         // If the hurry up is enabled
-        if (m_pOptions->GetTimeUpMinutes() != 0 || m_pOptions->GetTimeUpSeconds() != 0 || ForceArenaClosing )
+        if (m_pOptions->GetTimeUpMinutes() != 0 || m_pOptions->GetTimeUpSeconds() != 0 || ForceArenaClosing)
         {
             //------------------------------------
             // Check if arena should close
@@ -642,18 +645,18 @@ void CMatch::UpdateMatch (void)
             if (!m_NoticedTimeUp && !m_Arena.GetArenaCloser().IsClosing())
             {
                 // If the clock's current time is less than (or equal to) to the timeup's time
-                if (m_Clock.GetMinutes() < m_pOptions->GetTimeUpMinutes() 
+                if (m_Clock.GetMinutes() < m_pOptions->GetTimeUpMinutes()
                     ||
-                    (m_Clock.GetMinutes() == m_pOptions->GetTimeUpMinutes() && 
-                     m_Clock.GetSeconds() <= m_pOptions->GetTimeUpSeconds())
+                    (m_Clock.GetMinutes() == m_pOptions->GetTimeUpMinutes() &&
+                    m_Clock.GetSeconds() <= m_pOptions->GetTimeUpSeconds())
                     ||
-                    ForceArenaClosing )
+                    ForceArenaClosing)
                 {
                     // Make the arena start closing
-                    m_Arena.GetArenaCloser().Start ();
+                    m_Arena.GetArenaCloser().Start();
 
                     // Start playing the fast match song
-                    m_pSound->PlaySong (SONG_MATCH_MUSIC_1_FAST);
+                    m_pSound->PlaySong(SONG_MATCH_MUSIC_1_FAST);
 
                     // Save current song number
                     m_CurrentSong = SONG_MATCH_MUSIC_1_FAST;
@@ -667,10 +670,10 @@ void CMatch::UpdateMatch (void)
         //------------------------------------
         // Update the match components
         //------------------------------------
-    
-        m_Clock.Update (m_pTimer->GetDeltaTime());
-        m_Board.Update ();
-        m_Arena.Update (m_pTimer->GetDeltaTime());
+
+        m_Clock.Update(m_pTimer->GetDeltaTime());
+        m_Board.Update();
+        m_Arena.Update(m_pTimer->GetDeltaTime());
     }
 }
 
@@ -681,8 +684,8 @@ void CMatch::UpdateMatch (void)
 /**
  *  \brief Manage the hurry up message
  */
-    
-void CMatch::ManageHurryUpMessage (void)
+
+void CMatch::ManageHurryUpMessage(void)
 {
     // If the match is not paused and the hurry up is enabled
     if (m_pPauseMessage == NULL && (m_pOptions->GetTimeUpMinutes() != 0 || m_pOptions->GetTimeUpSeconds() != 0))
@@ -699,7 +702,7 @@ void CMatch::ManageHurryUpMessage (void)
             if (m_pHurryMessage == NULL)
             {
                 // Create the hurry message
-                m_pHurryMessage = new CHurryMessage (m_pDisplay, m_pSound);
+                m_pHurryMessage = new CHurryMessage(m_pDisplay, m_pSound);
             }
         }
     }
@@ -708,7 +711,7 @@ void CMatch::ManageHurryUpMessage (void)
     if (m_pHurryMessage != NULL)
     {
         // Update the hurry message. If it has finished its behaviour
-        if (m_pHurryMessage->Update (m_pTimer->GetDeltaTime()))
+        if (m_pHurryMessage->Update(m_pTimer->GetDeltaTime()))
         {
             // Delete the hurry message object
             delete m_pHurryMessage;
@@ -721,20 +724,20 @@ void CMatch::ManageHurryUpMessage (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMatch::ManageMatchOver (void)
+void CMatch::ManageMatchOver(void)
 {
     //---------------------------------------------------
     // React if the match is over or is going to be over
     //---------------------------------------------------
-    
+
     // If the match is not paused
     if (m_pPauseMessage == NULL)
-    {        
+    {
         int AliveCount = 0;     // Number of alive bombers
         int DyingCount = 0;     // Number of dying bombers
 
         // Count alive bombers and dying bombers
-        for (int Player = 0 ; Player < m_Arena.MaxBombers() ; Player++)
+        for (int Player = 0; Player < m_Arena.MaxBombers(); Player++)
         {
             // If this bomber exists
             if (m_Arena.GetBomber(Player).Exist())
@@ -754,10 +757,10 @@ void CMatch::ManageMatchOver (void)
             }
         }
 
-        int TeamCountAlive[MAX_BOMBERS];     // Number of bombers on each team
-        int TeamCountDying[MAX_BOMBERS];     // Number of bombers on each team
+        int TeamCountAlive[MAX_TEAMS];     // Number of bombers on each team
+        int TeamCountDying[MAX_TEAMS];     // Number of bombers on each team
 
-        for (int Team = 0; Team < MAX_BOMBERS; Team++)
+        for (int Team = 0; Team < MAX_TEAMS; Team++)
         {
             TeamCountAlive[Team] = 0;
             TeamCountDying[Team] = 0;
@@ -765,18 +768,30 @@ void CMatch::ManageMatchOver (void)
 
         for (int Player = 0; Player < m_Arena.MaxBombers(); Player++)
         {
-            int Team = m_Arena.GetBomber(Player).GetTeam()->GetTeamId();
+            // If this bomber exists
+            if (m_Arena.GetBomber(Player).Exist())
+            {
 
-            if (m_Arena.GetBomber(Player).IsAlive())
-                TeamCountAlive[Team]++;
-            else if (m_Arena.GetBomber(Player).IsDying())
-                TeamCountDying[Team]++;
+                int Team = m_Arena.GetBomber(Player).GetTeam()->GetTeamId();
+
+                if (m_Arena.GetBomber(Player).IsAlive())
+                {
+                    // Add one alive bomber in that team
+                    TeamCountAlive[Team]++;
+                }
+                else if (m_Arena.GetBomber(Player).IsDying())
+                {
+                    // Add one dying bomber in that team
+                    TeamCountDying[Team]++;
+                }
+
+            }
         }
 
         int CountTeamsAlive = 0;
         int CountTeamsDying = 0;
 
-        for (int Team = 0; Team < MAX_BOMBERS; Team++)
+        for (int Team = 0; Team < MAX_TEAMS; Team++)
         {
             if (TeamCountAlive[Team] > 0)
                 CountTeamsAlive++;
@@ -789,56 +804,56 @@ void CMatch::ManageMatchOver (void)
         if (AliveCount == 0 && DyingCount > 0)
         {
             // Stop the match song which was playing
-            m_pSound->StopSong (m_CurrentSong);
+            m_pSound->StopSong(m_CurrentSong);
         }
         // If no bomber is alive or dying then this is a draw game
         else if (AliveCount == 0 && DyingCount == 0)
         {
             // Match is over
             m_MatchOver = true;
-        
+
             // There is no winner
             m_WinnerTeam = NO_WINNER_TEAM;
 
             // Tell the arena to stop closing if it is
-            m_Arena.GetArenaCloser().Stop ();
+            m_Arena.GetArenaCloser().Stop();
 
             // Make the board's clock animation stop
-            m_Board.SetClockAnimation (false);
+            m_Board.SetClockAnimation(false);
 
             // Determine mode time when we have to start the last black screen
             m_ExitModeTime = m_ModeTime + PAUSE_DRAWGAME;
         }
         // If only AI bombers are alive then this is also a draw game
-        else if ( m_ForceDrawGame )
+        else if (m_ForceDrawGame)
         {
             // Stop the match song which was playing
-            m_pSound->StopSong (m_CurrentSong);
+            m_pSound->StopSong(m_CurrentSong);
 
             // Match is over
             m_MatchOver = true;
-        
+
             // There is no winner
             m_WinnerTeam = NO_WINNER_TEAM;
 
             // Tell the arena to stop closing if it is
-            m_Arena.GetArenaCloser().Stop ();
+            m_Arena.GetArenaCloser().Stop();
 
             // Make the board's clock animation stop
-            m_Board.SetClockAnimation (false);
+            m_Board.SetClockAnimation(false);
 
             // Determine mode time when we have to start the last black screen
             m_ExitModeTime = m_ModeTime + PAUSE_DRAWGAME;
 
             // Tell the bombers there is no command
-            for (int Player = 0 ; Player < m_Arena.MaxBombers() ; Player++)
+            for (int Player = 0; Player < m_Arena.MaxBombers(); Player++)
             {
                 // If the bomber exists and is alive
                 if (m_Arena.GetBomber(Player).Exist() &&
                     m_Arena.GetBomber(Player).IsAlive())
                 {
                     // Send him no commands so as to avoid a bug where he keeps walking
-                    m_Arena.GetBomber(Player).Command (BOMBERMOVE_NONE, BOMBERACTION_NONE);
+                    m_Arena.GetBomber(Player).Command(BOMBERMOVE_NONE, BOMBERACTION_NONE);
                 }
             }
         }
@@ -858,7 +873,7 @@ void CMatch::ManageMatchOver (void)
                     m_WinnerTeam = Team;
 
                     // Tell the team it is victorious
-                    m_Teams[Team].Victorious();
+                    m_Teams[Team].SetVictorious(true);
 
                     break;
                 }
@@ -872,9 +887,9 @@ void CMatch::ManageMatchOver (void)
                 {
                     // Send him no commands so as to avoid a bug where he keeps walking
                     m_Arena.GetBomber(Player).Command(BOMBERMOVE_NONE, BOMBERACTION_NONE);
-
                 }
             }
+
             // Play the bell sound (ding ding ding ding ding!)
             m_pSound->PlaySample(SAMPLE_RING_DING);
 
@@ -892,8 +907,8 @@ void CMatch::ManageMatchOver (void)
 
         }
         else if (m_pOptions->GetTimeUpMinutes() == 0 && m_pOptions->GetTimeUpSeconds() == 0 &&
-                 (m_pOptions->GetTimeStartMinutes() != 0 || m_pOptions->GetTimeStartSeconds() != 0) &&
-                 m_Clock.GetMinutes() == 0 && m_Clock.GetSeconds() == 0)
+            (m_pOptions->GetTimeStartMinutes() != 0 || m_pOptions->GetTimeStartSeconds() != 0) &&
+            m_Clock.GetMinutes() == 0 && m_Clock.GetSeconds() == 0)
         {
             // Match is over
             m_MatchOver = true;
@@ -902,40 +917,40 @@ void CMatch::ManageMatchOver (void)
             m_WinnerTeam = NO_WINNER_TEAM;
 
             // Seek the alive bombers
-            for (int Player = 0 ; Player < m_Arena.MaxBombers() ; Player++)
+            for (int Player = 0; Player < m_Arena.MaxBombers(); Player++)
             {
                 // If the bomber exists and is alive
                 if (m_Arena.GetBomber(Player).Exist() &&
                     m_Arena.GetBomber(Player).IsAlive())
                 {
                     // Send him no commands so as to avoid a bug where he keeps walking
-                    m_Arena.GetBomber(Player).Command (BOMBERMOVE_NONE, BOMBERACTION_NONE);
+                    m_Arena.GetBomber(Player).Command(BOMBERMOVE_NONE, BOMBERACTION_NONE);
 
                     // Tell the bomber that his team is "victorious"
-                    m_Arena.GetBomber(Player).GetTeam()->Victorious ();
+                    m_Arena.GetBomber(Player).GetTeam()->SetVictorious(true);
                 }
             }
 
             // Play the bell sound (ding ding ding ding ding!)
-            m_pSound->PlaySample (SAMPLE_RING_DING);
-        
+            m_pSound->PlaySample(SAMPLE_RING_DING);
+
             // Stop the match song which was playing
-            m_pSound->StopSong (m_CurrentSong);
+            m_pSound->StopSong(m_CurrentSong);
 
             // Tell the arena to stop closing if it is
-            m_Arena.GetArenaCloser().Stop ();
+            m_Arena.GetArenaCloser().Stop();
 
             // Make the board's clock animation stop
-            m_Board.SetClockAnimation (false);
+            m_Board.SetClockAnimation(false);
 
             // Determine mode time when we have to start the last black screen
             m_ExitModeTime = m_ModeTime + PAUSE_DRAWGAME;
         }
 
-        if ( m_MatchOver )
+        if (m_MatchOver)
         {
             // Set the game speed to normal
-            m_pTimer->SetSpeed( 1.0f );
+            m_pTimer->SetSpeed(1.0f);
         }
     }
 }
@@ -944,11 +959,11 @@ void CMatch::ManageMatchOver (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-EGameMode CMatch::Update (void) 
+EGameMode CMatch::Update(void)
 {
     // Increase elapsed time since mode has started
     m_ModeTime += m_pTimer->GetDeltaTime();
-    
+
     // If we have to make the first black screen
     if (m_ModeTime <= BLACKSCREEN_DURATION)
     {
@@ -962,20 +977,20 @@ EGameMode CMatch::Update (void)
     }
     // If match is currently playing and it's not over
     else if (!m_MatchOver)
-    {   
-        PlaySong ();                        //!< @see PlaySong()
-        ProcessPlayerCommands ();           //!< @see ProcessPlayerCommands()
-        ManagePauseMessage ();              //!< @see ManagePauseMessage()
-        UpdateMatch ();                     //!< @see UpdateMatch()
-        ManageHurryUpMessage ();            //!< @see ManageHurryUpMessage()
-        ManageMatchOver ();                 //!< @see ManageMatchOver()
+    {
+        PlaySong();                        //!< @see PlaySong()
+        ProcessPlayerCommands();           //!< @see ProcessPlayerCommands()
+        ManagePauseMessage();              //!< @see ManagePauseMessage()
+        UpdateMatch();                     //!< @see UpdateMatch()
+        ManageHurryUpMessage();            //!< @see ManageHurryUpMessage()
+        ManageMatchOver();                 //!< @see ManageMatchOver()
     }
     // If the match is over and we have make a pause before the last black screen
     else if (m_ModeTime <= m_ExitModeTime)
     {
         // Update the match
-        m_Board.Update ();
-        m_Arena.Update (m_pTimer->GetDeltaTime());
+        m_Board.Update();
+        m_Arena.Update(m_pTimer->GetDeltaTime());
     }
     // If the pause is over and we have to make the last black screen
     else if (m_ModeTime <= m_ExitModeTime + BLACKSCREEN_DURATION)
@@ -1000,14 +1015,14 @@ EGameMode CMatch::Update (void)
     }
 
     // Stay in this game mode
-    return GAMEMODE_MATCH; 
+    return GAMEMODE_MATCH;
 }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMatch::Display (void)
+void CMatch::Display(void)
 {
     // If we have to make the first black screen
     if (m_ModeTime <= BLACKSCREEN_DURATION)
@@ -1020,13 +1035,13 @@ void CMatch::Display (void)
         DisplayMatchScreen();
 
         // Reset display origin
-        m_pDisplay->SetOrigin (0, 0);
+        m_pDisplay->SetOrigin(0, 0);
     }
     // If match is currently playing and it's not over
     else if (!m_MatchOver)
     {
         // Reset display origin
-        m_pDisplay->SetOrigin (0, 0);
+        m_pDisplay->SetOrigin(0, 0);
 
         DisplayMatchScreen();
         DisplayHurryUpMessage();
@@ -1047,23 +1062,23 @@ void CMatch::Display (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMatch::DisplayMatchScreen (void)
+void CMatch::DisplayMatchScreen(void)
 {
-    m_Board.Display ();
-    m_Arena.Display ();
+    m_Board.Display();
+    m_Arena.Display();
 }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMatch::DisplayHurryUpMessage (void)
+void CMatch::DisplayHurryUpMessage(void)
 {
     // If the hurry message exists
     if (m_pHurryMessage != NULL)
     {
         // Display the hurry message
-        m_pHurryMessage->Display ();
+        m_pHurryMessage->Display();
     }
 }
 
@@ -1071,13 +1086,13 @@ void CMatch::DisplayHurryUpMessage (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMatch::DisplayPauseMessage (void)
+void CMatch::DisplayPauseMessage(void)
 {
     // If the match is paused
     if (m_pPauseMessage != NULL)
     {
         // Display the pause message
-        m_pPauseMessage->Display ();
+        m_pPauseMessage->Display();
     }
 }
 
@@ -1089,14 +1104,14 @@ void CMatch::DisplayPauseMessage (void)
 
 void CMatch::_Debug_WriteBombsToLog() {
 
-    theLog.WriteLine( "CMatch::_Debug_WriteBombsToLog(): Bombs in m_Arena -- BEGIN --" );
+    theLog.WriteLine("CMatch::_Debug_WriteBombsToLog(): Bombs in m_Arena -- BEGIN --");
 
-    for ( int i = 0; i < m_Arena.MaxBombs(); i++ ) {
-        theLog.WriteLine( "--------------------------- Bomb %d -------------------------", i );
-        m_Arena.GetBomb( i )._Debug_WriteToLog();
+    for (int i = 0; i < m_Arena.MaxBombs(); i++) {
+        theLog.WriteLine("--------------------------- Bomb %d -------------------------", i);
+        m_Arena.GetBomb(i)._Debug_WriteToLog();
     }
 
-    theLog.WriteLine( "CMatch::_Debug_WriteBombsToLog(): Bombs in m_Arena -- END --" );
+    theLog.WriteLine("CMatch::_Debug_WriteBombsToLog(): Bombs in m_Arena -- END --");
 
 }
 
