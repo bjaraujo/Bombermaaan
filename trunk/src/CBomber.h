@@ -39,6 +39,7 @@ class CDisplay;
 class CBomb;
 class CArenaSnapshot;
 class COptions;
+class CTeam;
 
 #include "CBomb.h"
 #include "CItem.h"
@@ -173,6 +174,8 @@ private:
     float           m_BomberActionDuration;
     bool            m_dropMassBombPossible;
 
+    CTeam*          p_Team;
+    
     void            Animate(float DeltaTime);
     void            ReturnItems(float DeltaTime);  //!< Manage the return of the items this bomber owns if he is dead
     void            Action(void);                  //!< Make the bomber perform the bomber action he was ordered.
@@ -183,7 +186,7 @@ private:
     void            Die(void);                     //!< Make the bomber start dying.
     float           GetBombTime(void);             //!< Get the current bomb time, i.e. the time left before a bomb this bomber drops will explode. It depends on current sickness.
     void            MakeBombFly(EBombFlightType FlightType);       //!< Makes the bomber's bomb fly now.
-
+        
 protected:
 
     // These methods are protected so that bombers can check
@@ -235,7 +238,11 @@ public:
     inline int      GetBombIndex(void);            //!< Return the index of the bomb the bomber is possibly holding, lifting, or punching (if the bomber is throwing, this index is -1).
     inline bool     HasExisted(void);               //!< Return the has existed status variable
     inline void     ResetHasExisted(void);          //!< Reset the existed status variable to false
-    inline EBomberType GetBomberType(void);        //!< Return the bomber type (@see EBomberType)
+    inline EBomberType GetBomberType(void);         //!< Return the bomber type (@see EBomberType)
+
+    inline void SetTeam(CTeam* pTeam);              //!< Set the team
+    inline CTeam* GetTeam(void);                    //!< Return the team
+
 };
 
 //******************************************************************************************************************************
