@@ -157,6 +157,28 @@ void CMatch::Create (void)
         m_AiManager.SetDisplay(m_pDisplay);
         m_AiManager.Create(m_pOptions);
     }
+
+	for (int i = 0; i < MAX_BOMBERS; i++)
+		m_Teams[i].SetTeamId(i);
+
+	if (m_pOptions->IsTeamMode())
+	{
+		// Set in selected team
+		for (int i = 0; i < MAX_BOMBERS; i++) {
+			if (m_pOptions->GetBomberTeam(i) == BOMBERTEAM_1)
+				m_Arena.GetBomber(i).SetTeam(&m_Teams[0]);
+			else if (m_pOptions->GetBomberTeam(i) == BOMBERTEAM_2)
+				m_Arena.GetBomber(i).SetTeam(&m_Teams[1]);
+		}
+	}
+	else
+	{
+		// Each bomber is its own team
+		for (int i = 0; i < MAX_BOMBERS; i++) {
+			m_Arena.GetBomber(i).SetTeam(&m_Teams[i]);
+		}
+	}
+
 }
 
 //******************************************************************************************************************************
@@ -789,7 +811,7 @@ void CMatch::ManageMatchOver (void)
                 }
             }
         }
-        // If one bomber is alive and none is dying then a bomber has won the match
+        // If one bomber is alive and none is dying then a bomber that team has won the match
         else if (AliveCount == 1 && DyingCount == 0) 
         {
             // Match is over
@@ -831,6 +853,12 @@ void CMatch::ManageMatchOver (void)
             // Determine mode time when we have to start the last black screen
             m_ExitModeTime = m_ModeTime + PAUSE_WINNER;
         }
+		else if (1 == 2) // TREAT TEAM MODE
+		{
+			// TODO
+
+
+		}
         else if (m_pOptions->GetTimeUpMinutes() == 0 && m_pOptions->GetTimeUpSeconds() == 0 &&
                  (m_pOptions->GetTimeStartMinutes() != 0 || m_pOptions->GetTimeStartSeconds() != 0) &&
                  m_Clock.GetMinutes() == 0 && m_Clock.GetSeconds() == 0)

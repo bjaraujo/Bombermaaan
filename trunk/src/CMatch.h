@@ -67,6 +67,8 @@ private:
     CBoard          m_Board;                    //!< Board object
     CClock          m_Clock;                    //!< Clock object
     CArena          m_Arena;                    //!< Arena object
+	
+	CTeam           m_Teams[MAX_BOMBERS];       //!< Teams object 
 
 	CNetwork*		m_pNetwork;                  //!< Network pointer
 
