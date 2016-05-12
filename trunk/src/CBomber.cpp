@@ -58,6 +58,7 @@
 
 #include "StdAfx.h"
 #include "CBomber.h"
+#include "CTeam.h"
 #include "CArena.h"
 #include "CBomb.h"
 #include "CDisplay.h"
@@ -264,7 +265,6 @@ CBomber::CBomber (void) : CElement()
     m_ReturnedItems = false;
     m_Player = 0;
     m_Dead = DEAD_ALIVE;
-    m_Victorious = false;
     m_JustGotSick = false;
     m_LiftingTimeElapsed = 0.0f;
 	m_ThrowingTimeElapsed = 0.0f;
@@ -343,8 +343,6 @@ void CBomber::Create (int BlockX, int BlockY, int Player, COptions* options)
     
     m_ReturnedItems = false;
 
-    m_Victorious = false;
-
     for (int p = 0 ; p < m_pArena->MaxBombers() ; p++)
     {
         m_Neighbours[p] = false;
@@ -384,7 +382,7 @@ void CBomber::Die (void)
     if (theDebug.CanBombersDie())
     {
         // If the bomber has not won the current match
-        if (!m_Victorious)
+        if (!p_Team->IsVictorious())
         {
             // Make the bomber start dying : set the dead state
             // and reset the timer.
@@ -460,15 +458,6 @@ void CBomber::Crush ()
 
     Die ();
 
-}
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-void CBomber::Victorious (void)
-{
-    m_Victorious = true;
 }
 
 //******************************************************************************************************************************
@@ -1481,7 +1470,6 @@ void CBomber::OnWriteSnapshot (CArenaSnapshot& Snapshot)
     Snapshot.WriteBoolean(m_ReturnedItems);
     Snapshot.WriteInteger(m_Player);
     Snapshot.WriteInteger(m_Dead);
-    Snapshot.WriteBoolean(m_Victorious);
     
     for (i = 0 ; i < MAX_PLAYERS ; i++)
         Snapshot.WriteBoolean(m_Neighbours[i]);
@@ -1531,7 +1519,6 @@ void CBomber::OnReadSnapshot (CArenaSnapshot& Snapshot)
     Snapshot.ReadBoolean(&m_ReturnedItems);
     Snapshot.ReadInteger(&m_Player);
     Snapshot.ReadInteger((int*)&m_Dead);
-    Snapshot.ReadBoolean(&m_Victorious);
     
     for (i = 0 ; i < MAX_PLAYERS ; i++)
         Snapshot.ReadBoolean(&m_Neighbours[i]);

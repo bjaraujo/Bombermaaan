@@ -516,7 +516,7 @@ void CDemo::ManageMatchOver (void)
                 m_Arena.GetBomber(Player).Command (BOMBERMOVE_NONE, BOMBERACTION_NONE);
 
                 // Tell the bomber he is victorious
-                m_Arena.GetBomber(Player).Victorious ();
+                m_Arena.GetBomber(Player).GetTeam()->Victorious ();
             
                 // Get out since there is only one bomber
                 break;
@@ -557,7 +557,7 @@ void CDemo::ManageMatchOver (void)
                 m_Arena.GetBomber(Player).Command (BOMBERMOVE_NONE, BOMBERACTION_NONE);
 
                 // Tell the bomber he is "victorious"
-                m_Arena.GetBomber(Player).Victorious ();
+                m_Arena.GetBomber(Player).GetTeam()->Victorious ();
             }
         }
 

@@ -41,6 +41,7 @@ CMenuBomber.h
 CMenuInput.h
 CMenuLevel.h
 CMenuMatch.h
+CMenuTeam.h
 CMenuYesNo.h
 CModeScreen.h
 CMosaic.h
@@ -54,6 +55,7 @@ CScroller.h
 CSDLInput.h
 CSDLVideo.h
 CSound.h
+CTeam.h
 CTimer.h
 CTitle.h
 CVictory.h
@@ -102,6 +104,7 @@ CMenuBomber.cpp
 CMenuInput.cpp
 CMenuLevel.cpp
 CMenuMatch.cpp
+CMenuTeam.cpp
 CMenuYesNo.cpp
 CModeScreen.cpp
 CMosaic.cpp
@@ -116,6 +119,7 @@ CSDLInput.cpp
 CSDLVideo.cpp
 CSound.cpp
 CTitle.cpp
+CTeam.cpp
 CVictory.cpp
 CWall.cpp
 CWindow.cpp

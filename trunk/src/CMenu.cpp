@@ -59,7 +59,8 @@ CMenu::CMenu (void) : CModeScreen()
     m_MenuBomber.SetFont (&m_Font);
     m_MenuInput.SetFont (&m_Font);
     m_MenuMatch.SetFont (&m_Font);
-    m_MenuLevel.SetFont (&m_Font);
+	m_MenuTeam.SetFont(&m_Font);
+	m_MenuLevel.SetFont(&m_Font);
     
     // The menu mode to start with will be set ONCE here 
     // (not on menu creation with Create() method). The 
@@ -205,6 +206,7 @@ EGameMode CMenu::Update (void)
             case MENUMODE_BOMBER : MenuAction = m_MenuBomber.Update (); break;
             case MENUMODE_INPUT  : MenuAction = m_MenuInput.Update (); break;
             case MENUMODE_MATCH  : MenuAction = m_MenuMatch.Update (); break;
+			case MENUMODE_TEAM   : MenuAction = m_MenuTeam.Update(); break;
             case MENUMODE_LEVEL  : MenuAction = m_MenuLevel.Update (); break;
         }
 
@@ -281,10 +283,22 @@ EGameMode CMenu::Update (void)
                             break;
                         }
 
+						case MENUMODE_TEAM:
+						{
+							// Save the previous menu mode to set
+							EMenuMode MenuMode = MENUMODE_MATCH;
+
+							// Change the menu mode
+							FinishMenuMode();
+							StartMenuMode(MenuMode);
+
+							break;
+						}
+
                         case MENUMODE_LEVEL :
                         {
                             // Save the previous menu mode to set
-                            EMenuMode MenuMode = MENUMODE_MATCH;
+							EMenuMode MenuMode = (m_pOptions->IsTeamMode() ? MENUMODE_TEAM : MENUMODE_MATCH);
 
                             // Change the menu mode
                             FinishMenuMode ();
@@ -345,7 +359,7 @@ EGameMode CMenu::Update (void)
                         case MENUMODE_MATCH :
                         {
                             // Save the next menu mode to set
-                            EMenuMode MenuMode = MENUMODE_LEVEL;
+							EMenuMode MenuMode = (m_pOptions->IsTeamMode() ? MENUMODE_TEAM : MENUMODE_LEVEL);
 
                             // Change the menu mode
                             FinishMenuMode ();
@@ -353,6 +367,18 @@ EGameMode CMenu::Update (void)
 
                             break;
                         }
+
+						case MENUMODE_TEAM:
+						{
+							// Save the next menu mode to set
+							EMenuMode MenuMode = MENUMODE_LEVEL;
+
+							// Change the menu mode
+							FinishMenuMode();
+							StartMenuMode(MenuMode);
+
+							break;
+						}
 
                         case MENUMODE_LEVEL :
                         {
@@ -417,7 +443,8 @@ void CMenu::StartMenuMode (EMenuMode MenuMode)
     {
         case MENUMODE_BOMBER     : m_MenuBomber.Create (); break;
         case MENUMODE_INPUT      : m_MenuInput.Create (); break;
-        case MENUMODE_MATCH      : m_MenuMatch.Create (); break;
+		case MENUMODE_MATCH      : m_MenuMatch.Create(); break;
+		case MENUMODE_TEAM       : m_MenuTeam.Create(); break;
         case MENUMODE_LEVEL      : m_MenuLevel.Create(); break;
     }
 }
@@ -437,7 +464,8 @@ void CMenu::FinishMenuMode (void)
         case MENUMODE_BOMBER     : m_MenuBomber.Destroy (); break;
         case MENUMODE_INPUT      : m_MenuInput.Destroy (); break;
         case MENUMODE_MATCH      : m_MenuMatch.Destroy (); break;
-        case MENUMODE_LEVEL      : m_MenuLevel.Destroy (); break;
+		case MENUMODE_TEAM       : m_MenuTeam.Destroy(); break;
+		case MENUMODE_LEVEL      : m_MenuLevel.Destroy(); break;
     }
 
     // Don't modify current menu mode! Leave it as it is.
@@ -487,7 +515,8 @@ void CMenu::Display (void)
             case MENUMODE_BOMBER : m_MenuBomber.Display (); break;
             case MENUMODE_INPUT  : m_MenuInput.Display ();  break;
             case MENUMODE_MATCH  : m_MenuMatch.Display ();  break;
-            case MENUMODE_LEVEL  : m_MenuLevel.Display ();  break;
+			case MENUMODE_TEAM   : m_MenuTeam.Display();  break;
+			case MENUMODE_LEVEL  : m_MenuLevel.Display();  break;
         }
     }
     // The minimum mode duration has elapsed AND we have to exit, 

@@ -34,6 +34,7 @@
 #include "CDisplay.h"
 #include "CItem.h"
 #include "CLevel.h"
+#include "CTeam.h"
 #include "tinyxml.h"
 
 //******************************************************************************************************************************
@@ -94,7 +95,8 @@ private:
     int                 m_PlayerInput [MAX_PLAYERS];    //!< Player input to use for each player
     EDisplayMode        m_DisplayMode;                  //!< Current display mode to use in the CDisplay object
     int                 m_Control[MAX_PLAYER_INPUT][NUM_CONTROLS]; //!< Control number to use for each player input and for each control
-    int                 m_Level;
+	bool				m_TeamMode;						//!< Team mode
+	int                 m_Level;
     std::vector<CLevel> m_Levels;
     std::string         configFileName;                 //!< Full name of the config file (including path)
     std::string         oldconfigFileName;              //!< Full name of the old (binary) config file (including path)
@@ -137,6 +139,10 @@ public:
     inline int          GetNumberOfLevels (void);
     inline const char*  GetLevelName (void);
     inline EActionAIAlive   GetOption_ActionWhenOnlyAIPlayersLeft();
+
+	inline void			SetTeamMode(bool TeamMode);
+	inline bool		    IsTeamMode();
+
 };
 
 //******************************************************************************************************************************
@@ -286,6 +292,16 @@ inline EActionAIAlive COptions::GetOption_ActionWhenOnlyAIPlayersLeft()
     return ACTIONONLYAIPLAYERSALIVE_CONTINUEGAME;
 //    return ACTIONONLYAIPLAYERSALIVE_SPEEDUPGAME;
     //return ACTIONONLYAIPLAYERSALIVE_ENDMATCHDRAWGAME;
+}
+
+inline void COptions::SetTeamMode(bool TeamMode)
+{
+	m_TeamMode = TeamMode;
+}
+
+inline bool COptions::IsTeamMode(void)
+{
+	return m_TeamMode;
 }
 
 //******************************************************************************************************************************

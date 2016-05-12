@@ -157,7 +157,6 @@ private:
     bool            m_ReturnedItems;                //!< Did the bomber return the items he picked up to the arena?
     int             m_Player;                       //!< Number of the player represented by the bomber
     EDead           m_Dead;                         //!< Dead state : alive, dying or dead
-    bool            m_Victorious;                   //!< Has the bomber won the current match he is playing in?
     bool            m_Neighbours[MAX_PLAYERS];      //!< Bombers who are on the same block as this bomber
     bool            m_JustGotSick;                  //!< True if the bomber just got sick
     float           m_LiftingTimeElapsed;           //!< How many seconds have elapsed since we started lifting a bomb?
@@ -208,7 +207,6 @@ public:
     void            OnWriteSnapshot(CArenaSnapshot& Snapshot);
     void            OnReadSnapshot(CArenaSnapshot& Snapshot);
     void            Command(EBomberMove BomberMove, EBomberAction BomberAction); //!< Give a move and action order to the bomber for next update.
-    void            Victorious(void);              //!< Tell the bomber he has won the current battle he is playing in.
     void            Burn(void);                    //!< Make the bomber react when he is burnt by an explosion
     void            Crush(void);                   //!< Make the bomber react when he is crushed by a wall
     void            Stunt(void);                   //!< Make the bomber react when a bomb bounces on his head
@@ -394,6 +392,16 @@ inline void CBomber::ResetHasExisted(void)
 inline EBomberType CBomber::GetBomberType(void)
 {
     return p_Options->GetBomberType(m_Player);
+}
+
+inline void CBomber::SetTeam(CTeam* pTeam)
+{
+	p_Team = pTeam;
+}
+
+inline CTeam* CBomber::GetTeam(void)
+{
+	return p_Team;
 }
 
 //******************************************************************************************************************************
