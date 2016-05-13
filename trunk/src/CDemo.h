@@ -61,6 +61,9 @@ private:
     CBoard          m_Board;                    //!< Board object
     CClock          m_Clock;                    //!< Clock object
     CArena          m_Arena;                    //!< Arena object
+
+    CTeam           m_Teams[MAX_TEAMS];         //!< Teams object 
+
     CAiManager      m_AiManager;                //!< Computer brain
     bool            m_MatchOver;                //!< Is match over? (ie. there is a result : winner or draw game)
     ESong           m_CurrentSong;              //!< Current song being played
@@ -74,7 +77,7 @@ private:
     float           m_ExitModeTime;             //!< Mode time when we have to start the last black screen
     int             m_ExitGameMode;             //!< Game mode to ask for when exiting
     bool            m_HaveToExit;               //!< Do we have to exit this mode?
-    
+
     void            CreateMainComponents (void);
     void            CreateComputerPlayers (void);
     void            CreateFont (void);

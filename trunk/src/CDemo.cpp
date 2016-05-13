@@ -111,6 +111,18 @@ void CDemo::Create (void)
 
     m_AiManager.SetDisplay(m_pDisplay);
     m_AiManager.Create(&m_Options);
+
+    for (int i = 0; i < MAX_TEAMS; i++)
+    {
+        m_Teams[i].SetTeamId(i);
+        m_Teams[i].SetVictorious(false);
+    }
+
+    // Each bomber is its own team
+    for (int i = 0; i < MAX_BOMBERS; i++) {
+        m_Arena.GetBomber(i).SetTeam(&m_Teams[i]);
+    }
+
 }
 
 //******************************************************************************************************************************

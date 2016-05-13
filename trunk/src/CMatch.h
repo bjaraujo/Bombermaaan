@@ -18,7 +18,7 @@
     You should have received a copy of the GNU General Public License
     along with Bombermaaan.  If not, see <http://www.gnu.org/licenses/>.
 
-************************************************************************************/
+    ************************************************************************************/
 
 
 /**
@@ -67,10 +67,10 @@ private:
     CBoard          m_Board;                    //!< Board object
     CClock          m_Clock;                    //!< Clock object
     CArena          m_Arena;                    //!< Arena object
-	
-	CTeam           m_Teams[MAX_BOMBERS];       //!< Teams object 
 
-	CNetwork*       m_pNetwork;                  //!< Network pointer
+    CTeam           m_Teams[MAX_TEAMS];         //!< Teams object 
+
+    CNetwork*       m_pNetwork;                 //!< Network pointer
 
     CAiManager      m_AiManager;                //!< Computer brain
     //! @todo Check why m_NoComputer is there (didn't find references)
@@ -88,39 +88,39 @@ private:
     bool            m_HaveToExit;               //!< Do we have to exit this mode?
     bool            computerPlayersPresent;     //!< True, when there are AI players
     bool            m_ForceDrawGame;            //!< Force a draw game when only AI bombers are alive?
-    
-    void            CreateMainComponents (void);
-    void            DestroyHurryUpMessage (void);
-    void            DestroyPauseMessage (void);
-    void            DestroyMainComponents (void);
-    void            PlaySong (void);
-    void            StopSong (void);
-    void            ProcessPlayerCommands (void);
-    void            UpdateMatch (void);
-    void            ManagePauseMessage (void);
-    void            ManageHurryUpMessage (void);
-    void            ManageMatchOver (void);
-    void            DisplayMatchScreen (void);
-    void            DisplayHurryUpMessage (void);
-    void            DisplayPauseMessage (void);
-    
+
+    void            CreateMainComponents(void);
+    void            DestroyHurryUpMessage(void);
+    void            DestroyPauseMessage(void);
+    void            DestroyMainComponents(void);
+    void            PlaySong(void);
+    void            StopSong(void);
+    void            ProcessPlayerCommands(void);
+    void            UpdateMatch(void);
+    void            ManagePauseMessage(void);
+    void            ManageHurryUpMessage(void);
+    void            ManageMatchOver(void);
+    void            DisplayMatchScreen(void);
+    void            DisplayHurryUpMessage(void);
+    void            DisplayPauseMessage(void);
+
 public:
 
-                    CMatch();                           //!< Constructor. Initialize some members.
+    CMatch();                           //!< Constructor. Initialize some members.
     virtual         ~CMatch();                          //!< Destructor. Does nothing.
-    inline void     SetDisplay (CDisplay *pDisplay);    //!< Set link to the display object to use
-    inline void     SetOptions (COptions *pOptions);    //!< Set link to the options object to use
-    inline void     SetScores (CScores *pScores);       //!< Set link to the scores object to use
-    inline void     SetTimer (CTimer *pTimer);          //!< Set link to the timer object to use
-    inline void     SetSound (CSound *pSound);          //!< Set link to the sound object to use
-	inline void     SetNetwork(CNetwork *pNetwork);     //!< Set link to the network object to use
+    inline void     SetDisplay(CDisplay *pDisplay);    //!< Set link to the display object to use
+    inline void     SetOptions(COptions *pOptions);    //!< Set link to the options object to use
+    inline void     SetScores(CScores *pScores);       //!< Set link to the scores object to use
+    inline void     SetTimer(CTimer *pTimer);          //!< Set link to the timer object to use
+    inline void     SetSound(CSound *pSound);          //!< Set link to the sound object to use
+    inline void     SetNetwork(CNetwork *pNetwork);     //!< Set link to the network object to use
 
-	void            Create (void);                      //!< Initialize the object
-    void            Destroy (void);                     //!< Uninitialize the object
-    void            OpenInput (void);                   //!< Get access to the input this object needs
-    void            CloseInput (void);                  //!< Release access to the input this object needs
-    EGameMode       Update (void);                      //!< Update the object and return what game mode should be set
-    void            Display (void);                     //!< Display on the screen
+    void            Create(void);                      //!< Initialize the object
+    void            Destroy(void);                     //!< Uninitialize the object
+    void            OpenInput(void);                   //!< Get access to the input this object needs
+    void            CloseInput(void);                  //!< Release access to the input this object needs
+    EGameMode       Update(void);                      //!< Update the object and return what game mode should be set
+    void            Display(void);                     //!< Display on the screen
 
     inline int      GetWinnerTeam(void);                //!< Get the number of the team that won this match
     inline bool     IsPlayerWinner(int Player);         //!< Get the if player has won this match
@@ -135,45 +135,45 @@ public:
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline void CMatch::SetDisplay (CDisplay *pDisplay)
+inline void CMatch::SetDisplay(CDisplay *pDisplay)
 {
-    CModeScreen::SetDisplay (pDisplay);
+    CModeScreen::SetDisplay(pDisplay);
 
-    m_Board.SetDisplay (pDisplay);
-    m_Arena.SetDisplay (pDisplay);
+    m_Board.SetDisplay(pDisplay);
+    m_Arena.SetDisplay(pDisplay);
 }
 
-inline void CMatch::SetOptions (COptions *pOptions)
+inline void CMatch::SetOptions(COptions *pOptions)
 {
-    CModeScreen::SetOptions (pOptions);
+    CModeScreen::SetOptions(pOptions);
 
-    m_Board.SetOptions (pOptions);
-    m_Arena.SetOptions (pOptions);
+    m_Board.SetOptions(pOptions);
+    m_Arena.SetOptions(pOptions);
 }
 
-inline void CMatch::SetScores (CScores *pScores)
+inline void CMatch::SetScores(CScores *pScores)
 {
-    m_Board.SetScores (pScores);
+    m_Board.SetScores(pScores);
 }
 
-inline void CMatch::SetTimer (CTimer *pTimer)
+inline void CMatch::SetTimer(CTimer *pTimer)
 {
-    CModeScreen::SetTimer (pTimer);    
+    CModeScreen::SetTimer(pTimer);
 
-    m_Board.SetTimer (pTimer);
-} 
+    m_Board.SetTimer(pTimer);
+}
 
-inline void CMatch::SetSound (CSound *pSound)
+inline void CMatch::SetSound(CSound *pSound)
 {
-    CModeScreen::SetSound (pSound);    
+    CModeScreen::SetSound(pSound);
 
-    m_Arena.SetSound (pSound);
+    m_Arena.SetSound(pSound);
 }
 
 inline void CMatch::SetNetwork(CNetwork *pNetwork)
 {
 
-	m_pNetwork = pNetwork;
+    m_pNetwork = pNetwork;
 
 }
 
@@ -183,14 +183,14 @@ inline void CMatch::SetNetwork(CNetwork *pNetwork)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline int CMatch::GetWinnerTeam (void)
+inline int CMatch::GetWinnerTeam(void)
 {
     return m_WinnerTeam;
 }
 
 inline bool CMatch::IsPlayerWinner(int Player)
 {
-    
+
     if (m_Arena.GetBomber(Player).GetTeam()->GetTeamId() == m_WinnerTeam)
         return true;
     else
