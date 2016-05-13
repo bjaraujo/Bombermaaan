@@ -263,6 +263,7 @@ bool CAiBomber::EnemyNearAndFront (EEnemyDirection *direction, bool BeyondArenaF
     for (int Index = 0 ; Index < MAX_PLAYERS ; Index++)
     {
         // If the current player is not the one we are controlling
+		// and the bomber is from a different team
         // and the bomber of this player exists and is alive
         // and this bomber is where our bomber is
         if (Index != m_Player &&
@@ -322,11 +323,28 @@ bool CAiBomber::EnemyNearAndFront (EEnemyDirection *direction, bool BeyondArenaF
         // If there is a bomber where we are scanning
         if (m_pArena->GetArena()->IsBomber (BlockX, BlockY))
         {
-            // We have an enemy bomber to the right that is near
-            // and in front of our bomber.
-            if (direction != NULL)
-                *direction = ENEMYDIRECTION_RIGHT;
-            return true;
+			bool EnemyBomber = false;
+
+			for (int Index = 0; Index < MAX_PLAYERS; Index++)
+			{
+				// If bomber in that block is from a different team
+				if (m_pArena->GetArena()->GetBomber(Index).GetTeam()->GetTeamId() != m_pArena->GetArena()->GetBomber(m_Player).GetTeam()->GetTeamId() &&
+					m_pArena->GetArena()->GetBomber(Index).GetBlockX() == BlockX &&
+					m_pArena->GetArena()->GetBomber(Index).GetBlockY() == BlockY)
+				{
+					EnemyBomber = true;
+					break;
+				}
+			}
+
+			if (EnemyBomber)
+			{
+				// We have an enemy bomber to the right that is near
+				// and in front of our bomber.
+				if (direction != NULL)
+					*direction = ENEMYDIRECTION_RIGHT;
+				return true;
+			}
         }
 
         // Continue scanning (go right)
@@ -386,11 +404,30 @@ bool CAiBomber::EnemyNearAndFront (EEnemyDirection *direction, bool BeyondArenaF
         // If there is a bomber where we are scanning
         if (m_pArena->GetArena()->IsBomber (BlockX, BlockY))
         {
-            // We have an enemy bomber to the left that is near
-            // and in front of our bomber.
-            if (direction != NULL)
-                *direction = ENEMYDIRECTION_LEFT;
-            return true;
+
+			bool EnemyBomber = false;
+
+			for (int Index = 0; Index < MAX_PLAYERS; Index++)
+			{
+				// If bomber in that block is from a different team
+				if (m_pArena->GetArena()->GetBomber(Index).GetTeam()->GetTeamId() != m_pArena->GetArena()->GetBomber(m_Player).GetTeam()->GetTeamId() &&
+					m_pArena->GetArena()->GetBomber(Index).GetBlockX() == BlockX &&
+					m_pArena->GetArena()->GetBomber(Index).GetBlockY() == BlockY)
+				{
+					EnemyBomber = true;
+					break;
+				}
+			}
+
+			if (EnemyBomber)
+			{
+				// We have an enemy bomber to the left that is near
+				// and in front of our bomber.
+				if (direction != NULL)
+					*direction = ENEMYDIRECTION_LEFT;
+				return true;
+			}
+
         }
 
         // Continue scanning (go left)
@@ -450,11 +487,28 @@ bool CAiBomber::EnemyNearAndFront (EEnemyDirection *direction, bool BeyondArenaF
         // If there is a bomber != me where we are scanning
         if (m_pArena->GetArena()->IsBomber (BlockX, BlockY))
         {
-            // We have an enemy bomber above that is near
-            // and in front of our bomber.            
-            if (direction != NULL)
-                *direction = ENEMYDIRECTION_ABOVE;
-            return true;
+			bool EnemyBomber = false;
+
+			for (int Index = 0; Index < MAX_PLAYERS; Index++)
+			{
+				// If bomber in that block is from a different team
+				if (m_pArena->GetArena()->GetBomber(Index).GetTeam()->GetTeamId() != m_pArena->GetArena()->GetBomber(m_Player).GetTeam()->GetTeamId() &&
+					m_pArena->GetArena()->GetBomber(Index).GetBlockX() == BlockX &&
+					m_pArena->GetArena()->GetBomber(Index).GetBlockY() == BlockY)
+				{
+					EnemyBomber = true;
+					break;
+				}
+			}
+
+			if (EnemyBomber)
+			{
+				// We have an enemy bomber above that is near
+				// and in front of our bomber.            
+				if (direction != NULL)
+					*direction = ENEMYDIRECTION_ABOVE;
+				return true;
+			}
         }
 
         // Continue scanning (go up)
@@ -514,11 +568,29 @@ bool CAiBomber::EnemyNearAndFront (EEnemyDirection *direction, bool BeyondArenaF
         // If there is a bomber != me where we are scanning
         if (m_pArena->GetArena()->IsBomber (BlockX, BlockY))
         {
-            // We have an enemy bomber above that is near
-            // and in front of our bomber.
-            if (direction != NULL)
-                *direction = ENEMYDIRECTION_BELOW;
-            return true;
+
+			bool EnemyBomber = false;
+
+			for (int Index = 0; Index < MAX_PLAYERS; Index++)
+			{
+				// If bomber in that block is from a different team
+				if (m_pArena->GetArena()->GetBomber(Index).GetTeam()->GetTeamId() != m_pArena->GetArena()->GetBomber(m_Player).GetTeam()->GetTeamId() &&
+					m_pArena->GetArena()->GetBomber(Index).GetBlockX() == BlockX &&
+					m_pArena->GetArena()->GetBomber(Index).GetBlockY() == BlockY)
+				{
+					EnemyBomber = true;
+					break;
+				}
+			}
+
+			if (EnemyBomber)
+			{
+				// We have an enemy bomber above that is near
+				// and in front of our bomber.
+				if (direction != NULL)
+					*direction = ENEMYDIRECTION_BELOW;
+				return true;
+			}
         }
 
         // Continue scanning (go down)
