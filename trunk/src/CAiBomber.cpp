@@ -266,6 +266,7 @@ bool CAiBomber::EnemyNearAndFront (EEnemyDirection *direction, bool BeyondArenaF
         // and the bomber of this player exists and is alive
         // and this bomber is where our bomber is
         if (Index != m_Player &&
+			m_pArena->GetArena()->GetBomber(Index).GetTeam()->GetTeamId() != m_pArena->GetArena()->GetBomber(m_Player).GetTeam()->GetTeamId() &&
             m_pArena->GetArena()->GetBomber(Index).Exist() && 
             m_pArena->GetArena()->GetBomber(Index).IsAlive() && 
             m_pArena->GetArena()->GetBomber(Index).GetBlockX() == m_BlockHereX && 
