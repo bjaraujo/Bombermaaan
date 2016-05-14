@@ -164,7 +164,7 @@ void CMatch::Create(void)
         m_Teams[i].SetVictorious(false);
     }
 
-    if (m_pOptions->IsTeamMode())
+    if (m_pOptions->GetBattleMode() == BATTLEMODE_TEAM)
     {
         // Set in selected team
         for (int i = 0; i < MAX_BOMBERS; i++) {

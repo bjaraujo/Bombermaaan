@@ -54,6 +54,16 @@ enum EBomberType
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
+enum EBattleMode
+{
+    BATTLEMODE_SINGLE,     //!< Single battle mode
+    BATTLEMODE_TEAM        //!< Team battle mode
+};
+
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+
 enum EBomberTeam
 {
     BOMBERTEAM_A,     //!< The bomber team A
@@ -100,14 +110,14 @@ private:
     int                 m_TimeUpMinutes;                //!< How many minutes in the time when the arena starts closing?
     int                 m_TimeUpSeconds;                //!< How many seconds in the time when the arena starts closing?
     EBomberType         m_BomberType [MAX_PLAYERS];     //!< Bomber type for each player
-	EBomberTeam         m_BomberTeam[MAX_PLAYERS];      //!< Bomber team for each player
-	int                 m_PlayerCount;                  //!< Total number of players in the battle
+    EBomberTeam         m_BomberTeam[MAX_PLAYERS];      //!< Bomber team for each player
+    EBattleMode         m_BattleMode;                   //!< Battle mode single / team
+    int                 m_PlayerCount;                  //!< Total number of players in the battle
     int                 m_BattleCount;                  //!< How many battles to win in order to be victorious
     int                 m_PlayerInput [MAX_PLAYERS];    //!< Player input to use for each player
     EDisplayMode        m_DisplayMode;                  //!< Current display mode to use in the CDisplay object
     int                 m_Control[MAX_PLAYER_INPUT][NUM_CONTROLS]; //!< Control number to use for each player input and for each control
-	bool				m_TeamMode;						//!< Team mode
-	int                 m_Level;
+    int                 m_Level;
     std::vector<CLevel> m_Levels;
     std::string         configFileName;                 //!< Full name of the config file (including path)
     std::string         oldconfigFileName;              //!< Full name of the old (binary) config file (including path)
@@ -151,11 +161,11 @@ public:
     inline const char*  GetLevelName (void);
     inline EActionAIAlive   GetOption_ActionWhenOnlyAIPlayersLeft();
 
-	inline void			SetTeamMode(bool TeamMode);
-	inline bool		    IsTeamMode();
+    inline void         SetBattleMode(EBattleMode BattleMode);
+    inline EBattleMode  GetBattleMode();
 
-	inline EBomberTeam  GetBomberTeam(int Player);                          //!< Get the bomber team of the specified player
-	inline void         SetBomberTeam(int Player, EBomberTeam BomberTeam); //!< Set the bomber team of the specified player
+    inline EBomberTeam  GetBomberTeam(int Player);                          //!< Get the bomber team of the specified player
+    inline void         SetBomberTeam(int Player, EBomberTeam BomberTeam); //!< Set the bomber team of the specified player
 
 };
 
@@ -203,6 +213,16 @@ inline EBomberType COptions::GetBomberType (int Player)
 inline void COptions::SetBomberType (int Player, EBomberType BomberType)
 {
     m_BomberType[Player] = BomberType;
+}
+
+inline void COptions::SetBattleMode(EBattleMode BattleMode)
+{
+    m_BattleMode = BattleMode;
+}
+
+inline EBattleMode COptions::GetBattleMode(void)
+{
+    return m_BattleMode;
 }
 
 inline int COptions::GetBattleCount (void)
@@ -304,28 +324,18 @@ inline EActionAIAlive COptions::GetOption_ActionWhenOnlyAIPlayersLeft()
 {
     //! @TODO This should really be an option
     return ACTIONONLYAIPLAYERSALIVE_CONTINUEGAME;
-//    return ACTIONONLYAIPLAYERSALIVE_SPEEDUPGAME;
-    //return ACTIONONLYAIPLAYERSALIVE_ENDMATCHDRAWGAME;
-}
-
-inline void COptions::SetTeamMode(bool TeamMode)
-{
-	m_TeamMode = TeamMode;
-}
-
-inline bool COptions::IsTeamMode(void)
-{
-	return m_TeamMode;
+    // return ACTIONONLYAIPLAYERSALIVE_SPEEDUPGAME;
+    // return ACTIONONLYAIPLAYERSALIVE_ENDMATCHDRAWGAME;
 }
 
 inline EBomberTeam COptions::GetBomberTeam(int Player)
 {
-	return m_BomberTeam[Player];
+    return m_BomberTeam[Player];
 }
 
 inline void COptions::SetBomberTeam(int Player, EBomberTeam BomberTeam)
 {
-	m_BomberTeam[Player] = BomberTeam;
+    m_BomberTeam[Player] = BomberTeam;
 }
 
 //******************************************************************************************************************************

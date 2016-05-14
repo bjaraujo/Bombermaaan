@@ -72,6 +72,8 @@ struct SFileInfo
 COptions::COptions (void)
 {
     
+    m_BattleMode = BATTLEMODE_SINGLE;
+
     m_TimeStartMinutes = 0;
     m_TimeStartSeconds = 0;
     m_TimeUpMinutes = 0;
@@ -83,9 +85,6 @@ COptions::COptions (void)
 
     m_Level = 0;
     
-	// TODO: CHANGE THIS TO FALSE!
-	m_TeamMode = true;
-
 }
 
 //******************************************************************************************************************************
@@ -326,7 +325,9 @@ bool COptions::LoadConfiguration (void)
 
         ReadIntFromXML( configDoc, "TimeStart", "minutes", &m_TimeStartMinutes );
         ReadIntFromXML( configDoc, "TimeStart", "seconds", &m_TimeStartSeconds );
-        
+
+        ReadIntFromXML(configDoc, "BattleMode", "value", (int*)&m_BattleMode);
+
         ReadIntFromXML( configDoc, "BattleCount", "value", &m_BattleCount );
         
         ReadIntFromXML( configDoc, "LevelFileNumber", "value", &m_Level );
@@ -437,6 +438,11 @@ void COptions::WriteXMLData()
     configTimeStart->SetAttribute( "minutes", m_TimeStartMinutes );
     configTimeStart->SetAttribute( "seconds", m_TimeStartSeconds );
     config->LinkEndChild( configTimeStart );
+
+    // BattleMode
+    TiXmlElement* configBattleMode = new TiXmlElement("BattleMode");
+    configBattleMode->SetAttribute("value", m_BattleMode);
+    config->LinkEndChild(configBattleMode);
 
     // BattleCount
     TiXmlElement* configBattleCount = new TiXmlElement( "BattleCount" );

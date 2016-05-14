@@ -150,7 +150,10 @@ void CMenuMatch::OnLeft (void)
         case OPTION_MODE:
         {
 
-            m_pOptions->SetTeamMode(!m_pOptions->IsTeamMode());
+            if (m_pOptions->GetBattleMode() == BATTLEMODE_TEAM)
+                m_pOptions->SetBattleMode(BATTLEMODE_SINGLE);
+            else if (m_pOptions->GetBattleMode() == BATTLEMODE_SINGLE)
+                m_pOptions->SetBattleMode(BATTLEMODE_TEAM);
 
             break;
         }
@@ -224,7 +227,10 @@ void CMenuMatch::OnRight (void)
         case OPTION_MODE:
         {
 
-            m_pOptions->SetTeamMode(!m_pOptions->IsTeamMode());
+            if (m_pOptions->GetBattleMode() == BATTLEMODE_TEAM)
+                m_pOptions->SetBattleMode(BATTLEMODE_SINGLE);
+            else if (m_pOptions->GetBattleMode() == BATTLEMODE_SINGLE)
+                m_pOptions->SetBattleMode(BATTLEMODE_TEAM);
 
             break;
 
@@ -358,7 +364,7 @@ void CMenuMatch::OnDisplay (void)
                 m_pFont->Draw(INITIAL_TEXT_POSITION_X + VALUE_TEXT_SPACE_X,
                     PositionY,
                     "%s",
-                    m_pOptions->IsTeamMode() ? TEAM_MODE_STRING : SINGLE_MODE_STRING);
+                    m_pOptions->GetBattleMode() == BATTLEMODE_TEAM ? TEAM_MODE_STRING : SINGLE_MODE_STRING);
                 break;
             }
 

@@ -188,6 +188,7 @@ bool CSDLVideo::Create(int Width, int Height, int Depth, bool FullScreen)
             // Get out
             return false;
         }
+
     }
 
     // Get the rects of the viewport and screen bounds
