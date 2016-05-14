@@ -262,14 +262,17 @@ bool CAiBomber::EnemyNearAndFront(EEnemyDirection *direction, bool BeyondArenaFr
     // Scan the players
     for (int Index = 0; Index < MAX_PLAYERS; Index++)
     {
+
+        if (!m_pArena->GetArena()->GetBomber(Index).Exist() ||
+            !m_pArena->GetArena()->GetBomber(Index).IsAlive())
+            continue;
+
         // If the current player is not the one we are controlling
         // and the bomber is from a different team
         // and the bomber of this player exists and is alive
         // and this bomber is where our bomber is
         if (Index != m_Player &&
             m_pArena->GetArena()->GetBomber(Index).GetTeam()->GetTeamId() != m_pArena->GetArena()->GetBomber(m_Player).GetTeam()->GetTeamId() &&
-            m_pArena->GetArena()->GetBomber(Index).Exist() &&
-            m_pArena->GetArena()->GetBomber(Index).IsAlive() &&
             m_pArena->GetArena()->GetBomber(Index).GetBlockX() == m_BlockHereX &&
             m_pArena->GetArena()->GetBomber(Index).GetBlockY() == m_BlockHereY)
         {
@@ -623,13 +626,17 @@ bool CAiBomber::EnemyNear(int BlockX, int BlockY)
     // Scan the players
     for (int Index = 0; Index < MAX_PLAYERS; Index++)
     {
+
+        if (!m_pArena->GetArena()->GetBomber(Index).Exist() ||
+            !m_pArena->GetArena()->GetBomber(Index).IsAlive())
+            continue;
+
         // If the current player is not the one we are controlling
         // and the bomber of this player exists and is alive
         // and the manhattan distance between him and the tested block is not too big
         // and with big probability
         if (Index != m_Player &&
-            m_pArena->GetArena()->GetBomber(Index).Exist() &&
-            m_pArena->GetArena()->GetBomber(Index).IsAlive() &&
+            m_pArena->GetArena()->GetBomber(Index).GetTeam()->GetTeamId() != m_pArena->GetArena()->GetBomber(m_Player).GetTeam()->GetTeamId() &&
             ABS(m_pArena->GetArena()->GetBomber(Index).GetBlockX() - BlockX) +
             ABS(m_pArena->GetArena()->GetBomber(Index).GetBlockY() - BlockY) <= 3 &&
             RANDOM(100) < 92)
@@ -676,6 +683,7 @@ bool CAiBomber::EnemyNearRemoteFuseBomb(CBomb& bomb)
         BomberY = m_pArena->GetArena()->GetBomber(Index).GetBlockY();
 
         if (Index != m_Player &&
+            m_pArena->GetArena()->GetBomber(Index).GetTeam()->GetTeamId() != m_pArena->GetArena()->GetBomber(m_Player).GetTeam()->GetTeamId() &&
             ((BomberX == BombX && ABS(BomberY - BombY) <= bomb.GetFlameSize()) ||
             (BomberY == BombY && ABS(BomberX - BombX) <= bomb.GetFlameSize())) &&
             RANDOM(100) < 70)
