@@ -71,7 +71,9 @@ struct SFileInfo
 
 COptions::COptions (void)
 {
-    
+
+    m_DisplayMode = DISPLAYMODE_NONE;
+
     m_BattleMode = BATTLEMODE_SINGLE;
 
     m_TimeStartMinutes = 0;
@@ -80,8 +82,6 @@ COptions::COptions (void)
     m_TimeUpSeconds = 0;
     m_PlayerCount = 0;
     m_BattleCount = 0;
-
-    m_DisplayMode = DISPLAYMODE_NONE;
 
     m_Level = 0;
     
