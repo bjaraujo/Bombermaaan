@@ -750,7 +750,7 @@ bool CBomb::Update (float DeltaTime)
     }
 
     if (!m_Remote && m_ElapsedTime > 8.0)
-        ASSERT(m_ElapsedTime < 8.0);
+        m_ElapsedTime = m_ElapsedTime;
 
     // The bomb can only be destroyed by the arena if the
     // owner bomber knows one of its bomb is dead.
