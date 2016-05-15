@@ -341,10 +341,6 @@ void CSDLVideo::DrawSprite(int PositionX,
     // player invisible and throwing a bomb
     SpriteTable = MAX(MIN(SpriteTable, (int)m_SpriteTables.size() - 1), 0);
     Sprite = MAX(MIN(Sprite, (int)m_SpriteTables[SpriteTable].size() - 1), 0);
-#else
-    // Check if the parameters are valid
-    ASSERT(SpriteTable >= 0 && SpriteTable < (int)m_SpriteTables.size());
-    ASSERT(Sprite >= 0 && Sprite < (int)m_SpriteTables[SpriteTable].size());
 #endif
 
     // Prepare a drawing request

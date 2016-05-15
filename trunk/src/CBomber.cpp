@@ -1342,7 +1342,6 @@ void CBomber::MakeBombFly (EBombFlightType FlightType)
     
     // Now we don't have the bomb anymore in our hands.
     // This line is important for the caller of this method.
-    m_BomberState = BOMBERSTATE_WALK;
     m_BombIndex = -1;
 
 }
@@ -1425,6 +1424,7 @@ void CBomber::Display (void)
     // If bomber is not dead and the bomber is not invisible
     if (m_Dead != DEAD_DEAD && m_MakeInvisible == false) 
     {
+
         // Add the sprite in the layer. Priority in bomber sprite layer depends on m_iY.
         m_pDisplay->DrawSprite (m_BomberMove.GetX() + BOMBER_OFFSETX, 
                                 m_BomberMove.GetY() + BOMBER_OFFSETY, 
