@@ -99,6 +99,7 @@ int CBomb::m_BounceMoveY[NUMBER_OF_BOMBFLY_DIRECTIONS][3] =
 
 // Time (in seconds) before the bomb explodes when touched by a flame
 #define EXPLODE_SOON            0.080f
+#define MAX_EXPLOSION_TIME      8.0f
 
 // Speed of a moving bomb (in pixels per second)
 #define SPEED_BOMBMOVE          220
@@ -749,8 +750,8 @@ bool CBomb::Update (float DeltaTime)
 
     }
 
-    if (!m_Remote && m_ElapsedTime > 8.0)
-        m_ElapsedTime = m_ElapsedTime;
+    if (!m_Remote && !m_BeingHeld && m_ElapsedTime > MAX_EXPLOSION_TIME)
+        Explode();
 
     // The bomb can only be destroyed by the arena if the
     // owner bomber knows one of its bomb is dead.
