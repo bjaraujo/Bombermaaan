@@ -1425,9 +1425,6 @@ void CBomber::Display (void)
     // If bomber is not dead and the bomber is not invisible
     if (m_Dead != DEAD_DEAD && m_MakeInvisible == false) 
     {
-
-        m_Page = m_BomberSpriteTables[m_BomberState].SpriteTableNumber;
-
         // Add the sprite in the layer. Priority in bomber sprite layer depends on m_iY.
         m_pDisplay->DrawSprite (m_BomberMove.GetX() + BOMBER_OFFSETX, 
                                 m_BomberMove.GetY() + BOMBER_OFFSETY, 

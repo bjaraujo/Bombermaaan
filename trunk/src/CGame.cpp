@@ -106,7 +106,7 @@ CGame::CGame (HINSTANCE hInstance, char** pCommandLine)
 
     std::string windowTitle = "Bombermaaan ";
 
-	windowTitle.append(APP_VERSION_INFO);
+    windowTitle.append(APP_VERSION_INFO);
 
     windowTitle.append(" - Compiled ");
 
@@ -661,29 +661,29 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
     char IpAddressString[32];
 #ifdef WIN32
     const char *pos = strstr(pCommandLine, "-client");
-	
-	if (pos != NULL)
-		strcpy(IpAddressString, pos + 8);
 
-	if (pos == NULL)
-	{
-		pos = strstr(pCommandLine, "-c");
-		if (pos != NULL)
-			strcpy(IpAddressString, pos + 3);
-	}
+    if (pos != NULL)
+        strcpy(IpAddressString, pos + 8);
+
+    if (pos == NULL)
+    {
+        pos = strstr(pCommandLine, "-c");
+        if (pos != NULL)
+            strcpy(IpAddressString, pos + 3);
+    }
 
     // client mode and ip address given?
     if (pos != NULL && strlen(pCommandLine) > (unsigned int)(pos - pCommandLine + 2))
     {
         OutputDebugString("*** STARTING GAME AS CLIENT\n");
-		m_Network.SetNetworkMode(NETWORKMODE_CLIENT);
+        m_Network.SetNetworkMode(NETWORKMODE_CLIENT);
 
     }
     else if (strstr(pCommandLine, "-s") != NULL ||
         strstr(pCommandLine, "--server") != NULL)
     {
         OutputDebugString("*** STARTING GAME AS SERVER\n");
-		m_Network.SetNetworkMode(NETWORKMODE_SERVER);
+        m_Network.SetNetworkMode(NETWORKMODE_SERVER);
     }
 #else
     for (int i = 0; i < pCommandLineCount; i++)
@@ -710,11 +710,11 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
 
     if (m_Network.NetworkMode() != NETWORKMODE_LOCAL)
     {
-		if (!m_Network.Connect(IpAddressString))
-		{
-			Destroy();
-			return false;
-		}
+        if (!m_Network.Connect(IpAddressString))
+        {
+            Destroy();
+            return false;
+        }
 
         // Set the current game mode
         StartGameMode(GAMEMODE_MATCH);
@@ -750,7 +750,7 @@ void CGame::Destroy(void)
     // Terminate game mode and set no game mode
     FinishGameMode();
 
-	m_Network.Disconnect();
+    m_Network.Disconnect();
 
 #ifdef ENABLE_SOUND
 
@@ -848,10 +848,10 @@ void CGame::OnWindowActive(void)
     if (!m_MenuYesNo.IsActive())
     {
         //! - Update the object corresponding to the current game mode and let it tell the next game mode
-		if (GetGameModeObject(m_GameMode) != NULL)
-			NextGameMode = GetGameModeObject(m_GameMode)->Update();
+        if (GetGameModeObject(m_GameMode) != NULL)
+            NextGameMode = GetGameModeObject(m_GameMode)->Update();
 
-	}
+    }
 
     //! If the mode screen object corresponding to the current game mode
     //! is not asking for changing the game mode 
@@ -861,8 +861,8 @@ void CGame::OnWindowActive(void)
         //! - Manage the menu yes/no and get the appropriate game mode to set
         NextGameMode = m_MenuYesNo.Update(m_GameMode);
 
-		if (NextGameMode == GAMEMODE_TITLE)
-			m_Menu.SetMenuMode(MENUMODE_BOMBER);
+        if (NextGameMode == GAMEMODE_TITLE)
+            m_Menu.SetMenuMode(MENUMODE_BOMBER);
 
     }
 
@@ -924,8 +924,8 @@ void CGame::StartGameMode(EGameMode GameMode)
     }
     // If we don't have to exit the game
     else
-    {		
-		// Create the object corresponding to the new game mode
+    {
+        // Create the object corresponding to the new game mode
         if (GetGameModeObject(m_GameMode) != NULL)
             GetGameModeObject(m_GameMode)->Create();
     }
@@ -1079,17 +1079,17 @@ void CGame::OnKeyUp(WPARAM wParam, LPARAM lParam)
         default: SetDisplayMode = false; break;
         }
 #else
-		//! Change display mode if this is a F1-F4 key
-		switch (wParam)
-		{
-			//! Display modes #1 and #2 are not available in the 32-pixels version
-			//! since the screen isn't large enough (so disable F1 and F2 keys)
-		case SDLK_F3: DisplayMode = DISPLAYMODE_FULL3; break;
-		case SDLK_F4: DisplayMode = DISPLAYMODE_WINDOWED; break;
-		default: SetDisplayMode = false; break;
-		}
+        //! Change display mode if this is a F1-F4 key
+        switch (wParam)
+        {
+            //! Display modes #1 and #2 are not available in the 32-pixels version
+            //! since the screen isn't large enough (so disable F1 and F2 keys)
+        case SDLK_F3: DisplayMode = DISPLAYMODE_FULL3; break;
+        case SDLK_F4: DisplayMode = DISPLAYMODE_WINDOWED; break;
+        default: SetDisplayMode = false; break;
+        }
 #endif
-		
+
         // If we have to change the display mode 
         // and the new display mode to set is available on the graphic card
         if (SetDisplayMode && m_Display.IsDisplayModeAvailable(DisplayMode))
@@ -1186,7 +1186,7 @@ void CGame::OnSize(WPARAM wParam, LPARAM lParam)
 // When the window is active and a jostick axis changes,
 // this method will be called.
 #ifndef DIRECTX_INPUT
-void CGame::OnJoystickAxis (WPARAM wParam, LPARAM lParam)
+void CGame::OnJoystickAxis(WPARAM wParam, LPARAM lParam)
 {
     SDL_JoyAxisEvent *jaxis;
     SDL_Event *event;
@@ -1237,7 +1237,7 @@ void CGame::OnJoystickAxis (WPARAM wParam, LPARAM lParam)
 // this method will be called.
 
 #ifndef DIRECTX_INPUT
-void CGame::OnJoystickButton (WPARAM wParam, LPARAM lParam)
+void CGame::OnJoystickButton(WPARAM wParam, LPARAM lParam)
 {
     SDL_JoyButtonEvent *jbutton;
     SDL_Event *event;
