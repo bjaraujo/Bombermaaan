@@ -20,7 +20,7 @@
     You should have received a copy of the GNU General Public License
     along with Bombermaaan.  If not, see <http://www.gnu.org/licenses/>.
 
-************************************************************************************/
+    ************************************************************************************/
 
 
 /**
@@ -36,8 +36,8 @@
  *  Comment peut il etre vraiment bloque ? il suffit qu'il soit une
  *  direction comme droite et qu'il veuille aller a droite...
  *
- *  Bugs : 
- *  - Pas bon : plus un player est proche de zero, plus il a de 
+ *  Bugs :
+ *  - Pas bon : plus un player est proche de zero, plus il a de
  *    chances d'etre contamine (voir CBomber::Contamination())
  *  - Pendant une colique, le player peut demander sans cesse action2
  *    et ainsi ne pas poser de bombe
@@ -71,15 +71,15 @@
 //******************************************************************************************************************************
 
 SBomberSpriteTable CBomber::m_BomberSpriteTables[MAX_NUMBER_OF_STATES] =
-    {
-        {  5, 12 }, // Walk
-        {  7, 12 }, // Walk and hold bomb
-        { 58,  7 }, // Death
-        { 59, 12 }, // Lift bomb
-        { 60, 20 }, // Throw bomb
-        { 61,  8 }, // Punch bomb
-        { 62,  4 }  // Stunt
-    };
+{
+    { 5, 12 }, // Walk
+    { 7, 12 }, // Walk and hold bomb
+    { 58, 7 }, // Death
+    { 59, 12 }, // Lift bomb
+    { 60, 20 }, // Throw bomb
+    { 61, 8 }, // Punch bomb
+    { 62, 4 }  // Stunt
+};
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -90,7 +90,7 @@ SBomberSpriteTable CBomber::m_BomberSpriteTables[MAX_NUMBER_OF_STATES] =
 #define SPEED_FAST      450               //!< Speed with FAST sickness
 #define SPEED_NORMAL    120               //!< Normal speed
 #define SPEED_INC       25                //!< Speed increase each time a roller item is picked up
-                                                            
+
 //! Sick flashing animation times (in seconds)
 #define ANIMSICK_TIME1      0.090f
 #define ANIMSICK_TIME2      ANIMSICK_TIME1 * 2
@@ -214,7 +214,7 @@ SBomberSpriteTable CBomber::m_BomberSpriteTables[MAX_NUMBER_OF_STATES] =
 /**
  *  \brief Manhattan distance
  *  Used for contamination to determine if a bomber can be considered to be NEAR another bomber.
- *  A bomber is near another if abs(x2-x1) + abs(y2-y1) <= CONTAMINATION_NEAR. 
+ *  A bomber is near another if abs(x2-x1) + abs(y2-y1) <= CONTAMINATION_NEAR.
  *  This is the manhattan distance in pixels (http://en.wikipedia.org/wiki/Manhattan_distance).
  */
 #define CONTAMINATION_NEAR      9        
@@ -237,15 +237,15 @@ SBomberSpriteTable CBomber::m_BomberSpriteTables[MAX_NUMBER_OF_STATES] =
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CBomber::CBomber (void) : CElement()
+CBomber::CBomber(void) : CElement()
 {
     m_HasExisted = false; // the bomber did not exist, yet.
-    
+
     // Initialize pointer
     p_Options = NULL;
-    
+
     m_BomberAction = BOMBERACTION_NONE;
-	m_LastBomberAction = BOMBERACTION_NONE;
+    m_LastBomberAction = BOMBERACTION_NONE;
     m_Sprite = 0;
     m_Page = 0;
     m_Timer = 0;
@@ -254,7 +254,7 @@ CBomber::CBomber (void) : CElement()
     m_UsedBombs = 0;
     m_FlameSize = 0;
     m_Speed = 0;
-	m_Sickness = SICK_NOTSICK;
+    m_Sickness = SICK_NOTSICK;
     m_NumberOfBombItems = 0;
     m_NumberOfFlameItems = 0;
     m_NumberOfRollerItems = 0;
@@ -267,83 +267,83 @@ CBomber::CBomber (void) : CElement()
     m_Dead = DEAD_ALIVE;
     m_JustGotSick = false;
     m_LiftingTimeElapsed = 0.0f;
-	m_ThrowingTimeElapsed = 0.0f;
-	m_PunchingTimeElapsed = 0.0f;
-	m_StuntTimeElapsed = 0.0f;
-	m_BomberState = BOMBERSTATE_WALK;
+    m_ThrowingTimeElapsed = 0.0f;
+    m_PunchingTimeElapsed = 0.0f;
+    m_StuntTimeElapsed = 0.0f;
+    m_BomberState = BOMBERSTATE_WALK;
     m_BombIndex = 0;
     m_MakeInvisible = false;
     m_CountBomberActionDuration = BOMBERACTION_NONE;
     m_BomberActionDuration = 0.0f;
     m_dropMassBombPossible = false;
-    
+
 }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CBomber::~CBomber (void)
+CBomber::~CBomber(void)
 {
-    
+
 }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CBomber::Create (int BlockX, int BlockY, int Player, COptions* options)
+void CBomber::Create(int BlockX, int BlockY, int Player, COptions* options)
 {
     CElement::Create();
-    
+
     m_HasExisted = true; // the bomber exists now (must not be reset unless the match is finished/canceled)
 
     p_Options = options;
 
-    m_BomberMove.Create (BlockX, BlockY, Player);
-    
+    m_BomberMove.Create(BlockX, BlockY, Player);
+
     m_BomberAction = BOMBERACTION_NONE;
     m_LastBomberAction = BOMBERACTION_NONE;
     m_BomberState = BOMBERSTATE_WALK;
 
     m_Dead = DEAD_ALIVE;
 
-    m_FlameSize = options->GetInitialBomberSkills( BOMBERSKILL_FLAME );
-    m_TotalBombs = options->GetInitialBomberSkills( BOMBERSKILL_BOMBS );
+    m_FlameSize = options->GetInitialBomberSkills(BOMBERSKILL_FLAME);
+    m_TotalBombs = options->GetInitialBomberSkills(BOMBERSKILL_BOMBS);
     m_UsedBombs = 0;
     m_Speed = SPEED_NORMAL;
-    
+
     m_Timer = 0.0f;
-            
+
     m_Player = Player;
-    
+
     m_Sickness = SICK_NOTSICK;
 
     m_SickTimer = 0.0f;
-        
+
     // Initial bomber direction is down
     m_AnimationSprites[0] = BOMBERSPRITE_DOWN0;
     m_AnimationSprites[1] = BOMBERSPRITE_DOWN1;
     m_AnimationSprites[2] = BOMBERSPRITE_DOWN2;
 
     m_Page = m_BomberSpriteTables[m_BomberState].SpriteTableNumber;
-    
-    Animate (0.0f);
-        
-    m_NumberOfBombItems = options->GetInitialBomberSkills( BOMBERSKILL_BOMBITEMS );
-    m_NumberOfFlameItems = options->GetInitialBomberSkills( BOMBERSKILL_FLAMEITEMS );
-    m_NumberOfRollerItems = options->GetInitialBomberSkills( BOMBERSKILL_ROLLERITEMS );
-    m_NumberOfKickItems = options->GetInitialBomberSkills( BOMBERSKILL_KICKITEMS );
-    m_NumberOfThrowItems = options->GetInitialBomberSkills( BOMBERSKILL_THROWITEMS );
-    m_NumberOfPunchItems = options->GetInitialBomberSkills( BOMBERSKILL_PUNCHITEMS );
-    m_NumberOfRemoteItems = options->GetInitialBomberSkills( BOMBERSKILL_REMOTEITEMS );
+
+    Animate(0.0f);
+
+    m_NumberOfBombItems = options->GetInitialBomberSkills(BOMBERSKILL_BOMBITEMS);
+    m_NumberOfFlameItems = options->GetInitialBomberSkills(BOMBERSKILL_FLAMEITEMS);
+    m_NumberOfRollerItems = options->GetInitialBomberSkills(BOMBERSKILL_ROLLERITEMS);
+    m_NumberOfKickItems = options->GetInitialBomberSkills(BOMBERSKILL_KICKITEMS);
+    m_NumberOfThrowItems = options->GetInitialBomberSkills(BOMBERSKILL_THROWITEMS);
+    m_NumberOfPunchItems = options->GetInitialBomberSkills(BOMBERSKILL_PUNCHITEMS);
+    m_NumberOfRemoteItems = options->GetInitialBomberSkills(BOMBERSKILL_REMOTEITEMS);
 
     // increase initial speed
     m_Speed += SPEED_INC * m_NumberOfRollerItems;
-    
+
     m_ReturnedItems = false;
 
-    for (int p = 0 ; p < m_pArena->MaxBombers() ; p++)
+    for (int p = 0; p < m_pArena->MaxBombers(); p++)
     {
         m_Neighbours[p] = false;
     }
@@ -352,7 +352,7 @@ void CBomber::Create (int BlockX, int BlockY, int Player, COptions* options)
     m_ThrowingTimeElapsed = 0.0f;
     m_PunchingTimeElapsed = 0.0f;
     m_StuntTimeElapsed = 0.0f;
-    
+
     m_BombIndex = -1;
 
     m_CountBomberActionDuration = BOMBERACTION_NONE;
@@ -364,10 +364,10 @@ void CBomber::Create (int BlockX, int BlockY, int Player, COptions* options)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CBomber::Destroy (void)
+void CBomber::Destroy(void)
 {
     m_BomberMove.Destroy();
-    
+
     CElement::Destroy();
 }
 
@@ -375,9 +375,9 @@ void CBomber::Destroy (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CBomber::Die (void)
+void CBomber::Die(void)
 {
-    debugLog.WriteDebugMsg( DEBUGSECT_BOMBER, "Bomber dying [id=%d, x=%02d, y=%02d].", m_Player, m_BomberMove.GetBlockX(), m_BomberMove.GetBlockY() );
+    debugLog.WriteDebugMsg(DEBUGSECT_BOMBER, "Bomber dying [id=%d, x=%02d, y=%02d].", m_Player, m_BomberMove.GetBlockX(), m_BomberMove.GetBlockY());
 
     if (theDebug.CanBombersDie())
     {
@@ -392,7 +392,7 @@ void CBomber::Die (void)
                 if (m_BombIndex != -1)
                 {
                     // If the bomber is just lifting this bomb
-                    if (m_BomberState == BOMBERSTATE_LIFT ) {
+                    if (m_BomberState == BOMBERSTATE_LIFT) {
                         // End the lifting and make the bomber hold the bomb
                         m_pArena->GetBomb(m_BombIndex).SetBeingHeld();
                         m_BomberState = BOMBERSTATE_WALK_HOLD;
@@ -406,7 +406,7 @@ void CBomber::Die (void)
                         MakeBombFly(BOMBFLIGHTTYPE_THROW);
                     }
                     // If the bomber died while punching a bomb
-                    else if (m_BomberState == BOMBERSTATE_PUNCH )
+                    else if (m_BomberState == BOMBERSTATE_PUNCH)
                     {
                         // Make him punch the bomb now (with no bomber punching animation).
                         // Yes, that's strange, since he is dying now. But we have to release the bomb
@@ -425,7 +425,7 @@ void CBomber::Die (void)
             }
 
             // Play the bomber death sound
-            m_pSound->PlaySample (SAMPLE_BOMBER_DEATH);
+            m_pSound->PlaySample(SAMPLE_BOMBER_DEATH);
         }
     }
 }
@@ -436,13 +436,13 @@ void CBomber::Die (void)
 
 // Called by explosions being touched by this bomber
 
-void CBomber::Burn ()
+void CBomber::Burn()
 {
-    debugLog.WriteDebugMsg( DEBUGSECT_BOMBER, "Bomber burning [id=%d, x=%02d, y=%02d].", m_Player, m_BomberMove.GetBlockX(), m_BomberMove.GetBlockY() );
+    debugLog.WriteDebugMsg(DEBUGSECT_BOMBER, "Bomber burning [id=%d, x=%02d, y=%02d].", m_Player, m_BomberMove.GetBlockX(), m_BomberMove.GetBlockY());
 
     // The bomber cannot die by flames if he/she has the flameproof contamination
-    if ( m_Sickness != SICK_FLAMEPROOF ) {
-        Die ();
+    if (m_Sickness != SICK_FLAMEPROOF) {
+        Die();
     }
 }
 
@@ -452,11 +452,11 @@ void CBomber::Burn ()
 
 // Called by walls being touched by this bomber
 
-void CBomber::Crush ()
+void CBomber::Crush()
 {
-    debugLog.WriteDebugMsg( DEBUGSECT_BOMBER, "Bomber crushing [id=%d, x=%02d, y=%02d].", m_Player, m_BomberMove.GetBlockX(), m_BomberMove.GetBlockY() );
+    debugLog.WriteDebugMsg(DEBUGSECT_BOMBER, "Bomber crushing [id=%d, x=%02d, y=%02d].", m_Player, m_BomberMove.GetBlockX(), m_BomberMove.GetBlockY());
 
-    Die ();
+    Die();
 
 }
 
@@ -466,53 +466,53 @@ void CBomber::Crush ()
 
 /**
  * Give orders to the bomber.
- * The bomber stores these orders as is if he's not sick. However, a 
- * sickness makes him not understand the orders correctly, so they are 
+ * The bomber stores these orders as is if he's not sick. However, a
+ * sickness makes him not understand the orders correctly, so they are
  * modified then stored.
  */
 
-void CBomber::Command (EBomberMove BomberMove, EBomberAction BomberAction)
-{   
+void CBomber::Command(EBomberMove BomberMove, EBomberAction BomberAction)
+{
     // The given BomberMove and BomberAction will be modified 
     // according to the bomber's sickness. When updating the bomber, 
     // these modified BomberMove and BomberAction will be used.
-    
-    m_BomberMove.Command (BomberMove);
-        
+
+    m_BomberMove.Command(BomberMove);
+
     switch (m_Sickness)
     {
         // Sicknesses that don't affect the action
-        case SICK_NOTSICK :
-        case SICK_SLOW :
-        case SICK_FAST :
-        case SICK_SMALLFLAME :
-        case SICK_LONGBOMB :
-        case SICK_SHORTBOMB :
-        case SICK_INVERTION :
-        case SICK_INERTIA :
-        case SICK_INVISIBILITY :
-        {
-            m_BomberAction = BomberAction; 
-            break;
-        }
+    case SICK_NOTSICK:
+    case SICK_SLOW:
+    case SICK_FAST:
+    case SICK_SMALLFLAME:
+    case SICK_LONGBOMB:
+    case SICK_SHORTBOMB:
+    case SICK_INVERTION:
+    case SICK_INERTIA:
+    case SICK_INVISIBILITY:
+    {
+        m_BomberAction = BomberAction;
+        break;
+    }
 
-        case SICK_CONSTIPATED :
-        {
-            if (m_BomberAction == BOMBERACTION_ACTION1) 
-                m_BomberAction = BOMBERACTION_NONE;
-            
-            break;
-        }
+    case SICK_CONSTIPATED:
+    {
+        if (m_BomberAction == BOMBERACTION_ACTION1)
+            m_BomberAction = BOMBERACTION_NONE;
 
-        case SICK_COLIC :
-        {
-            if (m_BomberAction == BOMBERACTION_NONE)
-                m_BomberAction = BOMBERACTION_ACTION1;
-            
-            break;
-        }
-        default:
-            break;
+        break;
+    }
+
+    case SICK_COLIC:
+    {
+        if (m_BomberAction == BOMBERACTION_NONE)
+            m_BomberAction = BOMBERACTION_ACTION1;
+
+        break;
+    }
+    default:
+        break;
     }
 }
 
@@ -521,13 +521,13 @@ void CBomber::Command (EBomberMove BomberMove, EBomberAction BomberAction)
 //******************************************************************************************************************************
 
 /**
- * Make the bomber not sick anymore and reset 
+ * Make the bomber not sick anymore and reset
  * the sick timer.
  *
  * \sa m_Sickness, m_SickTimer
  */
 
-void CBomber::Heal ()
+void CBomber::Heal()
 {
     if (m_Sickness != SICK_NOTSICK)
     {
@@ -542,7 +542,7 @@ void CBomber::Heal ()
 
 // Makes the bomber perform an action if he has to.
 
-void CBomber::Action ()
+void CBomber::Action()
 {
     // If the bomber is alive (not dead and not dying)
     if (m_Dead == DEAD_ALIVE)
@@ -555,15 +555,15 @@ void CBomber::Action ()
 
             // In order to pick up its bomb, the user had to press action1.
             // If the user releases action1, then the bomber must throw the bomb.
-            
+
             // If action1 is not pressed
             if (m_BomberAction != BOMBERACTION_ACTION1)
             {
-                debugLog.WriteDebugMsg( DEBUGSECT_BOMBER, "Bomber throwing bomb [bomber=%d, bomb=%02d].", m_Player, m_BombIndex );
+                debugLog.WriteDebugMsg(DEBUGSECT_BOMBER, "Bomber throwing bomb [bomber=%d, bomb=%02d].", m_Player, m_BombIndex);
 
                 // Play the sound the bomber does when he throws a bomb
                 m_pSound->PlaySample(SAMPLE_BOMBER_THROW);
-                
+
                 // Switch to the state where the bomber will throw the bomb
                 m_BomberState = BOMBERSTATE_THROW;
                 m_ThrowingTimeElapsed = 0.0f;
@@ -571,7 +571,7 @@ void CBomber::Action ()
         }
         // If the bomber is just standing/walking without holding a bomb
         else if (m_BomberState == BOMBERSTATE_WALK)
-        {        
+        {
             // If he wants to drop a bomb or hold a bomb
             if (m_BomberAction == BOMBERACTION_ACTION1)
             {
@@ -582,14 +582,14 @@ void CBomber::Action ()
                     m_LastBomberAction != BOMBERACTION_ACTION1 &&
                     m_pArena->IsBomb(m_BomberMove.GetBlockX(), m_BomberMove.GetBlockY()))
                 {
-                    debugLog.WriteDebugMsg( DEBUGSECT_BOMBER, "Bomber lifting bomb [bomber=%d, x=%02d, y=%02d].", m_Player, m_BomberMove.GetBlockX(), m_BomberMove.GetBlockY() );
+                    debugLog.WriteDebugMsg(DEBUGSECT_BOMBER, "Bomber lifting bomb [bomber=%d, x=%02d, y=%02d].", m_Player, m_BomberMove.GetBlockX(), m_BomberMove.GetBlockY());
 
                     // Switch to the state where the bomber will lift the bomb
                     m_BomberState = BOMBERSTATE_LIFT;
                     m_LiftingTimeElapsed = 0.0f;
 
                     // Find the bomb that is here
-                    for (int Index = 0 ; Index < m_pArena->MaxBombs() ; Index++)
+                    for (int Index = 0; Index < m_pArena->MaxBombs(); Index++)
                     {
                         // Test existence and position
                         if (m_pArena->GetBomb(Index).Exist() &&
@@ -597,7 +597,7 @@ void CBomber::Action ()
                             m_pArena->GetBomb(Index).GetBlockY() == m_BomberMove.GetBlockY() &&
                             m_pArena->GetBomb(Index).IsOnFloor())
                         {
-                            debugLog.WriteDebugMsg( DEBUGSECT_BOMBER, "Bomber lifting bomb [bomber=%d, bomb=%02d, x=%02d, y=%02d].", m_Player, Index, m_BomberMove.GetBlockX(), m_BomberMove.GetBlockY() );
+                            debugLog.WriteDebugMsg(DEBUGSECT_BOMBER, "Bomber lifting bomb [bomber=%d, bomb=%02d, x=%02d, y=%02d].", m_Player, Index, m_BomberMove.GetBlockX(), m_BomberMove.GetBlockY());
 
                             // Save the bomb index
                             m_BombIndex = Index;
@@ -613,17 +613,17 @@ void CBomber::Action ()
                 else
                 {
                     // Then try to drop a bomb
-                            
+
                     // If he is able to drop a bomb
                     if (m_UsedBombs < m_TotalBombs)
                     {
-                        bool dropMassBombNow =      false && // <-- false prevents the bomb-mass feature NOW...   m_hasMassBombFeature == true &&
-                                                    ( m_BomberActionDuration > 1.0f ) && m_dropMassBombPossible;
+                        bool dropMassBombNow = false && // <-- false prevents the bomb-mass feature NOW...   m_hasMassBombFeature == true &&
+                            (m_BomberActionDuration > 1.0f) && m_dropMassBombPossible;
 
                         // If no wall and no bomb and no explosion at his position
-                        if ((!IsObstacle(m_BomberMove.GetBlockX(),m_BomberMove.GetBlockY()) && 
-                            !m_pArena->IsExplosion(m_BomberMove.GetBlockX(),m_BomberMove.GetBlockY()))
-                            || ( m_dropMassBombPossible && dropMassBombNow ) )
+                        if ((!IsObstacle(m_BomberMove.GetBlockX(), m_BomberMove.GetBlockY()) &&
+                            !m_pArena->IsExplosion(m_BomberMove.GetBlockX(), m_BomberMove.GetBlockY()))
+                            || (m_dropMassBombPossible && dropMassBombNow))
                         {
                             // So we can limit the number of dropped bombs
                             int droppedBombsNow = 0;
@@ -631,22 +631,22 @@ void CBomber::Action ()
                             // @todo The maximum number of bombs should depend on the bomber's skills (extra item 'mass bomb drop').
                             // @todo Maybe more bombs are only dropped if the player holds the action button for a longer time.
                             // In mass-bomb mode this is the number of additional bombs
-                            int maxBombs = ( dropMassBombNow ? 4 : 1 );
+                            int maxBombs = (dropMassBombNow ? 4 : 1);
 
                             // The mass-bomb drop is only possible if we pressed the button less than a second
                             // and the bomber didn't move
-                            m_dropMassBombPossible = ( m_BomberActionDuration < 1.0f ) && ( m_BomberMove.GetMove() == BOMBERMOVE_NONE );
+                            m_dropMassBombPossible = (m_BomberActionDuration < 1.0f) && (m_BomberMove.GetMove() == BOMBERMOVE_NONE);
 
                             // Determine the bomber's last move, that is, in which direction he
                             // is looking. The bombs are dropped in front of him.
                             int deltax, deltay;
                             switch (m_BomberMove.GetLastRealMove())
                             {
-                                case BOMBERMOVE_UP:    deltax =  0; deltay = -1; break;
-                                case BOMBERMOVE_DOWN:  deltax =  0; deltay =  1; break;
-                                case BOMBERMOVE_LEFT:  deltax = -1; deltay =  0; break;
-                                case BOMBERMOVE_RIGHT: deltax =  1; deltay =  0; break;
-                                default:               deltax =  0; deltay =  0; assert( false ); break;  // Prevents "variable not initialized" warning -- should never happen
+                            case BOMBERMOVE_UP:    deltax = 0; deltay = -1; break;
+                            case BOMBERMOVE_DOWN:  deltax = 0; deltay = 1; break;
+                            case BOMBERMOVE_LEFT:  deltax = -1; deltay = 0; break;
+                            case BOMBERMOVE_RIGHT: deltax = 1; deltay = 0; break;
+                            default:               deltax = 0; deltay = 0; assert(false); break;  // Prevents "variable not initialized" warning -- should never happen
                             }
 
                             // Start with the bomber's current position
@@ -654,7 +654,7 @@ void CBomber::Action ()
                             x = m_BomberMove.GetBlockX();
                             y = m_BomberMove.GetBlockY();
 
-                            if ( dropMassBombNow )
+                            if (dropMassBombNow)
                             {
                                 // Move to the next position, since we already placed a bomb just a second ago
                                 // at the bomber's position
@@ -668,11 +668,11 @@ void CBomber::Action ()
                             while (true) {
 
                                 // Create the bomb (unless it is possible)
-                                if ( m_pArena->BombsInUse() >= m_pArena->MaxBombs()) break;
+                                if (m_pArena->BombsInUse() >= m_pArena->MaxBombs()) break;
 
-                                debugLog.WriteDebugMsg( DEBUGSECT_BOMBER, "Bomber dropping bomb [bomber=%d, x=%02d, y=%02d, used=%02d, total=%02d].", m_Player, x, y, m_UsedBombs, m_TotalBombs );
+                                debugLog.WriteDebugMsg(DEBUGSECT_BOMBER, "Bomber dropping bomb [bomber=%d, x=%02d, y=%02d, used=%02d, total=%02d].", m_Player, x, y, m_UsedBombs, m_TotalBombs);
 
-                                m_pArena->NewBomb (x, y, GetFlameSize(), GetBombTime(), m_Player);
+                                m_pArena->NewBomb(x, y, GetFlameSize(), GetBombTime(), m_Player);
 
                                 // One more used and dropped bomb
                                 m_UsedBombs++;
@@ -686,13 +686,13 @@ void CBomber::Action ()
                                 // We can at least drop one bomb, so the checks are at the end here
                                 if (m_UsedBombs >= m_TotalBombs) break;
                                 if (droppedBombsNow >= maxBombs) break;
-                                if (IsObstacle(x,y)) break;
-                                if (m_pArena->IsExplosion(x,y)) break;
+                                if (IsObstacle(x, y)) break;
+                                if (m_pArena->IsExplosion(x, y)) break;
 
                             }
 
                             // Play the drop sound
-                            m_pSound->PlaySample (SAMPLE_BOMB_DROP);
+                            m_pSound->PlaySample(SAMPLE_BOMB_DROP);
                         }
                     }
                 }
@@ -705,7 +705,7 @@ void CBomber::Action ()
                 {
                     // Find the bombs that are still moving and that 
                     // were just kicked by this player.
-                    for (int Index = 0 ; Index < m_pArena->MaxBombs() ; Index++)
+                    for (int Index = 0; Index < m_pArena->MaxBombs(); Index++)
                     {
                         // Test existence and kicker player number
                         if (m_pArena->GetBomb(Index).Exist() &&
@@ -713,7 +713,7 @@ void CBomber::Action ()
                         {
                             // Tell the bomb this bomber kicked to
                             // stop moving as soon as possible
-                            m_pArena->GetBomb(Index).StopMoving ();
+                            m_pArena->GetBomb(Index).StopMoving();
                         }
                     }
                 }
@@ -730,27 +730,27 @@ void CBomber::Action ()
                     // Determine the coordinates of the block that is in front of the bomber
                     switch (m_BomberMove.GetLastRealMove())
                     {
-                        case BOMBERMOVE_UP : 
-                            FrontBlockX = m_BomberMove.GetBlockX();
-                            FrontBlockY = m_BomberMove.GetBlockY() - 1; 
-                            break;
+                    case BOMBERMOVE_UP:
+                        FrontBlockX = m_BomberMove.GetBlockX();
+                        FrontBlockY = m_BomberMove.GetBlockY() - 1;
+                        break;
 
-                        case BOMBERMOVE_DOWN : 
-                            FrontBlockX = m_BomberMove.GetBlockX();
-                            FrontBlockY = m_BomberMove.GetBlockY() + 1; 
-                            break;
+                    case BOMBERMOVE_DOWN:
+                        FrontBlockX = m_BomberMove.GetBlockX();
+                        FrontBlockY = m_BomberMove.GetBlockY() + 1;
+                        break;
 
-                        case BOMBERMOVE_LEFT : 
-                            FrontBlockX = m_BomberMove.GetBlockX() - 1; 
-                            FrontBlockY = m_BomberMove.GetBlockY();
-                            break;
+                    case BOMBERMOVE_LEFT:
+                        FrontBlockX = m_BomberMove.GetBlockX() - 1;
+                        FrontBlockY = m_BomberMove.GetBlockY();
+                        break;
 
-                        case BOMBERMOVE_RIGHT : 
-                            FrontBlockX = m_BomberMove.GetBlockX() + 1; 
-                            FrontBlockY = m_BomberMove.GetBlockY();
-                            break;
-                        default:
-                            break;
+                    case BOMBERMOVE_RIGHT:
+                        FrontBlockX = m_BomberMove.GetBlockX() + 1;
+                        FrontBlockY = m_BomberMove.GetBlockY();
+                        break;
+                    default:
+                        break;
                     }
 
                     // Check if the EBomberMove was correct
@@ -761,7 +761,7 @@ void CBomber::Action ()
                     if (m_pArena->IsBomb(FrontBlockX, FrontBlockY))
                     {
                         // Find the bomb that is in front of the bomber
-                        for (int Index = 0 ; Index < m_pArena->MaxBombs() ; Index++)
+                        for (int Index = 0; Index < m_pArena->MaxBombs(); Index++)
                         {
                             // Test existence and position
                             if (m_pArena->GetBomb(Index).Exist() &&
@@ -769,7 +769,7 @@ void CBomber::Action ()
                                 m_pArena->GetBomb(Index).GetBlockY() == FrontBlockY &&
                                 !m_pArena->GetBomb(Index).IsBeingPunched())
                             {
-                                debugLog.WriteDebugMsg( DEBUGSECT_BOMBER, "Bomber punching bomb [bomber=%d, x=%02d, y=%02d, bomb=%02d].", m_Player, m_BomberMove.GetBlockX(), m_BomberMove.GetBlockY(), Index );
+                                debugLog.WriteDebugMsg(DEBUGSECT_BOMBER, "Bomber punching bomb [bomber=%d, x=%02d, y=%02d, bomb=%02d].", m_Player, m_BomberMove.GetBlockX(), m_BomberMove.GetBlockY(), Index);
 
                                 // Tell the bomb it is being punched
                                 m_pArena->GetBomb(Index).SetBeingPunched();
@@ -779,7 +779,7 @@ void CBomber::Action ()
 
                                 // Play the punch sound
                                 m_pSound->PlaySample(SAMPLE_BOMBER_PUNCH);
-                            
+
                                 // Switch to the state where the bomber will punch the bomb
                                 m_BomberState = BOMBERSTATE_PUNCH;
                                 m_PunchingTimeElapsed = 0.0f;
@@ -793,37 +793,37 @@ void CBomber::Action ()
                     }
                 }
 
-                
+
                 // If the bomber can remote fuse bombs and we didn't punch a bomb (see above)
                 if (CanRemoteFuseBombs() && !bomberHasPunchedBomb)
                 {
                     float timeMax = 0.0f;   // time elapsed since bomb was created
                     int   bombTimeMax = -1; // index with the bomb which exists the longest time ago
-                    
+
                     // Find the first bomb, i.e. the one which was planted first, to fuse.
-                    for (int Index = 0 ; Index < m_pArena->MaxBombs() ; Index++)
-                    {            
+                    for (int Index = 0; Index < m_pArena->MaxBombs(); Index++)
+                    {
                         CBomb& myBomb = m_pArena->GetBomb(Index); // help variable
-                        
+
                         // Test existence and kicker player number
                         if (myBomb.Exist() && myBomb.IsRemote() &&
                             myBomb.GetOwnerPlayer() == m_Player &&
                             myBomb.GetElapsedTime() > timeMax)
                         {
-                            if ( REMOTE_FUSE_ONLY_FIRST_BOMB ) {
+                            if (REMOTE_FUSE_ONLY_FIRST_BOMB) {
                                 // look for the bomb which exists the longest time ago
                                 timeMax = myBomb.GetElapsedTime();
                                 bombTimeMax = Index;
                             }
                             else {
-                                debugLog.WriteDebugMsg( DEBUGSECT_BOMBER, "Bomber fusing bomb [bomber=%d, bomb=%02d].", m_Player, Index );
+                                debugLog.WriteDebugMsg(DEBUGSECT_BOMBER, "Bomber fusing bomb [bomber=%d, bomb=%02d].", m_Player, Index);
                                 myBomb.Burn();
                             }
                         }
                     }
-                    
-                    if ( REMOTE_FUSE_ONLY_FIRST_BOMB && bombTimeMax > -1) {
-                        debugLog.WriteDebugMsg( DEBUGSECT_BOMBER, "Bomber fusing first bomb [bomber=%d, bomb=%02d].", m_Player, bombTimeMax );
+
+                    if (REMOTE_FUSE_ONLY_FIRST_BOMB && bombTimeMax > -1) {
+                        debugLog.WriteDebugMsg(DEBUGSECT_BOMBER, "Bomber fusing first bomb [bomber=%d, bomb=%02d].", m_Player, bombTimeMax);
                         // found it, detonate.
                         m_pArena->GetBomb(bombTimeMax).Burn();
                     }
@@ -849,7 +849,7 @@ void CBomber::Action ()
  * \sa m_Sickness, m_FlameSize
  */
 
-int CBomber::GetFlameSize (void)
+int CBomber::GetFlameSize(void)
 {
     return (m_Sickness != SICK_SMALLFLAME ? m_FlameSize : FLAMESIZE_SMALLFLAME);
 }
@@ -859,20 +859,20 @@ int CBomber::GetFlameSize (void)
 //******************************************************************************************************************************
 
 /**
- * Get the time a bomb will tick before it will explode. The time depends on 
+ * Get the time a bomb will tick before it will explode. The time depends on
  * the bomber's sickness.
  * If the bomber has the LONGBOMB or SHORTBOMB sickness, the time is adjusted.
  *
  * \sa m_Sickness
  */
 
-float CBomber::GetBombTime (void)
+float CBomber::GetBombTime(void)
 {
     switch (m_Sickness)
     {
-        case SICK_LONGBOMB :  return BOMBTIMELEFT_SICKLONGBOMB;
-        case SICK_SHORTBOMB : return BOMBTIMELEFT_SICKSHORTBOMB;
-        default :             return BOMBTIMELEFT_NORMAL;
+    case SICK_LONGBOMB:  return BOMBTIMELEFT_SICKLONGBOMB;
+    case SICK_SHORTBOMB: return BOMBTIMELEFT_SICKSHORTBOMB;
+    default:             return BOMBTIMELEFT_NORMAL;
     }
 }
 
@@ -880,13 +880,13 @@ float CBomber::GetBombTime (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-int CBomber::GetPixelsPerSecond (void)
+int CBomber::GetPixelsPerSecond(void)
 {
     switch (m_Sickness)
     {
-        case SICK_SLOW : return SPEED_SLOW;
-        case SICK_FAST : return SPEED_FAST;
-        default :        return m_Speed;
+    case SICK_SLOW: return SPEED_SLOW;
+    case SICK_FAST: return SPEED_FAST;
+    default:        return m_Speed;
     }
 }
 
@@ -897,11 +897,11 @@ int CBomber::GetPixelsPerSecond (void)
 // Update the number of used bombs : if some of his
 // bombs are dead, the bomber can drop more bombs.
 
-void CBomber::UsedBombs ()
+void CBomber::UsedBombs()
 {
     // Decrease the number of used bombs if some are dead
     // Scan the bombs
-    for (int Index = 0 ; Index < m_pArena->MaxBombs() ; Index++)
+    for (int Index = 0; Index < m_pArena->MaxBombs(); Index++)
     {
         // Test existence, owner player and dead state
         if (m_pArena->GetBomb(Index).Exist() &&
@@ -910,19 +910,19 @@ void CBomber::UsedBombs ()
         {
             // The bomb is owned by this bomber and it's dead
             // Check the bomb : the arena will now be able to delete it
-            m_pArena->GetBomb(Index).SetChecked ();
+            m_pArena->GetBomb(Index).SetChecked();
             // Update the number of used bombs
             m_UsedBombs--;
         }
     }
-    
+
 }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-/** 
+/**
  *  Updates the sprite to display. This function prepares the
  *  sprite table, updates stunt times,
  *  handles the punch/throw/kick animations and updates the bomber state.
@@ -930,7 +930,7 @@ void CBomber::UsedBombs ()
  *  \sa m_BomberState, MakeBombFly(), Display()
  */
 
-void CBomber::Animate (float DeltaTime)
+void CBomber::Animate(float DeltaTime)
 {
     // Bomber state to set before exiting this method
     EBomberState NewBomberState = m_BomberState;
@@ -949,11 +949,11 @@ void CBomber::Animate (float DeltaTime)
             // bomber was going the last time he really moved.
             switch (m_BomberMove.GetLastRealMove())
             {
-                case BOMBERMOVE_DOWN  : m_Sprite = 0; break;
-                case BOMBERMOVE_RIGHT : m_Sprite = 1; break;
-                case BOMBERMOVE_LEFT  : m_Sprite = 2; break;
-                case BOMBERMOVE_UP    : m_Sprite = 3; break;
-                default: break;
+            case BOMBERMOVE_DOWN: m_Sprite = 0; break;
+            case BOMBERMOVE_RIGHT: m_Sprite = 1; break;
+            case BOMBERMOVE_LEFT: m_Sprite = 2; break;
+            case BOMBERMOVE_UP: m_Sprite = 3; break;
+            default: break;
             }
 
             if (m_StuntTimeElapsed >= 1.0f)
@@ -964,56 +964,56 @@ void CBomber::Animate (float DeltaTime)
         }
         // If the bomber is not currently lifting or throwing a bomb
         else if (m_BomberState == BOMBERSTATE_WALK ||
-                 m_BomberState == BOMBERSTATE_WALK_HOLD)
-        {        
+            m_BomberState == BOMBERSTATE_WALK_HOLD)
+        {
             // If the bomber has to move (no sickness) or he has the inertia 
             // sickness and he could move, then play the walk animation
-            if (m_BomberMove.GetMove() != BOMBERMOVE_NONE && 
-               (m_Sickness != SICK_INERTIA || m_BomberMove.CouldMove()))
+            if (m_BomberMove.GetMove() != BOMBERMOVE_NONE &&
+                (m_Sickness != SICK_INERTIA || m_BomberMove.CouldMove()))
             {
                 // The animation sprites depend on the direction 
                 // where the bomber is going. Compute them.
                 switch (m_BomberMove.GetMove())
                 {
-                    case BOMBERMOVE_DOWN :  
-                        m_AnimationSprites[0] = BOMBERSPRITE_DOWN0; 
-                        m_AnimationSprites[1] = BOMBERSPRITE_DOWN1;
-                        m_AnimationSprites[2] = BOMBERSPRITE_DOWN2;
-                        break;
+                case BOMBERMOVE_DOWN:
+                    m_AnimationSprites[0] = BOMBERSPRITE_DOWN0;
+                    m_AnimationSprites[1] = BOMBERSPRITE_DOWN1;
+                    m_AnimationSprites[2] = BOMBERSPRITE_DOWN2;
+                    break;
 
-                    case BOMBERMOVE_RIGHT : 
-                        m_AnimationSprites[0] = BOMBERSPRITE_RIGHT0; 
-                        m_AnimationSprites[1] = BOMBERSPRITE_RIGHT1;
-                        m_AnimationSprites[2] = BOMBERSPRITE_RIGHT2;
-                        break;
+                case BOMBERMOVE_RIGHT:
+                    m_AnimationSprites[0] = BOMBERSPRITE_RIGHT0;
+                    m_AnimationSprites[1] = BOMBERSPRITE_RIGHT1;
+                    m_AnimationSprites[2] = BOMBERSPRITE_RIGHT2;
+                    break;
 
-                    case BOMBERMOVE_LEFT :  
-                        m_AnimationSprites[0] = BOMBERSPRITE_LEFT0; 
-                        m_AnimationSprites[1] = BOMBERSPRITE_LEFT1;
-                        m_AnimationSprites[2] = BOMBERSPRITE_LEFT2;
-                        break;
+                case BOMBERMOVE_LEFT:
+                    m_AnimationSprites[0] = BOMBERSPRITE_LEFT0;
+                    m_AnimationSprites[1] = BOMBERSPRITE_LEFT1;
+                    m_AnimationSprites[2] = BOMBERSPRITE_LEFT2;
+                    break;
 
-                    case BOMBERMOVE_UP :
-                        m_AnimationSprites[0] = BOMBERSPRITE_UP0; 
-                        m_AnimationSprites[1] = BOMBERSPRITE_UP1;
-                        m_AnimationSprites[2] = BOMBERSPRITE_UP2;
-                        break;
-                    default :
-                        break;
+                case BOMBERMOVE_UP:
+                    m_AnimationSprites[0] = BOMBERSPRITE_UP0;
+                    m_AnimationSprites[1] = BOMBERSPRITE_UP1;
+                    m_AnimationSprites[2] = BOMBERSPRITE_UP2;
+                    break;
+                default:
+                    break;
                 }
 
                 // Play animation
                 m_Timer += DeltaTime;
 
                 // Animate
-                     if (m_Timer < ANIMWALK_TIME1)  m_Sprite = m_AnimationSprites[1];
+                if (m_Timer < ANIMWALK_TIME1)  m_Sprite = m_AnimationSprites[1];
                 else if (m_Timer < ANIMWALK_TIME2)  m_Sprite = m_AnimationSprites[0];
                 else if (m_Timer < ANIMWALK_TIME3)  m_Sprite = m_AnimationSprites[1];
                 else if (m_Timer < ANIMWALK_TIME4)  m_Sprite = m_AnimationSprites[2];
                 else
-                { 
+                {
                     // Loop animation
-                    m_Sprite = m_AnimationSprites[1]; 
+                    m_Sprite = m_AnimationSprites[1];
                     m_Timer = 0.0f;
                 }
             }
@@ -1026,11 +1026,11 @@ void CBomber::Animate (float DeltaTime)
                 // bomber was going the last time he really moved.
                 switch (m_BomberMove.GetLastRealMove())
                 {
-                    case BOMBERMOVE_DOWN  : m_Sprite = BOMBERSPRITE_DOWN1;   break;
-                    case BOMBERMOVE_RIGHT : m_Sprite = BOMBERSPRITE_RIGHT1;  break;
-                    case BOMBERMOVE_LEFT  : m_Sprite = BOMBERSPRITE_LEFT1;   break;
-                    case BOMBERMOVE_UP    : m_Sprite = BOMBERSPRITE_UP1;     break;
-                    default: break;
+                case BOMBERMOVE_DOWN: m_Sprite = BOMBERSPRITE_DOWN1;   break;
+                case BOMBERMOVE_RIGHT: m_Sprite = BOMBERSPRITE_RIGHT1;  break;
+                case BOMBERMOVE_LEFT: m_Sprite = BOMBERSPRITE_LEFT1;   break;
+                case BOMBERMOVE_UP: m_Sprite = BOMBERSPRITE_UP1;     break;
+                default: break;
                 }
             }
         }
@@ -1042,49 +1042,55 @@ void CBomber::Animate (float DeltaTime)
             // time he really moved.
             switch (m_BomberMove.GetLastRealMove())
             {
-                case BOMBERMOVE_DOWN :  
-                    m_AnimationSprites[0] = BOMBERSPRITE_LIFTING_DOWN_0; 
-                    m_AnimationSprites[1] = BOMBERSPRITE_LIFTING_DOWN_1;
-                    m_AnimationSprites[2] = BOMBERSPRITE_LIFTING_DOWN_2;
-                    break;
+            case BOMBERMOVE_DOWN:
+                m_AnimationSprites[0] = BOMBERSPRITE_LIFTING_DOWN_0;
+                m_AnimationSprites[1] = BOMBERSPRITE_LIFTING_DOWN_1;
+                m_AnimationSprites[2] = BOMBERSPRITE_LIFTING_DOWN_2;
+                break;
 
-                case BOMBERMOVE_RIGHT : 
-                    m_AnimationSprites[0] = BOMBERSPRITE_LIFTING_RIGHT_0; 
-                    m_AnimationSprites[1] = BOMBERSPRITE_LIFTING_RIGHT_1;
-                    m_AnimationSprites[2] = BOMBERSPRITE_LIFTING_RIGHT_2;
-                    break;
+            case BOMBERMOVE_RIGHT:
+                m_AnimationSprites[0] = BOMBERSPRITE_LIFTING_RIGHT_0;
+                m_AnimationSprites[1] = BOMBERSPRITE_LIFTING_RIGHT_1;
+                m_AnimationSprites[2] = BOMBERSPRITE_LIFTING_RIGHT_2;
+                break;
 
-                case BOMBERMOVE_LEFT :  
-                    m_AnimationSprites[0] = BOMBERSPRITE_LIFTING_LEFT_0; 
-                    m_AnimationSprites[1] = BOMBERSPRITE_LIFTING_LEFT_1;
-                    m_AnimationSprites[2] = BOMBERSPRITE_LIFTING_LEFT_2;
-                    break;
+            case BOMBERMOVE_LEFT:
+                m_AnimationSprites[0] = BOMBERSPRITE_LIFTING_LEFT_0;
+                m_AnimationSprites[1] = BOMBERSPRITE_LIFTING_LEFT_1;
+                m_AnimationSprites[2] = BOMBERSPRITE_LIFTING_LEFT_2;
+                break;
 
-                case BOMBERMOVE_UP :
-                    m_AnimationSprites[0] = BOMBERSPRITE_LIFTING_UP_0; 
-                    m_AnimationSprites[1] = BOMBERSPRITE_LIFTING_UP_1;
-                    m_AnimationSprites[2] = BOMBERSPRITE_LIFTING_UP_2;
-                    break;
-                default:
-                    break;
+            case BOMBERMOVE_UP:
+                m_AnimationSprites[0] = BOMBERSPRITE_LIFTING_UP_0;
+                m_AnimationSprites[1] = BOMBERSPRITE_LIFTING_UP_1;
+                m_AnimationSprites[2] = BOMBERSPRITE_LIFTING_UP_2;
+                break;
+            default:
+                break;
             }
 
             // Increase bomb lifting time
             m_LiftingTimeElapsed += DeltaTime;
 
-            // Animate the bomber who lifts a bomb
-                 if (m_LiftingTimeElapsed < ANIMBOMBLIFTING_TIME1) m_Sprite = m_AnimationSprites[0];
-            else if (m_LiftingTimeElapsed < ANIMBOMBLIFTING_TIME2) m_Sprite = m_AnimationSprites[1];
-            else if (m_LiftingTimeElapsed < ANIMBOMBLIFTING_TIME3) m_Sprite = m_AnimationSprites[2];
-            else
+            if (m_BombIndex != -1)
             {
-                // Finish bomb lifting animation
-                m_Sprite = m_AnimationSprites[2];
-                m_LiftingTimeElapsed = 0.0f;
-                
-                // The bomber now holds the bomb
-                m_pArena->GetBomb(m_BombIndex).SetBeingHeld();
-                NewBomberState = BOMBERSTATE_WALK_HOLD;
+
+                // Animate the bomber who lifts a bomb
+                if (m_LiftingTimeElapsed < ANIMBOMBLIFTING_TIME1) m_Sprite = m_AnimationSprites[0];
+                else if (m_LiftingTimeElapsed < ANIMBOMBLIFTING_TIME2) m_Sprite = m_AnimationSprites[1];
+                else if (m_LiftingTimeElapsed < ANIMBOMBLIFTING_TIME3) m_Sprite = m_AnimationSprites[2];
+                else
+                {
+                    // Finish bomb lifting animation
+                    m_Sprite = m_AnimationSprites[2];
+                    m_LiftingTimeElapsed = 0.0f;
+
+                    // The bomber now holds the bomb
+                    m_pArena->GetBomb(m_BombIndex).SetBeingHeld();
+                    NewBomberState = BOMBERSTATE_WALK_HOLD;
+
+                }
+
             }
         }
         // If the bomber is currently throwing a bomb
@@ -1095,46 +1101,46 @@ void CBomber::Animate (float DeltaTime)
             // time he really moved.
             switch (m_BomberMove.GetLastRealMove())
             {
-                case BOMBERMOVE_DOWN :  
-                    m_AnimationSprites[0] = BOMBERSPRITE_THROWING_DOWN_0; 
-                    m_AnimationSprites[1] = BOMBERSPRITE_THROWING_DOWN_1;
-                    m_AnimationSprites[2] = BOMBERSPRITE_THROWING_DOWN_2;
-                    m_AnimationSprites[3] = BOMBERSPRITE_THROWING_DOWN_3;
-                    m_AnimationSprites[4] = BOMBERSPRITE_THROWING_DOWN_4;
-                    break;
+            case BOMBERMOVE_DOWN:
+                m_AnimationSprites[0] = BOMBERSPRITE_THROWING_DOWN_0;
+                m_AnimationSprites[1] = BOMBERSPRITE_THROWING_DOWN_1;
+                m_AnimationSprites[2] = BOMBERSPRITE_THROWING_DOWN_2;
+                m_AnimationSprites[3] = BOMBERSPRITE_THROWING_DOWN_3;
+                m_AnimationSprites[4] = BOMBERSPRITE_THROWING_DOWN_4;
+                break;
 
-                case BOMBERMOVE_RIGHT : 
-                    m_AnimationSprites[0] = BOMBERSPRITE_THROWING_RIGHT_0; 
-                    m_AnimationSprites[1] = BOMBERSPRITE_THROWING_RIGHT_1;
-                    m_AnimationSprites[2] = BOMBERSPRITE_THROWING_RIGHT_2;
-                    m_AnimationSprites[3] = BOMBERSPRITE_THROWING_RIGHT_3;
-                    m_AnimationSprites[4] = BOMBERSPRITE_THROWING_RIGHT_4;
-                    break;
+            case BOMBERMOVE_RIGHT:
+                m_AnimationSprites[0] = BOMBERSPRITE_THROWING_RIGHT_0;
+                m_AnimationSprites[1] = BOMBERSPRITE_THROWING_RIGHT_1;
+                m_AnimationSprites[2] = BOMBERSPRITE_THROWING_RIGHT_2;
+                m_AnimationSprites[3] = BOMBERSPRITE_THROWING_RIGHT_3;
+                m_AnimationSprites[4] = BOMBERSPRITE_THROWING_RIGHT_4;
+                break;
 
-                case BOMBERMOVE_LEFT :  
-                    m_AnimationSprites[0] = BOMBERSPRITE_THROWING_LEFT_0; 
-                    m_AnimationSprites[1] = BOMBERSPRITE_THROWING_LEFT_1;
-                    m_AnimationSprites[2] = BOMBERSPRITE_THROWING_LEFT_2;
-                    m_AnimationSprites[3] = BOMBERSPRITE_THROWING_LEFT_3;
-                    m_AnimationSprites[4] = BOMBERSPRITE_THROWING_LEFT_4;
-                    break;
+            case BOMBERMOVE_LEFT:
+                m_AnimationSprites[0] = BOMBERSPRITE_THROWING_LEFT_0;
+                m_AnimationSprites[1] = BOMBERSPRITE_THROWING_LEFT_1;
+                m_AnimationSprites[2] = BOMBERSPRITE_THROWING_LEFT_2;
+                m_AnimationSprites[3] = BOMBERSPRITE_THROWING_LEFT_3;
+                m_AnimationSprites[4] = BOMBERSPRITE_THROWING_LEFT_4;
+                break;
 
-                case BOMBERMOVE_UP :
-                    m_AnimationSprites[0] = BOMBERSPRITE_THROWING_UP_0; 
-                    m_AnimationSprites[1] = BOMBERSPRITE_THROWING_UP_1;
-                    m_AnimationSprites[2] = BOMBERSPRITE_THROWING_UP_2;
-                    m_AnimationSprites[3] = BOMBERSPRITE_THROWING_UP_3;
-                    m_AnimationSprites[4] = BOMBERSPRITE_THROWING_UP_4;
-                    break;
-                default:
-                    break;
+            case BOMBERMOVE_UP:
+                m_AnimationSprites[0] = BOMBERSPRITE_THROWING_UP_0;
+                m_AnimationSprites[1] = BOMBERSPRITE_THROWING_UP_1;
+                m_AnimationSprites[2] = BOMBERSPRITE_THROWING_UP_2;
+                m_AnimationSprites[3] = BOMBERSPRITE_THROWING_UP_3;
+                m_AnimationSprites[4] = BOMBERSPRITE_THROWING_UP_4;
+                break;
+            default:
+                break;
             }
-            
+
             // Increase bomb throwing time
             m_ThrowingTimeElapsed += DeltaTime;
-            
+
             // Animate the bomber who is throwing a bomb
-                 if (m_ThrowingTimeElapsed < ANIMBOMBTHROWING_TIME1) m_Sprite = m_AnimationSprites[0];
+            if (m_ThrowingTimeElapsed < ANIMBOMBTHROWING_TIME1) m_Sprite = m_AnimationSprites[0];
             else if (m_ThrowingTimeElapsed < ANIMBOMBTHROWING_TIME2) m_Sprite = m_AnimationSprites[1];
             else if (m_ThrowingTimeElapsed < ANIMBOMBTHROWING_TIME3)
             {
@@ -1172,39 +1178,39 @@ void CBomber::Animate (float DeltaTime)
             // time he really moved.
             switch (m_BomberMove.GetLastRealMove())
             {
-                case BOMBERMOVE_DOWN :  
-                    m_AnimationSprites[0] = BOMBERSPRITE_PUNCHING_DOWN_0; 
-                    m_AnimationSprites[1] = BOMBERSPRITE_PUNCHING_DOWN_1;
-                    break;
+            case BOMBERMOVE_DOWN:
+                m_AnimationSprites[0] = BOMBERSPRITE_PUNCHING_DOWN_0;
+                m_AnimationSprites[1] = BOMBERSPRITE_PUNCHING_DOWN_1;
+                break;
 
-                case BOMBERMOVE_RIGHT : 
-                    m_AnimationSprites[0] = BOMBERSPRITE_PUNCHING_RIGHT_0; 
-                    m_AnimationSprites[1] = BOMBERSPRITE_PUNCHING_RIGHT_1;
-                    break;
+            case BOMBERMOVE_RIGHT:
+                m_AnimationSprites[0] = BOMBERSPRITE_PUNCHING_RIGHT_0;
+                m_AnimationSprites[1] = BOMBERSPRITE_PUNCHING_RIGHT_1;
+                break;
 
-                case BOMBERMOVE_LEFT :  
-                    m_AnimationSprites[0] = BOMBERSPRITE_PUNCHING_LEFT_0; 
-                    m_AnimationSprites[1] = BOMBERSPRITE_PUNCHING_LEFT_1;
-                    break;
+            case BOMBERMOVE_LEFT:
+                m_AnimationSprites[0] = BOMBERSPRITE_PUNCHING_LEFT_0;
+                m_AnimationSprites[1] = BOMBERSPRITE_PUNCHING_LEFT_1;
+                break;
 
-                case BOMBERMOVE_UP :
-                    m_AnimationSprites[0] = BOMBERSPRITE_PUNCHING_UP_0; 
-                    m_AnimationSprites[1] = BOMBERSPRITE_PUNCHING_UP_1;
-                    break;
-                default:
-                    break;
+            case BOMBERMOVE_UP:
+                m_AnimationSprites[0] = BOMBERSPRITE_PUNCHING_UP_0;
+                m_AnimationSprites[1] = BOMBERSPRITE_PUNCHING_UP_1;
+                break;
+            default:
+                break;
             }
-            
+
             // Increase bomb punching time
             m_PunchingTimeElapsed += DeltaTime;
-            
+
             // Animate the bomber who is punching a bomb
-                 if (m_PunchingTimeElapsed < ANIMBOMBPUNCHING_TIME1) m_Sprite = m_AnimationSprites[0];
+            if (m_PunchingTimeElapsed < ANIMBOMBPUNCHING_TIME1) m_Sprite = m_AnimationSprites[0];
             else if (m_PunchingTimeElapsed < ANIMBOMBPUNCHING_TIME2)
             {
                 // This is the animation frame where the bomber visually
                 // punches the bomb, so let's really punch the bomb now
-                
+
                 m_Sprite = m_AnimationSprites[1];
 
                 // This code block is likely to be called more than once,
@@ -1231,17 +1237,17 @@ void CBomber::Animate (float DeltaTime)
     // Then play the dying-bomber animation
     else if (m_Dead == DEAD_DYING)
     {
-             if (m_Timer < ANIMDYING_TIME1) m_Sprite = BOMBERSPRITE_DYING0;
+        if (m_Timer < ANIMDYING_TIME1) m_Sprite = BOMBERSPRITE_DYING0;
         else if (m_Timer < ANIMDYING_TIME2) m_Sprite = BOMBERSPRITE_DYING1;
         else if (m_Timer < ANIMDYING_TIME3) m_Sprite = BOMBERSPRITE_DYING2;
         else if (m_Timer < ANIMDYING_TIME4) m_Sprite = BOMBERSPRITE_DYING3;
         else if (m_Timer < ANIMDYING_TIME5) m_Sprite = BOMBERSPRITE_DYING4;
         else if (m_Timer < ANIMDYING_TIME6) m_Sprite = BOMBERSPRITE_DYING5;
         else if (m_Timer < ANIMDYING_TIME7) m_Sprite = BOMBERSPRITE_DYING6;
-        else 
-        { 
+        else
+        {
             // Finished animation, bomber is dead
-            m_Dead = DEAD_DEAD; 
+            m_Dead = DEAD_DEAD;
             // Wait before returning the items the bomber has picked up
             m_Timer = RETURNITEMS_WAIT;
         }
@@ -1263,15 +1269,16 @@ void CBomber::Animate (float DeltaTime)
     else
     {
         // Make the bomber flash between sick sprite and normal colored sprite
-        
+
         if (m_SickTimer < ANIMSICK_TIME1)
         {
             // Sick color
-            if ( m_Sickness == SICK_INVISIBILITY )
+            if (m_Sickness == SICK_INVISIBILITY)
             {
                 // The arena-bomber-alive sprites have an additional series for the invisible bomber (only the bomber's border can be seen)
                 m_Sprite += SICK_SPRITE_ROW_SHADOW * m_BomberSpriteTables[m_BomberState].NumberOfSpritesPerColor;
-            } else {
+            }
+            else {
                 m_Sprite += SICK_SPRITE_ROW_FULL * m_BomberSpriteTables[m_BomberState].NumberOfSpritesPerColor;
             }
 
@@ -1282,7 +1289,7 @@ void CBomber::Animate (float DeltaTime)
             m_Sprite += m_Player * m_BomberSpriteTables[m_BomberState].NumberOfSpritesPerColor;
 
             // If it is the invisibility contamination, make the bomber invisible during this time
-            if ( m_Sickness == SICK_INVISIBILITY ) {
+            if (m_Sickness == SICK_INVISIBILITY) {
                 m_MakeInvisible = true;
             }
         }
@@ -1291,10 +1298,11 @@ void CBomber::Animate (float DeltaTime)
             // Reset timer
             m_SickTimer = 0.0f;
             // Sick color
-            if ( m_Sickness == SICK_INVISIBILITY ) {
+            if (m_Sickness == SICK_INVISIBILITY) {
                 // The arena-bomber-alive sprites have an additional series for the invisible bomber (only the bomber's border can be seen)
                 m_Sprite += SICK_SPRITE_ROW_SHADOW * m_BomberSpriteTables[m_BomberState].NumberOfSpritesPerColor;
-            } else {
+            }
+            else {
                 m_Sprite += SICK_SPRITE_ROW_FULL * m_BomberSpriteTables[m_BomberState].NumberOfSpritesPerColor;
             }
         }
@@ -1302,6 +1310,11 @@ void CBomber::Animate (float DeltaTime)
         // Play sick animation
         m_SickTimer += DeltaTime;
     }
+
+#ifdef _DEBUG
+    if (m_Page == 59 && m_Sprite >= 84)
+        ASSERT(1 == 2);
+#endif
 
     // Set the new bomber state
     m_BomberState = NewBomberState;
@@ -1317,29 +1330,29 @@ void CBomber::Animate (float DeltaTime)
  *  Resets #m_BombIndex so the bomber has no bomb from this time.
  */
 
-void CBomber::MakeBombFly (EBombFlightType FlightType)
+void CBomber::MakeBombFly(EBombFlightType FlightType)
 {
     // There must be a bomb 
     ASSERT(m_BombIndex != -1);
 
     // Direction in which the bomb is to be thrown
     EBombFly BombFly = BOMBFLY_NONE;
-                    
+
     // The direction where the bomber was going the last 
     // time he really moved, will be the direction where
     // we will throw the bomb.
     switch (m_BomberMove.GetLastRealMove())
     {
-        case BOMBERMOVE_DOWN  : BombFly = BOMBFLY_DOWN;  break;
-        case BOMBERMOVE_RIGHT : BombFly = BOMBFLY_RIGHT; break;
-        case BOMBERMOVE_LEFT  : BombFly = BOMBFLY_LEFT;  break;
-        case BOMBERMOVE_UP    : BombFly = BOMBFLY_UP;    break;
-        default: break;
+    case BOMBERMOVE_DOWN: BombFly = BOMBFLY_DOWN;  break;
+    case BOMBERMOVE_RIGHT: BombFly = BOMBFLY_RIGHT; break;
+    case BOMBERMOVE_LEFT: BombFly = BOMBFLY_LEFT;  break;
+    case BOMBERMOVE_UP: BombFly = BOMBFLY_UP;    break;
+    default: break;
     }
 
     // Make the bomb fly in the chosen direction
-    m_pArena->GetBomb(m_BombIndex).StartFlying (BombFly, FlightType);
-    
+    m_pArena->GetBomb(m_BombIndex).StartFlying(BombFly, FlightType);
+
     // Now we don't have the bomb anymore in our hands.
     // This line is important for the caller of this method.
     m_BombIndex = -1;
@@ -1350,13 +1363,13 @@ void CBomber::MakeBombFly (EBombFlightType FlightType)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CBomber::Contamination ()
+void CBomber::Contamination()
 {
     // If this bomber is alive then he can contaminate other bombers if he's sick
     if (m_Dead == DEAD_ALIVE)
     {
         // Scan the bombers
-        for (int Player = 0 ; Player < m_pArena->MaxBombers() ; Player++)
+        for (int Player = 0; Player < m_pArena->MaxBombers(); Player++)
         {
             // If this player is not ourself
             // and this player exists and is alive,
@@ -1364,8 +1377,8 @@ void CBomber::Contamination ()
             if (Player != m_Player &&
                 m_pArena->GetBomber(Player).Exist() &&
                 m_pArena->GetBomber(Player).IsAlive() &&
-                ABS (m_pArena->GetBomber(Player).GetX() - m_BomberMove.GetX()) +
-                ABS (m_pArena->GetBomber(Player).GetY() - m_BomberMove.GetY()) <= CONTAMINATION_NEAR)
+                ABS(m_pArena->GetBomber(Player).GetX() - m_BomberMove.GetX()) +
+                ABS(m_pArena->GetBomber(Player).GetY() - m_BomberMove.GetY()) <= CONTAMINATION_NEAR)
             {
                 // If this player is not registered as one of our neighbours
                 // and we are sick, and we didn't just get sick in this game frame
@@ -1381,21 +1394,21 @@ void CBomber::Contamination ()
                     // contaminated him.
 
                     // Give him the sickness
-                    m_pArena->GetBomber(Player).SetSickness (m_Sickness);
-                    
+                    m_pArena->GetBomber(Player).SetSickness(m_Sickness);
+
                     // We're healthy again
                     m_Sickness = SICK_NOTSICK;
 
                     // Play the contamination sound
-                    m_pSound->PlaySample (SAMPLE_SICK_3);
+                    m_pSound->PlaySample(SAMPLE_SICK_3);
 
                     // One contamination only
                     break;
                 }
-            
+
                 // Register this player as one of our neighbours
                 m_Neighbours[Player] = true;
-                                
+
                 break;
             }
             // If this player is not ourself and not close to us
@@ -1419,21 +1432,21 @@ void CBomber::Contamination ()
  *  The sprite table is prepared by Animate().
  */
 
-void CBomber::Display (void)
+void CBomber::Display(void)
 {
     // If bomber is not dead and the bomber is not invisible
-    if (m_Dead != DEAD_DEAD && m_MakeInvisible == false) 
+    if (m_Dead != DEAD_DEAD && m_MakeInvisible == false)
     {
 
         // Add the sprite in the layer. Priority in bomber sprite layer depends on m_iY.
-        m_pDisplay->DrawSprite (m_BomberMove.GetX() + BOMBER_OFFSETX, 
-                                m_BomberMove.GetY() + BOMBER_OFFSETY, 
-                                NULL,                            // Draw entire sprite
-                                NULL,                            // No need to clip
-                                m_Page, 
-                                m_Sprite, 
-                                BOMBER_SPRITELAYER, 
-                                m_BomberMove.GetY());
+        m_pDisplay->DrawSprite(m_BomberMove.GetX() + BOMBER_OFFSETX,
+            m_BomberMove.GetY() + BOMBER_OFFSETY,
+            NULL,                            // Draw entire sprite
+            NULL,                            // No need to clip
+            m_Page,
+            m_Sprite,
+            BOMBER_SPRITELAYER,
+            m_BomberMove.GetY());
     }
 }
 
@@ -1441,19 +1454,19 @@ void CBomber::Display (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CBomber::OnWriteSnapshot (CArenaSnapshot& Snapshot)
+void CBomber::OnWriteSnapshot(CArenaSnapshot& Snapshot)
 {
     int i;
-    
+
     m_BomberMove.WriteSnapshot(Snapshot);
-    
+
     Snapshot.WriteInteger(m_BomberAction);
     Snapshot.WriteInteger(m_LastBomberAction);
     Snapshot.WriteInteger(m_Sprite);
-    
-    for (i = 0 ; i < 5 ; i++)
+
+    for (i = 0; i < 5; i++)
         Snapshot.WriteInteger(m_AnimationSprites[i]);
-    
+
     Snapshot.WriteInteger(m_Page);
     Snapshot.WriteFloat(m_Timer);
     Snapshot.WriteFloat(m_SickTimer);
@@ -1473,10 +1486,10 @@ void CBomber::OnWriteSnapshot (CArenaSnapshot& Snapshot)
     Snapshot.WriteBoolean(m_ReturnedItems);
     Snapshot.WriteInteger(m_Player);
     Snapshot.WriteInteger(m_Dead);
-    
-    for (i = 0 ; i < MAX_PLAYERS ; i++)
+
+    for (i = 0; i < MAX_PLAYERS; i++)
         Snapshot.WriteBoolean(m_Neighbours[i]);
-        
+
     Snapshot.WriteBoolean(m_JustGotSick);
     Snapshot.WriteFloat(m_LiftingTimeElapsed);
     Snapshot.WriteFloat(m_ThrowingTimeElapsed);
@@ -1491,19 +1504,19 @@ void CBomber::OnWriteSnapshot (CArenaSnapshot& Snapshot)
 //******************************************************************************************************************************
 //****************************************************************************************************************************
 
-void CBomber::OnReadSnapshot (CArenaSnapshot& Snapshot)
+void CBomber::OnReadSnapshot(CArenaSnapshot& Snapshot)
 {
     int i;
-    
+
     m_BomberMove.ReadSnapshot(Snapshot);
-    
+
     Snapshot.ReadInteger((int*)&m_BomberAction);
     Snapshot.ReadInteger((int*)&m_LastBomberAction);
     Snapshot.ReadInteger(&m_Sprite);
-    
-    for (i = 0 ; i < 5 ; i++)
+
+    for (i = 0; i < 5; i++)
         Snapshot.ReadInteger(&m_AnimationSprites[i]);
-    
+
     Snapshot.ReadInteger(&m_Page);
     Snapshot.ReadFloat(&m_Timer);
     Snapshot.ReadFloat(&m_SickTimer);
@@ -1522,10 +1535,10 @@ void CBomber::OnReadSnapshot (CArenaSnapshot& Snapshot)
     Snapshot.ReadBoolean(&m_ReturnedItems);
     Snapshot.ReadInteger(&m_Player);
     Snapshot.ReadInteger((int*)&m_Dead);
-    
-    for (i = 0 ; i < MAX_PLAYERS ; i++)
+
+    for (i = 0; i < MAX_PLAYERS; i++)
         Snapshot.ReadBoolean(&m_Neighbours[i]);
-        
+
     Snapshot.ReadBoolean(&m_JustGotSick);
     Snapshot.ReadFloat(&m_LiftingTimeElapsed);
     Snapshot.ReadFloat(&m_ThrowingTimeElapsed);
@@ -1545,7 +1558,7 @@ void CBomber::OnReadSnapshot (CArenaSnapshot& Snapshot)
 // This will be done when time is up (little delay
 // before rint the items)
 
-void CBomber::ReturnItems (float DeltaTime)
+void CBomber::ReturnItems(float DeltaTime)
 {
     // If the bomber's dead
     if (m_Dead == DEAD_DEAD && !m_ReturnedItems)
@@ -1558,21 +1571,21 @@ void CBomber::ReturnItems (float DeltaTime)
         {
             // Try to create items to return the ones the bomber picked up in the arena
             // If at least one item was created (it's possible the bomber had no item or there wasn't any free block)
-            if (CItem::CreateItems (m_pArena,
-                                    ITEMPLACE_FLOOR, 
-                                    m_NumberOfBombItems, 
-                                    m_NumberOfFlameItems, 
-                                    m_NumberOfRollerItems, 
-                                    m_NumberOfKickItems, 
-                                    0,
-                                    m_NumberOfThrowItems,
-                                    m_NumberOfPunchItems,
-                                    m_NumberOfRemoteItems))
+            if (CItem::CreateItems(m_pArena,
+                ITEMPLACE_FLOOR,
+                m_NumberOfBombItems,
+                m_NumberOfFlameItems,
+                m_NumberOfRollerItems,
+                m_NumberOfKickItems,
+                0,
+                m_NumberOfThrowItems,
+                m_NumberOfPunchItems,
+                m_NumberOfRemoteItems))
             {
                 // Play the item fumes sound
-                m_pSound->PlaySample (SAMPLE_ITEM_FUMES);
+                m_pSound->PlaySample(SAMPLE_ITEM_FUMES);
             }
-            
+
             // The items were returned
             m_ReturnedItems = true;
         }
@@ -1585,21 +1598,23 @@ void CBomber::ReturnItems (float DeltaTime)
 
 //! Update the bomber according to the last frametime
 
-bool CBomber::Update (float DeltaTime)
+bool CBomber::Update(float DeltaTime)
 {
     //! Manage the bomber's movement by calling CBomberMove::Update()
     m_BomberMove.Update(DeltaTime);
 
     // Calculate button-press duration
     // Remember how long the action button has been pressed
-    if ( m_BomberAction == BOMBERACTION_NONE ) {
+    if (m_BomberAction == BOMBERACTION_NONE) {
         // Reset
         m_CountBomberActionDuration = BOMBERACTION_NONE;
         m_BomberActionDuration = 0.0f;
-    } else if ( m_BomberAction == m_CountBomberActionDuration ) {
+    }
+    else if (m_BomberAction == m_CountBomberActionDuration) {
         m_BomberActionDuration += DeltaTime;
         //theLog.WriteLine( "DEBUG: Duration this button pressed=%f",m_BomberActionDuration);
-    } else {
+    }
+    else {
         m_CountBomberActionDuration = m_BomberAction;
         m_BomberActionDuration = 0.0f;
     }
@@ -1625,15 +1640,15 @@ bool CBomber::Update (float DeltaTime)
 //******************************************************************************************************************************
 
 // Make the bomber have the effects of an item he picked up
-void CBomber::ItemEffect (EItemType Type)
+void CBomber::ItemEffect(EItemType Type)
 {
     //! If the bomber is sick and picks up an item, he will now be healthy again,
     //! and the bad, bad skull item escapes from within the bomber to fly somewhere else.
     if (m_Sickness != SICK_NOTSICK)
     {
-        m_pArena->NewItem (m_BomberMove.GetBlockX(), m_BomberMove.GetBlockY(), ITEM_SKULL, false, true);
+        m_pArena->NewItem(m_BomberMove.GetBlockX(), m_BomberMove.GetBlockY(), ITEM_SKULL, false, true);
     }
-    
+
     //! If the bomber has picked up a skull item he gets sick.
     if (Type == ITEM_SKULL)
     {
@@ -1642,10 +1657,10 @@ void CBomber::ItemEffect (EItemType Type)
         {
             // The bomber is now sick (random sickness)
             //! \sa m_Sickness
-            m_Sickness = ESick (RANDOM(NUMBER_SICKNESSES));
+            m_Sickness = ESick(RANDOM(NUMBER_SICKNESSES));
 
             // Play a random skull item sound
-            m_pSound->PlaySample (RANDOM(100) >= 50 ? SAMPLE_SICK_1 : SAMPLE_SICK_2);
+            m_pSound->PlaySample(RANDOM(100) >= 50 ? SAMPLE_SICK_1 : SAMPLE_SICK_2);
         }
     }
     // If the item the bomber has picked up isn't a skull item
@@ -1654,85 +1669,85 @@ void CBomber::ItemEffect (EItemType Type)
         // The effect depends on the item type
         switch (Type)
         {
-            case ITEM_BOMB :
-            {
-                // The bomber can carry more bombs
-                m_TotalBombs++;
+        case ITEM_BOMB:
+        {
+            // The bomber can carry more bombs
+            m_TotalBombs++;
 
-                // One more picked up bomb item
-                m_NumberOfBombItems++;
-            
-                break;
+            // One more picked up bomb item
+            m_NumberOfBombItems++;
+
+            break;
+        }
+
+        case ITEM_FLAME:
+        {
+            // More powerful explosions
+            m_FlameSize++;
+
+            // One more picked up flame item
+            m_NumberOfFlameItems++;
+
+            break;
+        }
+
+        case ITEM_KICK:
+        {
+            if (theDebug.CanBombersKick())
+            {
+                // One more picked up kick item
+                m_NumberOfKickItems++;
             }
 
-            case ITEM_FLAME :
-            {
-                // More powerful explosions
-                m_FlameSize++;
-            
-                // One more picked up flame item
-                m_NumberOfFlameItems++;
-            
-                break;
-            }
+            break;
+        }
 
-            case ITEM_KICK :
-            {
-                if (theDebug.CanBombersKick())
-                {
-                    // One more picked up kick item
-                    m_NumberOfKickItems++;
-                }
+        case ITEM_ROLLER:
+        {
+            // The bomber speed is increased
+            m_Speed += SPEED_INC;
 
-                break;
-            }
+            // One more picked up roller item
+            m_NumberOfRollerItems++;
 
-            case ITEM_ROLLER :
-            {
-                // The bomber speed is increased
-                m_Speed += SPEED_INC;
+            break;
+        }
 
-                // One more picked up roller item
-                m_NumberOfRollerItems++;
-            
-                break;
-            }
+        case ITEM_THROW:
+        {
+            // One more picked up throw item
+            m_NumberOfThrowItems++;
 
-            case ITEM_THROW :
-            {
-                // One more picked up throw item
-                m_NumberOfThrowItems++;
+            break;
+        }
 
-                break;
-            }
+        case ITEM_PUNCH:
+        {
+            // One more picked up punch item
+            m_NumberOfPunchItems++;
 
-            case ITEM_PUNCH :
-            {
-                // One more picked up punch item
-                m_NumberOfPunchItems++;
+            break;
+        }
 
-                break;
-            }
+        case ITEM_REMOTE:
+        {
+            // One more picked up remote controler item
+            m_NumberOfRemoteItems++;
 
-            case ITEM_REMOTE :
-            {
-                // One more picked up remote controler item
-                m_NumberOfRemoteItems++;
+            break;
+        }
 
-                break;
-            }
-
-            default :
-            {
-                assert(0);
-            }
+        default:
+        {
+            assert(0);
+        }
         } // switch
 
         // The bomber is not sick animore
-        Heal ();
+        Heal();
 
         // Play a random pick sound
-        m_pSound->PlaySample ((RANDOM(100) >= 50 ? SAMPLE_PICK_ITEM_1 : SAMPLE_PICK_ITEM_2));
+        m_pSound->PlaySample((RANDOM(100) >= 50 ? SAMPLE_PICK_ITEM_1 : SAMPLE_PICK_ITEM_2));
     }
 }
 
@@ -1743,10 +1758,10 @@ void CBomber::ItemEffect (EItemType Type)
 // Tell if there is an obstacle at (BlockX,BlockY).
 // An obstacle is a wall or a bomb for bombers.
 
-bool CBomber::IsObstacle (int BlockX, int BlockY)
+bool CBomber::IsObstacle(int BlockX, int BlockY)
 {
-    return (m_pArena->IsWall(BlockX,BlockY) || 
-            m_pArena->IsBomb(BlockX,BlockY));
+    return (m_pArena->IsWall(BlockX, BlockY) ||
+        m_pArena->IsBomb(BlockX, BlockY));
 }
 
 //******************************************************************************************************************************
@@ -1756,26 +1771,26 @@ bool CBomber::IsObstacle (int BlockX, int BlockY)
 // Kick a bomb if there is one at (BlockX,BlockY), 
 // and if the bomber is able to.
 
-void CBomber::TryKickBomb (int BlockX, int BlockY, EBombKick BombKick)
+void CBomber::TryKickBomb(int BlockX, int BlockY, EBombKick BombKick)
 {
     // Try only if bomber is able to kick bombs
     if (CanKickBombs())
     {
         // If there is a bomb at BlockX,BlockY
-        if (m_pArena->IsBomb(BlockX,BlockY))
+        if (m_pArena->IsBomb(BlockX, BlockY))
         {
             // Seek this bomb
-            for (int Index = 0 ; Index < m_pArena->MaxBombs() ; Index++)
+            for (int Index = 0; Index < m_pArena->MaxBombs(); Index++)
             {
                 // Test existence and position
                 if (m_pArena->GetBomb(Index).Exist() &&
-                    m_pArena->GetBomb(Index).GetBlockX() == BlockX && 
+                    m_pArena->GetBomb(Index).GetBlockX() == BlockX &&
                     m_pArena->GetBomb(Index).GetBlockY() == BlockY)
                 {
                     // There is a bomb, kick it and give the bomb the bomber player 
                     // number for the bombers to be able to find it.
-                    m_pArena->GetBomb(Index).StartMoving (BombKick, m_Player);
-                    
+                    m_pArena->GetBomb(Index).StartMoving(BombKick, m_Player);
+
                     // There can't be two bombs on the same block
                     break;
                 }
@@ -1797,17 +1812,18 @@ void CBomber::Stunt(void)
     // Reset the stunt timer, so that a stunt bomber can be stunt for a longer time
     m_StuntTimeElapsed = 0.0f;
 
-    // If the bomber is just lifting this bomb
-    if (m_BomberState == BOMBERSTATE_LIFT) {
-        // End the lifting and make the bomber hold the bomb
-        m_pArena->GetBomb(m_BombIndex).SetBeingHeld();
-        m_BomberState = BOMBERSTATE_WALK_HOLD;
-    }
-
     // Check the bomber state before making the bomber stunt
     // If the bomber still has the bomb
     if (m_BombIndex != -1)
     {
+
+        // If the bomber is just lifting this bomb
+        if (m_BomberState == BOMBERSTATE_LIFT) {
+            // End the lifting and make the bomber hold the bomb
+            m_pArena->GetBomb(m_BombIndex).SetBeingHeld();
+            m_BomberState = BOMBERSTATE_WALK_HOLD;
+        }
+
         switch (m_BomberState)
         {
             // If the bomber is holding or throwing a bomb
@@ -1839,9 +1855,9 @@ void CBomber::Stunt(void)
      */
 
     EItemType ItemType = ITEM_NONE;
-    
+
     if (m_NumberOfRemoteItems > 0)
-    {   
+    {
         m_NumberOfRemoteItems--;
         ItemType = ITEM_REMOTE;
     }
@@ -1871,17 +1887,17 @@ void CBomber::Stunt(void)
         ItemType = ITEM_FLAME;
     }
     else if (m_NumberOfRollerItems > 0)
-    {   
+    {
         m_NumberOfRollerItems--;
         ItemType = ITEM_ROLLER;
     }
 
     if (ItemType != ITEM_NONE)
     {
-        m_pArena->NewItem (m_BomberMove.GetBlockX(), m_BomberMove.GetBlockY(), ItemType, false, true);
+        m_pArena->NewItem(m_BomberMove.GetBlockX(), m_BomberMove.GetBlockY(), ItemType, false, true);
     }
 
-    m_pSound->PlaySample (SAMPLE_BOMBER_LOSE_ITEM);
+    m_pSound->PlaySample(SAMPLE_BOMBER_LOSE_ITEM);
 
     // The bomber is now stunt
     m_BomberState = BOMBERSTATE_STUNT;

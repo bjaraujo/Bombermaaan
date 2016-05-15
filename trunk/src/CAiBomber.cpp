@@ -2044,7 +2044,11 @@ void CAiBomber::ModeDefence(float DeltaTime)
 
                 // Send this bomber move to the bomber as many seconds as the time
                 // a bomber takes to walk through an entire block.
-                m_BomberMoveTimeLeft = BLOCK_SIZE * 1.0f / m_pBomber->GetPixelsPerSecond();
+                int PixelsPerSecond = m_pBomber->GetPixelsPerSecond();
+
+                if (PixelsPerSecond != 0)
+                    m_BomberMoveTimeLeft = BLOCK_SIZE * 1.0f / PixelsPerSecond;
+
             }
             // If the bomber move is not a real move
             else
@@ -2410,7 +2414,10 @@ void CAiBomber::ModeWalk(float DeltaTime)
     {
         // Send this bomber move to the bomber as many seconds as the time
         // a bomber takes to walk through an entire block.
-        m_BomberMoveTimeLeft = BLOCK_SIZE * 1.0f / m_pBomber->GetPixelsPerSecond();
+        int PixelsPerSecond = m_pBomber->GetPixelsPerSecond();
+
+        if (PixelsPerSecond != 0)
+            m_BomberMoveTimeLeft = BLOCK_SIZE * 1.0f / PixelsPerSecond;
     }
     // If the bomber move is not a real move
     else
@@ -2542,7 +2549,10 @@ bool CAiBomber::GoTo(int GoalBlockX, int GoalBlockY)
     {
         // Send this bomber move to the bomber as many seconds as the time
         // a bomber takes to walk through an entire block.
-        m_BomberMoveTimeLeft = BLOCK_SIZE * 1.0f / m_pBomber->GetPixelsPerSecond();
+        int PixelsPerSecond = m_pBomber->GetPixelsPerSecond();
+
+        if (PixelsPerSecond != 0)
+            m_BomberMoveTimeLeft = BLOCK_SIZE * 1.0f / PixelsPerSecond;
     }
     // If the bomber move is not a real move
     else
