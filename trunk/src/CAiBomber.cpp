@@ -330,6 +330,10 @@ bool CAiBomber::EnemyNearAndFront(EEnemyDirection *direction, bool BeyondArenaFr
 
             for (int Index = 0; Index < MAX_PLAYERS; Index++)
             {
+                if (!m_pArena->GetArena()->GetBomber(Index).IsAlive() ||
+                    !m_pArena->GetArena()->GetBomber(Index).Exist())
+                    continue;
+
                 // If bomber in that block is from a different team
                 if (m_pArena->GetArena()->GetBomber(Index).GetTeam()->GetTeamId() != m_pArena->GetArena()->GetBomber(m_Player).GetTeam()->GetTeamId() &&
                     m_pArena->GetArena()->GetBomber(Index).GetBlockX() == BlockX &&
@@ -412,6 +416,11 @@ bool CAiBomber::EnemyNearAndFront(EEnemyDirection *direction, bool BeyondArenaFr
 
             for (int Index = 0; Index < MAX_PLAYERS; Index++)
             {
+
+                if (!m_pArena->GetArena()->GetBomber(Index).IsAlive() ||
+                    !m_pArena->GetArena()->GetBomber(Index).Exist())
+                    continue;
+
                 // If bomber in that block is from a different team
                 if (m_pArena->GetArena()->GetBomber(Index).GetTeam()->GetTeamId() != m_pArena->GetArena()->GetBomber(m_Player).GetTeam()->GetTeamId() &&
                     m_pArena->GetArena()->GetBomber(Index).GetBlockX() == BlockX &&
@@ -494,6 +503,11 @@ bool CAiBomber::EnemyNearAndFront(EEnemyDirection *direction, bool BeyondArenaFr
 
             for (int Index = 0; Index < MAX_PLAYERS; Index++)
             {
+
+                if (!m_pArena->GetArena()->GetBomber(Index).IsAlive() ||
+                    !m_pArena->GetArena()->GetBomber(Index).Exist())
+                    continue;
+
                 // If bomber in that block is from a different team
                 if (m_pArena->GetArena()->GetBomber(Index).GetTeam()->GetTeamId() != m_pArena->GetArena()->GetBomber(m_Player).GetTeam()->GetTeamId() &&
                     m_pArena->GetArena()->GetBomber(Index).GetBlockX() == BlockX &&
@@ -576,6 +590,11 @@ bool CAiBomber::EnemyNearAndFront(EEnemyDirection *direction, bool BeyondArenaFr
 
             for (int Index = 0; Index < MAX_PLAYERS; Index++)
             {
+
+                if (!m_pArena->GetArena()->GetBomber(Index).IsAlive() ||
+                    !m_pArena->GetArena()->GetBomber(Index).Exist())
+                    continue;
+
                 // If bomber in that block is from a different team
                 if (m_pArena->GetArena()->GetBomber(Index).GetTeam()->GetTeamId() != m_pArena->GetArena()->GetBomber(m_Player).GetTeam()->GetTeamId() &&
                     m_pArena->GetArena()->GetBomber(Index).GetBlockX() == BlockX &&
