@@ -750,9 +750,6 @@ bool CBomb::Update (float DeltaTime)
 
     }
 
-    if (!m_Remote && !m_BeingHeld && m_ElapsedTime > MAX_EXPLOSION_TIME)
-        Explode();
-
     // The bomb can only be destroyed by the arena if the
     // owner bomber knows one of its bomb is dead.
     return m_Dead && m_Checked;
