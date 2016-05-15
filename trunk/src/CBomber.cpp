@@ -1341,7 +1341,9 @@ void CBomber::MakeBombFly (EBombFlightType FlightType)
     
     // Now we don't have the bomb anymore in our hands.
     // This line is important for the caller of this method.
+    m_BomberState = BOMBERSTATE_WALK;
     m_BombIndex = -1;
+
 }
 
 //******************************************************************************************************************************

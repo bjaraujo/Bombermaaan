@@ -333,6 +333,13 @@ inline bool CArena::GetBlockHas (int BlockX, int BlockY, TBlockHas BlockHas)
     ASSERT (BlockX >= 0 && BlockX < ARENA_WIDTH);    
     ASSERT (BlockY >= 0 && BlockY < ARENA_HEIGHT);
 
+#ifdef _DEBUG
+    if (BlockX < 0 && BlockX >= ARENA_WIDTH)
+        BlockX = BlockX;
+    if (BlockY < 0 && BlockY >= ARENA_HEIGHT)
+        BlockY = BlockY;
+#endif
+
     // Return if the specified block has the required combination
     return (m_BlockHas[BlockX][BlockY] & BlockHas) != 0;
 }
@@ -416,232 +423,118 @@ inline void CArena::SetOptions (COptions *pOptions)
 
 inline bool CArena::IsWall (int BlockX, int BlockY) 
 { 
-    // Check coordinates
-    ASSERT(BlockX >= 0 && BlockX < ARENA_WIDTH);
-    ASSERT(BlockY >= 0 && BlockY < ARENA_HEIGHT);
-
     return GetBlockHas(BlockX, BlockY, BLOCKHAS_WALL); 
 }
 
 inline bool CArena::IsSoftWall (int BlockX, int BlockY) 
 {
-
-    // Check coordinates
-    ASSERT(BlockX >= 0 && BlockX < ARENA_WIDTH);
-    ASSERT(BlockY >= 0 && BlockY < ARENA_HEIGHT);
-
     return GetBlockHas(BlockX, BlockY, BLOCKHAS_WALLSOFT); 
 }
 
 inline bool CArena::IsHardWall (int BlockX, int BlockY) 
 {
-
-    // Check coordinates
-    ASSERT(BlockX >= 0 && BlockX < ARENA_WIDTH);
-    ASSERT(BlockY >= 0 && BlockY < ARENA_HEIGHT);
-
     return GetBlockHas(BlockX, BlockY, BLOCKHAS_WALLHARD); 
 }
 
 inline bool CArena::IsFallingWall (int BlockX, int BlockY) 
 {
-
-    // Check coordinates
-    ASSERT(BlockX >= 0 && BlockX < ARENA_WIDTH);
-    ASSERT(BlockY >= 0 && BlockY < ARENA_HEIGHT);
-
     return GetBlockHas(BlockX, BlockY, BLOCKHAS_WALLFALLING); 
 }
 
 inline bool CArena::IsBurningWall (int BlockX, int BlockY) 
 {
-
-    // Check coordinates
-    ASSERT(BlockX >= 0 && BlockX < ARENA_WIDTH);
-    ASSERT(BlockY >= 0 && BlockY < ARENA_HEIGHT);
-
     return GetBlockHas(BlockX, BlockY, BLOCKHAS_WALLBURNING); 
 }
 
 inline bool CArena::IsItem (int BlockX, int BlockY) 
 {
-
-    // Check coordinates
-    ASSERT(BlockX >= 0 && BlockX < ARENA_WIDTH);
-    ASSERT(BlockY >= 0 && BlockY < ARENA_HEIGHT);
-
     return GetBlockHas(BlockX, BlockY, BLOCKHAS_ITEM); 
 }
 
 inline bool CArena::IsBombItem (int BlockX, int BlockY) 
 {
-
-    // Check coordinates
-    ASSERT(BlockX >= 0 && BlockX < ARENA_WIDTH);
-    ASSERT(BlockY >= 0 && BlockY < ARENA_HEIGHT);
-
     return GetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMBOMB); 
 }
 
 inline bool CArena::IsFlameItem (int BlockX, int BlockY) 
 {
-
-    // Check coordinates
-    ASSERT(BlockX >= 0 && BlockX < ARENA_WIDTH);
-    ASSERT(BlockY >= 0 && BlockY < ARENA_HEIGHT);
-
     return GetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMFLAME); 
 }
 
 inline bool CArena::IsRollerItem (int BlockX, int BlockY) 
 {
-
-    // Check coordinates
-    ASSERT(BlockX >= 0 && BlockX < ARENA_WIDTH);
-    ASSERT(BlockY >= 0 && BlockY < ARENA_HEIGHT);
-
     return GetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMROLLER); 
 }
 
 inline bool CArena::IsKickItem (int BlockX, int BlockY) 
 {
-
-    // Check coordinates
-    ASSERT(BlockX >= 0 && BlockX < ARENA_WIDTH);
-    ASSERT(BlockY >= 0 && BlockY < ARENA_HEIGHT);
-
     return GetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMKICK); 
 }
 
 inline bool CArena::IsSkullItem (int BlockX, int BlockY) 
 {
-
-    // Check coordinates
-    ASSERT(BlockX >= 0 && BlockX < ARENA_WIDTH);
-    ASSERT(BlockY >= 0 && BlockY < ARENA_HEIGHT);
-
     return GetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMSKULL); 
 }
 
 inline bool CArena::IsThrowItem (int BlockX, int BlockY)
 {
-
-    // Check coordinates
-    ASSERT(BlockX >= 0 && BlockX < ARENA_WIDTH);
-    ASSERT(BlockY >= 0 && BlockY < ARENA_HEIGHT);
-
     return GetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMTHROW); 
 }
 
 inline bool CArena::IsPunchItem (int BlockX, int BlockY)
 {
-
-    // Check coordinates
-    ASSERT(BlockX >= 0 && BlockX < ARENA_WIDTH);
-    ASSERT(BlockY >= 0 && BlockY < ARENA_HEIGHT);
-
     return GetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMPUNCH); 
 }
 
 inline bool CArena::IsRemoteItem (int BlockX, int BlockY)
 {
-
-    // Check coordinates
-    ASSERT(BlockX >= 0 && BlockX < ARENA_WIDTH);
-    ASSERT(BlockY >= 0 && BlockY < ARENA_HEIGHT);
-
     return GetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMREMOTE); 
 }
 
 inline bool CArena::IsBurningItem (int BlockX, int BlockY) 
 {
-
-    // Check coordinates
-    ASSERT(BlockX >= 0 && BlockX < ARENA_WIDTH);
-    ASSERT(BlockY >= 0 && BlockY < ARENA_HEIGHT);
-
     return GetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMBURNING); 
 }
 
 inline bool CArena::IsBomb (int BlockX, int BlockY) 
 {
-
-    // Check coordinates
-    ASSERT(BlockX >= 0 && BlockX < ARENA_WIDTH);
-    ASSERT(BlockY >= 0 && BlockY < ARENA_HEIGHT);
-
     return GetBlockHas(BlockX, BlockY, BLOCKHAS_BOMB); 
 }
 
 inline bool CArena::IsFlame (int BlockX, int BlockY) 
 {
-
-    // Check coordinates
-    ASSERT(BlockX >= 0 && BlockX < ARENA_WIDTH);
-    ASSERT(BlockY >= 0 && BlockY < ARENA_HEIGHT);
-
     return GetBlockHas(BlockX, BlockY, BLOCKHAS_FLAME); 
 }
 
 inline bool CArena::IsExplosion (int BlockX, int BlockY) 
 {
-
-    // Check coordinates
-    ASSERT(BlockX >= 0 && BlockX < ARENA_WIDTH);
-    ASSERT(BlockY >= 0 && BlockY < ARENA_HEIGHT);
-
     return GetBlockHas(BlockX, BlockY, BLOCKHAS_EXPLOSION); 
 }
 
 inline bool CArena::IsBomber (int BlockX, int BlockY) 
 {
-
-    // Check coordinates
-    ASSERT(BlockX >= 0 && BlockX < ARENA_WIDTH);
-    ASSERT(BlockY >= 0 && BlockY < ARENA_HEIGHT);
-
     return GetBlockHas(BlockX, BlockY, BLOCKHAS_BOMBER); 
 }
 
 inline bool CArena::IsAliveBomber (int BlockX, int BlockY) 
 {
-
-    // Check coordinates
-    ASSERT(BlockX >= 0 && BlockX < ARENA_WIDTH);
-    ASSERT(BlockY >= 0 && BlockY < ARENA_HEIGHT);
-
     return GetBlockHas(BlockX, BlockY, BLOCKHAS_BOMBERALIVE); 
 }
 
 inline bool CArena::IsDyingBomber (int BlockX, int BlockY) 
 {
-
-    // Check coordinates
-    ASSERT(BlockX >= 0 && BlockX < ARENA_WIDTH);
-    ASSERT(BlockY >= 0 && BlockY < ARENA_HEIGHT);
-
     return GetBlockHas(BlockX, BlockY, BLOCKHAS_BOMBERDYING); 
 }
 
 inline bool CArena::IsFloor (int BlockX, int BlockY) 
 {
-
-    // Check coordinates
-    ASSERT(BlockX >= 0 && BlockX < ARENA_WIDTH);
-    ASSERT(BlockY >= 0 && BlockY < ARENA_HEIGHT);
-
     return GetBlockHas(BlockX, BlockY, BLOCKHAS_FLOOR); 
 }
 
 inline bool CArena::IsFloorWithMoveEffect (int BlockX, int BlockY)
 {
-
-    // Check coordinates
-    ASSERT(BlockX >= 0 && BlockX < ARENA_WIDTH);
-    ASSERT(BlockY >= 0 && BlockY < ARENA_HEIGHT);
-
     ASSERT( IsFloor( BlockX, BlockY ) );
-    
+
     return GetBlockHas( BlockX, BlockY, BLOCKHAS_FLOORWITHMOVEEFFECT );
 }
 
