@@ -98,7 +98,10 @@ void CArenaCloser::Start (void)
     int TotalBlocksToClose = m_ClosureData.size();
     
     // Set close interval to (Total closing time / Number of blocks to close)
-    m_TimeBetweenTwoBlockClosures = (float) TotalSeconds / TotalBlocksToClose;
+    if (TotalBlocksToClose > 0)
+        m_TimeBetweenTwoBlockClosures = (float)TotalSeconds / TotalBlocksToClose;
+    else
+        m_TimeBetweenTwoBlockClosures = (float)TotalSeconds;
 
     // Set time left before closing the first block
     m_TimeLeftBeforeClosingNextBlock = 0.0f;

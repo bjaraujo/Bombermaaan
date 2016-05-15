@@ -1311,11 +1311,6 @@ void CBomber::Animate(float DeltaTime)
         m_SickTimer += DeltaTime;
     }
 
-#ifdef _DEBUG
-    if (m_Page == 59 && m_Sprite >= 84)
-        ASSERT(1 == 2);
-#endif
-
     // Set the new bomber state
     m_BomberState = NewBomberState;
 }

@@ -235,31 +235,43 @@ inline CArenaCloser& CArena::GetArenaCloser (void)
 
 inline CBomber &CArena::GetBomber (int Index)
 {
+    ASSERT (Index >= 0 && Index < MAX_BOMBERS);
+
     return m_Bombers[Index];
 }
 
 inline CBomb &CArena::GetBomb (int Index)
 {
+    ASSERT (Index >= 0 && Index < MAX_BOMBS);
+
     return m_Bombs[Index];
 }
 
 inline CWall &CArena::GetWall (int Index)
 {
+    ASSERT (Index >= 0 && Index < MAX_WALLS);
+
     return m_Walls[Index];
 }
 
 inline CItem &CArena::GetItem (int Index)
 {
+    ASSERT (Index >= 0 && Index < MAX_ITEMS);
+
     return m_Items[Index];
 }
 
 inline CExplosion &CArena::GetExplosion (int Index)
 {
+    ASSERT (Index >= 0 && Index < MAX_EXPLOSIONS);
+
     return m_Explosions[Index];
 }
 
 inline CFloor &CArena::GetFloor (int Index)
 {
+    ASSERT (Index >= 0 && Index < MAX_FLOORS);
+
     return m_Floors[Index];
 }
 
@@ -317,6 +329,9 @@ inline int CArena::BombsInUse (void)
 
 inline bool CArena::GetBlockHas (int BlockX, int BlockY, TBlockHas BlockHas)
 {
+    // Check coordinates
+    ASSERT (BlockX >= 0 && BlockX < ARENA_WIDTH);    
+    ASSERT (BlockY >= 0 && BlockY < ARENA_HEIGHT);
 
 #ifndef _DEBUG
     // HACK to resolve BlockX being out of range
@@ -330,6 +345,9 @@ inline bool CArena::GetBlockHas (int BlockX, int BlockY, TBlockHas BlockHas)
 
 inline void CArena::SetBlockHas (int BlockX, int BlockY, TBlockHas BlockHas)
 {
+    // Check coordinates
+    ASSERT (BlockX >= 0 && BlockX < ARENA_WIDTH);
+    ASSERT (BlockY >= 0 && BlockY < ARENA_HEIGHT);
 
 #ifndef _DEBUG
     // HACK to resolve BlockX being out of range

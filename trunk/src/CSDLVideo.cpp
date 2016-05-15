@@ -336,6 +336,10 @@ void CSDLVideo::DrawSprite(int PositionX,
     int PriorityInLayer)
 {
 
+    // Check if the parameters are valid
+    ASSERT(SpriteTable >= 0 && SpriteTable < (int)m_SpriteTables.size());
+    ASSERT(Sprite >= 0 && Sprite < (int)m_SpriteTables[SpriteTable].size());
+
 #ifndef _DEBUG
     // HACK to resolve Sprite being out of range when 
     // player invisible and throwing a bomb
