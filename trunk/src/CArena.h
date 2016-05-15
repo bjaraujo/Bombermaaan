@@ -329,16 +329,10 @@ inline int CArena::BombsInUse (void)
 
 inline bool CArena::GetBlockHas (int BlockX, int BlockY, TBlockHas BlockHas)
 {
-    // Check coordinates
-    ASSERT (BlockX >= 0 && BlockX < ARENA_WIDTH);    
-    ASSERT (BlockY >= 0 && BlockY < ARENA_HEIGHT);
 
-#ifdef _DEBUG
-    if (BlockX < 0 && BlockX >= ARENA_WIDTH)
-        BlockX = BlockX;
-    if (BlockY < 0 && BlockY >= ARENA_HEIGHT)
-        BlockY = BlockY;
-#endif
+    // HACK to resolve BlockX being out of range
+    BlockX = MAX(MIN(BlockX, ARENA_WIDTH - 1), 0);
+    BlockY = MAX(MIN(BlockY, ARENA_HEIGHT - 1), 0);
 
     // Return if the specified block has the required combination
     return (m_BlockHas[BlockX][BlockY] & BlockHas) != 0;
