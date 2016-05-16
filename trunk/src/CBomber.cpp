@@ -379,55 +379,58 @@ void CBomber::Die(void)
 {
     debugLog.WriteDebugMsg(DEBUGSECT_BOMBER, "Bomber dying [id=%d, x=%02d, y=%02d].", m_Player, m_BomberMove.GetBlockX(), m_BomberMove.GetBlockY());
 
-    if (theDebug.CanBombersDie())
-    {
-        // If the bomber has not won the current match
-        if (!p_Team->IsVictorious())
-        {
-            // Make the bomber start dying : set the dead state
-            // and reset the timer.
-            if (m_Dead == DEAD_ALIVE)
-            {
-                // If the bomber was doing something with a bomb
-                if (m_BombIndex != -1)
-                {
-                    // If the bomber is just lifting this bomb
-                    if (m_BomberState == BOMBERSTATE_LIFT) {
-                        // End the lifting and make the bomber hold the bomb
-                        m_pArena->GetBomb(m_BombIndex).SetBeingHeld();
-                        m_BomberState = BOMBERSTATE_WALK_HOLD;
-                    }
+	if (theDebug.CanBombersDie())
+	{
+		// If the bomber has not won the current match
+		if (!p_Team->IsVictorious())
+		{
+			// Make the bomber start dying : set the dead state
+			// and reset the timer.
+			if (m_Dead == DEAD_ALIVE)
+			{
+				// If the bomber was doing something with a bomb
+				if (m_BombIndex != -1)
+				{
+					// If the bomber is just lifting this bomb
+					if (m_BomberState == BOMBERSTATE_LIFT) {
+						// End the lifting and make the bomber hold the bomb
+						m_pArena->GetBomb(m_BombIndex).SetBeingHeld();
+						m_BomberState = BOMBERSTATE_WALK_HOLD;
+					}
 
-                    // If the bomber died while holding or throwing a bomb
-                    if (m_BomberState == BOMBERSTATE_WALK_HOLD ||
-                        m_BomberState == BOMBERSTATE_THROW)
-                    {
-                        // Make him throw the bomb (with no bomber throwing animation)
-                        MakeBombFly(BOMBFLIGHTTYPE_THROW);
-                    }
-                    // If the bomber died while punching a bomb
-                    else if (m_BomberState == BOMBERSTATE_PUNCH)
-                    {
-                        // Make him punch the bomb now (with no bomber punching animation).
-                        // Yes, that's strange, since he is dying now. But we have to release the bomb
-                        // otherwise it won't explode (bug tracker #2160381). Besides, this can only happen
-                        // during the first animation sequence (ANIMBOMBPUNCHING_TIME1) so the human
-                        // players should not notice since it's just 0.08 seconds currently.
-                        MakeBombFly(BOMBFLIGHTTYPE_PUNCH);
-                    }
-                    //! @todo check if another else assert(0) makes sense since we still have a bomb (m_BombIndex != -1)
+					// If the bomber died while holding or throwing a bomb
+					if (m_BomberState == BOMBERSTATE_WALK_HOLD ||
+						m_BomberState == BOMBERSTATE_THROW)
+					{
+						// Make him throw the bomb (with no bomber throwing animation)
+						MakeBombFly(BOMBFLIGHTTYPE_THROW);
+					}
+					// If the bomber died while punching a bomb
+					else if (m_BomberState == BOMBERSTATE_PUNCH)
+					{
+						// Make him punch the bomb now (with no bomber punching animation).
+						// Yes, that's strange, since he is dying now. But we have to release the bomb
+						// otherwise it won't explode (bug tracker #2160381). Besides, this can only happen
+						// during the first animation sequence (ANIMBOMBPUNCHING_TIME1) so the human
+						// players should not notice since it's just 0.08 seconds currently.
+						MakeBombFly(BOMBFLIGHTTYPE_PUNCH);
+					}
+					//! @todo check if another else assert(0) makes sense since we still have a bomb (m_BombIndex != -1)
 
-                }
+				}
 
-                m_Dead = DEAD_DYING;
-                m_BomberState = BOMBERSTATE_DEATH;
-                m_Timer = 0.0f;
-            }
+				m_Dead = DEAD_DYING;
+				m_BomberState = BOMBERSTATE_DEATH;
+				m_Timer = 0.0f;
+			}
 
-            // Play the bomber death sound
-            m_pSound->PlaySample(SAMPLE_BOMBER_DEATH);
-        }
-    }
+			// Play the bomber death sound
+			m_pSound->PlaySample(SAMPLE_BOMBER_DEATH);
+		}
+
+		Animate(0.0f);
+
+	}
 }
 
 //******************************************************************************************************************************
@@ -793,7 +796,6 @@ void CBomber::Action()
                     }
                 }
 
-
                 // If the bomber can remote fuse bombs and we didn't punch a bomb (see above)
                 if (CanRemoteFuseBombs() && !bomberHasPunchedBomb)
                 {
@@ -834,6 +836,9 @@ void CBomber::Action()
 
         // Remember bomber action
         m_LastBomberAction = m_BomberAction;
+
+		Animate(0.0f);
+
     }
 }
 
@@ -1896,6 +1901,9 @@ void CBomber::Stunt(void)
 
     // The bomber is now stunt
     m_BomberState = BOMBERSTATE_STUNT;
+
+	Animate(0.0f);
+
 }
 
 //******************************************************************************************************************************
