@@ -333,12 +333,6 @@ inline bool CArena::GetBlockHas (int BlockX, int BlockY, TBlockHas BlockHas)
     ASSERT (BlockX >= 0 && BlockX < ARENA_WIDTH);    
     ASSERT (BlockY >= 0 && BlockY < ARENA_HEIGHT);
 
-#ifndef _DEBUG
-    // HACK to resolve BlockX being out of range
-    BlockX = MAX(MIN(BlockX, ARENA_WIDTH - 1), 0);
-    BlockY = MAX(MIN(BlockY, ARENA_HEIGHT - 1), 0);
-#endif
-
     // Return if the specified block has the required combination
     return (m_BlockHas[BlockX][BlockY] & BlockHas) != 0;
 }
@@ -348,12 +342,6 @@ inline void CArena::SetBlockHas (int BlockX, int BlockY, TBlockHas BlockHas)
     // Check coordinates
     ASSERT (BlockX >= 0 && BlockX < ARENA_WIDTH);
     ASSERT (BlockY >= 0 && BlockY < ARENA_HEIGHT);
-
-#ifndef _DEBUG
-    // HACK to resolve BlockX being out of range
-    BlockX = MAX(MIN(BlockX, ARENA_WIDTH - 1), 0);
-    BlockY = MAX(MIN(BlockY, ARENA_HEIGHT - 1), 0);
-#endif
 
     m_BlockHas[BlockX][BlockY] |= BlockHas;
 }

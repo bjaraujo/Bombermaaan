@@ -428,6 +428,7 @@ void CBomber::Die(void)
 			m_pSound->PlaySample(SAMPLE_BOMBER_DEATH);
 		}
 
+		// Call animate whenever bomber changes state to update m_Page and m_Sprite correctly
 		Animate(0.0f);
 
 	}
@@ -837,6 +838,7 @@ void CBomber::Action()
         // Remember bomber action
         m_LastBomberAction = m_BomberAction;
 
+		// Call animate whenever bomber changes state to update m_Page and m_Sprite correctly
 		Animate(0.0f);
 
     }
@@ -1902,6 +1904,7 @@ void CBomber::Stunt(void)
     // The bomber is now stunt
     m_BomberState = BOMBERSTATE_STUNT;
 
+	// Call animate whenever bomber changes state to update m_Page and m_Sprite correctly
 	Animate(0.0f);
 
 }

@@ -531,13 +531,6 @@ void CDirectDraw::DrawSprite(int PositionX,
     ASSERT(SpriteTable >= 0 && SpriteTable < (int)m_SpriteTables.size());
     ASSERT(Sprite >= 0 && Sprite < (int)m_SpriteTables[SpriteTable].size());
 
-#ifndef _DEBUG
-    // HACK to resolve Sprite being out of range when 
-    // player invisible and throwing a bomb
-    SpriteTable = MAX(MIN(SpriteTable, (int)m_SpriteTables.size() - 1), 0);
-    Sprite = MAX(MIN(Sprite, (int)m_SpriteTables[SpriteTable].size() - 1), 0);
-#endif
-
     // Prepare a drawing request
     SDrawingRequest DrawingRequest;
 
