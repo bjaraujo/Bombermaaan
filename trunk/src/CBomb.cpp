@@ -733,6 +733,18 @@ bool CBomb::Update (float DeltaTime)
         m_Timer += DeltaTime;
     }
 
+    // HACK to resolve issue with non-exploding bombs
+    // would be better to resolve it in the logic though
+    if (m_BeingHeld || m_BeingLifted)
+    {
+        if (m_pArena->GetBomber(GetOwnerPlayer()).GetBlockX() != m_BlockX ||
+            m_pArena->GetBomber(GetOwnerPlayer()).GetBlockY() != m_BlockY)
+        {
+            m_BeingHeld = false;
+            m_BeingLifted = false;
+        }
+    }
+
     if (!m_pArena->GetBomber(GetOwnerPlayer()).IsAlive())
     {
 
