@@ -1092,9 +1092,14 @@ void CBomber::Animate(float DeltaTime)
                     m_Sprite = m_AnimationSprites[2];
                     m_LiftingTimeElapsed = 0.0f;
 
-                    // The bomber now holds the bomb
-                    m_pArena->GetBomb(m_BombIndex).SetBeingHeld();
-                    NewBomberState = BOMBERSTATE_WALK_HOLD;
+                    if (m_pArena->GetBomb(m_BombIndex).IsBeingLifted())
+                    { 
+                        // The bomber now holds the bomb
+                        m_pArena->GetBomb(m_BombIndex).SetBeingHeld();
+                        NewBomberState = BOMBERSTATE_WALK_HOLD;
+                    }
+                    else
+                        NewBomberState = BOMBERSTATE_WALK;
 
                 }
 
