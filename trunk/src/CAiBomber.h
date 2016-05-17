@@ -113,7 +113,8 @@ private:
     bool            GoTo (int GoalBlockX, int GoalBlockY);              // Modify the commands to send to the bomber so that it moves to the specified goal
     bool            EnemyNearAndFront (EEnemyDirection *direction = NULL, bool BeyondArenaFrontiers = false); // Returns true if a bomber enemy is near the bomber and in front of him
     bool            EnemyNearRemoteFuseBomb (CBomb& bomb);
-    bool            DropBombOK (int BlockX, int BlockY);
+    bool            TeamMateNearRemoteFuseBomb(CBomb& bomb);
+    bool            DropBombOK(int BlockX, int BlockY);
     bool            EnemyNear (int BlockX, int BlockY);
     int             ItemMark (int BlockX, int BlockY);
                                                             

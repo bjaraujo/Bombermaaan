@@ -47,7 +47,7 @@
 //******************************************************************************************************************************
 
 // How many chances to have a soft wall instead of a floor? (in %)
-#define CHANCE_SOFTWALL       80
+#define CHANCE_SOFTWALL       50
 
 // Position of the up left corner of the arena from the game's view up left corner.
 #define ARENA_POSITION_X     0

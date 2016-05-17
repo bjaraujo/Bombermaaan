@@ -658,7 +658,7 @@ bool CAiBomber::EnemyNear(int BlockX, int BlockY)
             m_pArena->GetArena()->GetBomber(Index).GetTeam()->GetTeamId() != m_pArena->GetArena()->GetBomber(m_Player).GetTeam()->GetTeamId() &&
             ABS(m_pArena->GetArena()->GetBomber(Index).GetBlockX() - BlockX) +
             ABS(m_pArena->GetArena()->GetBomber(Index).GetBlockY() - BlockY) <= 3 &&
-            RANDOM(100) < 92)
+            RANDOM(100) < 90 + Index * 2)
         {
             // There is an enemy not far from the tested block
             return true;
@@ -705,7 +705,7 @@ bool CAiBomber::EnemyNearRemoteFuseBomb(CBomb& bomb)
             m_pArena->GetArena()->GetBomber(Index).GetTeam()->GetTeamId() != m_pArena->GetArena()->GetBomber(m_Player).GetTeam()->GetTeamId() &&
             ((BomberX == BombX && ABS(BomberY - BombY) <= bomb.GetFlameSize()) ||
             (BomberY == BombY && ABS(BomberX - BombX) <= bomb.GetFlameSize())) &&
-            RANDOM(100) < 70)
+            RANDOM(100) < 70 + Index * 2)
         {
             // There is an enemy not far from the tested bomb
             return true;
@@ -713,6 +713,45 @@ bool CAiBomber::EnemyNearRemoteFuseBomb(CBomb& bomb)
     }
 
     // There is no enemy not far from the tested bomb
+    return false;
+}
+
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+
+bool CAiBomber::TeamMateNearRemoteFuseBomb(CBomb& bomb)
+{
+    // TODO: simulate explosion properly (like in CExplosion)
+    int BombX = bomb.GetBlockX();
+    int BombY = bomb.GetBlockY();
+
+    int BomberX;
+    int BomberY;
+
+    //ASSERT(bomb.IsRemote());
+
+    // Scan the players
+    for (int Index = 0; Index < MAX_PLAYERS; Index++)
+    {
+
+        if (!m_pArena->GetArena()->GetBomber(Index).Exist() ||
+            !m_pArena->GetArena()->GetBomber(Index).IsAlive())
+            continue;
+
+        BomberX = m_pArena->GetArena()->GetBomber(Index).GetBlockX();
+        BomberY = m_pArena->GetArena()->GetBomber(Index).GetBlockY();
+
+        if (m_pArena->GetArena()->GetBomber(Index).GetTeam()->GetTeamId() == m_pArena->GetArena()->GetBomber(m_Player).GetTeam()->GetTeamId() &&
+            ((BomberX == BombX && ABS(BomberY - BombY) <= bomb.GetFlameSize()) ||
+            (BomberY == BombY && ABS(BomberX - BombX) <= bomb.GetFlameSize())))
+        {
+            // There is a team mate is close to the tested bomb
+            return true;
+        }
+    }
+
+    // There is no team mate close to the tested bomb
     return false;
 }
 
@@ -1185,13 +1224,17 @@ void CAiBomber::ModeThink(void)
                 // It's mine, it's mine! Check for players near it.
                 // If there are none, there is a 10 % chance that we detonate it
                 if (EnemyNearRemoteFuseBomb(m_pArena->GetArena()->GetBomb(Index))
-                    || RANDOM(100) < 10)
+                    || RANDOM(100) < 50)
                 {
-                    // Let's detonate it.
-                    SetComputerMode(COMPUTERMODE_2NDACTION);
+                    if (!TeamMateNearRemoteFuseBomb(m_pArena->GetArena()->GetBomb(Index)) 
+                        || RANDOM(100) > 96)
+                    {
+                        // Let's detonate it.d
+                        SetComputerMode(COMPUTERMODE_2NDACTION);
 
-                    // OK, get out since we decided what to do
-                    return;
+                        // OK, get out since we decided what to do
+                        return;
+                    }
                 }
 
                 // there is no enemy :(
@@ -1784,6 +1827,9 @@ void CAiBomber::ModeDefence(float DeltaTime)
                 if (m_pArena->GetArena()->GetBomb(Index).Exist() && m_pArena->GetArena()->GetBomb(Index).IsRemote() &&
                     m_pArena->GetArena()->GetBomb(Index).GetOwnerPlayer() == m_Player)
                 {
+                    if (TeamMateNearRemoteFuseBomb(m_pArena->GetArena()->GetBomb(Index)) && RANDOM(100) < 95)
+                        break;
+
                     // Leave the for-loop, because we found a bomb
                     m_BomberAction = BOMBERACTION_ACTION2; // detonate the bomb
                     break;
