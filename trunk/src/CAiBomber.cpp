@@ -1226,7 +1226,7 @@ void CAiBomber::ModeThink(void)
                 if (EnemyNearRemoteFuseBomb(m_pArena->GetArena()->GetBomb(Index))
                     || RANDOM(100) < 50)
                 {
-                    if (!TeamMateNearRemoteFuseBomb(m_pArena->GetArena()->GetBomb(Index)) 
+                    if (!TeamMateNearRemoteFuseBomb(m_pArena->GetArena()->GetBomb(Index))
                         || RANDOM(100) > 96)
                     {
                         // Let's detonate it.d
@@ -1883,19 +1883,11 @@ void CAiBomber::ModeDefence(float DeltaTime)
                 // and this block is not in danger
                 // and this block is closer than the closest good block we saved
                 if (m_Accessible[BlockX][BlockY] != -1 &&
-                    (EnemyNear(BlockX, BlockY) ? m_pArena->GetDeadEnd(BlockX, BlockY) == -1 : (m_pArena->GetDeadEnd(BlockX, BlockY) != -1 || !DeadEnd)) &&
+                   (m_pArena->GetDeadEnd(BlockX, BlockY) == -1 || !DeadEnd) &&
                     m_pArena->GetDanger(BlockX, BlockY) == DANGER_NONE &&
-                    !m_pArena->GetArena()->IsSkullItem(BlockX, BlockY)
-                    &&
-                    (
-                    m_Accessible[BlockX][BlockY] < BestDistance
-                    ||
-                    (
-                    m_Accessible[BlockX][BlockY] == BestDistance
-                    &&
-                    RANDOM(100) >= 50
-                    )
-                    ))
+                   !m_pArena->GetArena()->IsSkullItem(BlockX, BlockY) &&
+                   (m_Accessible[BlockX][BlockY] < BestDistance ||
+                   (m_Accessible[BlockX][BlockY] == BestDistance && RANDOM(100) >= 50)))
                 {
                     // We found a good block to go to
                     Found = true;

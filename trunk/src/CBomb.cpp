@@ -2,7 +2,7 @@
 
     Copyright (C) 2000-2002, 2007 Thibaut Tollemer
     Copyright (C) 2007, 2008 Bernd Arnold
-	Copyright (C) 2008 Jerome Bigot
+    Copyright (C) 2008 Jerome Bigot
 
     This file is part of Bombermaaan.
 
@@ -19,7 +19,7 @@
     You should have received a copy of the GNU General Public License
     along with Bombermaaan.  If not, see <http://www.gnu.org/licenses/>.
 
-************************************************************************************/
+    ************************************************************************************/
 
 
 /**
@@ -39,59 +39,59 @@
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-int CBomb::m_ThrowMoveX[NUMBER_OF_BOMBFLY_DIRECTIONS][6] = 
-    {
-        {   0,   0,   0,   0,   0,   0 }, // BOMBFLY_NONE
-        {   0,   0,   0,   0,   0,   0 }, // BOMBFLY_UP
-        {   0,   0,   0,   0,   0,   0 }, // BOMBFLY_DOWN
-        { -10, -11,  -9,  -7,  -7,  -4 }, // BOMBFLY_LEFT
-        {  10,  11,   9,   7,   7,   4 }, // BOMBFLY_RIGHT
-    };
+int CBomb::m_ThrowMoveX[NUMBER_OF_BOMBFLY_DIRECTIONS][6] =
+{
+    { 0, 0, 0, 0, 0, 0 }, // BOMBFLY_NONE
+    { 0, 0, 0, 0, 0, 0 }, // BOMBFLY_UP
+    { 0, 0, 0, 0, 0, 0 }, // BOMBFLY_DOWN
+    { -10, -11, -9, -7, -7, -4 }, // BOMBFLY_LEFT
+    { 10, 11, 9, 7, 7, 4 }, // BOMBFLY_RIGHT
+};
 
-int CBomb::m_ThrowMoveY[NUMBER_OF_BOMBFLY_DIRECTIONS][6] = 
-    {
-        {   0,   0,   0,   0,   0,   0 }, // BOMBFLY_NONE
-        {  -5,  -7,  -8,  -8,  -5,  -5 }, // BOMBFLY_UP
-        {   7,   9,  14,  15,  11,   9 }, // BOMBFLY_DOWN
-        {  -4,  -1,   2,   4,   6,  10 }, // BOMBFLY_LEFT
-        {  -4,  -1,   2,   4,   6,  10 }, // BOMBFLY_RIGHT
-    };
+int CBomb::m_ThrowMoveY[NUMBER_OF_BOMBFLY_DIRECTIONS][6] =
+{
+    { 0, 0, 0, 0, 0, 0 }, // BOMBFLY_NONE
+    { -5, -7, -8, -8, -5, -5 }, // BOMBFLY_UP
+    { 7, 9, 14, 15, 11, 9 }, // BOMBFLY_DOWN
+    { -4, -1, 2, 4, 6, 10 }, // BOMBFLY_LEFT
+    { -4, -1, 2, 4, 6, 10 }, // BOMBFLY_RIGHT
+};
 
-int CBomb::m_PunchMoveX[NUMBER_OF_BOMBFLY_DIRECTIONS][6] = 
-    {
-        {   0,   0,   0,   0,   0,   0 }, // BOMBFLY_NONE
-        {   0,   0,   0,   0,   0,   0 }, // BOMBFLY_UP
-        {   0,   0,   0,   0,   0,   0 }, // BOMBFLY_DOWN
-        {  -8, -10,  -9,  -9,  -6,  -6 }, // BOMBFLY_LEFT
-        {   8,  10,   9,   9,   6,   6 }, // BOMBFLY_RIGHT
-    };
+int CBomb::m_PunchMoveX[NUMBER_OF_BOMBFLY_DIRECTIONS][6] =
+{
+    { 0, 0, 0, 0, 0, 0 }, // BOMBFLY_NONE
+    { 0, 0, 0, 0, 0, 0 }, // BOMBFLY_UP
+    { 0, 0, 0, 0, 0, 0 }, // BOMBFLY_DOWN
+    { -8, -10, -9, -9, -6, -6 }, // BOMBFLY_LEFT
+    { 8, 10, 9, 9, 6, 6 }, // BOMBFLY_RIGHT
+};
 
-int CBomb::m_PunchMoveY[NUMBER_OF_BOMBFLY_DIRECTIONS][6] = 
-    {
-        {   0,   0,   0,   0,   0,   0 }, // BOMBFLY_NONE
-        {  -6,  -8, -10, -10,  -8,  -6 }, // BOMBFLY_UP
-        {   6,   8,  10,  10,   8,   6 }, // BOMBFLY_DOWN
-        {  -9,  -5,   0,   3,   4,   7 }, // BOMBFLY_LEFT
-        {  -9,  -5,   0,   3,   4,   7 }, // BOMBFLY_RIGHT
-    };
+int CBomb::m_PunchMoveY[NUMBER_OF_BOMBFLY_DIRECTIONS][6] =
+{
+    { 0, 0, 0, 0, 0, 0 }, // BOMBFLY_NONE
+    { -6, -8, -10, -10, -8, -6 }, // BOMBFLY_UP
+    { 6, 8, 10, 10, 8, 6 }, // BOMBFLY_DOWN
+    { -9, -5, 0, 3, 4, 7 }, // BOMBFLY_LEFT
+    { -9, -5, 0, 3, 4, 7 }, // BOMBFLY_RIGHT
+};
 
-int CBomb::m_BounceMoveX[NUMBER_OF_BOMBFLY_DIRECTIONS][3] = 
-    {
-        {   0,   0,   0 }, // BOMBFLY_NONE
-        {   0,   0,   0 }, // BOMBFLY_UP
-        {   0,   0,   0 }, // BOMBFLY_DOWN
-        {  -5,  -6,  -5 }, // BOMBFLY_LEFT
-        {   5,   6,   5 }, // BOMBFLY_RIGHT
-    };
+int CBomb::m_BounceMoveX[NUMBER_OF_BOMBFLY_DIRECTIONS][3] =
+{
+    { 0, 0, 0 }, // BOMBFLY_NONE
+    { 0, 0, 0 }, // BOMBFLY_UP
+    { 0, 0, 0 }, // BOMBFLY_DOWN
+    { -5, -6, -5 }, // BOMBFLY_LEFT
+    { 5, 6, 5 }, // BOMBFLY_RIGHT
+};
 
-int CBomb::m_BounceMoveY[NUMBER_OF_BOMBFLY_DIRECTIONS][3] = 
-    {
-        {   0,   0,   0 }, // BOMBFLY_NONE
-        {  -5,  -7,  -4 }, // BOMBFLY_UP
-        {   4,   7,   5 }, // BOMBFLY_DOWN
-        {  -4,   0,   4 }, // BOMBFLY_LEFT
-        {  -4,   0,   4 }, // BOMBFLY_RIGHT
-    };
+int CBomb::m_BounceMoveY[NUMBER_OF_BOMBFLY_DIRECTIONS][3] =
+{
+    { 0, 0, 0 }, // BOMBFLY_NONE
+    { -5, -7, -4 }, // BOMBFLY_UP
+    { 4, 7, 5 }, // BOMBFLY_DOWN
+    { -4, 0, 4 }, // BOMBFLY_LEFT
+    { -4, 0, 4 }, // BOMBFLY_RIGHT
+};
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -150,9 +150,9 @@ int CBomb::m_BounceMoveY[NUMBER_OF_BOMBFLY_DIRECTIONS][3] =
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CBomb::CBomb (void) : CElement()
+CBomb::CBomb(void) : CElement()
 {
-    
+
     m_iX = 0;
     m_iY = 0;
     m_X = 0.0f;
@@ -175,12 +175,12 @@ CBomb::CBomb (void) : CElement()
     m_FlightTimer = 0.0f;
     m_FlightFrame = 0;
     m_Warping = false;
-	m_Remote = false;
+    m_Remote = false;
 
-	m_BombKick = BOMBKICK_NONE;
-	m_BombFly = BOMBFLY_NONE;
-	m_FlightType = BOMBFLIGHTTYPE_NONE;
-    
+    m_BombKick = BOMBKICK_NONE;
+    m_BombFly = BOMBFLY_NONE;
+    m_FlightType = BOMBFLIGHTTYPE_NONE;
+
 }
 
 //******************************************************************************************************************************
@@ -188,9 +188,9 @@ CBomb::CBomb (void) : CElement()
 //******************************************************************************************************************************
 
 
-CBomb::~CBomb (void)
+CBomb::~CBomb(void)
 {
-    
+
 }
 
 //******************************************************************************************************************************
@@ -198,17 +198,17 @@ CBomb::~CBomb (void)
 //******************************************************************************************************************************
 
 
-void CBomb::Create (int BlockX, int BlockY, int FlameSize, float TimeLeft, int OwnerPlayer)
+void CBomb::Create(int BlockX, int BlockY, int FlameSize, float TimeLeft, int OwnerPlayer)
 {
     CElement::Create();
 
-    debugLog.WriteDebugMsg( DEBUGSECT_BOMB, "New bomb [x=%02d, y=%02d, flamesize=%02d, owner=%d].", BlockX, BlockY, FlameSize, OwnerPlayer );
+    debugLog.WriteDebugMsg(DEBUGSECT_BOMB, "New bomb [x=%02d, y=%02d, flamesize=%02d, owner=%d].", BlockX, BlockY, FlameSize, OwnerPlayer);
 
-    m_iX = m_pArena->ToPosition (BlockX); 
-    m_iY = m_pArena->ToPosition (BlockY);
-    m_X = float (m_iX);
-    m_Y = float (m_iY);
-    m_BlockX = BlockX; 
+    m_iX = m_pArena->ToPosition(BlockX);
+    m_iY = m_pArena->ToPosition(BlockY);
+    m_X = float(m_iX);
+    m_Y = float(m_iY);
+    m_BlockX = BlockX;
     m_BlockY = BlockY;
     m_TimeLeft = TimeLeft;
     m_FlameSize = FlameSize;
@@ -219,7 +219,7 @@ void CBomb::Create (int BlockX, int BlockY, int FlameSize, float TimeLeft, int O
     m_Timer = 0.0f;
     m_Dead = false;
     m_HasToStopMoving = false;
-    m_Checked = false;  
+    m_Checked = false;
     m_OwnerPlayer = OwnerPlayer;
     m_KickerPlayer = -1;   // No kicker yet
     m_BeingLifted = false;
@@ -229,8 +229,8 @@ void CBomb::Create (int BlockX, int BlockY, int FlameSize, float TimeLeft, int O
     m_FlightFrame = -1;
     m_FlightType = BOMBFLIGHTTYPE_NONE;
     m_Warping = false;
-	m_Remote = m_pArena->GetBomber(OwnerPlayer).CanRemoteFuseBombs();
-		
+    m_Remote = m_pArena->GetBomber(OwnerPlayer).CanRemoteFuseBombs();
+
     if (TimeLeft <= 1.0f)
     {
         m_AnimationTimes[0] = ANIMBOMB_FAST_TIME1;
@@ -259,7 +259,7 @@ void CBomb::Create (int BlockX, int BlockY, int FlameSize, float TimeLeft, int O
 //******************************************************************************************************************************
 
 
-void CBomb::Destroy (void)
+void CBomb::Destroy(void)
 {
     CElement::Destroy();
 }
@@ -272,28 +272,28 @@ void CBomb::Destroy (void)
 // explosion in the arena, Then the bomb is dead and can
 // be deleted by the arena.
 
-void CBomb::Explode (void)
+void CBomb::Explode(void)
 {
-    debugLog.WriteDebugMsg( DEBUGSECT_BOMB, "Bomb exploding [x=%02d, y=%02d, flamesize=%02d, owner=%d].", m_BlockX, m_BlockY, m_FlameSize, m_OwnerPlayer );
+    debugLog.WriteDebugMsg(DEBUGSECT_BOMB, "Bomb exploding [x=%02d, y=%02d, flamesize=%02d, owner=%d].", m_BlockX, m_BlockY, m_FlameSize, m_OwnerPlayer);
 
     // Create the explosion
-    m_pArena->NewExplosion (m_BlockX, m_BlockY, m_FlameSize);
-    
+    m_pArena->NewExplosion(m_BlockX, m_BlockY, m_FlameSize);
+
     // Play a random explosion sound according to its flame size
     switch (m_FlameSize)
     {
-        case 1  : m_pSound->PlaySample ((RANDOM(100) >= 50 ? SAMPLE_EXPLOSION_01_1 : SAMPLE_EXPLOSION_01_2)); break;
-        case 2  : m_pSound->PlaySample ((RANDOM(100) >= 50 ? SAMPLE_EXPLOSION_02_1 : SAMPLE_EXPLOSION_02_2)); break;
-        case 3  : m_pSound->PlaySample ((RANDOM(100) >= 50 ? SAMPLE_EXPLOSION_03_1 : SAMPLE_EXPLOSION_03_2)); break;
-        case 4  : m_pSound->PlaySample ((RANDOM(100) >= 50 ? SAMPLE_EXPLOSION_04_1 : SAMPLE_EXPLOSION_04_2)); break;
-        case 5  : m_pSound->PlaySample ((RANDOM(100) >= 50 ? SAMPLE_EXPLOSION_05_1 : SAMPLE_EXPLOSION_05_2)); break;
-        case 6  : m_pSound->PlaySample ((RANDOM(100) >= 50 ? SAMPLE_EXPLOSION_06_1 : SAMPLE_EXPLOSION_06_2)); break;
-        case 7  : m_pSound->PlaySample ((RANDOM(100) >= 50 ? SAMPLE_EXPLOSION_07_1 : SAMPLE_EXPLOSION_07_2)); break;
-        case 8  : m_pSound->PlaySample ((RANDOM(100) >= 50 ? SAMPLE_EXPLOSION_08_1 : SAMPLE_EXPLOSION_08_2)); break;
-        case 9  : m_pSound->PlaySample ((RANDOM(100) >= 50 ? SAMPLE_EXPLOSION_09_1 : SAMPLE_EXPLOSION_09_2)); break;
-        default : m_pSound->PlaySample ((RANDOM(100) >= 50 ? SAMPLE_EXPLOSION_10_1 : SAMPLE_EXPLOSION_10_2)); break;
+    case 1: m_pSound->PlaySample((RANDOM(100) >= 50 ? SAMPLE_EXPLOSION_01_1 : SAMPLE_EXPLOSION_01_2)); break;
+    case 2: m_pSound->PlaySample((RANDOM(100) >= 50 ? SAMPLE_EXPLOSION_02_1 : SAMPLE_EXPLOSION_02_2)); break;
+    case 3: m_pSound->PlaySample((RANDOM(100) >= 50 ? SAMPLE_EXPLOSION_03_1 : SAMPLE_EXPLOSION_03_2)); break;
+    case 4: m_pSound->PlaySample((RANDOM(100) >= 50 ? SAMPLE_EXPLOSION_04_1 : SAMPLE_EXPLOSION_04_2)); break;
+    case 5: m_pSound->PlaySample((RANDOM(100) >= 50 ? SAMPLE_EXPLOSION_05_1 : SAMPLE_EXPLOSION_05_2)); break;
+    case 6: m_pSound->PlaySample((RANDOM(100) >= 50 ? SAMPLE_EXPLOSION_06_1 : SAMPLE_EXPLOSION_06_2)); break;
+    case 7: m_pSound->PlaySample((RANDOM(100) >= 50 ? SAMPLE_EXPLOSION_07_1 : SAMPLE_EXPLOSION_07_2)); break;
+    case 8: m_pSound->PlaySample((RANDOM(100) >= 50 ? SAMPLE_EXPLOSION_08_1 : SAMPLE_EXPLOSION_08_2)); break;
+    case 9: m_pSound->PlaySample((RANDOM(100) >= 50 ? SAMPLE_EXPLOSION_09_1 : SAMPLE_EXPLOSION_09_2)); break;
+    default: m_pSound->PlaySample((RANDOM(100) >= 50 ? SAMPLE_EXPLOSION_10_1 : SAMPLE_EXPLOSION_10_2)); break;
     }
-    
+
     // The bomb is dead now
     m_Dead = true;
 
@@ -308,11 +308,11 @@ void CBomb::Explode (void)
 
 // This is called by walls crushing the bomb.
 
-void CBomb::Crush (void)
+void CBomb::Crush(void)
 {
-    debugLog.WriteDebugMsg( DEBUGSECT_BOMB, "Bomb crushing [x=%02d, y=%02d, owner=%d].", m_BlockX, m_BlockY, m_OwnerPlayer );
+    debugLog.WriteDebugMsg(DEBUGSECT_BOMB, "Bomb crushing [x=%02d, y=%02d, owner=%d].", m_BlockX, m_BlockY, m_OwnerPlayer);
 
-    Explode ();
+    Explode();
 }
 
 
@@ -324,11 +324,11 @@ void CBomb::Crush (void)
 // is called by flames touching the bomb or by the remote
 // trigger. The bomb will then explode very soon.
 
-void CBomb::Burn (void)
+void CBomb::Burn(void)
 {
-    debugLog.WriteDebugMsg( DEBUGSECT_BOMB, "Bomb burning [x=%02d, y=%02d, owner=%d].", m_BlockX, m_BlockY, m_OwnerPlayer );
+    debugLog.WriteDebugMsg(DEBUGSECT_BOMB, "Bomb burning [x=%02d, y=%02d, owner=%d].", m_BlockX, m_BlockY, m_OwnerPlayer);
 
-    if (m_TimeLeft > EXPLODE_SOON) 
+    if (m_TimeLeft > EXPLODE_SOON)
         m_TimeLeft = EXPLODE_SOON;
 }
 
@@ -341,34 +341,34 @@ void CBomb::Burn (void)
 // Save the number of the player that kicked the
 // bomb for the kicker to be able to find it.
 
-void CBomb::StartMoving (EBombKick BombKick, int KickerPlayer)
+void CBomb::StartMoving(EBombKick BombKick, int KickerPlayer)
 {
     // The bomb cannot be moving if a bomber is doing something with it
     if (m_BeingHeld || m_BeingLifted || m_BeingPunched)
         return;
-    
-    debugLog.WriteDebugMsg( DEBUGSECT_BOMB, "Bomb starts moving [x=%02d, y=%02d, owner=%d, new_direction=%d, kicker=%d, old_direction=%d].", m_BlockX, m_BlockY, m_OwnerPlayer, BombKick, KickerPlayer, m_BombKick );
+
+    debugLog.WriteDebugMsg(DEBUGSECT_BOMB, "Bomb starts moving [x=%02d, y=%02d, owner=%d, new_direction=%d, kicker=%d, old_direction=%d].", m_BlockX, m_BlockY, m_OwnerPlayer, BombKick, KickerPlayer, m_BombKick);
 
     switch (m_BombKick)
     {
-        case BOMBKICK_LEFT:
-        case BOMBKICK_RIGHT:
-            if (BombKick == BOMBKICK_UP || BombKick == BOMBKICK_DOWN)
-            {
-                // 90 degree changement => center bomb on X axis
-                CenterOnBlock ();
-            }
-            break;
-        case BOMBKICK_UP:
-        case BOMBKICK_DOWN:
-            if (BombKick == BOMBKICK_LEFT || BombKick == BOMBKICK_RIGHT)
-            {
-                // 90 degree changement => center bomb on Y axis
-                CenterOnBlock ();
-            }
-            break;
-        default:
-            break;
+    case BOMBKICK_LEFT:
+    case BOMBKICK_RIGHT:
+        if (BombKick == BOMBKICK_UP || BombKick == BOMBKICK_DOWN)
+        {
+            // 90 degree changement => center bomb on X axis
+            CenterOnBlock();
+        }
+        break;
+    case BOMBKICK_UP:
+    case BOMBKICK_DOWN:
+        if (BombKick == BOMBKICK_LEFT || BombKick == BOMBKICK_RIGHT)
+        {
+            // 90 degree changement => center bomb on Y axis
+            CenterOnBlock();
+        }
+        break;
+    default:
+        break;
     }
 
     m_BombKick = BombKick;
@@ -384,7 +384,7 @@ void CBomb::StartMoving (EBombKick BombKick, int KickerPlayer)
 // Tell the bomb to stop moving as soon
 // as possible.
 
-void CBomb::StopMoving ()
+void CBomb::StopMoving()
 {
     // The bomb has to stop
     m_HasToStopMoving = true;
@@ -401,41 +401,41 @@ void CBomb::StopMoving ()
 // only (or less) so as to manage every collision during the
 // move. Kill items in the bomb's way.
 
-void CBomb::ManageMove (float DeltaTime)
+void CBomb::ManageMove(float DeltaTime)
 {
     // If the bomb has to move and it isn't already dead
     if (m_BombKick != BOMBKICK_NONE && !m_Dead)
     {
         // Compute the move length
         float fPixels = SPEED_BOMBMOVE * DeltaTime;
-        
+
         // If the move is no more than one pixel then there is no problem. 
         // Otherwise move pixel by pixel in order not to avoid any collision.
-        
+
         while (true)
         {
             // Check if the bomb has to change its direction (initiated by a block) and whether it is centered
             if (m_BombFly == BOMBFLY_NONE)
             {
-                ASSERT( m_pArena != NULL );
-                if ( m_pArena->IsFloorWithMoveEffect( m_BlockX, m_BlockY ) && BOMB_CAN_CHANGE_DIRECTION_WHEN_KICKED &&
-                     (!(m_iX & (BLOCK_SIZE - 1)) && !(m_iY & (BLOCK_SIZE - 1))) && // Taken from below
-                     m_BombKick != BOMBKICK_NONE  // Bomb is still moving (could be reset by TryMove()
-                   )
+                ASSERT(m_pArena != NULL);
+                if (m_pArena->IsFloorWithMoveEffect(m_BlockX, m_BlockY) && BOMB_CAN_CHANGE_DIRECTION_WHEN_KICKED &&
+                    (!(m_iX & (BLOCK_SIZE - 1)) && !(m_iY & (BLOCK_SIZE - 1))) && // Taken from below
+                    m_BombKick != BOMBKICK_NONE  // Bomb is still moving (could be reset by TryMove()
+                    )
                 {
-                    EFloorAction action = m_pArena->GetFloorAction( m_BlockX, m_BlockY );
+                    EFloorAction action = m_pArena->GetFloorAction(m_BlockX, m_BlockY);
 
                     EBombKick kickDirection = BOMBKICK_NONE;
 
-                    switch( action ) {
-                        case FLOORACTION_MOVEBOMB_RIGHT:    kickDirection = BOMBKICK_RIGHT; break;
-                        case FLOORACTION_MOVEBOMB_DOWN:     kickDirection = BOMBKICK_DOWN;  break;
-                        case FLOORACTION_MOVEBOMB_LEFT:     kickDirection = BOMBKICK_LEFT;  break;
-                        case FLOORACTION_MOVEBOMB_UP:       kickDirection = BOMBKICK_UP;    break;
-                        default:                                                            break;
+                    switch (action) {
+                    case FLOORACTION_MOVEBOMB_RIGHT:    kickDirection = BOMBKICK_RIGHT; break;
+                    case FLOORACTION_MOVEBOMB_DOWN:     kickDirection = BOMBKICK_DOWN;  break;
+                    case FLOORACTION_MOVEBOMB_LEFT:     kickDirection = BOMBKICK_LEFT;  break;
+                    case FLOORACTION_MOVEBOMB_UP:       kickDirection = BOMBKICK_UP;    break;
+                    default:                                                            break;
                     }
 
-                    ASSERT( kickDirection != BOMBKICK_NONE );
+                    ASSERT(kickDirection != BOMBKICK_NONE);
 
                     // Set the new direction
                     m_BombKick = kickDirection;
@@ -446,7 +446,7 @@ void CBomb::ManageMove (float DeltaTime)
             {
                 // If the bomb can't move by one pixel 
                 // then it can't move at all
-                if (!TryMove (1.0f))
+                if (!TryMove(1.0f))
                     break;
 
                 // You moved
@@ -470,7 +470,7 @@ void CBomb::ManageMove (float DeltaTime)
             {
                 // If the bomb can move by one pixel then 
                 // it can move by less than one pixel
-                if (TryMove (fPixels))
+                if (TryMove(fPixels))
                     fPixels = 0.0f;     // It moved
 
                 // If the bomb has to stop moving
@@ -485,7 +485,7 @@ void CBomb::ManageMove (float DeltaTime)
                         m_HasToStopMoving = false;
                     }
                 }
-                
+
                 // Finished moving
                 break;
             }
@@ -502,18 +502,18 @@ void CBomb::ManageMove (float DeltaTime)
 void CBomb::CrushItem(int BlockX, int BlockY)
 {
     // If there is an item on its way, the item has to be crushed
-    if (m_pArena->IsItem(BlockX,BlockY))
+    if (m_pArena->IsItem(BlockX, BlockY))
     {
         // Seek this item
-        for (int Index = 0 ; Index < m_pArena->MaxItems() ; Index++)
+        for (int Index = 0; Index < m_pArena->MaxItems(); Index++)
         {
             // Test existence and position
             if (m_pArena->GetItem(Index).Exist() &&
-                m_pArena->GetItem(Index).GetBlockX() == BlockX && 
+                m_pArena->GetItem(Index).GetBlockX() == BlockX &&
                 m_pArena->GetItem(Index).GetBlockY() == BlockY)
             {
                 // Crush the item
-                m_pArena->GetItem(Index).Crush ();
+                m_pArena->GetItem(Index).Crush();
                 // There can't be two items on the same block
                 break;
             }
@@ -528,11 +528,11 @@ void CBomb::CrushItem(int BlockX, int BlockY)
 // Tell if there is an obstacle at (X,Y).
 // For bombs, an obstacle is a wall, a bomb or a bomber.
 
-bool CBomb::IsObstacle (int BlockX, int BlockY)
+bool CBomb::IsObstacle(int BlockX, int BlockY)
 {
-    return (m_pArena->IsWall(BlockX,BlockY) || 
-            m_pArena->IsBomb(BlockX,BlockY) || 
-            m_pArena->IsBomber(BlockX,BlockY));
+    return (m_pArena->IsWall(BlockX, BlockY) ||
+        m_pArena->IsBomb(BlockX, BlockY) ||
+        m_pArena->IsBomber(BlockX, BlockY));
 }
 
 
@@ -556,10 +556,10 @@ bool CBomb::IsObstacle (int BlockX, int BlockY)
 // coordinates will be modified using fPixels (the move length).
 // If there is one, the bomb will stop.
 
-bool CBomb::TryMove (float fPixels)
+bool CBomb::TryMove(float fPixels)
 {
     // Don't try to move if not supposed to be moving
-    ASSERT (m_BombKick != BOMBKICK_NONE);
+    ASSERT(m_BombKick != BOMBKICK_NONE);
 
     // Compute coordinates
     int X = m_iX + HalfBlock;   // Modified integer current coordinates (x+hb and y+hb to point to center)
@@ -567,83 +567,83 @@ bool CBomb::TryMove (float fPixels)
 
     switch (m_BombKick)
     {
-        case BOMBKICK_UP :
-            // If no obstacle above, or if there is one, if the tested square is the same as bomb's square
-            if (!IsObstacle(m_BlockX,ToBlock(Y-HalfBlock-1)) || ToBlock(Y-HalfBlock-1) == m_BlockY)
-            {
-                // Update coordinates
-                m_Y -= fPixels;
-                m_iY = int (m_Y);
-                m_BlockY = ToBlock (m_iY + HalfBlock);
-                return true;
-            }
-            // Else stop moving
-            else
-            {               
-                m_BombKick = BOMBKICK_NONE;
-                CenterOnBlock();
-                return false;
-            }
-            break;
+    case BOMBKICK_UP:
+        // If no obstacle above, or if there is one, if the tested square is the same as bomb's square
+        if (!IsObstacle(m_BlockX, ToBlock(Y - HalfBlock - 1)) || ToBlock(Y - HalfBlock - 1) == m_BlockY)
+        {
+            // Update coordinates
+            m_Y -= fPixels;
+            m_iY = int(m_Y);
+            m_BlockY = ToBlock(m_iY + HalfBlock);
+            return true;
+        }
+        // Else stop moving
+        else
+        {
+            m_BombKick = BOMBKICK_NONE;
+            CenterOnBlock();
+            return false;
+        }
+        break;
 
-        case BOMBKICK_DOWN :
-            // If no obstacle below, or if there is one, if the tested square is the same as bomb's square
-            if (!IsObstacle(m_BlockX,ToBlock(Y+HalfBlock)) || ToBlock(Y+HalfBlock) == m_BlockY)
-            {
-                // Update coordinates
-                m_Y += fPixels;
-                m_iY = int (m_Y);
-                m_BlockY = ToBlock  (m_iY + HalfBlock);
-                return true;
-            }
-            // Else stop moving
-            else
-            {               
-                m_BombKick = BOMBKICK_NONE;
-                CenterOnBlock();
-                return false;
-            }
-            break;
+    case BOMBKICK_DOWN:
+        // If no obstacle below, or if there is one, if the tested square is the same as bomb's square
+        if (!IsObstacle(m_BlockX, ToBlock(Y + HalfBlock)) || ToBlock(Y + HalfBlock) == m_BlockY)
+        {
+            // Update coordinates
+            m_Y += fPixels;
+            m_iY = int(m_Y);
+            m_BlockY = ToBlock(m_iY + HalfBlock);
+            return true;
+        }
+        // Else stop moving
+        else
+        {
+            m_BombKick = BOMBKICK_NONE;
+            CenterOnBlock();
+            return false;
+        }
+        break;
 
-        case BOMBKICK_LEFT :
-            // If no obstacle to the left, or if there is one, if the tested square is the same as bomb's square
-            if (!IsObstacle(ToBlock(X-HalfBlock-1),m_BlockY) || ToBlock(X-HalfBlock-1) == m_BlockX)
-            {
-                // Update coordinates
-                m_X -= fPixels;
-                m_iX = int (m_X);
-                m_BlockX = ToBlock (m_iX + HalfBlock);
-                return true;
-            }
-            // Else stop moving
-            else
-            {               
-                m_BombKick = BOMBKICK_NONE;
-                CenterOnBlock();
-                return false;
-            }
-            break;
+    case BOMBKICK_LEFT:
+        // If no obstacle to the left, or if there is one, if the tested square is the same as bomb's square
+        if (!IsObstacle(ToBlock(X - HalfBlock - 1), m_BlockY) || ToBlock(X - HalfBlock - 1) == m_BlockX)
+        {
+            // Update coordinates
+            m_X -= fPixels;
+            m_iX = int(m_X);
+            m_BlockX = ToBlock(m_iX + HalfBlock);
+            return true;
+        }
+        // Else stop moving
+        else
+        {
+            m_BombKick = BOMBKICK_NONE;
+            CenterOnBlock();
+            return false;
+        }
+        break;
 
-        case BOMBKICK_RIGHT :
-            // If no obstacle to the right, or if there is one, if the tested square is the same as bomb's square
-            if (!IsObstacle(ToBlock(X+HalfBlock),m_BlockY) || ToBlock(X+HalfBlock) == m_BlockX)
-            {
-                // Update coordinates
-                m_X += fPixels;
-                m_iX = int (m_X);
-                m_BlockX = ToBlock (m_iX + HalfBlock);
-                return true;
-            }
-            // Else stop moving
-            else
-            {               
-                m_BombKick = BOMBKICK_NONE;
-                CenterOnBlock();
-                return false;
-            }
-            break;
-        default:
-            break;
+    case BOMBKICK_RIGHT:
+        // If no obstacle to the right, or if there is one, if the tested square is the same as bomb's square
+        if (!IsObstacle(ToBlock(X + HalfBlock), m_BlockY) || ToBlock(X + HalfBlock) == m_BlockX)
+        {
+            // Update coordinates
+            m_X += fPixels;
+            m_iX = int(m_X);
+            m_BlockX = ToBlock(m_iX + HalfBlock);
+            return true;
+        }
+        // Else stop moving
+        else
+        {
+            m_BombKick = BOMBKICK_NONE;
+            CenterOnBlock();
+            return false;
+        }
+        break;
+    default:
+        break;
     }
 
     // Can't happen
@@ -657,11 +657,11 @@ bool CBomb::TryMove (float fPixels)
 
 // Make the bomb tick, explode, move, animate, display
 
-bool CBomb::Update (float DeltaTime)
+bool CBomb::Update(float DeltaTime)
 {
     // Update the elapsed time
     m_ElapsedTime += DeltaTime;
-    
+
     // If the bomb is not dead
     if (!m_Dead)
     {
@@ -673,7 +673,7 @@ bool CBomb::Update (float DeltaTime)
         {
             // dont update timer if it is a not activated remote bomb
             if (!m_Remote || (m_TimeLeft <= EXPLODE_SOON))
-            { 
+            {
                 // If the bomb has some ticks left before exploding
                 if (m_TimeLeft > 0.0f)
                 {
@@ -687,30 +687,30 @@ bool CBomb::Update (float DeltaTime)
                 }
             }
         }
-        
+
         // Kick this bomb by special blocks
         // Don't start the move if bomb exploded in the meanwhile (m_Dead)
         // Also don't start the move if the bomb is already in action (lifted, held, punched or flying)
         if (m_BombKick == BOMBKICK_NONE && m_ElapsedTime >= TIME_BEFORE_MOVING_BOMB &&
             !m_Dead && !m_BeingLifted && !m_BeingHeld && !m_BeingPunched && m_BombFly == BOMBFLY_NONE)
         {
-            ASSERT( m_pArena != NULL );
-            if ( m_pArena->IsFloorWithMoveEffect( m_BlockX, m_BlockY ) ) {
-                EFloorAction action = m_pArena->GetFloorAction( m_BlockX, m_BlockY );
-                
+            ASSERT(m_pArena != NULL);
+            if (m_pArena->IsFloorWithMoveEffect(m_BlockX, m_BlockY)) {
+                EFloorAction action = m_pArena->GetFloorAction(m_BlockX, m_BlockY);
+
                 EBombKick kickDirection = BOMBKICK_NONE;
-                
-                switch( action ) {
-                    case FLOORACTION_MOVEBOMB_RIGHT:    kickDirection = BOMBKICK_RIGHT; break;
-                    case FLOORACTION_MOVEBOMB_DOWN:     kickDirection = BOMBKICK_DOWN;  break;
-                    case FLOORACTION_MOVEBOMB_LEFT:     kickDirection = BOMBKICK_LEFT;  break;
-                    case FLOORACTION_MOVEBOMB_UP:       kickDirection = BOMBKICK_UP;    break;
-                    default:                                                            break;
+
+                switch (action) {
+                case FLOORACTION_MOVEBOMB_RIGHT:    kickDirection = BOMBKICK_RIGHT; break;
+                case FLOORACTION_MOVEBOMB_DOWN:     kickDirection = BOMBKICK_DOWN;  break;
+                case FLOORACTION_MOVEBOMB_LEFT:     kickDirection = BOMBKICK_LEFT;  break;
+                case FLOORACTION_MOVEBOMB_UP:       kickDirection = BOMBKICK_UP;    break;
+                default:                                                            break;
                 }
-                
-                ASSERT( kickDirection != BOMBKICK_NONE );
-                
-                StartMoving( kickDirection, -1 ); // -1 is: not a bomber started the move
+
+                ASSERT(kickDirection != BOMBKICK_NONE);
+
+                StartMoving(kickDirection, -1); // -1 is: not a bomber started the move
             }
         }
 
@@ -719,14 +719,14 @@ bool CBomb::Update (float DeltaTime)
         ManageFlight(DeltaTime);
 
         // Animate
-             if (m_Timer < m_AnimationTimes[0])  m_Sprite = ANIMBOMB_SPRITE2;
+        if (m_Timer < m_AnimationTimes[0])  m_Sprite = ANIMBOMB_SPRITE2;
         else if (m_Timer < m_AnimationTimes[1])  m_Sprite = ANIMBOMB_SPRITE1;
         else if (m_Timer < m_AnimationTimes[2])  m_Sprite = ANIMBOMB_SPRITE0;
         else if (m_Timer < m_AnimationTimes[3])  m_Sprite = ANIMBOMB_SPRITE1;
-        else 
-        { 
-            m_Sprite = ANIMBOMB_SPRITE2; 
-            m_Timer = 0.0f; 
+        else
+        {
+            m_Sprite = ANIMBOMB_SPRITE2;
+            m_Timer = 0.0f;
         }
 
         // Play animation
@@ -742,7 +742,15 @@ bool CBomb::Update (float DeltaTime)
         {
             m_BeingHeld = false;
             m_BeingLifted = false;
+            m_BeingPunched = false;
         }
+    }
+
+    // HACK to resolve issue with non-exploding bombs
+    // would be better to resolve it in the logic though
+    if (m_BeingPunched && m_BombFly == BOMBFLY_NONE)
+    {
+        m_BeingPunched = false;
     }
 
     if (!m_pArena->GetBomber(GetOwnerPlayer()).IsAlive())
@@ -754,7 +762,7 @@ bool CBomb::Update (float DeltaTime)
         m_BeingLifted = false;
         m_BeingPunched = false;
 
-		if (m_Remote && m_BombFly == BOMBFLY_NONE)
+        if (m_Remote && m_BombFly == BOMBFLY_NONE)
         {
             // Explode remotes when bomber dies
             Explode();
@@ -771,11 +779,11 @@ bool CBomb::Update (float DeltaTime)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CBomb::Display (void)
+void CBomb::Display(void)
 {
-    int SpriteTable = (m_BeingHeld || m_BombFly != BOMBFLY_NONE) ? 
-                      BOMB_SPRITELAYER_ABOVE_BOMBERS : 
-                      BOMB_SPRITELAYER_BELOW_BOMBERS;
+    int SpriteTable = (m_BeingHeld || m_BombFly != BOMBFLY_NONE) ?
+    BOMB_SPRITELAYER_ABOVE_BOMBERS :
+                                   BOMB_SPRITELAYER_BELOW_BOMBERS;
 
     // Prepare a clipping rect to pass to the draw sprite function,
     // since the sprite can be out of the arena view.
@@ -810,7 +818,7 @@ void CBomb::Display (void)
 //******************************************************************************************************************************
 //****************************************************************************************************************************
 
-void CBomb::OnWriteSnapshot (CArenaSnapshot& Snapshot)
+void CBomb::OnWriteSnapshot(CArenaSnapshot& Snapshot)
 {
     Snapshot.WriteInteger(m_iX);
     Snapshot.WriteInteger(m_iY);
@@ -829,7 +837,7 @@ void CBomb::OnWriteSnapshot (CArenaSnapshot& Snapshot)
     Snapshot.WriteInteger(m_FlameSize);
     Snapshot.WriteFloat(m_TimeLeft);
 
-    for (int i = 0 ; i < 4 ; i++)
+    for (int i = 0; i < 4; i++)
         Snapshot.WriteFloat(m_AnimationTimes[i]);
 
     Snapshot.WriteBoolean(m_BeingHeld);
@@ -840,14 +848,14 @@ void CBomb::OnWriteSnapshot (CArenaSnapshot& Snapshot)
     Snapshot.WriteInteger(m_FlightFrame);
     Snapshot.WriteInteger(m_FlightType);
     Snapshot.WriteBoolean(m_Warping);
-	Snapshot.WriteBoolean(m_Remote);
+    Snapshot.WriteBoolean(m_Remote);
 }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //****************************************************************************************************************************
 
-void CBomb::OnReadSnapshot (CArenaSnapshot& Snapshot)
+void CBomb::OnReadSnapshot(CArenaSnapshot& Snapshot)
 {
     Snapshot.ReadInteger(&m_iX);
     Snapshot.ReadInteger(&m_iY);
@@ -865,8 +873,8 @@ void CBomb::OnReadSnapshot (CArenaSnapshot& Snapshot)
     Snapshot.ReadBoolean(&m_Dead);
     Snapshot.ReadInteger(&m_FlameSize);
     Snapshot.ReadFloat(&m_TimeLeft);
-    
-    for (int i = 0 ; i < 4 ; i++)
+
+    for (int i = 0; i < 4; i++)
         Snapshot.ReadFloat(&m_AnimationTimes[i]);
 
     Snapshot.ReadBoolean(&m_BeingHeld);
@@ -877,14 +885,14 @@ void CBomb::OnReadSnapshot (CArenaSnapshot& Snapshot)
     Snapshot.ReadInteger(&m_FlightFrame);
     Snapshot.ReadInteger((int*)&m_FlightType);
     Snapshot.ReadBoolean(&m_Warping);
-	Snapshot.ReadBoolean(&m_Remote);
+    Snapshot.ReadBoolean(&m_Remote);
 }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CBomb::StartFlying (EBombFly BombFly, EBombFlightType FlightType)
+void CBomb::StartFlying(EBombFly BombFly, EBombFlightType FlightType)
 {
     ASSERT(BombFly != BOMBFLY_NONE);
     ASSERT(FlightType != BOMBFLIGHTTYPE_NONE);
@@ -903,7 +911,7 @@ void CBomb::StartFlying (EBombFly BombFly, EBombFlightType FlightType)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CBomb::ManageFlight (float DeltaTime)
+void CBomb::ManageFlight(float DeltaTime)
 {
     // If the bomb is currently flying
     if (m_BombFly != BOMBFLY_NONE)
@@ -912,413 +920,413 @@ void CBomb::ManageFlight (float DeltaTime)
         switch (m_FlightType)
         {
             // The bomb is flying because it was thrown
-            case BOMBFLIGHTTYPE_THROW :
+        case BOMBFLIGHTTYPE_THROW:
+        {
+            int CurrentFlightFrame;
+
+            // Continue flight movement
+            m_FlightTimer += DeltaTime;
+
+            // Determine flight frame number according to the timer
+            if (m_FlightTimer < THROW_BASE_FRAME_TIME * 1) CurrentFlightFrame = 0;
+            else if (m_FlightTimer < THROW_BASE_FRAME_TIME * 2) CurrentFlightFrame = 1;
+            else if (m_FlightTimer < THROW_BASE_FRAME_TIME * 3) CurrentFlightFrame = 2;
+            else if (m_FlightTimer < THROW_BASE_FRAME_TIME * 4) CurrentFlightFrame = 3;
+            else if (m_FlightTimer < THROW_BASE_FRAME_TIME * 5) CurrentFlightFrame = 4;
+            else if (m_FlightTimer < THROW_BASE_FRAME_TIME * 6) CurrentFlightFrame = 5;
+            else
             {
-                int CurrentFlightFrame;
+                // Last frame of the flight movement!
+                CurrentFlightFrame = 5;
+                m_FlightTimer = 0.0f;
 
-                // Continue flight movement
-                m_FlightTimer += DeltaTime;
-                
-                // Determine flight frame number according to the timer
-                     if (m_FlightTimer < THROW_BASE_FRAME_TIME * 1) CurrentFlightFrame = 0;
-                else if (m_FlightTimer < THROW_BASE_FRAME_TIME * 2) CurrentFlightFrame = 1;
-                else if (m_FlightTimer < THROW_BASE_FRAME_TIME * 3) CurrentFlightFrame = 2;
-                else if (m_FlightTimer < THROW_BASE_FRAME_TIME * 4) CurrentFlightFrame = 3;
-                else if (m_FlightTimer < THROW_BASE_FRAME_TIME * 5) CurrentFlightFrame = 4;
-                else if (m_FlightTimer < THROW_BASE_FRAME_TIME * 6) CurrentFlightFrame = 5;
-                else
+                // According to the flight direction, set the final block position
+                // of the bomb, and determine if the bomb is warping from one side
+                // of the arena to the opposite side.
+                switch (m_BombFly)
                 {
-                    // Last frame of the flight movement!
-                    CurrentFlightFrame = 5;
-                    m_FlightTimer = 0.0f;
+                case BOMBFLY_UP:
+                {
+                    m_BlockY -= 3;
 
-                    // According to the flight direction, set the final block position
-                    // of the bomb, and determine if the bomb is warping from one side
-                    // of the arena to the opposite side.
-                    switch (m_BombFly)
+                    if (m_BlockY < 0)
                     {
-                        case BOMBFLY_UP : 
-                        {
-                            m_BlockY -= 3; 
-
-                            if (m_BlockY < 0)
-                            {
-                                m_BlockY = ARENA_HEIGHT;
-                                m_Warping = true;
-                            }
-                            else
-                            {
-                                m_Warping = false;
-                            }
-
-                            break;
-                        }
-
-                        case BOMBFLY_DOWN : 
-                        {
-                            m_BlockY += 3; 
-
-                            if (m_BlockY >= ARENA_HEIGHT)
-                            {
-                                m_BlockY = -1;
-                                m_Warping = true;
-                            }
-                            else
-                            {
-                                m_Warping = false;
-                            }
-
-                            break;
-                        }
-
-                        case BOMBFLY_LEFT : 
-                        {
-                            m_BlockX -= 3; 
-
-                            if (m_BlockX < 0)
-                            {
-                                m_BlockX = ARENA_WIDTH;
-                                m_Warping = true;
-                            }
-                            else
-                            {
-                                m_Warping = false;
-                            }
-
-                            break;
-                        }
-
-                        case BOMBFLY_RIGHT : 
-                        {
-                            m_BlockX += 3; 
-
-                            if (m_BlockX >= ARENA_WIDTH)
-                            {
-                                m_BlockX = -1;
-                                m_Warping = true;
-                            }
-                            else
-                            {
-                                m_Warping = false;
-                            }
-
-                            break;
-                        }
-                        default:
-                            break;
+                        m_BlockY = ARENA_HEIGHT;
+                        m_Warping = true;
                     }
-
-                    // We've set the block position, now set the correct pixel position.
-                    CenterOnBlock();
-
-                    // If the bomb is not warping and there is no solid obstacle where is lands
-                    if (!m_Warping && !IsObstacle(m_BlockX, m_BlockY))
-                    {
-                        // The bomb finishes its flight and lands here, crushing any item here.
-                        m_BombFly = BOMBFLY_NONE;
-                        m_FlightType = BOMBFLIGHTTYPE_NONE;
-                        CrushItem(m_BlockX, m_BlockY);
-                    }
-                    // If the bomb is warping, it bounces anyway until it is not warping anymore.
-                    // If the bomb lands on a solid obstacle, it bounces.
                     else
                     {
-                        Bounce(DeltaTime);
+                        m_Warping = false;
                     }
+
+                    break;
                 }
 
-                // If the new flight frame is not the same as the last flight frame
-                if (CurrentFlightFrame != m_FlightFrame)
+                case BOMBFLY_DOWN:
                 {
-                    // Then we have to modify the bomb's position by using the current frame movement data!
-                    // FIX ME : Is it safe? What if we miss a frame because of a big delta time? It should
-                    // perform all the frames between the last one and the new frame, rather than just
-                    // performing the current frame.
+                    m_BlockY += 3;
 
-                    m_FlightFrame = CurrentFlightFrame;
-
-                    m_iX += m_ThrowMoveX[m_BombFly][m_FlightFrame];
-                    m_iY += m_ThrowMoveY[m_BombFly][m_FlightFrame];
-
-                    m_X = (float) m_iX;
-                    m_Y = (float) m_iY;
-                }
-            
-                break;
-            }
-
-            // The bomb is flying because it has bounced
-            case BOMBFLIGHTTYPE_BOUNCE :
-            {
-                int CurrentFlightFrame;
-
-                // Determine flight frame number according to the timer
-                     if (m_FlightTimer < BOUNCE_BASE_FRAME_TIME * 1) CurrentFlightFrame = 0;
-                else if (m_FlightTimer < BOUNCE_BASE_FRAME_TIME * 2) CurrentFlightFrame = 1;
-                else if (m_FlightTimer < BOUNCE_BASE_FRAME_TIME * 5) CurrentFlightFrame = 2;
-                else
-                {
-                    // Last frame of the flight movement!
-                    CurrentFlightFrame = 2;
-                    m_FlightTimer = 0.0f;
-                    
-                    // According to the flight direction, set the final block position
-                    // of the bomb, and determine if the bomb is warping from one side
-                    // of the arena to the opposite side.
-                    switch (m_BombFly)
+                    if (m_BlockY >= ARENA_HEIGHT)
                     {
-                        case BOMBFLY_UP : 
-                        {
-                            m_BlockY--; 
-
-                            if (m_BlockY < 0)
-                            {
-                                m_BlockY = ARENA_HEIGHT;
-                                m_Warping = true;
-                            }
-                            else
-                            {
-                                m_Warping = false;
-                            }
-
-                            break;
-                        }
-
-                        case BOMBFLY_DOWN : 
-                        {
-                            m_BlockY++; 
-
-                            if (m_BlockY >= ARENA_HEIGHT)
-                            {
-                                m_BlockY = -1;
-                                m_Warping = true;
-                            }
-                            else
-                            {
-                                m_Warping = false;
-                            }
-
-                            break;
-                        }
-
-                        case BOMBFLY_LEFT : 
-                        {
-                            m_BlockX--; 
-
-                            if (m_BlockX < 0)
-                            {
-                                m_BlockX = ARENA_WIDTH;
-                                m_Warping = true;
-                            }
-                            else
-                            {
-                                m_Warping = false;
-                            }
-
-                            break;
-                        }
-
-                        case BOMBFLY_RIGHT : 
-                        {
-                            m_BlockX++; 
-
-                            if (m_BlockX >= ARENA_WIDTH)
-                            {
-                                m_BlockX = -1;
-                                m_Warping = true;
-                            }
-                            else
-                            {
-                                m_Warping = false;
-                            }
-
-                            break;
-                        }
-                        default:
-                            break;
+                        m_BlockY = -1;
+                        m_Warping = true;
                     }
-
-                    // We've set the block position, now set the correct pixel position.
-                    CenterOnBlock();
- 
-                    // If the bomb is not warping and there is no solid obstacle where is lands
-                    if (!m_Warping && !IsObstacle(m_BlockX, m_BlockY))
-                    {
-                        // The bomb finishes its flight and lands here, crushing any item here.
-                        m_BombFly = BOMBFLY_NONE;
-                        m_FlightType = BOMBFLIGHTTYPE_NONE;
-                        CrushItem(m_BlockX, m_BlockY);
-                    }
-                    // If the bomb is warping, it bounces anyway until it is not warping anymore.
-                    // If the bomb lands on a solid obstacle, it bounces.
                     else
                     {
-                        Bounce(DeltaTime);
+                        m_Warping = false;
                     }
+
+                    break;
                 }
 
-                // Continue flight movement
-                m_FlightTimer += DeltaTime;
-
-                // If the new flight frame is not the same as the last flight frame
-                if (CurrentFlightFrame != m_FlightFrame)
+                case BOMBFLY_LEFT:
                 {
-                    // Then we have to modify the bomb's position by using the current frame movement data!
-                    // FIX ME : Is it safe? What if we miss a frame because of a big delta time? It should
-                    // perform all the frames between the last one and the new frame, rather than just
-                    // performing the current frame.
+                    m_BlockX -= 3;
 
-                    m_FlightFrame = CurrentFlightFrame;
-
-                    m_iX += m_BounceMoveX[m_BombFly][m_FlightFrame];
-                    m_iY += m_BounceMoveY[m_BombFly][m_FlightFrame];
-
-                    m_X = (float) m_iX;
-                    m_Y = (float) m_iY;
-                }
-
-                break;
-            }
-
-            // The bomb is flying because it was punched
-            case BOMBFLIGHTTYPE_PUNCH :
-            {
-                int CurrentFlightFrame;
-
-                // Continue flight movement
-                m_FlightTimer += DeltaTime;
-                
-                // Determine flight frame number according to the timer
-                     if (m_FlightTimer < PUNCH_BASE_FRAME_TIME * 1) CurrentFlightFrame = 0;
-                else if (m_FlightTimer < PUNCH_BASE_FRAME_TIME * 2) CurrentFlightFrame = 1;
-                else if (m_FlightTimer < PUNCH_BASE_FRAME_TIME * 3) CurrentFlightFrame = 2;
-                else if (m_FlightTimer < PUNCH_BASE_FRAME_TIME * 4) CurrentFlightFrame = 3;
-                else if (m_FlightTimer < PUNCH_BASE_FRAME_TIME * 5) CurrentFlightFrame = 4;
-                else if (m_FlightTimer < PUNCH_BASE_FRAME_TIME * 6) CurrentFlightFrame = 5;
-                else
-                {
-                    // Last frame of the flight movement!
-                    CurrentFlightFrame = 5;
-                    m_FlightTimer = 0.0f;
-
-                    // According to the flight direction, set the final block position
-                    // of the bomb, and determine if the bomb is warping from one side
-                    // of the arena to the opposite side.
-                    switch (m_BombFly)
+                    if (m_BlockX < 0)
                     {
-                        case BOMBFLY_UP : 
-                        {
-                            m_BlockY -= 3; 
-
-                            if (m_BlockY < 0)
-                            {
-                                m_BlockY = ARENA_HEIGHT;
-                                m_Warping = true;
-                            }
-                            else
-                            {
-                                m_Warping = false;
-                            }
-
-                            break;
-                        }
-
-                        case BOMBFLY_DOWN : 
-                        {
-                            m_BlockY += 3; 
-
-                            if (m_BlockY >= ARENA_HEIGHT)
-                            {
-                                m_BlockY = -1;
-                                m_Warping = true;
-                            }
-                            else
-                            {
-                                m_Warping = false;
-                            }
-
-                            break;
-                        }
-
-                        case BOMBFLY_LEFT : 
-                        {
-                            m_BlockX -= 3; 
-
-                            if (m_BlockX < 0)
-                            {
-                                m_BlockX = ARENA_WIDTH;
-                                m_Warping = true;
-                            }
-                            else
-                            {
-                                m_Warping = false;
-                            }
-
-                            break;
-                        }
-
-                        case BOMBFLY_RIGHT : 
-                        {
-                            m_BlockX += 3; 
-
-                            if (m_BlockX >= ARENA_WIDTH)
-                            {
-                                m_BlockX = -1;
-                                m_Warping = true;
-                            }
-                            else
-                            {
-                                m_Warping = false;
-                            }
-
-                            break;
-                        }
-                        default:
-                            break;
+                        m_BlockX = ARENA_WIDTH;
+                        m_Warping = true;
                     }
-
-                    // We've set the block position, now set the correct pixel position.
-                    CenterOnBlock();
-
-                    // If the bomb is not warping and there is no solid obstacle where is lands
-                    if (!m_Warping && !IsObstacle(m_BlockX, m_BlockY))
-                    {
-                        // The bomb finishes its flight and lands here, crushing any item here.
-                        m_BombFly = BOMBFLY_NONE;
-                        m_FlightType = BOMBFLIGHTTYPE_NONE;
-                        CrushItem(m_BlockX, m_BlockY);
-                    }
-                    // If the bomb is warping, it bounces anyway until it is not warping anymore.
-                    // If the bomb lands on a solid obstacle, it bounces.
                     else
                     {
-                        Bounce(DeltaTime);
+                        m_Warping = false;
                     }
+
+                    break;
                 }
 
-                // If the new flight frame is not the same as the last flight frame
-                if (CurrentFlightFrame != m_FlightFrame)
+                case BOMBFLY_RIGHT:
                 {
-                    // Then we have to modify the bomb's position by using the current frame movement data!
-                    // FIX ME : Is it safe? What if we miss a frame because of a big delta time? It should
-                    // perform all the frames between the last one and the new frame, rather than just
-                    // performing the current frame.
+                    m_BlockX += 3;
 
-                    m_FlightFrame = CurrentFlightFrame;
+                    if (m_BlockX >= ARENA_WIDTH)
+                    {
+                        m_BlockX = -1;
+                        m_Warping = true;
+                    }
+                    else
+                    {
+                        m_Warping = false;
+                    }
 
-                    m_iX += m_PunchMoveX[m_BombFly][m_FlightFrame];
-                    m_iY += m_PunchMoveY[m_BombFly][m_FlightFrame];
-
-                    m_X = (float) m_iX;
-                    m_Y = (float) m_iY;
+                    break;
                 }
-            
-                break;
+                default:
+                    break;
+                }
+
+                // We've set the block position, now set the correct pixel position.
+                CenterOnBlock();
+
+                // If the bomb is not warping and there is no solid obstacle where is lands
+                if (!m_Warping && !IsObstacle(m_BlockX, m_BlockY))
+                {
+                    // The bomb finishes its flight and lands here, crushing any item here.
+                    m_BombFly = BOMBFLY_NONE;
+                    m_FlightType = BOMBFLIGHTTYPE_NONE;
+                    CrushItem(m_BlockX, m_BlockY);
+                }
+                // If the bomb is warping, it bounces anyway until it is not warping anymore.
+                // If the bomb lands on a solid obstacle, it bounces.
+                else
+                {
+                    Bounce(DeltaTime);
+                }
             }
-            default:
-                break;
+
+            // If the new flight frame is not the same as the last flight frame
+            if (CurrentFlightFrame != m_FlightFrame)
+            {
+                // Then we have to modify the bomb's position by using the current frame movement data!
+                // FIX ME : Is it safe? What if we miss a frame because of a big delta time? It should
+                // perform all the frames between the last one and the new frame, rather than just
+                // performing the current frame.
+
+                m_FlightFrame = CurrentFlightFrame;
+
+                m_iX += m_ThrowMoveX[m_BombFly][m_FlightFrame];
+                m_iY += m_ThrowMoveY[m_BombFly][m_FlightFrame];
+
+                m_X = (float)m_iX;
+                m_Y = (float)m_iY;
+            }
+
+            break;
         }
-        
+
+        // The bomb is flying because it has bounced
+        case BOMBFLIGHTTYPE_BOUNCE:
+        {
+            int CurrentFlightFrame;
+
+            // Determine flight frame number according to the timer
+            if (m_FlightTimer < BOUNCE_BASE_FRAME_TIME * 1) CurrentFlightFrame = 0;
+            else if (m_FlightTimer < BOUNCE_BASE_FRAME_TIME * 2) CurrentFlightFrame = 1;
+            else if (m_FlightTimer < BOUNCE_BASE_FRAME_TIME * 5) CurrentFlightFrame = 2;
+            else
+            {
+                // Last frame of the flight movement!
+                CurrentFlightFrame = 2;
+                m_FlightTimer = 0.0f;
+
+                // According to the flight direction, set the final block position
+                // of the bomb, and determine if the bomb is warping from one side
+                // of the arena to the opposite side.
+                switch (m_BombFly)
+                {
+                case BOMBFLY_UP:
+                {
+                    m_BlockY--;
+
+                    if (m_BlockY < 0)
+                    {
+                        m_BlockY = ARENA_HEIGHT;
+                        m_Warping = true;
+                    }
+                    else
+                    {
+                        m_Warping = false;
+                    }
+
+                    break;
+                }
+
+                case BOMBFLY_DOWN:
+                {
+                    m_BlockY++;
+
+                    if (m_BlockY >= ARENA_HEIGHT)
+                    {
+                        m_BlockY = -1;
+                        m_Warping = true;
+                    }
+                    else
+                    {
+                        m_Warping = false;
+                    }
+
+                    break;
+                }
+
+                case BOMBFLY_LEFT:
+                {
+                    m_BlockX--;
+
+                    if (m_BlockX < 0)
+                    {
+                        m_BlockX = ARENA_WIDTH;
+                        m_Warping = true;
+                    }
+                    else
+                    {
+                        m_Warping = false;
+                    }
+
+                    break;
+                }
+
+                case BOMBFLY_RIGHT:
+                {
+                    m_BlockX++;
+
+                    if (m_BlockX >= ARENA_WIDTH)
+                    {
+                        m_BlockX = -1;
+                        m_Warping = true;
+                    }
+                    else
+                    {
+                        m_Warping = false;
+                    }
+
+                    break;
+                }
+                default:
+                    break;
+                }
+
+                // We've set the block position, now set the correct pixel position.
+                CenterOnBlock();
+
+                // If the bomb is not warping and there is no solid obstacle where is lands
+                if (!m_Warping && !IsObstacle(m_BlockX, m_BlockY))
+                {
+                    // The bomb finishes its flight and lands here, crushing any item here.
+                    m_BombFly = BOMBFLY_NONE;
+                    m_FlightType = BOMBFLIGHTTYPE_NONE;
+                    CrushItem(m_BlockX, m_BlockY);
+                }
+                // If the bomb is warping, it bounces anyway until it is not warping anymore.
+                // If the bomb lands on a solid obstacle, it bounces.
+                else
+                {
+                    Bounce(DeltaTime);
+                }
+            }
+
+            // Continue flight movement
+            m_FlightTimer += DeltaTime;
+
+            // If the new flight frame is not the same as the last flight frame
+            if (CurrentFlightFrame != m_FlightFrame)
+            {
+                // Then we have to modify the bomb's position by using the current frame movement data!
+                // FIX ME : Is it safe? What if we miss a frame because of a big delta time? It should
+                // perform all the frames between the last one and the new frame, rather than just
+                // performing the current frame.
+
+                m_FlightFrame = CurrentFlightFrame;
+
+                m_iX += m_BounceMoveX[m_BombFly][m_FlightFrame];
+                m_iY += m_BounceMoveY[m_BombFly][m_FlightFrame];
+
+                m_X = (float)m_iX;
+                m_Y = (float)m_iY;
+            }
+
+            break;
+        }
+
+        // The bomb is flying because it was punched
+        case BOMBFLIGHTTYPE_PUNCH:
+        {
+            int CurrentFlightFrame;
+
+            // Continue flight movement
+            m_FlightTimer += DeltaTime;
+
+            // Determine flight frame number according to the timer
+            if (m_FlightTimer < PUNCH_BASE_FRAME_TIME * 1) CurrentFlightFrame = 0;
+            else if (m_FlightTimer < PUNCH_BASE_FRAME_TIME * 2) CurrentFlightFrame = 1;
+            else if (m_FlightTimer < PUNCH_BASE_FRAME_TIME * 3) CurrentFlightFrame = 2;
+            else if (m_FlightTimer < PUNCH_BASE_FRAME_TIME * 4) CurrentFlightFrame = 3;
+            else if (m_FlightTimer < PUNCH_BASE_FRAME_TIME * 5) CurrentFlightFrame = 4;
+            else if (m_FlightTimer < PUNCH_BASE_FRAME_TIME * 6) CurrentFlightFrame = 5;
+            else
+            {
+                // Last frame of the flight movement!
+                CurrentFlightFrame = 5;
+                m_FlightTimer = 0.0f;
+
+                // According to the flight direction, set the final block position
+                // of the bomb, and determine if the bomb is warping from one side
+                // of the arena to the opposite side.
+                switch (m_BombFly)
+                {
+                case BOMBFLY_UP:
+                {
+                    m_BlockY -= 3;
+
+                    if (m_BlockY < 0)
+                    {
+                        m_BlockY = ARENA_HEIGHT;
+                        m_Warping = true;
+                    }
+                    else
+                    {
+                        m_Warping = false;
+                    }
+
+                    break;
+                }
+
+                case BOMBFLY_DOWN:
+                {
+                    m_BlockY += 3;
+
+                    if (m_BlockY >= ARENA_HEIGHT)
+                    {
+                        m_BlockY = -1;
+                        m_Warping = true;
+                    }
+                    else
+                    {
+                        m_Warping = false;
+                    }
+
+                    break;
+                }
+
+                case BOMBFLY_LEFT:
+                {
+                    m_BlockX -= 3;
+
+                    if (m_BlockX < 0)
+                    {
+                        m_BlockX = ARENA_WIDTH;
+                        m_Warping = true;
+                    }
+                    else
+                    {
+                        m_Warping = false;
+                    }
+
+                    break;
+                }
+
+                case BOMBFLY_RIGHT:
+                {
+                    m_BlockX += 3;
+
+                    if (m_BlockX >= ARENA_WIDTH)
+                    {
+                        m_BlockX = -1;
+                        m_Warping = true;
+                    }
+                    else
+                    {
+                        m_Warping = false;
+                    }
+
+                    break;
+                }
+                default:
+                    break;
+                }
+
+                // We've set the block position, now set the correct pixel position.
+                CenterOnBlock();
+
+                // If the bomb is not warping and there is no solid obstacle where is lands
+                if (!m_Warping && !IsObstacle(m_BlockX, m_BlockY))
+                {
+                    // The bomb finishes its flight and lands here, crushing any item here.
+                    m_BombFly = BOMBFLY_NONE;
+                    m_FlightType = BOMBFLIGHTTYPE_NONE;
+                    CrushItem(m_BlockX, m_BlockY);
+                }
+                // If the bomb is warping, it bounces anyway until it is not warping anymore.
+                // If the bomb lands on a solid obstacle, it bounces.
+                else
+                {
+                    Bounce(DeltaTime);
+                }
+            }
+
+            // If the new flight frame is not the same as the last flight frame
+            if (CurrentFlightFrame != m_FlightFrame)
+            {
+                // Then we have to modify the bomb's position by using the current frame movement data!
+                // FIX ME : Is it safe? What if we miss a frame because of a big delta time? It should
+                // perform all the frames between the last one and the new frame, rather than just
+                // performing the current frame.
+
+                m_FlightFrame = CurrentFlightFrame;
+
+                m_iX += m_PunchMoveX[m_BombFly][m_FlightFrame];
+                m_iY += m_PunchMoveY[m_BombFly][m_FlightFrame];
+
+                m_X = (float)m_iX;
+                m_Y = (float)m_iY;
+            }
+
+            break;
+        }
+        default:
+            break;
+        }
+
     }
 }
 
@@ -1326,7 +1334,7 @@ void CBomb::ManageFlight (float DeltaTime)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CBomb::Bounce (float DeltaTime)
+void CBomb::Bounce(float DeltaTime)
 {
     if (!m_Warping)
     {
@@ -1342,7 +1350,7 @@ void CBomb::Bounce (float DeltaTime)
             // the bombers.
 
             // Make the pseudo random value
-            int iPseudoRandom = (int) (DeltaTime * 100000.0f);
+            int iPseudoRandom = (int)(DeltaTime * 100000.0f);
 
             // Make the pseudo random start index
             int StartIndex = iPseudoRandom % m_pArena->MaxBombers();
@@ -1358,12 +1366,12 @@ void CBomb::Bounce (float DeltaTime)
 
                 // Test existence and position
                 if (m_pArena->GetBomber(Index).Exist() &&
-                    m_pArena->GetBomber(Index).GetBlockX() == m_BlockX && 
+                    m_pArena->GetBomber(Index).GetBlockX() == m_BlockX &&
                     m_pArena->GetBomber(Index).GetBlockY() == m_BlockY)
                 {
                     // Make the bomber stunt
                     m_pArena->GetBomber(Index).Stunt();
-                
+
                     // Only one bomber stunt even if there are several bombers on this block
                     break;
                 }
@@ -1390,12 +1398,12 @@ void CBomb::Bounce (float DeltaTime)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CBomb::CenterOnBlock (void)
+void CBomb::CenterOnBlock(void)
 {
     m_iX = m_pArena->ToPosition(m_BlockX);
     m_iY = m_pArena->ToPosition(m_BlockY);
-    m_X = (float) m_iX;
-    m_Y = (float) m_iY;
+    m_X = (float)m_iX;
+    m_Y = (float)m_iY;
 }
 
 //******************************************************************************************************************************
