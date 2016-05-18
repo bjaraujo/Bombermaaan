@@ -754,7 +754,7 @@ bool CBomb::Update (float DeltaTime)
         m_BeingLifted = false;
         m_BeingPunched = false;
 
-        if (m_Remote)
+		if (m_Remote && m_BombFly == BOMBFLY_NONE)
         {
             // Explode remotes when bomber dies
             Explode();
