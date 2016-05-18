@@ -317,5 +317,46 @@ namespace BomberMaaanLevel
 
         }
 
+        private void FrmMain_KeyDown(object sender, KeyEventArgs e)
+        {
+
+            if (ci < 0 || cj < 0)
+                return;
+
+            if (e.KeyCode == Keys.Right)
+                ci++;
+
+            if (e.KeyCode == Keys.Left)
+                ci--;
+
+            if (e.KeyCode == Keys.Down)
+                cj++;
+
+            if (e.KeyCode == Keys.Up)
+                cj--;
+
+            if (ci < 0)
+                ci = 0;
+
+            if (ci >= nbTilesX)
+                ci = nbTilesX - 1;
+
+            if (cj < 0)
+                cj = 0;
+
+            if (cj >= nbTilesY)
+                cj = nbTilesY - 1;
+
+            PictureBox aPicBox = sTiles[ci, cj];
+
+            TileId aTileId = (TileId)(aPicBox).Tag;
+
+            ci = aTileId.i;
+            cj = aTileId.j;
+
+            ShowSelection(aPicBox);
+
+        }
+
     }
 }
