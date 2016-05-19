@@ -1862,7 +1862,7 @@ void CAiBomber::ModeDefence(float DeltaTime)
     int BestDistance = 999;
 
     bool DeadEnd = true;
-    bool twoBombs = false; // are there two bombs beside us?
+    bool twoBombs = false;        // are there two bombs beside us?
 
     // Scan the blocks of the AI view
     for (BlockX = m_BlockHereX - AI_VIEW_SIZE; BlockX < m_BlockHereX + AI_VIEW_SIZE; BlockX++)
@@ -1887,7 +1887,7 @@ void CAiBomber::ModeDefence(float DeltaTime)
                     m_pArena->GetDanger(BlockX, BlockY) == DANGER_NONE &&
                    !m_pArena->GetArena()->IsSkullItem(BlockX, BlockY) &&
                    (m_Accessible[BlockX][BlockY] < BestDistance ||
-                   (m_Accessible[BlockX][BlockY] == BestDistance && RANDOM(100) >= 50)))
+                   (m_Accessible[BlockX][BlockY] == BestDistance)))
                 {
                     // We found a good block to go to
                     Found = true;
@@ -1941,7 +1941,9 @@ void CAiBomber::ModeDefence(float DeltaTime)
 
     if (!Found)
     {
-        if (m_pBomber->CanKickBombs() || m_pBomber->CanPunchBombs())
+        // kick only bomb with 5% of probability (avoid kicking against walls)
+        // punch bomb with 25% of probability
+        if ((m_pBomber->CanKickBombs() && RANDOM(100) < 5) || (m_pBomber->CanPunchBombs() && RANDOM(100) < 25))
         {
             BestDangerTimeLeft = 0.0f;
 
@@ -1965,7 +1967,7 @@ void CAiBomber::ModeDefence(float DeltaTime)
                             m_pArena->GetArena()->IsBomb(BlockX, BlockY) &&
                             (BlockX == m_BlockHereX || BlockY == m_BlockHereY) &&
                             (BlockX != m_BlockHereX || BlockY != m_BlockHereY) &&
-                            m_pArena->GetDangerTimeLeft(BlockX, BlockY) >BestDangerTimeLeft)
+                            m_pArena->GetDangerTimeLeft(BlockX, BlockY) > BestDangerTimeLeft)
                         {
                             // We found a good block to go to
                             Found = true;
@@ -2012,6 +2014,7 @@ void CAiBomber::ModeDefence(float DeltaTime)
                         {
                             twoBombs = true;
                         }
+
                     }
                 }
             }
@@ -2033,6 +2036,7 @@ void CAiBomber::ModeDefence(float DeltaTime)
                         {
                             twoBombs = true;
                         }
+
                     }
                 }
             }
@@ -2054,6 +2058,7 @@ void CAiBomber::ModeDefence(float DeltaTime)
                         {
                             twoBombs = true;
                         }
+
                     }
                 }
             }
@@ -2075,6 +2080,7 @@ void CAiBomber::ModeDefence(float DeltaTime)
                         {
                             twoBombs = true;
                         }
+
                     }
                 }
             }
@@ -2115,6 +2121,7 @@ void CAiBomber::ModeDefence(float DeltaTime)
             }
 
             return;
+
         }
     }
 
