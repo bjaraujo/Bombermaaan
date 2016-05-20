@@ -111,6 +111,5 @@ for file in glob.glob('trunk/levels/*.TXT'):
 
 os.system("git commit -a -m v" + strNewVersion)
 os.system("git tag" + " v" + strNewVersion)
-os.system("git push")
 os.system("git push --tags")
 
