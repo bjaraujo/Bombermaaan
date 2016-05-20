@@ -46,7 +46,9 @@ class CHurryMessage;
 
 #include "CSound.h"
 
-#include "CNetwork.h"
+#ifdef NETWORK_MODE
+	#include "CNetwork.h"
+#endif
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -70,7 +72,9 @@ private:
 
     CTeam           m_Teams[MAX_TEAMS];         //!< Teams object 
 
+#ifdef NETWORK_MODE
     CNetwork*       m_pNetwork;                 //!< Network pointer
+#endif
 
     CAiManager      m_AiManager;                //!< Computer brain
     //! @todo Check why m_NoComputer is there (didn't find references)
@@ -113,7 +117,10 @@ public:
     inline void     SetScores(CScores *pScores);       //!< Set link to the scores object to use
     inline void     SetTimer(CTimer *pTimer);          //!< Set link to the timer object to use
     inline void     SetSound(CSound *pSound);          //!< Set link to the sound object to use
-    inline void     SetNetwork(CNetwork *pNetwork);     //!< Set link to the network object to use
+    
+#ifdef NETWORK_MODE
+	inline void     SetNetwork(CNetwork *pNetwork);     //!< Set link to the network object to use
+#endif
 
     void            Create(void);                      //!< Initialize the object
     void            Destroy(void);                     //!< Uninitialize the object
@@ -170,14 +177,14 @@ inline void CMatch::SetSound(CSound *pSound)
     m_Arena.SetSound(pSound);
 }
 
+#ifdef NETWORK_MODE
 inline void CMatch::SetNetwork(CNetwork *pNetwork)
 {
 
     m_pNetwork = pNetwork;
 
 }
-
-
+#endif
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************

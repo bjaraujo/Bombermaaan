@@ -552,7 +552,9 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
     m_Match.SetScores(&m_Scores);
     m_Match.SetSound(&m_Sound);
 
+#ifdef NETWORK_MODE
     m_Match.SetNetwork(&m_Network);
+#endif
 
     // Set the objects the demo object has to communicate with
     m_Demo.SetDisplay(&m_Display);
@@ -658,6 +660,7 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
 
     m_MenuYesNo.Create();
 
+#ifdef NETWORK_MODE
     char IpAddressString[32];
 #ifdef WIN32
     const char *pos = strstr(pCommandLine, "-client");
@@ -707,7 +710,9 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
         }
     }
 #endif
+#endif
 
+#ifdef NETWORK_MODE
     if (m_Network.NetworkMode() != NETWORKMODE_LOCAL)
     {
         if (!m_Network.Connect(IpAddressString))
@@ -720,7 +725,8 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
         StartGameMode(GAMEMODE_MATCH);
     }
     else
-    {
+#endif
+	{
         // Set the current game mode
         StartGameMode(START_UP_GAME_MODE);
     }
@@ -750,7 +756,9 @@ void CGame::Destroy(void)
     // Terminate game mode and set no game mode
     FinishGameMode();
 
+#ifdef NETWORK_MODE
     m_Network.Disconnect();
+#endif
 
 #ifdef ENABLE_SOUND
 

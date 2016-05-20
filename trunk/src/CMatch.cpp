@@ -106,6 +106,7 @@ void CMatch::Create(void)
     // Don't force a draw game at the beginning of the match
     m_ForceDrawGame = false;
 
+#ifdef NETWORK_MODE
     if (m_pNetwork->NetworkMode() != NETWORKMODE_LOCAL)
     {
         m_pOptions->SetTimeStart(2, 35);
@@ -142,6 +143,7 @@ void CMatch::Create(void)
 
         }
     }
+#endif
 
     CreateMainComponents();
 
@@ -432,10 +434,13 @@ void CMatch::ProcessPlayerCommands(void)
                         }
                     }
 
+#ifdef NETWORK_MODE
                     if (m_pNetwork->NetworkMode() == NETWORKMODE_CLIENT)
                     {
                         CommandChunk.Store(BomberMove, BomberAction, m_pTimer->GetDeltaTime());
                     }
+#endif
+
                 }
             }
             // If this player plays and is a network player
@@ -447,6 +452,7 @@ void CMatch::ProcessPlayerCommands(void)
             }
         }
 
+#ifdef NETWORK_MODE
         TimeElapsedSinceLastCommandChunk += m_pTimer->GetDeltaTime();
         if (TimeElapsedSinceLastCommandChunk >= 0.050f)
         {
@@ -501,7 +507,10 @@ void CMatch::ProcessPlayerCommands(void)
 
             TimeElapsedSinceLastCommandChunk = 0.0f;
         }
+#endif
+
     }
+
 }
 
 //******************************************************************************************************************************
