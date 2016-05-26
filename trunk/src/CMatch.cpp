@@ -128,7 +128,7 @@ void CMatch::Create(void)
             DWORD TickCount = time(NULL);
 #endif
 
-            m_pNetwork->Send(SOCKET_CLIENT, (const char*)&TickCount, sizeof(DWORD), 0);
+            m_pNetwork->Send(SOCKET_CLIENT, (const char*)&TickCount, sizeof(DWORD));
 
             SEED_RANDOM(TickCount);
         }
@@ -139,7 +139,7 @@ void CMatch::Create(void)
 
             DWORD TickCount;
 
-            m_pNetwork->Receive(SOCKET_SERVER, (char*)&TickCount, sizeof(DWORD), 0);
+            m_pNetwork->Receive(SOCKET_SERVER, (char*)&TickCount, sizeof(DWORD));
 
         }
     }

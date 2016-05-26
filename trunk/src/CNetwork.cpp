@@ -17,7 +17,7 @@
     You should have received a copy of the GNU General Public License
     along with Bombermaaan.  If not, see <http://www.gnu.org/licenses/>.
 
-************************************************************************************/
+    ************************************************************************************/
 
 
 /**
@@ -32,21 +32,20 @@
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CNetwork::CNetwork ()
+CNetwork::CNetwork()
 {
 
-	m_NetworkMode = NETWORKMODE_LOCAL;	
+    m_NetworkMode = NETWORKMODE_LOCAL;
 
-    m_Socket = INVALID_SOCKET;
-    m_ClientSocket = INVALID_SOCKET;
-    
+    m_Socket = NULL;
+
 }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CNetwork::~CNetwork (void)
+CNetwork::~CNetwork(void)
 {
 
 
@@ -58,9 +57,9 @@ CNetwork::~CNetwork (void)
 
 ENetworkMode CNetwork::NetworkMode()
 {
-    
+
     return m_NetworkMode;
-    
+
 }
 
 //******************************************************************************************************************************
@@ -70,7 +69,7 @@ ENetworkMode CNetwork::NetworkMode()
 void CNetwork::SetNetworkMode(ENetworkMode NetworkMode)
 {
 
-	m_NetworkMode = NetworkMode;
+    m_NetworkMode = NetworkMode;
 
 }
 
@@ -78,100 +77,66 @@ void CNetwork::SetNetworkMode(ENetworkMode NetworkMode)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CNetwork::Connect (const char* IpAddressString)
+bool CNetwork::Connect(const char* IpAddressString)
 {
-        
-#ifdef WIN32
-	WSAData WsaData;
 
-	if (WSAStartup(MAKEWORD(1, 1), &WsaData) != 0)
-	{
-		theConsole.Write("WSAStartup failed\n");
-		return false;
-	}
-#endif
+    SDLNet_Init();
 
     if (m_NetworkMode == NETWORKMODE_SERVER)
     {
 
-        m_Socket = socket(AF_INET, SOCK_STREAM, 0);
+        IPaddress ip;
 
-        SOCKADDR_IN SocketAddress;
-        SocketAddress.sin_family = AF_INET;
-        SocketAddress.sin_addr.s_addr = INADDR_ANY;
-        SocketAddress.sin_port = htons(12345);
-
-        theConsole.Write("bind\n");
-
-        if (bind(m_Socket, (LPSOCKADDR)&SocketAddress, sizeof(SOCKADDR)) == SOCKET_ERROR)
+        if (SDLNet_ResolveHost(&ip, NULL, 1234) == SOCKET_ERROR)
         {
-            theConsole.Write("bind failed\n");
-#ifdef WIN32
-            closesocket(m_Socket);
-#else
-            close(m_Socket);
-#endif
+            theConsole.Write("listen failed: %d\n", SDLNet_GetError());
+
             return false;
         }
 
-        theConsole.Write("listen\n");
+        m_Socket = SDLNet_TCP_Open(&ip);
 
-        if (listen(m_Socket, SOMAXCONN) == SOCKET_ERROR)
+        if (!m_Socket)
         {
-            theConsole.Write("listen failed\n");
-#ifdef WIN32
-            closesocket(m_Socket);
-#else
-            close(m_Socket);
-#endif
+            theConsole.Write("open failed: %d\n", SDLNet_GetError());
+            
             return false;
         }
 
-        theConsole.Write("accept\n");
+        m_ClientSocket = SDLNet_TCP_Accept(m_Socket);
 
-        SOCKADDR_IN Address;
-        int Size = sizeof(SOCKADDR);
-
-#ifdef WIN32
-        m_ClientSocket = accept(m_Socket, (LPSOCKADDR)&Address, &Size);
-#else
-        m_ClientSocket = accept(m_Socket, (LPSOCKADDR)&Address, (socklen_t *)&Size);
-#endif
-
-        if (m_ClientSocket == INVALID_SOCKET)
+        if (!m_ClientSocket)
         {
-            theConsole.Write("accept failed\n");
+            theConsole.Write("accept failed: %d\n", SDLNet_GetError());
+
             return false;
         }
+
     }
     else if (m_NetworkMode == NETWORKMODE_CLIENT)
     {
-        
-        m_Socket = socket(AF_INET, SOCK_STREAM, 0);
 
-        theConsole.Write("connect to %s\n", IpAddressString);
+        IPaddress ip;
 
-        u_long RemoteAddress = inet_addr(IpAddressString);
-
-        if (RemoteAddress == INADDR_NONE)
+        if (SDLNet_ResolveHost(&ip, IpAddressString, 1234) == SOCKET_ERROR)
         {
-            theConsole.Write("The address %s is not a dotted IP address.\n");
+            theConsole.Write("connection failed: %d\n", SDLNet_GetError());
+
             return false;
         }
 
-        SOCKADDR_IN SocketAddress;
-        SocketAddress.sin_family = AF_INET;
-        memcpy(&SocketAddress.sin_addr, &RemoteAddress, sizeof(u_long));
-        SocketAddress.sin_port = htons(12345);
+        m_Socket = SDLNet_TCP_Open(&ip);
 
-        if (connect(m_Socket, (LPSOCKADDR)&SocketAddress, sizeof(SOCKADDR_IN)) == SOCKET_ERROR)
+        if (!m_Socket)
         {
-            theConsole.Write("connect failed\n");
+            theConsole.Write("open failed: %d\n", SDLNet_GetError());
+
             return false;
         }
+
     }
-    
-	return true;
+
+    return true;
 
 }
 
@@ -179,33 +144,21 @@ bool CNetwork::Connect (const char* IpAddressString)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CNetwork::Disconnect ()
+bool CNetwork::Disconnect()
 {
 
     if (m_NetworkMode != NETWORKMODE_LOCAL)
     {
-#ifdef WIN32
-        closesocket(m_Socket);
-        closesocket(m_ClientSocket);
 
-        if (WSACleanup() == SOCKET_ERROR)
-        {
-            if (WSAGetLastError() == WSAEINPROGRESS)
-            {
-                WSACancelBlockingCall();
-                WSACleanup();
-            }
-        }
-#else
-        close(m_Socket);
-        close(m_ClientSocket);
-#endif
+        SDLNet_TCP_Close(m_Socket);
+        SDLNet_TCP_Close(m_ClientSocket);
+
     }
 
-	return true;
+    return true;
 
 }
-    
+
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -213,34 +166,26 @@ bool CNetwork::Disconnect ()
 /**
  *  \return true, if the send was successful
  *
- *  Send packet 
+ *  Send packet
  */
 
-bool CNetwork::Send (ESocketType SocketType, const char* buf, size_t len, int flags)
+bool CNetwork::Send(ESocketType SocketType, const char* buf, int len)
 {
 
-	int Sent = SOCKET_ERROR;
+    int Sent = 0;
 
     if (SocketType == SOCKET_SERVER)
-		Sent = send(m_Socket, buf, len, flags);
+        Sent = SDLNet_TCP_Send(m_Socket, buf, len);
     else if (SocketType == SOCKET_CLIENT)
-		Sent = send(m_ClientSocket, buf, len, flags);
-    
-#ifdef WIN32
-	if (Sent == SOCKET_ERROR)
-	{
-		theConsole.Write("sent error: %d\n", WSAGetLastError());
-		return false;
-	}
-#else
-	if (Sent == -1)
-	{
-		theConsole.Write("sent error : %d\n", Sent);
-		return false;
-	}
-#endif
+        Sent = SDLNet_TCP_Send(m_ClientSocket, buf, len);
 
-	return true;
+    if (Sent == SOCKET_ERROR)
+    {
+        theConsole.Write("sent error: %d\n", SDLNet_GetError());
+        return false;
+    }
+
+    return true;
 
 }
 
@@ -251,42 +196,16 @@ bool CNetwork::Send (ESocketType SocketType, const char* buf, size_t len, int fl
 /**
  *  \return true, if the send was successful
  *
- *  Receive packet 
+ *  Receive packet
  */
 
-int CNetwork::Receive (ESocketType SocketType, char* buf, size_t len, int flags)
+int CNetwork::Receive(ESocketType SocketType, char* buf, int len)
 {
-        
+
     if (SocketType == SOCKET_SERVER)
-        return recv(m_Socket, buf, len, 0);
-	else if (SocketType == SOCKET_CLIENT)
-		return recv(m_ClientSocket, buf, len, 0);
-	else
-		return 0;
-
-}
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-unsigned char CNetwork::GetCheckSum(const char* buf, size_t len)
-{
-
-	int sum = 0;
-
-	if (len > 0)
-	{
-		for (size_t i = 0; i < len; ++i) {
-			sum += buf[i];
-		}
-
-		sum %= 256;
-	}
-
-	char ch = sum;
-
-	return ~ch + 1;
+        return SDLNet_TCP_Recv(m_Socket, buf, len);
+    else if (SocketType == SOCKET_CLIENT)
+        return SDLNet_TCP_Recv(m_ClientSocket, buf, len);
 
 }
 
@@ -297,49 +216,10 @@ unsigned char CNetwork::GetCheckSum(const char* buf, size_t len)
 bool CNetwork::SendCommandChunk(const CCommandChunk& CommandChunk)
 {
 
-	// Send header
-	unsigned char* headerBuf = new unsigned char[20];
+    // Send client command chunk to the server
+    this->Send(SOCKET_SERVER, (const char*)&CommandChunk, sizeof(CommandChunk));
 
-	// Packet start Id
-	headerBuf[0] = 0x03;
-	headerBuf[2] = 0x08;
-	headerBuf[3] = 0x45;
-	headerBuf[4] = 0x88;
-	headerBuf[5] = 0x45;
-	headerBuf[6] = 0x08;
-	headerBuf[7] = 0xA6;
-	headerBuf[8] = 0xA6;
-	headerBuf[9] = 0x03;
-
-	// Type Id
-	headerBuf[10] = 'C';
-	headerBuf[11] = 'O';
-	headerBuf[10] = 'M';
-	headerBuf[11] = 'M';
-	headerBuf[12] = 'A';
-	headerBuf[13] = 'N';
-	headerBuf[14] = 'D';
-	headerBuf[15] = 0x00;
-	headerBuf[16] = 0x00;
-	headerBuf[17] = 0x00;
-	headerBuf[19] = 0x00;
-
-	// Send header to the client
-	this->Send(SOCKET_SERVER, (const char*)&headerBuf, 20, 0);
-
-	delete[] headerBuf;
-
-	// Send client command chunk to the server
-	this->Send(SOCKET_SERVER, (char*)&CommandChunk, sizeof(CommandChunk), 0);
-
-	// Send a checksum to the server
-	unsigned char ckSum = this->GetCheckSum((const char*)&CommandChunk, sizeof(CommandChunk));
-	this->Send(SOCKET_SERVER, (const char*)&ckSum, 1, 0);
-
-	// Send a footer
-	this->SendFooter(SOCKET_SERVER);
-
-	return true;
+    return true;
 
 }
 
@@ -350,46 +230,32 @@ bool CNetwork::SendCommandChunk(const CCommandChunk& CommandChunk)
 bool CNetwork::ReceiveCommandChunk(CCommandChunk& CommandChunk)
 {
 
-	// Receive client command chunk
-	int bufsize = sizeof(CommandChunk) + 21;
-	char* recvBuf = new char[bufsize];
-	int Received = 0;
+    // Receive client command chunk 
+    int bufsize = sizeof(CommandChunk);
+    char* recvBuf = new char[bufsize];
+    int Received = 0;
 
-	do {
-		Received += this->Receive(SOCKET_CLIENT, &recvBuf[Received], bufsize, 0);
-#ifdef WIN32
-		if (Received == SOCKET_ERROR)
-		{
-			theConsole.Write("recv error (server): %d\n", WSAGetLastError());
-			break;
-		}
-#else
-		if (Received == -1)
-		{
-			theConsole.Write("recv error : %d\n", Received);
-			break;
-		}
-#endif
+    do {
 
-		bufsize -= Received;
+        Received += this->Receive(SOCKET_CLIENT, &recvBuf[Received], bufsize);
 
-	} while (Received < sizeof(CommandChunk));
+        if (Received == SOCKET_ERROR)
+        {
+            theConsole.Write("sent error: %d\n", SDLNet_GetError());
+            return false;
+        }
 
-	if (Received == sizeof(CommandChunk) + 21)
-	{
+        bufsize -= Received;
 
-		if ((int)this->GetCheckSum(recvBuf, sizeof(CommandChunk)) == (int)recvBuf[Received - 1])
-			memcpy((char *)&CommandChunk, recvBuf, sizeof(CommandChunk));
+    } while (Received < sizeof(CommandChunk));
 
-	}
-	else
-	{
-		this->ReceiveFooter(SOCKET_CLIENT);
-	}
+    if (Received == sizeof(CommandChunk))
+    {
+        memcpy((char *)&CommandChunk, recvBuf, sizeof(CommandChunk));
+        return true;
+    }
 
-	delete[] recvBuf;
-
-	return true;
+    return false;
 
 }
 
@@ -400,49 +266,8 @@ bool CNetwork::ReceiveCommandChunk(CCommandChunk& CommandChunk)
 bool CNetwork::SendSnapshot(const CArenaSnapshot& Snapshot)
 {
 
-	// Send header
-	unsigned char* headerBuf = new unsigned char[20];
-
-	// Packet start Id
-	headerBuf[0] = 0x03;
-	headerBuf[2] = 0x08;
-	headerBuf[3] = 0x45;
-	headerBuf[4] = 0x88;
-	headerBuf[5] = 0x45;
-	headerBuf[6] = 0x08;
-	headerBuf[7] = 0xA6;
-	headerBuf[8] = 0xA6;
-	headerBuf[9] = 0x03;
-
-	// Type Id
-	headerBuf[10] = 'S';
-	headerBuf[11] = 'N';
-	headerBuf[10] = 'A';
-	headerBuf[11] = 'P';
-	headerBuf[12] = 'S';
-	headerBuf[13] = 'H';
-	headerBuf[14] = 'O';
-	headerBuf[15] = 'T';
-	headerBuf[16] = 0x00;
-	headerBuf[17] = 0x00;
-	headerBuf[19] = 0x00;
-
-	// Send header to the client
-	this->Send(SOCKET_CLIENT, (const char*)&headerBuf, 20, 0);
-
-	delete[] headerBuf;
-
-	// Send snapshot to the client
-	this->Send(SOCKET_CLIENT, (const char*)&Snapshot, sizeof(Snapshot), 0);
-
-	// Send a checksum
-	unsigned char ckSum = this->GetCheckSum((const char*)&Snapshot, sizeof(Snapshot));
-	this->Send(SOCKET_CLIENT, (const char*)&ckSum, 1, 0);
-
-	// Send a footer
-	this->SendFooter(SOCKET_CLIENT);
-
-	return true;
+    // Send snapshot to the client
+    return this->Send(SOCKET_CLIENT, (const char*)&Snapshot, sizeof(Snapshot));
 
 }
 
@@ -453,126 +278,32 @@ bool CNetwork::SendSnapshot(const CArenaSnapshot& Snapshot)
 bool CNetwork::ReceiveSnapshot(CArenaSnapshot& Snapshot)
 {
 
-	// Receive and apply the arena snapshot from the server
-	int bufsize = sizeof(Snapshot) + 21;
-	char* recvBuf = new char[bufsize];
-	int Received = 0;
+    // Receive and apply the arena snapshot from the server
+    int bufsize = sizeof(Snapshot);
+    char* recvBuf = new char[bufsize];
+    int Received = 0;
 
-	do {
-		Received += this->Receive(SOCKET_SERVER, &recvBuf[Received], bufsize, 0);
-#ifdef WIN32
-		if (Received == SOCKET_ERROR)
-		{
-			theConsole.Write("recv error (client): %d\n", WSAGetLastError());
-			break;
-		}
-#else
-		if (Received == -1)
-		{
-			theConsole.Write("recv error : %d\n", Received);
-			break;
-		}
-#endif
+    do {
 
-		bufsize -= Received;
+        Received += this->Receive(SOCKET_CLIENT, &recvBuf[Received], bufsize);
 
-	} while (Received < sizeof(Snapshot));
+        if (Received == SOCKET_ERROR)
+        {
+            theConsole.Write("sent error: %d\n", SDLNet_GetError());
+            return false;
+        }
 
-	if (Received == sizeof(Snapshot) + 21)
-	{
+        bufsize -= Received;
 
-		if ((int)this->GetCheckSum(recvBuf, sizeof(Snapshot)) == (int)recvBuf[Received - 1])
-			memcpy((char *)&Snapshot, recvBuf, sizeof(Snapshot));
+    } while (Received < sizeof(Snapshot));
 
-	}
-	else
-	{
-		this->ReceiveFooter(SOCKET_SERVER);
-	}
+    if (Received == sizeof(Snapshot))
+    {
+        memcpy((char *)&Snapshot, recvBuf, sizeof(Snapshot));
+        return true;
+    }
 
-	delete[] recvBuf;
-
-	return true;
-
-}
-
-bool CNetwork::SendFooter(ESocketType SocketType)
-{
-
-	unsigned char*footerBuf = new unsigned char[15];
-
-	// Packet end Id
-	footerBuf[0] = 0x13;
-	footerBuf[1] = 0x18;
-	footerBuf[2] = 0x55;
-	footerBuf[3] = 0x98;
-	footerBuf[4] = 0x55;
-	footerBuf[5] = 0x18;
-	footerBuf[6] = 0xA6;
-	footerBuf[7] = 0xA6;
-	footerBuf[8] = 0xA6;
-	footerBuf[9] = 0x13;
-
-	footerBuf[10] = 'E';
-	footerBuf[11] = 'N';
-	footerBuf[12] = 'D';
-	footerBuf[13] = 0x00;
-	footerBuf[14] = 0x00;
-
-	// Send footer to the client
-	this->Send(SocketType, (const char*)&footerBuf, 15, 0);
-
-	return true;
-
-}
-
-bool CNetwork::ReceiveFooter(ESocketType SocketType)
-{
-
-	char* ch = new char[1];
-
-	int Received = 0;
-
-	// Read until the end of the packet
-	do 
-	{
-
-		Received = this->Receive(SocketType, ch, 1, 0);
-
-		if ((unsigned char)ch[0] == 0x13)
-		{
-
-			char*footerBuf = new char[15];
-
-			this->Receive(SocketType, footerBuf, 14, 0);
-
-			for (int i = 0; i < 13; i++)
-				footerBuf[i + 1] = footerBuf[i];
-
-			bool isEnd = (footerBuf[0] == 0x13) &&
-				(footerBuf[1] == 0x18) &&
-				(footerBuf[2] == 0x55) &&
-				(footerBuf[3] == 0x98) &&
-				(footerBuf[4] == 0x55) &&
-				(footerBuf[5] == 0x18) &&
-				(footerBuf[6] == 0xA6) &&
-				(footerBuf[7] == 0xA6) &&
-				(footerBuf[8] == 0xA6) &&
-				(footerBuf[9] == 0x13) &&
-				(footerBuf[10] == 'E') &&
-				(footerBuf[11] == 'N') &&
-				(footerBuf[12] == 'D') &&
-				(footerBuf[13] == 0x00) &&
-				(footerBuf[14] == 0x00);
-
-			if (isEnd)
-				break;
-
-		}
-
-	} while (Received > 0);
-
-	return true;
+    return false;
 
 }
 

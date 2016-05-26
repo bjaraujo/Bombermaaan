@@ -17,7 +17,7 @@
     You should have received a copy of the GNU General Public License
     along with Bombermaaan.  If not, see <http://www.gnu.org/licenses/>.
 
-************************************************************************************/
+    ************************************************************************************/
 
 
 /**
@@ -28,14 +28,8 @@
 #ifndef __CNETWORK_H__
 #define __CNETWORK_H__
 
-#ifdef WIN32
-#include <winsock2.h>
-#else
-#include <arpa/inet.h>
-#include <sys/io.h>
-#include <sys/socket.h>
-#endif
-    
+#include "SDL_net.h"
+
 #include "CCommandChunk.h"
 #include "CArenaSnapshot.h"
 
@@ -56,39 +50,37 @@ enum ESocketType
     SOCKET_CLIENT
 };
 
+#define SOCKET_ERROR -1
+
 //! Manages the network communication
 class CNetwork
 {
 private:
-    
+
     ENetworkMode m_NetworkMode;
-    
-    SOCKET m_Socket;
-    SOCKET m_ClientSocket;
-    
+
+    TCPsocket m_Socket;
+    TCPsocket m_ClientSocket;
+
 public:
 
-                   CNetwork ();
-                   ~CNetwork (void);
-    
+    CNetwork();
+    ~CNetwork(void);
+
     ENetworkMode   NetworkMode();
-	void		   SetNetworkMode(ENetworkMode NetworkMode);
+    void           SetNetworkMode(ENetworkMode NetworkMode);
 
     bool           Connect(const char* IpAddressString);
-	bool		   Disconnect();
+    bool           Disconnect();
 
-	bool           Send(ESocketType SocketType, const char* buf, size_t len, int flags);
-	int            Receive(ESocketType SocketType, char* buf, size_t len, int flags);
-	unsigned char  GetCheckSum(const char* buf, size_t len);
+    bool           Send(ESocketType SocketType, const char* buf, int len);
+    int            Receive(ESocketType SocketType, char* buf, int len);
 
-	bool           SendCommandChunk(const CCommandChunk& CommandChunk);
-	bool           ReceiveCommandChunk(CCommandChunk& CommandChunk);
+    bool           SendCommandChunk(const CCommandChunk& CommandChunk);
+    bool           ReceiveCommandChunk(CCommandChunk& CommandChunk);
 
-	bool           SendSnapshot(const CArenaSnapshot& Snapshot);
-	bool           ReceiveSnapshot(CArenaSnapshot& Snapshot);
-
-	bool           SendFooter(ESocketType SocketType);
-	bool           ReceiveFooter(ESocketType SocketType);
+    bool           SendSnapshot(const CArenaSnapshot& Snapshot);
+    bool           ReceiveSnapshot(CArenaSnapshot& Snapshot);
 
 };
 
