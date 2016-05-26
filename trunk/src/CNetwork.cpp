@@ -206,6 +206,8 @@ int CNetwork::Receive(ESocketType SocketType, char* buf, int len)
         return SDLNet_TCP_Recv(m_Socket, buf, len);
     else if (SocketType == SOCKET_CLIENT)
         return SDLNet_TCP_Recv(m_ClientSocket, buf, len);
+    else
+        return 0;
 
 }
 
