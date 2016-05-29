@@ -80,16 +80,21 @@ void CNetwork::SetNetworkMode(ENetworkMode NetworkMode)
 bool CNetwork::Connect(const char* IpAddressString)
 {
 
-    SDLNet_Init();
+    if (SDLNet_Init() == SDL_ERROR)
+    {
+        theLog.Write("init failed: %s\n", SDLNet_GetError());
+
+        return false;
+    }
 
     if (m_NetworkMode == NETWORKMODE_SERVER)
     {
 
         IPaddress ip;
 
-        if (SDLNet_ResolveHost(&ip, NULL, 1234) == SOCKET_ERROR)
+        if (SDLNet_ResolveHost(&ip, NULL, 1234) == SDL_ERROR)
         {
-            theConsole.Write("listen failed: %d\n", SDLNet_GetError());
+            theLog.Write("listen failed: %s\n", SDLNet_GetError());
 
             return false;
         }
@@ -98,18 +103,20 @@ bool CNetwork::Connect(const char* IpAddressString)
 
         if (!m_Socket)
         {
-            theConsole.Write("open failed: %d\n", SDLNet_GetError());
+            theLog.Write("open failed: %s\n", SDLNet_GetError());
             
             return false;
         }
 
-        m_ClientSocket = SDLNet_TCP_Accept(m_Socket);
+        // Wait for the client
+        while (1)
+        { 
 
-        if (!m_ClientSocket)
-        {
-            theConsole.Write("accept failed: %d\n", SDLNet_GetError());
+            m_ClientSocket = SDLNet_TCP_Accept(m_Socket);
 
-            return false;
+            if (m_ClientSocket)
+                break;
+
         }
 
     }
@@ -118,9 +125,9 @@ bool CNetwork::Connect(const char* IpAddressString)
 
         IPaddress ip;
 
-        if (SDLNet_ResolveHost(&ip, IpAddressString, 1234) == SOCKET_ERROR)
+        if (SDLNet_ResolveHost(&ip, IpAddressString, 1234) == SDL_ERROR)
         {
-            theConsole.Write("connection failed: %d\n", SDLNet_GetError());
+            theLog.Write("connection failed: %s\n", SDLNet_GetError());
 
             return false;
         }
@@ -129,7 +136,7 @@ bool CNetwork::Connect(const char* IpAddressString)
 
         if (!m_Socket)
         {
-            theConsole.Write("open failed: %d\n", SDLNet_GetError());
+            theLog.Write("open failed: %s\n", SDLNet_GetError());
 
             return false;
         }
@@ -151,7 +158,9 @@ bool CNetwork::Disconnect()
     {
 
         SDLNet_TCP_Close(m_Socket);
-        SDLNet_TCP_Close(m_ClientSocket);
+
+        if (m_NetworkMode == NETWORKMODE_SERVER)
+            SDLNet_TCP_Close(m_ClientSocket);
 
     }
 
@@ -179,9 +188,9 @@ bool CNetwork::Send(ESocketType SocketType, const char* buf, int len)
     else if (SocketType == SOCKET_CLIENT)
         Sent = SDLNet_TCP_Send(m_ClientSocket, buf, len);
 
-    if (Sent == SOCKET_ERROR)
+    if (Sent == SDL_ERROR)
     {
-        theConsole.Write("sent error: %d\n", SDLNet_GetError());
+        theLog.Write("sent error: %s\n", SDLNet_GetError());
         return false;
     }
 
@@ -241,9 +250,9 @@ bool CNetwork::ReceiveCommandChunk(CCommandChunk& CommandChunk)
 
         Received += this->Receive(SOCKET_CLIENT, &recvBuf[Received], bufsize);
 
-        if (Received == SOCKET_ERROR)
+        if (Received == SDL_ERROR)
         {
-            theConsole.Write("sent error: %d\n", SDLNet_GetError());
+            theLog.Write("sent error: %s\n", SDLNet_GetError());
             return false;
         }
 
@@ -287,11 +296,11 @@ bool CNetwork::ReceiveSnapshot(CArenaSnapshot& Snapshot)
 
     do {
 
-        Received += this->Receive(SOCKET_CLIENT, &recvBuf[Received], bufsize);
+        Received += this->Receive(SOCKET_SERVER, &recvBuf[Received], bufsize);
 
-        if (Received == SOCKET_ERROR)
+        if (Received == SDL_ERROR)
         {
-            theConsole.Write("sent error: %d\n", SDLNet_GetError());
+            theLog.Write("sent error: %s\n", SDLNet_GetError());
             return false;
         }
 

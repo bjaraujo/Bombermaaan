@@ -50,7 +50,7 @@ enum ESocketType
     SOCKET_CLIENT
 };
 
-#define SOCKET_ERROR -1
+#define SDL_ERROR -1
 
 //! Manages the network communication
 class CNetwork
