@@ -265,9 +265,11 @@ bool CNetwork::ReceiveCommandChunk(CCommandChunk& CommandChunk)
     if (Received == sizeof(CommandChunk))
     {
         memcpy((char *)&CommandChunk, recvBuf, sizeof(CommandChunk));
+        delete[] recvBuf;
         return true;
     }
 
+    delete[] recvBuf;
     return false;
 
 }
@@ -278,6 +280,16 @@ bool CNetwork::ReceiveCommandChunk(CCommandChunk& CommandChunk)
 
 bool CNetwork::SendSnapshot(const CArenaSnapshot& Snapshot)
 {
+
+    // Send checksum
+    char ByteArray[4];
+
+    unsigned long aCheckSum = this->CheckSum((const char*)&Snapshot);
+    this->ULongToByteArray(aCheckSum, ByteArray);
+
+    std::cout << "aCheckSum = " << aCheckSum  << std::endl;
+
+    this->Send(SOCKET_CLIENT, (const char*)&ByteArray, sizeof(ByteArray));
 
     // Send snapshot to the client
     return this->Send(SOCKET_CLIENT, (const char*)&Snapshot, sizeof(Snapshot));
@@ -290,6 +302,10 @@ bool CNetwork::SendSnapshot(const CArenaSnapshot& Snapshot)
 
 bool CNetwork::ReceiveSnapshot(CArenaSnapshot& Snapshot)
 {
+    
+    // Receive checksum
+    char ByteArray[4];
+    this->Receive(SOCKET_SERVER, ByteArray, 4);
 
     // Receive and apply the arena snapshot from the server
     int bufsize = sizeof(Snapshot);
@@ -312,11 +328,65 @@ bool CNetwork::ReceiveSnapshot(CArenaSnapshot& Snapshot)
 
     if (Received == sizeof(Snapshot))
     {
-        memcpy((char *)&Snapshot, recvBuf, sizeof(Snapshot));
-        return true;
+
+        unsigned long aCheckSum1 = this->CheckSum(recvBuf);
+        
+        unsigned long aCheckSum2;
+        this->ByteArrayToULong(ByteArray, aCheckSum2);
+
+        if (aCheckSum1 == aCheckSum2)
+        {
+            memcpy((char *)&Snapshot, recvBuf, sizeof(Snapshot));
+            delete[] recvBuf;
+            return true;
+        }
     }
 
+    delete[] recvBuf;
     return false;
 
 }
 
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+
+unsigned long CNetwork::CheckSum(const char *buf)
+{
+    unsigned long hash = 5381;
+    int c;
+
+    while (c = *buf++) {
+        hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
+    }
+
+    return hash;
+}
+
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+
+void CNetwork::ULongToByteArray(unsigned long LongInt, char *ByteArray)
+{
+
+    ByteArray[0] = (char)((LongInt >> 24) & 0xFF);
+    ByteArray[1] = (char)((LongInt >> 16) & 0xFF);
+    ByteArray[2] = (char)((LongInt >> 8) & 0XFF);
+    ByteArray[3] = (char)((LongInt & 0XFF));
+
+}
+
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+
+void CNetwork::ByteArrayToULong(const char *ByteArray, unsigned long& LongInt)
+{
+
+    LongInt = ((ByteArray[0] << 24)
+        + (ByteArray[1] << 16)
+        + (ByteArray[2] << 8)
+        + (ByteArray[3]));
+
+}
