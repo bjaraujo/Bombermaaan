@@ -117,6 +117,8 @@ bool CNetwork::Connect(const char* IpAddressString)
             if (m_ClientSocket)
                 break;
 
+            Sleep(1000);
+
         }
 
     }

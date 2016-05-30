@@ -780,6 +780,8 @@ void CArena::WriteSnapshot (CArenaSnapshot& Snapshot)
 
     // Further attributes
     Snapshot.WriteBoolean(m_Prediction);
+    Snapshot.WriteInteger(m_BombsInUse);
+
 }
 
 //******************************************************************************************************************************
@@ -824,9 +826,11 @@ void CArena::ReadSnapshot (CArenaSnapshot& Snapshot)
     
     // Further attributes
     Snapshot.ReadBoolean(&m_Prediction);
+    Snapshot.ReadInteger(&m_BombsInUse);
     
     // update view
     UpdateView();
+
 }
 
 //******************************************************************************************************************************
