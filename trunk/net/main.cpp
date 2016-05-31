@@ -1,6 +1,8 @@
 
 #include <conio.h>
 #include <stdio.h>
+#include <iostream>
+#include <string>
 
 #include "CNetwork.h"
 
@@ -43,11 +45,19 @@ int main(int argc, char **argv)
         Network.SetNetworkMode(NETWORKMODE_SERVER);
     }
 
+    if (Network.NetworkMode() == NETWORKMODE_SERVER)
+        std::cout << "Waiting for client to connect..." << std::endl;
+
     if (!Network.Connect(IpAddressString))
     {
         std::cout << "Unable to connect!" << std::endl;
         return -1;
     }
+
+    if (Network.NetworkMode() == NETWORKMODE_SERVER)
+        std::cout << "Successfully connected to client." << std::endl;
+    else if (Network.NetworkMode() == NETWORKMODE_CLIENT)
+        std::cout << "Successfully connected to server." << std::endl;
 
     char sendBuffer[512];
     char recieveBuffer[512];
@@ -125,7 +135,7 @@ int main(int argc, char **argv)
             std::cout << std::endl;
 
             if (Network.NetworkMode() == NETWORKMODE_SERVER)
-                std::cout << "client says: " << recieveBuffer << std::endl;
+                std::cout  << "client says: " << recieveBuffer << std::endl;
             else if (Network.NetworkMode() == NETWORKMODE_CLIENT)
                 std::cout << "server says: " << recieveBuffer << std::endl;
 
