@@ -19,20 +19,12 @@ int main(int argc, char **argv)
 
     char IpAddressString[32];
 
-    const char *pos = strstr(argv[1], "--client");
-
-    if (pos != NULL)
-        strcpy(IpAddressString, pos + 8);
-
-    if (pos == NULL)
-    {
-        pos = strstr(argv[1], "-c");
-        if (pos != NULL)
-            strcpy(IpAddressString, pos + 3);
-    }
+    if (argc > 2)
+        strcpy(IpAddressString, argv[2]);
 
     // client mode and ip address given?
-    if (pos != NULL && strlen(argv[1]) > (unsigned int)(pos - argv[1] + 2))
+    if (strstr(argv[1], "-c") != NULL ||
+        strstr(argv[1], "--client") != NULL)
     {
         std::cout << "*** STARTING AS CLIENT" << std::endl;
         Network.SetNetworkMode(NETWORKMODE_CLIENT);
@@ -61,8 +53,6 @@ int main(int argc, char **argv)
 
     char sendBuffer[512];
     char recieveBuffer[512];
-
-    char ping = 0;
 
     int len = 0;
 
@@ -138,6 +128,8 @@ int main(int argc, char **argv)
                 std::cout  << "client says: " << recieveBuffer << std::endl;
             else if (Network.NetworkMode() == NETWORKMODE_CLIENT)
                 std::cout << "server says: " << recieveBuffer << std::endl;
+
+            std::cout << '\a';
 
             std::cout << "> ";
         }

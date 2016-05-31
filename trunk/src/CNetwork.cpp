@@ -92,7 +92,7 @@ bool CNetwork::Connect(const char* IpAddressString)
 
         IPaddress ip;
 
-        if (SDLNet_ResolveHost(&ip, NULL, 1234) == SDL_ERROR)
+        if (SDLNet_ResolveHost(&ip, NULL, 25828) == SDL_ERROR)
         {
             theLog.Write("listen failed: %s\n", SDLNet_GetError());
 
@@ -104,28 +104,28 @@ bool CNetwork::Connect(const char* IpAddressString)
         if (!m_Socket)
         {
             theLog.Write("open failed: %s\n", SDLNet_GetError());
-            
+
             return false;
         }
 
-		m_socketSet = SDLNet_AllocSocketSet(2);
+        m_socketSet = SDLNet_AllocSocketSet(2);
 
-		SDLNet_TCP_AddSocket(m_socketSet, m_Socket);
+        SDLNet_TCP_AddSocket(m_socketSet, m_Socket);
 
         // Wait for the client
         while (1)
-        { 
+        {
 
             m_ClientSocket = SDLNet_TCP_Accept(m_Socket);
 
-			Sleep(1000);
+            Sleep(1000);
 
             if (m_ClientSocket)
                 break;
 
         }
 
-		SDLNet_TCP_AddSocket(m_socketSet, m_ClientSocket);
+        SDLNet_TCP_AddSocket(m_socketSet, m_ClientSocket);
 
     }
     else if (m_NetworkMode == NETWORKMODE_CLIENT)
@@ -133,7 +133,7 @@ bool CNetwork::Connect(const char* IpAddressString)
 
         IPaddress ip;
 
-        if (SDLNet_ResolveHost(&ip, IpAddressString, 1234) == SDL_ERROR)
+        if (SDLNet_ResolveHost(&ip, IpAddressString, 25828) == SDL_ERROR)
         {
             theLog.Write("connection failed: %s\n", SDLNet_GetError());
 
@@ -149,9 +149,9 @@ bool CNetwork::Connect(const char* IpAddressString)
             return false;
         }
 
-		m_socketSet = SDLNet_AllocSocketSet(1);
+        m_socketSet = SDLNet_AllocSocketSet(1);
 
-		SDLNet_TCP_AddSocket(m_socketSet, m_Socket);
+        SDLNet_TCP_AddSocket(m_socketSet, m_Socket);
 
     }
 
@@ -223,30 +223,30 @@ bool CNetwork::Send(ESocketType SocketType, const char* buf, int len)
 int CNetwork::Receive(ESocketType SocketType, char* buf, int len)
 {
 
-	int active = SDLNet_CheckSockets(m_socketSet, 1);
+    int active = SDLNet_CheckSockets(m_socketSet, 1);
 
-	if (active > 0)
-	{
-		if (SocketType == SOCKET_SERVER)
-		{
-			if (SDLNet_SocketReady(m_Socket))
-				return SDLNet_TCP_Recv(m_Socket, buf, len);
-			else
-				return 0;
-		}
-		else if (SocketType == SOCKET_CLIENT)
-		{
-			if (SDLNet_SocketReady(m_ClientSocket))
-				return SDLNet_TCP_Recv(m_ClientSocket, buf, len);
-			else
-				return 0;
-		}
-		else
-			return 0;
+    if (active > 0)
+    {
+        if (SocketType == SOCKET_SERVER)
+        {
+            if (SDLNet_SocketReady(m_Socket))
+                return SDLNet_TCP_Recv(m_Socket, buf, len);
+            else
+                return 0;
+        }
+        else if (SocketType == SOCKET_CLIENT)
+        {
+            if (SDLNet_SocketReady(m_ClientSocket))
+                return SDLNet_TCP_Recv(m_ClientSocket, buf, len);
+            else
+                return 0;
+        }
+        else
+            return 0;
 
-	}
-	else
-		return 0;
+    }
+    else
+        return 0;
 
 }
 
@@ -315,7 +315,7 @@ bool CNetwork::SendSnapshot(const CArenaSnapshot& Snapshot)
     unsigned long aCheckSum = this->CheckSum((const char*)&Snapshot);
     this->ULongToByteArray(aCheckSum, ByteArray);
 
-    std::cout << "aCheckSum = " << aCheckSum  << std::endl;
+    std::cout << "aCheckSum = " << aCheckSum << std::endl;
 
     this->Send(SOCKET_CLIENT, (const char*)&ByteArray, sizeof(ByteArray));
 
@@ -330,7 +330,7 @@ bool CNetwork::SendSnapshot(const CArenaSnapshot& Snapshot)
 
 bool CNetwork::ReceiveSnapshot(CArenaSnapshot& Snapshot)
 {
-    
+
     // Receive checksum
     char ByteArray[4];
     this->Receive(SOCKET_SERVER, ByteArray, 4);
@@ -358,7 +358,7 @@ bool CNetwork::ReceiveSnapshot(CArenaSnapshot& Snapshot)
     {
 
         unsigned long aCheckSum1 = this->CheckSum(recvBuf);
-        
+
         unsigned long aCheckSum2;
         this->ByteArrayToULong(ByteArray, aCheckSum2);
 
