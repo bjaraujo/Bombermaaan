@@ -1,0 +1,35 @@
+
+PROJECT(Net)
+
+SET(NET_HEADERS
+../src/CNetwork.h
+)
+
+SET(NET_SOURCES
+../src/CNetwork.cpp
+../src/CLog.cpp
+main.cpp
+)
+
+SOURCE_GROUP("Header Files" FILES ${NET_HEADERS})
+SOURCE_GROUP("Source Files" FILES ${NET_SOURCES})
+
+FIND_PACKAGE(SDL REQUIRED)
+FIND_PACKAGE(SDL_net REQUIRED)
+
+INCLUDE_DIRECTORIES(
+    ${CMAKE_CURRENT_SOURCE_DIR}/../src
+    ${CMAKE_CURRENT_SOURCE_DIR}/../dep/tinyxml
+    ${SDL_INCLUDE_DIR}
+    ${SDL_NET_INCLUDE_DIRS}    
+)
+
+ADD_EXECUTABLE(Net ${NET_HEADERS} ${NET_SOURCES})
+
+TARGET_LINK_LIBRARIES(Net 
+    ${SDL_LIBRARY}
+    ${SDLNET_LIBRARY}
+    tinyxml
+)
+
+

@@ -61,6 +61,7 @@ private:
 
     TCPsocket m_Socket;
     TCPsocket m_ClientSocket;
+	SDLNet_SocketSet m_socketSet;
 
 public:
 

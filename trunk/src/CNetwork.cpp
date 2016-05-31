@@ -108,18 +108,24 @@ bool CNetwork::Connect(const char* IpAddressString)
             return false;
         }
 
+		m_socketSet = SDLNet_AllocSocketSet(2);
+
+		SDLNet_TCP_AddSocket(m_socketSet, m_Socket);
+
         // Wait for the client
         while (1)
         { 
 
             m_ClientSocket = SDLNet_TCP_Accept(m_Socket);
 
+			Sleep(1000);
+
             if (m_ClientSocket)
                 break;
 
-            Sleep(1000);
-
         }
+
+		SDLNet_TCP_AddSocket(m_socketSet, m_ClientSocket);
 
     }
     else if (m_NetworkMode == NETWORKMODE_CLIENT)
@@ -142,6 +148,10 @@ bool CNetwork::Connect(const char* IpAddressString)
 
             return false;
         }
+
+		m_socketSet = SDLNet_AllocSocketSet(1);
+
+		SDLNet_TCP_AddSocket(m_socketSet, m_Socket);
 
     }
 
@@ -213,12 +223,30 @@ bool CNetwork::Send(ESocketType SocketType, const char* buf, int len)
 int CNetwork::Receive(ESocketType SocketType, char* buf, int len)
 {
 
-    if (SocketType == SOCKET_SERVER)
-        return SDLNet_TCP_Recv(m_Socket, buf, len);
-    else if (SocketType == SOCKET_CLIENT)
-        return SDLNet_TCP_Recv(m_ClientSocket, buf, len);
-    else
-        return 0;
+	int active = SDLNet_CheckSockets(m_socketSet, 1);
+
+	if (active > 0)
+	{
+		if (SocketType == SOCKET_SERVER)
+		{
+			if (SDLNet_SocketReady(m_Socket))
+				return SDLNet_TCP_Recv(m_Socket, buf, len);
+			else
+				return 0;
+		}
+		else if (SocketType == SOCKET_CLIENT)
+		{
+			if (SDLNet_SocketReady(m_ClientSocket))
+				return SDLNet_TCP_Recv(m_ClientSocket, buf, len);
+			else
+				return 0;
+		}
+		else
+			return 0;
+
+	}
+	else
+		return 0;
 
 }
 

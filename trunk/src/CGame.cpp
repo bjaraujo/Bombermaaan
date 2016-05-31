@@ -663,7 +663,7 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
 #ifdef NETWORK_MODE
     char IpAddressString[32];
 #ifdef WIN32
-    const char *pos = strstr(pCommandLine, "-client");
+    const char *pos = strstr(pCommandLine, "--client");
 
     if (pos != NULL)
         strcpy(IpAddressString, pos + 8);
