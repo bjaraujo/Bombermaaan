@@ -4,149 +4,125 @@
 
 #include "CNetwork.h"
 
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 {
-    
-	CNetwork Network;
 
-	if (argc < 2)
-	{
-		std::cout << "Wrong number of arguments!" << std::endl;
-		return -1;
-	}
+    CNetwork Network;
 
-	char IpAddressString[32];
+    if (argc < 2)
+    {
+        std::cout << "Wrong number of arguments!" << std::endl;
+        return -1;
+    }
 
-	const char *pos = strstr(argv[1], "--client");
+    char IpAddressString[32];
 
-	if (pos != NULL)
-		strcpy(IpAddressString, pos + 8);
+    const char *pos = strstr(argv[1], "--client");
 
-	if (pos == NULL)
-	{
-		pos = strstr(argv[1], "-c");
-		if (pos != NULL)
-			strcpy(IpAddressString, pos + 3);
-	}
+    if (pos != NULL)
+        strcpy(IpAddressString, pos + 8);
 
-	// client mode and ip address given?
-	if (pos != NULL && strlen(argv[1]) > (unsigned int)(pos - argv[1] + 2))
-	{
-		std::cout << "*** STARTING AS CLIENT" << std::endl;
-		Network.SetNetworkMode(NETWORKMODE_CLIENT);
+    if (pos == NULL)
+    {
+        pos = strstr(argv[1], "-c");
+        if (pos != NULL)
+            strcpy(IpAddressString, pos + 3);
+    }
 
-	}
-	else if (strstr(argv[1], "-s") != NULL ||
-		strstr(argv[1], "--server") != NULL)
-	{
-		std::cout << "*** STARTING AS SERVER" << std::endl;
-		Network.SetNetworkMode(NETWORKMODE_SERVER);
-	}
+    // client mode and ip address given?
+    if (pos != NULL && strlen(argv[1]) > (unsigned int)(pos - argv[1] + 2))
+    {
+        std::cout << "*** STARTING AS CLIENT" << std::endl;
+        Network.SetNetworkMode(NETWORKMODE_CLIENT);
 
-	if (!Network.Connect(IpAddressString))
-	{
-		std::cout << "Unable to connect!" << std::endl;
-		return -1;
-	}
+    }
+    else if (strstr(argv[1], "-s") != NULL ||
+        strstr(argv[1], "--server") != NULL)
+    {
+        std::cout << "*** STARTING AS SERVER" << std::endl;
+        Network.SetNetworkMode(NETWORKMODE_SERVER);
+    }
 
-	char sendBuffer[512];
-	char recieveBuffer[512];
-	
-	char ping = 0;
+    if (!Network.Connect(IpAddressString))
+    {
+        std::cout << "Unable to connect!" << std::endl;
+        return -1;
+    }
 
-	int len = 0;
+    char sendBuffer[512];
+    char recieveBuffer[512];
 
-	std::cout << "> ";
+    char ping = 0;
 
-	while (true) {
+    int len = 0;
 
-		// Send message
-		if (_kbhit())
-		{
-			char cur = _getch();
+    std::cout << "> ";
 
-			if (len > 511)
-				len = 511;
+    while (true) {
 
-			std::cout << cur;
+        // Send message
+        if (Network.NetworkMode() == NETWORKMODE_CLIENT)
+        {
+            if (_kbhit())
+            {
+                char cur = _getch();
 
-			if (cur != 13)
-				sendBuffer[len++] = cur;
-			else{
-				sendBuffer[len] = '\0';
-				std::cout << std::endl;
+                if (len > 511)
+                    len = 511;
 
-				if (Network.NetworkMode() == NETWORKMODE_CLIENT)
-				{
-					Network.Send(SOCKET_SERVER, sendBuffer, len);
-				}
-				else if (Network.NetworkMode() == NETWORKMODE_SERVER)
-				{
-					Network.Send(SOCKET_CLIENT, sendBuffer, len);
-				}
+                std::cout << cur;
 
-				len = 0;
+                if (cur != 13)
+                    sendBuffer[len++] = cur;
+                else{
+                    sendBuffer[len] = '\0';
+                    std::cout << std::endl;
 
-				std::cout << "> ";
+                    Network.Send(SOCKET_SERVER, sendBuffer, len);
 
-			}
+                    len = 0;
 
-		}
+                    std::cout << "> ";
 
-		Sleep(20);
+                }
 
-		// Recieve message
-		if (Network.NetworkMode() == NETWORKMODE_CLIENT)
-		{
+            }
 
-			int Received = 0;
-			int Bufsize = 512;
+        }
 
-			do {
+        Sleep(20);
 
-				Received += Network.Receive(SOCKET_SERVER, &recieveBuffer[Received], 1);
+        // Recieve message
+        if (Network.NetworkMode() == NETWORKMODE_SERVER)
+        {
 
-				if (Received == SDL_ERROR)
-				{
-					theLog.Write("sent error: %s\n", SDLNet_GetError());
-					return false;
-				}
+            int Received = 0;
+            int Bufsize = 512;
 
-				Bufsize -= Received;
+            do {
 
-			} while (Received > 0);
+                Received += Network.Receive(SOCKET_CLIENT, &recieveBuffer[Received], Bufsize);
 
-			if (Received > 0)
-				std::cout << recieveBuffer << std::endl;
+                if (Received == SDL_ERROR)
+                {
+                    theLog.Write("sent error: %s\n", SDLNet_GetError());
+                    return false;
+                }
 
-		}
-		else if (Network.NetworkMode() == NETWORKMODE_SERVER)
-		{
+                Bufsize -= Received;
 
-			int Received = 0;
-			int Bufsize = 512;
+            } while (Bufsize > 0);
 
-			do {
+            if (Received < 512)
+                recieveBuffer[Received] = '\0';
 
-				Received += Network.Receive(SOCKET_CLIENT, &recieveBuffer[Received], 1);
+            if (Received > 0)
+                std::cout << recieveBuffer << std::endl;
 
-				if (Received == SDL_ERROR)
-				{
-					theLog.Write("sent error: %s\n", SDLNet_GetError());
-					return false;
-				}
+        }
 
-				Bufsize -= Received;
+    };
 
-			} while (Received > 0);
-
-			if (Received > 0)
-				std::cout << recieveBuffer << std::endl;
-
-		}
-
-	};
-
-	return 0;
+    return 0;
 
 }
