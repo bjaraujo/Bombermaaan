@@ -4,10 +4,17 @@
 #include <iostream>
 #include <string>
 
+#ifdef WIN32
+#include <windows.h>
+#endif
+
 #include "CNetwork.h"
 
 int main(int argc, char **argv)
 {
+
+	const int serverColor = 10;
+	const int clientColor = 14;
 
     CNetwork Network;
 
@@ -22,25 +29,35 @@ int main(int argc, char **argv)
     if (argc > 2)
         strcpy(IpAddressString, argv[2]);
 
+#ifdef WIN32
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+#endif
+
     // client mode and ip address given?
     if (strstr(argv[1], "-c") != NULL ||
         strstr(argv[1], "--client") != NULL)
     {
-        std::cout << "*** STARTING AS CLIENT" << std::endl;
+#ifdef WIN32
+		SetConsoleTextAttribute(hConsole, clientColor);
+#endif
+		std::cout << "*** STARTING AS CLIENT" << std::endl;
         Network.SetNetworkMode(NETWORKMODE_CLIENT);
 
     }
     else if (strstr(argv[1], "-s") != NULL ||
         strstr(argv[1], "--server") != NULL)
     {
-        std::cout << "*** STARTING AS SERVER" << std::endl;
+#ifdef WIN32
+		SetConsoleTextAttribute(hConsole, serverColor);
+#endif
+		std::cout << "*** STARTING AS SERVER" << std::endl;
         Network.SetNetworkMode(NETWORKMODE_SERVER);
     }
 
     if (Network.NetworkMode() == NETWORKMODE_SERVER)
         std::cout << "Waiting for client to connect..." << std::endl;
 
-    if (!Network.Connect(IpAddressString))
+    if (!Network.Connect(IpAddressString, 1234))
     {
         std::cout << "Unable to connect!" << std::endl;
         return -1;
@@ -67,10 +84,20 @@ int main(int argc, char **argv)
 
             std::cout << cur;
 
-            if (cur != 13 && len < 511)
+			if (cur == 8)
+			{
+				cout << " ";
+				std::cout << cur;
+
+				if (len > 0)
+					len--;
+			}
+
+			if (cur != 13 && len < 511)
             {
 
-                sendBuffer[len++] = cur;
+				if (cur != 8)
+					sendBuffer[len++] = cur;
 
             }
             else
@@ -120,18 +147,40 @@ int main(int argc, char **argv)
 
         } while (Bufsize > 0);
 
-        if (Received > 0)
-        {
-            std::cout << std::endl;
+		if (Received > 0)
+		{
+			std::cout << std::endl;
 
-            if (Network.NetworkMode() == NETWORKMODE_SERVER)
-                std::cout  << "client says: " << recieveBuffer << std::endl;
-            else if (Network.NetworkMode() == NETWORKMODE_CLIENT)
-                std::cout << "server says: " << recieveBuffer << std::endl;
+			if (Network.NetworkMode() == NETWORKMODE_SERVER)
+			{
+#ifdef WIN32
+				SetConsoleTextAttribute(hConsole, clientColor);
+#endif
+				std::cout << "client says: " << recieveBuffer << std::endl;
+#ifdef WIN32
+				SetConsoleTextAttribute(hConsole, serverColor);
+#endif
+			}
+			else if (Network.NetworkMode() == NETWORKMODE_CLIENT)
+			{
+#ifdef WIN32
+				SetConsoleTextAttribute(hConsole, serverColor);
+#endif
+				std::cout << "server says: " << recieveBuffer << std::endl;
+#ifdef WIN32
+				SetConsoleTextAttribute(hConsole, clientColor);
+#endif
+			}
 
+			// Beep
             std::cout << '\a';
 
-            std::cout << "> ";
+			std::cout << "> ";
+
+			// Add current buffer
+			for (int i = 0; i < len; i++)
+				std::cout << sendBuffer[i];
+
         }
 
     };

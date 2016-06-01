@@ -77,7 +77,7 @@ void CNetwork::SetNetworkMode(ENetworkMode NetworkMode)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CNetwork::Connect(const char* IpAddressString)
+bool CNetwork::Connect(const char* IpAddressString, int port)
 {
 
     if (SDLNet_Init() == SDL_ERROR)
@@ -92,7 +92,7 @@ bool CNetwork::Connect(const char* IpAddressString)
 
         IPaddress ip;
 
-        if (SDLNet_ResolveHost(&ip, NULL, 25828) == SDL_ERROR)
+		if (SDLNet_ResolveHost(&ip, NULL, port) == SDL_ERROR)
         {
             theLog.Write("listen failed: %s\n", SDLNet_GetError());
 
@@ -133,7 +133,7 @@ bool CNetwork::Connect(const char* IpAddressString)
 
         IPaddress ip;
 
-        if (SDLNet_ResolveHost(&ip, IpAddressString, 25828) == SDL_ERROR)
+		if (SDLNet_ResolveHost(&ip, IpAddressString, port) == SDL_ERROR)
         {
             theLog.Write("connection failed: %s\n", SDLNet_GetError());
 

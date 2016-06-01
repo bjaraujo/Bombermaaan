@@ -71,7 +71,7 @@ public:
     ENetworkMode   NetworkMode();
     void           SetNetworkMode(ENetworkMode NetworkMode);
 
-    bool           Connect(const char* IpAddressString);
+    bool           Connect(const char* IpAddressString, int port);
     bool           Disconnect();
 
     bool           Send(ESocketType SocketType, const char* buf, int len);

@@ -715,7 +715,7 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
 #ifdef NETWORK_MODE
     if (m_Network.NetworkMode() != NETWORKMODE_LOCAL)
     {
-        if (!m_Network.Connect(IpAddressString))
+        if (!m_Network.Connect(IpAddressString, 1234))
         {
             Destroy();
             return false;
