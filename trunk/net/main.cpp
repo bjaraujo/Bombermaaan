@@ -11,8 +11,8 @@
 #include "CNetwork.h"
 
 union {
-	unsigned long LongValue;
-	char ByteArray[4];
+    unsigned long LongValue;
+    char ByteArray[4];
 } LongBytes;
 
 int main(int argc, char **argv)
@@ -113,25 +113,25 @@ int main(int argc, char **argv)
 
                 std::cout << std::endl;
 
-				unsigned long aCheckSum = Network.CheckSum((const char*)&sendBuffer);
-				LongBytes.LongValue = aCheckSum;
+                unsigned long aCheckSum = Network.CheckSum((const char*)&sendBuffer);
+                LongBytes.LongValue = aCheckSum;
 
                 if (Network.NetworkMode() == NETWORKMODE_SERVER)
-				{
-					Network.Send(SOCKET_CLIENT, (const char*)&LongBytes.ByteArray, 4);
+                {
+                    Network.Send(SOCKET_CLIENT, (const char*)&LongBytes.ByteArray, 4);
 
-					std::cout << "checksum: " << aCheckSum << std::endl;
+                    std::cout << "checksum: " << aCheckSum << std::endl;
 
-					Network.Send(SOCKET_CLIENT, sendBuffer, len);
-				}
-				else if (Network.NetworkMode() == NETWORKMODE_CLIENT)
-				{
-					Network.Send(SOCKET_SERVER, (const char*)&LongBytes.ByteArray, 4);
+                    Network.Send(SOCKET_CLIENT, sendBuffer, len);
+                }
+                else if (Network.NetworkMode() == NETWORKMODE_CLIENT)
+                {
+                    Network.Send(SOCKET_SERVER, (const char*)&LongBytes.ByteArray, 4);
 
-					std::cout << "checksum: " << aCheckSum << std::endl;
+                    std::cout << "checksum: " << aCheckSum << std::endl;
 
-					Network.Send(SOCKET_SERVER, sendBuffer, len);
-				}
+                    Network.Send(SOCKET_SERVER, sendBuffer, len);
+                }
 
                 len = 0;
 
@@ -143,46 +143,46 @@ int main(int argc, char **argv)
 
         Sleep(20);
 
-		// Receive checksum
-		int Received = 0;
-		int Bufsize = 4;
+        // Receive checksum
+        int Received = 0;
+        int Bufsize = 4;
 
-		do {
+        do {
 
-			if (Network.NetworkMode() == NETWORKMODE_SERVER)
-				Received = Network.Receive(SOCKET_CLIENT, &LongBytes.ByteArray[Received], Bufsize);
-			else if (Network.NetworkMode() == NETWORKMODE_CLIENT)
-				Received = Network.Receive(SOCKET_SERVER, &LongBytes.ByteArray[Received], Bufsize);
+            if (Network.NetworkMode() == NETWORKMODE_SERVER)
+                Received = Network.ReceiveNonBlocking(SOCKET_CLIENT, &LongBytes.ByteArray[Received], Bufsize);
+            else if (Network.NetworkMode() == NETWORKMODE_CLIENT)
+                Received = Network.ReceiveNonBlocking(SOCKET_SERVER, &LongBytes.ByteArray[Received], Bufsize);
 
-			if (Received == SDL_ERROR)
-			{
-				theLog.Write("recieve error: %s\n", SDLNet_GetError());
-				break;
-			}
+            if (Received == SDL_ERROR)
+            {
+                theLog.Write("recieve error: %s\n", SDLNet_GetError());
+                break;
+            }
 
-			if (Received > 0)
-				Bufsize -= Received;
-			else
-				break;
+            if (Received > 0)
+                Bufsize -= Received;
+            else
+                break;
 
-		} while (Bufsize > 0);
+        } while (Bufsize > 0);
 
-		if (Received == 4)
-		{
-			unsigned long aCheckSum = LongBytes.LongValue;
+        if (Received == 4)
+        {
+            unsigned long aCheckSum = LongBytes.LongValue;
 
-			std::cout << "checksum: " << aCheckSum << std::endl;
-		}
+            std::cout << "checksum: " << aCheckSum << std::endl;
+        }
 
         // Recieve messages
-		Received = 0;
-		Bufsize = 512;
+        Received = 0;
+        Bufsize = 512;
 
-		do {
+        do {
 
-			if (Network.NetworkMode() == NETWORKMODE_SERVER)
-				Received += Network.Receive(SOCKET_CLIENT, &recieveBuffer[Received], Bufsize);
-			else if (Network.NetworkMode() == NETWORKMODE_CLIENT)
+            if (Network.NetworkMode() == NETWORKMODE_SERVER)
+                Received += Network.Receive(SOCKET_CLIENT, &recieveBuffer[Received], Bufsize);
+            else if (Network.NetworkMode() == NETWORKMODE_CLIENT)
                 Received += Network.Receive(SOCKET_SERVER, &recieveBuffer[Received], Bufsize);
 
             if (Received == SDL_ERROR)

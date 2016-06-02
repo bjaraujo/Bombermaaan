@@ -460,34 +460,37 @@ void CMatch::ProcessPlayerCommands(void)
             if (m_pNetwork->NetworkMode() == NETWORKMODE_SERVER)
             {
 
-                m_pNetwork->ReceiveCommandChunk(CommandChunk);
-
-                // Scan all the players
-                for (int Player = 0; Player < MAX_PLAYERS; Player++)
+                if (m_pNetwork->ReceiveCommandChunk(CommandChunk))
                 {
-                    // If this is the client's bomber
-                    if (m_pOptions->GetBomberType(Player) == BOMBERTYPE_NET)
-                    {
-                        // If the client's bomber is alive
-                        if (m_Arena.GetBomber(Player).IsAlive())
-                        {
-                            // Apply the command chunk to the bomber
-                            for (int Step = 0; Step < CommandChunk.GetNumberOfSteps(); Step++)
-                            {
-                                m_Arena.GetBomber(Player).Command(CommandChunk.GetStepMove(Step), CommandChunk.GetStepAction(Step));
-                                m_Arena.UpdateSingleBomber(Player, CommandChunk.GetStepDuration(Step));
-                            }
 
-                            break;
+                    // Scan all the players
+                    for (int Player = 0; Player < MAX_PLAYERS; Player++)
+                    {
+                        // If this is the client's bomber
+                        if (m_pOptions->GetBomberType(Player) == BOMBERTYPE_NET)
+                        {
+                            // If the client's bomber is alive
+                            if (m_Arena.GetBomber(Player).IsAlive())
+                            {
+                                // Apply the command chunk to the bomber
+                                for (int Step = 0; Step < CommandChunk.GetNumberOfSteps(); Step++)
+                                {
+                                    m_Arena.GetBomber(Player).Command(CommandChunk.GetStepMove(Step), CommandChunk.GetStepAction(Step));
+                                    m_Arena.UpdateSingleBomber(Player, CommandChunk.GetStepDuration(Step));
+                                }
+
+                                break;
+                            }
                         }
                     }
+
+                    // Make a snapshot of the arena and send it to the client
+                    m_Arena.WriteSnapshot(Snapshot);
+
+                    // Send snapshot to the client
+                    m_pNetwork->SendSnapshot(Snapshot);
+
                 }
-
-                // Make a snapshot of the arena and send it to the client
-                m_Arena.WriteSnapshot(Snapshot);
-
-                // Send snapshot to the client
-                m_pNetwork->SendSnapshot(Snapshot);
 
             }
             else if (m_pNetwork->NetworkMode() == NETWORKMODE_CLIENT)

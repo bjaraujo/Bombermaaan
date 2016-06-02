@@ -53,7 +53,7 @@
 // #define ENABLE_DEBUG_LOG
 
 // Define this if the console window should be enabled
-#define ENABLE_CONSOLE
+// #define ENABLE_CONSOLE
 
 // Define this if you want the console to filter repeated message
 //#define ENABLE_CONSOLE_REPEATED_MESSAGE_FILTERING
@@ -666,7 +666,7 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
     const char *pos = strstr(pCommandLine, "--client");
 
     if (pos != NULL)
-        strcpy(IpAddressString, pos + 8);
+        strcpy(IpAddressString, pos + 9);
 
     if (pos == NULL)
     {

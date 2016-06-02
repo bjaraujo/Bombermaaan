@@ -76,6 +76,7 @@ public:
 
     bool           Send(ESocketType SocketType, const char* buf, int len);
     int            Receive(ESocketType SocketType, char* buf, int len);
+    int            ReceiveNonBlocking(ESocketType SocketType, char* buf, int len);
 
     bool           SendCommandChunk(const CCommandChunk& CommandChunk);
     bool           ReceiveCommandChunk(CCommandChunk& CommandChunk);
