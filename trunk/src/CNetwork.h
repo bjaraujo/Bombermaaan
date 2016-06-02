@@ -84,8 +84,6 @@ public:
     bool           ReceiveSnapshot(CArenaSnapshot& Snapshot);
 
     unsigned long  CheckSum(const char *buf);
-    void           ByteArrayToULong(const char *ByteArray, unsigned long& LongInt);
-    void           ULongToByteArray(unsigned long LongInt, char *ByteArray);
 
 };
 

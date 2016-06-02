@@ -271,33 +271,76 @@ bool CNetwork::SendCommandChunk(const CCommandChunk& CommandChunk)
 bool CNetwork::ReceiveCommandChunk(CCommandChunk& CommandChunk)
 {
 
+	union {
+		unsigned long LongValue;
+		char ByteArray[4];
+	} LongBytes;
+
+	{
+		int bufsize = 4;
+		int Received = 0;
+
+		// Receive checksum
+		do {
+
+			Received = this->Receive(SOCKET_SERVER, &LongBytes.ByteArray[Received], bufsize);
+
+			if (Received == SDL_ERROR)
+			{
+				theLog.Write("recieve error: %s\n", SDLNet_GetError());
+				break;
+			}
+
+			if (Received > 0)
+				bufsize -= Received;
+			else
+				break;
+
+		} while (bufsize > 0);
+
+	}
+
     // Receive client command chunk 
-    int bufsize = sizeof(CommandChunk);
-    char* recvBuf = new char[bufsize];
-    int Received = 0;
+	{
+		int bufsize = sizeof(CommandChunk);
+		int Received = 0;
 
-    do {
+		char* recvBuf = new char[bufsize];
 
-        Received += this->Receive(SOCKET_CLIENT, &recvBuf[Received], bufsize);
+		do {
 
-        if (Received == SDL_ERROR)
-        {
-            theLog.Write("sent error: %s\n", SDLNet_GetError());
-            return false;
-        }
+			Received += this->Receive(SOCKET_CLIENT, &recvBuf[Received], bufsize);
 
-        bufsize -= Received;
+			if (Received == SDL_ERROR)
+			{
+				theLog.Write("sent error: %s\n", SDLNet_GetError());
+				delete[] recvBuf;
+				return false;
+			}
 
-    } while (Received < sizeof(CommandChunk));
+			bufsize -= Received;
 
-    if (Received == sizeof(CommandChunk))
-    {
-        memcpy((char *)&CommandChunk, recvBuf, sizeof(CommandChunk));
-        delete[] recvBuf;
-        return true;
-    }
+		} while (Received < sizeof(CommandChunk));
 
-    delete[] recvBuf;
+		if (Received == sizeof(CommandChunk))
+		{
+
+			unsigned long aCheckSum1 = this->CheckSum(recvBuf);
+			unsigned long aCheckSum2 = LongBytes.LongValue;
+
+			if (aCheckSum1 == aCheckSum2)
+			{
+				memcpy((char *)&CommandChunk, recvBuf, sizeof(CommandChunk));
+				delete[] recvBuf;
+				return true;
+			}
+
+		}
+
+		delete[] recvBuf;
+	
+	}
+
     return false;
 
 }
@@ -310,14 +353,14 @@ bool CNetwork::SendSnapshot(const CArenaSnapshot& Snapshot)
 {
 
     // Send checksum
-    char ByteArray[4];
+	union {
+		unsigned long LongValue;
+		char ByteArray[4];
+	} LongBytes;
 
     unsigned long aCheckSum = this->CheckSum((const char*)&Snapshot);
-    this->ULongToByteArray(aCheckSum, ByteArray);
-
-    std::cout << "aCheckSum = " << aCheckSum << std::endl;
-
-    this->Send(SOCKET_CLIENT, (const char*)&ByteArray, sizeof(ByteArray));
+	LongBytes.LongValue = aCheckSum;
+	this->Send(SOCKET_CLIENT, (const char*)&LongBytes.ByteArray, 4);
 
     // Send snapshot to the client
     return this->Send(SOCKET_CLIENT, (const char*)&Snapshot, sizeof(Snapshot));
@@ -331,46 +374,78 @@ bool CNetwork::SendSnapshot(const CArenaSnapshot& Snapshot)
 bool CNetwork::ReceiveSnapshot(CArenaSnapshot& Snapshot)
 {
 
-    // Receive checksum
-    char ByteArray[4];
-    this->Receive(SOCKET_SERVER, ByteArray, 4);
+	union {
+		unsigned long LongValue;
+		char ByteArray[4];
+	} LongBytes;
+
+	{
+		int bufsize = 4;
+		int Received = 0;
+
+		// Receive checksum
+		do {
+
+			Received = this->Receive(SOCKET_SERVER, &LongBytes.ByteArray[Received], bufsize);
+
+			if (Received == SDL_ERROR)
+			{
+				theLog.Write("recieve error: %s\n", SDLNet_GetError());
+				break;
+			}
+
+			if (Received > 0)
+				bufsize -= Received;
+			else
+				break;
+
+		} while (bufsize > 0);
+
+	}
 
     // Receive and apply the arena snapshot from the server
-    int bufsize = sizeof(Snapshot);
-    char* recvBuf = new char[bufsize];
-    int Received = 0;
+	{
+		int bufsize = sizeof(Snapshot);
+		int Received = 0;
 
-    do {
+		char* recvBuf = new char[bufsize];
 
-        Received += this->Receive(SOCKET_SERVER, &recvBuf[Received], bufsize);
+		do {
 
-        if (Received == SDL_ERROR)
-        {
-            theLog.Write("sent error: %s\n", SDLNet_GetError());
-            return false;
-        }
+			Received += this->Receive(SOCKET_SERVER, &recvBuf[Received], bufsize);
 
-        bufsize -= Received;
+			if (Received == SDL_ERROR)
+			{
+				theLog.Write("sent error: %s\n", SDLNet_GetError());
+				delete[] recvBuf;
+				return false;
+			}
 
-    } while (Received < sizeof(Snapshot));
+			if (Received > 0)
+				bufsize -= Received;
+			else
+				break;
 
-    if (Received == sizeof(Snapshot))
-    {
+		} while (bufsize > 0);
 
-        unsigned long aCheckSum1 = this->CheckSum(recvBuf);
+		if (Received == sizeof(Snapshot))
+		{
 
-        unsigned long aCheckSum2;
-        this->ByteArrayToULong(ByteArray, aCheckSum2);
+			unsigned long aCheckSum1 = this->CheckSum(recvBuf);
+			unsigned long aCheckSum2 = LongBytes.LongValue;
 
-        if (aCheckSum1 == aCheckSum2)
-        {
-            memcpy((char *)&Snapshot, recvBuf, sizeof(Snapshot));
-            delete[] recvBuf;
-            return true;
-        }
-    }
+			if (aCheckSum1 == aCheckSum2)
+			{
+				memcpy((char *)&Snapshot, recvBuf, sizeof(Snapshot));
+				delete[] recvBuf;
+				return true;
+			}
+		}
 
-    delete[] recvBuf;
+		delete[] recvBuf;
+
+	}
+
     return false;
 
 }
@@ -391,30 +466,3 @@ unsigned long CNetwork::CheckSum(const char *buf)
     return hash;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-void CNetwork::ULongToByteArray(unsigned long LongInt, char *ByteArray)
-{
-
-    ByteArray[0] = (char)((LongInt >> 24) & 0xFF);
-    ByteArray[1] = (char)((LongInt >> 16) & 0xFF);
-    ByteArray[2] = (char)((LongInt >> 8) & 0XFF);
-    ByteArray[3] = (char)((LongInt & 0XFF));
-
-}
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-void CNetwork::ByteArrayToULong(const char *ByteArray, unsigned long& LongInt)
-{
-
-    LongInt = ((ByteArray[0] << 24)
-        + (ByteArray[1] << 16)
-        + (ByteArray[2] << 8)
-        + (ByteArray[3]));
-
-}
