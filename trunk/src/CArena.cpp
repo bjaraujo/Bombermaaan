@@ -752,24 +752,20 @@ void CArena::WriteSnapshot (CArenaSnapshot& Snapshot)
     //   write all elements (max number)
     int Index;
 
-    /*
     for (Index = 0 ; Index < MaxFloors() ; Index++)
         GetFloor(Index).WriteSnapshot (Snapshot);
     
     for (Index = 0 ; Index < MaxWalls() ; Index++)
         GetWall(Index).WriteSnapshot (Snapshot);
-    */
 
     for (Index = 0 ; Index < MaxBombs() ; Index++)
         GetBomb(Index).WriteSnapshot (Snapshot);
     
-    /*
     for (Index = 0 ; Index < MaxItems() ; Index++)
         GetItem(Index).WriteSnapshot (Snapshot);
     
     for (Index = 0 ; Index < MaxExplosions() ; Index++)
         GetExplosion(Index).WriteSnapshot (Snapshot);
-    */
 
     for (Index = 0 ; Index < MaxBombers() ; Index++)
         GetBomber(Index).WriteSnapshot (Snapshot);
@@ -777,12 +773,10 @@ void CArena::WriteSnapshot (CArenaSnapshot& Snapshot)
     // write arenacloser
     m_ArenaCloser.WriteSnapshot (Snapshot);
 
-    /*
     // TBlockHas
     for (int BlockX = 0; BlockX < ARENA_WIDTH; BlockX++)
         for (int BlockY = 0; BlockY < ARENA_HEIGHT; BlockY++)
             Snapshot.WriteInteger(m_BlockHas[BlockX][BlockY]);
-    */
 
     // Further attributes
     Snapshot.WriteBoolean(m_Prediction);
@@ -804,25 +798,21 @@ void CArena::ReadSnapshot (CArenaSnapshot& Snapshot)
     //   read all elements (max number)
     int Index;
     
-    /*
     for (Index = 0 ; Index < MaxFloors() ; Index++)
         GetFloor(Index).ReadSnapshot (Snapshot);
     
     for (Index = 0 ; Index < MaxWalls() ; Index++)
         GetWall(Index).ReadSnapshot (Snapshot);
-    */
 
     for (Index = 0 ; Index < MaxBombs() ; Index++)
         GetBomb(Index).ReadSnapshot (Snapshot);
     
-    /*
     for (Index = 0 ; Index < MaxItems() ; Index++)
         GetItem(Index).ReadSnapshot (Snapshot);
 
     for (Index = 0 ; Index < MaxExplosions() ; Index++)
         GetExplosion(Index).ReadSnapshot (Snapshot);
-    */
-
+ 
     for (Index = 0 ; Index < MaxBombers() ; Index++)
         GetBomber(Index).ReadSnapshot (Snapshot);
 
@@ -830,11 +820,9 @@ void CArena::ReadSnapshot (CArenaSnapshot& Snapshot)
     m_ArenaCloser.ReadSnapshot (Snapshot);
 
     // TBlockHas
-    /*
     for (int BlockX = 0; BlockX < ARENA_WIDTH; BlockX++)
         for (int BlockY = 0; BlockY < ARENA_HEIGHT; BlockY++)
             Snapshot.ReadInteger(&m_BlockHas[BlockX][BlockY]);
-    */
 
     // Further attributes
     Snapshot.ReadBoolean(&m_Prediction);
