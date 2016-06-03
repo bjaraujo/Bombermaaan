@@ -10,11 +10,6 @@
 
 #include "CNetwork.h"
 
-union {
-    unsigned long LongValue;
-    char ByteArray[4];
-} LongBytes;
-
 int main(int argc, char **argv)
 {
 
@@ -87,15 +82,21 @@ int main(int argc, char **argv)
         {
             char cur = _getch();
 
-            std::cout << cur;
-
             if (cur == 8)
             {
-                cout << " ";
+                if (len > 0)
+                {
+                    std::cout << cur;
+                    cout << " ";
+                    std::cout << cur;
+                    len--;
+                }
+            }
+            else
+            {
                 std::cout << cur;
 
-                if (len > 0)
-                    len--;
+
             }
 
             if (cur != 13 && len < 511)
@@ -108,30 +109,14 @@ int main(int argc, char **argv)
             else
             {
 
-                if (len < 511)
-                    sendBuffer[len++] = '\0';
+                sendBuffer[len++] = '\0';
 
                 std::cout << std::endl;
 
-                unsigned long aCheckSum = Network.CheckSum((const char*)&sendBuffer);
-                LongBytes.LongValue = aCheckSum;
-
                 if (Network.NetworkMode() == NETWORKMODE_SERVER)
-                {
-                    Network.Send(SOCKET_CLIENT, (const char*)&LongBytes.ByteArray, 4);
-
-                    std::cout << "checksum: " << aCheckSum << std::endl;
-
                     Network.Send(SOCKET_CLIENT, sendBuffer, len);
-                }
                 else if (Network.NetworkMode() == NETWORKMODE_CLIENT)
-                {
-                    Network.Send(SOCKET_SERVER, (const char*)&LongBytes.ByteArray, 4);
-
-                    std::cout << "checksum: " << aCheckSum << std::endl;
-
                     Network.Send(SOCKET_SERVER, sendBuffer, len);
-                }
 
                 len = 0;
 
@@ -143,47 +128,16 @@ int main(int argc, char **argv)
 
         Sleep(20);
 
-        // Receive checksum
-        int Received = 0;
-        int Bufsize = 4;
-
-        do {
-
-            if (Network.NetworkMode() == NETWORKMODE_SERVER)
-                Received = Network.ReceiveNonBlocking(SOCKET_CLIENT, &LongBytes.ByteArray[Received], Bufsize);
-            else if (Network.NetworkMode() == NETWORKMODE_CLIENT)
-                Received = Network.ReceiveNonBlocking(SOCKET_SERVER, &LongBytes.ByteArray[Received], Bufsize);
-
-            if (Received == SDL_ERROR)
-            {
-                theLog.Write("recieve error: %s\n", SDLNet_GetError());
-                break;
-            }
-
-            if (Received > 0)
-                Bufsize -= Received;
-            else
-                break;
-
-        } while (Bufsize > 0);
-
-        if (Received == 4)
-        {
-            unsigned long aCheckSum = LongBytes.LongValue;
-
-            std::cout << "checksum: " << aCheckSum << std::endl;
-        }
-
         // Recieve messages
-        Received = 0;
-        Bufsize = 512;
+        int Received = 0;
+        int Bufsize = 512;
 
         do {
 
             if (Network.NetworkMode() == NETWORKMODE_SERVER)
-                Received += Network.Receive(SOCKET_CLIENT, &recieveBuffer[Received], Bufsize);
+                Received += Network.ReceiveNonBlocking(SOCKET_CLIENT, &recieveBuffer[Received], Bufsize);
             else if (Network.NetworkMode() == NETWORKMODE_CLIENT)
-                Received += Network.Receive(SOCKET_SERVER, &recieveBuffer[Received], Bufsize);
+                Received += Network.ReceiveNonBlocking(SOCKET_SERVER, &recieveBuffer[Received], Bufsize);
 
             if (Received == SDL_ERROR)
             {
@@ -207,7 +161,7 @@ int main(int argc, char **argv)
 #ifdef WIN32
                 SetConsoleTextAttribute(hConsole, clientColor);
 #endif
-                std::cout << "client says: " << recieveBuffer << std::endl;
+                std::cout << ": " << recieveBuffer << std::endl;
 #ifdef WIN32
                 SetConsoleTextAttribute(hConsole, serverColor);
 #endif
@@ -217,7 +171,7 @@ int main(int argc, char **argv)
 #ifdef WIN32
                 SetConsoleTextAttribute(hConsole, serverColor);
 #endif
-                std::cout << "server says: " << recieveBuffer << std::endl;
+                std::cout << ": " << recieveBuffer << std::endl;
 #ifdef WIN32
                 SetConsoleTextAttribute(hConsole, clientColor);
 #endif
