@@ -46,7 +46,7 @@
 
 // Minimum duration (in seconds) of the mode. Before this duration we don't check input.
 // After this minimum duration has elapsed we receive input and start exiting when any control is pressed
-#define WINNER_MINIMUM_DURATION         3.0f
+#define WINNER_MINIMUM_DURATION         2.0f
                                                 
 // Display origin                               
 #define WINNER_DISPLAY_ORIGIN_X       0       //!< Display origin of the winner screen

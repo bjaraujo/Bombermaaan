@@ -38,6 +38,7 @@
 #define VICTORY_BLACKSCREEN_DURATION    0.750f
 
 // Duration of the victory screen
+#define VICTORY_MINIMUM_DURATION        5.0f
 #define VICTORY_SCREEN_DURATION         10.0f
 
 // The width of the victory view
@@ -314,6 +315,44 @@ EGameMode CVictory::Update (void)
 
             // Don't do this more than once
             m_PlayedSound = true;
+        }
+
+        // If minimum duration of the mode has elapsed
+        if (m_ModeTime >= VICTORY_MINIMUM_DURATION)
+        {
+            bool LeaveScreen = false;
+
+            // Check everyone's joystick button if the 'next' button was pressed
+            for (int Player = 0; Player < MAX_PLAYERS; Player++) {
+
+                // If this player plays and is a human
+                if (m_pOptions->GetBomberType(Player) == BOMBERTYPE_MAN)
+                {
+                    // Get his player input using the options object
+                    int PlayerInputNr = m_pOptions->GetPlayerInput(Player);
+
+                    // If this player input is opened
+                    if (m_pInput->GetPlayerInput(PlayerInputNr).IsOpened()) {
+                        m_pInput->GetPlayerInput(PlayerInputNr).Update();
+                        // LeaveScreen ||= resulted in error C2059
+                        LeaveScreen |= m_pInput->GetPlayerInput(PlayerInputNr).TestMenuNext();
+                    }
+                }
+
+            }
+
+            // Check the keyboard as well
+            LeaveScreen |= m_pInput->GetMainInput().TestNext();
+
+            // If the NEXT control is active
+            if (LeaveScreen)
+            {
+                // Remember we have to exit this mode
+                m_HaveToExit = true;
+
+                // Remember the mode time
+                m_ExitModeTime = m_ModeTime;
+            }
         }
 
         //---------------------------
