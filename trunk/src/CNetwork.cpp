@@ -285,8 +285,7 @@ bool CNetwork::SendCommandChunk(const CCommandChunk& CommandChunk)
         char ByteArray[4];
     } LongBytes;
 
-    unsigned long aCheckSum = this->CheckSum((const char*)&CommandChunk);
-    LongBytes.LongValue = aCheckSum;
+    LongBytes.LongValue = this->CheckSum((const char*)&CommandChunk);
     this->Send(SOCKET_SERVER, (const char*)&LongBytes.ByteArray, 4);
 
     // Send client command chunk to the server
@@ -315,7 +314,7 @@ bool CNetwork::ReceiveCommandChunk(CCommandChunk& CommandChunk)
         // Receive checksum
         do {
 
-            Received = this->Receive(SOCKET_CLIENT, &LongBytes.ByteArray[Received], bufsize);
+            Received += this->Receive(SOCKET_CLIENT, &LongBytes.ByteArray[Received], bufsize);
 
             if (Received == SDL_ERROR)
             {
@@ -357,10 +356,7 @@ bool CNetwork::ReceiveCommandChunk(CCommandChunk& CommandChunk)
         if (Received == sizeof(CommandChunk))
         {
 
-            unsigned long aCheckSum1 = this->CheckSum(recvBuf);
-            unsigned long aCheckSum2 = LongBytes.LongValue;
-
-            if (aCheckSum1 == aCheckSum2)
+            if (this->CheckSum(recvBuf) == LongBytes.LongValue)
             {
                 memcpy((char *)&CommandChunk, recvBuf, sizeof(CommandChunk));
                 delete[] recvBuf;
@@ -390,8 +386,7 @@ bool CNetwork::SendSnapshot(const CArenaSnapshot& Snapshot)
         char ByteArray[4];
     } LongBytes;
 
-    unsigned long aCheckSum = this->CheckSum((const char*)&Snapshot);
-    LongBytes.LongValue = aCheckSum;
+    LongBytes.LongValue = this->CheckSum((const char*)&Snapshot);
     this->Send(SOCKET_CLIENT, (const char*)&LongBytes.ByteArray, 4);
 
     // Send snapshot to the client
@@ -418,7 +413,7 @@ bool CNetwork::ReceiveSnapshot(CArenaSnapshot& Snapshot)
         // Receive checksum
         do {
 
-            Received = this->Receive(SOCKET_SERVER, &LongBytes.ByteArray[Received], bufsize);
+            Received += this->Receive(SOCKET_SERVER, &LongBytes.ByteArray[Received], bufsize);
 
             if (Received == SDL_ERROR)
             {
@@ -463,10 +458,7 @@ bool CNetwork::ReceiveSnapshot(CArenaSnapshot& Snapshot)
         if (Received == sizeof(Snapshot))
         {
 
-            unsigned long aCheckSum1 = this->CheckSum(recvBuf);
-            unsigned long aCheckSum2 = LongBytes.LongValue;
-
-            if (aCheckSum1 == aCheckSum2)
+            if (this->CheckSum(recvBuf) == LongBytes.LongValue)
             {
                 memcpy((char *)&Snapshot, recvBuf, sizeof(Snapshot));
                 delete[] recvBuf;

@@ -207,7 +207,9 @@ namespace BomberMaaanLevel
                 case EBlockType.BLOCKTYPE_ITEM_PUNCH:
                     return Resource1.ItemPunch;
                 case EBlockType.BLOCKTYPE_ITEM_SKULL:
+                    return Resource1.ItemSkull;
                 case EBlockType.BLOCKTYPE_ITEM_REMOTES:
+                    return Resource1.ItemRemotes;
                 default:
                     break;
             }

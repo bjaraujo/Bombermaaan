@@ -210,10 +210,10 @@ namespace BomberMaaanLevel
                     aNewChar = 'P';
                     break;
                 case EBlockType.BLOCKTYPE_ITEM_SKULL:
-                    aNewChar = ' '; // TODO
+                    aNewChar = 'C';
                     break;
                 case EBlockType.BLOCKTYPE_ITEM_REMOTES:
-                    aNewChar = ' '; // TODO
+                    aNewChar = 'Z';
                     break;
                 default:
                     break;
@@ -277,6 +277,10 @@ namespace BomberMaaanLevel
                     return EBlockType.BLOCKTYPE_ITEM_PUNCH;
                 case 'T': // ITEM_THROW; 
                     return EBlockType.BLOCKTYPE_ITEM_THROW;
+                case 'Z': // ITEM_REMOTES; 
+                    return EBlockType.BLOCKTYPE_ITEM_REMOTES;
+                case 'C': // ITEM_SKULL; 
+                    return EBlockType.BLOCKTYPE_ITEM_SKULL;
                 default:
                     return EBlockType.BLOCKTYPE_FREE;
             }

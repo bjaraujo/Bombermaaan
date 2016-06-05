@@ -4,10 +4,6 @@
 #include <iostream>
 #include <string>
 
-#ifdef WIN32
-#include <windows.h>
-#endif
-
 #include "CNetwork.h"
 
 int main(int argc, char **argv)
@@ -29,27 +25,16 @@ int main(int argc, char **argv)
     if (argc > 2)
         strcpy(IpAddressString, argv[2]);
 
-#ifdef WIN32
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-#endif
-
     // client mode and ip address given?
     if (strstr(argv[1], "-c") != NULL ||
         strstr(argv[1], "--client") != NULL)
     {
-#ifdef WIN32
-        SetConsoleTextAttribute(hConsole, clientColor);
-#endif
         std::cout << "*** STARTING AS CLIENT" << std::endl;
         Network.SetNetworkMode(NETWORKMODE_CLIENT);
-
     }
     else if (strstr(argv[1], "-s") != NULL ||
         strstr(argv[1], "--server") != NULL)
     {
-#ifdef WIN32
-        SetConsoleTextAttribute(hConsole, serverColor);
-#endif
         std::cout << "*** STARTING AS SERVER" << std::endl;
         Network.SetNetworkMode(NETWORKMODE_SERVER);
     }
@@ -157,25 +142,9 @@ int main(int argc, char **argv)
             std::cout << std::endl;
 
             if (Network.NetworkMode() == NETWORKMODE_SERVER)
-            {
-#ifdef WIN32
-                SetConsoleTextAttribute(hConsole, clientColor);
-#endif
                 std::cout << ": " << recieveBuffer << std::endl;
-#ifdef WIN32
-                SetConsoleTextAttribute(hConsole, serverColor);
-#endif
-            }
             else if (Network.NetworkMode() == NETWORKMODE_CLIENT)
-            {
-#ifdef WIN32
-                SetConsoleTextAttribute(hConsole, serverColor);
-#endif
                 std::cout << ": " << recieveBuffer << std::endl;
-#ifdef WIN32
-                SetConsoleTextAttribute(hConsole, clientColor);
-#endif
-            }
 
             // Beep
             std::cout << '\a';
