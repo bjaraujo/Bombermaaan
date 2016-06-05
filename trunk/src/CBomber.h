@@ -110,8 +110,8 @@ enum EDead
 
 enum ESick
 {
-    SICK_NOTSICK = -1,      //!< No sickness
-    SICK_INVERTION = 0,       //!< Inverted controls
+    SICK_NOTSICK = -1,          //!< No sickness
+    SICK_INVERTION = 0,         //!< Inverted controls
     SICK_SMALLFLAME,            //!< Bombs with small flames
     SICK_CONSTIPATED,           //!< Cannot drop bomb
     SICK_COLIC,                 //!< Always drop bomb
@@ -138,6 +138,7 @@ private:
     EBomberAction   m_BomberAction;                 //!< Describes the action that the owner player currently wants the bomber to perform.
     EBomberAction   m_LastBomberAction;             //!< Action from last game update
     int             m_Sprite;                       //!< Current bomber's sprite to display
+    int             m_SpriteOverlay;                //!< Current bomber's sprite overlay to display
     int             m_AnimationSprites[5];          //!< Sprite numbers for animations, their values depend on bomber direction
     int             m_Page;                         //!< Current sprite page number to use when displaying
     float           m_Timer;                        //!< Time counter for general use (walk and death animation, delay...)
@@ -166,7 +167,7 @@ private:
     EBomberState    m_BomberState;                  //!< State of the bomber, describes what he is currently doing.
     int             m_BombIndex;                    //!< Index of the bomb the bomber is either holding, lifting or punching (when the bomber is throwing, this index is -1).
     static SBomberSpriteTable m_BomberSpriteTables[MAX_NUMBER_OF_STATES]; //!< Information about the sprite table to use for each bomber state.
-    bool			m_MakeInvisible;				//!< If true, the bomber isn't visible in the arena (used for contamination)
+    bool            m_MakeInvisible;                //!< If true, the bomber isn't visible in the arena (used for contamination)
     bool            m_HasExisted;                   //!< If true, this bomber exists or has existed in this match (m_Exist is set to false after the bomber' death)
     COptions*       p_Options;                      //!< Pointer to the COptions object
     EBomberAction   m_CountBomberActionDuration;
@@ -396,12 +397,12 @@ inline EBomberType CBomber::GetBomberType(void)
 
 inline void CBomber::SetTeam(CTeam* pTeam)
 {
-	p_Team = pTeam;
+    p_Team = pTeam;
 }
 
 inline CTeam* CBomber::GetTeam(void)
 {
-	return p_Team;
+    return p_Team;
 }
 
 //******************************************************************************************************************************

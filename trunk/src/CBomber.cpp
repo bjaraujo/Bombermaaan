@@ -222,8 +222,9 @@ SBomberSpriteTable CBomber::m_BomberSpriteTables[MAX_NUMBER_OF_STATES] =
 //! Bomber sprite layer
 #define BOMBER_SPRITELAYER  50
 
-#define SICK_SPRITE_ROW_FULL        MAX_PLAYERS             //!< The row with the full black bomber sprites (this is the number of maximum players)
+#define SICK_SPRITE_ROW_FULL        (MAX_PLAYERS + 0)       //!< The row with the full black bomber sprites (this is the number of maximum players)
 #define SICK_SPRITE_ROW_SHADOW      (MAX_PLAYERS + 1)       //!< The row with the black shadow bomber sprites (one row below SICK_SPRITE_ROW_FULL)
+#define SICK_SPRITE_ROW_BRIGHT      (MAX_PLAYERS + 2)       //!< The row with the black shadow bomber sprites (one row below SICK_SPRITE_ROW_FULL)
 
 /**
  *  \brief Fuse only the first bomb found?
@@ -247,6 +248,7 @@ CBomber::CBomber(void) : CElement()
     m_BomberAction = BOMBERACTION_NONE;
     m_LastBomberAction = BOMBERACTION_NONE;
     m_Sprite = 0;
+    m_SpriteOverlay = 0;
     m_Page = 0;
     m_Timer = 0;
     m_SickTimer = 0.0f;
@@ -500,6 +502,7 @@ void CBomber::Command(EBomberMove BomberMove, EBomberAction BomberAction)
         break;
     }
 
+    case SICK_FLAMEPROOF:
     case SICK_CONSTIPATED:
     {
         if (m_BomberAction == BOMBERACTION_ACTION1)
@@ -944,6 +947,8 @@ void CBomber::Animate(float DeltaTime)
 
     // By default, the bomber can be seen in the arena
     m_MakeInvisible = false;
+    
+    m_SpriteOverlay = 0;
 
     // If the bomber is alive (not dead and not dying)
     if (m_Dead == DEAD_ALIVE)
@@ -1274,7 +1279,7 @@ void CBomber::Animate(float DeltaTime)
     // If bomber is not sick or he is dying
     if (m_Sickness == SICK_NOTSICK || m_Dead != DEAD_ALIVE)
     {
-        // Give him its player color        
+        // Give him its player color
         m_Sprite += m_Player * m_BomberSpriteTables[m_BomberState].NumberOfSpritesPerColor;
     }
     // If he is sick and alive
@@ -1290,8 +1295,15 @@ void CBomber::Animate(float DeltaTime)
                 // The arena-bomber-alive sprites have an additional series for the invisible bomber (only the bomber's border can be seen)
                 m_Sprite += SICK_SPRITE_ROW_SHADOW * m_BomberSpriteTables[m_BomberState].NumberOfSpritesPerColor;
             }
-            else {
-                m_Sprite += SICK_SPRITE_ROW_FULL * m_BomberSpriteTables[m_BomberState].NumberOfSpritesPerColor;
+            else 
+            {
+                if (m_Sickness == SICK_FLAMEPROOF)
+                {
+                    m_SpriteOverlay = m_Sprite + SICK_SPRITE_ROW_BRIGHT * m_BomberSpriteTables[m_BomberState].NumberOfSpritesPerColor;
+                    m_Sprite += m_Player * m_BomberSpriteTables[m_BomberState].NumberOfSpritesPerColor;
+                }
+                else
+                    m_Sprite += SICK_SPRITE_ROW_FULL * m_BomberSpriteTables[m_BomberState].NumberOfSpritesPerColor;
             }
 
         }
@@ -1314,8 +1326,15 @@ void CBomber::Animate(float DeltaTime)
                 // The arena-bomber-alive sprites have an additional series for the invisible bomber (only the bomber's border can be seen)
                 m_Sprite += SICK_SPRITE_ROW_SHADOW * m_BomberSpriteTables[m_BomberState].NumberOfSpritesPerColor;
             }
-            else {
-                m_Sprite += SICK_SPRITE_ROW_FULL * m_BomberSpriteTables[m_BomberState].NumberOfSpritesPerColor;
+            else 
+            {
+                if (m_Sickness == SICK_FLAMEPROOF)
+                {
+                    m_SpriteOverlay = m_Sprite + SICK_SPRITE_ROW_BRIGHT * m_BomberSpriteTables[m_BomberState].NumberOfSpritesPerColor;
+                    m_Sprite += m_Player * m_BomberSpriteTables[m_BomberState].NumberOfSpritesPerColor;
+                }
+                else
+                    m_Sprite += SICK_SPRITE_ROW_FULL * m_BomberSpriteTables[m_BomberState].NumberOfSpritesPerColor;
             }
         }
 
@@ -1454,7 +1473,23 @@ void CBomber::Display(void)
             m_Sprite,
             BOMBER_SPRITELAYER,
             m_BomberMove.GetY());
+
+        if (m_SpriteOverlay > 0)
+        {
+
+            m_pDisplay->DrawSprite(m_BomberMove.GetX() + BOMBER_OFFSETX,
+                m_BomberMove.GetY() + BOMBER_OFFSETY,
+                NULL,                            // Draw entire sprite
+                NULL,                            // No need to clip
+                m_Page,
+                m_SpriteOverlay,
+                BOMBER_SPRITELAYER,
+                m_BomberMove.GetY() + 1);
+
+        }
+
     }
+
 }
 
 //******************************************************************************************************************************
