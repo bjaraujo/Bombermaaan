@@ -18,7 +18,7 @@
     You should have received a copy of the GNU General Public License
     along with Bombermaaan.  If not, see <http://www.gnu.org/licenses/>.
 
-************************************************************************************/
+    ************************************************************************************/
 
 /**
  *  \file CSDLInput.h
@@ -178,43 +178,43 @@ private:
     bool                    m_Ready;
     HINSTANCE               m_hInstance;    //!< Handle to the application instance (needed to use SDLInput)
     HWND                    m_hWnd;         //!< Handle to the window (needed to use SDLInput)
-        
+
     bool                    m_KeyboardOpened;               //!< Is the system keyboard _supposed_ to be opened?
-    char                    m_KeyState [MAX_KEYS];          //!< State of each key on the system keyboard
-    char                    m_KeyFriendlyName [MAX_KEYS][MAX_PATH]; //!< More friendly name for each key
+    char                    m_KeyState[MAX_KEYS];          //!< State of each key on the system keyboard
+    char                    m_KeyFriendlyName[MAX_KEYS][MAX_PATH]; //!< More friendly name for each key
 
     vector<SJoystick*>      m_pJoysticks;   //!< All joystick SDLInput devices installed in the system
 
     bool                    UpdateDevice(void *pState, int StateSize);
-    bool                    UpdateDevice (SDL_Joystick *pDevice, void *pState, int StateSize);
-    void                    MakeKeyFriendlyNames (void);
-    
+    bool                    UpdateDevice(SDL_Joystick *pDevice, void *pState, int StateSize);
+    void                    MakeKeyFriendlyNames(void);
+
 public:
 
-                            CSDLInput (void);
-                            ~CSDLInput (void);
-    inline void             SetWindowHandle     (HWND hWnd);
-    inline void             SetInstanceHandle   (HINSTANCE hInstance);
-    bool                    Create              (void);
-    void                    Destroy             (void);
-    inline void             OpenKeyboard        (void);
-    inline bool             IsKeyboardOpened    (void);
-    inline void             CloseKeyboard       (void);
-    void                    UpdateKeyboard      (void);
-    inline bool             GetKey              (int Key);
-    inline void             SetKey              (int Key, bool KeySet);
-    inline const char*      GetKeyFriendlyName  (int Key);
-    inline int              GetJoystickCount    (void);
-    inline void             OpenJoystick        (int Joystick);
-    inline bool             IsJoystickOpened    (int Joystick);
-    inline void             CloseJoystick       (int Joystick);
-    void                    UpdateJoystick      (int Joystick);
-    inline int              GetJoystickAxisX    (int Joystick);
-    inline int              GetJoystickAxisY    (int Joystick);
-    inline bool             GetJoystickButton   (int Joystick, int Button);
-    inline void             SetJoystickAxisX    (int Joystick, int AxisX);
-    inline void             SetJoystickAxisY    (int Joystick, int AxisY);
-    inline void             SetJoystickButton   (int Joystick, int Button, bool onoff);
+    CSDLInput(void);
+    ~CSDLInput(void);
+    inline void             SetWindowHandle(HWND hWnd);
+    inline void             SetInstanceHandle(HINSTANCE hInstance);
+    bool                    Create(void);
+    void                    Destroy(void);
+    inline void             OpenKeyboard(void);
+    inline bool             IsKeyboardOpened(void);
+    inline void             CloseKeyboard(void);
+    void                    UpdateKeyboard(void);
+    inline bool             GetKey(int Key);
+    inline void             SetKey(int Key, bool KeySet);
+    inline const char*      GetKeyFriendlyName(int Key);
+    inline int              GetJoystickCount(void);
+    inline void             OpenJoystick(int Joystick);
+    inline bool             IsJoystickOpened(int Joystick);
+    inline void             CloseJoystick(int Joystick);
+    void                    UpdateJoystick(int Joystick);
+    inline int              GetJoystickAxisX(int Joystick);
+    inline int              GetJoystickAxisY(int Joystick);
+    inline bool             GetJoystickButton(int Joystick, int Button);
+    inline void             SetJoystickAxisX(int Joystick, int AxisX);
+    inline void             SetJoystickAxisY(int Joystick, int AxisY);
+    inline void             SetJoystickButton(int Joystick, int Button, bool onoff);
 };
 
 typedef CSDLInput InputClass;
@@ -223,173 +223,177 @@ typedef CSDLInput InputClass;
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline void CSDLInput::SetWindowHandle (HWND hWnd)
+inline void CSDLInput::SetWindowHandle(HWND hWnd)
 {
     m_hWnd = hWnd;
 }
 
-inline void CSDLInput::SetInstanceHandle (HINSTANCE hInstance)
+inline void CSDLInput::SetInstanceHandle(HINSTANCE hInstance)
 {
     m_hInstance = hInstance;
 }
 
-inline void CSDLInput::OpenKeyboard (void)
+inline void CSDLInput::OpenKeyboard(void)
 {
-	m_KeyboardOpened = true;
+    m_KeyboardOpened = true;
 }
 
-inline bool CSDLInput::IsKeyboardOpened (void)
+inline bool CSDLInput::IsKeyboardOpened(void)
 {
     // Return the opened state of the keyboard
     return m_KeyboardOpened;
 }
 
-inline void CSDLInput::CloseKeyboard (void)
+inline void CSDLInput::CloseKeyboard(void)
 {
     m_KeyboardOpened = false;
 }
 
-inline bool CSDLInput::GetKey (int Key)
+inline bool CSDLInput::GetKey(int Key)
 {
     // Assert the key number is correct
-    ASSERT (Key >= 0 && Key < MAX_KEYS);
+    ASSERT(Key >= 0 && Key < MAX_KEYS);
 
     // Return the state of the key
     return (m_KeyState[Key] & 0x80) != 0;
 }
 
-inline void CSDLInput::SetKey (int Key, bool KeySet)
+inline void CSDLInput::SetKey(int Key, bool KeySet)
 {
     // Assert the key number is correct
-    ASSERT (Key >= 0 && Key < MAX_KEYS);
+    ASSERT(Key >= 0 && Key < MAX_KEYS);
 
     // Set/remove state of the key
-	if (KeySet) {
-    	m_KeyState[Key] |= 0x80;
-	}
-	else {
-		m_KeyState[Key] &= ~0x80;
-	}
-	
-	return;
+    if (KeySet) {
+        m_KeyState[Key] |= 0x80;
+    }
+    else {
+        m_KeyState[Key] &= ~0x80;
+    }
+
+    return;
 }
 
-inline const char* CSDLInput::GetKeyFriendlyName (int Key)
+inline const char* CSDLInput::GetKeyFriendlyName(int Key)
 {
     // Assert the key number is correct
-    ASSERT (Key >= 0 && Key < MAX_KEYS);
+    ASSERT(Key >= 0 && Key < MAX_KEYS);
 
     // Return the name of the key
     return m_KeyFriendlyName[Key];
 }
 
-inline int CSDLInput::GetJoystickCount (void)
+inline int CSDLInput::GetJoystickCount(void)
 {
     // Return the number of joysticks installed on the system
-    return m_pJoysticks.size ();
+    return m_pJoysticks.size();
 }
 
-inline void CSDLInput::OpenJoystick (int Joystick)
+inline void CSDLInput::OpenJoystick(int Joystick)
 {
-    // Check if the joystick number is correct
-    ASSERT (Joystick >= 0 && Joystick < (int)m_pJoysticks.size ());
 
-	// Try to acquire the joystick
-	m_pJoysticks[Joystick]->pDevice = SDL_JoystickOpen(Joystick);
-	
+    // Check if the joystick number is correct
+    ASSERT(Joystick >= 0 && Joystick < (int)m_pJoysticks.size());
+
+    if (m_pJoysticks[Joystick]->Opened)
+        return;
+
+    // Try to acquire the joystick
+    m_pJoysticks[Joystick]->pDevice = SDL_JoystickOpen(Joystick);
+
     // Set the opened state according to the return value
-	m_pJoysticks[Joystick]->Opened = (m_pJoysticks[Joystick]->pDevice != NULL);
+    m_pJoysticks[Joystick]->Opened = (m_pJoysticks[Joystick]->pDevice != NULL);
 }
 
-inline bool CSDLInput::IsJoystickOpened (int Joystick)
+inline bool CSDLInput::IsJoystickOpened(int Joystick)
 {
     // Check if the joystick number is correct
-    ASSERT (Joystick >= 0 && Joystick < (int)m_pJoysticks.size ());
+    ASSERT(Joystick >= 0 && Joystick < (int)m_pJoysticks.size());
 
     // Return the opened state of this joystick
     return m_pJoysticks[Joystick]->Opened;
 }
 
-inline void CSDLInput::CloseJoystick (int Joystick)
+inline void CSDLInput::CloseJoystick(int Joystick)
 {
     // Check if the joystick number is correct
-    ASSERT (Joystick >= 0 && Joystick < (int)m_pJoysticks.size ());
+    ASSERT(Joystick >= 0 && Joystick < (int)m_pJoysticks.size());
 
     // Release access to this joystick
-	SDL_JoystickClose(m_pJoysticks[Joystick]->pDevice);
+    SDL_JoystickClose(m_pJoysticks[Joystick]->pDevice);
 
     // We are sure this joystick is not opened */
     m_pJoysticks[Joystick]->Opened = false;
-	m_pJoysticks[Joystick]->pDevice = NULL;
+    m_pJoysticks[Joystick]->pDevice = NULL;
 }
 
-inline int CSDLInput::GetJoystickAxisX (int Joystick)
+inline int CSDLInput::GetJoystickAxisX(int Joystick)
 {
     // Check if the joystick number is correct
-    ASSERT (Joystick >= 0 && Joystick < (int)m_pJoysticks.size ());
+    ASSERT(Joystick >= 0 && Joystick < (int)m_pJoysticks.size());
 
     // Return the value of the X axis of this joystick
     return m_pJoysticks[Joystick]->State.lX;
 }
 
-inline int CSDLInput::GetJoystickAxisY (int Joystick)
+inline int CSDLInput::GetJoystickAxisY(int Joystick)
 {
     // Check if the joystick number is correct
-    ASSERT (Joystick >= 0 && Joystick < (int)m_pJoysticks.size ());
+    ASSERT(Joystick >= 0 && Joystick < (int)m_pJoysticks.size());
 
     // Return the value of the Y axis of this joystick
     return m_pJoysticks[Joystick]->State.lY;
 }
 
-inline bool CSDLInput::GetJoystickButton (int Joystick, int Button)
+inline bool CSDLInput::GetJoystickButton(int Joystick, int Button)
 {
     // Check if the joystick number is correct
-    ASSERT (Joystick >= 0 && Joystick < (int)m_pJoysticks.size ());
+    ASSERT(Joystick >= 0 && Joystick < (int)m_pJoysticks.size());
 
     // Assert the button number is correct
-    ASSERT (Button >= 0 && Button < MAX_JOYSTICK_BUTTONS);
+    ASSERT(Button >= 0 && Button < MAX_JOYSTICK_BUTTONS);
 
     // Return the state of the specified button on this joystick
     return (m_pJoysticks[Joystick]->State.rgbButtons[Button] & 0x80) != 0;
 }
 
-inline void CSDLInput::SetJoystickAxisX (int Joystick, int AxisX)
+inline void CSDLInput::SetJoystickAxisX(int Joystick, int AxisX)
 {
     // Check if the joystick number is correct
-    ASSERT (Joystick >= 0 && Joystick < (int)m_pJoysticks.size ());
+    ASSERT(Joystick >= 0 && Joystick < (int)m_pJoysticks.size());
 
     // Set the value of the X axis of this joystick
     m_pJoysticks[Joystick]->State.lX = AxisX;
-	
-	return;
+
+    return;
 }
 
-inline void CSDLInput::SetJoystickAxisY (int Joystick, int AxisY)
+inline void CSDLInput::SetJoystickAxisY(int Joystick, int AxisY)
 {
     // Check if the joystick number is correct
-    ASSERT (Joystick >= 0 && Joystick < (int)m_pJoysticks.size ());
+    ASSERT(Joystick >= 0 && Joystick < (int)m_pJoysticks.size());
 
     // Set the value of the Y axis of this joystick
     m_pJoysticks[Joystick]->State.lY = AxisY;
-	
-	return;
+
+    return;
 }
 
-inline void CSDLInput::SetJoystickButton (int Joystick, int Button, bool onoff)
+inline void CSDLInput::SetJoystickButton(int Joystick, int Button, bool onoff)
 {
     // Check if the joystick number is correct
-    ASSERT (Joystick >= 0 && Joystick < (int)m_pJoysticks.size ());
+    ASSERT(Joystick >= 0 && Joystick < (int)m_pJoysticks.size());
 
     // Assert the button number is correct
-    ASSERT (Button >= 0 && Button < MAX_JOYSTICK_BUTTONS);
+    ASSERT(Button >= 0 && Button < MAX_JOYSTICK_BUTTONS);
 
     // Return the state of the specified button on this joystick
-	if (onoff) {
-    	m_pJoysticks[Joystick]->State.rgbButtons[Button] |= 0x80;
-	}
-	else {
-		m_pJoysticks[Joystick]->State.rgbButtons[Button] &= ~0x80;
-	}
+    if (onoff) {
+        m_pJoysticks[Joystick]->State.rgbButtons[Button] |= 0x80;
+    }
+    else {
+        m_pJoysticks[Joystick]->State.rgbButtons[Button] &= ~0x80;
+    }
 
     return;
 }

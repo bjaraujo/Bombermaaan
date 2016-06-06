@@ -974,7 +974,7 @@ void CGame::OnActivateApp(WPARAM wParam, LPARAM lParam)
 
     CWindow::OnActivateApp(wParam, lParam);
 
-#ifdef ENABLE_UPDATE_WHEN_WINDOW_IS_INACTIVE    
+#ifdef ENABLE_UPDATE_WHEN_WINDOW_IS_INACTIVE
     m_Active = true;
 #endif
 

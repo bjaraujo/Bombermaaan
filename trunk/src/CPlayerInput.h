@@ -51,6 +51,8 @@
 
 #define NUMBER_OF_JOYSTICK_DIRECTIONS     4     //!< Number of joystick directions (up down left right)
 
+#define JOYSTICK_AXIS_THRESHOLD 3200
+
 //! The third joystick button can be used for leaving the winner screen
 #define JOYSTICK_BUTTON_MENU_NEXT   JOYSTICK_BUTTON(2)
 
