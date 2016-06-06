@@ -17,7 +17,7 @@
     You should have received a copy of the GNU General Public License
     along with Bombermaaan.  If not, see <http://www.gnu.org/licenses/>.
 
-************************************************************************************/
+    ************************************************************************************/
 
 
 /**
@@ -44,7 +44,7 @@
 //******************************************************************************************************************************
 
 //! Base class for managing the main window
-class CWindow  
+class CWindow
 {
 protected:
 
@@ -52,40 +52,40 @@ protected:
     bool m_Active;
 
 protected:
-    
-    virtual void OnCreate (HWND hwnd, WPARAM wParam, LPARAM lParam);        // WM_CREATE
-    virtual void OnInitDialog (WPARAM wParam, LPARAM lParam);               // WM_INITDIALOG
-    virtual void OnActivateApp (WPARAM wParam, LPARAM lParam);              // WM_ACTIVATEAPP
-    virtual void OnSize (WPARAM wParam, LPARAM lParam);                     // WM_SIZE
-    virtual void OnMove (WPARAM wParam, LPARAM lParam);                     // WM_MOVE
-    virtual void OnPaint (WPARAM wParam, LPARAM lParam);                    // WM_PAINT
-    virtual void OnKeyDown (WPARAM wParam, LPARAM lParam);                  // WM_KEYDOWN
-    virtual void OnKeyUp (WPARAM wParam, LPARAM lParam);                    // WM_KEYUP
-    virtual void OnTimer (WPARAM wParam, LPARAM lParam);                    // WM_TIMER
-    virtual void OnCommand (WPARAM wParam, LPARAM lParam);                  // WM_COMMAND
-    virtual bool OnSysCommand (WPARAM wParam, LPARAM lParam);               // WM_SYSCOMMAND
-    virtual void OnClose (WPARAM wParam, LPARAM lParam);                    // WM_CLOSE
-    virtual void OnDestroy (WPARAM wParam, LPARAM lParam);                  // WM_DESTROY
-	#ifndef DIRECTX_INPUT
-	virtual void OnJoystickAxis (WPARAM wParam, LPARAM lParam);             // SDL_JOYAXISMOTION
-    virtual void OnJoystickButton (WPARAM wParam, LPARAM lParam);           // SDL_JOYBUTTONDOWN/-UP
-	#endif
-    virtual void OnWindowActive (void);
+
+    virtual void OnCreate(HWND hwnd, WPARAM wParam, LPARAM lParam);        // WM_CREATE
+    virtual void OnInitDialog(WPARAM wParam, LPARAM lParam);               // WM_INITDIALOG
+    virtual void OnActivateApp(WPARAM wParam, LPARAM lParam);              // WM_ACTIVATEAPP
+    virtual void OnSize(WPARAM wParam, LPARAM lParam);                     // WM_SIZE
+    virtual void OnMove(WPARAM wParam, LPARAM lParam);                     // WM_MOVE
+    virtual void OnPaint(WPARAM wParam, LPARAM lParam);                    // WM_PAINT
+    virtual void OnKeyDown(WPARAM wParam, LPARAM lParam);                  // WM_KEYDOWN
+    virtual void OnKeyUp(WPARAM wParam, LPARAM lParam);                    // WM_KEYUP
+    virtual void OnTimer(WPARAM wParam, LPARAM lParam);                    // WM_TIMER
+    virtual void OnCommand(WPARAM wParam, LPARAM lParam);                  // WM_COMMAND
+    virtual bool OnSysCommand(WPARAM wParam, LPARAM lParam);               // WM_SYSCOMMAND
+    virtual void OnClose(WPARAM wParam, LPARAM lParam);                    // WM_CLOSE
+    virtual void OnDestroy(WPARAM wParam, LPARAM lParam);                  // WM_DESTROY
+#ifndef DIRECTX_INPUT
+    virtual void OnJoystickAxis(WPARAM wParam, LPARAM lParam);             // SDL_JOYAXISMOTION
+    virtual void OnJoystickButton(WPARAM wParam, LPARAM lParam);           // SDL_JOYBUTTONDOWN/-UP
+#endif
+    virtual void OnWindowActive(void);
 
 public:
 
-	CWindow (HINSTANCE hInstance, const char *pWindowTitle, int IconResourceID = -1);
+    CWindow(HINSTANCE hInstance, const char *pWindowTitle, int IconResourceID = -1);
 
-    virtual ~CWindow (void);
-    void SetClientSize (int ClientWidth, int ClientHeight);
-    void ShowWindow (void);
-    void MessagePump (void);
+    virtual ~CWindow(void);
+    void SetClientSize(int ClientWidth, int ClientHeight);
+    void ShowWindow(void);
+    void MessagePump(void);
 #ifdef WIN32
-    LRESULT CALLBACK WinProc (unsigned int msg, WPARAM wParam, LPARAM lParam);
+    LRESULT CALLBACK WinProc(unsigned int msg, WPARAM wParam, LPARAM lParam);
 #else
-	void WinProc (unsigned int msg, WPARAM wParam, LPARAM lParam);
+    void WinProc (unsigned int msg, WPARAM wParam, LPARAM lParam);
 #endif
-};  
+};
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************

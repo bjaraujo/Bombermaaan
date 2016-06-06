@@ -198,16 +198,8 @@ void CSDLInput::UpdateKeyboard (void)
 
 void CSDLInput::UpdateJoystick (int Joystick)
 {
-    // Check if the joystick number is correct
-    ASSERT (Joystick >= 0 && Joystick < (int)m_pJoysticks.size ());
 
-    // Check if the joystick is at least supposed to be opened
-    ASSERT (m_pJoysticks[Joystick]->Opened);
 
-    // Update the device and get the latest real opened state
-//    m_pJoysticks[Joystick]->Opened = UpdateDevice (m_pJoysticks[Joystick]->pDevice, 
-//                                                   &m_pJoysticks[Joystick]->State, 
-//                                                   sizeof(m_pJoysticks[Joystick]->State));
 }
 
 //******************************************************************************************************************************
