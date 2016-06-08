@@ -239,14 +239,6 @@ void CMenuInput::OnDisplay (void)
         {
             int PlayerInput = m_pOptions->GetPlayerInput(Player);
             
-            // If the current input is a joystick, verify that this joystick is plugged in
-            if (PlayerInput >= m_pInput->GetPlayerInputCount())
-            {
-                // reset to keyboard 1
-                PlayerInput = 0;
-                m_pOptions->SetPlayerInput (Player, PlayerInput);
-            }
-            
             // Set the right font text color and write the current player input name
             m_pFont->SetTextColor (FONTCOLOR_GREEN);
             m_pFont->Draw (INITIAL_TEXT_POSITION_X, 

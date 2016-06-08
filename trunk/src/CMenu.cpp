@@ -270,6 +270,17 @@ EGameMode CMenu::Update(void)
                             // Increase the number of human players
                             ManCount++;
                         }
+
+                        int PlayerInput = m_pOptions->GetPlayerInput(Player);
+
+                        // If the current input is a joystick, verify that this joystick is plugged in
+                        if (PlayerInput >= m_pInput->GetPlayerInputCount())
+                        {
+                            // reset to keyboard 1
+                            PlayerInput = 0;
+                            m_pOptions->SetPlayerInput(Player, PlayerInput);
+                        }
+
                     }
 
                     // Save the previous menu mode to set
@@ -331,6 +342,17 @@ EGameMode CMenu::Update(void)
                             // Increase the number of human players
                             ManCount++;
                         }
+
+                        int PlayerInput = m_pOptions->GetPlayerInput(Player);
+
+                        // If the current input is a joystick, verify that this joystick is plugged in
+                        if (PlayerInput >= m_pInput->GetPlayerInputCount())
+                        {
+                            // reset to keyboard 1
+                            PlayerInput = 0;
+                            m_pOptions->SetPlayerInput(Player, PlayerInput);
+                        }
+
                     }
 
                     // Save the next menu mode to set
