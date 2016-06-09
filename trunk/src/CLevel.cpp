@@ -308,6 +308,7 @@ bool CLevel::LoadVersion1(ifstream& File) {
     m_InitialBomberSkills[BOMBERSKILL_THROWITEMS] = 0;
     m_InitialBomberSkills[BOMBERSKILL_PUNCHITEMS] = 0;
     m_InitialBomberSkills[BOMBERSKILL_REMOTEITEMS] = 0;
+    m_InitialBomberSkills[BOMBERSKILL_SHIELDITEMS] = 0;
 
     return !StopReadingFile;
 

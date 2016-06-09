@@ -1072,6 +1072,7 @@ int CAiBomber::ItemMark(int BlockX, int BlockY)
     case ITEM_THROW: Mark += 50; break;
     case ITEM_PUNCH: Mark += 60; break;
     case ITEM_REMOTE: Mark += 60; break;
+    case ITEM_SHIELD: Mark += 80; break;
     default: break;
     }
 

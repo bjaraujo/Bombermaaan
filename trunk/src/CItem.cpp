@@ -761,7 +761,8 @@ bool CItem::CreateItems(CArena *pArena,
             NumberOfItemSkulls +
             NumberOfItemThrow +
             NumberOfItemPunch +
-            NumberOfItemRemote > CountPossible)
+            NumberOfItemRemote +
+            NumberOfItemShield > CountPossible)
         {
             // Choose a type of item and reduce the number
             switch (RANDOM(NUMBER_OF_ITEMS))
@@ -774,6 +775,7 @@ bool CItem::CreateItems(CArena *pArena,
             case 5: if (NumberOfItemThrow > 0)     NumberOfItemThrow--;   break;
             case 6: if (NumberOfItemPunch > 0)     NumberOfItemPunch--;   break;
             case 7: if (NumberOfItemRemote > 0)    NumberOfItemRemote--;   break;
+            case 8: if (NumberOfItemShield > 0)    NumberOfItemShield--;   break;
             }
         }
 
@@ -785,7 +787,8 @@ bool CItem::CreateItems(CArena *pArena,
             NumberOfItemSkulls > 0 ||
             NumberOfItemThrow > 0 ||
             NumberOfItemPunch > 0 ||
-            NumberOfItemRemote > 0)
+            NumberOfItemRemote > 0 ||
+            NumberOfItemShield > 0)
         {
             // Choose a type of item to create
             EItemType Type = ITEM_NONE;

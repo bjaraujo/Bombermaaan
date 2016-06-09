@@ -671,13 +671,13 @@ void CArena::UpdateView(void)
                 switch (GetItem(Index).GetType())
                 {
                     /// @todo: Check which functions depend on these BLOCKHAS_xxx values
-                case ITEM_BOMB: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMBOMB);   break;
-                case ITEM_FLAME: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMFLAME);  break;
+                case ITEM_BOMB: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMBOMB); break;
+                case ITEM_FLAME: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMFLAME); break;
                 case ITEM_ROLLER: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMROLLER); break;
-                case ITEM_KICK: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMKICK);   break;
-                case ITEM_SKULL: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMSKULL);  break;
-                case ITEM_THROW: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMTHROW);  break;
-                case ITEM_PUNCH: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMPUNCH);  break;
+                case ITEM_KICK: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMKICK); break;
+                case ITEM_SKULL: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMSKULL); break;
+                case ITEM_THROW: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMTHROW); break;
+                case ITEM_PUNCH: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMPUNCH); break;
                 case ITEM_REMOTE: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMREMOTE); break;
                 case ITEM_SHIELD: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMSHIELD); break;
                 default: break;
@@ -1002,6 +1002,7 @@ void CArena::NewItem(int BlockX, int BlockY, EItemType Type, bool Fumes, bool Fl
             case ITEM_ROLLER: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMROLLER); break;
             case ITEM_KICK: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMKICK);   break;
             case ITEM_SKULL: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMSKULL);  break;
+            case ITEM_SHIELD: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMSHIELD);  break;
             default: break;
             }
 
