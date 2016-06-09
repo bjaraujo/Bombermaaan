@@ -297,6 +297,7 @@ bool CLevel::LoadVersion1(ifstream& File) {
     m_NumberOfItemsInWalls[ITEM_THROW] = INITIAL_ITEMTHROW;
     m_NumberOfItemsInWalls[ITEM_PUNCH] = INITIAL_ITEMPUNCH;
     m_NumberOfItemsInWalls[ITEM_REMOTE] = INITIAL_ITEMREMOTE;
+    m_NumberOfItemsInWalls[ITEM_SHIELD] = INITIAL_ITEMSHIELD;
 
     m_InitialBomberSkills[BOMBERSKILL_FLAME] = INITIAL_FLAMESIZE;
     m_InitialBomberSkills[BOMBERSKILL_BOMBS] = INITIAL_BOMBS;
@@ -442,8 +443,8 @@ bool CLevel::LoadVersion2(std::string filename)
     m_NumberOfItemsInWalls[ITEM_SKULL] = atoi(iniFile.GetValue("Settings", "ItemsInWalls.Skulls", "0"));
     m_NumberOfItemsInWalls[ITEM_THROW] = atoi(iniFile.GetValue("Settings", "ItemsInWalls.Throws", "0"));
     m_NumberOfItemsInWalls[ITEM_PUNCH] = atoi(iniFile.GetValue("Settings", "ItemsInWalls.Punches", "0"));
-    m_NumberOfItemsInWalls[ITEM_REMOTE] = atoi(iniFile.GetValue("Settings", "ItemsInWalls.Remotes", "2" /*INITIAL_ITEMREMOTE*/));
-
+    m_NumberOfItemsInWalls[ITEM_REMOTE] = atoi(iniFile.GetValue("Settings", "ItemsInWalls.Remotes", "2"));
+    m_NumberOfItemsInWalls[ITEM_SHIELD] = atoi(iniFile.GetValue("Settings", "ItemsInWalls.Shields", "1"));
 
     //---------------------
     // Read the BomberSkillsAtStart values
@@ -458,7 +459,7 @@ bool CLevel::LoadVersion2(std::string filename)
     m_InitialBomberSkills[BOMBERSKILL_THROWITEMS] = atoi(iniFile.GetValue("Settings", "BomberSkillsAtStart.ThrowItems", "0"));
     m_InitialBomberSkills[BOMBERSKILL_PUNCHITEMS] = atoi(iniFile.GetValue("Settings", "BomberSkillsAtStart.PunchItems", "0"));
     m_InitialBomberSkills[BOMBERSKILL_REMOTEITEMS] = atoi(iniFile.GetValue("Settings", "BomberSkillsAtStart.RemoteItems", "0"));
-
+    m_InitialBomberSkills[BOMBERSKILL_SHIELDITEMS] = atoi(iniFile.GetValue("Settings", "BomberSkillsAtStart.ShieldItems", "0"));
 
     //---------------------
     // Read the ContaminationsNotUsed setting

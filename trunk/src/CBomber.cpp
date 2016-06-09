@@ -234,6 +234,8 @@ SBomberSpriteTable CBomber::m_BomberSpriteTables[MAX_NUMBER_OF_STATES] =
  */
 #define REMOTE_FUSE_ONLY_FIRST_BOMB         true
 
+#define INITIAL_SHIELD_TIME 15
+
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -264,6 +266,7 @@ CBomber::CBomber(void) : CElement()
     m_NumberOfKickItems = 0;
     m_NumberOfThrowItems = 0;
     m_NumberOfPunchItems = 0;
+    m_ShieldTime = 0.0f;
     m_ReturnedItems = false;
     m_Player = 0;
     m_Dead = DEAD_ALIVE;
@@ -446,8 +449,8 @@ void CBomber::Burn()
 {
     debugLog.WriteDebugMsg(DEBUGSECT_BOMBER, "Bomber burning [id=%d, x=%02d, y=%02d].", m_Player, m_BomberMove.GetBlockX(), m_BomberMove.GetBlockY());
 
-    // The bomber cannot die by flames if he/she has the flameproof contamination
-    if (m_Sickness != SICK_FLAMEPROOF) {
+    // The bomber cannot die by flames if he/she has the flameproof contamination or shield
+    if (m_Sickness != SICK_FLAMEPROOF && m_ShieldTime == 0.0f) {
         Die();
     }
 }
@@ -1297,7 +1300,7 @@ void CBomber::Animate(float DeltaTime)
             }
             else 
             {
-                if (m_Sickness == SICK_FLAMEPROOF)
+                if (m_Sickness == SICK_FLAMEPROOF || m_ShieldTime > 0.0f)
                 {
                     m_SpriteOverlay = m_Sprite + SICK_SPRITE_ROW_BRIGHT * m_BomberSpriteTables[m_BomberState].NumberOfSpritesPerColor;
                     m_Sprite += m_Player * m_BomberSpriteTables[m_BomberState].NumberOfSpritesPerColor;
@@ -1328,7 +1331,7 @@ void CBomber::Animate(float DeltaTime)
             }
             else 
             {
-                if (m_Sickness == SICK_FLAMEPROOF)
+                if (m_Sickness == SICK_FLAMEPROOF || m_ShieldTime > 0.0f)
                 {
                     m_SpriteOverlay = m_Sprite + SICK_SPRITE_ROW_BRIGHT * m_BomberSpriteTables[m_BomberState].NumberOfSpritesPerColor;
                     m_Sprite += m_Player * m_BomberSpriteTables[m_BomberState].NumberOfSpritesPerColor;
@@ -1642,8 +1645,18 @@ void CBomber::ReturnItems(float DeltaTime)
 
 bool CBomber::Update(float DeltaTime)
 {
+
     //! Manage the bomber's movement by calling CBomberMove::Update()
     m_BomberMove.Update(DeltaTime);
+
+    m_ShieldTime -= DeltaTime;
+
+    if (m_ShieldTime < 0.0f)
+    {
+        // Make shield fly
+        m_pArena->NewItem(m_BomberMove.GetBlockX(), m_BomberMove.GetBlockY(), ITEM_SHIELD, false, true);
+        m_ShieldTime = 0.0f;
+    }
 
     // Calculate button-press duration
     // Remember how long the action button has been pressed
@@ -1775,6 +1788,14 @@ void CBomber::ItemEffect(EItemType Type)
         {
             // One more picked up remote controler item
             m_NumberOfRemoteItems++;
+
+            break;
+        }
+
+        case ITEM_SHIELD:
+        {
+            // Picked up shield
+            m_ShieldTime = INITIAL_SHIELD_TIME;
 
             break;
         }
@@ -1932,6 +1953,11 @@ void CBomber::Stunt(void)
     {
         m_NumberOfRollerItems--;
         ItemType = ITEM_ROLLER;
+    }
+    else if (m_ShieldTime > 0.0f)
+    {
+        m_ShieldTime = 0.0f;
+        ItemType = ITEM_SHIELD;
     }
 
     if (ItemType != ITEM_NONE)

@@ -2,7 +2,7 @@
 
     Copyright (C) 2000-2002, 2007 Thibaut Tollemer
     Copyright (C) 2007, 2008 Bernd Arnold
-	Copyright (C) 2008 Jerome Bigot
+    Copyright (C) 2008 Jerome Bigot
 
     This file is part of Bombermaaan.
 
@@ -19,7 +19,7 @@
     You should have received a copy of the GNU General Public License
     along with Bombermaaan.  If not, see <http://www.gnu.org/licenses/>.
 
-************************************************************************************/
+    ************************************************************************************/
 
 
 /**
@@ -51,14 +51,15 @@ enum EBlockType
     BLOCKTYPE_MOVEBOMB_DOWN,    //!< A bomb starts moving down if placed here
     BLOCKTYPE_MOVEBOMB_LEFT,    //!< A bomb starts moving left if placed here
     BLOCKTYPE_MOVEBOMB_UP,      //!< A bomb starts moving up if placed here
-	BLOCKTYPE_ITEM_BOMB,		//!< A bomb item if placed here
-	BLOCKTYPE_ITEM_FLAME,		//!< A flame item if placed here
-	BLOCKTYPE_ITEM_ROLLER,		//!< A roller item if placed here 
-	BLOCKTYPE_ITEM_KICK,		//!< A kick item if placed here
-	BLOCKTYPE_ITEM_THROW,		//!< A throw item if placed here
-	BLOCKTYPE_ITEM_PUNCH,		//!< A punch item if placed here
-	BLOCKTYPE_ITEM_SKULL,		//!< A skull item if placed here : TODO
-	BLOCKTYPE_ITEM_REMOTES		//!< A remotes item if placed here : TODO
+    BLOCKTYPE_ITEM_BOMB,		//!< A bomb item if placed here
+    BLOCKTYPE_ITEM_FLAME,		//!< A flame item if placed here
+    BLOCKTYPE_ITEM_ROLLER,		//!< A roller item if placed here 
+    BLOCKTYPE_ITEM_KICK,		//!< A kick item if placed here
+    BLOCKTYPE_ITEM_THROW,		//!< A throw item if placed here
+    BLOCKTYPE_ITEM_PUNCH,		//!< A punch item if placed here
+    BLOCKTYPE_ITEM_SKULL,		//!< A skull item if placed here
+    BLOCKTYPE_ITEM_REMOTES,		//!< A remote item if placed here
+    BLOCKTYPE_ITEM_SHIELD       //!< A shield item if placed here
 };
 
 //******************************************************************************************************************************
@@ -67,17 +68,18 @@ enum EBlockType
 
 enum EBomberSkills
 {
-	BOMBERSKILL_DUMMYFIRST,
+    BOMBERSKILL_DUMMYFIRST,
     BOMBERSKILL_FLAME,
-	BOMBERSKILL_BOMBS,
-	BOMBERSKILL_BOMBITEMS,
-	BOMBERSKILL_FLAMEITEMS,
-	BOMBERSKILL_ROLLERITEMS,
-	BOMBERSKILL_KICKITEMS,
-	BOMBERSKILL_THROWITEMS,
-	BOMBERSKILL_PUNCHITEMS,
-	BOMBERSKILL_REMOTEITEMS,
-	NUMBER_OF_BOMBERSKILLS
+    BOMBERSKILL_BOMBS,
+    BOMBERSKILL_BOMBITEMS,
+    BOMBERSKILL_FLAMEITEMS,
+    BOMBERSKILL_ROLLERITEMS,
+    BOMBERSKILL_KICKITEMS,
+    BOMBERSKILL_THROWITEMS,
+    BOMBERSKILL_PUNCHITEMS,
+    BOMBERSKILL_REMOTEITEMS,
+    BOMBERSKILL_SHIELDITEMS,
+    NUMBER_OF_BOMBERSKILLS
 };
 
 //******************************************************************************************************************************
@@ -93,6 +95,7 @@ enum EBomberSkills
 #define INITIAL_ITEMTHROW       2
 #define INITIAL_ITEMPUNCH       2
 #define INITIAL_ITEMREMOTE      2
+#define INITIAL_ITEMSHIELD      1
 
 // Initial flame size
 #define INITIAL_FLAMESIZE       2
@@ -113,52 +116,52 @@ private:
     std::string         m_Filename_short;                               //!< The short level file name withouth path
     std::string         m_Filename_full;                                //!< The full name of a level file including path
     int                 m_NumberOfItemsInWalls[NUMBER_OF_ITEMS];        //!< The number of items in the soft walls
-	int                 m_InitialBomberSkills[NUMBER_OF_BOMBERSKILLS];  //!< The initial bomber skills
+    int                 m_InitialBomberSkills[NUMBER_OF_BOMBERSKILLS];  //!< The initial bomber skills
 
-    bool                LoadVersion1( ifstream& File );                 //!< Load level file version 1
-    bool                LoadVersion2( std::string filename );           //!< Load level file version 2 (requiredRemoteFuse = false) or 3 (requiredRemoteFuse = true)
-    bool                CheckMaxNumberOfItems( unsigned int *sumOfMaxItems );   //!< Check if number of max items is valid
+    bool                LoadVersion1(ifstream& File);                 //!< Load level file version 1
+    bool                LoadVersion2(std::string filename);           //!< Load level file version 2 (requiredRemoteFuse = false) or 3 (requiredRemoteFuse = true)
+    bool                CheckMaxNumberOfItems(unsigned int *sumOfMaxItems);   //!< Check if number of max items is valid
     bool                Validate();                                     //!< Check if this level is valid
-                        
-public:                 
-                        
-                        CLevel (std::string filename_full, std::string filename_short);     //!< Constructor.
-                        CLevel(void);                                  //!< Default constructor.
-                        ~CLevel(void);                                 //!< Destructor.
+
+public:
+
+    CLevel(std::string filename_full, std::string filename_short);     //!< Constructor.
+    CLevel(void);                                  //!< Default constructor.
+    ~CLevel(void);                                 //!< Destructor.
     bool                LoadFromFile();                                 //!< Load game level data from the file.
-    inline EBlockType   GetBlockType (int X, int Y);
-	inline int			GetNumberOfItemsInWalls (EItemType ItemType);
-	inline int			GetInitialBomberSkills (EBomberSkills BomberSkill);
-    inline const char*  GetLevelName (void);
+    inline EBlockType   GetBlockType(int X, int Y);
+    inline int			GetNumberOfItemsInWalls(EItemType ItemType);
+    inline int			GetInitialBomberSkills(EBomberSkills BomberSkill);
+    inline const char*  GetLevelName(void);
 };
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline EBlockType CLevel::GetBlockType (int X, int Y)
+inline EBlockType CLevel::GetBlockType(int X, int Y)
 {
-    ASSERT (X >= 0 && X < ARENA_WIDTH);
-    ASSERT (Y >= 0 && Y < ARENA_HEIGHT);
+    ASSERT(X >= 0 && X < ARENA_WIDTH);
+    ASSERT(Y >= 0 && Y < ARENA_HEIGHT);
 
     return m_ArenaData[X][Y];
 }
 
-inline int CLevel::GetNumberOfItemsInWalls ( EItemType ItemType )
+inline int CLevel::GetNumberOfItemsInWalls(EItemType ItemType)
 {
-	ASSERT (ItemType > ITEM_NONE && ItemType < NUMBER_OF_ITEMS);
+    ASSERT(ItemType > ITEM_NONE && ItemType < NUMBER_OF_ITEMS);
 
     return m_NumberOfItemsInWalls[ItemType];
 }
 
-inline int CLevel::GetInitialBomberSkills ( EBomberSkills BomberSkill )
+inline int CLevel::GetInitialBomberSkills(EBomberSkills BomberSkill)
 {
-	ASSERT (BomberSkill > BOMBERSKILL_DUMMYFIRST && BomberSkill < NUMBER_OF_BOMBERSKILLS);
+    ASSERT(BomberSkill > BOMBERSKILL_DUMMYFIRST && BomberSkill < NUMBER_OF_BOMBERSKILLS);
 
-	return m_InitialBomberSkills[BomberSkill];
+    return m_InitialBomberSkills[BomberSkill];
 }
 
-inline const char* CLevel::GetLevelName (void)
+inline const char* CLevel::GetLevelName(void)
 {
     return m_Filename_short.c_str();
 }

@@ -106,7 +106,7 @@ bool CDisplay::Create(int Width, int Height, bool FullScreen)
             !LoadSprites(2, 1, 32, 32, false, BMP_ARENA_FLOOR) ||
             !LoadSprites(7, 1, 32, 32, true, BMP_ARENA_WALL) ||
             !LoadSprites(28, 1, 32, 32, true, BMP_ARENA_FLAME) ||
-            !LoadSprites(16, 1, 32, 32, false, BMP_ARENA_ITEM) ||
+            !LoadSprites(18, 1, 32, 32, false, BMP_ARENA_ITEM) ||
             !LoadSprites(3, 1, 32, 32, true, BMP_ARENA_BOMB) ||
             !LoadSprites(12, 8, 42, 44, true, BMP_ARENA_BOMBER_WALK) ||
             !LoadSprites(7, 1, 52, 54, true, BMP_ARENA_FIRE) ||
@@ -179,7 +179,7 @@ bool CDisplay::Create(int Width, int Height, bool FullScreen)
             !LoadSprites(2, 1, 32, 32, false, BMP_ARENA_FLOOR, "arena_floor.bmp") ||
             !LoadSprites(7, 1, 32, 32, true, BMP_ARENA_WALL, "arena_wall.bmp") ||
             !LoadSprites(28, 1, 32, 32, true, BMP_ARENA_FLAME, "arena_flame.bmp") ||
-            !LoadSprites(16, 1, 32, 32, false, BMP_ARENA_ITEM, "arena_item.bmp") ||
+            !LoadSprites(18, 1, 32, 32, false, BMP_ARENA_ITEM, "arena_item.bmp") ||
             !LoadSprites(3, 1, 32, 32, true, BMP_ARENA_BOMB, "arena_bomb.bmp") ||
             !LoadSprites(12, 7, 42, 44, true, BMP_ARENA_BOMBER_WALK, "arena_bomber_walk.bmp") ||
             !LoadSprites(7, 1, 52, 54, true, BMP_ARENA_FIRE, "arena_fire.bmp") ||

@@ -58,7 +58,8 @@ enum EItemType
     ITEM_SKULL,     //!< Skull item gives a bomber a sickness.
     ITEM_THROW,     //!< Throw glove item allows a bomber to throw bombs
     ITEM_PUNCH,     //!< Boxing glove item allows a bomber to punch bombs
-	ITEM_REMOTE,    //!< Remote bombs item allows a bomber to remotely control bomb fuse
+    ITEM_REMOTE,    //!< Remote bombs item allows a bomber to remotely control bomb fuse
+    ITEM_SHIELD,    //!< Shield item allows a bomber to be resistance to flames
     NUMBER_OF_ITEMS //!< The number of items (this includes ITEM_NONE)
 };
 
@@ -130,7 +131,7 @@ public:
     void                OnReadSnapshot (CArenaSnapshot& Snapshot);
     void                Burn (EBurnDirection BurnDirection); //!< Make the item react when an explosion hits this item. The direction of the hit is specified.
     void                Crush (void);               //!< Make the item react when crushed by a wall.
-    static bool         CreateItems (CArena *pArena, EItemPlace ItemPlace, int NumberOfItemBombs, int NumberOfItemFlames, int NumberOfItemRollers, int NumberOfItemKicks, int NumberOfItemSkulls, int NumberOfItemThrow, int NumberOfItemPunch, int NumberOfItemRemote); //!< Create the specified amount of items in an arena, in the specified EItemPlace.
+    static bool         CreateItems(CArena *pArena, EItemPlace ItemPlace, int NumberOfItemBombs, int NumberOfItemFlames, int NumberOfItemRollers, int NumberOfItemKicks, int NumberOfItemSkulls, int NumberOfItemThrow, int NumberOfItemPunch, int NumberOfItemRemote, int NumberOfItemShield); //!< Create the specified amount of items in an arena, in the specified EItemPlace.
     inline int          GetBlockX (void);           //!< Return the block position X of the item
     inline int          GetBlockY (void);           //!< Return the block position Y of the item
     inline bool         IsBurning (void);           //!< Return whether the item is burning

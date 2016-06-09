@@ -155,6 +155,7 @@ private:
     int             m_NumberOfThrowItems;           //!< Number of picked up throw items
     int             m_NumberOfPunchItems;           //!< Number of picked up punch items
     int             m_NumberOfRemoteItems;          //!< Number of picked up remote controler items
+    float           m_ShieldTime;                   //!< If bomber has shield
     bool            m_ReturnedItems;                //!< Did the bomber return the items he picked up to the arena?
     int             m_Player;                       //!< Number of the player represented by the bomber
     EDead           m_Dead;                         //!< Dead state : alive, dying or dead
