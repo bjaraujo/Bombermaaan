@@ -1625,7 +1625,8 @@ void CBomber::ReturnItems(float DeltaTime)
                 0,
                 m_NumberOfThrowItems,
                 m_NumberOfPunchItems,
-                m_NumberOfRemoteItems))
+                m_NumberOfRemoteItems,
+                1))
             {
                 // Play the item fumes sound
                 m_pSound->PlaySample(SAMPLE_ITEM_FUMES);
