@@ -1415,6 +1415,7 @@ void CBomber::Contamination()
             if (Player != m_Player &&
                 m_pArena->GetBomber(Player).Exist() &&
                 m_pArena->GetBomber(Player).IsAlive() &&
+                !m_pArena->GetBomber(Player).HasShield() &&
                 ABS(m_pArena->GetBomber(Player).GetX() - m_BomberMove.GetX()) +
                 ABS(m_pArena->GetBomber(Player).GetY() - m_BomberMove.GetY()) <= CONTAMINATION_NEAR)
             {
@@ -1442,6 +1443,7 @@ void CBomber::Contamination()
 
                     // One contamination only
                     break;
+
                 }
 
                 // Register this player as one of our neighbours
@@ -1719,6 +1721,8 @@ void CBomber::ItemEffect(EItemType Type)
             // The bomber is now sick (random sickness)
             //! \sa m_Sickness
             m_Sickness = ESick(RANDOM(NUMBER_SICKNESSES));
+
+            m_ShieldTime = 0.0f;
 
             // Play a random skull item sound
             m_pSound->PlaySample(RANDOM(100) >= 50 ? SAMPLE_SICK_1 : SAMPLE_SICK_2);

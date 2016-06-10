@@ -194,6 +194,7 @@ protected:
     // each other's positions for the contamination ability.
 
     inline void     SetSickness(ESick Sickness);   //!< Set the current sickness of the bomber.
+    inline bool     HasShield();                   //!< If shield is on.
     inline int      GetX(void);                    //!< Get the integer X position (in pixels) of the bomber in the arena
     inline int      GetY(void);                    //!< Get the integer Y position (in pixels) of the bomber in the arena
 
@@ -368,6 +369,13 @@ inline void CBomber::SetSickness(ESick Sickness)
     m_JustGotSick = true;
 
     debugLog.WriteDebugMsg(DEBUGSECT_BOMBER, "Bomber getting sick [id=%d, sickness=%02d].", m_Player, Sickness);
+}
+
+inline bool CBomber::HasShield()
+{
+
+    return m_ShieldTime > 0.0f;
+
 }
 
 inline EBomberState CBomber::GetState(void)
