@@ -326,6 +326,8 @@ void CBomber::Create(int BlockX, int BlockY, int Player, COptions* options)
 
     m_SickTimer = 0.0f;
 
+    m_ShieldTime = 0.0f;
+
     // Initial bomber direction is down
     m_AnimationSprites[0] = BOMBERSPRITE_DOWN0;
     m_AnimationSprites[1] = BOMBERSPRITE_DOWN1;
@@ -427,6 +429,7 @@ void CBomber::Die(void)
                 m_Dead = DEAD_DYING;
                 m_BomberState = BOMBERSTATE_DEATH;
                 m_Timer = 0.0f;
+
             }
 
             // Play the bomber death sound
@@ -1283,7 +1286,7 @@ void CBomber::Animate(float DeltaTime)
     if (m_Sickness == SICK_NOTSICK || m_Dead != DEAD_ALIVE)
     {
 
-        if (m_ShieldTime > 0.0f)
+        if (m_BomberState != BOMBERSTATE_DEATH && m_ShieldTime > 0.0f)
         {
             m_SpriteOverlay = m_Sprite + SICK_SPRITE_ROW_BRIGHT * m_BomberSpriteTables[m_BomberState].NumberOfSpritesPerColor;
         }
