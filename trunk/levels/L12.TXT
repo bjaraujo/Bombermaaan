@@ -11,8 +11,8 @@ Description =
 
 [Map]
 Line.00 = ***************
-Line.01 =*B F S I S F T*
-Line.02 = * *-*-* *-*-* *
+Line.01 =*B F S F S F T*
+Line.02 =* *I*-* *-*Z* *
 Line.03 = *F - - - - - F*
 Line.04 = * *-*1*-*3*-* *
 Line.05 = *K --      --P*
@@ -20,8 +20,8 @@ Line.06 = * * * *5* * * *
 Line.07 = *P --      --K*
 Line.08 = * *-*4*-*2*-* *
 Line.09 = *F - - - - - F*
-Line.10 = * *-*-* *-*-* *
-Line.11 =*T F S I S F B*
+Line.10 =* *Z*-* *-*I* *
+Line.11 =*T F S F S F B*
 Line.12 = ***************
 
 [Settings]
@@ -33,7 +33,7 @@ ItemsInWalls.Skulls = 0
 ItemsInWalls.Throws = 0
 ItemsInWalls.Punches = 0
 ItemsInWalls.Remotes = 0
-BomberSkillsAtStart.FlameSize = 1
+BomberSkillsAtStart.FlameSize = 2
 BomberSkillsAtStart.MaxBombs = 1
 BomberSkillsAtStart.BombItems = 0
 BomberSkillsAtStart.FlameItems = 0
@@ -41,5 +41,6 @@ BomberSkillsAtStart.RollerItems = 0
 BomberSkillsAtStart.KickItems = 0
 BomberSkillsAtStart.ThrowItems = 0
 BomberSkillsAtStart.PunchItems = 0
+BomberSkillsAtStart.ShieldItems = 1
 ContaminationsNotUsed = None
 

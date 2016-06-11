@@ -266,7 +266,7 @@ bool CLevel::LoadVersion1(ifstream& File) {
             case 'T': m_ArenaData[x][y] = BLOCKTYPE_ITEM_THROW;     break;
             case 'Z': m_ArenaData[x][y] = BLOCKTYPE_ITEM_REMOTES;   break;
             case 'C': m_ArenaData[x][y] = BLOCKTYPE_ITEM_SKULL;     break;
-            case 'I': m_ArenaData[x][y] = BLOCKTYPE_ITEM_SHIELD;     break;
+            case 'I': m_ArenaData[x][y] = BLOCKTYPE_ITEM_SHIELD;    break;
             default:
             {
                 // Log there is a problem

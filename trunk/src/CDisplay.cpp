@@ -159,7 +159,7 @@ bool CDisplay::Create(int Width, int Height, bool FullScreen)
             !LoadSprites(1, 1, 138, 46, true, BMP_TITLE_CLOUD_1) ||
             !LoadSprites(1, 1, 106, 46, true, BMP_TITLE_CLOUD_2) ||
             !LoadSprites(1, 1, 66, 22, true, BMP_TITLE_CLOUD_3) ||
-            !LoadSprites(16, 1, 16, 16, true, BMP_LEVEL_MINI_TILES) ||
+            !LoadSprites(17, 1, 16, 16, true, BMP_LEVEL_MINI_TILES) ||
             !LoadSprites(5, 1, 24, 20, true, BMP_LEVEL_MINI_BOMBERS) ||
             !LoadSprites(7, 5, 42, 44, true, BMP_ARENA_BOMBER_DEATH) ||
             !LoadSprites(12, 8, 42, 44, true, BMP_ARENA_BOMBER_LIFT) ||
@@ -232,7 +232,7 @@ bool CDisplay::Create(int Width, int Height, bool FullScreen)
             !LoadSprites(1, 1, 138, 46, true, BMP_TITLE_CLOUD_1, "title_cloud_1.bmp") ||
             !LoadSprites(1, 1, 106, 46, true, BMP_TITLE_CLOUD_2, "title_cloud_2.bmp") ||
             !LoadSprites(1, 1, 66, 22, true, BMP_TITLE_CLOUD_3, "title_cloud_3.bmp") ||
-            !LoadSprites(16, 1, 16, 16, true, BMP_LEVEL_MINI_TILES, "level_mini_tiles.bmp") ||
+            !LoadSprites(17, 1, 16, 16, true, BMP_LEVEL_MINI_TILES, "level_mini_tiles.bmp") ||
             !LoadSprites(5, 1, 24, 20, true, BMP_LEVEL_MINI_BOMBERS, "level_mini_bombers.bmp") ||
             !LoadSprites(7, 5, 42, 44, true, BMP_ARENA_BOMBER_DEATH, "arena_bomber_death.bmp") ||
             !LoadSprites(12, 7, 42, 44, true, BMP_ARENA_BOMBER_LIFT, "arena_bomber_lift.bmp") ||

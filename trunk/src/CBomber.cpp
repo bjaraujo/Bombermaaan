@@ -234,7 +234,7 @@ SBomberSpriteTable CBomber::m_BomberSpriteTables[MAX_NUMBER_OF_STATES] =
  */
 #define REMOTE_FUSE_ONLY_FIRST_BOMB         true
 
-#define SHIELD_TIME 15
+#define SHIELD_TIME 15.0f
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -326,7 +326,7 @@ void CBomber::Create(int BlockX, int BlockY, int Player, COptions* options)
 
     m_SickTimer = 0.0f;
 
-    m_ShieldTime = 0.0f;
+    m_ShieldTime = (float) (options->GetInitialBomberSkills(BOMBERSKILL_SHIELDITEMS) * SHIELD_TIME);
 
     // Initial bomber direction is down
     m_AnimationSprites[0] = BOMBERSPRITE_DOWN0;
@@ -1820,7 +1820,7 @@ void CBomber::ItemEffect(EItemType Type)
         }
         } // switch
 
-        // The bomber is not sick animore
+        // The bomber is not sick anymore
         Heal();
 
         // Play a random pick sound
