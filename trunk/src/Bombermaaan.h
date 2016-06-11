@@ -1,1 +1,1 @@
-#define APP_VERSION_INFO "1.6.9.1350"
+#define APP_VERSION_INFO "1.6.9.1351"

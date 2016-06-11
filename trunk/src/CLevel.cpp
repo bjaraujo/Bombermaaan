@@ -445,7 +445,7 @@ bool CLevel::LoadVersion2(std::string filename)
     m_NumberOfItemsInWalls[ITEM_THROW] = atoi(iniFile.GetValue("Settings", "ItemsInWalls.Throws", "0"));
     m_NumberOfItemsInWalls[ITEM_PUNCH] = atoi(iniFile.GetValue("Settings", "ItemsInWalls.Punches", "0"));
     m_NumberOfItemsInWalls[ITEM_REMOTE] = atoi(iniFile.GetValue("Settings", "ItemsInWalls.Remotes", "2"));
-    m_NumberOfItemsInWalls[ITEM_SHIELD] = atoi(iniFile.GetValue("Settings", "ItemsInWalls.Shields", "1"));
+    m_NumberOfItemsInWalls[ITEM_SHIELD] = atoi(iniFile.GetValue("Settings", "ItemsInWalls.Shields", "2"));
 
     //---------------------
     // Read the BomberSkillsAtStart values
