@@ -429,6 +429,7 @@ void CBomber::Die(void)
                 m_Dead = DEAD_DYING;
                 m_BomberState = BOMBERSTATE_DEATH;
                 m_Timer = 0.0f;
+                m_ShieldTime = 0.0f;
 
             }
 
@@ -1286,7 +1287,7 @@ void CBomber::Animate(float DeltaTime)
     if (m_Sickness == SICK_NOTSICK || m_Dead != DEAD_ALIVE)
     {
 
-        if (m_BomberState != BOMBERSTATE_DEATH && m_ShieldTime > 0.0f)
+        if (m_ShieldTime > 0.0f)
         {
             m_SpriteOverlay = m_Sprite + SICK_SPRITE_ROW_BRIGHT * m_BomberSpriteTables[m_BomberState].NumberOfSpritesPerColor;
         }
