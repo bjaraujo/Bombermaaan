@@ -1181,9 +1181,9 @@ void CAiBomber::ModeThink(void)
     // If there is an enemy near and in front of our bomber
     // and it is ok to drop a bomb where our bomber is
     // with quite big probability (not beyond the frontiers)
-    if (EnemyNearAndFront(&EnemyDirection, false) &&
-        DropBombOK(m_BlockHereX, m_BlockHereY) &&
-        RANDOM(100) < 70)
+    if ((EnemyNearAndFront(&EnemyDirection, false) &&
+         DropBombOK(m_BlockHereX, m_BlockHereY) &&
+         RANDOM(100) < 70 + m_pBomber->HasShield() ? 25 : 0))
     {
         // Switch to the attack mode to drop a bomb
         SetComputerMode(COMPUTERMODE_ATTACK);

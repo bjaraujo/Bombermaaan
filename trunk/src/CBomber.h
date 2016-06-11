@@ -194,7 +194,6 @@ protected:
     // each other's positions for the contamination ability.
 
     inline void     SetSickness(ESick Sickness);   //!< Set the current sickness of the bomber.
-    inline bool     HasShield();                   //!< If shield is on.
     inline int      GetX(void);                    //!< Get the integer X position (in pixels) of the bomber in the arena
     inline int      GetY(void);                    //!< Get the integer Y position (in pixels) of the bomber in the arena
 
@@ -230,6 +229,7 @@ public:
     inline bool     CanThrowBombs(void);           //!< Return whether the bomber is able to throw bombs
     inline bool     CanPunchBombs(void);           //!< Return whether the bomber is able to punch bombs
     inline bool     CanRemoteFuseBombs(void);      //!< Return whether the bomber is able to remote fuse bombs
+    inline bool     HasShield(void);                   //!< If shield is on.
     inline int      GetUsedBombsCount(void);       //!< Return how many bombs the bomber are currently ticking in the arena
     inline int      GetBombItemsCount(void);       //!< Return how many bomb items the bomber has picked up
     inline int      GetFlameItemsCount(void);      //!< Return how many flame items the bomber has picked up
@@ -328,6 +328,13 @@ inline bool CBomber::CanRemoteFuseBombs(void)
         m_Sickness != SICK_COLIC;
 }
 
+inline bool CBomber::HasShield()
+{
+
+    return m_ShieldTime > 0.0f;
+
+}
+
 inline int CBomber::GetUsedBombsCount(void)
 {
     return m_UsedBombs;
@@ -369,13 +376,6 @@ inline void CBomber::SetSickness(ESick Sickness)
     m_JustGotSick = true;
 
     debugLog.WriteDebugMsg(DEBUGSECT_BOMBER, "Bomber getting sick [id=%d, sickness=%02d].", m_Player, Sickness);
-}
-
-inline bool CBomber::HasShield()
-{
-
-    return m_ShieldTime > 0.0f;
-
 }
 
 inline EBomberState CBomber::GetState(void)
