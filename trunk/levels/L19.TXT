@@ -1,0 +1,41 @@
+; Bombermaaan level file version=2
+[General]
+Width=15
+Height=13
+MaxPlayers=5
+MinPlayers=1
+Creator=
+Priority=0
+Comment=
+Description=
+[Map]
+Line.00=***************
+Line.01=*RRD RRD RRD U*
+Line.02=*U1D U D U D3U*
+Line.03=*UBDFUSDSUFDBU*
+Line.04=*U D U D U D U*
+Line.05=*U D U D U D U*
+Line.06=*U D U D5U D U*
+Line.07=*U D U D U D U*
+Line.08=*U D U D U D U*
+Line.09=*UBDFUSDSUFDBU*
+Line.10=*U4D U D U D2U*
+Line.11=*U RRU RRU RRU*
+Line.12=***************
+[Settings]
+ItemsInWalls.Bombs=5
+ItemsInWalls.Flames=3
+ItemsInWalls.Kicks=3
+ItemsInWalls.Rollers=5
+ItemsInWalls.Skulls=1
+ItemsInWalls.Throws=2
+ItemsInWalls.Punches=2
+BomberSkillsAtStart.FlameSize=2
+BomberSkillsAtStart.MaxBombs=1
+BomberSkillsAtStart.BombItems=0
+BomberSkillsAtStart.FlameItems=0
+BomberSkillsAtStart.RollerItems=0
+BomberSkillsAtStart.KickItems=0
+BomberSkillsAtStart.ThrowItems=0
+BomberSkillsAtStart.PunchItems=0
+ContaminationsNotUsed=None
