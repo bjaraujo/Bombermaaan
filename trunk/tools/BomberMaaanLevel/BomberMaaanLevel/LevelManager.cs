@@ -31,8 +31,9 @@ namespace BomberMaaanLevel
         BLOCKTYPE_ITEM_KICK,		//!< A kick item if placed here
         BLOCKTYPE_ITEM_THROW,		//!< A throw item if placed here
         BLOCKTYPE_ITEM_PUNCH,		//!< A punch item if placed here
-        BLOCKTYPE_ITEM_SKULL,		//!< A skull item if placed here : TODO
-        BLOCKTYPE_ITEM_REMOTES		//!< A remotes item if placed here : TODO
+        BLOCKTYPE_ITEM_SKULL,		//!< A skull item if placed here
+        BLOCKTYPE_ITEM_REMOTE,		//!< A remotes item if placed here
+        BLOCKTYPE_ITEM_SHIELD
     };
 
     class LevelManager
@@ -212,8 +213,11 @@ namespace BomberMaaanLevel
                 case EBlockType.BLOCKTYPE_ITEM_SKULL:
                     aNewChar = 'C';
                     break;
-                case EBlockType.BLOCKTYPE_ITEM_REMOTES:
+                case EBlockType.BLOCKTYPE_ITEM_REMOTE:
                     aNewChar = 'Z';
+                    break;
+                case EBlockType.BLOCKTYPE_ITEM_SHIELD:
+                    aNewChar = 'I';
                     break;
                 default:
                     break;
@@ -278,9 +282,11 @@ namespace BomberMaaanLevel
                 case 'T': // ITEM_THROW; 
                     return EBlockType.BLOCKTYPE_ITEM_THROW;
                 case 'Z': // ITEM_REMOTES; 
-                    return EBlockType.BLOCKTYPE_ITEM_REMOTES;
+                    return EBlockType.BLOCKTYPE_ITEM_REMOTE;
                 case 'C': // ITEM_SKULL; 
                     return EBlockType.BLOCKTYPE_ITEM_SKULL;
+                case 'I': // ITEM_SHIELD; 
+                    return EBlockType.BLOCKTYPE_ITEM_SHIELD;
                 default:
                     return EBlockType.BLOCKTYPE_FREE;
             }

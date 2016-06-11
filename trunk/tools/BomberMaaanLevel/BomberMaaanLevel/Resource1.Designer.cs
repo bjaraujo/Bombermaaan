@@ -153,9 +153,9 @@ namespace BomberMaaanLevel {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ItemRemotes {
+        internal static System.Drawing.Bitmap ItemRemote {
             get {
-                object obj = ResourceManager.GetObject("ItemRemotes", resourceCulture);
+                object obj = ResourceManager.GetObject("ItemRemote", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -166,6 +166,16 @@ namespace BomberMaaanLevel {
         internal static System.Drawing.Bitmap ItemRoller {
             get {
                 object obj = ResourceManager.GetObject("ItemRoller", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ItemShield {
+            get {
+                object obj = ResourceManager.GetObject("ItemShield", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
