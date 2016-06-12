@@ -4,11 +4,11 @@
 
 ## Copyright
 
-This bombermaaan is based on the work of:
 - 2000-2002, 2007 Thibaut Tollemer
 - 2007, 2008 Bernd Arnold
 - 2008 Jerome Bigot
 - 2008 Markus Drescher
+- 2016 Billy Araujo
 
 ## License
 
@@ -140,6 +140,7 @@ unavailable.
 - 2007, 2008 Bernd Arnold
 - 2008 Jerome Bigot
 - 2008 Markus Drescher
+- 2016 Billy Araujo
 
 Bombermaaan is using TinyXML from <a href="https://sourceforge.net/projects/tinyxml">https://sourceforge.net/projects/tinyxml</a>.
 
@@ -157,7 +158,7 @@ Check <a href="http://bombermaaan.sourceforge.net/">http://bombermaaan.sourcefor
 
 ## Compiling
 
-Set SDLDIR and SDLMIXERDIR environment variables and run cmake.
+Set SDLDIR, SDLNETDIR and SDLMIXERDIR environment variables and run cmake.
 
 To compile in Linux set LOAD_RESOURCES_FROM_FILES = TRUE and USE_DIRECTX = FALSE in CMake options.
 

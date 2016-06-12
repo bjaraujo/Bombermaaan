@@ -7,7 +7,7 @@
 ; The APPID is kept as long as the first two numbers in the version are the same
 ; (the whole 1.5 version uses the same APPID)
 ; (yes, two opening curly braces and only one closing curly brace)
-#define APPID "{{B8F62E9A-8AAE-4124-828F-28A826424986}"
+#define APPID "{{27E65ECC-E43F-4EE1-BDAC-E1CC8EBB4C88}"
 
 #include "..\trunk\src\Bombermaaan.h"
 
@@ -32,7 +32,7 @@ Compression=lzma
 SolidCompression=true
 VersionInfoVersion={#APP_VERSION_INFO}
 VersionInfoDescription=Installer for Bombermaaan
-VersionInfoCopyright=Copyright (C) 2000-2002, 2007, 2008 Thibaut Tollemer, Bernd Arnold, Jerome Bigot, Markus Drescher
+VersionInfoCopyright=Copyright (C) 2000-2002, 2007, 2008, 2016 Thibaut Tollemer, Bernd Arnold, Jerome Bigot, Markus Drescher, Billy Araujo
 WizardImageFile=compiler:wizmodernimage-is.bmp
 ; This is not the best image since the setup dialog shows only a square, not a rectangle
 WizardSmallImageFile=HeaderImage_Innosetup.bmp
