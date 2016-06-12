@@ -1,7 +1,7 @@
 ; Bombermaaan Installation Script
 ; Written by Billy Araujo, 02-05-2016
 ;
-; https://github.com/billyaraujo/bombermaaan
+; https://github.com/bjaraujo/bombermaaan
 ;
 
 ; The APPID is kept as long as the first two numbers in the version are the same
@@ -53,6 +53,7 @@ Source: ..\releases\Bombermaaan_{#APP_VERSION_INFO}\libvorbis-0.dll; DestDir: {a
 Source: ..\releases\Bombermaaan_{#APP_VERSION_INFO}\libvorbisfile-3.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\releases\Bombermaaan_{#APP_VERSION_INFO}\SDL.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\releases\Bombermaaan_{#APP_VERSION_INFO}\SDL_mixer.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\releases\Bombermaaan_{#APP_VERSION_INFO}\SDL_net.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\releases\Bombermaaan_{#APP_VERSION_INFO}\smpeg.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\releases\Bombermaaan_{#APP_VERSION_INFO}\msvcp120.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\releases\Bombermaaan_{#APP_VERSION_INFO}\msvcr120.dll; DestDir: {app}; Flags: ignoreversion
