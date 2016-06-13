@@ -340,6 +340,10 @@ void CSDLVideo::DrawSprite(int PositionX,
     ASSERT(SpriteTable >= 0 && SpriteTable < (int)m_SpriteTables.size());
     ASSERT(Sprite >= 0 && Sprite < (int)m_SpriteTables[SpriteTable].size());
 
+    // Bound always into range
+    SpriteTable = MAX(0, MIN(SpriteTable, (int)m_SpriteTables.size() - 1));
+    Sprite = MAX(0, MIN(Sprite, (int)m_SpriteTables[SpriteTable].size() - 1));
+
     // Prepare a drawing request
     SDrawingRequest DrawingRequest;
 

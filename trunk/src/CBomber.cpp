@@ -431,10 +431,10 @@ void CBomber::Die(void)
                 m_Timer = 0.0f;
                 m_ShieldTime = 0.0f;
 
-            }
+                // Play the bomber death sound
+                m_pSound->PlaySample(SAMPLE_BOMBER_DEATH);
 
-            // Play the bomber death sound
-            m_pSound->PlaySample(SAMPLE_BOMBER_DEATH);
+            }
         }
 
         // Call animate whenever bomber changes state to update m_Page and m_Sprite correctly
