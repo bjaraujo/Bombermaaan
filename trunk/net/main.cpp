@@ -76,26 +76,26 @@ int main(int argc, char **argv)
 
 	int len = 0;
 
-	/*
 	char anotherNickName[80];
 
 	if (Network.NetworkMode() == NETWORKMODE_SERVER)
 	{
 		std::cout << "Successfully connected to client." << std::endl;
-		Network.Send(SOCKET_CLIENT, aNickName, strlen(aNickName));
-		len = Network.Receive(SOCKET_CLIENT, anotherNickName, 80);
-		std::cout << len << std::endl;
-		anotherNickName[len++] = '\0';
+
+		Network.Send(SOCKET_CLIENT, aNickName, 80);
+		Network.Receive(SOCKET_CLIENT, &anotherNickName[0], 80);
+		std::cout << anotherNickName << std::endl;
+
 	}
 	else if (Network.NetworkMode() == NETWORKMODE_CLIENT)
 	{
 		std::cout << "Successfully connected to server." << std::endl;
-		Network.Send(SOCKET_SERVER, aNickName, strlen(aNickName));
-		len = Network.Receive(SOCKET_SERVER, anotherNickName, 80);
-		std::cout << len << std::endl;
-		anotherNickName[len++] = '\0';
+
+		Network.Send(SOCKET_SERVER, aNickName, 80);
+		Network.Receive(SOCKET_SERVER, &anotherNickName[0], 80);
+		std::cout << anotherNickName << std::endl;
+
 	}
-	*/
 
     char sendBuffer[512];
     char recieveBuffer[512];
@@ -184,11 +184,9 @@ int main(int argc, char **argv)
             std::cout << std::endl;
 
             if (Network.NetworkMode() == NETWORKMODE_SERVER)
-				//std::cout << anotherNickName << ": " << recieveBuffer << std::endl;
-				std::cout << ": " << recieveBuffer << std::endl;
+				std::cout << anotherNickName << ": " << recieveBuffer << std::endl;
 			else if (Network.NetworkMode() == NETWORKMODE_CLIENT)
-				//std::cout << anotherNickName << ": " << recieveBuffer << std::endl;
-				std::cout << ": " << recieveBuffer << std::endl;
+				std::cout << anotherNickName << ": " << recieveBuffer << std::endl;
 
             // Beep
             std::cout << '\a';
