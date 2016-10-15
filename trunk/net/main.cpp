@@ -5,6 +5,7 @@
 #include <string>
 
 #include "anyoption.h"
+#include "aes256.hpp"
 
 #include "CNetwork.h"
 
@@ -97,6 +98,14 @@ int main(int argc, char **argv)
 
 	}
 
+	ByteArray key;
+	key.push_back('1');
+	key.push_back('2');
+	key.push_back('3');
+	key.push_back('4');
+
+	Aes256 aes(key);
+
     char sendBuffer[512];
     char recieveBuffer[512];
 
@@ -140,10 +149,13 @@ int main(int argc, char **argv)
 
                 std::cout << std::endl;
 
+				ByteArray sendBufferEnc;
+				aes.encrypt(key, (unsigned char*)sendBuffer, len, sendBufferEnc);
+				
                 if (Network.NetworkMode() == NETWORKMODE_SERVER)
-                    Network.Send(SOCKET_CLIENT, sendBuffer, len);
+					Network.Send(SOCKET_CLIENT, (char *)sendBufferEnc.data(), sendBufferEnc.size());
                 else if (Network.NetworkMode() == NETWORKMODE_CLIENT)
-                    Network.Send(SOCKET_SERVER, sendBuffer, len);
+					Network.Send(SOCKET_SERVER, (char *)sendBufferEnc.data(), sendBufferEnc.size());
 
                 len = 0;
 
@@ -183,10 +195,13 @@ int main(int argc, char **argv)
         {
             std::cout << std::endl;
 
+			ByteArray recvBufferEnc;
+			aes.decrypt(key, (unsigned char*)recieveBuffer, Received, recvBufferEnc);
+
             if (Network.NetworkMode() == NETWORKMODE_SERVER)
-				std::cout << anotherNickName << ": " << recieveBuffer << std::endl;
+				std::cout << anotherNickName << ": " << recvBufferEnc.data() << std::endl;
 			else if (Network.NetworkMode() == NETWORKMODE_CLIENT)
-				std::cout << anotherNickName << ": " << recieveBuffer << std::endl;
+				std::cout << anotherNickName << ": " << recvBufferEnc.data() << std::endl;
 
             // Beep
             std::cout << '\a';

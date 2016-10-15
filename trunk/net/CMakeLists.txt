@@ -4,6 +4,7 @@ PROJECT(BombermaaanNet)
 SET(BOMBERMAAAN_NET_HEADERS
 ../src/CNetwork.h
 anyoption.h
+aes256.hpp
 )
 
 SET(BOMBERMAAAN_NET_SOURCES
@@ -11,6 +12,7 @@ SET(BOMBERMAAAN_NET_SOURCES
 ../src/CLog.cpp
 main.cpp
 anyoption.cpp
+aes256.cpp
 )
 
 SOURCE_GROUP("Header Files" FILES ${BOMBERMAAAN_NET_HEADERS})
