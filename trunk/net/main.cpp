@@ -84,7 +84,7 @@ int main(int argc, char **argv)
 
 		Network.Send(SOCKET_CLIENT, aNickName, 80);
 		Network.Receive(SOCKET_CLIENT, &anotherNickName[0], 80);
-		std::cout << anotherNickName << std::endl;
+		std::cout << "Talking to: " << anotherNickName << std::endl;
 
 	}
 	else if (Network.NetworkMode() == NETWORKMODE_CLIENT)
@@ -93,7 +93,7 @@ int main(int argc, char **argv)
 
 		Network.Send(SOCKET_SERVER, aNickName, 80);
 		Network.Receive(SOCKET_SERVER, &anotherNickName[0], 80);
-		std::cout << anotherNickName << std::endl;
+		std::cout << "Talking to: " << anotherNickName << std::endl;
 
 	}
 
