@@ -39,7 +39,7 @@ int main(int argc, char **argv)
 	if (opt.getFlag("help") || opt.getFlag('h'))
 		opt.printUsage();
 
-	const int pinLength = 4;
+	const int pinLength = 8;
 	char pin[pinLength + 1];
 	char *aNickName;
 
@@ -61,7 +61,11 @@ int main(int argc, char **argv)
 		std::cout << "Pin: ";
 		for (int i = 0; i < pinLength; i++)
 		{
-			pin[i] = 0x30 + rand() % 10;
+			if (i % 2 == 0)
+				pin[i] = 0x41 + rand() % 26;
+			else
+				pin[i] = 0x30 + rand() % 10;
+
 			std::cout << pin[i];
 		}
 
