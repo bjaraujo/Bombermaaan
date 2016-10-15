@@ -3,12 +3,14 @@ PROJECT(BombermaaanNet)
 
 SET(BOMBERMAAAN_NET_HEADERS
 ../src/CNetwork.h
+anyoption.h
 )
 
 SET(BOMBERMAAAN_NET_SOURCES
 ../src/CNetwork.cpp
 ../src/CLog.cpp
 main.cpp
+anyoption.cpp
 )
 
 SOURCE_GROUP("Header Files" FILES ${BOMBERMAAAN_NET_HEADERS})

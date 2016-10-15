@@ -4,59 +4,101 @@
 #include <iostream>
 #include <string>
 
+#include "anyoption.h"
+
 #include "CNetwork.h"
 
 int main(int argc, char **argv)
 {
 
-    const int serverColor = 10;
-    const int clientColor = 14;
+	AnyOption opt;
 
-    CNetwork Network;
+	opt.addUsage("");
+	opt.addUsage("Usage: ");
+	opt.addUsage("");
+	opt.addUsage(" -h  --help  		  Prints this help ");
+	opt.addUsage(" -s  --server       Starts as server");
+	opt.addUsage(" -c  --client [ip]  Starts as client");
+	opt.addUsage(" -n  --nick [nick]  Chat nick name");
+	opt.addUsage("");
 
-    if (argc < 2)
-    {
-        std::cout << "Wrong number of arguments!" << std::endl;
-        return -1;
-    }
+	opt.setFlag("help", 'h');
+	opt.setFlag("server", 's');
+	opt.setOption("client", 'c');
+	opt.setOption("nick", 'n');
 
-    char IpAddressString[32];
+	opt.processCommandArgs(argc, argv);
 
-    if (argc > 2)
-        strcpy(IpAddressString, argv[2]);
+	if (!opt.hasOptions()) {
+		opt.printUsage();
+		return 0;
+	}
 
-    // client mode and ip address given?
-    if (strstr(argv[1], "-c") != NULL ||
-        strstr(argv[1], "--client") != NULL)
-    {
-        std::cout << "*** STARTING AS CLIENT" << std::endl;
-        Network.SetNetworkMode(NETWORKMODE_CLIENT);
-    }
-    else if (strstr(argv[1], "-s") != NULL ||
-        strstr(argv[1], "--server") != NULL)
-    {
-        std::cout << "*** STARTING AS SERVER" << std::endl;
-        Network.SetNetworkMode(NETWORKMODE_SERVER);
-    }
+	if (opt.getFlag("help") || opt.getFlag('h'))
+		opt.printUsage();
 
-    if (Network.NetworkMode() == NETWORKMODE_SERVER)
-        std::cout << "Waiting for client to connect..." << std::endl;
+	CNetwork Network;
+	char *aNickName;
 
-    if (!Network.Connect(IpAddressString, 1234))
-    {
-        std::cout << "Unable to connect!" << std::endl;
-        return -1;
-    }
+	if (opt.getValue("nick") != NULL || opt.getValue('n') != NULL)
+	{
+		aNickName = opt.getValue("nick");
+		std::cout << "nick = " << aNickName << endl;
+	}
 
-    if (Network.NetworkMode() == NETWORKMODE_SERVER)
-        std::cout << "Successfully connected to client." << std::endl;
-    else if (Network.NetworkMode() == NETWORKMODE_CLIENT)
-        std::cout << "Successfully connected to server." << std::endl;
+	if (opt.getFlag("server") || opt.getFlag('s'))
+	{
+		std::cout << "*** STARTING AS SERVER" << std::endl;
+		Network.SetNetworkMode(NETWORKMODE_SERVER);
+
+		std::cout << "Waiting for client to connect..." << std::endl;
+
+		if (!Network.Connect("", 1234))
+		{
+			std::cout << "Unable to connect!" << std::endl;
+			return -1;
+		}
+
+	}
+	else if (opt.getValue("client") || opt.getValue('c'))
+	{
+		std::cout << "*** STARTING AS CLIENT" << std::endl;
+		Network.SetNetworkMode(NETWORKMODE_CLIENT);
+
+		std::cout << "Connecting to: " << opt.getValue("client") << std::endl;
+
+		if (!Network.Connect(opt.getValue("client"), 1234))
+		{
+			std::cout << "Unable to connect!" << std::endl;
+			return -1;
+		}
+	}
+
+	int len = 0;
+
+	/*
+	char anotherNickName[80];
+
+	if (Network.NetworkMode() == NETWORKMODE_SERVER)
+	{
+		std::cout << "Successfully connected to client." << std::endl;
+		Network.Send(SOCKET_CLIENT, aNickName, strlen(aNickName));
+		len = Network.Receive(SOCKET_CLIENT, anotherNickName, 80);
+		std::cout << len << std::endl;
+		anotherNickName[len++] = '\0';
+	}
+	else if (Network.NetworkMode() == NETWORKMODE_CLIENT)
+	{
+		std::cout << "Successfully connected to server." << std::endl;
+		Network.Send(SOCKET_SERVER, aNickName, strlen(aNickName));
+		len = Network.Receive(SOCKET_SERVER, anotherNickName, 80);
+		std::cout << len << std::endl;
+		anotherNickName[len++] = '\0';
+	}
+	*/
 
     char sendBuffer[512];
     char recieveBuffer[512];
-
-    int len = 0;
 
     std::cout << "> ";
 
@@ -105,7 +147,7 @@ int main(int argc, char **argv)
 
                 len = 0;
 
-                std::cout << "> ";
+				std::cout << "> ";
 
             }
 
@@ -142,9 +184,11 @@ int main(int argc, char **argv)
             std::cout << std::endl;
 
             if (Network.NetworkMode() == NETWORKMODE_SERVER)
-                std::cout << ": " << recieveBuffer << std::endl;
-            else if (Network.NetworkMode() == NETWORKMODE_CLIENT)
-                std::cout << ": " << recieveBuffer << std::endl;
+				//std::cout << anotherNickName << ": " << recieveBuffer << std::endl;
+				std::cout << ": " << recieveBuffer << std::endl;
+			else if (Network.NetworkMode() == NETWORKMODE_CLIENT)
+				//std::cout << anotherNickName << ": " << recieveBuffer << std::endl;
+				std::cout << ": " << recieveBuffer << std::endl;
 
             // Beep
             std::cout << '\a';
