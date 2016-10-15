@@ -1,6 +1,7 @@
 
 #include <conio.h>
 #include <stdio.h>
+#include <time.h>
 #include <iostream>
 #include <string>
 
@@ -38,8 +39,13 @@ int main(int argc, char **argv)
 	if (opt.getFlag("help") || opt.getFlag('h'))
 		opt.printUsage();
 
-	CNetwork Network;
+	const int pinLength = 4;
+	char pin[pinLength + 1];
 	char *aNickName;
+
+	srand((unsigned int)time(NULL));
+
+	CNetwork Network;
 
 	if (opt.getValue("nick") != NULL || opt.getValue('n') != NULL)
 	{
@@ -51,6 +57,15 @@ int main(int argc, char **argv)
 	{
 		std::cout << "*** STARTING AS SERVER" << std::endl;
 		Network.SetNetworkMode(NETWORKMODE_SERVER);
+
+		std::cout << "Pin: ";
+		for (int i = 0; i < pinLength; i++)
+		{
+			pin[i] = 0x30 + rand() % 10;
+			std::cout << pin[i];
+		}
+
+		std::cout << std::endl;
 
 		std::cout << "Waiting for client to connect..." << std::endl;
 
@@ -96,13 +111,20 @@ int main(int argc, char **argv)
 		Network.Receive(SOCKET_SERVER, &anotherNickName[0], 80);
 		std::cout << "Talking to: " << anotherNickName << std::endl;
 
+		char line[256];
+
+		cout << "Enter pin: ";
+		cin.get(line, 256);
+
+		for (int i = 0; i < pinLength; i++)
+			pin[i] = line[i];
+
 	}
 
 	ByteArray key;
-	key.push_back('1');
-	key.push_back('2');
-	key.push_back('3');
-	key.push_back('4');
+
+	for (int i = 0; i < pinLength; i++)
+		key.push_back(pin[i]);
 
 	Aes256 aes(key);
 
