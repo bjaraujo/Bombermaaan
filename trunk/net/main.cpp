@@ -39,8 +39,10 @@ int main(int argc, char **argv)
 	if (opt.getFlag("help") || opt.getFlag('h'))
 		opt.printUsage();
 
-	const int pinLength = 8;
-	char pin[pinLength + 1];
+	const int portNum = 6881;
+
+	const int passwordLength = 8;
+	char password[passwordLength + 1];
 	char *aNickName;
 
 	srand((unsigned int)time(NULL));
@@ -58,22 +60,22 @@ int main(int argc, char **argv)
 		std::cout << "*** STARTING AS SERVER" << std::endl;
 		Network.SetNetworkMode(NETWORKMODE_SERVER);
 
-		std::cout << "Pin: ";
-		for (int i = 0; i < pinLength; i++)
+		std::cout << "Password: ";
+		for (int i = 0; i < passwordLength; i++)
 		{
 			if (i % 2 == 0)
-				pin[i] = 0x41 + rand() % 26;
+				password[i] = 0x41 + rand() % 26;
 			else
-				pin[i] = 0x30 + rand() % 10;
+				password[i] = 0x30 + rand() % 10;
 
-			std::cout << pin[i];
+			std::cout << password[i];
 		}
 
 		std::cout << std::endl;
 
 		std::cout << "Waiting for client to connect..." << std::endl;
 
-		if (!Network.Connect("", 1234))
+		if (!Network.Connect("", portNum))
 		{
 			std::cout << "Unable to connect!" << std::endl;
 			return -1;
@@ -87,7 +89,7 @@ int main(int argc, char **argv)
 
 		std::cout << "Connecting to: " << opt.getValue("client") << std::endl;
 
-		if (!Network.Connect(opt.getValue("client"), 1234))
+		if (!Network.Connect(opt.getValue("client"), portNum))
 		{
 			std::cout << "Unable to connect!" << std::endl;
 			return -1;
@@ -117,18 +119,18 @@ int main(int argc, char **argv)
 
 		char line[256];
 
-		cout << "Enter pin: ";
+		cout << "Enter password: ";
 		cin.get(line, 256);
 
-		for (int i = 0; i < pinLength; i++)
-			pin[i] = line[i];
+		for (int i = 0; i < passwordLength; i++)
+			password[i] = line[i];
 
 	}
 
 	ByteArray key;
 
-	for (int i = 0; i < pinLength; i++)
-		key.push_back(pin[i]);
+	for (int i = 0; i < passwordLength; i++)
+		key.push_back(password[i]);
 
 	Aes256 aes(key);
 
