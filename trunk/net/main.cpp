@@ -39,7 +39,7 @@ int main(int argc, char **argv)
 	if (opt.getFlag("help") || opt.getFlag('h'))
 		opt.printUsage();
 
-	const int portNum = 6881;
+	const int portNum = 1234;
 
 	const int passwordLength = 8;
 	char password[passwordLength + 1];
