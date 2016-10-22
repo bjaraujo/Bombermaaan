@@ -102,13 +102,13 @@ SBomberSpriteTable CBomber::m_BomberSpriteTables[MAX_NUMBER_OF_STATES] =
 #define ANIMWALK_TIME4      ANIMWALK_TIME1 * 4
 
 //! Dying animation times (in seconds)
-#define ANIMDYING_TIME1     0.070f
-#define ANIMDYING_TIME2     ANIMDYING_TIME1 * 2
-#define ANIMDYING_TIME3     ANIMDYING_TIME1 * 3
-#define ANIMDYING_TIME4     ANIMDYING_TIME1 * 4
-#define ANIMDYING_TIME5     ANIMDYING_TIME1 * 5
-#define ANIMDYING_TIME6     ANIMDYING_TIME1 * 6
-#define ANIMDYING_TIME7     ANIMDYING_TIME1 * 7
+#define ANIMDYING_TIME1     0.500f
+#define ANIMDYING_TIME2     ANIMDYING_TIME1 * 1.1
+#define ANIMDYING_TIME3     ANIMDYING_TIME1 * 1.2
+#define ANIMDYING_TIME4     ANIMDYING_TIME1 * 1.3
+#define ANIMDYING_TIME5     ANIMDYING_TIME1 * 1.4
+#define ANIMDYING_TIME6     ANIMDYING_TIME1 * 1.5
+#define ANIMDYING_TIME7     ANIMDYING_TIME1 * 1.6
 
 //! Bomb lifting animation times (in seconds)
 #define ANIMBOMBLIFTING_TIME1     0.060f
@@ -1641,7 +1641,7 @@ void CBomber::ReturnItems(float DeltaTime)
                 m_NumberOfThrowItems,
                 m_NumberOfPunchItems,
                 m_NumberOfRemoteItems,
-                1))
+                0))
             {
                 // Play the item fumes sound
                 m_pSound->PlaySample(SAMPLE_ITEM_FUMES);
