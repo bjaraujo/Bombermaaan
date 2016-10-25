@@ -185,7 +185,7 @@ void CMenuMatch::OnLeft (void)
                 m_pOptions->SetTimeStart(m_pOptions->GetTimeStartMinutes() - 1, 55); 
             }
             // If there are enough seconds
-            else if (m_pOptions->GetTimeStartSeconds() > 0)
+			else if (m_pOptions->GetTimeStartSeconds() > 0)
             {
                 // Just decrease the number of seconds
                 m_pOptions->SetTimeStart(m_pOptions->GetTimeStartMinutes(), m_pOptions->GetTimeStartSeconds() - 5); 
@@ -257,17 +257,18 @@ void CMenuMatch::OnRight (void)
         case OPTION_TIME:
         {
             // If we are about to add a minute
-            if (m_pOptions->GetTimeStartSeconds() == 55)
-            {
-                // Add a minute
-                m_pOptions->SetTimeStart(m_pOptions->GetTimeStartMinutes() + 1, 0); 
-            }
-            // If we are not about to add a minute
-            else
-            {
-                // Add seconds
-                m_pOptions->SetTimeStart(m_pOptions->GetTimeStartMinutes(), m_pOptions->GetTimeStartSeconds() + 5); 
-            }
+			if (m_pOptions->GetTimeStartSeconds() == 55)
+			{
+				// Add a minute
+				if (m_pOptions->GetTimeStartMinutes() < 9)
+					m_pOptions->SetTimeStart(m_pOptions->GetTimeStartMinutes() + 1, 0);
+			}
+			// If we are not about to add a minute
+			else
+			{
+				// Add seconds
+				m_pOptions->SetTimeStart(m_pOptions->GetTimeStartMinutes(), m_pOptions->GetTimeStartSeconds() + 5);
+			}
 
             break;
         }
