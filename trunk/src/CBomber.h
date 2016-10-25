@@ -322,10 +322,7 @@ inline bool CBomber::CanPunchBombs(void)
 
 inline bool CBomber::CanRemoteFuseBombs(void)
 {
-    return m_NumberOfRemoteItems > 0 &&
-        m_Sickness != SICK_LONGBOMB &&
-        m_Sickness != SICK_SHORTBOMB &&
-        m_Sickness != SICK_COLIC;
+    return m_NumberOfRemoteItems > 0;
 }
 
 inline bool CBomber::HasShield()
@@ -375,7 +372,10 @@ inline void CBomber::SetSickness(ESick Sickness)
     m_Sickness = Sickness;
     m_JustGotSick = true;
 
+#ifdef _DEBUG
     debugLog.WriteDebugMsg(DEBUGSECT_BOMBER, "Bomber getting sick [id=%d, sickness=%02d].", m_Player, Sickness);
+#endif
+
 }
 
 inline EBomberState CBomber::GetState(void)

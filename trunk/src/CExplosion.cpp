@@ -98,7 +98,9 @@ void CExplosion::Create (int BlockX, int BlockY, int FlameSize)
 {
     CElement::Create();
 
-    debugLog.WriteDebugMsg( DEBUGSECT_EXPLOSION, "New explosion [x=%02d, y=%02d, flamesize=%02d].", BlockX, BlockY, FlameSize );
+#ifdef _DEBUG
+	debugLog.WriteDebugMsg(DEBUGSECT_EXPLOSION, "New explosion [x=%02d, y=%02d, flamesize=%02d].", BlockX, BlockY, FlameSize);
+#endif
 
     m_iX = m_pArena->ToPosition (BlockX); 
     m_iY = m_pArena->ToPosition (BlockY);

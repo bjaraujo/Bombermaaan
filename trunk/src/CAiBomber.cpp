@@ -1230,8 +1230,9 @@ void CAiBomber::ModeThink(void)
                     if (!TeamMateNearRemoteFuseBomb(m_pArena->GetArena()->GetBomb(Index))
                         || RANDOM(100) > 96)
                     {
-                        // Let's detonate it.d
-                        SetComputerMode(COMPUTERMODE_2NDACTION);
+                        // Let's detonate it.
+						m_BomberAction = BOMBERACTION_ACTION2; // detonate the bomb
+						m_pArena->GetArena()->GetBomb(Index).Burn();
 
                         // OK, get out since we decided what to do
                         return;
@@ -1833,6 +1834,8 @@ void CAiBomber::ModeDefence(float DeltaTime)
 
                     // Leave the for-loop, because we found a bomb
                     m_BomberAction = BOMBERACTION_ACTION2; // detonate the bomb
+					m_pArena->GetArena()->GetBomb(Index).Burn();
+
                     break;
                 }
             }
