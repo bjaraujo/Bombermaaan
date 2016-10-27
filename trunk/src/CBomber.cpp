@@ -267,6 +267,7 @@ CBomber::CBomber(void) : CElement()
     m_NumberOfThrowItems = 0;
     m_NumberOfPunchItems = 0;
     m_ShieldTime = 0.0f;
+	m_TimeSinceLastSick = 0.0f;
     m_ReturnedItems = false;
     m_Player = 0;
     m_Dead = DEAD_ALIVE;
@@ -1442,6 +1443,7 @@ void CBomber::Contamination()
             if (Player != m_Player &&
                 m_pArena->GetBomber(Player).Exist() &&
                 m_pArena->GetBomber(Player).IsAlive() &&
+				m_pArena->GetBomber(Player).TimeSinceLastSick() > 3.0 &&
                 !m_pArena->GetBomber(Player).HasShield() &&
                 ABS(m_pArena->GetBomber(Player).GetX() - m_BomberMove.GetX()) +
                 ABS(m_pArena->GetBomber(Player).GetY() - m_BomberMove.GetY()) <= CONTAMINATION_NEAR)
@@ -1459,11 +1461,10 @@ void CBomber::Contamination()
                     // contaminated to contaminate again its new neighbour that just
                     // contaminated him.
 
-                    // Give him the sickness
-                    m_pArena->GetBomber(Player).SetSickness(m_Sickness);
-
-                    // We're healthy again
-                    m_Sickness = SICK_NOTSICK;
+					// Swap sickness
+					ESick mySickness = m_Sickness;
+					m_Sickness = m_pArena->GetBomber(Player).GetSickness();
+					m_pArena->GetBomber(Player).SetSickness(mySickness);
 
                     // Play the contamination sound
                     m_pSound->PlaySample(SAMPLE_SICK_3);
@@ -1692,6 +1693,8 @@ bool CBomber::Update(float DeltaTime)
 
     if (m_ShieldTime < 0.0f)
         m_ShieldTime = 0.0f;
+
+	m_TimeSinceLastSick += DeltaTime;
 
     // Calculate button-press duration
     // Remember how long the action button has been pressed
