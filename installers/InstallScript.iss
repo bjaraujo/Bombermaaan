@@ -37,9 +37,10 @@ WizardImageFile=compiler:wizmodernimage-is.bmp
 ; This is not the best image since the setup dialog shows only a square, not a rectangle
 WizardSmallImageFile=HeaderImage_Innosetup.bmp
 WizardImageStretch=false
+UninstallDisplayIcon={app}\Bombermaaan.exe
 
 [Tasks]
-Name: desktopicon; Description: {cm:CreateDesktopIcon}; GroupDescription: {cm:AdditionalIcons}; Flags: checked
+Name: desktopicon; Description: {cm:CreateDesktopIcon}; GroupDescription: {cm:AdditionalIcons};
 Name: quicklaunchicon; Description: {cm:CreateQuickLaunchIcon}; GroupDescription: {cm:AdditionalIcons}; Flags: unchecked
 
 [Files]
