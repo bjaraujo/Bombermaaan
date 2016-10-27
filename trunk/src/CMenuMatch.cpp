@@ -164,13 +164,13 @@ void CMenuMatch::OnLeft (void)
             if (m_pOptions->GetBattleCount() == 1)
             {
                 // Wrap : set the maximum number of battles
-                m_pOptions->SetBattleCount (5);
+                m_pOptions->SetBattleCount(5);
             }
             // If the current number of battles is not the minimum
             else
             {
                 // Decrease the number of battles
-                m_pOptions->SetBattleCount (m_pOptions->GetBattleCount() - 1);
+                m_pOptions->SetBattleCount(m_pOptions->GetBattleCount() - 1);
             }
 
             break;

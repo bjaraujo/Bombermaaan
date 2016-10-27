@@ -339,7 +339,8 @@ bool COptions::LoadConfiguration (void)
             oss << "bomber" << i;
             std::string attributeName = oss.str();
             ReadIntFromXML( configDoc, "BomberTypes", attributeName, (int*) (&m_BomberType[i]) );
-            ReadIntFromXML( configDoc, "PlayerInputs", attributeName, (int*) (&m_PlayerInput[i]) );
+			ReadIntFromXML(configDoc, "BomberTeams", attributeName, (int*)(&m_BomberTeam[i]));
+			ReadIntFromXML(configDoc, "PlayerInputs", attributeName, (int*)(&m_PlayerInput[i]));
         }
 
         //
@@ -470,6 +471,16 @@ void COptions::WriteXMLData()
         configBomberTypes->SetAttribute( attributeName, (int) m_BomberType[i] );
     }
     config->LinkEndChild( configBomberTypes );
+
+	// BomberTeams
+	TiXmlElement* configBomberTeams = new TiXmlElement("BomberTeams");
+	for (i = 0; i < MAX_PLAYERS; i++) {
+		std::ostringstream oss;
+		oss << "bomber" << i;
+		std::string attributeName = oss.str();
+		configBomberTeams->SetAttribute(attributeName, (int)m_BomberTeam[i]);
+	}
+	config->LinkEndChild(configBomberTeams);
 
     // PlayerInputs
     TiXmlElement* configPlayerInputs = new TiXmlElement( "PlayerInputs" );
