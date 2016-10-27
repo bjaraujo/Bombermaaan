@@ -753,7 +753,6 @@ bool CBomb::Update(float DeltaTime)
         {
             m_BeingHeld = false;
             m_BeingLifted = false;
-            m_BeingPunched = false;
         }
     }
 
@@ -792,9 +791,7 @@ bool CBomb::Update(float DeltaTime)
 
 void CBomb::Display(void)
 {
-    int SpriteTable = (m_BeingHeld || m_BombFly != BOMBFLY_NONE) ?
-    BOMB_SPRITELAYER_ABOVE_BOMBERS :
-                                   BOMB_SPRITELAYER_BELOW_BOMBERS;
+    int SpriteTable = (m_BeingHeld || m_BombFly != BOMBFLY_NONE) ? BOMB_SPRITELAYER_ABOVE_BOMBERS : BOMB_SPRITELAYER_BELOW_BOMBERS;
 
     // Prepare a clipping rect to pass to the draw sprite function,
     // since the sprite can be out of the arena view.
