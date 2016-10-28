@@ -184,11 +184,33 @@ void CMenuTeam::OnPrevious(void)
 void CMenuTeam::OnNext(void)
 {
 
-    // Play the menu next sound
-    m_pSound->PlaySample(SAMPLE_MENU_NEXT);
+	int nbPlayersTeamA = 0;
+	int nbPlayersTeamB = 0;
 
-    // Go to the next screen
-    Exit(MENUACTION_NEXT);
+	for (int Player = 0; Player < MAX_PLAYERS; Player++)
+	{
+
+		if (m_pOptions->GetBomberType(Player) == BOMBERTYPE_OFF)
+			continue;
+
+		if (m_pOptions->GetBomberTeam(Player) == BOMBERTEAM_A)
+			nbPlayersTeamA++;
+
+		if (m_pOptions->GetBomberTeam(Player) == BOMBERTEAM_B)
+			nbPlayersTeamB++;
+
+	}
+
+	if (nbPlayersTeamA > 0 && nbPlayersTeamB > 0)
+	{
+		// Play the menu next sound
+		m_pSound->PlaySample(SAMPLE_MENU_NEXT);
+
+		// Go to the next screen
+		Exit(MENUACTION_NEXT);
+	}
+	else
+		m_pSound->PlaySample(SAMPLE_MENU_ERROR);
 
 }
 
