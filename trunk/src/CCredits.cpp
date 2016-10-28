@@ -65,6 +65,7 @@
 #define ACTION2_MENU_ITEM                       6
 
 #define SCREEN_TITLE_POSITION_Y                 (20+80)
+#define SCREEN_TEXT_POSITION_X					50
 
 #define SCREEN_CREDITS_TITLE_STRING             "CREDITS"
 
@@ -195,7 +196,7 @@ EGameMode CCredits::Update (void)
         if (!m_SongStarted)
         {
             // Start playing the controls song
-            //m_pSound->PlaySong (SONG_GREETS_MUSIC);
+            m_pSound->PlaySong (SONG_CONTROLS_MUSIC);
 
             // We started playing the song
             m_SongStarted = true;
@@ -208,7 +209,7 @@ EGameMode CCredits::Update (void)
 		if (m_pInput->GetMainInput().TestBreak())
 		{
 			// Stop playing the song
-			//m_pSound->StopSong(SONG_GREETS_MUSIC);
+			m_pSound->StopSong(SONG_CONTROLS_MUSIC);
 
 			// Remember we have to exit this mode
 			m_HaveToExit = true;
@@ -256,7 +257,14 @@ void CCredits::Display (void)
         m_Font.SetTextColor (FONTCOLOR_WHITE);
 		m_Font.DrawCenteredX(0, VIEW_WIDTH, SCREEN_TITLE_POSITION_Y, SCREEN_CREDITS_TITLE_STRING);
 
-    }
+		m_Font.SetTextColor(FONTCOLOR_YELLOW);
+		m_Font.DrawCenteredX(0, VIEW_WIDTH, SCREEN_TITLE_POSITION_Y + 60,  "Thibaut Tollemer");
+		m_Font.DrawCenteredX(0, VIEW_WIDTH, SCREEN_TITLE_POSITION_Y + 80,  "Bernd Arnold");
+		m_Font.DrawCenteredX(0, VIEW_WIDTH, SCREEN_TITLE_POSITION_Y + 100, "Jerome Bigot");
+		m_Font.DrawCenteredX(0, VIEW_WIDTH, SCREEN_TITLE_POSITION_Y + 120, "Markus Drescher");
+		m_Font.DrawCenteredX(0, VIEW_WIDTH, SCREEN_TITLE_POSITION_Y + 140, "Billy Araujo");
+
+	}
     // We have to exit, so we have to make the last black screen
     else if (m_ModeTime - m_ExitModeTime <= CREDITS_BLACKSCREEN_DURATION)
     {
