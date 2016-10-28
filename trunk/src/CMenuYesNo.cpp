@@ -116,7 +116,8 @@ EGameMode CMenuYesNo::Update (EGameMode CurrentGameMode)
     
     // If the menu yes/no can be activated (it can't if the game mode doesn't allow it)
     if (CurrentGameMode != GAMEMODE_CONTROLS && 
-        CurrentGameMode != GAMEMODE_DEMO)
+        CurrentGameMode != GAMEMODE_DEMO &&
+		CurrentGameMode != GAMEMODE_GREETS)
     {
         // If the escape control is active
         if (m_pInput->GetMainInput().TestBreak ())

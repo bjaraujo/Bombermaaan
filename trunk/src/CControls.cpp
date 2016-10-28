@@ -84,7 +84,7 @@
 #define MAX_MENU_ITEM_NAME_LENGTH               50
 #define MAX_MENU_ITEM_VALUE_NAME_LENGTH         50
 
-#define SCREEN_TITLE_STRING                     "CONTROLS"
+#define SCREEN_CONTROLS_TITLE_STRING            "CONTROLS"
 
 #define MOSAIC_SPRITE_LAYER                     0           //!< Sprite layer where to draw the mosaic tiles
 #define MOSAIC_SPRITE_PRIORITY_IN_LAYER         0           //!< Priority to use in the sprite layer where to draw the mosaic tiles
@@ -426,7 +426,7 @@ void CControls::Display (void)
 
         // Draw the title of the screen
         m_Font.SetTextColor (FONTCOLOR_WHITE);
-        m_Font.DrawCenteredX (0, VIEW_WIDTH, SCREEN_TITLE_POSITION_Y, SCREEN_TITLE_STRING);
+		m_Font.DrawCenteredX(0, VIEW_WIDTH, SCREEN_TITLE_POSITION_Y, SCREEN_CONTROLS_TITLE_STRING);
 
         // Position Y on the screen of the first menu item in this screen
         int MenuItemPositionY = FIRST_MENU_ITEM_POSITION_Y;

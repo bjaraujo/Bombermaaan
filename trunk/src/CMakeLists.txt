@@ -19,6 +19,7 @@ CCloudManager.h
 CCommandChunk.h
 CConsole.h
 CControls.h
+CCredits.h
 CDebug.h
 CDemo.h
 CDisplay.h
@@ -81,6 +82,7 @@ CCloudManager.cpp
 CCommandChunk.cpp
 CConsole.cpp
 CControls.cpp
+CCredits.cpp
 CDebug.cpp
 CDemo.cpp
 CDisplay.cpp

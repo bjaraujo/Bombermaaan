@@ -44,6 +44,7 @@
 #include "CTitle.h"
 #include "CControls.h"
 #include "CDemo.h"
+#include "CCredits.h"
 
 #ifdef NETWORK_MODE
 #include "CNetwork.h"
@@ -85,7 +86,8 @@ private:
     CControls       m_Controls;             //!< Controls screen object
     CDemo           m_Demo;                 //!< Demo screen object in which we show a match betweeen computer players.
     CMenuYesNo      m_MenuYesNo;            //!< Yes/No message box object
-	
+	CCredits		m_Credits;				//!< Credits screen object 
+
 #ifdef NETWORK_MODE
 	CNetwork		m_Network;				//!< Network object
 #endif

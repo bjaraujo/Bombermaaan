@@ -239,7 +239,7 @@ EGameMode CTitle::Update (void)
                 case MENU_ITEM_GAME    : m_ExitGameMode = GAMEMODE_MENU;     break;
                 case MENU_ITEM_DEMO    : m_ExitGameMode = GAMEMODE_DEMO;     break;
                 case MENU_ITEM_OPTIONS : m_ExitGameMode = GAMEMODE_CONTROLS; break;
-                case MENU_ITEM_CREDITS : m_ExitGameMode = GAMEMODE_TITLE;    break;  //! The credits screen isn't implemented yet so we have to stay in the title game mode
+                case MENU_ITEM_CREDITS : m_ExitGameMode = GAMEMODE_GREETS;   break;
                 case MENU_ITEM_EXIT    : m_ExitGameMode = GAMEMODE_EXIT;     break;
             }
 
