@@ -196,7 +196,7 @@ EGameMode CCredits::Update (void)
         if (!m_SongStarted)
         {
             // Start playing the controls song
-            m_pSound->PlaySong (SONG_CONTROLS_MUSIC);
+			m_pSound->PlaySong(SONG_GREET_MUSIC);
 
             // We started playing the song
             m_SongStarted = true;
@@ -209,7 +209,7 @@ EGameMode CCredits::Update (void)
 		if (m_pInput->GetMainInput().TestBreak())
 		{
 			// Stop playing the song
-			m_pSound->StopSong(SONG_CONTROLS_MUSIC);
+			m_pSound->StopSong(SONG_GREET_MUSIC);
 
 			// Remember we have to exit this mode
 			m_HaveToExit = true;
