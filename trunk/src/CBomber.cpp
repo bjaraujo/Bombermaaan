@@ -464,6 +464,13 @@ void CBomber::Burn()
     if (m_Sickness != SICK_FLAMEPROOF && m_ShieldTime == 0.0f) {
         Die();
     }
+	else
+	{
+		// Bomb destroys shield time
+		if (m_ShieldTime > 0.75f)
+			m_ShieldTime = 0.75f;
+	}
+
 }
 
 //******************************************************************************************************************************
