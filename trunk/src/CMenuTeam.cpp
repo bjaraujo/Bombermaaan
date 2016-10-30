@@ -38,7 +38,7 @@
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-#define MENUTEAM_SPRITELAYER       1                //!< Sprite layer where to draw sprites
+#define MENUTEAM_SPRITELAYER       1        //!< Sprite layer where to draw sprites
 
 #define TITLE_TEXT_POSITION_Y       90      //!< Position Y of the title text that is centered on the X axis
 
@@ -60,9 +60,9 @@
 
 #define TEAM_VS_TEXT_POSITION_Y     140     //!< Position Y of the vs text that is centered on the X axis
 
-#define BOMBER_NO_TEAM_COLX         70      //!< No team (center)
+#define BOMBER_NO_TEAM_COLX         67      //!< No team (center)
 #define BOMBER_TEAM_A_COLX          0       //!< Column Team A
-#define BOMBER_TEAM_B_COLX          140     //!< Column Team B
+#define BOMBER_TEAM_B_COLX          134     //!< Column Team B
 
 #define TITLE_STRING                "TEAM"         //!< String of the menu's title centered on the X axis
 #define TEAM_VS_STRING              "VS"           //!< String of a menu item centered on the X axis
@@ -150,6 +150,9 @@ void CMenuTeam::OnDown(void)
 void CMenuTeam::OnLeft(void)
 {
 
+	if (m_pOptions->GetBomberType(m_CursorPlayer) == BOMBERTYPE_OFF)
+		m_pSound->PlaySample(SAMPLE_MENU_ERROR);
+
     if (m_pOptions->GetBomberTeam(m_CursorPlayer) == BOMBERTEAM_B)
         m_pOptions->SetBomberTeam(m_CursorPlayer, BOMBERTEAM_A);
 
@@ -161,6 +164,9 @@ void CMenuTeam::OnLeft(void)
 
 void CMenuTeam::OnRight(void)
 {
+
+	if (m_pOptions->GetBomberType(m_CursorPlayer) == BOMBERTYPE_OFF)
+		m_pSound->PlaySample(SAMPLE_MENU_ERROR);
 
     if (m_pOptions->GetBomberTeam(m_CursorPlayer) == BOMBERTEAM_A)
         m_pOptions->SetBomberTeam(m_CursorPlayer, BOMBERTEAM_B);
