@@ -234,7 +234,7 @@ SBomberSpriteTable CBomber::m_BomberSpriteTables[MAX_NUMBER_OF_STATES] =
  */
 #define REMOTE_FUSE_ONLY_FIRST_BOMB         true
 
-#define SHIELD_TIME 10.0f
+#define SHIELD_TIME 15.0f
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -1318,16 +1318,23 @@ void CBomber::Animate(float DeltaTime)
     if (m_Sickness == SICK_NOTSICK || m_Dead != DEAD_ALIVE)
     {
 
-        if (m_ShieldTime > 0.0f)
-        {
-            m_SpriteOverlay = m_Sprite + SICK_SPRITE_ROW_BRIGHT * m_BomberSpriteTables[m_BomberState].NumberOfSpritesPerColor;
-        }
+		if (m_ShieldTime > 0.0f)
+		{
+			if (m_ShieldTime > 2.0f)
+				m_SpriteOverlay = m_Sprite + SICK_SPRITE_ROW_BRIGHT * m_BomberSpriteTables[m_BomberState].NumberOfSpritesPerColor;
+			else
+			{
+				// Flash
+				if (int(m_ShieldTime * 10) % 2 == 0)
+					m_SpriteOverlay = m_Sprite + SICK_SPRITE_ROW_BRIGHT * m_BomberSpriteTables[m_BomberState].NumberOfSpritesPerColor;
+			}
+		}
 
         // Give him its player color
         m_Sprite += m_Player * m_BomberSpriteTables[m_BomberState].NumberOfSpritesPerColor;
 
     }
-    // If he is sick and alive
+    // If he has shield, is sick and alive
     else
     {
         // Make the bomber flash between sick sprite and normal colored sprite
