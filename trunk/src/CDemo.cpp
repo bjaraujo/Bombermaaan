@@ -68,6 +68,18 @@ CDemo::CDemo (void) : CModeScreen()
     m_AiManager.SetArena (&m_Arena);
 
     m_pHurryMessage = NULL;
+	
+	m_MatchOver = false;
+	m_CurrentSong = ESong::SONG_NONE;
+	m_IsSongPlaying = false;
+	m_NoticedTimeUp = false;
+	m_DemoTextTime = 0.0f;
+	m_DrawDemoText = false;
+	m_ModeTime = 0.0f;
+	m_ExitModeTime = false;
+	m_ExitGameMode = 0;
+	m_HaveToExit = false;
+	
 }
 
 //******************************************************************************************************************************

@@ -283,6 +283,14 @@ CBomber::CBomber(void) : CElement()
     m_BomberActionDuration = 0.0f;
     m_dropMassBombPossible = false;
 
+	for (int i = 0; i < 5; i++)
+		m_AnimationSprites[i] = BOMBERSPRITE_DOWN0;
+
+	for (int p = 0; p < m_pArena->MaxBombers(); p++)
+		m_Neighbours[p] = false;
+
+	p_Team = NULL;
+	
 }
 
 //******************************************************************************************************************************

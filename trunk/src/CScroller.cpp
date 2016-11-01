@@ -34,7 +34,19 @@
 
 CScroller::CScroller (void)
 {
-    
+ 
+    m_SpriteWidth = 0;
+    m_SpriteHeight = 0;
+    m_SpeedX = 0.0f;
+    m_SpeedY = 0.0f;
+    m_LoopTime = 0;
+    m_RemainingLoopTime = 0.0f;
+    m_iPositionX = -1;
+    m_iPositionY = -1;
+    m_fPositionX = (float) m_iPositionX;
+    m_fPositionY = (float) m_iPositionY;
+    m_Looping = false;
+	
 }
 
 //******************************************************************************************************************************

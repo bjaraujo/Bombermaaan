@@ -39,7 +39,8 @@ CInput::CInput (void)
     // can easily detect the ones we forgot to set.
     m_pOptions = NULL;
     m_pTimer = NULL;
-
+	m_PlayerInput = NULL;
+	
     // Set the directinput object used by the main input
     m_MainInput.SetDirectInput (&m_DirectInput);
 }

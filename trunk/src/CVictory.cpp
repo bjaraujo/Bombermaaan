@@ -159,6 +159,21 @@ CVictory::CVictory (void) : CModeScreen()
     // Initialize the pointers to NULL so that we 
     // can easily detect the ones we forgot to set.
     m_pScores = NULL;
+	
+    m_ModeTime = 0.0f;
+
+    m_CrowdTimer = 0.0f;
+    m_WinnerBomberTimer = 0.0f;
+    m_LoserBomberTimer = 0.0f;
+    m_MexicanWaveTimer = 0.0f;
+    m_MexicanWavePosition = -1;
+
+    m_CrowdWaveMode = ECrowdWave( RANDOM( NUMBER_CROWDWAVES ) );
+
+    m_HaveToExit = false;
+    m_ExitModeTime = 0.0f;
+
+    m_PlayedSound = false;	
 }
 
 //******************************************************************************************************************************

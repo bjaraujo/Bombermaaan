@@ -56,6 +56,9 @@ CConsole::CConsole()
     
     // Filter repeated messages by default
     m_FilterRepeatedMessage = true;
+	
+	m_StdOut = NULL;
+	
 }
 
 //******************************************************************************************************************************

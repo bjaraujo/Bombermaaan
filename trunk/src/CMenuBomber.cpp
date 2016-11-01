@@ -81,6 +81,9 @@ CMenuBomber::CMenuBomber (void) : CMenuBase ()
         m_Blinking[i] = false;
         m_BlinkTimer[i] = 0.0f;
     }
+	
+	m_CursorPlayer = 0;
+	
 }
 
 //******************************************************************************************************************************

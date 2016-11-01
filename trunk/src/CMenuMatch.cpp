@@ -74,6 +74,9 @@ CMenuMatch::CMenuMatch (void) : CMenuBase ()
     m_Options[1] = OPTION_BATTLE;
     m_Options[2] = OPTION_TIME;
     m_Options[3] = OPTION_TIMEUP;
+	
+	m_CursorOption = 0;
+	
 }
 
 //******************************************************************************************************************************

@@ -45,6 +45,11 @@ CSDLInput::CSDLInput (void)
     m_hWnd = NULL;
     m_hInstance = NULL;
     m_Ready = false;
+	
+	m_KeyboardOpened = false;
+	memset(m_KeyState, 0, MAX_KEYS);
+	memset(m_KeyFriendlyName, 0, MAX_KEYS * MAX_PATH);
+		
 }
 
 //******************************************************************************************************************************

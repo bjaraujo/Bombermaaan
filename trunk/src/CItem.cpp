@@ -134,6 +134,26 @@
 CItem::CItem(void) : CElement()
 {
 
+    m_iX = -1;
+    m_iY = -1;
+    m_fX = float(m_iX);
+    m_fY = float(m_iY);
+    m_BlockX = -1;
+    m_BlockY = -1;
+    m_Burning = false;
+    m_Timer = 0.0f;
+    m_Dead = false;
+    m_Type = EItemType::ITEM_NONE;
+    m_Fumes = false;
+    m_FumeSprite = ANIM_FUMES_1;
+	
+	m_Sprite = 0;
+	m_Sprite0 = 0;
+	m_Sprite1 = 0;
+	
+	m_Flying = EItemFlying::ITEMFLYING_NONE;
+	m_FlyTime = 0.0f;
+	
 }
 
 //******************************************************************************************************************************

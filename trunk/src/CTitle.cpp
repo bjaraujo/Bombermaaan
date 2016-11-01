@@ -101,6 +101,16 @@ CTitle::CTitle (void) : CModeScreen()
 {
     // The cursor points to the first menu item
     m_Cursor = FIRST_MENU_ITEM;
+	
+    m_SongStarted = false;
+    m_ModeTime = 0.0f;
+    m_HaveToExit = false;
+    m_MovingHandDistance = 0;
+    m_MovingHandTimer = 0.0f;	
+	
+	m_ExitModeTime = 0.0f;
+	m_ExitGameMode = EGameMode::GAMEMODE_NONE;
+	
 }
 
 //******************************************************************************************************************************

@@ -98,6 +98,16 @@
 CControls::CControls (void) : CModeScreen()
 {
 
+	m_ModeTime = 0.0f;
+	m_HaveToExit = false;
+	m_ExitModeTime = 0.0f;
+	m_Cursor = 0;
+	m_PlayerInput = 0;
+	m_WaitingForInput = false;
+	m_WaitingForInputAfter = false;
+	m_SongStarted = false;
+	m_pMosaic = NULL;
+	
 }
 
 //******************************************************************************************************************************

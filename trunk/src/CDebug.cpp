@@ -39,6 +39,16 @@ CDebug::CDebug()
 {
     m_pTimer = NULL;
     m_pGame = NULL;
+	
+	m_pMatch = NULL;
+	m_GameSpeed = 0.0f;
+	m_CanBombersDie = true;
+	m_CanBombersBeSick = true;
+	m_CanBombersKick = true;
+
+	for (int i = 0; i < 5; i++)
+		m_IsComputerConsoleActive[i] = false;
+	
 }
 
 //******************************************************************************************************************************
@@ -65,11 +75,9 @@ void CDebug::Create()
     m_CanBombersDie = true;
     m_CanBombersBeSick = true;
     m_CanBombersKick = true;
-    m_IsComputerConsoleActive[0] = false;
-    m_IsComputerConsoleActive[1] = false;
-    m_IsComputerConsoleActive[2] = false;
-    m_IsComputerConsoleActive[3] = false;
-    m_IsComputerConsoleActive[4] = false;
+
+	for (int i = 0; i < 5; i++)
+		m_IsComputerConsoleActive[i] = false;
 
     // Actually set the speed of the game
     m_pTimer->SetSpeed (m_GameSpeed);

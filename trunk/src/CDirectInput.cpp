@@ -49,6 +49,12 @@ CDirectInput::CDirectInput (void)
     m_hInstance = NULL;
     m_Ready = false;
     m_pKeyboard = NULL;
+	
+	m_KeyboardOpened = ;
+	m_KeyState = ;
+	m_KeyRealName = ;
+	m_KeyFriendlyName = ;
+	
 }
 
 //******************************************************************************************************************************

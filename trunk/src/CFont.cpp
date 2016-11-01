@@ -70,6 +70,15 @@ CFont::CFont (void)
     // Initialize the pointers to NULL so that we 
     // can easily detect the ones we forgot to set.
     m_pDisplay = NULL;
+	
+    m_SpriteLayer = 0;
+    m_DrawShadow = false;	
+	m_TextColorOffset = 0;
+	m_ShadowColorOffset = 0;
+	m_SpriteLayer = 0;
+	m_ShadowOffsetX = 0;
+	m_ShadowOffsetY = 0;
+
 }
 
 //******************************************************************************************************************************

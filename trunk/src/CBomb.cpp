@@ -181,6 +181,9 @@ CBomb::CBomb(void) : CElement()
     m_BombFly = BOMBFLY_NONE;
     m_FlightType = BOMBFLIGHTTYPE_NONE;
 
+	for (int i = 0; i < 4; i++)
+		m_AnimationTimes[i] = 0.0f;
+	
 }
 
 //******************************************************************************************************************************

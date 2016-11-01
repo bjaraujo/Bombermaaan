@@ -85,6 +85,19 @@ COptions::COptions (void)
 
     m_Level = 0;
     
+	for (int i = 0; i < MAX_PLAYERS; i++)
+	{
+		m_BomberType[i] = EBomberType::BOMBERTYPE_OFF;
+		m_BomberTeam[i] = EBomberTeam::BOMBERTEAM_A;
+		m_PlayerInput[i] = CONFIGURATION_KEYBOARD_1 + i;
+	}
+
+	m_BattleMode = EBattleMode::BATTLEMODE_SINGLE;
+
+	for (int i = 0; i < MAX_PLAYER_INPUT; i++)
+		for (int j = 0; j < NUM_CONTROLS; j++)
+			m_Control[i][j] = 0;
+
 }
 
 //******************************************************************************************************************************

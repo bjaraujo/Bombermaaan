@@ -76,7 +76,25 @@
 
 CExplosion::CExplosion (void) : CElement()
 {
-    // Nothing to do
+    
+    m_iX = -1; 
+    m_iY = -1;
+    m_BlockX = -1; 
+    m_BlockY = -1;
+    m_FlameSize = 0;
+    m_State = STATE2;
+    m_Timer = 0.0f;
+    m_Dead = false;
+	
+	m_FlameSizeUp = 0.0f;
+	m_FlameSizeDown = 0;
+	m_FlameSizeLeft = 0;
+	m_FlameSizeRight = 0;
+	m_StopUp = false;
+	m_StopDown = false;
+	m_StopLeft = false;
+	m_StopRight = false;
+	
 }
 
 //******************************************************************************************************************************

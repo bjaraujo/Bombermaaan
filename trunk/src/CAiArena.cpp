@@ -57,7 +57,13 @@ CAiArena::CAiArena (void)
 {
     m_pArena = NULL;
     m_pDisplay = NULL;
-    
+		
+	for (int i = 0; i < MAX_DEAD_END; i++)
+	{
+		m_DeadEndExit[i].BlockX = -1;
+		m_DeadEndExit[i].BlockY = -1;
+	}
+	
 	for (int BlockX = 0; BlockX < ARENA_WIDTH; BlockX++)
 	{
 		for (int BlockY = 0; BlockY < ARENA_HEIGHT; BlockY++)

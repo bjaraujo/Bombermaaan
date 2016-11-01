@@ -86,6 +86,15 @@ CAiBomber::CAiBomber(void)
     m_BlockLeftY = 0;
     m_BlockRightX = 0;
     m_BlockRightY = 0;
+	
+	for (int BlockX = 0; BlockX < ARENA_WIDTH; BlockX++)
+	{
+		for (int BlockY = 0; BlockY < ARENA_HEIGHT; BlockY++)
+		{
+			m_Accessible[BlockX][BlockY] = -1;
+			m_PseudoAccessible[BlockX][BlockY] = -1;
+		}
+	}
 
 }
 

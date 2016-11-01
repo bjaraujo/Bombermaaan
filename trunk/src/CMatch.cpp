@@ -69,6 +69,26 @@ CMatch::CMatch(void) : CModeScreen()
 
     m_pPauseMessage = NULL;
     m_pHurryMessage = NULL;
+	
+    m_MatchOver = false;
+    m_WinnerTeam = NO_WINNER_TEAM;
+
+    m_IsSongPlaying = false;
+    m_NoticedTimeUp = false;
+    m_ModeTime = 0.0f;
+    m_HaveToExit = false;
+    m_ForceDrawGame = false;	
+	
+#ifdef NETWORK_MODE
+	m_pNetwork = NULL;
+#endif
+
+	m_CurrentSong = ESong::SONG_NONE;
+	m_ExitModeTime = 0.0f;
+
+	m_NoComputer = false;
+	m_computerPlayersPresent = false;
+
 }
 
 //******************************************************************************************************************************
@@ -147,15 +167,15 @@ void CMatch::Create(void)
 
     CreateMainComponents();
 
-    // Set computerPlayersPresent to true when there are AI players in this match
-    computerPlayersPresent = false;
+    // Set m_computerPlayersPresent to true when there are AI players in this match
+    m_computerPlayersPresent = false;
     for (int i = 0; i < MAX_BOMBERS; i++) {
         if (m_pOptions->GetBomberType(i) == BOMBERTYPE_COM) {
-            computerPlayersPresent = true;
+            m_computerPlayersPresent = true;
         }
     }
 
-    if (computerPlayersPresent) {
+    if (m_computerPlayersPresent) {
         m_AiManager.SetDisplay(m_pDisplay);
         m_AiManager.Create(m_pOptions);
     }
@@ -213,7 +233,7 @@ void CMatch::Destroy(void)
 {
     CModeScreen::Destroy();
 
-    if (computerPlayersPresent) {
+    if (m_computerPlayersPresent) {
         m_AiManager.Destroy();
     }
 
@@ -367,7 +387,7 @@ void CMatch::ProcessPlayerCommands(void)
     if (m_pPauseMessage == NULL)
     {
         // Do the AI stuff only when there are AI players
-        if (computerPlayersPresent) {
+        if (m_computerPlayersPresent) {
             m_AiManager.Update(m_pTimer->GetDeltaTime());
         }
 
