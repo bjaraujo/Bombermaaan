@@ -162,7 +162,7 @@ EGameMode CMenuYesNo::Update (EGameMode CurrentGameMode)
     if (m_Active)
     {
         // If the UP control is active
-        if (m_pInput->GetMainInput().TestUp())
+		if (m_pInput->GetMainInput().TestUp() || m_pInput->GetDirectInput().TestUp(0))
         {
             // Switch between the "yes" and "no" answer
             m_YesNo = !m_YesNo;
@@ -171,7 +171,7 @@ EGameMode CMenuYesNo::Update (EGameMode CurrentGameMode)
             m_pSound->PlaySample (SAMPLE_MENU_BEEP);
         }
         // If the DOWN control is active
-        else if (m_pInput->GetMainInput().TestDown())
+		else if (m_pInput->GetMainInput().TestDown() || m_pInput->GetDirectInput().TestDown(0))
         {
             // Switch between the "yes" and "no" answer
             m_YesNo = !m_YesNo;
@@ -180,7 +180,7 @@ EGameMode CMenuYesNo::Update (EGameMode CurrentGameMode)
             m_pSound->PlaySample (SAMPLE_MENU_BEEP);
         }
         // If the NEXT control is active
-        else if (m_pInput->GetMainInput().TestNext())
+		else if (m_pInput->GetMainInput().TestNext() || m_pInput->GetDirectInput().TestNext(0))
         {
             // Restore the sound pause state
             m_pSound->SetPause (m_WasSoundPaused);

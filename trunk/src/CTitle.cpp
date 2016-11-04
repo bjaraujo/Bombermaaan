@@ -110,7 +110,7 @@ CTitle::CTitle (void) : CModeScreen()
 	
 	m_ExitModeTime = 0.0f;
 	m_ExitGameMode = EGameMode::GAMEMODE_NONE;
-	
+
 }
 
 //******************************************************************************************************************************
@@ -171,6 +171,7 @@ void CTitle::Destroy (void)
 void CTitle::OpenInput (void)
 {
     m_pInput->GetMainInput().Open();
+	m_pInput->GetDirectInput().OpenJoystick(0);
 }
 
 //******************************************************************************************************************************
@@ -180,6 +181,7 @@ void CTitle::OpenInput (void)
 void CTitle::CloseInput (void)
 {
     m_pInput->GetMainInput().Close();
+	m_pInput->GetDirectInput().CloseJoystick(0);
 }
 
 //******************************************************************************************************************************
@@ -190,7 +192,7 @@ EGameMode CTitle::Update (void)
 {
     // Increase elapsed time since mode has started
     m_ModeTime += m_pTimer->GetDeltaTime();
-    
+
     // If we have to make the first black screen
     if (m_ModeTime <= BLACKSCREEN_DURATION)
     {
@@ -240,7 +242,7 @@ EGameMode CTitle::Update (void)
         }
 
         // If the NEXT control is pressed
-        if (m_pInput->GetMainInput().TestNext())
+		if (m_pInput->GetMainInput().TestNext() || m_pInput->GetDirectInput().TestNext(0))
         {
             // Which menu item is the cursor pointing to?
             // Determine the game mode to ask for when exiting
@@ -275,8 +277,9 @@ EGameMode CTitle::Update (void)
                 m_pSound->PlaySample (SAMPLE_MENU_ERROR);
             }
         }
-        else if (m_pInput->GetMainInput().TestUp())
+		else if (m_pInput->GetMainInput().TestUp() || m_pInput->GetDirectInput().TestUp(0))
         {
+
             // Play the menu beep sound
             m_pSound->PlaySample (SAMPLE_MENU_BEEP);
         
@@ -290,9 +293,10 @@ EGameMode CTitle::Update (void)
                 m_Cursor = LAST_MENU_ITEM;
             }
         }
-        else if (m_pInput->GetMainInput().TestDown())
+		else if (m_pInput->GetMainInput().TestDown() || m_pInput->GetDirectInput().TestDown(0))
         {
-            // Play the menu beep sound
+
+			// Play the menu beep sound
             m_pSound->PlaySample (SAMPLE_MENU_BEEP);
 
             // Make the cursor go down (menu item below)

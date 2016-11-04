@@ -161,6 +161,7 @@ void CMenu::Destroy(void)
 void CMenu::OpenInput(void)
 {
     m_pInput->GetMainInput().Open();
+	m_pInput->GetDirectInput().OpenJoystick(0);
 }
 
 //******************************************************************************************************************************
@@ -170,6 +171,7 @@ void CMenu::OpenInput(void)
 void CMenu::CloseInput(void)
 {
     m_pInput->GetMainInput().Close();
+	m_pInput->GetDirectInput().CloseJoystick(0);
 }
 
 //******************************************************************************************************************************

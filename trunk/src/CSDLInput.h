@@ -142,6 +142,8 @@
 #define KEYBOARD_RWIN          SDLK_RSUPER              //!< Right Windows key 
 #define KEYBOARD_APPS          SDLK_MENU                //!< AppMenu key 
 
+#define JOYSTICK_AXIS_THRESHOLD 3200
+
 typedef struct SDLJOYSTATE {
     LONG    lX;                     /* x-axis position              */
     LONG    lY;                     /* y-axis position              */
@@ -189,6 +191,8 @@ private:
     bool                    UpdateDevice(SDL_Joystick *pDevice, void *pState, int StateSize);
     void                    MakeKeyFriendlyNames(void);
 
+	int						m_joystickCount;
+
 public:
 
     CSDLInput(void);
@@ -215,6 +219,14 @@ public:
     inline void             SetJoystickAxisX(int Joystick, int AxisX);
     inline void             SetJoystickAxisY(int Joystick, int AxisY);
     inline void             SetJoystickButton(int Joystick, int Button, bool onoff);
+
+	inline bool				TestUp(int Joystick);
+	inline bool				TestDown(int Joystick);
+	inline bool				TestLeft(int Joystick);
+	inline bool				TestRight(int Joystick);
+	inline bool				TestNext(int Joystick);
+	inline bool				TestPrevious(int Joystick);
+
 };
 
 typedef CSDLInput InputClass;
@@ -396,6 +408,106 @@ inline void CSDLInput::SetJoystickButton(int Joystick, int Button, bool onoff)
     }
 
     return;
+}
+
+inline bool CSDLInput::TestUp(int Joystick)
+{
+
+	m_joystickCount++;
+
+	if (m_joystickCount > 200)
+	{
+
+		if (m_pJoysticks[Joystick]->State.lY < -JOYSTICK_AXIS_THRESHOLD)
+		{
+			m_joystickCount = 0;
+			return true;
+		}
+
+	}
+
+	return false;
+
+}
+
+inline bool CSDLInput::TestDown(int Joystick)
+{
+
+	m_joystickCount++;
+
+	if (m_joystickCount > 200)
+	{
+
+		if (m_pJoysticks[Joystick]->State.lY > +JOYSTICK_AXIS_THRESHOLD)
+		{
+			m_joystickCount = 0;
+			return true;
+		}
+
+	}
+
+	return false;
+
+}
+
+inline bool CSDLInput::TestLeft(int Joystick)
+{
+
+	m_joystickCount++;
+
+	if (m_joystickCount > 200)
+	{
+
+		if (m_pJoysticks[Joystick]->State.lX < -JOYSTICK_AXIS_THRESHOLD)
+		{
+			m_joystickCount = 0;
+			return true;
+		}
+
+	}
+
+	return false;
+
+}
+
+inline bool CSDLInput::TestRight(int Joystick)
+{
+
+	m_joystickCount++;
+
+	if (m_joystickCount > 200)
+	{
+
+		if (m_pJoysticks[Joystick]->State.lX > +JOYSTICK_AXIS_THRESHOLD)
+		{
+			m_joystickCount = 0;
+			return true;
+		}
+
+	}
+
+	return false;
+
+}
+
+inline bool CSDLInput::TestNext(int Joystick)
+{
+
+	if ((m_pJoysticks[Joystick]->State.rgbButtons[0] & 0x80) != 0)
+		return true;
+
+	return false;
+
+}
+
+inline bool CSDLInput::TestPrevious(int Joystick)
+{
+
+	if ((m_pJoysticks[Joystick]->State.rgbButtons[1] & 0x80) != 0)
+		return true;
+
+	return false;
+
 }
 
 //******************************************************************************************************************************
