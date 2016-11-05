@@ -156,7 +156,7 @@ inline bool CPlayerInput::TestMenuNext (void)
 
 inline bool CPlayerInput::TestPause (void)
 {
-    return TestMenuControl (JOYSTICK_BUTTON_PAUSE);
+    return TestMenuControl (JOYSTICK_BUTTON_BREAK);
 }
 
 //******************************************************************************************************************************

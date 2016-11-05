@@ -158,8 +158,8 @@
 
 //! The 9th joystick button (this usually is the "start" button) can be used for leaving the winner screen
 //! On xbox controller, the start button could be the 7th button (see tracker item #2907122)
-#define JOYSTICK_BUTTON_PAUSE       JOYSTICK_BUTTON(9)
-#define JOYSTICK_BUTTON_BREAK       JOYSTICK_BUTTON(9)
+#define JOYSTICK_BUTTON_BREAK       JOYSTICK_BUTTON(8) // pause
+#define JOYSTICK_BUTTON_START       JOYSTICK_BUTTON(9) // start
 
 typedef struct SDLJOYSTATE {
     LONG    lX;                     /* x-axis position              */
@@ -244,6 +244,7 @@ public:
 	inline bool				TestNext(int Joystick);
 	inline bool				TestPrevious(int Joystick);
 	inline bool				TestBreak(int Joystick);
+	inline bool				TestStart(int Joystick);
 
 };
 
@@ -532,6 +533,16 @@ inline bool CSDLInput::TestBreak(int Joystick)
 {
 
 	if ((m_pJoysticks[Joystick]->State.rgbButtons[JOYSTICK_BUTTON_BREAK - NUMBER_OF_JOYSTICK_DIRECTIONS] & 0x80) != 0)
+		return true;
+
+	return false;
+
+}
+
+inline bool CSDLInput::TestStart(int Joystick)
+{
+
+	if ((m_pJoysticks[Joystick]->State.rgbButtons[JOYSTICK_BUTTON_START - NUMBER_OF_JOYSTICK_DIRECTIONS] & 0x80) != 0)
 		return true;
 
 	return false;

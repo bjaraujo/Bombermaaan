@@ -249,7 +249,9 @@ EGameMode CControls::Update (void)
             // Then react to the menu controls...
 
             // If the ESCAPE control is active
-            if (m_pInput->GetMainInput().TestBreak())
+			if (m_pInput->GetMainInput().TestBreak() || 
+				m_pInput->GetDirectInput().TestBreak(0) ||
+				m_pInput->GetDirectInput().TestPrevious(0))
             {
                 // Stop playing the song
                 m_pSound->StopSong (SONG_CONTROLS_MUSIC);
