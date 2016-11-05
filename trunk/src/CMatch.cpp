@@ -566,7 +566,7 @@ void CMatch::ManagePauseMessage(void)
                 // If this player input is opened
                 if (m_pInput->GetPlayerInput(PlayerInputNr).IsOpened()) {
 
-                    if (m_pInput->GetPlayerInput(PlayerInputNr).TestPause()) {
+                    if (m_pInput->GetPlayerInput(PlayerInputNr).TestMenuNext()) {
                         joystickRequestedPause = true;
                     }
 

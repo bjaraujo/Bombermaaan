@@ -263,6 +263,7 @@ void CDemo::DestroyHurryUpMessage (void)
 void CDemo::OpenInput (void)
 {
     m_pInput->GetMainInput().Open();
+	m_pInput->GetDirectInput().OpenJoystick(0);
 }
 
 //******************************************************************************************************************************
@@ -272,6 +273,7 @@ void CDemo::OpenInput (void)
 void CDemo::CloseInput (void)
 {
     m_pInput->GetMainInput().Close();
+	m_pInput->GetDirectInput().CloseJoystick(0);
 }
 
 //******************************************************************************************************************************
@@ -363,7 +365,10 @@ void CDemo::ProcessPlayerCommands (void)
 void CDemo::ManageExit (void)
 {
     // If the user activates the break control
-    if (m_pInput->GetMainInput().TestBreak())
+	if (m_pInput->GetMainInput().TestBreak() || 
+		m_pInput->GetDirectInput().TestBreak(0) ||
+		m_pInput->GetDirectInput().TestPrevious(0) || 
+		m_pInput->GetDirectInput().TestNext(0))
     {
         // The match is "over"
         m_MatchOver = true;

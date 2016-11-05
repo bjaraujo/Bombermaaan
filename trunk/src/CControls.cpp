@@ -188,6 +188,7 @@ void CControls::OpenInput (void)
 {
     // Open the current selected player input
     m_pInput->GetPlayerInput(m_PlayerInput).Open();
+	m_pInput->GetDirectInput().OpenJoystick(0);
 }
 
 //******************************************************************************************************************************
@@ -198,6 +199,7 @@ void CControls::CloseInput (void)
 {
     // Close the current selected player input
     m_pInput->GetPlayerInput(m_PlayerInput).Close();
+	m_pInput->GetDirectInput().CloseJoystick(0);
 }
                    
 //******************************************************************************************************************************
@@ -259,7 +261,7 @@ EGameMode CControls::Update (void)
                 m_ExitModeTime = m_ModeTime;
             }
             // If the NEXT control is active
-            else if (m_pInput->GetMainInput().TestNext())
+			else if (m_pInput->GetMainInput().TestNext() || m_pInput->GetDirectInput().TestNext(0))
             {
                 // If the cursor is pointing to a control (and therefore not on the 'device' item)
                 if (m_Cursor != 0)
@@ -269,7 +271,7 @@ EGameMode CControls::Update (void)
                 }
             }
             // If the UP control is active
-            else if (m_pInput->GetMainInput().TestUp())
+			else if (m_pInput->GetMainInput().TestUp() || m_pInput->GetDirectInput().TestUp(0))
             {
                 // Play the menu beep sound
                 m_pSound->PlaySample (SAMPLE_MENU_BEEP);
@@ -285,7 +287,7 @@ EGameMode CControls::Update (void)
                 }
             }
             // If the DOWN control is active
-            else if (m_pInput->GetMainInput().TestDown())
+			else if (m_pInput->GetMainInput().TestDown() || m_pInput->GetDirectInput().TestDown(0))
             {
                 // Play the menu beep sound
                 m_pSound->PlaySample (SAMPLE_MENU_BEEP);
@@ -301,7 +303,7 @@ EGameMode CControls::Update (void)
                 }
             }
             // If the LEFT control is active
-            else if (m_pInput->GetMainInput().TestLeft())
+			else if (m_pInput->GetMainInput().TestLeft() || m_pInput->GetDirectInput().TestLeft(0))
             {
                 // If the cursor is pointing on the DEVICE menu item
                 if (m_Cursor == DEVICE_MENU_ITEM)
@@ -330,7 +332,7 @@ EGameMode CControls::Update (void)
                 }
             }
             // If the RIGHT control is active
-            else if (m_pInput->GetMainInput().TestRight())
+			else if (m_pInput->GetMainInput().TestRight() || m_pInput->GetDirectInput().TestRight(0))
             {
                 // If the cursor is pointing on the DEVICE menu item
                 if (m_Cursor == DEVICE_MENU_ITEM)

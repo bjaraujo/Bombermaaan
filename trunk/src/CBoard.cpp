@@ -182,8 +182,7 @@ void CBoard::Update (void)
         if (m_pOptions->GetTimeStartMinutes() > 0 || m_pOptions->GetTimeStartSeconds() > 0)
         {
             // If the clock's current time is less than (or equal to) to the timeup's time
-            if (m_pClock->GetMinutes() <  m_pOptions->GetTimeUpMinutes() 
-                ||
+            if (m_pClock->GetMinutes() <  m_pOptions->GetTimeUpMinutes() ||
                 (m_pClock->GetMinutes() == m_pOptions->GetTimeUpMinutes() && 
                  m_pClock->GetSeconds() <= m_pOptions->GetTimeUpSeconds()))
             {

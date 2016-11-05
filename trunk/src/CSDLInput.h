@@ -142,7 +142,24 @@
 #define KEYBOARD_RWIN          SDLK_RSUPER              //!< Right Windows key 
 #define KEYBOARD_APPS          SDLK_MENU                //!< AppMenu key 
 
+#define JOYSTICK_UP         0
+#define JOYSTICK_DOWN       1
+#define JOYSTICK_LEFT       2
+#define JOYSTICK_RIGHT      3
+#define JOYSTICK_BUTTON(x)  (4 + x)
+
+#define NUMBER_OF_JOYSTICK_DIRECTIONS     4     //!< Number of joystick directions (up down left right)
+
 #define JOYSTICK_AXIS_THRESHOLD 3200
+
+//! The third joystick button can be used for leaving the winner screen
+#define JOYSTICK_BUTTON_MENU_PREVIOUS   JOYSTICK_BUTTON(1)
+#define JOYSTICK_BUTTON_MENU_NEXT		JOYSTICK_BUTTON(0)
+
+//! The 9th joystick button (this usually is the "start" button) can be used for leaving the winner screen
+//! On xbox controller, the start button could be the 7th button (see tracker item #2907122)
+#define JOYSTICK_BUTTON_PAUSE       JOYSTICK_BUTTON(9)
+#define JOYSTICK_BUTTON_BREAK       JOYSTICK_BUTTON(9)
 
 typedef struct SDLJOYSTATE {
     LONG    lX;                     /* x-axis position              */
@@ -226,6 +243,7 @@ public:
 	inline bool				TestRight(int Joystick);
 	inline bool				TestNext(int Joystick);
 	inline bool				TestPrevious(int Joystick);
+	inline bool				TestBreak(int Joystick);
 
 };
 
@@ -493,7 +511,7 @@ inline bool CSDLInput::TestRight(int Joystick)
 inline bool CSDLInput::TestNext(int Joystick)
 {
 
-	if ((m_pJoysticks[Joystick]->State.rgbButtons[0] & 0x80) != 0)
+	if ((m_pJoysticks[Joystick]->State.rgbButtons[JOYSTICK_BUTTON_MENU_NEXT - NUMBER_OF_JOYSTICK_DIRECTIONS] & 0x80) != 0)
 		return true;
 
 	return false;
@@ -503,7 +521,17 @@ inline bool CSDLInput::TestNext(int Joystick)
 inline bool CSDLInput::TestPrevious(int Joystick)
 {
 
-	if ((m_pJoysticks[Joystick]->State.rgbButtons[1] & 0x80) != 0)
+	if ((m_pJoysticks[Joystick]->State.rgbButtons[JOYSTICK_BUTTON_MENU_PREVIOUS - NUMBER_OF_JOYSTICK_DIRECTIONS] & 0x80) != 0)
+		return true;
+
+	return false;
+
+}
+
+inline bool CSDLInput::TestBreak(int Joystick)
+{
+
+	if ((m_pJoysticks[Joystick]->State.rgbButtons[JOYSTICK_BUTTON_BREAK - NUMBER_OF_JOYSTICK_DIRECTIONS] & 0x80) != 0)
 		return true;
 
 	return false;

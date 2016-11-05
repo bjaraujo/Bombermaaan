@@ -43,23 +43,6 @@
 
 #define MAX_PLAYER_INPUT_NAME_LENGTH    16      //!< Maximum length of a string containing a player input name
 
-#define JOYSTICK_UP         0
-#define JOYSTICK_DOWN       1
-#define JOYSTICK_LEFT       2
-#define JOYSTICK_RIGHT      3
-#define JOYSTICK_BUTTON(x)  (4 + x)
-
-#define NUMBER_OF_JOYSTICK_DIRECTIONS     4     //!< Number of joystick directions (up down left right)
-
-#define JOYSTICK_AXIS_THRESHOLD 3200
-
-//! The third joystick button can be used for leaving the winner screen
-#define JOYSTICK_BUTTON_MENU_NEXT   JOYSTICK_BUTTON(2)
-
-//! The 9th joystick button (this usually is the "start" button) can be used for leaving the winner screen
-//! On xbox controller, the start button could be the 7th button (see tracker item #2907122)
-#define JOYSTICK_BUTTON_PAUSE       JOYSTICK_BUTTON(9)
-
 #define NO_ACTIVATED_CONTROL    -1
 
 #define MAX_CONTROL_NAME_LENGTH     20

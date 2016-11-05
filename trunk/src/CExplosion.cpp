@@ -86,7 +86,7 @@ CExplosion::CExplosion (void) : CElement()
     m_Timer = 0.0f;
     m_Dead = false;
 	
-	m_FlameSizeUp = 0.0f;
+	m_FlameSizeUp = 0;
 	m_FlameSizeDown = 0;
 	m_FlameSizeLeft = 0;
 	m_FlameSizeRight = 0;

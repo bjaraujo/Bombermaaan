@@ -216,7 +216,7 @@ EGameMode CDrawGame::Update (void)
         if (m_ModeTime >= DRAWGAME_BLACKSCREEN_DURATION + DRAWGAME_MINIMUM_DURATION)
         {
             // If the NEXT control is active
-            if (m_pInput->GetMainInput().TestNext())
+			if (m_pInput->GetMainInput().TestNext() || m_pInput->GetDirectInput().TestNext(0))
             {
                 // Remember we have to exit this mode
                 m_HaveToExit = true;

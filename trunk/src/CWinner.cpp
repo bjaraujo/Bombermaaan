@@ -319,9 +319,11 @@ EGameMode CWinner::Update (void)
 
             // Check the keyboard as well
             LeaveScreen |= m_pInput->GetMainInput().TestNext();
+			// Check the joystick as well
+			LeaveScreen |= m_pInput->GetDirectInput().TestNext(0);
 
             // If the NEXT control is active
-            if ( LeaveScreen )
+			if (LeaveScreen)
             {
                 // Remember we have to exit this mode
                 m_HaveToExit = true;
