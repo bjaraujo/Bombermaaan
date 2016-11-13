@@ -324,16 +324,19 @@ inline void CSDLInput::OpenJoystick(int Joystick)
 {
 
     // Check if the joystick number is correct
-    ASSERT(Joystick >= 0 && Joystick < (int)m_pJoysticks.size());
+	if (Joystick >= 0 && Joystick < (int)m_pJoysticks.size())
+	{
 
-    if (m_pJoysticks[Joystick]->Opened)
-        return;
+		if (m_pJoysticks[Joystick]->Opened)
+			return;
 
-    // Try to acquire the joystick
-    m_pJoysticks[Joystick]->pDevice = SDL_JoystickOpen(Joystick);
+		// Try to acquire the joystick
+		m_pJoysticks[Joystick]->pDevice = SDL_JoystickOpen(Joystick);
 
-    // Set the opened state according to the return value
-    m_pJoysticks[Joystick]->Opened = (m_pJoysticks[Joystick]->pDevice != NULL);
+		// Set the opened state according to the return value
+		m_pJoysticks[Joystick]->Opened = (m_pJoysticks[Joystick]->pDevice != NULL);
+
+	}
 }
 
 inline bool CSDLInput::IsJoystickOpened(int Joystick)
@@ -348,14 +351,18 @@ inline bool CSDLInput::IsJoystickOpened(int Joystick)
 inline void CSDLInput::CloseJoystick(int Joystick)
 {
     // Check if the joystick number is correct
-    ASSERT(Joystick >= 0 && Joystick < (int)m_pJoysticks.size());
+	if (Joystick >= 0 && Joystick < (int)m_pJoysticks.size())
+	{
 
-    // Release access to this joystick
-    SDL_JoystickClose(m_pJoysticks[Joystick]->pDevice);
+		// Release access to this joystick
+		SDL_JoystickClose(m_pJoysticks[Joystick]->pDevice);
 
-    // We are sure this joystick is not opened */
-    m_pJoysticks[Joystick]->Opened = false;
-    m_pJoysticks[Joystick]->pDevice = NULL;
+		// We are sure this joystick is not opened */
+		m_pJoysticks[Joystick]->Opened = false;
+		m_pJoysticks[Joystick]->pDevice = NULL;
+
+	}
+
 }
 
 inline int CSDLInput::GetJoystickAxisX(int Joystick)
@@ -432,15 +439,20 @@ inline void CSDLInput::SetJoystickButton(int Joystick, int Button, bool onoff)
 inline bool CSDLInput::TestUp(int Joystick)
 {
 
-	m_joystickCount++;
-
-	if (m_joystickCount > 200)
+	if (Joystick >= 0 && Joystick < (int)m_pJoysticks.size())
 	{
 
-		if (m_pJoysticks[Joystick]->State.lY < -JOYSTICK_AXIS_THRESHOLD)
+		m_joystickCount++;
+
+		if (m_joystickCount > 200)
 		{
-			m_joystickCount = 0;
-			return true;
+
+			if (m_pJoysticks[Joystick]->State.lY < -JOYSTICK_AXIS_THRESHOLD)
+			{
+				m_joystickCount = 0;
+				return true;
+			}
+
 		}
 
 	}
@@ -452,15 +464,20 @@ inline bool CSDLInput::TestUp(int Joystick)
 inline bool CSDLInput::TestDown(int Joystick)
 {
 
-	m_joystickCount++;
-
-	if (m_joystickCount > 200)
+	if (Joystick >= 0 && Joystick < (int)m_pJoysticks.size())
 	{
 
-		if (m_pJoysticks[Joystick]->State.lY > +JOYSTICK_AXIS_THRESHOLD)
+		m_joystickCount++;
+
+		if (m_joystickCount > 200)
 		{
-			m_joystickCount = 0;
-			return true;
+
+			if (m_pJoysticks[Joystick]->State.lY > +JOYSTICK_AXIS_THRESHOLD)
+			{
+				m_joystickCount = 0;
+				return true;
+			}
+
 		}
 
 	}
@@ -472,15 +489,20 @@ inline bool CSDLInput::TestDown(int Joystick)
 inline bool CSDLInput::TestLeft(int Joystick)
 {
 
-	m_joystickCount++;
-
-	if (m_joystickCount > 200)
+	if (Joystick >= 0 && Joystick < (int)m_pJoysticks.size())
 	{
 
-		if (m_pJoysticks[Joystick]->State.lX < -JOYSTICK_AXIS_THRESHOLD)
+		m_joystickCount++;
+
+		if (m_joystickCount > 200)
 		{
-			m_joystickCount = 0;
-			return true;
+
+			if (m_pJoysticks[Joystick]->State.lX < -JOYSTICK_AXIS_THRESHOLD)
+			{
+				m_joystickCount = 0;
+				return true;
+			}
+
 		}
 
 	}
@@ -492,15 +514,20 @@ inline bool CSDLInput::TestLeft(int Joystick)
 inline bool CSDLInput::TestRight(int Joystick)
 {
 
-	m_joystickCount++;
-
-	if (m_joystickCount > 200)
+	if (Joystick >= 0 && Joystick < (int)m_pJoysticks.size())
 	{
 
-		if (m_pJoysticks[Joystick]->State.lX > +JOYSTICK_AXIS_THRESHOLD)
+		m_joystickCount++;
+
+		if (m_joystickCount > 200)
 		{
-			m_joystickCount = 0;
-			return true;
+
+			if (m_pJoysticks[Joystick]->State.lX > +JOYSTICK_AXIS_THRESHOLD)
+			{
+				m_joystickCount = 0;
+				return true;
+			}
+
 		}
 
 	}
@@ -512,8 +539,14 @@ inline bool CSDLInput::TestRight(int Joystick)
 inline bool CSDLInput::TestNext(int Joystick)
 {
 
-	if ((m_pJoysticks[Joystick]->State.rgbButtons[JOYSTICK_BUTTON_MENU_NEXT - NUMBER_OF_JOYSTICK_DIRECTIONS] & 0x80) != 0)
-		return true;
+	
+	if (Joystick >= 0 && Joystick < (int)m_pJoysticks.size())
+	{
+
+		if ((m_pJoysticks[Joystick]->State.rgbButtons[JOYSTICK_BUTTON_MENU_NEXT - NUMBER_OF_JOYSTICK_DIRECTIONS] & 0x80) != 0)
+			return true;
+
+	}
 
 	return false;
 
@@ -522,8 +555,13 @@ inline bool CSDLInput::TestNext(int Joystick)
 inline bool CSDLInput::TestPrevious(int Joystick)
 {
 
-	if ((m_pJoysticks[Joystick]->State.rgbButtons[JOYSTICK_BUTTON_MENU_PREVIOUS - NUMBER_OF_JOYSTICK_DIRECTIONS] & 0x80) != 0)
-		return true;
+	if (Joystick >= 0 && Joystick < (int)m_pJoysticks.size())
+	{
+
+		if ((m_pJoysticks[Joystick]->State.rgbButtons[JOYSTICK_BUTTON_MENU_PREVIOUS - NUMBER_OF_JOYSTICK_DIRECTIONS] & 0x80) != 0)
+			return true;
+
+	}
 
 	return false;
 
@@ -532,8 +570,13 @@ inline bool CSDLInput::TestPrevious(int Joystick)
 inline bool CSDLInput::TestBreak(int Joystick)
 {
 
-	if ((m_pJoysticks[Joystick]->State.rgbButtons[JOYSTICK_BUTTON_BREAK - NUMBER_OF_JOYSTICK_DIRECTIONS] & 0x80) != 0)
-		return true;
+	if (Joystick >= 0 && Joystick < (int)m_pJoysticks.size())
+	{
+
+		if ((m_pJoysticks[Joystick]->State.rgbButtons[JOYSTICK_BUTTON_BREAK - NUMBER_OF_JOYSTICK_DIRECTIONS] & 0x80) != 0)
+			return true;
+
+	}
 
 	return false;
 
@@ -542,8 +585,13 @@ inline bool CSDLInput::TestBreak(int Joystick)
 inline bool CSDLInput::TestStart(int Joystick)
 {
 
-	if ((m_pJoysticks[Joystick]->State.rgbButtons[JOYSTICK_BUTTON_START - NUMBER_OF_JOYSTICK_DIRECTIONS] & 0x80) != 0)
-		return true;
+	if (Joystick >= 0 && Joystick < (int)m_pJoysticks.size())
+	{
+
+		if ((m_pJoysticks[Joystick]->State.rgbButtons[JOYSTICK_BUTTON_START - NUMBER_OF_JOYSTICK_DIRECTIONS] & 0x80) != 0)
+			return true;
+
+	}
 
 	return false;
 
