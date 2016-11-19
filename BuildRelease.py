@@ -1,21 +1,16 @@
 
 import os
+import platform
 import time
 import sys
 import shutil
 import glob
 
 # Build platform
-
-# msvc12 / win32
-compiler = 'msvc12'
-platform = 'win32'
-
-# gxx / win32
-#compiler = 'gxx'
-#platform = 'linux'
-
-build = compiler + '-' + platform
+if platform.system().lower() == 'windows':
+    build = 'msvc12-win32'
+elif platform.system().lower() == 'linux':
+    build = 'gxx-linux'
 
 # Read version info
 fi = open('trunk/src/Bombermaaan.h', 'r')
@@ -71,9 +66,9 @@ fo.close()
 print 'Building release: ' + strNewVersion
 time.sleep(4)
 
-if platform == 'win32':
+if platform.system().lower() == 'windows':
     os.system('"C:\Program Files (x86)/MSBuild/12.0/Bin/MSBuild.exe" build/' + build + '/src/Bombermaaan.vcxproj /p:Configuration=Release /t:Rebuild')
-elif platform == 'linux':
+elif platform.system().lower() == 'linux':
     os.system('build/' + build + '/make clean');
     os.system('build/' + build + '/make');
 
@@ -114,7 +109,7 @@ strNewFolder = 'releases/' + platform + '/Bombermaaan_' + strNewVersion
 os.mkdir(strNewFolder)
 
 # Copy files
-if platform == 'win32':
+if platform.system().lower() == 'windows':
 
     shutil.copy2('build/' + build + '/src/Release/Bombermaaan.exe', strNewFolder + '/Bombermaaan.exe')
     shutil.copy2('build/' + build + '/src/Release/Bombermaaan32.dll', strNewFolder + '/Bombermaaan32.dll')
@@ -132,7 +127,7 @@ if platform == 'win32':
     shutil.copy2(os.environ.get('SystemRoot') + '/System32/msvcr120.dll', strNewFolder + '/msvcr120.dll')
     shutil.copy2(os.environ.get('SystemRoot') + '/System32/msvcp120.dll', strNewFolder + '/msvcp120.dll')
 
-elif platform == 'linux':
+elif platform.system().lower() == 'linux':
 
     shutil.copy2('build/' + build + '/Bombermaaan', strNewFolder + '/Bombermaaan')
     
