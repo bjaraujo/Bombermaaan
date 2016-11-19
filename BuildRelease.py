@@ -138,6 +138,18 @@ elif platform.system().lower() == 'linux':
     shutil.copy2('build/' + build + '/src/Bombermaaan', strNewFolder + '/Bombermaaan')    
     shutil.copy2('build/' + build + '/resgen/libBombermaaan32.so', strNewFolder + '/libBombermaaan32.so')
 
+    os.mkdir(strNewFolder + '/Images')
+    for file in glob.glob('trunk/res/image/*.bmp'):
+        shutil.copy2(file, os.path.join(strNewFolder, 'Images', os.path.basename(file)))
+
+    os.mkdir(strNewFolder + '/Sounds')
+    for file in glob.glob('trunk/res/sound/*.ogg'):
+        shutil.copy2(file, os.path.join(strNewFolder, 'Sounds', os.path.basename(file)))
+    for file in glob.glob('trunk/res/sound/*.mod'):
+        shutil.copy2(file, os.path.join(strNewFolder, 'Sounds', os.path.basename(file)))
+    for file in glob.glob('trunk/res/sound/*.s3m'):
+        shutil.copy2(file, os.path.join(strNewFolder, 'Sounds', os.path.basename(file)))
+
 # Copy license
 shutil.copy2('COPYING.txt', strNewFolder + '/COPYING.txt')
 
