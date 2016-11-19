@@ -73,9 +73,9 @@
 
 // Define the name of the DLL (where sprites and sound samples are stored)
 #ifdef WIN32
-#define NAME_OF_BOMBERMAN_DLL "BomberMaaan32.dll"
+#define NAME_OF_BOMBERMAN_DLL "Bombermaaan32.dll"
 #else
-#define NAME_OF_BOMBERMAN_DLL "libBomberMaaan32.so"
+#define NAME_OF_BOMBERMAN_DLL "libBombermaaan32.so"
 #endif
 
 //******************************************************************************************************************************
