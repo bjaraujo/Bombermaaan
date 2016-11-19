@@ -103,9 +103,9 @@ fi.close()
 if not os.path.exists('releases'):
     os.mkdir('releases')
 
-strNewFolder = 'releases/' + platform
+strNewFolder = 'releases/' + build
 os.mkdir(strNewFolder)
-strNewFolder = 'releases/' + platform + '/Bombermaaan_' + strNewVersion
+strNewFolder = 'releases/' + build + '/Bombermaaan_' + strNewVersion
 os.mkdir(strNewFolder)
 
 # Copy files
