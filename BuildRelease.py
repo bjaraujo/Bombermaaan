@@ -10,7 +10,7 @@ import glob
 if platform.system().lower() == 'windows':
     build = 'msvc12-win32'
 elif platform.system().lower() == 'linux':
-    build = 'gxx-linux'
+    build = 'gxx-linux-x86'
 
 # Read version info
 fi = open('trunk/src/Bombermaaan.h', 'r')
