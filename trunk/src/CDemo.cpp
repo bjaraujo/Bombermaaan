@@ -263,7 +263,7 @@ void CDemo::DestroyHurryUpMessage (void)
 void CDemo::OpenInput (void)
 {
     m_pInput->GetMainInput().Open();
-	m_pInput->GetDirectInput().OpenJoystick(0);
+	//m_pInput->GetDirectInput().OpenJoystick(0);
 }
 
 //******************************************************************************************************************************
@@ -273,7 +273,7 @@ void CDemo::OpenInput (void)
 void CDemo::CloseInput (void)
 {
     m_pInput->GetMainInput().Close();
-	m_pInput->GetDirectInput().CloseJoystick(0);
+	//m_pInput->GetDirectInput().CloseJoystick(0);
 }
 
 //******************************************************************************************************************************

@@ -171,7 +171,7 @@ void CTitle::Destroy (void)
 void CTitle::OpenInput (void)
 {
     m_pInput->GetMainInput().Open();
-	m_pInput->GetDirectInput().OpenJoystick(0);
+	//m_pInput->GetDirectInput().OpenJoystick(0);
 }
 
 //******************************************************************************************************************************
@@ -181,7 +181,7 @@ void CTitle::OpenInput (void)
 void CTitle::CloseInput (void)
 {
     m_pInput->GetMainInput().Close();
-	m_pInput->GetDirectInput().CloseJoystick(0);
+	//m_pInput->GetDirectInput().CloseJoystick(0);
 }
 
 //******************************************************************************************************************************

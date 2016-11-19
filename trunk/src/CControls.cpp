@@ -188,7 +188,7 @@ void CControls::OpenInput (void)
 {
     // Open the current selected player input
     m_pInput->GetPlayerInput(m_PlayerInput).Open();
-	m_pInput->GetDirectInput().OpenJoystick(0);
+	//m_pInput->GetDirectInput().OpenJoystick(0);
 }
 
 //******************************************************************************************************************************
@@ -199,7 +199,7 @@ void CControls::CloseInput (void)
 {
     // Close the current selected player input
     m_pInput->GetPlayerInput(m_PlayerInput).Close();
-	m_pInput->GetDirectInput().CloseJoystick(0);
+	//m_pInput->GetDirectInput().CloseJoystick(0);
 }
                    
 //******************************************************************************************************************************
