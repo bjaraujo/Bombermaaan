@@ -133,6 +133,7 @@ if platform == 'win32':
     shutil.copy2(os.environ.get('SystemRoot') + '/System32/msvcp120.dll', strNewFolder + '/msvcp120.dll')
 
 elif platform == 'linux':
+
     shutil.copy2('build/' + build + '/Bombermaaan', strNewFolder + '/Bombermaaan')
     
 # Copy license
