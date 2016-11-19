@@ -160,7 +160,7 @@ void CCredits::Destroy (void)
 
 void CCredits::OpenInput (void)
 {
-	m_pInput->GetDirectInput().OpenJoystick(0);
+	//m_pInput->GetDirectInput().OpenJoystick(0);
 }
 
 //******************************************************************************************************************************
@@ -169,7 +169,7 @@ void CCredits::OpenInput (void)
 
 void CCredits::CloseInput (void)
 {
-	m_pInput->GetDirectInput().CloseJoystick(0);
+	//m_pInput->GetDirectInput().CloseJoystick(0);
 }
                    
 //******************************************************************************************************************************
