@@ -43,7 +43,7 @@
 #include <windowsx.h>  // GetWindowStyle(), GetWindowExStyle()
 #include <io.h>
 #else
-#include "winreplace.h"
+#include "WinReplace.h"
 #include <errno.h>
 #include <sys/types.h>
 #include <sys/stat.h>

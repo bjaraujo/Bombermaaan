@@ -70,13 +70,13 @@ CMenu::CMenu(void) : CModeScreen()
     // a battle is over for example.
     m_MenuMode = MENUMODE_BOMBER;
 	
-	m_GameModeTime = 0.0f;
-	m_HaveToExit = false;
-	m_ExitGameMode = EGameMode::GAMEMODE_NONE;
-	m_ExitGameModeTime = 0.0f;
-	m_SongStarted = false;
-	m_pMosaic = NULL;
-	
+    m_GameModeTime = 0.0f;
+    m_HaveToExit = false;
+    m_ExitGameMode = GAMEMODE_NONE;
+    m_ExitGameModeTime = 0.0f;
+    m_SongStarted = false;
+    m_pMosaic = NULL;
+
 }
 
 //******************************************************************************************************************************

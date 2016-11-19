@@ -83,11 +83,11 @@ CMatch::CMatch(void) : CModeScreen()
 	m_pNetwork = NULL;
 #endif
 
-	m_CurrentSong = ESong::SONG_NONE;
-	m_ExitModeTime = 0.0f;
+    m_CurrentSong = SONG_NONE;
+    m_ExitModeTime = 0.0f;
 
-	m_NoComputer = false;
-	m_computerPlayersPresent = false;
+    m_NoComputer = false;
+    m_computerPlayersPresent = false;
 
 }
 

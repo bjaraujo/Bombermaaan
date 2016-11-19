@@ -37,8 +37,8 @@ CCommandChunk::CCommandChunk (void)
 	
 	for (int i = 0; i < MAX_STEPS_IN_COMMAND_CHUNK; i++)
 	{
-		m_Steps[i].BomberMove = EBomberMove::BOMBERMOVE_NONE;
-		m_Steps[i].BomberAction = EBomberAction::BOMBERACTION_NONE;
+		m_Steps[i].BomberMove = BOMBERMOVE_NONE;
+		m_Steps[i].BomberAction = BOMBERACTION_NONE;
 		m_Steps[i].Duration = 0.0f;
 	}
 	

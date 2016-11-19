@@ -65,11 +65,11 @@ CMenuBase::CMenuBase (void)
     m_pTimer = NULL;
     m_pFont = NULL;
 	
-	m_MenuModeTime = 0.0f;
-	m_HaveToExit = false;
-	m_ExitMenuAction = EMenuAction::MENUACTION_NONE;
-	m_ExitMenuModeTime = 0.0f;
-	
+    m_MenuModeTime = 0.0f;
+    m_HaveToExit = false;
+    m_ExitMenuAction = MENUACTION_NONE;
+    m_ExitMenuModeTime = 0.0f;
+
 }
 
 //******************************************************************************************************************************

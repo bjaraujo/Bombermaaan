@@ -63,14 +63,17 @@ for strLine in strLines:
 fo.close()
 
 # Build
-print 'Building release: ' + strNewVersion
+print '------------ Building release ------------'
+print 'version: ' + strNewVersion
+print 'build: ' + build
+
 time.sleep(4)
 
 if platform.system().lower() == 'windows':
     os.system('"C:\Program Files (x86)/MSBuild/12.0/Bin/MSBuild.exe" build/' + build + '/src/Bombermaaan.vcxproj /p:Configuration=Release /t:Rebuild')
 elif platform.system().lower() == 'linux':
-    os.system('build/' + build + '/make clean');
-    os.system('build/' + build + '/make');
+    os.system('make -C build/' + build + ' clean');
+    os.system('make -C build/' + build);
 
 # Read version info
 fi = open('trunk/src/Bombermaaan.h', 'r')
@@ -104,9 +107,12 @@ if not os.path.exists('releases'):
     os.mkdir('releases')
 
 strNewFolder = 'releases/' + build
-os.mkdir(strNewFolder)
+if not os.path.isdir(strNewFolder):
+	os.mkdir(strNewFolder)
+
 strNewFolder = 'releases/' + build + '/Bombermaaan_' + strNewVersion
-os.mkdir(strNewFolder)
+if not os.path.isdir(strNewFolder):
+	os.mkdir(strNewFolder)
 
 # Copy files
 if platform.system().lower() == 'windows':
@@ -129,8 +135,9 @@ if platform.system().lower() == 'windows':
 
 elif platform.system().lower() == 'linux':
 
-    shutil.copy2('build/' + build + '/Bombermaaan', strNewFolder + '/Bombermaaan')
-    
+    shutil.copy2('build/' + build + '/src/Bombermaaan', strNewFolder + '/Bombermaaan')    
+    shutil.copy2('build/' + build + '/resgen/libBombermaaan32.so', strNewFolder + '/libBombermaaan32.so')
+
 # Copy license
 shutil.copy2('COPYING.txt', strNewFolder + '/COPYING.txt')
 

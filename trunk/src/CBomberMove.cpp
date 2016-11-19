@@ -59,9 +59,9 @@ CBomberMove::CBomberMove(void)
 	m_BlockX = -1;
 	m_BlockY = -1;
 	
-	m_BomberMove = EBomberMove::BOMBERMOVE_NONE;
-	m_LastRealBomberMove = EBomberMove::BOMBERMOVE_NONE;
-	m_Turning = ETurning::TURNING_NOTTURNING;
+	m_BomberMove = BOMBERMOVE_NONE;
+	m_LastRealBomberMove = BOMBERMOVE_NONE;
+	m_Turning = TURNING_NOTTURNING;
 	m_CouldMove = false;
 	
 }

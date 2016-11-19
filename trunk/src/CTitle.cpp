@@ -108,8 +108,8 @@ CTitle::CTitle (void) : CModeScreen()
     m_MovingHandDistance = 0;
     m_MovingHandTimer = 0.0f;	
 	
-	m_ExitModeTime = 0.0f;
-	m_ExitGameMode = EGameMode::GAMEMODE_NONE;
+    m_ExitModeTime = 0.0f;
+    m_ExitGameMode = GAMEMODE_NONE;
 
 }
 

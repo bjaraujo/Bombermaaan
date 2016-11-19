@@ -67,7 +67,7 @@ CFloor::CFloor (void) : CElement()
     m_BlockX = -1;
     m_BlockY = -1;
     m_Dead = false;
-    m_FloorAction = EFloorAction::FLOORACTION_NONE;
+    m_FloorAction = FLOORACTION_NONE;
 	
 }
 

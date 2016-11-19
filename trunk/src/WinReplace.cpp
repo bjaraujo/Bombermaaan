@@ -24,7 +24,7 @@
  *  \brief Windows function calls rewritten for Linux
  */
 
-#include "winreplace.h"
+#include "WinReplace.h"
 
 static abs_time_t server_start_time = { 0, 0 };  /* time of server startup */
 static unsigned char *currentResource = NULL;

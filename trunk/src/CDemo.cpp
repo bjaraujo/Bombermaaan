@@ -70,7 +70,7 @@ CDemo::CDemo (void) : CModeScreen()
     m_pHurryMessage = NULL;
 	
 	m_MatchOver = false;
-	m_CurrentSong = ESong::SONG_NONE;
+	m_CurrentSong = SONG_NONE;
 	m_IsSongPlaying = false;
 	m_NoticedTimeUp = false;
 	m_DemoTextTime = 0.0f;

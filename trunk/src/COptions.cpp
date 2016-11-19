@@ -85,18 +85,18 @@ COptions::COptions (void)
 
     m_Level = 0;
     
-	for (int i = 0; i < MAX_PLAYERS; i++)
-	{
-		m_BomberType[i] = EBomberType::BOMBERTYPE_OFF;
-		m_BomberTeam[i] = EBomberTeam::BOMBERTEAM_A;
-		m_PlayerInput[i] = CONFIGURATION_KEYBOARD_1 + i;
-	}
+    for (int i = 0; i < MAX_PLAYERS; i++)
+    {
+        m_BomberType[i] = BOMBERTYPE_OFF;
+        m_BomberTeam[i] = BOMBERTEAM_A;
+        m_PlayerInput[i] = CONFIGURATION_KEYBOARD_1 + i;
+    }
 
-	m_BattleMode = EBattleMode::BATTLEMODE_SINGLE;
+    m_BattleMode = BATTLEMODE_SINGLE;
 
-	for (int i = 0; i < MAX_PLAYER_INPUT; i++)
-		for (int j = 0; j < NUM_CONTROLS; j++)
-			m_Control[i][j] = 0;
+    for (int i = 0; i < MAX_PLAYER_INPUT; i++)
+        for (int j = 0; j < NUM_CONTROLS; j++)
+            m_Control[i][j] = 0;
 
 }
 
@@ -240,12 +240,12 @@ void COptions::SetDefaultValues(void)
     m_Control[CONFIGURATION_KEYBOARD_1][CONTROL_ACTION1] = KEYBOARD_X;
     m_Control[CONFIGURATION_KEYBOARD_1][CONTROL_ACTION2] = KEYBOARD_Z;
 
-	m_Control[CONFIGURATION_KEYBOARD_2][CONTROL_UP]      = KEYBOARD_NUMPAD8;
-	m_Control[CONFIGURATION_KEYBOARD_2][CONTROL_DOWN]    = KEYBOARD_NUMPAD5;
-	m_Control[CONFIGURATION_KEYBOARD_2][CONTROL_LEFT]    = KEYBOARD_NUMPAD4;
-	m_Control[CONFIGURATION_KEYBOARD_2][CONTROL_RIGHT]   = KEYBOARD_NUMPAD6;
-	m_Control[CONFIGURATION_KEYBOARD_2][CONTROL_ACTION1] = KEYBOARD_Y;
-	m_Control[CONFIGURATION_KEYBOARD_2][CONTROL_ACTION2] = KEYBOARD_T;
+    m_Control[CONFIGURATION_KEYBOARD_2][CONTROL_UP]      = KEYBOARD_NUMPAD8;
+    m_Control[CONFIGURATION_KEYBOARD_2][CONTROL_DOWN]    = KEYBOARD_NUMPAD5;
+    m_Control[CONFIGURATION_KEYBOARD_2][CONTROL_LEFT]    = KEYBOARD_NUMPAD4;
+    m_Control[CONFIGURATION_KEYBOARD_2][CONTROL_RIGHT]   = KEYBOARD_NUMPAD6;
+    m_Control[CONFIGURATION_KEYBOARD_2][CONTROL_ACTION1] = KEYBOARD_Y;
+    m_Control[CONFIGURATION_KEYBOARD_2][CONTROL_ACTION2] = KEYBOARD_T;
 
     m_Control[CONFIGURATION_KEYBOARD_3][CONTROL_UP]      = KEYBOARD_I;
     m_Control[CONFIGURATION_KEYBOARD_3][CONTROL_DOWN]    = KEYBOARD_K;
@@ -261,7 +261,7 @@ void COptions::SetDefaultValues(void)
     m_Control[CONFIGURATION_KEYBOARD_4][CONTROL_ACTION1] = KEYBOARD_5;
     m_Control[CONFIGURATION_KEYBOARD_4][CONTROL_ACTION2] = KEYBOARD_4;
 
-	m_Control[CONFIGURATION_KEYBOARD_5][CONTROL_UP]      = KEYBOARD_R;
+    m_Control[CONFIGURATION_KEYBOARD_5][CONTROL_UP]      = KEYBOARD_R;
     m_Control[CONFIGURATION_KEYBOARD_5][CONTROL_DOWN]    = KEYBOARD_F;
     m_Control[CONFIGURATION_KEYBOARD_5][CONTROL_LEFT]    = KEYBOARD_D;
     m_Control[CONFIGURATION_KEYBOARD_5][CONTROL_RIGHT]   = KEYBOARD_G;
@@ -352,8 +352,8 @@ bool COptions::LoadConfiguration (void)
             oss << "bomber" << i;
             std::string attributeName = oss.str();
             ReadIntFromXML( configDoc, "BomberTypes", attributeName, (int*) (&m_BomberType[i]) );
-			ReadIntFromXML(configDoc, "BomberTeams", attributeName, (int*)(&m_BomberTeam[i]));
-			ReadIntFromXML(configDoc, "PlayerInputs", attributeName, (int*)(&m_PlayerInput[i]));
+            ReadIntFromXML(configDoc, "BomberTeams", attributeName, (int*)(&m_BomberTeam[i]));
+            ReadIntFromXML(configDoc, "PlayerInputs", attributeName, (int*)(&m_PlayerInput[i]));
         }
 
         //
@@ -485,15 +485,15 @@ void COptions::WriteXMLData()
     }
     config->LinkEndChild( configBomberTypes );
 
-	// BomberTeams
-	TiXmlElement* configBomberTeams = new TiXmlElement("BomberTeams");
-	for (i = 0; i < MAX_PLAYERS; i++) {
-		std::ostringstream oss;
-		oss << "bomber" << i;
-		std::string attributeName = oss.str();
-		configBomberTeams->SetAttribute(attributeName, (int)m_BomberTeam[i]);
-	}
-	config->LinkEndChild(configBomberTeams);
+    // BomberTeams
+    TiXmlElement* configBomberTeams = new TiXmlElement("BomberTeams");
+    for (i = 0; i < MAX_PLAYERS; i++) {
+        std::ostringstream oss;
+        oss << "bomber" << i;
+        std::string attributeName = oss.str();
+        configBomberTeams->SetAttribute(attributeName, (int)m_BomberTeam[i]);
+    }
+    config->LinkEndChild(configBomberTeams);
 
     // PlayerInputs
     TiXmlElement* configPlayerInputs = new TiXmlElement( "PlayerInputs" );
