@@ -1,0 +1,4 @@
+DEB File:
+fpm -s dir -t deb -C ../releases/gxx-linux-x86/Bombermaaan_1.8.1.1615 --prefix /usr/games/bombermaaan  -n bombermaaan -v 1.8.1.1615 --category Games --license 'GPLv3' -d 'libsdl1.2debian' -d 'libsdl-mixer1.2' -m 'bjaraujo <bjaraujo@github.com> ' --url https://github.com/bjaraujo/Bombermaaan --description "Bombermaaan is a classic bomberman game" --verbose .
+
+
