@@ -165,6 +165,8 @@ if(NETWORK_MODE)
     find_package(SDL_net REQUIRED)
 endif(NETWORK_MODE)
 
+find_package(FindCrashRpt)
+
 if(NETWORK_MODE)
     include_directories(
         ${SDL_INCLUDE_DIR}
