@@ -1,3 +1,3 @@
 
-ADD_SUBDIRECTORY(tinyxml)
+add_subdirectory(tinyxml)
 

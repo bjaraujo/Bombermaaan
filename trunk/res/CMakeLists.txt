@@ -1,19 +1,19 @@
 
-PROJECT(Bombermaaan32)
+project(Bombermaaan32)
 
-SET(RES_HEADERS
+set(RES_HEADERS
 res.h
 )
 
-SET(RES_SOURCES
+set(RES_SOURCES
 res.cpp
 )
 
-SET(RES_RESOURCES
+set(RES_RESOURCES
 res.rc
 )
 
-SET(RES_RESOURCES_IMAGES
+set(RES_RESOURCES_IMAGES
 image/arena_arrows.bmp
 image/arena_bomb.bmp
 image/arena_bomber_death.bmp
@@ -82,7 +82,7 @@ image/winner_sparks.bmp
 image/winner_title.bmp
 )
 
-SET(RES_RESOURCES_SOUNDS
+set(RES_RESOURCES_SOUNDS
 sound/bomb_bounce.ogg
 sound/bomb_drop.ogg
 sound/bomber_death.ogg
@@ -138,12 +138,12 @@ sound/wall_clap_2.ogg
 sound/winner.ogg
 )
 
-SOURCE_GROUP("Header Files" FILES ${RES_HEADERS})
-SOURCE_GROUP("Source Files" FILES ${RES_SOURCES})
-SOURCE_GROUP("Resource Files" FILES ${RES_RESOURCES_IMAGES} ${RES_RESOURCES_SOUNDS})
+source_group("Header Files" FILES ${RES_HEADERS})
+source_group("Source Files" FILES ${RES_SOURCES})
+source_group("Resource Files" FILES ${RES_RESOURCES_IMAGES} ${RES_RESOURCES_SOUNDS})
 
-ADD_LIBRARY(Bombermaaan32 SHARED ${RES_HEADERS} ${RES_SOURCES} ${RES_RESOURCES_IMAGES} ${RES_RESOURCES_SOUNDS} ${RES_RESOURCES})
+add_library(Bombermaaan32 SHARED ${RES_HEADERS} ${RES_SOURCES} ${RES_RESOURCES_IMAGES} ${RES_RESOURCES_SOUNDS} ${RES_RESOURCES})
 
-ADD_CUSTOM_COMMAND(TARGET Bombermaaan32 POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${PROJECT_BINARY_DIR}/$\(Configuration\)/Bombermaaan32.dll ${PROJECT_BINARY_DIR}/../src/$\(Configuration\)/Bombermaaan32.dll)
+add_custom_command(TARGET Bombermaaan32 POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${PROJECT_BINARY_DIR}/$\(Configuration\)/Bombermaaan32.dll ${PROJECT_BINARY_DIR}/../src/$\(Configuration\)/Bombermaaan32.dll)
 
 

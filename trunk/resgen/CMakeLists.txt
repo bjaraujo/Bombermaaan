@@ -1,32 +1,32 @@
 
-PROJECT(ResGen)
+project(ResGen)
 
-SET(RESGEN_HEADERS
+set(RESGEN_HEADERS
 ResGen.h
 )
 
-SET(RESGEN_SOURCES
+set(RESGEN_SOURCES
 ResGen.cpp
 )
 
-SOURCE_GROUP("Header Files" FILES ${RESGEN_HEADERS})
-SOURCE_GROUP("Source Files" FILES ${RESGEN_SOURCES})
+source_group("Header Files" FILES ${RESGEN_HEADERS})
+source_group("Source Files" FILES ${RESGEN_SOURCES})
 
-INCLUDE_DIRECTORIES(
+include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/../src
 )
 
-ADD_EXECUTABLE(ResGen ${RESGEN_HEADERS} ${RESGEN_SOURCES})
+add_executable(ResGen ${RESGEN_HEADERS} ${RESGEN_SOURCES})
 
-#MESSAGE(${CMAKE_CURRENT_SOURCE_DIR}/../res)
+#message(${CMAKE_CURRENT_SOURCE_DIR}/../res)
 
-#ADD_CUSTOM_COMMAND(OUTPUT ResData.c
+#add_custom_command(OUTPUT ResData.c
 #    COMMAND ResGen 
 #    ARGS ${CMAKE_CURRENT_SOURCE_DIR}/../res
 #    DEPENDS ResGen
 #    WORKING_DIRECTORY ResGen
 #)
 
-ADD_LIBRARY(Bombermaaan32 SHARED ResData.c)
+add_library(Bombermaaan32 SHARED ResData.c)
 
 

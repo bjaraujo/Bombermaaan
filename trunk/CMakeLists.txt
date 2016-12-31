@@ -1,23 +1,23 @@
 #Specify the version being used aswell as the language
-CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+cmake_minimum_required(VERSION 2.6)
 
 #Name your project here
-PROJECT(Bombermaaan)
+project(Bombermaaan)
 
-SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/modules/")
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/modules/")
 
-SET(USE_DIRECTX OFF CACHE BOOL "Use DirectX")
-SET(LOAD_RESOURCES_FROM_FILES OFF CACHE BOOL "Load Resources From Files")
-SET(NETWORK_MODE OFF CACHE BOOL "Network Mode")
+set(USE_DIRECTX OFF CACHE BOOL "Use DirectX")
+set(LOAD_RESOURCES_FROM_FILES OFF CACHE BOOL "Load Resources From Files")
+set(NETWORK_MODE OFF CACHE BOOL "Network Mode")
 
-ADD_SUBDIRECTORY(dep)
+add_subdirectory(dep)
 
-IF(WIN32)
-ADD_SUBDIRECTORY(res)
-ELSE(WIN32)
-ADD_SUBDIRECTORY(resgen)
-ENDIF(WIN32)
+if(WIN32)
+add_subdirectory(res)
+else(WIN32)
+add_subdirectory(resgen)
+endif(WIN32)
 
-#ADD_SUBDIRECTORY(net)
+#add_subdirectory(net)
 
-ADD_SUBDIRECTORY(src)
+add_subdirectory(src)

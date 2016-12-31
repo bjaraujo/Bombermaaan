@@ -1,13 +1,13 @@
 
-PROJECT(BombermaaanNet)
+project(BombermaaanNet)
 
-SET(BOMBERMAAAN_NET_HEADERS
+set(BOMBERMAAAN_NET_HEADERS
 ../src/CNetwork.h
 anyoption.h
 aes256.hpp
 )
 
-SET(BOMBERMAAAN_NET_SOURCES
+set(BOMBERMAAAN_NET_SOURCES
 ../src/CNetwork.cpp
 ../src/CLog.cpp
 main.cpp
@@ -15,22 +15,22 @@ anyoption.cpp
 aes256.cpp
 )
 
-SOURCE_GROUP("Header Files" FILES ${BOMBERMAAAN_NET_HEADERS})
-SOURCE_GROUP("Source Files" FILES ${BOMBERMAAAN_NET_SOURCES})
+source_group("Header Files" FILES ${BOMBERMAAAN_NET_HEADERS})
+source_group("Source Files" FILES ${BOMBERMAAAN_NET_SOURCES})
 
-FIND_PACKAGE(SDL REQUIRED)
-FIND_PACKAGE(SDL_net REQUIRED)
+find_package(SDL REQUIRED)
+find_package(SDL_net REQUIRED)
 
-INCLUDE_DIRECTORIES(
+include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/../src
     ${CMAKE_CURRENT_SOURCE_DIR}/../dep/tinyxml
     ${SDL_INCLUDE_DIR}
     ${SDL_NET_INCLUDE_DIRS}    
 )
 
-ADD_EXECUTABLE(BombermaaanNet ${BOMBERMAAAN_NET_HEADERS} ${BOMBERMAAAN_NET_SOURCES})
+add_executable(BombermaaanNet ${BOMBERMAAAN_NET_HEADERS} ${BOMBERMAAAN_NET_SOURCES})
 
-TARGET_LINK_LIBRARIES(BombermaaanNet
+target_link_libraries(BombermaaanNet
     ${SDL_LIBRARY}
     ${SDLNET_LIBRARY}
     tinyxml

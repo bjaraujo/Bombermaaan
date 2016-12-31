@@ -67,7 +67,7 @@ print '------------ Building release ------------'
 print 'version: ' + strNewVersion
 print 'build: ' + build
 
-time.sleep(4)
+time.sleep(3)
 
 if platform.system().lower() == 'windows':
     os.system('"C:\Program Files (x86)/MSBuild/12.0/Bin/MSBuild.exe" build/' + build + '/src/Bombermaaan.vcxproj /p:Configuration=Release /t:Rebuild')
@@ -138,11 +138,13 @@ elif platform.system().lower() == 'linux':
     shutil.copy2('build/' + build + '/src/Bombermaaan', strNewFolder + '/Bombermaaan')    
     shutil.copy2('build/' + build + '/resgen/libBombermaaan32.so', strNewFolder + '/libBombermaaan32.so')
 
-    os.mkdir(strNewFolder + '/Images')
+    if not os.path.isdir(strNewFolder + '/Images'):
+        os.mkdir(strNewFolder + '/Images')
     for file in glob.glob('trunk/res/image/*.bmp'):
         shutil.copy2(file, os.path.join(strNewFolder, 'Images', os.path.basename(file)))
 
-    os.mkdir(strNewFolder + '/Sounds')
+    if not os.path.isdir(strNewFolder + '/Sounds'):
+        os.mkdir(strNewFolder + '/Sounds')
     for file in glob.glob('trunk/res/sound/*.ogg'):
         shutil.copy2(file, os.path.join(strNewFolder, 'Sounds', os.path.basename(file)))
     for file in glob.glob('trunk/res/sound/*.mod'):
@@ -154,7 +156,8 @@ elif platform.system().lower() == 'linux':
 shutil.copy2('COPYING.txt', strNewFolder + '/COPYING.txt')
 
 # Copy levels
-os.mkdir(strNewFolder + '/Levels')
+if not os.path.isdir(strNewFolder + '/Levels'):
+    os.mkdir(strNewFolder + '/Levels')
 for file in glob.glob('trunk/levels/*.TXT'):
     shutil.copy2(file, os.path.join(strNewFolder, 'Levels', os.path.basename(file)))
 
