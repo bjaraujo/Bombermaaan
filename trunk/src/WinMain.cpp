@@ -25,12 +25,19 @@
  *  \brief Entry point of the program for both Linux and Windows
  */
 
+#ifdef CRASH_REPORT
+#include "CrashRpt.h"
+#include <tchar.h>
+#endif
+
 #ifdef _DEBUG_MEMORY
 #include <vld.h> 
 #endif
 
 #include "StdAfx.h"
 #include "CGame.h"
+
+#include "Bombermaaan.h"
 
 /**
  *  \mainpage Bombermaaan source code documentation
@@ -55,6 +62,31 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdli
 int main (int argc, char **argv)
 #endif
 {
+
+#ifdef CRASH_REPORT
+	CR_INSTALL_INFO info;
+	memset(&info, 0, sizeof(CR_INSTALL_INFO));
+	info.cb = sizeof(CR_INSTALL_INFO);								// Size of the structure
+	info.pszAppName = _T("CrashRpt Bombermaaan");					// App name
+	info.pszAppVersion = _T(APP_VERSION_INFO);						// App version
+	info.pszEmailSubject = _T("CrashRpt Bombermaaan Error Report"); // Email subject
+	info.pszEmailTo = _T("bjaraujo@github.com");					// Email recipient address
+	info.dwFlags = CR_INST_NO_GUI | CR_INST_DONT_SEND_REPORT;
+
+	// Install crash handlers
+	int nInstResult = crInstall(&info);
+	assert(nInstResult == 0);
+
+	// Check result
+	if (nInstResult != 0)
+	{
+		TCHAR buff[256];
+		crGetLastErrorMsg(buff, 256); // Get last error
+		_tprintf(_T("%s\n"), buff); // and output it to the screen
+		return FALSE;
+	}
+#endif
+
 #ifndef WIN32
     HINSTANCE hInstance = 0;
     char **lpCmdline = argv;
@@ -82,6 +114,11 @@ int main (int argc, char **argv)
 
     // Destroy everything (CGame::Destroy())
     Game.Destroy();
+
+#ifdef CRASH_REPORT
+	int nUninstRes = crUninstall(); // Uninstall exception handlers
+	assert(nUninstRes == 0);
+#endif
 
     // Everything went right
     return true;

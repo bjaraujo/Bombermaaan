@@ -9,6 +9,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/modules/")
 set(USE_DIRECTX OFF CACHE BOOL "Use DirectX")
 set(LOAD_RESOURCES_FROM_FILES OFF CACHE BOOL "Load Resources From Files")
 set(NETWORK_MODE OFF CACHE BOOL "Network Mode")
+set(CRASH_REPORT OFF CACHE BOOL "Crash Report")
 
 add_subdirectory(dep)
 

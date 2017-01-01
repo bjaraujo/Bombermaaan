@@ -165,7 +165,11 @@ if(NETWORK_MODE)
     find_package(SDL_net REQUIRED)
 endif(NETWORK_MODE)
 
-find_package(FindCrashRpt)
+if(CRASH_REPORT)
+    if(WIN32)
+        find_package(CrashRpt)
+    endif(WIN32)
+endif(CRASH_REPORT)
 
 if(NETWORK_MODE)
     include_directories(
@@ -180,13 +184,19 @@ else(NETWORK_MODE)
     )
 endif(NETWORK_MODE)
 
+if(CRASH_REPORT)
+    include_directories(
+        ${CRASHRPT_INCLUDE_DIR}
+    )
+endif(CRASH_REPORT)
+
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/../res
     ${CMAKE_CURRENT_SOURCE_DIR}/../dep/tinyxml
     ${CMAKE_CURRENT_SOURCE_DIR}/../dep/simpleini
 )
 
-SET (BOMBERMAAAN_LIBRARIES
+set(BOMBERMAAAN_LIBRARIES
     ${SDL_LIBRARY}
     ${SDLMIXER_LIBRARY}
     tinyxml
@@ -211,6 +221,11 @@ if(NETWORK_MODE)
     list(APPEND BOMBERMAAAN_SOURCES CNetwork.cpp)
     list(APPEND BOMBERMAAAN_LIBRARIES ${SDLNET_LIBRARY})    
 endif(NETWORK_MODE)
+
+if(CRASH_REPORT)
+    add_definitions(-DCRASH_REPORT)
+    list(APPEND BOMBERMAAAN_LIBRARIES ${CRASHRPT_LIBRARY})    
+endif(CRASH_REPORT)
 
 if(WIN32)
     add_executable(Bombermaaan WIN32 ${BOMBERMAAAN_HEADERS} ${BOMBERMAAAN_SOURCES})
