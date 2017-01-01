@@ -12,6 +12,9 @@ if platform.system().lower() == 'windows':
 elif platform.system().lower() == 'linux':
     build = 'gxx-linux-x86'
 
+# Crash report
+bCrashReport = True
+    
 # Read version info
 fi = open('trunk/src/Bombermaaan.h', 'r')
 strLines = fi.readlines()
@@ -119,6 +122,7 @@ if platform.system().lower() == 'windows':
 
     shutil.copy2('build/' + build + '/src/Release/Bombermaaan.exe', strNewFolder + '/Bombermaaan.exe')
     shutil.copy2('build/' + build + '/src/Release/Bombermaaan32.dll', strNewFolder + '/Bombermaaan32.dll')
+    shutil.copy2('build/' + build + '/src/Release/Bombermaaan32.pdb', strNewFolder + '/Bombermaaan32.pdb')
 
     shutil.copy2(os.environ.get('SDLDIR') + '/lib/x86/SDL.dll', strNewFolder + '/SDL.dll')
     shutil.copy2(os.environ.get('SDLMIXERDIR') + '/lib/x86/SDL_mixer.dll', strNewFolder + '/SDL_mixer.dll')
@@ -129,9 +133,15 @@ if platform.system().lower() == 'windows':
     shutil.copy2(os.environ.get('SDLMIXERDIR') + '/lib/x86/libvorbisfile-3.dll', strNewFolder + '/libvorbisfile-3.dll')
     shutil.copy2(os.environ.get('SDLMIXERDIR') + '/lib/x86/libogg-0.dll', strNewFolder + '/libogg-0.dll')
     shutil.copy2(os.environ.get('SDLNETDIR') + '/lib/x86/SDL_net.dll', strNewFolder + '/SDL_net.dll')
-
+         
     shutil.copy2(os.environ.get('SystemRoot') + '/System32/msvcr120.dll', strNewFolder + '/msvcr120.dll')
     shutil.copy2(os.environ.get('SystemRoot') + '/System32/msvcp120.dll', strNewFolder + '/msvcp120.dll')
+
+    if bCrashReport:
+        shutil.copy2(os.environ.get('CRASHRPTDIR') + '/bin/CrashSender1403.exe', strNewFolder + '/CrashSender1403.exe')
+        shutil.copy2(os.environ.get('CRASHRPTDIR') + '/bin/CrashRpt1403.dll', strNewFolder + '/CrashRpt1403.dll')
+        shutil.copy2(os.environ.get('CRASHRPTDIR') + '/bin/dbghelp.dll', strNewFolder + '/dbghelp.dll')
+        shutil.copy2(os.environ.get('CRASHRPTDIR') + '/bin/crashrpt_lang.ini', strNewFolder + '/crashrpt_lang.ini')
 
 elif platform.system().lower() == 'linux':
 
