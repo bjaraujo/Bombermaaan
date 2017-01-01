@@ -47,7 +47,6 @@ Name: quicklaunchicon; Description: {cm:CreateQuickLaunchIcon}; GroupDescription
 [Files]
 Source: ..\releases\msvc12-win32\Bombermaaan_{#APP_VERSION_INFO}\Bombermaaan.exe; DestDir: {app}; Flags: ignoreversion
 Source: ..\releases\msvc12-win32\Bombermaaan_{#APP_VERSION_INFO}\Bombermaaan32.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\releases\msvc12-win32\Bombermaaan_{#APP_VERSION_INFO}\Bombermaaan32.pdb; DestDir: {app}; Flags: ignoreversion
 Source: ..\releases\msvc12-win32\Bombermaaan_{#APP_VERSION_INFO}\CrashSender1403.exe; DestDir: {app}; Flags: ignoreversion
 Source: ..\releases\msvc12-win32\Bombermaaan_{#APP_VERSION_INFO}\CrashRpt1403.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\releases\msvc12-win32\Bombermaaan_{#APP_VERSION_INFO}\dbghelp.dll; DestDir: {app}; Flags: ignoreversion
