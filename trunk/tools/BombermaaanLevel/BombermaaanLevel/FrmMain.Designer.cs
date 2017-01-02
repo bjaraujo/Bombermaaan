@@ -1,4 +1,4 @@
-﻿namespace BomberMaaanLevel
+﻿namespace BombermaaanLevel
 {
     partial class FrmMain
     {

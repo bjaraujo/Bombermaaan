@@ -7,8 +7,8 @@
     <ProjectGuid>{4101E1F7-168D-4AB6-BA71-077500063FDA}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BomberMaaanLevel</RootNamespace>
-    <AssemblyName>BomberMaanLevel</AssemblyName>
+    <RootNamespace>BombermaaanLevel</RootNamespace>
+    <AssemblyName>BombermaaanLevel</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <PublishUrl>publish\</PublishUrl>

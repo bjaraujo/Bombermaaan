@@ -7,7 +7,7 @@ using System.IO;
 
 using Ini;
 
-namespace BomberMaaanLevel
+namespace BombermaaanLevel
 {
 
     enum EBlockType
