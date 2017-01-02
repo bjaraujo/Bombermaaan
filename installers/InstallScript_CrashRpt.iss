@@ -63,6 +63,8 @@ Source: ..\releases\msvc12-win32\Bombermaaan_{#APP_VERSION_INFO}\SDL_net.dll; De
 Source: ..\releases\msvc12-win32\Bombermaaan_{#APP_VERSION_INFO}\smpeg.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\releases\msvc12-win32\Bombermaaan_{#APP_VERSION_INFO}\msvcp120.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\releases\msvc12-win32\Bombermaaan_{#APP_VERSION_INFO}\msvcr120.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\releases\msvc12-win32\Bombermaaan_{#APP_VERSION_INFO}\msvcp100.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\releases\msvc12-win32\Bombermaaan_{#APP_VERSION_INFO}\msvcr100.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\releases\msvc12-win32\Bombermaaan_{#APP_VERSION_INFO}\Levels\*.TXT; DestDir: {app}\Levels\
 
 [Icons]

@@ -142,6 +142,8 @@ if platform.system().lower() == 'windows':
         shutil.copy2(os.environ.get('CRASHRPTDIR') + '/bin/CrashRpt1403.dll', strNewFolder + '/CrashRpt1403.dll')
         shutil.copy2(os.environ.get('CRASHRPTDIR') + '/bin/dbghelp.dll', strNewFolder + '/dbghelp.dll')
         shutil.copy2(os.environ.get('CRASHRPTDIR') + '/bin/crashrpt_lang.ini', strNewFolder + '/crashrpt_lang.ini')
+        shutil.copy2(os.environ.get('SystemRoot') + '/System32/msvcr100.dll', strNewFolder + '/msvcr100.dll')
+        shutil.copy2(os.environ.get('SystemRoot') + '/System32/msvcp100.dll', strNewFolder + '/msvcp100.dll')
 
 elif platform.system().lower() == 'linux':
 
