@@ -251,6 +251,14 @@ void CArena::Create(void)
 
             }
 
+			case BLOCKTYPE_ITEM_SKULL:
+			{
+
+				NewItem(X, Y, ITEM_SKULL, false, false);
+				break;
+
+			}
+
             case BLOCKTYPE_ITEM_SHIELD:
             {
 
