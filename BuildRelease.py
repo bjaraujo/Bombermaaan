@@ -139,8 +139,8 @@ if platform.system().lower() == 'windows':
     shutil.copy2(os.environ.get('SDLMIXERDIR') + '/lib/x86/libogg-0.dll', strNewFolder + '/libogg-0.dll')
     shutil.copy2(os.environ.get('SDLNETDIR')   + '/lib/x86/SDL_net.dll', strNewFolder + '/SDL_net.dll')
          
-    shutil.copy2(os.environ.get('SystemRoot') + '/System32/msvcp140.dll', strNewFolder + '/msvcp140.dll')
-    shutil.copy2(os.environ.get('SystemRoot') + '/System32/vcruntime140.dll', strNewFolder + '/vcruntime140.dll')
+    shutil.copy2(os.environ.get('SystemRoot') + '/SysWOW64/msvcp140.dll', strNewFolder + '/msvcp140.dll')
+    shutil.copy2(os.environ.get('SystemRoot') + '/SysWOW64/vcruntime140.dll', strNewFolder + '/vcruntime140.dll')
 
     if bCrashReport:
         shutil.copy2(os.environ.get('CRASHRPTDIR') + '/bin/CrashSender1403.exe', strNewFolder + '/CrashSender1403.exe')
@@ -177,7 +177,6 @@ if not os.path.isdir(strNewFolder + '/Levels'):
 for file in glob.glob('trunk/levels/*.TXT'):
     shutil.copy2(file, os.path.join(strNewFolder, 'Levels', os.path.basename(file)))
 
-if incVersion:        
-    os.system('git commit -a -m v' + strNewVersion)
-    os.system('git tag v' + strNewVersion)
-    os.system("git push --tags")
+os.system('git commit -a -m v' + strNewVersion)
+os.system('git tag v' + strNewVersion)
+os.system("git push --tags")
