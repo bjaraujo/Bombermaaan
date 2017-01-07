@@ -102,7 +102,7 @@ int CBomb::m_BounceMoveY[NUMBER_OF_BOMBFLY_DIRECTIONS][3] =
 #define MAX_EXPLOSION_TIME      8.0f
 
 // Speed of a moving bomb (in pixels per second)
-#define SPEED_BOMBMOVE          220
+#define SPEED_BOMBMOVE          100
 
 // Bomb animation times (in seconds)
 // Normal speed
