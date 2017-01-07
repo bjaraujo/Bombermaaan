@@ -8,12 +8,17 @@ import glob
 
 # Build platform
 if platform.system().lower() == 'windows':
-    build = 'msvc12-win32'
+    build = 'msvc14-win32'
 elif platform.system().lower() == 'linux':
     build = 'gxx-linux-x86'
 
+configuration = 'Release'
+    
 # Crash report
 bCrashReport = True
+
+if bCrashReport:
+    configuration = 'RelWithDebInfo'
     
 # Read version info
 fi = open('trunk/src/Bombermaaan.h', 'r')
@@ -73,7 +78,8 @@ print 'build: ' + build
 time.sleep(3)
 
 if platform.system().lower() == 'windows':
-    os.system('"C:\Program Files (x86)/MSBuild/12.0/Bin/MSBuild.exe" build/' + build + '/src/Bombermaaan.vcxproj /p:Configuration=Release /t:Rebuild')
+    os.system('"C:\Program Files (x86)/MSBuild/14.0/Bin/MSBuild.exe" build/' + build + '/src/Bombermaaan.vcxproj /p:Configuration=' + configuration + ' /t:Rebuild')
+       
 elif platform.system().lower() == 'linux':
     os.system('make -C build/' + build + ' clean');
     os.system('make -C build/' + build);
@@ -120,10 +126,10 @@ if not os.path.isdir(strNewFolder):
 # Copy files
 if platform.system().lower() == 'windows':
 
-    shutil.copy2('build/' + build + '/src/Release/Bombermaaan.exe', strNewFolder + '/Bombermaaan.exe')
-    shutil.copy2('build/' + build + '/src/Release/Bombermaaan32.dll', strNewFolder + '/Bombermaaan32.dll')
-
-    shutil.copy2(os.environ.get('SDLDIR') + '/lib/x86/SDL.dll', strNewFolder + '/SDL.dll')
+    shutil.copy2('build/' + build + '/src/' + configuration + '/Bombermaaan.exe', strNewFolder + '/Bombermaaan.exe')
+    shutil.copy2('build/' + build + '/src/' + configuration + '/Bombermaaan32.dll', strNewFolder + '/Bombermaaan32.dll')
+    
+    shutil.copy2(os.environ.get('SDLDIR')      + '/lib/x86/SDL.dll', strNewFolder + '/SDL.dll')
     shutil.copy2(os.environ.get('SDLMIXERDIR') + '/lib/x86/SDL_mixer.dll', strNewFolder + '/SDL_mixer.dll')
     shutil.copy2(os.environ.get('SDLMIXERDIR') + '/lib/x86/smpeg.dll', strNewFolder + '/smpeg.dll')
     shutil.copy2(os.environ.get('SDLMIXERDIR') + '/lib/x86/libFLAC-8.dll', strNewFolder + '/libFLAC-8.dll')
@@ -131,19 +137,17 @@ if platform.system().lower() == 'windows':
     shutil.copy2(os.environ.get('SDLMIXERDIR') + '/lib/x86/libvorbis-0.dll', strNewFolder + '/libvorbis-0.dll')
     shutil.copy2(os.environ.get('SDLMIXERDIR') + '/lib/x86/libvorbisfile-3.dll', strNewFolder + '/libvorbisfile-3.dll')
     shutil.copy2(os.environ.get('SDLMIXERDIR') + '/lib/x86/libogg-0.dll', strNewFolder + '/libogg-0.dll')
-    shutil.copy2(os.environ.get('SDLNETDIR') + '/lib/x86/SDL_net.dll', strNewFolder + '/SDL_net.dll')
+    shutil.copy2(os.environ.get('SDLNETDIR')   + '/lib/x86/SDL_net.dll', strNewFolder + '/SDL_net.dll')
          
-    shutil.copy2(os.environ.get('SystemRoot') + '/System32/msvcr120.dll', strNewFolder + '/msvcr120.dll')
-    shutil.copy2(os.environ.get('SystemRoot') + '/System32/msvcp120.dll', strNewFolder + '/msvcp120.dll')
+    shutil.copy2(os.environ.get('SystemRoot') + '/System32/msvcp140.dll', strNewFolder + '/msvcp140.dll')
+    shutil.copy2(os.environ.get('SystemRoot') + '/System32/vcruntime140.dll', strNewFolder + '/vcruntime140.dll')
 
     if bCrashReport:
-        shutil.copy2('build/' + build + '/src/Release/Bombermaaan.pdb', strNewFolder + '/Bombermaaan.pdb')
         shutil.copy2(os.environ.get('CRASHRPTDIR') + '/bin/CrashSender1403.exe', strNewFolder + '/CrashSender1403.exe')
         shutil.copy2(os.environ.get('CRASHRPTDIR') + '/bin/CrashRpt1403.dll', strNewFolder + '/CrashRpt1403.dll')
         shutil.copy2(os.environ.get('CRASHRPTDIR') + '/bin/dbghelp.dll', strNewFolder + '/dbghelp.dll')
         shutil.copy2(os.environ.get('CRASHRPTDIR') + '/bin/crashrpt_lang.ini', strNewFolder + '/crashrpt_lang.ini')
-        shutil.copy2(os.environ.get('SystemRoot') + '/System32/msvcr100.dll', strNewFolder + '/msvcr100.dll')
-        shutil.copy2(os.environ.get('SystemRoot') + '/System32/msvcp100.dll', strNewFolder + '/msvcp100.dll')
+        shutil.copy2('build/' + build + '/src/' + configuration + '/Bombermaaan.pdb', strNewFolder + '/Bombermaaan.pdb')
 
 elif platform.system().lower() == 'linux':
 
