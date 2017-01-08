@@ -51,7 +51,8 @@ private:
     bool            m_HaveToExit;                   //!< Do we have to exit this mode?
     int             m_MovingHandDistance;           //!< Extra distance between hand and menu
     float           m_MovingHandTimer;              //!< Timer used for the moving hand
-    
+	float			m_IdleTime;						//!< Time this screen is idle
+
 public:
 
                     CTitle();                           //!< Constructor. Initialize some members.

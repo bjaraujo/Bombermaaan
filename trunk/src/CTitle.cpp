@@ -93,6 +93,8 @@
 #define MENU_ITEM_CREDITS                       3
 #define MENU_ITEM_EXIT                          4
 
+#define MAX_IDLE_TIME						    30.0f   // Duration (in seconds) of maximum idle time
+
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -110,6 +112,8 @@ CTitle::CTitle (void) : CModeScreen()
 	
     m_ExitModeTime = 0.0f;
     m_ExitGameMode = GAMEMODE_NONE;
+
+	m_IdleTime = 0.0f;
 
 }
 
@@ -190,6 +194,7 @@ EGameMode CTitle::Update (void)
 {
     // Increase elapsed time since mode has started
     m_ModeTime += m_pTimer->GetDeltaTime();
+	m_IdleTime += m_pTimer->GetDeltaTime();
 
     // If we have to make the first black screen
     if (m_ModeTime <= BLACKSCREEN_DURATION)
@@ -242,6 +247,9 @@ EGameMode CTitle::Update (void)
         // If the NEXT control is pressed
 		if (m_pInput->GetMainInput().TestNext())
         {
+
+			m_IdleTime = 0.0f;
+			
             // Which menu item is the cursor pointing to?
             // Determine the game mode to ask for when exiting
             switch (m_Cursor)
@@ -278,6 +286,8 @@ EGameMode CTitle::Update (void)
 		else if (m_pInput->GetMainInput().TestUp())
         {
 
+			m_IdleTime = 0.0f;
+
             // Play the menu beep sound
             m_pSound->PlaySample (SAMPLE_MENU_BEEP);
         
@@ -294,6 +304,8 @@ EGameMode CTitle::Update (void)
 		else if (m_pInput->GetMainInput().TestDown())
         {
 
+			m_IdleTime = 0.0f;
+
 			// Play the menu beep sound
             m_pSound->PlaySample (SAMPLE_MENU_BEEP);
 
@@ -307,6 +319,26 @@ EGameMode CTitle::Update (void)
                 m_Cursor = FIRST_MENU_ITEM;
             }
         }
+
+		// If idle too long go to Demo mode automatically
+		if (m_IdleTime >= MAX_IDLE_TIME)
+		{
+
+			m_IdleTime = 0.0f;
+
+			m_ExitGameMode = GAMEMODE_DEMO;
+
+			// Stop playing the song
+			m_pSound->StopSong(SONG_TITLE_MUSIC);
+
+			// We have to exit this game mode
+			m_HaveToExit = true;
+
+			// Remember when we decided to exit (needed for the blackscreen)
+			m_ExitModeTime = m_ModeTime;
+
+		}
+
     }
     // If we have to make the last black screen
     else if (m_ModeTime <= m_ExitModeTime + BLACKSCREEN_DURATION)
