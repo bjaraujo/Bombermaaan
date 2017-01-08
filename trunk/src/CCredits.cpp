@@ -160,7 +160,7 @@ void CCredits::Destroy (void)
 
 void CCredits::OpenInput (void)
 {
-	//m_pInput->GetDirectInput().OpenJoystick(0);
+
 }
 
 //******************************************************************************************************************************
@@ -169,7 +169,7 @@ void CCredits::OpenInput (void)
 
 void CCredits::CloseInput (void)
 {
-	//m_pInput->GetDirectInput().CloseJoystick(0);
+
 }
                    
 //******************************************************************************************************************************
@@ -213,10 +213,7 @@ EGameMode CCredits::Update (void)
         m_pMosaic->Update (m_pTimer->GetDeltaTime());
 
 		// If the ESCAPE control is active
-		if (m_pInput->GetMainInput().TestBreak() || 
-			m_pInput->GetDirectInput().TestBreak(0) || 
-			m_pInput->GetDirectInput().TestPrevious(0) || 
-			m_pInput->GetDirectInput().TestNext(0))
+		if (m_pInput->GetMainInput().TestBreak())
 		{
 			// Stop playing the song
 			m_pSound->StopSong(SONG_GREET_MUSIC);

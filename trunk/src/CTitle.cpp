@@ -171,7 +171,6 @@ void CTitle::Destroy (void)
 void CTitle::OpenInput (void)
 {
     m_pInput->GetMainInput().Open();
-	//m_pInput->GetDirectInput().OpenJoystick(0);
 }
 
 //******************************************************************************************************************************
@@ -181,7 +180,6 @@ void CTitle::OpenInput (void)
 void CTitle::CloseInput (void)
 {
     m_pInput->GetMainInput().Close();
-	//m_pInput->GetDirectInput().CloseJoystick(0);
 }
 
 //******************************************************************************************************************************
@@ -242,7 +240,7 @@ EGameMode CTitle::Update (void)
         }
 
         // If the NEXT control is pressed
-		if (m_pInput->GetMainInput().TestNext() || m_pInput->GetDirectInput().TestNext(0))
+		if (m_pInput->GetMainInput().TestNext())
         {
             // Which menu item is the cursor pointing to?
             // Determine the game mode to ask for when exiting
@@ -277,7 +275,7 @@ EGameMode CTitle::Update (void)
                 m_pSound->PlaySample (SAMPLE_MENU_ERROR);
             }
         }
-		else if (m_pInput->GetMainInput().TestUp() || m_pInput->GetDirectInput().TestUp(0))
+		else if (m_pInput->GetMainInput().TestUp())
         {
 
             // Play the menu beep sound
@@ -293,7 +291,7 @@ EGameMode CTitle::Update (void)
                 m_Cursor = LAST_MENU_ITEM;
             }
         }
-		else if (m_pInput->GetMainInput().TestDown() || m_pInput->GetDirectInput().TestDown(0))
+		else if (m_pInput->GetMainInput().TestDown())
         {
 
 			// Play the menu beep sound
