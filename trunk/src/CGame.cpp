@@ -47,7 +47,7 @@
 //******************************************************************************************************************************
 
 // Define this if the log file should be enabled
-// #define ENABLE_LOG
+#define ENABLE_LOG
 
 // Define this if the debug log file should be enabled
 // #define ENABLE_DEBUG_LOG

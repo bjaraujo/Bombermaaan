@@ -15,7 +15,7 @@ elif platform.system().lower() == 'linux':
 configuration = 'Release'
     
 # Crash report
-bCrashReport = False
+bCrashReport = True
 
 if bCrashReport:
     configuration = 'RelWithDebInfo'
