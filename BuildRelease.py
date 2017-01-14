@@ -192,7 +192,7 @@ elif platform.system().lower() == 'linux':
     + ' -n bombermaaan ' \
     + ' -v ' + strNewVersion \
     + ' --license \'GPLv3\' ' \
-    + ' --category Games ' \
+    + ' --category Game ' \
     + ' -d \'libsdl1.2debian\' -d \'libsdl-mixer1.2\' ' \
     + ' -m \'bjaraujo <bjaraujo@github.com>\'' \
     + ' --url \'https://github.com/bjaraujo/Bombermaaan\'' \
