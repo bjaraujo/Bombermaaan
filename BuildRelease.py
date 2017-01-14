@@ -179,4 +179,19 @@ for file in glob.glob('trunk/levels/*.TXT'):
 
 os.system('git commit -a -m v' + strNewVersion)
 os.system('git tag v' + strNewVersion)
-os.system("git push --tags")
+os.system('git push --tags')
+
+if platform.system().lower() == 'linux':
+    os.system('fpm -s dir -t deb -C ' + strNewFolder + \ 
+    ' --prefix /usr/games/bombermaaan ' + \  
+    ' -n bombermaaan ' + \ 
+    ' -v ' + strNewVersion + \ 
+    ' --license \'GPLv3\' ' + \
+    ' --category Games ' + \ 
+    ' -d \'libsdl1.2debian\' -d \'libsdl-mixer1.2\' ' + \ 
+    ' -m \'bjaraujo <bjaraujo@github.com>\'' + \ 
+    ' --url \'https://github.com/bjaraujo/Bombermaaan\'' + \ 
+    ' --description \'Bombermaaan is a classic bomberman game\'' + \ 
+    ' -p Bombermaaan_' + strNewVersion + '_i386 ' + \ 
+    ' -f --verbose .')
+
