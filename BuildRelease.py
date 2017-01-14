@@ -177,11 +177,16 @@ if not os.path.isdir(strNewFolder + '/Levels'):
 for file in glob.glob('trunk/levels/*.TXT'):
     shutil.copy2(file, os.path.join(strNewFolder, 'Levels', os.path.basename(file)))
 
+# Create tag
 os.system('git commit -a -m v' + strNewVersion)
 os.system('git tag v' + strNewVersion)
 os.system('git push --tags')
 
-if platform.system().lower() == 'linux':
+# Create package
+if platform.system().lower() == 'windows':
+    os.system('C:\Program Files (x86)/Inno Setup 5/iscc.exe "installers/InstallScriptWin32.iss"')
+
+elif platform.system().lower() == 'linux':
     os.system('fpm -s dir -t deb -C ' + strNewFolder + \ 
     ' --prefix /usr/games/bombermaaan ' + \  
     ' -n bombermaaan ' + \ 
