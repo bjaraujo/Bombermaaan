@@ -197,6 +197,6 @@ elif platform.system().lower() == 'linux':
     + ' -m \'bjaraujo <bjaraujo@github.com>\'' \
     + ' --url \'https://github.com/bjaraujo/Bombermaaan\'' \
     + ' --description \'Bombermaaan is a classic bomberman game\'' \
-    + ' -p Bombermaaan_' + strNewVersion + '_i386 ' \
+    + ' -p Bombermaaan_' + strNewVersion + '_i386.deb ' \
     + ' -f --verbose .')
 
