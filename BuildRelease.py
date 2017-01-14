@@ -187,16 +187,16 @@ if platform.system().lower() == 'windows':
     os.system('C:\Program Files (x86)/Inno Setup 5/iscc.exe "installers/InstallScriptWin32.iss"')
 
 elif platform.system().lower() == 'linux':
-    os.system('fpm -s dir -t deb -C ' + strNewFolder + \ 
-    ' --prefix /usr/games/bombermaaan ' + \  
-    ' -n bombermaaan ' + \ 
-    ' -v ' + strNewVersion + \ 
-    ' --license \'GPLv3\' ' + \
-    ' --category Games ' + \ 
-    ' -d \'libsdl1.2debian\' -d \'libsdl-mixer1.2\' ' + \ 
-    ' -m \'bjaraujo <bjaraujo@github.com>\'' + \ 
-    ' --url \'https://github.com/bjaraujo/Bombermaaan\'' + \ 
-    ' --description \'Bombermaaan is a classic bomberman game\'' + \ 
-    ' -p Bombermaaan_' + strNewVersion + '_i386 ' + \ 
-    ' -f --verbose .')
+    os.system('fpm -s dir -t deb -C ' + strNewFolder \
+    + ' --prefix /usr/games/bombermaaan ' \
+    + ' -n bombermaaan ' \
+    + ' -v ' + strNewVersion \
+    + ' --license \'GPLv3\' ' \
+    + ' --category Games ' \
+    + ' -d \'libsdl1.2debian\' -d \'libsdl-mixer1.2\' ' \
+    + ' -m \'bjaraujo <bjaraujo@github.com>\'' \
+    + ' --url \'https://github.com/bjaraujo/Bombermaaan\'' \
+    + ' --description \'Bombermaaan is a classic bomberman game\'' \
+    + ' -p Bombermaaan_' + strNewVersion + '_i386 ' \
+    + ' -f --verbose .')
 
