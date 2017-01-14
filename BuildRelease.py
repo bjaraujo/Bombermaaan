@@ -184,7 +184,7 @@ os.system('git push --tags')
 
 # Create package
 if platform.system().lower() == 'windows':
-    os.system('C:\Program Files (x86)/Inno Setup 5/iscc.exe "installers/InstallScriptWin32.iss"')
+    os.system('"C:\Program Files (x86)/Inno Setup 5/iscc.exe" installers\InstallScriptWin32.iss')
 
 elif platform.system().lower() == 'linux':
     os.system('fpm -s dir -t deb -C ' + strNewFolder \
