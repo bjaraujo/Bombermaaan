@@ -35,7 +35,6 @@
 #include <stdlib.h>
 
 #include <dirent.h>
-using namespace std;
 
 // macros
 #define MAX_PATH 260
