@@ -123,11 +123,8 @@ In the menu box :
 - Escape................ : make the menu box disappear and resume the match
 
 Anywhere in the game :
-- F1...... : set 320x240 display mode (not available in 32-pixels version)
-- F2...... : set 512x384 display mode (not available in 32-pixels version)
 - F3...... : set 640x480 display mode
 - F4...... : set windowed display mode
-- Ctrl+F12 : quickly exit the game without confirmation
 
 Please note that the display mode you chose may
 be unavailable on your computer. The program will
@@ -150,11 +147,7 @@ Bombermaaan is using SimpleIni from <a href="http://code.jellycan.com/simpleini/
 
 ## Project host
 
-The Bombermaaan project is hosted on SourceForge.net. 
-
-## News
-
-Check <a href="http://bombermaaan.sourceforge.net/">http://bombermaaan.sourceforge.net/</a> for the latest news.
+The original Bombermaaan project is hosted on SourceForge.net. 
 
 ## Compiling
 
