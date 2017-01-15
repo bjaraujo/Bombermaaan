@@ -93,11 +93,11 @@ You can call Bombermaaan with the <kbd>--help</kbd> switch to see a message box 
 
 During a match :
 - Here are the configurations :
-  Keyboard 1 (Default) : 8/5/4/6 + PageUp/Home
-  Keyboard 2 (Default) : R/F/D/G + 2/1
+  Keyboard 1 (Default) : Up/Down/Left/Right + X/Z
+  Keyboard 2 (Default) : 8/5/4/6 + Y/T
   Keyboard 3 (Default) : I/K/J/L + 8/7
   Keyboard 4 (Default) : H/N/B/M + 5/4
-  Keyboard 5 (Default) : Up/Down/Left/Right + RightControl/RightShift
+  Keyboard 5 (Default) : R/F/D/G + 1/2
   Joystick X (Default) : Up/Down/Left/Right + Button1/Button2
 - On your configuration :
   - Up/Down/Left/Right : make your bomber move
