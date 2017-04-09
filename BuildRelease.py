@@ -171,6 +171,9 @@ elif platform.system().lower() == 'linux':
 # Copy license
 shutil.copy2('COPYING.txt', strNewFolder + '/COPYING.txt')
 
+# Copy read me
+shutil.copy2('README.md', strNewFolder + '/README.txt')
+
 # Copy levels
 if not os.path.isdir(strNewFolder + '/Levels'):
     os.mkdir(strNewFolder + '/Levels')
