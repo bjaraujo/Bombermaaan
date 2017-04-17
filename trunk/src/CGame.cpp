@@ -68,9 +68,6 @@
 // Define this if you want sound and music in the game
 #define ENABLE_SOUND
 
-// This is the game mode that is set at start up. Should be set to GAMEMODE_TITLE for a release.
-#define START_UP_GAME_MODE GAMEMODE_TITLE
-
 // Define the name of the DLL (where sprites and sound samples are stored)
 #ifdef WIN32
 #define NAME_OF_BOMBERMAN_DLL "Bombermaaan32.dll"
@@ -668,7 +665,6 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
 
     m_MenuYesNo.Create();
 
-#ifdef NETWORK_MODE
     char IpAddressString[32];
 #ifdef WIN32
     const char *pos = strstr(pCommandLine, "--client");
@@ -690,20 +686,20 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
         m_Network.SetNetworkMode(NETWORKMODE_CLIENT);
 
     }
-    else if (strstr(pCommandLine, "-s") != NULL ||
-        strstr(pCommandLine, "--server") != NULL)
+    else if (strstr(pCommandLine, "-h") != NULL ||
+        strstr(pCommandLine, "--host") != NULL)
     {
-        OutputDebugString("*** STARTING GAME AS SERVER\n");
-        m_Network.SetNetworkMode(NETWORKMODE_SERVER);
+        OutputDebugString("*** STARTING GAME AS HOST\n");
+        m_Network.SetNetworkMode(NETWORKMODE_HOST);
     }
 #else
     for (int i = 0; i < pCommandLineCount; i++)
     {
-        if (strncmp(pCommandLine[i], "-s", 2) == 0 ||
-            strncmp(pCommandLine[i], "--server", 8) == 0)
+        if (strncmp(pCommandLine[i], "-h", 2) == 0 ||
+            strncmp(pCommandLine[i], "--host", 6) == 0)
         {
-            printf("*** STARTING GAME AS SERVER\n");
-            m_Network.SetNetworkMode(NETWORKMODE_SERVER);
+            printf("*** STARTING GAME AS HOST\n");
+            m_Network.SetNetworkMode(NETWORKMODE_HOST);
             break;
         }
         else if ((strncmp(pCommandLine[i], "-c", 2) == 0 ||
@@ -718,10 +714,8 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
         }
     }
 #endif
-#endif
 
-#ifdef NETWORK_MODE
-    if (m_Network.NetworkMode() != NETWORKMODE_LOCAL)
+    if (m_Network.NetworkMode() != NETWORKMODE_UNKNOWN)
     {
         if (!m_Network.Connect(IpAddressString, 1234))
         {
@@ -733,10 +727,9 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
         StartGameMode(GAMEMODE_MATCH);
     }
     else
-#endif
     {
         // Set the current game mode
-        StartGameMode(START_UP_GAME_MODE);
+        StartGameMode(GAMEMODE_TITLE);
     }
 
     // Log that initialization is complete

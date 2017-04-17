@@ -39,15 +39,9 @@
 
 enum ENetworkMode
 {
-    NETWORKMODE_LOCAL,
-    NETWORKMODE_SERVER,
+	NETWORKMODE_UNKNOWN = -1,
+    NETWORKMODE_HOST,
     NETWORKMODE_CLIENT
-};
-
-enum ESocketType
-{
-    SOCKET_SERVER,
-    SOCKET_CLIENT
 };
 
 #define SDL_ERROR -1
@@ -59,9 +53,8 @@ private:
 
     ENetworkMode m_NetworkMode;
 
-    TCPsocket m_Socket;
-    TCPsocket m_ClientSocket;
-    SDLNet_SocketSet m_socketSet;
+	UDPsocket m_udpSocket;
+	IPaddress m_ip;
 
 public:
 
@@ -71,12 +64,15 @@ public:
     ENetworkMode   NetworkMode();
     void           SetNetworkMode(ENetworkMode NetworkMode);
 
+	void           Sleep(const int ms);
+
+	bool		   Initialize();
+
     bool           Connect(const char* IpAddressString, int port);
     bool           Disconnect();
 
-    bool           Send(ESocketType SocketType, const char* buf, int len);
-    int            Receive(ESocketType SocketType, char* buf, int len);
-    int            ReceiveNonBlocking(ESocketType SocketType, char* buf, int len);
+	bool           Send(const char* buf, int len);
+	int            Receive(char* buf);
 
     bool           SendCommandChunk(const CCommandChunk& CommandChunk);
     bool           ReceiveCommandChunk(CCommandChunk& CommandChunk);
