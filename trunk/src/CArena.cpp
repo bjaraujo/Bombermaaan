@@ -1020,7 +1020,9 @@ void CArena::NewItem(int BlockX, int BlockY, EItemType Type, bool Fumes, bool Fl
             case ITEM_SKULL: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMSKULL);  break;
             case ITEM_REMOTE: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMREMOTE);  break;
             case ITEM_SHIELD: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMSHIELD);  break;
-            default: break;
+			case ITEM_PUNCH: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMPUNCH);  break;
+			case ITEM_THROW: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMTHROW);  break;
+			default: break;
             }
 
             return;
