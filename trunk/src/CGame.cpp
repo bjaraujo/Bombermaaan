@@ -193,8 +193,8 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
     // There is no check if the parameters are surrounded by spaces, or at the beginning of the line,
     // or the end. So "-----__/-h999" would also match (the -h is found).
 #ifdef WIN32
-    if (strstr(pCommandLine, "-h") != NULL ||
-        strstr(pCommandLine, "--help") != NULL ||  // Not really necessary, since "-h" already did the job
+    if (strstr(pCommandLine, "-?") != NULL ||
+        strstr(pCommandLine, "--help") != NULL ||  // Not really necessary, since "-?" already did the job
         strstr(pCommandLine, "--license") != NULL ||
         strstr(pCommandLine, "--show-license") != NULL ||
         strstr(pCommandLine, "/?") != NULL)
@@ -213,6 +213,7 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
             break;
         }
     }
+
     if (helpRequested)
 #endif
     {
@@ -666,32 +667,44 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
     m_MenuYesNo.Create();
 
     char IpAddressString[32];
+	const char *pos;
+
 #ifdef WIN32
-    const char *pos = strstr(pCommandLine, "--client");
+    pos = strstr(pCommandLine, "--client");
+	if (pos != NULL)
+	{
+		strcpy(IpAddressString, pos + 9);
+		OutputDebugString("*** STARTING GAME AS CLIENT\n");
+		m_Network.SetNetworkMode(NETWORKMODE_CLIENT);
+	}
+	else
+	{
+		pos = strstr(pCommandLine, "-c");
+		if (pos != NULL)
+		{
+			strcpy(IpAddressString, pos + 3);
+			OutputDebugString("*** STARTING GAME AS CLIENT\n");
+			m_Network.SetNetworkMode(NETWORKMODE_CLIENT);
+		}
+	}
 
-    if (pos != NULL)
-        strcpy(IpAddressString, pos + 9);
-
-    if (pos == NULL)
-    {
-        pos = strstr(pCommandLine, "-c");
-        if (pos != NULL)
-            strcpy(IpAddressString, pos + 3);
-    }
-
-    // client mode and ip address given?
-    if (pos != NULL && strlen(pCommandLine) > (unsigned int)(pos - pCommandLine + 2))
-    {
-        OutputDebugString("*** STARTING GAME AS CLIENT\n");
-        m_Network.SetNetworkMode(NETWORKMODE_CLIENT);
-
-    }
-    else if (strstr(pCommandLine, "-h") != NULL ||
-        strstr(pCommandLine, "--host") != NULL)
-    {
-        OutputDebugString("*** STARTING GAME AS HOST\n");
-        m_Network.SetNetworkMode(NETWORKMODE_HOST);
-    }
+	pos = strstr(pCommandLine, "--host");
+	if (pos != NULL)
+	{
+		strcpy(IpAddressString, pos + 6);
+		OutputDebugString("*** STARTING GAME AS HOST\n");
+		m_Network.SetNetworkMode(NETWORKMODE_HOST);
+	}
+	else
+	{
+		pos = strstr(pCommandLine, "-h");
+		if (pos != NULL)
+		{
+			strcpy(IpAddressString, pos + 3);
+			OutputDebugString("*** STARTING GAME AS HOST\n");
+			m_Network.SetNetworkMode(NETWORKMODE_HOST);
+		}
+	}
 #else
     for (int i = 0; i < pCommandLineCount; i++)
     {

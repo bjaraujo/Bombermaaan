@@ -162,7 +162,6 @@ bool CNetwork::Connect(const char* IpAddressString, int port)
     if (SDLNet_Init() == SDL_ERROR)
     {
         theLog.Write("init failed: %s\n", SDLNet_GetError());
-
         return false;
     }
 
