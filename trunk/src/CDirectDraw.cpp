@@ -48,10 +48,7 @@ CDirectDraw::CDirectDraw(void)
     m_ColorKey = 0;
     m_OriginX = 0;
     m_OriginY = 0;
-	
-	m_rcScreen = ;
-	m_rcViewport = ;
-	
+		
 }
 
 //******************************************************************************************************************************
@@ -991,6 +988,8 @@ bool CDirectDraw::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int S
 {
 
     // TODO:
+
+	return true;
 
 }
 

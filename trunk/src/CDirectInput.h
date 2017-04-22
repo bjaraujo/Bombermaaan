@@ -143,6 +143,25 @@
 #define KEYBOARD_RWIN          DIK_RWIN                 //!< Right Windows key 
 #define KEYBOARD_APPS          DIK_APPS                 //!< AppMenu key 
 
+#define JOYSTICK_UP         0
+#define JOYSTICK_DOWN       1
+#define JOYSTICK_LEFT       2
+#define JOYSTICK_RIGHT      3
+#define JOYSTICK_BUTTON(x)  (4 + x)
+
+#define NUMBER_OF_JOYSTICK_DIRECTIONS     4     //!< Number of joystick directions (up down left right)
+
+#define JOYSTICK_AXIS_THRESHOLD 3200
+
+//! The third joystick button can be used for leaving the winner screen
+#define JOYSTICK_BUTTON_MENU_PREVIOUS   JOYSTICK_BUTTON(1)
+#define JOYSTICK_BUTTON_MENU_NEXT		JOYSTICK_BUTTON(0)
+
+//! The 9th joystick button (this usually is the "start" button) can be used for leaving the winner screen
+//! On xbox controller, the start button could be the 7th button (see tracker item #2907122)
+#define JOYSTICK_BUTTON_BREAK       JOYSTICK_BUTTON(8) // pause
+#define JOYSTICK_BUTTON_START       JOYSTICK_BUTTON(9) // start
+
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
