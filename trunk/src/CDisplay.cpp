@@ -140,7 +140,7 @@ bool CDisplay::Create(int Width, int Height, bool FullScreen)
             !LoadSprites(5, 5, 14, 15, true, BMP_VICTORY_CONFETTIS_LARGE) ||
             !LoadSprites(5, 5, 13, 14, true, BMP_VICTORY_CONFETTIS_MEDIUM) ||
             !LoadSprites(5, 5, 10, 10, true, BMP_VICTORY_CONFETTIS_SMALL) ||
-            !LoadSprites(1, 1, 202, 48, true, BMP_PAUSE) ||
+            !LoadSprites(1, 1, 200, 36, true, BMP_PAUSE) ||
             !LoadSprites(1, 1, 200, 36, true, BMP_HURRY) ||
             !LoadSprites(1, 1, 154, 93, true, BMP_MENU_FRAME_2) ||
             !LoadSprites(3, 4, 32, 32, true, BMP_ARENA_FUMES) || // 40
@@ -213,7 +213,7 @@ bool CDisplay::Create(int Width, int Height, bool FullScreen)
             !LoadSprites(5, 5, 14, 15, true, BMP_VICTORY_CONFETTIS_LARGE, "victory_confettis_large.bmp") ||
             !LoadSprites(5, 5, 13, 14, true, BMP_VICTORY_CONFETTIS_MEDIUM, "victory_confettis_medium.bmp") ||
             !LoadSprites(5, 5, 10, 10, true, BMP_VICTORY_CONFETTIS_SMALL, "victory_confettis_small.bmp") ||
-            !LoadSprites(1, 1, 202, 48, true, BMP_PAUSE, "arena_pause.bmp") ||
+            !LoadSprites(1, 1, 200, 36, true, BMP_PAUSE, "arena_pause.bmp") ||
             !LoadSprites(1, 1, 200, 36, true, BMP_HURRY, "arena_hurry.bmp") ||
             !LoadSprites(1, 1, 154, 93, true, BMP_MENU_FRAME_2, "menu_frame_2.bmp") ||
             !LoadSprites(3, 4, 32, 32, true, BMP_ARENA_FUMES, "arena_fumes.bmp") || // 40
