@@ -219,6 +219,9 @@ SBomberSpriteTable CBomber::m_BomberSpriteTables[MAX_NUMBER_OF_STATES] =
  */
 #define CONTAMINATION_NEAR      9        
 
+ //! Max time since last sick
+#define MAX_TIME_SINCE_LAST_SICK 3.0
+
 //! Bomber sprite layer
 #define BOMBER_SPRITELAYER  50
 
@@ -1465,7 +1468,7 @@ void CBomber::Contamination()
             if (Player != m_Player &&
                 m_pArena->GetBomber(Player).Exist() &&
                 m_pArena->GetBomber(Player).IsAlive() &&
-                m_pArena->GetBomber(Player).TimeSinceLastSick() > 3.0 &&
+                m_pArena->GetBomber(Player).TimeSinceLastSick() > MAX_TIME_SINCE_LAST_SICK &&
                 !m_pArena->GetBomber(Player).HasShield() &&
                 ABS(m_pArena->GetBomber(Player).GetX() - m_BomberMove.GetX()) +
                 ABS(m_pArena->GetBomber(Player).GetY() - m_BomberMove.GetY()) <= CONTAMINATION_NEAR)
