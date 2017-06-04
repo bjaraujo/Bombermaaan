@@ -907,7 +907,6 @@ void CBomb::StartFlying(EBombFly BombFly, EBombFlightType FlightType)
 {
     ASSERT(BombFly != BOMBFLY_NONE);
     ASSERT(FlightType != BOMBFLIGHTTYPE_NONE);
-    ASSERT(!m_BeingLifted);
 
     m_BombFly = BombFly;
     m_FlightType = FlightType;
