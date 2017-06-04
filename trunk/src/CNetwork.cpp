@@ -52,11 +52,11 @@ CNetwork::~CNetwork(void)
 
 void CNetwork::Sleep(const int ms)
 {
-	 
+     
 #ifdef __linux__
-	usleep(ms * 1000);   // usleep takes sleep time in us (1 millionth of a second)
+    usleep(ms * 1000);   // usleep takes sleep time in us (1 millionth of a second)
 #else
-	::Sleep(ms);
+    ::Sleep(ms);
 #endif
 
 }
@@ -86,13 +86,13 @@ void CNetwork::SetNetworkMode(ENetworkMode NetworkMode)
 bool CNetwork::Initialize()
 {
 
-	if (SDLNet_Init() == SDL_ERROR)
-	{
-		std::cout << "Init failed: " << SDLNet_GetError() << std::endl;
-		return false;
-	}
+    if (SDLNet_Init() == SDL_ERROR)
+    {
+        std::cout << "Init failed: " << SDLNet_GetError() << std::endl;
+        return false;
+    }
 
-	return true;
+    return true;
 
 }
 
@@ -103,22 +103,22 @@ bool CNetwork::Initialize()
 bool CNetwork::Send(const char* buf, int len)
 {
 
-	UDPpacket packet;
-	packet.address = m_ip;
-	packet.channel = -1;
-	packet.data = (Uint8*)buf;
-	packet.len = len;
+    UDPpacket packet;
+    packet.address = m_ip;
+    packet.channel = -1;
+    packet.data = (Uint8*)buf;
+    packet.len = len;
 
-	//std::cout << "Sending: " << data << std::endl;
+    //std::cout << "Sending: " << data << std::endl;
 
-	int numSent = SDLNet_UDP_Send(m_udpSocket, packet.channel, &packet);
+    int numSent = SDLNet_UDP_Send(m_udpSocket, packet.channel, &packet);
 
-	if (!numSent) {
-		std::cout << "SDLNet_UDP_Send: " << SDLNet_GetError() << std::endl;
-		return false;
-	}
+    if (!numSent) {
+        std::cout << "SDLNet_UDP_Send: " << SDLNet_GetError() << std::endl;
+        return false;
+    }
 
-	return true;
+    return true;
 
 }
 
@@ -129,26 +129,26 @@ bool CNetwork::Send(const char* buf, int len)
 int CNetwork::Receive(char* buf)
 {
 
-	int numRecv = -1;
+    int numRecv = -1;
 
-	UDPpacket* packet;
-	
-	if (!(packet = SDLNet_AllocPacket(1024)))
-	{
-		std::cout << "SDLNet_AllocPacket: " << SDLNet_GetError() << std::endl;
-		return numRecv;
-	}
+    UDPpacket* packet;
+    
+    if (!(packet = SDLNet_AllocPacket(1024)))
+    {
+        std::cout << "SDLNet_AllocPacket: " << SDLNet_GetError() << std::endl;
+        return numRecv;
+    }
 
-	numRecv = SDLNet_UDP_Recv(m_udpSocket, packet);
+    numRecv = SDLNet_UDP_Recv(m_udpSocket, packet);
 
-	if (numRecv) 
-	{
-		buf = (char*)packet->data;
-	}
+    if (numRecv) 
+    {
+        buf = (char*)packet->data;
+    }
 
-	SDLNet_FreePacket(packet);
-	
-	return numRecv;
+    SDLNet_FreePacket(packet);
+    
+    return numRecv;
 
 }
 
@@ -165,18 +165,18 @@ bool CNetwork::Connect(const char* IpAddressString, int port)
         return false;
     }
 
-	m_udpSocket = SDLNet_UDP_Open(port);
+    m_udpSocket = SDLNet_UDP_Open(port);
 
-	if (!m_udpSocket) {
-		std::cout << "UDP open failed:" << SDLNet_GetError() << std::endl;
-		return false;
-	}
+    if (!m_udpSocket) {
+        std::cout << "UDP open failed:" << SDLNet_GetError() << std::endl;
+        return false;
+    }
 
-	if (SDLNet_ResolveHost(&m_ip, IpAddressString, port) == SDL_ERROR)
-	{
-		std::cout << "Connection failed: " << SDLNet_GetError() << std::endl;
-		return false;
-	}
+    if (SDLNet_ResolveHost(&m_ip, IpAddressString, port) == SDL_ERROR)
+    {
+        std::cout << "Connection failed: " << SDLNet_GetError() << std::endl;
+        return false;
+    }
 
     return true;
 
@@ -189,7 +189,7 @@ bool CNetwork::Connect(const char* IpAddressString, int port)
 bool CNetwork::Disconnect()
 {
 
-	SDLNet_UDP_Close(m_udpSocket);
+    SDLNet_UDP_Close(m_udpSocket);
 
     return true;
 
@@ -207,9 +207,9 @@ bool CNetwork::SendCommandChunk(const CCommandChunk& CommandChunk)
         char ByteArray[4];
     } LongBytes;
 
-	// Send checksum
-	LongBytes.LongValue = CheckSum((const char*)&CommandChunk);
-	Send((const char*)&LongBytes.ByteArray, 4);
+    // Send checksum
+    LongBytes.LongValue = CheckSum((const char*)&CommandChunk);
+    Send((const char*)&LongBytes.ByteArray, 4);
 
     // Send client command chunk to the server
     Send((const char*)&CommandChunk, sizeof(CommandChunk));
@@ -225,47 +225,47 @@ bool CNetwork::SendCommandChunk(const CCommandChunk& CommandChunk)
 bool CNetwork::ReceiveCommandChunk(CCommandChunk& CommandChunk)
 {
 
-	bool res = false;
+    bool res = false;
 
     union {
         unsigned long LongValue;
         char ByteArray[4];
     } LongBytes;
 
-	int BufSize = 4 + sizeof(CommandChunk);
-	int Received = 0;
+    int BufSize = 4 + sizeof(CommandChunk);
+    int Received = 0;
 
-	char* recvBuf = new char[BufSize];
+    char* recvBuf = new char[BufSize];
 
-	// Receive checksum and data
-	do {
+    // Receive checksum and data
+    do {
 
-		Received += this->Receive(&recvBuf[Received]);
+        Received += this->Receive(&recvBuf[Received]);
 
-		if (Received == SDL_ERROR)
-		{
-			theLog.Write("CommandChunk: recieve error: %s\n", SDLNet_GetError());
-			break;
-		}
+        if (Received == SDL_ERROR)
+        {
+            theLog.Write("CommandChunk: recieve error: %s\n", SDLNet_GetError());
+            break;
+        }
 
-	} while (Received < BufSize);
+    } while (Received < BufSize);
 
-	if (Received == BufSize)
-	{
+    if (Received == BufSize)
+    {
 
-		memcpy(LongBytes.ByteArray, &recvBuf[0], 4);
+        memcpy(LongBytes.ByteArray, &recvBuf[0], 4);
 
-		if (CheckSum(&recvBuf[4]) == LongBytes.LongValue)
-		{
-			memcpy((char *)&CommandChunk, &recvBuf[4], sizeof(CommandChunk));
-			res = true;
-		}
+        if (CheckSum(&recvBuf[4]) == LongBytes.LongValue)
+        {
+            memcpy((char *)&CommandChunk, &recvBuf[4], sizeof(CommandChunk));
+            res = true;
+        }
 
-	}
+    }
 
-	delete[] recvBuf;
+    delete[] recvBuf;
 
-	return res;
+    return res;
 
 }
 
@@ -276,19 +276,19 @@ bool CNetwork::ReceiveCommandChunk(CCommandChunk& CommandChunk)
 bool CNetwork::SendSnapshot(const CArenaSnapshot& Snapshot)
 {
 
-	union {
+    union {
         unsigned long LongValue;
         char ByteArray[4];
     } LongBytes;
 
-	// Send checksum
-	LongBytes.LongValue = this->CheckSum((const char*)&Snapshot);
+    // Send checksum
+    LongBytes.LongValue = this->CheckSum((const char*)&Snapshot);
     Send((const char*)&LongBytes.ByteArray, 4);
 
     // Send snapshot to the client
     Send((const char*)&Snapshot, sizeof(Snapshot));
 
-	return true;
+    return true;
 
 }
 
@@ -299,46 +299,46 @@ bool CNetwork::SendSnapshot(const CArenaSnapshot& Snapshot)
 bool CNetwork::ReceiveSnapshot(CArenaSnapshot& Snapshot)
 {
 
-	bool res = false;
+    bool res = false;
 
     union {
         unsigned long LongValue;
         char ByteArray[4];
     } LongBytes;
 
-	int BufSize = 4 + sizeof(Snapshot);
-	int Received = 0;
+    int BufSize = 4 + sizeof(Snapshot);
+    int Received = 0;
 
-	char* recvBuf = new char[BufSize];
+    char* recvBuf = new char[BufSize];
 
-	do {
+    do {
 
-		Received += this->Receive(&recvBuf[Received]);
+        Received += this->Receive(&recvBuf[Received]);
 
-		if (Received == SDL_ERROR)
-		{
-			theLog.Write("Snapshot: recieve error: %s\n", SDLNet_GetError());
-			break;
-		}
+        if (Received == SDL_ERROR)
+        {
+            theLog.Write("Snapshot: recieve error: %s\n", SDLNet_GetError());
+            break;
+        }
 
-	} while (Received < BufSize);
+    } while (Received < BufSize);
 
-	if (Received == BufSize)
-	{
+    if (Received == BufSize)
+    {
 
-		memcpy(LongBytes.ByteArray, &recvBuf[0], 4);
+        memcpy(LongBytes.ByteArray, &recvBuf[0], 4);
 
-		if (CheckSum(&recvBuf[4]) == LongBytes.LongValue)
-		{
-			memcpy((char *)&Snapshot, &recvBuf[4], sizeof(Snapshot));
-			res = true;
-		}
+        if (CheckSum(&recvBuf[4]) == LongBytes.LongValue)
+        {
+            memcpy((char *)&Snapshot, &recvBuf[4], sizeof(Snapshot));
+            res = true;
+        }
 
-	}
+    }
 
-	delete[] recvBuf;
+    delete[] recvBuf;
 
-	return res;
+    return res;
 
 }
 

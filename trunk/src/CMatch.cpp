@@ -69,7 +69,7 @@ CMatch::CMatch(void) : CModeScreen()
 
     m_pPauseMessage = NULL;
     m_pHurryMessage = NULL;
-	
+    
     m_MatchOver = false;
     m_WinnerTeam = NO_WINNER_TEAM;
 
@@ -77,10 +77,10 @@ CMatch::CMatch(void) : CModeScreen()
     m_NoticedTimeUp = false;
     m_ModeTime = 0.0f;
     m_HaveToExit = false;
-    m_ForceDrawGame = false;	
-	
+    m_ForceDrawGame = false;    
+    
 #ifdef NETWORK_MODE
-	m_pNetwork = NULL;
+    m_pNetwork = NULL;
 #endif
 
     m_CurrentSong = SONG_NONE;
@@ -566,7 +566,7 @@ void CMatch::ManagePauseMessage(void)
                 // If this player input is opened
                 if (m_pInput->GetPlayerInput(PlayerInputNr).IsOpened()) {
 
-					if (m_pInput->GetPlayerInput(PlayerInputNr).TestMenuControl(JOYSTICK_BUTTON_BREAK)) {
+                    if (m_pInput->GetPlayerInput(PlayerInputNr).TestMenuControl(JOYSTICK_BUTTON_BREAK)) {
                         joystickRequestedPause = true;
                     }
 

@@ -228,8 +228,8 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
             "Copyright (C) 2007, 2008 Bernd Arnold\n"
             "Copyright (C) 2008 Jerome Bigot\n"
             "Copyright (C) 2008 Markus Drescher\n"
-			"Copyright (C) 2016 Billy Araujo\n"
-			"\n"
+            "Copyright (C) 2016 Billy Araujo\n"
+            "\n"
             "Bombermaaan is free software: you can redistribute it and/or modify\n"
             "it under the terms of the GNU General Public License as published by\n"
             "the Free Software Foundation, either version 3 of the License, or\n"
@@ -667,44 +667,44 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
     m_MenuYesNo.Create();
 
     char IpAddressString[32];
-	const char *pos;
+    const char *pos;
 
 #ifdef WIN32
     pos = strstr(pCommandLine, "--client");
-	if (pos != NULL)
-	{
-		strcpy(IpAddressString, pos + 9);
-		OutputDebugString("*** STARTING GAME AS CLIENT\n");
-		m_Network.SetNetworkMode(NETWORKMODE_CLIENT);
-	}
-	else
-	{
-		pos = strstr(pCommandLine, "-c");
-		if (pos != NULL)
-		{
-			strcpy(IpAddressString, pos + 3);
-			OutputDebugString("*** STARTING GAME AS CLIENT\n");
-			m_Network.SetNetworkMode(NETWORKMODE_CLIENT);
-		}
-	}
+    if (pos != NULL)
+    {
+        strcpy(IpAddressString, pos + 9);
+        OutputDebugString("*** STARTING GAME AS CLIENT\n");
+        m_Network.SetNetworkMode(NETWORKMODE_CLIENT);
+    }
+    else
+    {
+        pos = strstr(pCommandLine, "-c");
+        if (pos != NULL)
+        {
+            strcpy(IpAddressString, pos + 3);
+            OutputDebugString("*** STARTING GAME AS CLIENT\n");
+            m_Network.SetNetworkMode(NETWORKMODE_CLIENT);
+        }
+    }
 
-	pos = strstr(pCommandLine, "--host");
-	if (pos != NULL)
-	{
-		strcpy(IpAddressString, pos + 6);
-		OutputDebugString("*** STARTING GAME AS HOST\n");
-		m_Network.SetNetworkMode(NETWORKMODE_HOST);
-	}
-	else
-	{
-		pos = strstr(pCommandLine, "-h");
-		if (pos != NULL)
-		{
-			strcpy(IpAddressString, pos + 3);
-			OutputDebugString("*** STARTING GAME AS HOST\n");
-			m_Network.SetNetworkMode(NETWORKMODE_HOST);
-		}
-	}
+    pos = strstr(pCommandLine, "--host");
+    if (pos != NULL)
+    {
+        strcpy(IpAddressString, pos + 6);
+        OutputDebugString("*** STARTING GAME AS HOST\n");
+        m_Network.SetNetworkMode(NETWORKMODE_HOST);
+    }
+    else
+    {
+        pos = strstr(pCommandLine, "-h");
+        if (pos != NULL)
+        {
+            strcpy(IpAddressString, pos + 3);
+            OutputDebugString("*** STARTING GAME AS HOST\n");
+            m_Network.SetNetworkMode(NETWORKMODE_HOST);
+        }
+    }
 #else
     for (int i = 0; i < pCommandLineCount; i++)
     {

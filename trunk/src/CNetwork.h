@@ -39,7 +39,7 @@
 
 enum ENetworkMode
 {
-	NETWORKMODE_UNKNOWN = -1,
+    NETWORKMODE_UNKNOWN = -1,
     NETWORKMODE_HOST,
     NETWORKMODE_CLIENT
 };
@@ -53,8 +53,8 @@ private:
 
     ENetworkMode m_NetworkMode;
 
-	UDPsocket m_udpSocket;
-	IPaddress m_ip;
+    UDPsocket m_udpSocket;
+    IPaddress m_ip;
 
 public:
 
@@ -64,15 +64,15 @@ public:
     ENetworkMode   NetworkMode();
     void           SetNetworkMode(ENetworkMode NetworkMode);
 
-	void           Sleep(const int ms);
+    void           Sleep(const int ms);
 
-	bool		   Initialize();
+    bool           Initialize();
 
     bool           Connect(const char* IpAddressString, int port);
     bool           Disconnect();
 
-	bool           Send(const char* buf, int len);
-	int            Receive(char* buf);
+    bool           Send(const char* buf, int len);
+    int            Receive(char* buf);
 
     bool           SendCommandChunk(const CCommandChunk& CommandChunk);
     bool           ReceiveCommandChunk(CCommandChunk& CommandChunk);
