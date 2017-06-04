@@ -93,7 +93,7 @@
 #define MENU_ITEM_CREDITS                       3
 #define MENU_ITEM_EXIT                          4
 
-#define MAX_IDLE_TIME						    30.0f   // Duration (in seconds) of maximum idle time
+#define MAX_IDLE_TIME                            30.0f   // Duration (in seconds) of maximum idle time
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -103,17 +103,17 @@ CTitle::CTitle (void) : CModeScreen()
 {
     // The cursor points to the first menu item
     m_Cursor = FIRST_MENU_ITEM;
-	
+    
     m_SongStarted = false;
     m_ModeTime = 0.0f;
     m_HaveToExit = false;
     m_MovingHandDistance = 0;
-    m_MovingHandTimer = 0.0f;	
-	
+    m_MovingHandTimer = 0.0f;    
+    
     m_ExitModeTime = 0.0f;
     m_ExitGameMode = GAMEMODE_NONE;
 
-	m_IdleTime = 0.0f;
+    m_IdleTime = 0.0f;
 
 }
 
@@ -194,7 +194,7 @@ EGameMode CTitle::Update (void)
 {
     // Increase elapsed time since mode has started
     m_ModeTime += m_pTimer->GetDeltaTime();
-	m_IdleTime += m_pTimer->GetDeltaTime();
+    m_IdleTime += m_pTimer->GetDeltaTime();
 
     // If we have to make the first black screen
     if (m_ModeTime <= BLACKSCREEN_DURATION)
@@ -245,11 +245,11 @@ EGameMode CTitle::Update (void)
         }
 
         // If the NEXT control is pressed
-		if (m_pInput->GetMainInput().TestNext())
+        if (m_pInput->GetMainInput().TestNext())
         {
 
-			m_IdleTime = 0.0f;
-			
+            m_IdleTime = 0.0f;
+            
             // Which menu item is the cursor pointing to?
             // Determine the game mode to ask for when exiting
             switch (m_Cursor)
@@ -283,10 +283,10 @@ EGameMode CTitle::Update (void)
                 m_pSound->PlaySample (SAMPLE_MENU_ERROR);
             }
         }
-		else if (m_pInput->GetMainInput().TestUp())
+        else if (m_pInput->GetMainInput().TestUp())
         {
 
-			m_IdleTime = 0.0f;
+            m_IdleTime = 0.0f;
 
             // Play the menu beep sound
             m_pSound->PlaySample (SAMPLE_MENU_BEEP);
@@ -301,12 +301,12 @@ EGameMode CTitle::Update (void)
                 m_Cursor = LAST_MENU_ITEM;
             }
         }
-		else if (m_pInput->GetMainInput().TestDown())
+        else if (m_pInput->GetMainInput().TestDown())
         {
 
-			m_IdleTime = 0.0f;
+            m_IdleTime = 0.0f;
 
-			// Play the menu beep sound
+            // Play the menu beep sound
             m_pSound->PlaySample (SAMPLE_MENU_BEEP);
 
             // Make the cursor go down (menu item below)
@@ -320,24 +320,24 @@ EGameMode CTitle::Update (void)
             }
         }
 
-		// If idle too long go to Demo mode automatically
-		if (m_IdleTime >= MAX_IDLE_TIME)
-		{
+        // If idle too long go to Demo mode automatically
+        if (m_IdleTime >= MAX_IDLE_TIME)
+        {
 
-			m_IdleTime = 0.0f;
+            m_IdleTime = 0.0f;
 
-			m_ExitGameMode = GAMEMODE_DEMO;
+            m_ExitGameMode = GAMEMODE_DEMO;
 
-			// Stop playing the song
-			m_pSound->StopSong(SONG_TITLE_MUSIC);
+            // Stop playing the song
+            m_pSound->StopSong(SONG_TITLE_MUSIC);
 
-			// We have to exit this game mode
-			m_HaveToExit = true;
+            // We have to exit this game mode
+            m_HaveToExit = true;
 
-			// Remember when we decided to exit (needed for the blackscreen)
-			m_ExitModeTime = m_ModeTime;
+            // Remember when we decided to exit (needed for the blackscreen)
+            m_ExitModeTime = m_ModeTime;
 
-		}
+        }
 
     }
     // If we have to make the last black screen

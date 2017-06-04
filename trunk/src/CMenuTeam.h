@@ -39,7 +39,7 @@ class CMenuTeam : public CMenuBase
 {
 private:
 
-	int             m_CursorPlayer;             //!< Cursor used to remember on what player it's pointing to
+    int             m_CursorPlayer;             //!< Cursor used to remember on what player it's pointing to
 
     void            OnCreate (void);
     void            OnDestroy (void);

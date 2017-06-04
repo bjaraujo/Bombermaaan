@@ -86,15 +86,15 @@ CAiBomber::CAiBomber(void)
     m_BlockLeftY = 0;
     m_BlockRightX = 0;
     m_BlockRightY = 0;
-	
-	for (int BlockX = 0; BlockX < ARENA_WIDTH; BlockX++)
-	{
-		for (int BlockY = 0; BlockY < ARENA_HEIGHT; BlockY++)
-		{
-			m_Accessible[BlockX][BlockY] = -1;
-			m_PseudoAccessible[BlockX][BlockY] = -1;
-		}
-	}
+    
+    for (int BlockX = 0; BlockX < ARENA_WIDTH; BlockX++)
+    {
+        for (int BlockY = 0; BlockY < ARENA_HEIGHT; BlockY++)
+        {
+            m_Accessible[BlockX][BlockY] = -1;
+            m_PseudoAccessible[BlockX][BlockY] = -1;
+        }
+    }
 
 }
 
@@ -1240,8 +1240,8 @@ void CAiBomber::ModeThink(void)
                         || RANDOM(100) > 96)
                     {
                         // Let's detonate it.
-						m_BomberAction = BOMBERACTION_ACTION2; // detonate the bomb
-						m_pArena->GetArena()->GetBomb(Index).Burn();
+                        m_BomberAction = BOMBERACTION_ACTION2; // detonate the bomb
+                        m_pArena->GetArena()->GetBomb(Index).Burn();
 
                         // OK, get out since we decided what to do
                         return;
@@ -1843,7 +1843,7 @@ void CAiBomber::ModeDefence(float DeltaTime)
 
                     // Leave the for-loop, because we found a bomb
                     m_BomberAction = BOMBERACTION_ACTION2; // detonate the bomb
-					m_pArena->GetArena()->GetBomb(Index).Burn();
+                    m_pArena->GetArena()->GetBomb(Index).Burn();
 
                     break;
                 }

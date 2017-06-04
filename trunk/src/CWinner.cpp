@@ -321,7 +321,7 @@ EGameMode CWinner::Update (void)
             LeaveScreen |= m_pInput->GetMainInput().TestNext();
 
             // If the NEXT control is active
-			if (LeaveScreen)
+            if (LeaveScreen)
             {
                 // Remember we have to exit this mode
                 m_HaveToExit = true;

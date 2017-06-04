@@ -49,21 +49,21 @@ CBomberMove::CBomberMove(void)
 {
     m_pArena = NULL;
     m_Player = -1;
-	
-	m_X = -1;
-	m_Y = -1;
-	
-	m_iX = -1;
-	m_iY = -1;
-	
-	m_BlockX = -1;
-	m_BlockY = -1;
-	
-	m_BomberMove = BOMBERMOVE_NONE;
-	m_LastRealBomberMove = BOMBERMOVE_NONE;
-	m_Turning = TURNING_NOTTURNING;
-	m_CouldMove = false;
-	
+    
+    m_X = -1;
+    m_Y = -1;
+    
+    m_iX = -1;
+    m_iY = -1;
+    
+    m_BlockX = -1;
+    m_BlockY = -1;
+    
+    m_BomberMove = BOMBERMOVE_NONE;
+    m_LastRealBomberMove = BOMBERMOVE_NONE;
+    m_Turning = TURNING_NOTTURNING;
+    m_CouldMove = false;
+    
 }
 
 //******************************************************************************************************************************

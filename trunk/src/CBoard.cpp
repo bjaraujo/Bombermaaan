@@ -110,7 +110,7 @@ CBoard::CBoard (void)
     m_ClockTopTimer = 0.0f;
     m_ClockBottomSprite = 0;
     m_ClockTopSprite = 0;
-	m_AnimateClock = false;
+    m_AnimateClock = false;
     
 }
 

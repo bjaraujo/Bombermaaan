@@ -69,7 +69,7 @@ CMenu::CMenu(void) : CModeScreen()
     // This allows to get back to the last menu mode when 
     // a battle is over for example.
     m_MenuMode = MENUMODE_BOMBER;
-	
+    
     m_GameModeTime = 0.0f;
     m_HaveToExit = false;
     m_ExitGameMode = GAMEMODE_NONE;

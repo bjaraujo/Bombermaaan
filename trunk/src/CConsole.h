@@ -97,11 +97,11 @@ inline bool CConsole::IsOpen (void)
 
 inline void CConsole::SetTextColor (WORD Color)
 {
-	#ifdef WIN32
+    #ifdef WIN32
     SetConsoleTextAttribute (m_StdOut, Color);
-	#else
-	fprintf(m_StdOut, "%c[0;%dm", 26, 30 + Color);
-	#endif
+    #else
+    fprintf(m_StdOut, "%c[0;%dm", 26, 30 + Color);
+    #endif
 
     m_Color = Color;
 }

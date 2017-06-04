@@ -79,7 +79,7 @@
 CMenuTeam::CMenuTeam(void) : CMenuBase()
 {
 
-	m_CursorPlayer = 0;
+    m_CursorPlayer = 0;
 
 }
 
@@ -152,8 +152,8 @@ void CMenuTeam::OnDown(void)
 void CMenuTeam::OnLeft(void)
 {
 
-	if (m_pOptions->GetBomberType(m_CursorPlayer) == BOMBERTYPE_OFF)
-		m_pSound->PlaySample(SAMPLE_MENU_ERROR);
+    if (m_pOptions->GetBomberType(m_CursorPlayer) == BOMBERTYPE_OFF)
+        m_pSound->PlaySample(SAMPLE_MENU_ERROR);
 
     if (m_pOptions->GetBomberTeam(m_CursorPlayer) == BOMBERTEAM_B)
         m_pOptions->SetBomberTeam(m_CursorPlayer, BOMBERTEAM_A);
@@ -167,8 +167,8 @@ void CMenuTeam::OnLeft(void)
 void CMenuTeam::OnRight(void)
 {
 
-	if (m_pOptions->GetBomberType(m_CursorPlayer) == BOMBERTYPE_OFF)
-		m_pSound->PlaySample(SAMPLE_MENU_ERROR);
+    if (m_pOptions->GetBomberType(m_CursorPlayer) == BOMBERTYPE_OFF)
+        m_pSound->PlaySample(SAMPLE_MENU_ERROR);
 
     if (m_pOptions->GetBomberTeam(m_CursorPlayer) == BOMBERTEAM_A)
         m_pOptions->SetBomberTeam(m_CursorPlayer, BOMBERTEAM_B);
@@ -192,33 +192,33 @@ void CMenuTeam::OnPrevious(void)
 void CMenuTeam::OnNext(void)
 {
 
-	int nbPlayersTeamA = 0;
-	int nbPlayersTeamB = 0;
+    int nbPlayersTeamA = 0;
+    int nbPlayersTeamB = 0;
 
-	for (int Player = 0; Player < MAX_PLAYERS; Player++)
-	{
+    for (int Player = 0; Player < MAX_PLAYERS; Player++)
+    {
 
-		if (m_pOptions->GetBomberType(Player) == BOMBERTYPE_OFF)
-			continue;
+        if (m_pOptions->GetBomberType(Player) == BOMBERTYPE_OFF)
+            continue;
 
-		if (m_pOptions->GetBomberTeam(Player) == BOMBERTEAM_A)
-			nbPlayersTeamA++;
+        if (m_pOptions->GetBomberTeam(Player) == BOMBERTEAM_A)
+            nbPlayersTeamA++;
 
-		if (m_pOptions->GetBomberTeam(Player) == BOMBERTEAM_B)
-			nbPlayersTeamB++;
+        if (m_pOptions->GetBomberTeam(Player) == BOMBERTEAM_B)
+            nbPlayersTeamB++;
 
-	}
+    }
 
-	if (nbPlayersTeamA > 0 && nbPlayersTeamB > 0)
-	{
-		// Play the menu next sound
-		m_pSound->PlaySample(SAMPLE_MENU_NEXT);
+    if (nbPlayersTeamA > 0 && nbPlayersTeamB > 0)
+    {
+        // Play the menu next sound
+        m_pSound->PlaySample(SAMPLE_MENU_NEXT);
 
-		// Go to the next screen
-		Exit(MENUACTION_NEXT);
-	}
-	else
-		m_pSound->PlaySample(SAMPLE_MENU_ERROR);
+        // Go to the next screen
+        Exit(MENUACTION_NEXT);
+    }
+    else
+        m_pSound->PlaySample(SAMPLE_MENU_ERROR);
 
 }
 

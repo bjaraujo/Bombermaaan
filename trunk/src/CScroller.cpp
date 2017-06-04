@@ -46,7 +46,7 @@ CScroller::CScroller (void)
     m_fPositionX = (float) m_iPositionX;
     m_fPositionY = (float) m_iPositionY;
     m_Looping = false;
-	
+    
 }
 
 //******************************************************************************************************************************

@@ -66,7 +66,7 @@
 
 CMenuInput::CMenuInput (void) : CMenuBase ()
 {
-	
+    
     m_CursorPlayer = 0;
 
 }

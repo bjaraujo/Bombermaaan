@@ -132,7 +132,7 @@ int CBomb::m_BounceMoveY[NUMBER_OF_BOMBFLY_DIRECTIONS][3] =
 
 // Sprite table
 #define ARENA_BOMB_SPRITETABLE              4
-#define ARENA_REMOTE_BOMB_SPRITETABLE		65
+#define ARENA_REMOTE_BOMB_SPRITETABLE        65
 
 // Movement times when the bomb is flying
 #define THROW_BASE_FRAME_TIME       0.030f // When bomb was thrown
@@ -181,9 +181,9 @@ CBomb::CBomb(void) : CElement()
     m_BombFly = BOMBFLY_NONE;
     m_FlightType = BOMBFLIGHTTYPE_NONE;
 
-	for (int i = 0; i < 4; i++)
-		m_AnimationTimes[i] = 0.0f;
-	
+    for (int i = 0; i < 4; i++)
+        m_AnimationTimes[i] = 0.0f;
+    
 }
 
 //******************************************************************************************************************************
@@ -206,7 +206,7 @@ void CBomb::Create(int BlockX, int BlockY, int FlameSize, float TimeLeft, int Ow
     CElement::Create();
 
 #ifdef _DEBUG
-	debugLog.WriteDebugMsg(DEBUGSECT_BOMB, "New bomb [x=%02d, y=%02d, flamesize=%02d, owner=%d].", BlockX, BlockY, FlameSize, OwnerPlayer);
+    debugLog.WriteDebugMsg(DEBUGSECT_BOMB, "New bomb [x=%02d, y=%02d, flamesize=%02d, owner=%d].", BlockX, BlockY, FlameSize, OwnerPlayer);
 #endif
 
     m_iX = m_pArena->ToPosition(BlockX);
@@ -360,7 +360,7 @@ void CBomb::StartMoving(EBombKick BombKick, int KickerPlayer)
         return;
 
 #ifdef _DEBUG
-	debugLog.WriteDebugMsg(DEBUGSECT_BOMB, "Bomb starts moving [x=%02d, y=%02d, owner=%d, new_direction=%d, kicker=%d, old_direction=%d].", m_BlockX, m_BlockY, m_OwnerPlayer, BombKick, KickerPlayer, m_BombKick);
+    debugLog.WriteDebugMsg(DEBUGSECT_BOMB, "Bomb starts moving [x=%02d, y=%02d, owner=%d, new_direction=%d, kicker=%d, old_direction=%d].", m_BlockX, m_BlockY, m_OwnerPlayer, BombKick, KickerPlayer, m_BombKick);
 #endif
 
     switch (m_BombKick)

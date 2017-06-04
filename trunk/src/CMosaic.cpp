@@ -36,7 +36,7 @@
 CMosaic::CMosaic (void)
 {
     m_pDisplay = NULL;
-	
+    
     m_SpriteTable = 0;
     m_Sprite = 0;
     m_SpriteLayer = 0;
@@ -46,12 +46,12 @@ CMosaic::CMosaic (void)
     m_TileCountX = 0; 
     m_TileCountY = 0; 
     m_SpeedX = 0.0f;
-	m_SpeedY = 0.0f;
+    m_SpeedY = 0.0f;
     m_BackgroundPositionX = 0.0f;
     m_BackgroundPositionY = 0.0f;
     m_iBackgroundPositionX = 0;
     m_iBackgroundPositionY = 0;
-	
+    
 }
 
 //******************************************************************************************************************************

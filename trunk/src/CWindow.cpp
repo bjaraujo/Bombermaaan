@@ -220,9 +220,9 @@ void CWindow::WinProc (unsigned int msg, WPARAM wParam, LPARAM lParam)
     case WM_CLOSE:          OnClose(wParam, lParam);           break;
     case WM_DESTROY:        OnDestroy(wParam, lParam);         break;
 #ifndef DIRECTX_INPUT
-    case SDL_JOYAXISMOTION: OnJoystickAxis(wParam, lParam);		break;
+    case SDL_JOYAXISMOTION: OnJoystickAxis(wParam, lParam);        break;
     case SDL_JOYBUTTONDOWN:
-    case SDL_JOYBUTTONUP:	OnJoystickButton(wParam, lParam);	break;
+    case SDL_JOYBUTTONUP:    OnJoystickButton(wParam, lParam);    break;
 #endif
     }
 
@@ -320,7 +320,7 @@ void CWindow::MessagePump()
                 WinProc(event.type, (WPARAM)&event.jbutton, (LPARAM)&event);
                 break;
 
-            case SDL_VIDEORESIZE:	 // resize our window
+            case SDL_VIDEORESIZE:     // resize our window
                 WinProc(WM_SIZE, (WPARAM)&event.resize, (LPARAM)&event);
                 break;
 

@@ -36,10 +36,10 @@
 CCloudManager::CCloudManager (void)
 {
     m_pDisplay = NULL;
-	
-	m_CloudSprites[0] = 53;
-	m_CloudSprites[1] = 54;
-	m_CloudSprites[2] = 55;
+    
+    m_CloudSprites[0] = 53;
+    m_CloudSprites[1] = 54;
+    m_CloudSprites[2] = 55;
 
 }
 

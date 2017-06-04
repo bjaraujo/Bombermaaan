@@ -85,16 +85,16 @@ CExplosion::CExplosion (void) : CElement()
     m_State = STATE2;
     m_Timer = 0.0f;
     m_Dead = false;
-	
-	m_FlameSizeUp = 0;
-	m_FlameSizeDown = 0;
-	m_FlameSizeLeft = 0;
-	m_FlameSizeRight = 0;
-	m_StopUp = false;
-	m_StopDown = false;
-	m_StopLeft = false;
-	m_StopRight = false;
-	
+    
+    m_FlameSizeUp = 0;
+    m_FlameSizeDown = 0;
+    m_FlameSizeLeft = 0;
+    m_FlameSizeRight = 0;
+    m_StopUp = false;
+    m_StopDown = false;
+    m_StopLeft = false;
+    m_StopRight = false;
+    
 }
 
 //******************************************************************************************************************************
@@ -117,7 +117,7 @@ void CExplosion::Create (int BlockX, int BlockY, int FlameSize)
     CElement::Create();
 
 #ifdef _DEBUG
-	debugLog.WriteDebugMsg(DEBUGSECT_EXPLOSION, "New explosion [x=%02d, y=%02d, flamesize=%02d].", BlockX, BlockY, FlameSize);
+    debugLog.WriteDebugMsg(DEBUGSECT_EXPLOSION, "New explosion [x=%02d, y=%02d, flamesize=%02d].", BlockX, BlockY, FlameSize);
 #endif
 
     m_iX = m_pArena->ToPosition (BlockX); 

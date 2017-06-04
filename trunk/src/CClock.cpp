@@ -46,8 +46,8 @@ CClock::CClock (void)
     m_StartSeconds100 = 0;
     m_Pause = false;
 
-	m_ClockType = CLOCKTYPE_COUNTDOWN;
-	m_ClockMode = CLOCKMODE_MS;
+    m_ClockType = CLOCKTYPE_COUNTDOWN;
+    m_ClockMode = CLOCKMODE_MS;
     
 }
 

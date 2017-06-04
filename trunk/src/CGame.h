@@ -86,10 +86,10 @@ private:
     CControls       m_Controls;             //!< Controls screen object
     CDemo           m_Demo;                 //!< Demo screen object in which we show a match betweeen computer players.
     CMenuYesNo      m_MenuYesNo;            //!< Yes/No message box object
-	CCredits		m_Credits;				//!< Credits screen object 
+    CCredits        m_Credits;                //!< Credits screen object 
 
 #ifdef NETWORK_MODE
-	CNetwork		m_Network;				//!< Network object
+    CNetwork        m_Network;                //!< Network object
 #endif
 
 #ifndef DIRECTX_DRAW
@@ -117,14 +117,14 @@ public:
 #ifdef WIN32
                     CGame (HINSTANCE hInstance, const char* pCommandLine);
 #else
-					CGame (HINSTANCE hInstance, char **pCommandLine);
+                    CGame (HINSTANCE hInstance, char **pCommandLine);
 #endif
 
     virtual         ~CGame (void);
 #ifdef WIN32
-	bool            Create (const char* pCommandLine);
+    bool            Create (const char* pCommandLine);
 #else
-	bool            Create (char **pCommandLine, int pCommandLineCount);
+    bool            Create (char **pCommandLine, int pCommandLineCount);
 #endif
 
     void            Destroy (void);

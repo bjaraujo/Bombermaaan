@@ -159,7 +159,7 @@ CVictory::CVictory (void) : CModeScreen()
     // Initialize the pointers to NULL so that we 
     // can easily detect the ones we forgot to set.
     m_pScores = NULL;
-	
+    
     m_ModeTime = 0.0f;
 
     m_CrowdTimer = 0.0f;
@@ -173,7 +173,7 @@ CVictory::CVictory (void) : CModeScreen()
     m_HaveToExit = false;
     m_ExitModeTime = 0.0f;
 
-    m_PlayedSound = false;	
+    m_PlayedSound = false;    
 }
 
 //******************************************************************************************************************************
@@ -356,8 +356,8 @@ EGameMode CVictory::Update (void)
 
             }
 
-			// Check the keyboard as well
-			LeaveScreen |= m_pInput->GetMainInput().TestNext();
+            // Check the keyboard as well
+            LeaveScreen |= m_pInput->GetMainInput().TestNext();
 
             // If the NEXT control is active
             if (LeaveScreen)

@@ -57,24 +57,24 @@ CAiArena::CAiArena (void)
 {
     m_pArena = NULL;
     m_pDisplay = NULL;
-		
-	for (int i = 0; i < MAX_DEAD_END; i++)
-	{
-		m_DeadEndExit[i].BlockX = -1;
-		m_DeadEndExit[i].BlockY = -1;
-	}
-	
-	for (int BlockX = 0; BlockX < ARENA_WIDTH; BlockX++)
-	{
-		for (int BlockY = 0; BlockY < ARENA_HEIGHT; BlockY++)
-		{
-			m_Danger[BlockX][BlockY] = DANGER_NONE;
-			m_DangerTimeLeft[BlockX][BlockY] = 0.0f;
-			m_DeadEnd[BlockX][BlockY] = -1;
-			m_SoftWallNear[BlockX][BlockY] = 0;
-			m_WallBurn[BlockX][BlockY] = false;
-		}
-	}
+        
+    for (int i = 0; i < MAX_DEAD_END; i++)
+    {
+        m_DeadEndExit[i].BlockX = -1;
+        m_DeadEndExit[i].BlockY = -1;
+    }
+    
+    for (int BlockX = 0; BlockX < ARENA_WIDTH; BlockX++)
+    {
+        for (int BlockY = 0; BlockY < ARENA_HEIGHT; BlockY++)
+        {
+            m_Danger[BlockX][BlockY] = DANGER_NONE;
+            m_DangerTimeLeft[BlockX][BlockY] = 0.0f;
+            m_DeadEnd[BlockX][BlockY] = -1;
+            m_SoftWallNear[BlockX][BlockY] = 0;
+            m_WallBurn[BlockX][BlockY] = false;
+        }
+    }
 
 }
 
@@ -511,7 +511,7 @@ void CAiArena::Update (float DeltaTime)
                     g = gbase + m_SoftWallNear[BlockX][BlockY] * 8;
                     b = bbase + m_SoftWallNear[BlockX][BlockY] * 8;
                     
-		            m_pDisplay->DrawDebugRectangle (
+                    m_pDisplay->DrawDebugRectangle (
                         m_pArena->ToPosition(BlockX), 
                         m_pArena->ToPosition(BlockY), 
                         w, h, r, g, b, AIARENADEBUG_SPRITELAYER, PRIORITY_UNUSED);
@@ -1029,7 +1029,7 @@ void CAiArena::Update (float DeltaTime)
                     
                     r += MIN(64, (int)floor(m_DangerTimeLeft[BlockX][BlockY] * 30.0));
                     
-		            m_pDisplay->DrawDebugRectangle (
+                    m_pDisplay->DrawDebugRectangle (
                         m_pArena->ToPosition(BlockX), 
                         m_pArena->ToPosition(BlockY), 
                         w, h, r, 0, 0, AIARENADEBUG_SPRITELAYER, PRIORITY_UNUSED);
@@ -1043,7 +1043,7 @@ void CAiArena::Update (float DeltaTime)
                 {
                     b = bbase;
                     
-		            m_pDisplay->DrawDebugRectangle (
+                    m_pDisplay->DrawDebugRectangle (
                         m_pArena->ToPosition(BlockX), 
                         m_pArena->ToPosition(BlockY), 
                         w, h, 0, 0, b, AIARENADEBUG_SPRITELAYER, PRIORITY_UNUSED);
@@ -1075,7 +1075,7 @@ void CAiArena::Update (float DeltaTime)
                                 }
                             }
                             
-		                    m_pDisplay->DrawDebugRectangle (
+                            m_pDisplay->DrawDebugRectangle (
                                 m_pArena->ToPosition(BlockX), 
                                 m_pArena->ToPosition(BlockY), 
                                 w, h, r, g, b, AIARENADEBUG_SPRITELAYER, PRIORITY_UNUSED);

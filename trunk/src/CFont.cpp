@@ -70,14 +70,14 @@ CFont::CFont (void)
     // Initialize the pointers to NULL so that we 
     // can easily detect the ones we forgot to set.
     m_pDisplay = NULL;
-	
+    
     m_SpriteLayer = 0;
-    m_DrawShadow = false;	
-	m_TextColorOffset = 0;
-	m_ShadowColorOffset = 0;
-	m_SpriteLayer = 0;
-	m_ShadowOffsetX = 0;
-	m_ShadowOffsetY = 0;
+    m_DrawShadow = false;    
+    m_TextColorOffset = 0;
+    m_ShadowColorOffset = 0;
+    m_SpriteLayer = 0;
+    m_ShadowOffsetX = 0;
+    m_ShadowOffsetY = 0;
 
 }
 
@@ -224,7 +224,7 @@ void CFont::Draw (int PositionX, int PositionY, const char *pString, ...)
     char String [MAX_STRING_LENGTH];
     va_list argList;
     va_start (argList, pString);
-	vsprintf (String, pString, argList);
+    vsprintf (String, pString, argList);
     va_end (argList);
 
     // Draw the given string at given position
@@ -241,7 +241,7 @@ void CFont::DrawCenteredX (int BorderLeft, int BorderRight, int PositionY, const
     char String [MAX_STRING_LENGTH];
     va_list argList;
     va_start (argList, pString);
-	vsprintf (String, pString, argList);
+    vsprintf (String, pString, argList);
     va_end (argList);
 
     // Compute X position so that the string we write is centered between the two borders
@@ -261,7 +261,7 @@ void CFont::DrawCenteredY (int PositionX, int BorderUp, int BorderDown, const ch
     char String [MAX_STRING_LENGTH];
     va_list argList;
     va_start (argList, pString);
-	vsprintf (String, pString, argList);
+    vsprintf (String, pString, argList);
     va_end (argList);
 
     // Compute Y position so that the string we write is centered between the two borders
@@ -281,7 +281,7 @@ void CFont::DrawCenteredXY (int BorderUp, int BorderDown, int BorderLeft, int Bo
     char String [MAX_STRING_LENGTH];
     va_list argList;
     va_start (argList, pString);
-	vsprintf (String, pString, argList);
+    vsprintf (String, pString, argList);
     va_end (argList);
 
     // Compute X position so that the string we write is centered between the two borders

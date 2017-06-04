@@ -98,16 +98,16 @@
 CControls::CControls (void) : CModeScreen()
 {
 
-	m_ModeTime = 0.0f;
-	m_HaveToExit = false;
-	m_ExitModeTime = 0.0f;
-	m_Cursor = 0;
-	m_PlayerInput = 0;
-	m_WaitingForInput = false;
-	m_WaitingForInputAfter = false;
-	m_SongStarted = false;
-	m_pMosaic = NULL;
-	
+    m_ModeTime = 0.0f;
+    m_HaveToExit = false;
+    m_ExitModeTime = 0.0f;
+    m_Cursor = 0;
+    m_PlayerInput = 0;
+    m_WaitingForInput = false;
+    m_WaitingForInputAfter = false;
+    m_SongStarted = false;
+    m_pMosaic = NULL;
+    
 }
 
 //******************************************************************************************************************************
@@ -247,7 +247,7 @@ EGameMode CControls::Update (void)
             // Then react to the menu controls...
 
             // If the ESCAPE control is active
-			if (m_pInput->GetMainInput().TestBreak())
+            if (m_pInput->GetMainInput().TestBreak())
             {
                 // Stop playing the song
                 m_pSound->StopSong (SONG_CONTROLS_MUSIC);
@@ -259,7 +259,7 @@ EGameMode CControls::Update (void)
                 m_ExitModeTime = m_ModeTime;
             }
             // If the NEXT control is active
-			else if (m_pInput->GetMainInput().TestNext())
+            else if (m_pInput->GetMainInput().TestNext())
             {
                 // If the cursor is pointing to a control (and therefore not on the 'device' item)
                 if (m_Cursor != 0)
@@ -269,7 +269,7 @@ EGameMode CControls::Update (void)
                 }
             }
             // If the UP control is active
-			else if (m_pInput->GetMainInput().TestUp())
+            else if (m_pInput->GetMainInput().TestUp())
             {
                 // Play the menu beep sound
                 m_pSound->PlaySample (SAMPLE_MENU_BEEP);
@@ -285,7 +285,7 @@ EGameMode CControls::Update (void)
                 }
             }
             // If the DOWN control is active
-			else if (m_pInput->GetMainInput().TestDown())
+            else if (m_pInput->GetMainInput().TestDown())
             {
                 // Play the menu beep sound
                 m_pSound->PlaySample (SAMPLE_MENU_BEEP);
@@ -301,7 +301,7 @@ EGameMode CControls::Update (void)
                 }
             }
             // If the LEFT control is active
-			else if (m_pInput->GetMainInput().TestLeft())
+            else if (m_pInput->GetMainInput().TestLeft())
             {
                 // If the cursor is pointing on the DEVICE menu item
                 if (m_Cursor == DEVICE_MENU_ITEM)
@@ -330,7 +330,7 @@ EGameMode CControls::Update (void)
                 }
             }
             // If the RIGHT control is active
-			else if (m_pInput->GetMainInput().TestRight())
+            else if (m_pInput->GetMainInput().TestRight())
             {
                 // If the cursor is pointing on the DEVICE menu item
                 if (m_Cursor == DEVICE_MENU_ITEM)
@@ -436,7 +436,7 @@ void CControls::Display (void)
 
         // Draw the title of the screen
         m_Font.SetTextColor (FONTCOLOR_WHITE);
-		m_Font.DrawCenteredX(0, VIEW_WIDTH, SCREEN_TITLE_POSITION_Y, SCREEN_CONTROLS_TITLE_STRING);
+        m_Font.DrawCenteredX(0, VIEW_WIDTH, SCREEN_TITLE_POSITION_Y, SCREEN_CONTROLS_TITLE_STRING);
 
         // Position Y on the screen of the first menu item in this screen
         int MenuItemPositionY = FIRST_MENU_ITEM_POSITION_Y;

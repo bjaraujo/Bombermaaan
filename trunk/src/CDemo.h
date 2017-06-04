@@ -108,8 +108,8 @@ public:
     inline void     SetSound (CSound *pSound);          //!< Set link to the sound object to use
     void            Create (void);                      //!< Initialize the object
     void            Destroy (void);                     //!< Uninitialize the object
-	void            Reset(void);                        //!< Reset the object
-	void            OpenInput (void);                   //!< Get access to the input this object needs
+    void            Reset(void);                        //!< Reset the object
+    void            OpenInput (void);                   //!< Get access to the input this object needs
     void            CloseInput (void);                  //!< Release access to the input this object needs
     EGameMode       Update (void);                      //!< Update the object and return what game mode should be set
     void            Display (void);                     //!< Display on the screen

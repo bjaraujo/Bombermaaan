@@ -65,7 +65,7 @@
 #define ACTION2_MENU_ITEM                       6
 
 #define SCREEN_TITLE_POSITION_Y                 (20+80)
-#define SCREEN_TEXT_POSITION_X					50
+#define SCREEN_TEXT_POSITION_X                    50
 
 #define SCREEN_CREDITS_TITLE_STRING             "CREDITS"
 
@@ -81,12 +81,12 @@
 CCredits::CCredits(void) : CModeScreen()
 {
 
-	m_HaveToExit = false;
-	m_ModeTime = 0.0f;
-	m_ExitModeTime = 0.0f;
-	m_Cursor = 0;
-	m_SongStarted = false;
-	m_pMosaic = NULL;
+    m_HaveToExit = false;
+    m_ModeTime = 0.0f;
+    m_ExitModeTime = 0.0f;
+    m_Cursor = 0;
+    m_SongStarted = false;
+    m_pMosaic = NULL;
 
 }
 
@@ -203,7 +203,7 @@ EGameMode CCredits::Update (void)
         if (!m_SongStarted)
         {
             // Start playing the controls song
-			m_pSound->PlaySong(SONG_GREET_MUSIC);
+            m_pSound->PlaySong(SONG_GREET_MUSIC);
 
             // We started playing the song
             m_SongStarted = true;
@@ -212,18 +212,18 @@ EGameMode CCredits::Update (void)
         // Update the scrolling mosaic background
         m_pMosaic->Update (m_pTimer->GetDeltaTime());
 
-		// If the ESCAPE control is active
-		if (m_pInput->GetMainInput().TestBreak())
-		{
-			// Stop playing the song
-			m_pSound->StopSong(SONG_GREET_MUSIC);
+        // If the ESCAPE control is active
+        if (m_pInput->GetMainInput().TestBreak())
+        {
+            // Stop playing the song
+            m_pSound->StopSong(SONG_GREET_MUSIC);
 
-			// Remember we have to exit this mode
-			m_HaveToExit = true;
+            // Remember we have to exit this mode
+            m_HaveToExit = true;
 
-			// Remember the mode time
-			m_ExitModeTime = m_ModeTime;
-		}
+            // Remember the mode time
+            m_ExitModeTime = m_ModeTime;
+        }
     }
     // We have to exit, so we have to make the last black screen
     else if (m_ModeTime - m_ExitModeTime <= CREDITS_BLACKSCREEN_DURATION)
@@ -262,16 +262,16 @@ void CCredits::Display (void)
 
         // Draw the title of the screen
         m_Font.SetTextColor (FONTCOLOR_WHITE);
-		m_Font.DrawCenteredX(0, VIEW_WIDTH, SCREEN_TITLE_POSITION_Y, SCREEN_CREDITS_TITLE_STRING);
+        m_Font.DrawCenteredX(0, VIEW_WIDTH, SCREEN_TITLE_POSITION_Y, SCREEN_CREDITS_TITLE_STRING);
 
-		m_Font.SetTextColor(FONTCOLOR_YELLOW);
-		m_Font.DrawCenteredX(0, VIEW_WIDTH, SCREEN_TITLE_POSITION_Y + 60,  "Thibaut Tollemer");
-		m_Font.DrawCenteredX(0, VIEW_WIDTH, SCREEN_TITLE_POSITION_Y + 80,  "Bernd Arnold");
-		m_Font.DrawCenteredX(0, VIEW_WIDTH, SCREEN_TITLE_POSITION_Y + 100, "Jerome Bigot");
-		m_Font.DrawCenteredX(0, VIEW_WIDTH, SCREEN_TITLE_POSITION_Y + 120, "Markus Drescher");
-		m_Font.DrawCenteredX(0, VIEW_WIDTH, SCREEN_TITLE_POSITION_Y + 140, "Billy Araujo");
+        m_Font.SetTextColor(FONTCOLOR_YELLOW);
+        m_Font.DrawCenteredX(0, VIEW_WIDTH, SCREEN_TITLE_POSITION_Y + 60,  "Thibaut Tollemer");
+        m_Font.DrawCenteredX(0, VIEW_WIDTH, SCREEN_TITLE_POSITION_Y + 80,  "Bernd Arnold");
+        m_Font.DrawCenteredX(0, VIEW_WIDTH, SCREEN_TITLE_POSITION_Y + 100, "Jerome Bigot");
+        m_Font.DrawCenteredX(0, VIEW_WIDTH, SCREEN_TITLE_POSITION_Y + 120, "Markus Drescher");
+        m_Font.DrawCenteredX(0, VIEW_WIDTH, SCREEN_TITLE_POSITION_Y + 140, "Billy Araujo");
 
-	}
+    }
     // We have to exit, so we have to make the last black screen
     else if (m_ModeTime - m_ExitModeTime <= CREDITS_BLACKSCREEN_DURATION)
     {

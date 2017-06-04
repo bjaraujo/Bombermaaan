@@ -47,7 +47,7 @@ class CHurryMessage;
 #include "CSound.h"
 
 #ifdef NETWORK_MODE
-	#include "CNetwork.h"
+    #include "CNetwork.h"
 #endif
 
 //******************************************************************************************************************************
@@ -118,7 +118,7 @@ public:
     inline void     SetSound(CSound *pSound);          //!< Set link to the sound object to use
     
 #ifdef NETWORK_MODE
-	inline void     SetNetwork(CNetwork *pNetwork);     //!< Set link to the network object to use
+    inline void     SetNetwork(CNetwork *pNetwork);     //!< Set link to the network object to use
 #endif
 
     void            Create(void);                      //!< Initialize the object
