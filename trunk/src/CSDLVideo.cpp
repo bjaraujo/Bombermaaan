@@ -30,7 +30,7 @@
 #include "BombermaaanIco.h"
 
 static const char* GetSDLVideoError();
-static void AddDisplayMode(int width, int height, int depth, LPVOID lpContext);
+static void AddDisplayMode(int width, int height, int depth, vector<SDisplayMode>& displayModes);
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -63,17 +63,15 @@ CSDLVideo::~CSDLVideo(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-static void AddDisplayMode(int width, int height, int depth, LPVOID lpContext)
+static void AddDisplayMode(int width, int height, int depth, vector<SDisplayMode>& displayModes)
 {
     // The DirectInput device that will be created
-    vector<SDisplayMode>* pDisplayModes = (vector<SDisplayMode>*)lpContext;
-
     SDisplayMode DisplayMode;
     DisplayMode.Width = width;
     DisplayMode.Height = height;
     DisplayMode.Depth = depth;
 
-    pDisplayModes->push_back(DisplayMode);
+    displayModes.push_back(DisplayMode);
 
     return;
 }
@@ -115,10 +113,10 @@ bool CSDLVideo::Create(int Width, int Height, int Depth, bool FullScreen)
         theLog.WriteLine("SDLVideo        => All modes available");
 
         // so, add 240x234 (window), 320 x 240, 512 x 384, 640 x 480 in 32 bits
-        AddDisplayMode(240, 234, 32, (LPVOID *)&m_AvailableDisplayModes);
-        AddDisplayMode(320, 240, 32, (LPVOID *)&m_AvailableDisplayModes);
-        AddDisplayMode(512, 384, 32, (LPVOID *)&m_AvailableDisplayModes);
-        AddDisplayMode(640, 480, 32, (LPVOID *)&m_AvailableDisplayModes);
+        AddDisplayMode(240, 234, 32, m_AvailableDisplayModes);
+        AddDisplayMode(320, 240, 32, m_AvailableDisplayModes);
+        AddDisplayMode(512, 384, 32, m_AvailableDisplayModes);
+        AddDisplayMode(640, 480, 32, m_AvailableDisplayModes);
 
         // so this mode is possible
         validMode = true;
@@ -130,8 +128,7 @@ bool CSDLVideo::Create(int Width, int Height, int Depth, bool FullScreen)
                 (modes[i]->w == 320 && modes[i]->h == 240) ||
                 (modes[i]->w == 512 && modes[i]->h == 384) ||
                 (modes[i]->w == 640 && modes[i]->h == 480)) {
-                AddDisplayMode(modes[i]->w, modes[i]->h, 32,
-                    (LPVOID *)&m_AvailableDisplayModes);
+                AddDisplayMode(modes[i]->w, modes[i]->h, 32, m_AvailableDisplayModes);
 
                 // is our requested mode possbile?
                 if (modes[i]->w == m_Width && modes[i]->h == m_Height) {

@@ -1192,7 +1192,7 @@ void CAiBomber::ModeThink(void)
     // with quite big probability (not beyond the frontiers)
     if ((EnemyNearAndFront(&EnemyDirection, false) &&
          DropBombOK(m_BlockHereX, m_BlockHereY) &&
-         RANDOM(100) < 70 + m_pBomber->HasShield() ? 25 : 0))
+         RANDOM(100) < (70 + (m_pBomber->HasShield() ? 25 : 0))))
     {
         // Switch to the attack mode to drop a bomb
         SetComputerMode(COMPUTERMODE_ATTACK);
@@ -1387,21 +1387,14 @@ void CAiBomber::ModeThink(void)
             {
                 if (m_PseudoAccessible[BlockX][BlockY] != -1 &&
                     m_PseudoAccessible[BlockX][BlockY] <= 5 &&
-                    (
-                    BestDistance > m_PseudoAccessible[BlockX][BlockY]
-                    ||
-                    (
-                    BestDistance == m_PseudoAccessible[BlockX][BlockY]
-                    &&
-                    RANDOM(100) >= 50
-                    )
-                    ) &&
-                    (m_pArena->GetDeadEnd(BlockX, BlockY) == -1 || !EnemyNear(BlockX, BlockY))
-                    &&
-                    (m_pArena->GetWallBurn(BlockX - 1, BlockY) ||
-                    m_pArena->GetWallBurn(BlockX + 1, BlockY) ||
-                    m_pArena->GetWallBurn(BlockX, BlockY - 1) ||
-                    m_pArena->GetWallBurn(BlockX, BlockY + 1)))
+                    (BestDistance > m_PseudoAccessible[BlockX][BlockY] ||
+                    (BestDistance == m_PseudoAccessible[BlockX][BlockY] &&
+                    RANDOM(100) >= 50)) &&
+                    (m_pArena->GetDeadEnd(BlockX, BlockY) == -1 || !EnemyNear(BlockX, BlockY)) &&
+                    ((BlockX > 0 && m_pArena->GetWallBurn(BlockX - 1, BlockY)) ||
+                    (BlockX < ARENA_WIDTH - 1 && m_pArena->GetWallBurn(BlockX + 1, BlockY)) ||
+                    (BlockY > 0 && m_pArena->GetWallBurn(BlockX, BlockY - 1)) ||
+                    (BlockY < ARENA_HEIGHT - 1 && m_pArena->GetWallBurn(BlockX, BlockY + 1))))
                 {
                     FoundSoftWallBurn = true;
                     BestGoalBlockX = BlockX;
