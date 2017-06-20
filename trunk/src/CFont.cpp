@@ -75,7 +75,6 @@ CFont::CFont (void)
     m_DrawShadow = false;    
     m_TextColorOffset = 0;
     m_ShadowColorOffset = 0;
-    m_SpriteLayer = 0;
     m_ShadowOffsetX = 0;
     m_ShadowOffsetY = 0;
 

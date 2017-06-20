@@ -104,7 +104,7 @@ CControls::CControls (void) : CModeScreen()
     m_Cursor = 0;
     m_PlayerInput = 0;
     m_WaitingForInput = false;
-    m_WaitingForInputAfter = false;
+    m_WaitingForInputAfter = 0.0f;
     m_SongStarted = false;
     m_pMosaic = NULL;
     

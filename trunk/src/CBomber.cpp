@@ -1960,7 +1960,7 @@ void CBomber::Stunt(void)
             // Throw the bomb in the current direction he is heading
             MakeBombFly(BOMBFLIGHTTYPE_THROW);
             break;
-        case BOMBFLIGHTTYPE_PUNCH:
+        case BOMBERSTATE_PUNCH:
             // Make him punch the bomb now (with no bomber punching animation).
             MakeBombFly(BOMBFLIGHTTYPE_PUNCH);
             break;

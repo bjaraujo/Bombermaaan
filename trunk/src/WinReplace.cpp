@@ -133,10 +133,14 @@ long _findfirst(const char *pattern, _finddata_t *findData) {
         free(files);
     }
     
-    if (fileSelectSuffix != NULL) free(fileSelectSuffix);
+    if (fileSelectSuffix != NULL) 
+        free(fileSelectSuffix);
     
     fileSelectSuffix = (char *)malloc(strlen(suffix) + 1);
-    if (fileSelectSuffix == NULL) return -1;
+    
+    if (fileSelectSuffix == NULL) 
+        return -1;
+    
     strcpy(fileSelectSuffix, suffix);
     
     // sort files alphabetically

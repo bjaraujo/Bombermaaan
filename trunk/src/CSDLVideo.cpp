@@ -100,12 +100,7 @@ bool CSDLVideo::Create(int Width, int Height, int Depth, bool FullScreen)
     bool validMode = false; // is this video mode valid?
 
     // Enumerate all display modes (without taking refresh rates into account)
-    if (!m_FullScreen) {
-        modes = SDL_ListModes(NULL, SDL_HWSURFACE | SDL_DOUBLEBUF);
-    }
-    else {
-        modes = SDL_ListModes(NULL, SDL_HWSURFACE | SDL_DOUBLEBUF);
-    }
+    modes = SDL_ListModes(NULL, SDL_HWSURFACE | SDL_DOUBLEBUF);
 
     // some mode available?
     if (modes == (SDL_Rect **)0) {

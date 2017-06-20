@@ -76,7 +76,7 @@ CDemo::CDemo (void) : CModeScreen()
     m_DemoTextTime = 0.0f;
     m_DrawDemoText = false;
     m_ModeTime = 0.0f;
-    m_ExitModeTime = false;
+    m_ExitModeTime = 0.0f;
     m_ExitGameMode = 0;
     m_HaveToExit = false;
     
