@@ -40,6 +40,7 @@ CNetwork::CNetwork()
 
     m_NetworkMode = NETWORKMODE_UNKNOWN;
     m_udpSocket = NULL;
+    m_ip = {0, 0};
 
 }
 

@@ -133,7 +133,7 @@ public:
         double Time = GetCurrentTime ();
 
         // If timer has already been updated
-        if (m_Time)
+        if (m_Time > 0.0)
         {
             m_DeltaTime = (float)(Time - m_Time);
             m_Time = Time;

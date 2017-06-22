@@ -82,8 +82,7 @@ void CArenaCloser::Create (void)
 
 void CArenaCloser::Destroy (void)
 {
-    m_ClosureData.clear();
-    m_IsClosing = false;
+    Stop();
 }
 
 //******************************************************************************************************************************

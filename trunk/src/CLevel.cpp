@@ -66,28 +66,8 @@
 CLevel::CLevel(std::string filename_full, std::string filename_short) : m_Filename_full(filename_full), m_Filename_short(filename_short)
 {
 
-    int i, j;
+    CLevel();
 
-    //--m_LevelsData = NULL;
-    for (i = 0; i < ARENA_WIDTH; i++)
-    {
-        for (j = 0; j < ARENA_HEIGHT; j++)
-        {
-            m_ArenaData[i][j] = BLOCKTYPE_HARDWALL;
-        }
-    }
-
-    //--m_NumberOfItemsInWalls = NULL;
-    for (i = 0; i < NUMBER_OF_ITEMS; i++)
-    {
-        m_NumberOfItemsInWalls[i] = 0;
-    }
-
-    //--m_InitialBomberSkills = NULL;
-    for (i = 0; i < NUMBER_OF_BOMBERSKILLS; i++)
-    {
-        m_InitialBomberSkills[i] = 0;
-    }
 }
 
 //******************************************************************************************************************************
@@ -96,6 +76,25 @@ CLevel::CLevel(std::string filename_full, std::string filename_short) : m_Filena
 
 CLevel::CLevel(void)
 {
+
+    for (int i = 0; i < ARENA_WIDTH; i++)
+    {
+        for (int j = 0; j < ARENA_HEIGHT; j++)
+        {
+            m_ArenaData[i][j] = BLOCKTYPE_HARDWALL;
+        }
+    }
+
+    for (int i = 0; i < NUMBER_OF_ITEMS; i++)
+    {
+        m_NumberOfItemsInWalls[i] = 0;
+    }
+
+    for (int i = 0; i < NUMBER_OF_BOMBERSKILLS; i++)
+    {
+        m_InitialBomberSkills[i] = 0;
+    }
+
 }
 
 //******************************************************************************************************************************

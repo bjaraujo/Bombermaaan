@@ -51,6 +51,8 @@ CSDLVideo::CSDLVideo(void)
     m_ColorKey = 0;
     m_OriginX = 0;
     m_OriginY = 0;
+    m_rcScreen = SDL_Rect();
+    m_rcViewport = SDL_Rect();
 }
 
 //******************************************************************************************************************************

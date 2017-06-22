@@ -245,7 +245,7 @@ EGameMode CControls::Update (void)
         
         // If we are not about to wait for the user input
         // and we are not waiting for the user to activate the control he wants to reconfigure
-        if (m_WaitingForInputAfter == 0.0f && !m_WaitingForInput)
+        if (m_WaitingForInputAfter <= 0.0f && !m_WaitingForInput)
         {
             // Then react to the menu controls...
 
@@ -366,7 +366,7 @@ EGameMode CControls::Update (void)
         else
         {
             // If we have to wait before waiting for the user to activate a control
-            if (m_WaitingForInputAfter != 0.0f)
+            if (m_WaitingForInputAfter > 0.0f)
             {
                 // Reduce the time left to wait
                 m_WaitingForInputAfter -= m_pTimer->GetDeltaTime();
@@ -532,7 +532,7 @@ void CControls::Display (void)
             // Don't display the value of the menu item if the users currently wants to reconfigure a control.
             // If we are not about to wait for input and not waiting for input -> then display
             // Or if we are, but the cursor hand is not pointing to the current menu item -> then display
-            if ((m_WaitingForInputAfter == 0.0f && !m_WaitingForInput) || m_Cursor != MenuItemIndex)
+            if ((m_WaitingForInputAfter <= 0.0f && !m_WaitingForInput) || m_Cursor != MenuItemIndex)
             {
                 // Draw the name of the value corresponding to the menu item
                 m_Font.SetTextColor (FONTCOLOR_BLUE);

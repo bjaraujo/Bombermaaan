@@ -149,6 +149,11 @@ CWinner::CWinner (void) : CModeScreen()
     // can easily detect the ones we forgot to set.
     m_pScores = NULL;
     m_pMatch = NULL;
+
+    m_LightSpriteOffset = 0;
+    m_HappyBomberSpriteOffset = 0;
+    m_SadBomberSpriteOffset = 0;
+
 }
 
 //******************************************************************************************************************************

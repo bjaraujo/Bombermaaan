@@ -106,7 +106,7 @@ int main (int argc, char **argv)
 #endif
     {
         // Get out, failure
-        return false;
+        return -1;
     }
 
     //! Show the game window (CGame::ShowWindow())
@@ -124,7 +124,7 @@ int main (int argc, char **argv)
 #endif
 
     // Everything went right
-    return true;
+    return 0;
 }
 
 //******************************************************************************************************************************

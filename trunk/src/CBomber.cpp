@@ -475,7 +475,7 @@ void CBomber::Burn()
 #endif
 
     // The bomber cannot die by flames if he/she has the flameproof contamination or shield
-    if (m_Sickness != SICK_FLAMEPROOF && m_ShieldTime == 0.0f) {
+    if (m_Sickness != SICK_FLAMEPROOF && m_ShieldTime <= 0.0f) {
         Die();
     }
     else

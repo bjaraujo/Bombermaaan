@@ -110,7 +110,7 @@ void CMosaic::Destroy (void)
 void CMosaic::Update (float DeltaTime)
 {
     // If the mosaic has to scroll
-    if (m_SpeedX != 0.0f || m_SpeedY != 0.0f)
+    if (m_SpeedX > 0.0f || m_SpeedY > 0.0f)
     {    
         // Update tiled background position (and therefore animate the background on the game view)
         m_BackgroundPositionX += m_SpeedX * DeltaTime;

@@ -176,7 +176,17 @@ CVictory::CVictory (void) : CModeScreen()
     m_HaveToExit = false;
     m_ExitModeTime = 0.0f;
 
-    m_PlayedSound = false;    
+    m_PlayedSound = false;
+
+    m_CrowdFlag = false;
+
+    m_WinnerBomberSprite = 0;
+    m_LoserBomberSprite = 0;
+
+    for (int i = 0; i < NUM_CONFETTIS; i++)
+    {
+        m_Confettis[i] = SConfetti();
+    }
 }
 
 //******************************************************************************************************************************
