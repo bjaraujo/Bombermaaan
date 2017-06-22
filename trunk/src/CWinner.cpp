@@ -154,6 +154,10 @@ CWinner::CWinner (void) : CModeScreen()
     m_HappyBomberSpriteOffset = 0;
     m_SadBomberSpriteOffset = 0;
 
+    m_LightsTimer = 0;
+    m_HappyBomberTimer = 0;
+    m_SadBomberTimer = 0;
+
 }
 
 //******************************************************************************************************************************

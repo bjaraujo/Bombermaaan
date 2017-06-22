@@ -110,6 +110,15 @@ CWall::CWall (void) : CElement()
     m_BlockX = 0;
     m_BlockY = 0;
 
+    m_Timer = 0.0f;
+
+    m_Burning = false;
+    m_Dead = false;
+
+    m_Type = WALL_HARD;
+
+    m_Sprite = 0;
+
 }
 
 //******************************************************************************************************************************

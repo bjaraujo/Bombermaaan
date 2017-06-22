@@ -126,7 +126,6 @@ private:
 public:
 
     CLevel(std::string filename_full, std::string filename_short);     //!< Constructor.
-    CLevel(void);                                  //!< Default constructor.
     ~CLevel(void);                                 //!< Destructor.
     bool                LoadFromFile();                                 //!< Load game level data from the file.
     inline EBlockType   GetBlockType(int X, int Y);
