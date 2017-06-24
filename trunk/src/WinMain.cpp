@@ -62,7 +62,7 @@
 #ifdef WIN32
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdline, int nCmdShow)
 #else
-int main (int argc, char **argv)
+int main(int argc, char **argv)
 #endif
 {
 
