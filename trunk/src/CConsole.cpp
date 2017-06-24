@@ -160,7 +160,7 @@ void CConsole::Write (const char *pMessage, ...)
                 DWORD Count;
                 WriteConsole (m_StdOut, Message, strlen(Message), &Count, NULL);
 #else
-                fprintf(m_StdOut, Message);
+                fprintf(m_StdOut, "%s", Message);
 #endif
 
                 // Save the message
@@ -196,7 +196,7 @@ void CConsole::Write (const char *pMessage, ...)
             DWORD Count;
             WriteConsole (m_StdOut, Message, strlen(Message), &Count, NULL);
 #else
-            fprintf(m_StdOut, Message);
+            fprintf(m_StdOut, "%s", Message);
 #endif
         }
     }

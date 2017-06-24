@@ -141,54 +141,54 @@ bool CSound::Create(void)
         return false;
     }
 #else
-    if (!LoadSample(SAMPLE_BOMB_DROP, SND_BOMB_DROP, "sounds/bomb_drop.ogg") ||
-        !LoadSample(SAMPLE_BOMBER_DEATH, SND_BOMBER_DEATH, "sounds/bomber_death.ogg") ||
-        !LoadSample(SAMPLE_BOMB_BOUNCE, SND_BOMB_BOUNCE, "sounds/bomb_bounce.ogg") ||
-        !LoadSample(SAMPLE_BOMBER_PUNCH, SND_BOMBER_PUNCH, "sounds/bomber_punch.ogg") ||
-        !LoadSample(SAMPLE_BOMBER_THROW, SND_BOMBER_THROW, "sounds/bomber_throw.ogg") ||
-        !LoadSample(SAMPLE_BOMBER_LOSE_ITEM, SND_BOMBER_LOSE_ITEM, "sounds/bomber_lose_item.ogg") ||
-        !LoadSample(SAMPLE_BREAK_1, SND_BREAK_1, "sounds/break_1.ogg") ||
-        !LoadSample(SAMPLE_BREAK_2, SND_BREAK_2, "sounds/break_2.ogg") ||
-        !LoadSample(SAMPLE_DRAW_GAME, SND_DRAW_GAME, "sounds/draw_game.ogg") ||
-        !LoadSample(SAMPLE_DRAW_GAME_VOICE, SND_DRAW_GAME_VOICE, "sounds/draw_game_voice.ogg") ||
-        !LoadSample(SAMPLE_EXPLOSION_01_1, SND_EXPLOSION_01_1, "sounds/explosion_01_1.ogg") ||
-        !LoadSample(SAMPLE_EXPLOSION_01_2, SND_EXPLOSION_01_2, "sounds/explosion_01_2.ogg") ||
-        !LoadSample(SAMPLE_EXPLOSION_02_1, SND_EXPLOSION_02_1, "sounds/explosion_02_1.ogg") ||
-        !LoadSample(SAMPLE_EXPLOSION_02_2, SND_EXPLOSION_02_2, "sounds/explosion_02_2.ogg") ||
-        !LoadSample(SAMPLE_EXPLOSION_03_1, SND_EXPLOSION_03_1, "sounds/explosion_03_1.ogg") ||
-        !LoadSample(SAMPLE_EXPLOSION_03_2, SND_EXPLOSION_03_2, "sounds/explosion_03_2.ogg") ||
-        !LoadSample(SAMPLE_EXPLOSION_04_1, SND_EXPLOSION_04_1, "sounds/explosion_04_1.ogg") ||
-        !LoadSample(SAMPLE_EXPLOSION_04_2, SND_EXPLOSION_04_2, "sounds/explosion_04_2.ogg") ||
-        !LoadSample(SAMPLE_EXPLOSION_05_1, SND_EXPLOSION_05_1, "sounds/explosion_05_1.ogg") ||
-        !LoadSample(SAMPLE_EXPLOSION_05_2, SND_EXPLOSION_05_2, "sounds/explosion_05_2.ogg") ||
-        !LoadSample(SAMPLE_EXPLOSION_06_1, SND_EXPLOSION_06_1, "sounds/explosion_06_1.ogg") ||
-        !LoadSample(SAMPLE_EXPLOSION_06_2, SND_EXPLOSION_06_2, "sounds/explosion_06_2.ogg") ||
-        !LoadSample(SAMPLE_EXPLOSION_07_1, SND_EXPLOSION_07_1, "sounds/explosion_07_1.ogg") ||
-        !LoadSample(SAMPLE_EXPLOSION_07_2, SND_EXPLOSION_07_2, "sounds/explosion_07_2.ogg") ||
-        !LoadSample(SAMPLE_EXPLOSION_08_1, SND_EXPLOSION_08_1, "sounds/explosion_08_1.ogg") ||
-        !LoadSample(SAMPLE_EXPLOSION_08_2, SND_EXPLOSION_08_2, "sounds/explosion_08_2.ogg") ||
-        !LoadSample(SAMPLE_EXPLOSION_09_1, SND_EXPLOSION_09_1, "sounds/explosion_09_1.ogg") ||
-        !LoadSample(SAMPLE_EXPLOSION_09_2, SND_EXPLOSION_09_2, "sounds/explosion_09_2.ogg") ||
-        !LoadSample(SAMPLE_EXPLOSION_10_1, SND_EXPLOSION_10_1, "sounds/explosion_10_1.ogg") ||
-        !LoadSample(SAMPLE_EXPLOSION_10_2, SND_EXPLOSION_10_2, "sounds/explosion_10_2.ogg") ||
-        !LoadSample(SAMPLE_HURRY, SND_HURRY, "sounds/hurry.ogg") ||
-        !LoadSample(SAMPLE_ITEM_FUMES, SND_ITEM_FUMES, "sounds/item_fumes.ogg") ||
-        !LoadSample(SAMPLE_MENU_NEXT, SND_MENU_NEXT, "sounds/menu_next.ogg") ||
-        !LoadSample(SAMPLE_MENU_PREVIOUS, SND_MENU_PREVIOUS, "sounds/menu_previous.ogg") ||
-        !LoadSample(SAMPLE_MENU_BEEP, SND_MENU_BEEP, "sounds/menu_beep.ogg") ||
-        !LoadSample(SAMPLE_MENU_ERROR, SND_MENU_ERROR, "sounds/menu_error.ogg") ||
-        !LoadSample(SAMPLE_PAUSE, SND_PAUSE, "sounds/pause.ogg") ||
-        !LoadSample(SAMPLE_PICK_ITEM_1, SND_PICK_ITEM_1, "sounds/pick_item_1.ogg") ||
-        !LoadSample(SAMPLE_PICK_ITEM_2, SND_PICK_ITEM_2, "sounds/pick_item_2.ogg") ||
-        !LoadSample(SAMPLE_RING_DING, SND_RING_DING, "sounds/ring_ding.ogg") ||
-        !LoadSample(SAMPLE_SICK_1, SND_SICK_1, "sounds/sick_1.ogg") ||
-        !LoadSample(SAMPLE_SICK_2, SND_SICK_2, "sounds/sick_2.ogg") ||
-        !LoadSample(SAMPLE_SICK_3, SND_SICK_3, "sounds/sick_3.ogg") ||
-        !LoadSample(SAMPLE_VICTORY, SND_VICTORY, "sounds/victory.ogg") ||
-        !LoadSample(SAMPLE_VICTORY_VOICE, SND_VICTORY_VOICE, "sounds/victory_voice.ogg") ||
-        !LoadSample(SAMPLE_WALL_CLAP_1, SND_WALL_CLAP_1, "sounds/wall_clap_1.ogg") ||
-        !LoadSample(SAMPLE_WALL_CLAP_2, SND_WALL_CLAP_2, "sounds/wall_clap_2.ogg") ||
-        !LoadSample(SAMPLE_WINNER, SND_WINNER, "sounds/winner.ogg"))
+    if (!LoadSample(SAMPLE_BOMB_DROP, SND_BOMB_DROP, "bomb_drop.ogg") ||
+        !LoadSample(SAMPLE_BOMBER_DEATH, SND_BOMBER_DEATH, "bomber_death.ogg") ||
+        !LoadSample(SAMPLE_BOMB_BOUNCE, SND_BOMB_BOUNCE, "bomb_bounce.ogg") ||
+        !LoadSample(SAMPLE_BOMBER_PUNCH, SND_BOMBER_PUNCH, "bomber_punch.ogg") ||
+        !LoadSample(SAMPLE_BOMBER_THROW, SND_BOMBER_THROW, "bomber_throw.ogg") ||
+        !LoadSample(SAMPLE_BOMBER_LOSE_ITEM, SND_BOMBER_LOSE_ITEM, "bomber_lose_item.ogg") ||
+        !LoadSample(SAMPLE_BREAK_1, SND_BREAK_1, "break_1.ogg") ||
+        !LoadSample(SAMPLE_BREAK_2, SND_BREAK_2, "break_2.ogg") ||
+        !LoadSample(SAMPLE_DRAW_GAME, SND_DRAW_GAME, "draw_game.ogg") ||
+        !LoadSample(SAMPLE_DRAW_GAME_VOICE, SND_DRAW_GAME_VOICE, "draw_game_voice.ogg") ||
+        !LoadSample(SAMPLE_EXPLOSION_01_1, SND_EXPLOSION_01_1, "explosion_01_1.ogg") ||
+        !LoadSample(SAMPLE_EXPLOSION_01_2, SND_EXPLOSION_01_2, "explosion_01_2.ogg") ||
+        !LoadSample(SAMPLE_EXPLOSION_02_1, SND_EXPLOSION_02_1, "explosion_02_1.ogg") ||
+        !LoadSample(SAMPLE_EXPLOSION_02_2, SND_EXPLOSION_02_2, "explosion_02_2.ogg") ||
+        !LoadSample(SAMPLE_EXPLOSION_03_1, SND_EXPLOSION_03_1, "explosion_03_1.ogg") ||
+        !LoadSample(SAMPLE_EXPLOSION_03_2, SND_EXPLOSION_03_2, "explosion_03_2.ogg") ||
+        !LoadSample(SAMPLE_EXPLOSION_04_1, SND_EXPLOSION_04_1, "explosion_04_1.ogg") ||
+        !LoadSample(SAMPLE_EXPLOSION_04_2, SND_EXPLOSION_04_2, "explosion_04_2.ogg") ||
+        !LoadSample(SAMPLE_EXPLOSION_05_1, SND_EXPLOSION_05_1, "explosion_05_1.ogg") ||
+        !LoadSample(SAMPLE_EXPLOSION_05_2, SND_EXPLOSION_05_2, "explosion_05_2.ogg") ||
+        !LoadSample(SAMPLE_EXPLOSION_06_1, SND_EXPLOSION_06_1, "explosion_06_1.ogg") ||
+        !LoadSample(SAMPLE_EXPLOSION_06_2, SND_EXPLOSION_06_2, "explosion_06_2.ogg") ||
+        !LoadSample(SAMPLE_EXPLOSION_07_1, SND_EXPLOSION_07_1, "explosion_07_1.ogg") ||
+        !LoadSample(SAMPLE_EXPLOSION_07_2, SND_EXPLOSION_07_2, "explosion_07_2.ogg") ||
+        !LoadSample(SAMPLE_EXPLOSION_08_1, SND_EXPLOSION_08_1, "explosion_08_1.ogg") ||
+        !LoadSample(SAMPLE_EXPLOSION_08_2, SND_EXPLOSION_08_2, "explosion_08_2.ogg") ||
+        !LoadSample(SAMPLE_EXPLOSION_09_1, SND_EXPLOSION_09_1, "explosion_09_1.ogg") ||
+        !LoadSample(SAMPLE_EXPLOSION_09_2, SND_EXPLOSION_09_2, "explosion_09_2.ogg") ||
+        !LoadSample(SAMPLE_EXPLOSION_10_1, SND_EXPLOSION_10_1, "explosion_10_1.ogg") ||
+        !LoadSample(SAMPLE_EXPLOSION_10_2, SND_EXPLOSION_10_2, "explosion_10_2.ogg") ||
+        !LoadSample(SAMPLE_HURRY, SND_HURRY, "hurry.ogg") ||
+        !LoadSample(SAMPLE_ITEM_FUMES, SND_ITEM_FUMES, "item_fumes.ogg") ||
+        !LoadSample(SAMPLE_MENU_NEXT, SND_MENU_NEXT, "menu_next.ogg") ||
+        !LoadSample(SAMPLE_MENU_PREVIOUS, SND_MENU_PREVIOUS, "menu_previous.ogg") ||
+        !LoadSample(SAMPLE_MENU_BEEP, SND_MENU_BEEP, "menu_beep.ogg") ||
+        !LoadSample(SAMPLE_MENU_ERROR, SND_MENU_ERROR, "menu_error.ogg") ||
+        !LoadSample(SAMPLE_PAUSE, SND_PAUSE, "pause.ogg") ||
+        !LoadSample(SAMPLE_PICK_ITEM_1, SND_PICK_ITEM_1, "pick_item_1.ogg") ||
+        !LoadSample(SAMPLE_PICK_ITEM_2, SND_PICK_ITEM_2, "pick_item_2.ogg") ||
+        !LoadSample(SAMPLE_RING_DING, SND_RING_DING, "ring_ding.ogg") ||
+        !LoadSample(SAMPLE_SICK_1, SND_SICK_1, "sick_1.ogg") ||
+        !LoadSample(SAMPLE_SICK_2, SND_SICK_2, "sick_2.ogg") ||
+        !LoadSample(SAMPLE_SICK_3, SND_SICK_3, "sick_3.ogg") ||
+        !LoadSample(SAMPLE_VICTORY, SND_VICTORY, "victory.ogg") ||
+        !LoadSample(SAMPLE_VICTORY_VOICE, SND_VICTORY_VOICE, "victory_voice.ogg") ||
+        !LoadSample(SAMPLE_WALL_CLAP_1, SND_WALL_CLAP_1, "wall_clap_1.ogg") ||
+        !LoadSample(SAMPLE_WALL_CLAP_2, SND_WALL_CLAP_2, "wall_clap_2.ogg") ||
+        !LoadSample(SAMPLE_WINNER, SND_WINNER, "winner.ogg"))
     { // songs are loaded when they are needed
         // Failure, get out (error is logged by the LoadSample() and LoadSong() methods)
         return false;
