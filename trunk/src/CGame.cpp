@@ -1,3 +1,6 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+
 /************************************************************************************
 
     Copyright (C) 2000-2002, 2007 Thibaut Tollemer
@@ -67,9 +70,6 @@
 
 // Define this if you want sound and music in the game
 #define ENABLE_SOUND
-
-// This is the game mode that is set at start up. Should be set to GAMEMODE_TITLE for a release.
-#define START_UP_GAME_MODE GAMEMODE_TITLE
 
 // Define the name of the DLL (where sprites and sound samples are stored)
 #ifdef WIN32
@@ -196,8 +196,8 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
     // There is no check if the parameters are surrounded by spaces, or at the beginning of the line,
     // or the end. So "-----__/-h999" would also match (the -h is found).
 #ifdef WIN32
-    if (strstr(pCommandLine, "-h") != NULL ||
-        strstr(pCommandLine, "--help") != NULL ||  // Not really necessary, since "-h" already did the job
+    if (strstr(pCommandLine, "-?") != NULL ||
+        strstr(pCommandLine, "--help") != NULL ||  // Not really necessary, since "-?" already did the job
         strstr(pCommandLine, "--license") != NULL ||
         strstr(pCommandLine, "--show-license") != NULL ||
         strstr(pCommandLine, "/?") != NULL)
@@ -216,6 +216,7 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
             break;
         }
     }
+
     if (helpRequested)
 #endif
     {
@@ -230,8 +231,8 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
             "Copyright (C) 2007, 2008 Bernd Arnold\n"
             "Copyright (C) 2008 Jerome Bigot\n"
             "Copyright (C) 2008 Markus Drescher\n"
-			"Copyright (C) 2016 Billy Araujo\n"
-			"\n"
+            "Copyright (C) 2016 Billy Araujo\n"
+            "\n"
             "Bombermaaan is free software: you can redistribute it and/or modify\n"
             "it under the terms of the GNU General Public License as published by\n"
             "the Free Software Foundation, either version 3 of the License, or\n"
@@ -670,40 +671,52 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
 
 #ifdef NETWORK_MODE
     char IpAddressString[32];
+    const char *pos;
+
 #ifdef WIN32
-    const char *pos = strstr(pCommandLine, "--client");
-
+    pos = strstr(pCommandLine, "--client");
     if (pos != NULL)
+    {
         strcpy(IpAddressString, pos + 9);
-
-    if (pos == NULL)
+        OutputDebugString("*** STARTING GAME AS CLIENT\n");
+        m_Network.SetNetworkMode(NETWORKMODE_CLIENT);
+    }
+    else
     {
         pos = strstr(pCommandLine, "-c");
         if (pos != NULL)
+        {
             strcpy(IpAddressString, pos + 3);
+            OutputDebugString("*** STARTING GAME AS CLIENT\n");
+            m_Network.SetNetworkMode(NETWORKMODE_CLIENT);
+        }
     }
 
-    // client mode and ip address given?
-    if (pos != NULL && strlen(pCommandLine) > (unsigned int)(pos - pCommandLine + 2))
+    pos = strstr(pCommandLine, "--host");
+    if (pos != NULL)
     {
-        OutputDebugString("*** STARTING GAME AS CLIENT\n");
-        m_Network.SetNetworkMode(NETWORKMODE_CLIENT);
-
+        strcpy(IpAddressString, pos + 6);
+        OutputDebugString("*** STARTING GAME AS HOST\n");
+        m_Network.SetNetworkMode(NETWORKMODE_HOST);
     }
-    else if (strstr(pCommandLine, "-s") != NULL ||
-        strstr(pCommandLine, "--server") != NULL)
+    else
     {
-        OutputDebugString("*** STARTING GAME AS SERVER\n");
-        m_Network.SetNetworkMode(NETWORKMODE_SERVER);
+        pos = strstr(pCommandLine, "-h");
+        if (pos != NULL)
+        {
+            strcpy(IpAddressString, pos + 3);
+            OutputDebugString("*** STARTING GAME AS HOST\n");
+            m_Network.SetNetworkMode(NETWORKMODE_HOST);
+        }
     }
 #else
     for (int i = 0; i < pCommandLineCount; i++)
     {
-        if (strncmp(pCommandLine[i], "-s", 2) == 0 ||
-            strncmp(pCommandLine[i], "--server", 8) == 0)
+        if (strncmp(pCommandLine[i], "-h", 2) == 0 ||
+            strncmp(pCommandLine[i], "--host", 6) == 0)
         {
-            printf("*** STARTING GAME AS SERVER\n");
-            m_Network.SetNetworkMode(NETWORKMODE_SERVER);
+            printf("*** STARTING GAME AS HOST\n");
+            m_Network.SetNetworkMode(NETWORKMODE_HOST);
             break;
         }
         else if ((strncmp(pCommandLine[i], "-c", 2) == 0 ||
@@ -718,10 +731,8 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
         }
     }
 #endif
-#endif
 
-#ifdef NETWORK_MODE
-    if (m_Network.NetworkMode() != NETWORKMODE_LOCAL)
+    if (m_Network.NetworkMode() != NETWORKMODE_UNKNOWN)
     {
         if (!m_Network.Connect(IpAddressString, 1234))
         {
@@ -733,11 +744,17 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
         StartGameMode(GAMEMODE_MATCH);
     }
     else
-#endif
     {
         // Set the current game mode
-        StartGameMode(START_UP_GAME_MODE);
+        StartGameMode(GAMEMODE_TITLE);
     }
+
+#else
+
+    // Set the current game mode
+    StartGameMode(GAMEMODE_TITLE);
+
+#endif
 
     // Log that initialization is complete
     theLog.WriteLine("Game            => Game initialization is complete!");

@@ -1,3 +1,6 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+
 /************************************************************************************
 
     Copyright (C) 2000-2002, 2007 Thibaut Tollemer
@@ -34,16 +37,16 @@
 
 CCommandChunk::CCommandChunk (void)
 {
-	
-	for (int i = 0; i < MAX_STEPS_IN_COMMAND_CHUNK; i++)
-	{
-		m_Steps[i].BomberMove = BOMBERMOVE_NONE;
-		m_Steps[i].BomberAction = BOMBERACTION_NONE;
-		m_Steps[i].Duration = 0.0f;
-	}
-	
-	m_NumberOfSteps = 0;
-	
+    
+    for (int i = 0; i < MAX_STEPS_IN_COMMAND_CHUNK; i++)
+    {
+        m_Steps[i].BomberMove = BOMBERMOVE_NONE;
+        m_Steps[i].BomberAction = BOMBERACTION_NONE;
+        m_Steps[i].Duration = 0.0f;
+    }
+    
+    m_NumberOfSteps = 0;
+    
 }
 
 //******************************************************************************************************************************

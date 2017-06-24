@@ -58,9 +58,9 @@ private:
 
     HMODULE         m_hModule;          //!< Connection to the resources
 #ifdef DIRECTX_DRAW
-    CDirectDraw  	m_DirectDraw;         //!< Object used for display
+    CDirectDraw      m_DirectDraw;         //!< Object used for display
 #else
-    CSDLVideo  	 	m_SDLVideo;           //!< Object used for display
+    CSDLVideo           m_SDLVideo;           //!< Object used for display
 #endif
     int             m_ViewOriginX;      //!< Top left corner of the game view
     int             m_ViewOriginY;

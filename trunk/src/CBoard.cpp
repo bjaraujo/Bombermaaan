@@ -1,3 +1,6 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+
 /************************************************************************************
 
     Copyright (C) 2000-2002, 2007 Thibaut Tollemer
@@ -110,7 +113,7 @@ CBoard::CBoard (void)
     m_ClockTopTimer = 0.0f;
     m_ClockBottomSprite = 0;
     m_ClockTopSprite = 0;
-	m_AnimateClock = false;
+    m_AnimateClock = false;
     
 }
 

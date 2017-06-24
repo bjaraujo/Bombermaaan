@@ -1,3 +1,6 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+
 /************************************************************************************
 
     Copyright (C) 2000-2002, 2007 Thibaut Tollemer
@@ -45,12 +48,12 @@ CSDLInput::CSDLInput (void)
     m_hWnd = NULL;
     m_hInstance = NULL;
     m_Ready = false;
-	
-	m_KeyboardOpened = false;
-	memset(m_KeyState, 0, MAX_KEYS);
-	memset(m_KeyFriendlyName, 0, MAX_KEYS * MAX_PATH);
+    
+    m_KeyboardOpened = false;
+    memset(m_KeyState, 0, MAX_KEYS);
+    memset(m_KeyFriendlyName, 0, MAX_KEYS * MAX_PATH);
 
-	m_joystickCount = 0;
+    m_joystickCount = 0;
 
 }
 

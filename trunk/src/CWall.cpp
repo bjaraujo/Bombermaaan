@@ -1,3 +1,6 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+
 /************************************************************************************
 
     Copyright (C) 2000-2002, 2007 Thibaut Tollemer
@@ -98,6 +101,24 @@
 CWall::CWall (void) : CElement()
 {
     
+    m_iX = 0;
+    m_iY = 0;
+
+    m_fX = 0.0f;
+    m_fY = 0.0f;
+
+    m_BlockX = 0;
+    m_BlockY = 0;
+
+    m_Timer = 0.0f;
+
+    m_Burning = false;
+    m_Dead = false;
+
+    m_Type = WALL_HARD;
+
+    m_Sprite = 0;
+
 }
 
 //******************************************************************************************************************************

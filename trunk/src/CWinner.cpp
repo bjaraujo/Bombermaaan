@@ -1,3 +1,6 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+
 /************************************************************************************
 
     Copyright (C) 2000-2002, 2007 Thibaut Tollemer
@@ -146,6 +149,15 @@ CWinner::CWinner (void) : CModeScreen()
     // can easily detect the ones we forgot to set.
     m_pScores = NULL;
     m_pMatch = NULL;
+
+    m_LightSpriteOffset = 0;
+    m_HappyBomberSpriteOffset = 0;
+    m_SadBomberSpriteOffset = 0;
+
+    m_LightsTimer = 0;
+    m_HappyBomberTimer = 0;
+    m_SadBomberTimer = 0;
+
 }
 
 //******************************************************************************************************************************
@@ -321,7 +333,7 @@ EGameMode CWinner::Update (void)
             LeaveScreen |= m_pInput->GetMainInput().TestNext();
 
             // If the NEXT control is active
-			if (LeaveScreen)
+            if (LeaveScreen)
             {
                 // Remember we have to exit this mode
                 m_HaveToExit = true;

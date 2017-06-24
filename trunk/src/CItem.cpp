@@ -1,3 +1,6 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+
 /************************************************************************************
 
     Copyright (C) 2000-2002, 2007 Thibaut Tollemer
@@ -150,10 +153,10 @@ CItem::CItem(void) : CElement()
     m_Sprite = 0;
     m_Sprite0 = 0;
     m_Sprite1 = 0;
-	
+    
     m_Flying = ITEMFLYING_NONE;
     m_FlyTime = 0.0f;
-	
+    
 }
 
 //******************************************************************************************************************************

@@ -1,3 +1,6 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+
 /************************************************************************************
 
     Copyright (C) 2000-2002, 2007 Thibaut Tollemer
@@ -64,7 +67,7 @@ CMenuBase::CMenuBase (void)
     m_pOptions = NULL;
     m_pTimer = NULL;
     m_pFont = NULL;
-	
+    
     m_MenuModeTime = 0.0f;
     m_HaveToExit = false;
     m_ExitMenuAction = MENUACTION_NONE;
@@ -134,7 +137,7 @@ EMenuAction CMenuBase::Update (void)
     if (!m_HaveToExit)
     {
         // If NEXT control is pressed
-		if (m_pInput->GetMainInput().TestNext())
+        if (m_pInput->GetMainInput().TestNext())
         {
             // Don't play menu next sound because the choices of the user
             // could not be correct and we may have to play an error sound instead.
@@ -142,7 +145,7 @@ EMenuAction CMenuBase::Update (void)
             OnNext ();
         }
         // If PREVIOUS control is pressed
-		else if (m_pInput->GetMainInput().TestPrevious())
+        else if (m_pInput->GetMainInput().TestPrevious())
         {
             // Play the menu previous sound
             m_pSound->PlaySample (SAMPLE_MENU_PREVIOUS);
@@ -150,7 +153,7 @@ EMenuAction CMenuBase::Update (void)
             OnPrevious ();
         }
         // If UP control is pressed
-		else if (m_pInput->GetMainInput().TestUp())
+        else if (m_pInput->GetMainInput().TestUp())
         {
             // Play the menu beep sound
             m_pSound->PlaySample (SAMPLE_MENU_BEEP);
@@ -158,7 +161,7 @@ EMenuAction CMenuBase::Update (void)
             OnUp ();
         }
         // If DOWN control is pressed
-		else if (m_pInput->GetMainInput().TestDown())
+        else if (m_pInput->GetMainInput().TestDown())
         {
             // Play the menu beep sound
             m_pSound->PlaySample (SAMPLE_MENU_BEEP);
@@ -166,7 +169,7 @@ EMenuAction CMenuBase::Update (void)
             OnDown ();
         }
         // If LEFT control is pressed
-		else if (m_pInput->GetMainInput().TestLeft())
+        else if (m_pInput->GetMainInput().TestLeft())
         {
             // Play the menu beep sound
             m_pSound->PlaySample (SAMPLE_MENU_BEEP);
@@ -174,7 +177,7 @@ EMenuAction CMenuBase::Update (void)
             OnLeft ();
         }
         // If RIGHT control is pressed
-		else if (m_pInput->GetMainInput().TestRight())
+        else if (m_pInput->GetMainInput().TestRight())
         {
             // Play the menu beep sound
             m_pSound->PlaySample (SAMPLE_MENU_BEEP);

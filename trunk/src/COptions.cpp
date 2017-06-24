@@ -1,3 +1,6 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+
 /************************************************************************************
 
     Copyright (C) 2000-2002, 2007 Thibaut Tollemer
@@ -92,11 +95,20 @@ COptions::COptions (void)
         m_PlayerInput[i] = CONFIGURATION_KEYBOARD_1 + i;
     }
 
-    m_BattleMode = BATTLEMODE_SINGLE;
-
     for (int i = 0; i < MAX_PLAYER_INPUT; i++)
         for (int j = 0; j < NUM_CONTROLS; j++)
             m_Control[i][j] = 0;
+
+}
+
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+
+COptions::COptions(const COptions& another)
+{
+
+    operator=(another);
 
 }
 
@@ -113,7 +125,7 @@ COptions::~COptions (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-COptions& COptions::operator = (COptions& Copy)
+COptions& COptions::operator = (const COptions& Copy)
 {
     m_TimeStartMinutes = Copy.m_TimeStartMinutes;
     m_TimeStartSeconds = Copy.m_TimeStartSeconds;

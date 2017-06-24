@@ -1,3 +1,6 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+
 /************************************************************************************
 
     Copyright (C) 2000-2002, 2007 Thibaut Tollemer
@@ -69,7 +72,7 @@ CMenu::CMenu(void) : CModeScreen()
     // This allows to get back to the last menu mode when 
     // a battle is over for example.
     m_MenuMode = MENUMODE_BOMBER;
-	
+    
     m_GameModeTime = 0.0f;
     m_HaveToExit = false;
     m_ExitGameMode = GAMEMODE_NONE;

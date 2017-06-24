@@ -58,8 +58,8 @@ private:
 
 public:
 
-				    CCredits();                         //!< Constructor. Initialize some members.
-	virtual         ~CCredits();                        //!< Destructor. Does nothing.
+                    CCredits();                         //!< Constructor. Initialize some members.
+    virtual         ~CCredits();                        //!< Destructor. Does nothing.
     inline void     SetDisplay (CDisplay *pDisplay);    //!< Set link to the display object to use
     void            Create (void);                      //!< Initialize the object
     void            Destroy (void);                     //!< Uninitialize the object

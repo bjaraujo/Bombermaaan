@@ -1,3 +1,6 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+
 /************************************************************************************
 
     Copyright (C) 2000-2002, 2007 Thibaut Tollemer
@@ -140,7 +143,7 @@ bool CDisplay::Create(int Width, int Height, bool FullScreen)
             !LoadSprites(5, 5, 14, 15, true, BMP_VICTORY_CONFETTIS_LARGE) ||
             !LoadSprites(5, 5, 13, 14, true, BMP_VICTORY_CONFETTIS_MEDIUM) ||
             !LoadSprites(5, 5, 10, 10, true, BMP_VICTORY_CONFETTIS_SMALL) ||
-            !LoadSprites(1, 1, 202, 48, true, BMP_PAUSE) ||
+            !LoadSprites(1, 1, 200, 36, true, BMP_PAUSE) ||
             !LoadSprites(1, 1, 200, 36, true, BMP_HURRY) ||
             !LoadSprites(1, 1, 154, 93, true, BMP_MENU_FRAME_2) ||
             !LoadSprites(3, 4, 32, 32, true, BMP_ARENA_FUMES) || // 40
@@ -176,72 +179,72 @@ bool CDisplay::Create(int Width, int Height, bool FullScreen)
         }
 #else
         if (
-            !LoadSprites(2, 1, 32, 32, false, BMP_ARENA_FLOOR, "arena_floor.bmp") ||
-            !LoadSprites(7, 1, 32, 32, true, BMP_ARENA_WALL, "arena_wall.bmp") ||
-            !LoadSprites(28, 1, 32, 32, true, BMP_ARENA_FLAME, "arena_flame.bmp") ||
-            !LoadSprites(18, 1, 32, 32, false, BMP_ARENA_ITEM, "arena_item.bmp") ||
-            !LoadSprites(3, 1, 32, 32, true, BMP_ARENA_BOMB, "arena_bomb.bmp") ||
-            !LoadSprites(12, 8, 42, 44, true, BMP_ARENA_BOMBER_WALK, "arena_bomber_walk.bmp") ||
-            !LoadSprites(7, 1, 52, 54, true, BMP_ARENA_FIRE, "arena_fire.bmp") ||
-            !LoadSprites(12, 8, 42, 44, true, BMP_ARENA_BOMBER_WALK_HOLD, "arena_bomber_walk_hold.bmp") ||
-            !LoadSprites(4, 1, 32, 32, true, BMP_ARENA_FLY, "arena_fly.bmp") ||
-            !LoadSprites(1, 1, 480, 26, false, BMP_BOARD_BACKGROUND, "board_background.bmp") ||
-            !LoadSprites(12, 1, 7, 10, true, BMP_BOARD_TIME, "board_time.bmp") || // 10
-            !LoadSprites(2, 1, 15, 7, true, BMP_BOARD_CLOCK_TOP, "board_clock_top.bmp") ||
-            !LoadSprites(8, 1, 15, 13, true, BMP_BOARD_CLOCK_BOTTOM, "board_clock_bottom.bmp") ||
-            !LoadSprites(6, 1, 6, 8, true, BMP_BOARD_SCORE, "board_score.bmp") ||
-            !LoadSprites(5, 2, 14, 14, true, BMP_BOARD_HEADS, "board_heads.bmp") ||
-            !LoadSprites(1, 1, 480, 442, false, BMP_DRAWGAME_MAIN, "drawgame_main.bmp") ||
-            !LoadSprites(2, 1, 68, 96, false, BMP_DRAWGAME_FLAG, "drawgame_flag.bmp") ||
-            !LoadSprites(4, 1, 20, 62, true, BMP_DRAWGAME_FUMES, "drawgame_fumes.bmp") ||
-            !LoadSprites(4, 5, 24, 32, true, BMP_WINNER_BOMBER, "winner_bomber.bmp") ||
-            !LoadSprites(1, 1, 64, 32, false, BMP_WINNER_BACKGROUND_1, "winner_background_1.bmp") ||
-            !LoadSprites(16, 1, 22, 22, true, BMP_WINNER_COIN, "winner_coin.bmp") || // 20
-            !LoadSprites(4, 1, 6, 6, true, BMP_WINNER_LIGHTS, "winner_lights.bmp") ||
-            !LoadSprites(4, 2, 16, 16, true, BMP_WINNER_SPARKS, "winner_sparks.bmp") ||
-            !LoadSprites(1, 1, 158, 16, true, BMP_WINNER_TITLE, "winner_title.bmp") ||
-            !LoadSprites(1, 1, 32, 405, false, BMP_VICTORY_WALL, "victory_wall.bmp") ||
-            !LoadSprites(9, 1, 14, 16, true, BMP_VICTORY_CROWD, "victory_crowd.bmp") ||
-            !LoadSprites(14, 5, 36, 61, true, BMP_VICTORY_BOMBER, "victory_bomber.bmp") ||
-            !LoadSprites(1, 1, 192, 60, true, BMP_VICTORY_TITLE, "victory_title.bmp") ||
-            !LoadSprites(46, 6, 10, 10, true, BMP_GLOBAL_FONT, "global_font.bmp") ||
-            !LoadSprites(1, 1, 64, 32, false, BMP_MENU_BACKGROUND_1, "menu_background_1.bmp") ||
-            !LoadSprites(5, 2, 21, 19, true, BMP_MENU_BOMBER, "menu_bomber.bmp") || // 30
-            !LoadSprites(1, 1, 420, 362, true, BMP_MENU_FRAME_1, "menu_frame_1.bmp") ||
-            !LoadSprites(2, 1, 15, 16, true, BMP_MENU_HAND, "menu_hand.bmp") ||
-            !LoadSprites(5, 1, 23, 23, true, BMP_WINNER_CROSS, "winner_cross.bmp") ||
-            !LoadSprites(5, 5, 14, 15, true, BMP_VICTORY_CONFETTIS_LARGE, "victory_confettis_large.bmp") ||
-            !LoadSprites(5, 5, 13, 14, true, BMP_VICTORY_CONFETTIS_MEDIUM, "victory_confettis_medium.bmp") ||
-            !LoadSprites(5, 5, 10, 10, true, BMP_VICTORY_CONFETTIS_SMALL, "victory_confettis_small.bmp") ||
-            !LoadSprites(1, 1, 202, 48, true, BMP_PAUSE, "arena_pause.bmp") ||
-            !LoadSprites(1, 1, 200, 36, true, BMP_HURRY, "arena_hurry.bmp") ||
-            !LoadSprites(1, 1, 154, 93, true, BMP_MENU_FRAME_2, "menu_frame_2.bmp") ||
-            !LoadSprites(3, 4, 32, 32, true, BMP_ARENA_FUMES, "arena_fumes.bmp") || // 40
-            !LoadSprites(1, 1, 14, 14, true, BMP_BOARD_DRAWGAME, "board_drawgame.bmp") ||
-            !LoadSprites(1, 1, 480, 442, false, BMP_TITLE_BACKGROUND, "title_background.bmp") ||
-            !LoadSprites(1, 1, 480, 126, true, BMP_TITLE_BOMBERS, "title_bombers.bmp") ||
-            !LoadSprites(1, 1, 298, 139, true, BMP_TITLE_TITLE, "title_title.bmp") ||
-            !LoadSprites(2, 5, 128, 26, true, BMP_TITLE_MENU_ITEMS, "title_menu_items.bmp") ||
-            !LoadSprites(1, 1, 64, 32, false, BMP_CONTROLS_BACKGROUND_1, "controls_background_1.bmp") ||
-            !LoadSprites(1, 1, 82, 41, false, BMP_CONTROLS_BACKGROUND_2, "controls_background_2.bmp") ||
-            !LoadSprites(1, 1, 82, 41, false, BMP_CONTROLS_BACKGROUND_3, "controls_background_3.bmp") ||
-            !LoadSprites(1, 1, 82, 41, false, BMP_MENU_BACKGROUND_2, "menu_background_2.bmp") ||
-            !LoadSprites(1, 1, 82, 41, false, BMP_MENU_BACKGROUND_3, "menu_background_3.bmp") || // 50
-            !LoadSprites(1, 1, 82, 41, false, BMP_WINNER_BACKGROUND_2, "winner_background_2.bmp") ||
-            !LoadSprites(1, 1, 82, 41, false, BMP_WINNER_BACKGROUND_3, "winner_background_3.bmp") ||
-            !LoadSprites(1, 1, 138, 46, true, BMP_TITLE_CLOUD_1, "title_cloud_1.bmp") ||
-            !LoadSprites(1, 1, 106, 46, true, BMP_TITLE_CLOUD_2, "title_cloud_2.bmp") ||
-            !LoadSprites(1, 1, 66, 22, true, BMP_TITLE_CLOUD_3, "title_cloud_3.bmp") ||
-            !LoadSprites(17, 1, 16, 16, true, BMP_LEVEL_MINI_TILES, "level_mini_tiles.bmp") ||
-            !LoadSprites(5, 1, 24, 20, true, BMP_LEVEL_MINI_BOMBERS, "level_mini_bombers.bmp") ||
-            !LoadSprites(7, 5, 42, 44, true, BMP_ARENA_BOMBER_DEATH, "arena_bomber_death.bmp") ||
-            !LoadSprites(12, 8, 42, 44, true, BMP_ARENA_BOMBER_LIFT, "arena_bomber_lift.bmp") ||
-            !LoadSprites(20, 8, 42, 44, true, BMP_ARENA_BOMBER_THROW, "arena_bomber_throw.bmp") || // 60
-            !LoadSprites(8, 8, 42, 44, true, BMP_ARENA_BOMBER_PUNCH, "arena_bomber_punch.bmp") ||
-            !LoadSprites(4, 8, 42, 44, true, BMP_ARENA_BOMBER_STUNT, "arena_bomber_stunt.bmp") ||
-            !LoadSprites(4, 1, 32, 32, true, BMP_ARENA_ARROWS, "arena_arrows.bmp") || // 63
-            !LoadSprites(1, 1, 30, 32, true, BMP_MENU_HAND_TITLE, "menu_hand_title.bmp") ||
-            !LoadSprites(3, 1, 32, 32, true, BMP_ARENA_REMOTE_BOMB, "arena_remote_bomb.bmp")
+            !LoadSprites(2, 1, 32, 32, false, BMP_ARENA_FLOOR, "images/arena_floor.bmp") ||
+            !LoadSprites(7, 1, 32, 32, true, BMP_ARENA_WALL, "images/arena_wall.bmp") ||
+            !LoadSprites(28, 1, 32, 32, true, BMP_ARENA_FLAME, "images/arena_flame.bmp") ||
+            !LoadSprites(18, 1, 32, 32, false, BMP_ARENA_ITEM, "images/arena_item.bmp") ||
+            !LoadSprites(3, 1, 32, 32, true, BMP_ARENA_BOMB, "images/arena_bomb.bmp") ||
+            !LoadSprites(12, 8, 42, 44, true, BMP_ARENA_BOMBER_WALK, "images/arena_bomber_walk.bmp") ||
+            !LoadSprites(7, 1, 52, 54, true, BMP_ARENA_FIRE, "images/arena_fire.bmp") ||
+            !LoadSprites(12, 8, 42, 44, true, BMP_ARENA_BOMBER_WALK_HOLD, "images/arena_bomber_walk_hold.bmp") ||
+            !LoadSprites(4, 1, 32, 32, true, BMP_ARENA_FLY, "images/arena_fly.bmp") ||
+            !LoadSprites(1, 1, 480, 26, false, BMP_BOARD_BACKGROUND, "images/board_background.bmp") ||
+            !LoadSprites(12, 1, 7, 10, true, BMP_BOARD_TIME, "images/board_time.bmp") || // 10
+            !LoadSprites(2, 1, 15, 7, true, BMP_BOARD_CLOCK_TOP, "images/board_clock_top.bmp") ||
+            !LoadSprites(8, 1, 15, 13, true, BMP_BOARD_CLOCK_BOTTOM, "images/board_clock_bottom.bmp") ||
+            !LoadSprites(6, 1, 6, 8, true, BMP_BOARD_SCORE, "images/board_score.bmp") ||
+            !LoadSprites(5, 2, 14, 14, true, BMP_BOARD_HEADS, "images/board_heads.bmp") ||
+            !LoadSprites(1, 1, 480, 442, false, BMP_DRAWGAME_MAIN, "images/drawgame_main.bmp") ||
+            !LoadSprites(2, 1, 68, 96, false, BMP_DRAWGAME_FLAG, "images/drawgame_flag.bmp") ||
+            !LoadSprites(4, 1, 20, 62, true, BMP_DRAWGAME_FUMES, "images/drawgame_fumes.bmp") ||
+            !LoadSprites(4, 5, 24, 32, true, BMP_WINNER_BOMBER, "images/winner_bomber.bmp") ||
+            !LoadSprites(1, 1, 64, 32, false, BMP_WINNER_BACKGROUND_1, "images/winner_background_1.bmp") ||
+            !LoadSprites(16, 1, 22, 22, true, BMP_WINNER_COIN, "images/winner_coin.bmp") || // 20
+            !LoadSprites(4, 1, 6, 6, true, BMP_WINNER_LIGHTS, "images/winner_lights.bmp") ||
+            !LoadSprites(4, 2, 16, 16, true, BMP_WINNER_SPARKS, "images/winner_sparks.bmp") ||
+            !LoadSprites(1, 1, 158, 16, true, BMP_WINNER_TITLE, "images/winner_title.bmp") ||
+            !LoadSprites(1, 1, 32, 405, false, BMP_VICTORY_WALL, "images/victory_wall.bmp") ||
+            !LoadSprites(9, 1, 14, 16, true, BMP_VICTORY_CROWD, "images/victory_crowd.bmp") ||
+            !LoadSprites(14, 5, 36, 61, true, BMP_VICTORY_BOMBER, "images/victory_bomber.bmp") ||
+            !LoadSprites(1, 1, 192, 60, true, BMP_VICTORY_TITLE, "images/victory_title.bmp") ||
+            !LoadSprites(46, 6, 10, 10, true, BMP_GLOBAL_FONT, "images/global_font.bmp") ||
+            !LoadSprites(1, 1, 64, 32, false, BMP_MENU_BACKGROUND_1, "images/menu_background_1.bmp") ||
+            !LoadSprites(5, 2, 21, 19, true, BMP_MENU_BOMBER, "images/menu_bomber.bmp") || // 30
+            !LoadSprites(1, 1, 420, 362, true, BMP_MENU_FRAME_1, "images/menu_frame_1.bmp") ||
+            !LoadSprites(2, 1, 15, 16, true, BMP_MENU_HAND, "images/menu_hand.bmp") ||
+            !LoadSprites(5, 1, 23, 23, true, BMP_WINNER_CROSS, "images/winner_cross.bmp") ||
+            !LoadSprites(5, 5, 14, 15, true, BMP_VICTORY_CONFETTIS_LARGE, "images/victory_confettis_large.bmp") ||
+            !LoadSprites(5, 5, 13, 14, true, BMP_VICTORY_CONFETTIS_MEDIUM, "images/victory_confettis_medium.bmp") ||
+            !LoadSprites(5, 5, 10, 10, true, BMP_VICTORY_CONFETTIS_SMALL, "images/victory_confettis_small.bmp") ||
+            !LoadSprites(1, 1, 200, 36, true, BMP_PAUSE, "images/arena_pause.bmp") ||
+            !LoadSprites(1, 1, 200, 36, true, BMP_HURRY, "images/arena_hurry.bmp") ||
+            !LoadSprites(1, 1, 154, 93, true, BMP_MENU_FRAME_2, "images/menu_frame_2.bmp") ||
+            !LoadSprites(3, 4, 32, 32, true, BMP_ARENA_FUMES, "images/arena_fumes.bmp") || // 40
+            !LoadSprites(1, 1, 14, 14, true, BMP_BOARD_DRAWGAME, "images/board_drawgame.bmp") ||
+            !LoadSprites(1, 1, 480, 442, false, BMP_TITLE_BACKGROUND, "images/title_background.bmp") ||
+            !LoadSprites(1, 1, 480, 126, true, BMP_TITLE_BOMBERS, "images/title_bombers.bmp") ||
+            !LoadSprites(1, 1, 298, 139, true, BMP_TITLE_TITLE, "images/title_title.bmp") ||
+            !LoadSprites(2, 5, 128, 26, true, BMP_TITLE_MENU_ITEMS, "images/title_menu_items.bmp") ||
+            !LoadSprites(1, 1, 64, 32, false, BMP_CONTROLS_BACKGROUND_1, "images/controls_background_1.bmp") ||
+            !LoadSprites(1, 1, 82, 41, false, BMP_CONTROLS_BACKGROUND_2, "images/controls_background_2.bmp") ||
+            !LoadSprites(1, 1, 82, 41, false, BMP_CONTROLS_BACKGROUND_3, "images/controls_background_3.bmp") ||
+            !LoadSprites(1, 1, 82, 41, false, BMP_MENU_BACKGROUND_2, "images/menu_background_2.bmp") ||
+            !LoadSprites(1, 1, 82, 41, false, BMP_MENU_BACKGROUND_3, "images/menu_background_3.bmp") || // 50
+            !LoadSprites(1, 1, 82, 41, false, BMP_WINNER_BACKGROUND_2, "images/winner_background_2.bmp") ||
+            !LoadSprites(1, 1, 82, 41, false, BMP_WINNER_BACKGROUND_3, "images/winner_background_3.bmp") ||
+            !LoadSprites(1, 1, 138, 46, true, BMP_TITLE_CLOUD_1, "images/title_cloud_1.bmp") ||
+            !LoadSprites(1, 1, 106, 46, true, BMP_TITLE_CLOUD_2, "images/title_cloud_2.bmp") ||
+            !LoadSprites(1, 1, 66, 22, true, BMP_TITLE_CLOUD_3, "images/title_cloud_3.bmp") ||
+            !LoadSprites(17, 1, 16, 16, true, BMP_LEVEL_MINI_TILES, "images/level_mini_tiles.bmp") ||
+            !LoadSprites(5, 1, 24, 20, true, BMP_LEVEL_MINI_BOMBERS, "images/level_mini_bombers.bmp") ||
+            !LoadSprites(7, 5, 42, 44, true, BMP_ARENA_BOMBER_DEATH, "images/arena_bomber_death.bmp") ||
+            !LoadSprites(12, 8, 42, 44, true, BMP_ARENA_BOMBER_LIFT, "images/arena_bomber_lift.bmp") ||
+            !LoadSprites(20, 8, 42, 44, true, BMP_ARENA_BOMBER_THROW, "images/arena_bomber_throw.bmp") || // 60
+            !LoadSprites(8, 8, 42, 44, true, BMP_ARENA_BOMBER_PUNCH, "images/arena_bomber_punch.bmp") ||
+            !LoadSprites(4, 8, 42, 44, true, BMP_ARENA_BOMBER_STUNT, "images/arena_bomber_stunt.bmp") ||
+            !LoadSprites(4, 1, 32, 32, true, BMP_ARENA_ARROWS, "images/arena_arrows.bmp") || // 63
+            !LoadSprites(1, 1, 30, 32, true, BMP_MENU_HAND_TITLE, "images/menu_hand_title.bmp") ||
+            !LoadSprites(3, 1, 32, 32, true, BMP_ARENA_REMOTE_BOMB, "images/arena_remote_bomb.bmp")
             )
         {
             // Failure, get out (error is logged by the LoadSprites() method)

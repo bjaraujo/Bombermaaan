@@ -53,7 +53,7 @@ public:
     static CDebug&  GetInstance();
     inline void SetTimer (CTimer* pTimer);
     inline void SetGame (CGame* pGame);
-	inline void SetMatch(CMatch* pMatch);
+    inline void SetMatch(CMatch* pMatch);
     void Create();
     void Destroy();
     void HandleKey (DWORD VirtualKeyCode, DWORD Modifier);

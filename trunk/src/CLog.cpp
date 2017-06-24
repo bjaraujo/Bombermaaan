@@ -1,3 +1,6 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+
 /************************************************************************************
 
     Copyright (C) 2000-2002, 2007 Thibaut Tollemer
@@ -235,7 +238,7 @@ long CLog::Write( const char *pMessage, ... )
     char Message [2048];
     va_list argList;
     va_start( argList, pMessage );
-	vsprintf(Message, pMessage, argList);
+    vsprintf(Message, pMessage, argList);
     va_end (argList);
 
     // If the log is open
@@ -309,7 +312,7 @@ long CLog::WriteLine( const char *pMessage, ... )
     char Message [2048];
     va_list argList;
     va_start( argList, pMessage );
-	vsprintf(Message, pMessage, argList);
+    vsprintf(Message, pMessage, argList);
     va_end (argList);
 
     // If the log is open
@@ -383,7 +386,7 @@ long CLog::WriteDebugMsg( EDebugSection section, const char *pMessage, ... )
     char Message [2048];
     va_list argList;
     va_start( argList, pMessage );
-	vsprintf(Message, pMessage, argList);
+    vsprintf(Message, pMessage, argList);
     va_end (argList);
 
     // If the log is open

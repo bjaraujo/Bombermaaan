@@ -1,3 +1,6 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+
 /************************************************************************************
 
     Copyright (C) 2000-2002, 2007 Thibaut Tollemer
@@ -46,8 +49,8 @@ CClock::CClock (void)
     m_StartSeconds100 = 0;
     m_Pause = false;
 
-	m_ClockType = CLOCKTYPE_COUNTDOWN;
-	m_ClockMode = CLOCKMODE_MS;
+    m_ClockType = CLOCKTYPE_COUNTDOWN;
+    m_ClockMode = CLOCKMODE_MS;
     
 }
 

@@ -1,3 +1,6 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+
 /************************************************************************************
 
     Copyright (C) 2000-2002, 2007 Thibaut Tollemer
@@ -64,27 +67,27 @@ int main (int argc, char **argv)
 {
 
 #ifdef CRASH_REPORT
-	CR_INSTALL_INFO info;
-	memset(&info, 0, sizeof(CR_INSTALL_INFO));
-	info.cb = sizeof(CR_INSTALL_INFO);						// Size of the structure
-	info.pszAppName = _T("Bombermaaan");					// App name
-	info.pszAppVersion = _T(APP_VERSION_INFO);				// App version
-	info.pszEmailSubject = _T("Bombermaaan Error Report");	// Email subject
-	info.pszEmailTo = _T("bjaraujo@github.com");			// Email recipient address
-	info.dwFlags = CR_INST_NO_GUI | CR_INST_DONT_SEND_REPORT;
+    CR_INSTALL_INFO info;
+    memset(&info, 0, sizeof(CR_INSTALL_INFO));
+    info.cb = sizeof(CR_INSTALL_INFO);                        // Size of the structure
+    info.pszAppName = _T("Bombermaaan");                    // App name
+    info.pszAppVersion = _T(APP_VERSION_INFO);                // App version
+    info.pszEmailSubject = _T("Bombermaaan Error Report");    // Email subject
+    info.pszEmailTo = _T("bjaraujo@github.com");            // Email recipient address
+    info.dwFlags = CR_INST_NO_GUI | CR_INST_DONT_SEND_REPORT;
 
-	// Install crash handlers
-	int nInstResult = crInstall(&info);
-	assert(nInstResult == 0);
+    // Install crash handlers
+    int nInstResult = crInstall(&info);
+    assert(nInstResult == 0);
 
-	// Check result
-	if (nInstResult != 0)
-	{
-		TCHAR buff[256];
-		crGetLastErrorMsg(buff, 256); // Get last error
-		_tprintf(_T("%s\n"), buff); // and output it to the screen
-		return FALSE;
-	}
+    // Check result
+    if (nInstResult != 0)
+    {
+        TCHAR buff[256];
+        crGetLastErrorMsg(buff, 256); // Get last error
+        _tprintf(_T("%s\n"), buff); // and output it to the screen
+        return FALSE;
+    }
 #endif
 
 #ifndef WIN32
@@ -103,7 +106,7 @@ int main (int argc, char **argv)
 #endif
     {
         // Get out, failure
-        return false;
+        return -1;
     }
 
     //! Show the game window (CGame::ShowWindow())
@@ -116,12 +119,12 @@ int main (int argc, char **argv)
     Game.Destroy();
 
 #ifdef CRASH_REPORT
-	int nUninstRes = crUninstall(); // Uninstall exception handlers
-	assert(nUninstRes == 0);
+    int nUninstRes = crUninstall(); // Uninstall exception handlers
+    assert(nUninstRes == 0);
 #endif
 
     // Everything went right
-    return true;
+    return 0;
 }
 
 //******************************************************************************************************************************

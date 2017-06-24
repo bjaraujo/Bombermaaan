@@ -55,7 +55,7 @@ class CPlayerInput
 {
 private:
 
-	InputClass*         m_pDirectInput;
+    InputClass*         m_pDirectInput;
     COptions*           m_pOptions;
     int                 m_PlayerInput;
     char                m_Name [MAX_PLAYER_INPUT_NAME_LENGTH];

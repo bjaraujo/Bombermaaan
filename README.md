@@ -1,6 +1,8 @@
 # Bombermaaan
 
-![Main Screen](https://raw.githubusercontent.com/billyaraujo/bombermaaan/master/screenshots/ss01.png) ![Game Play 1](https://raw.githubusercontent.com/billyaraujo/bombermaaan/master/screenshots/ss02.png) ![Game Play 2](https://raw.githubusercontent.com/billyaraujo/bombermaaan/master/screenshots/ss03.png)
+![Main Screen](https://raw.githubusercontent.com/billyaraujo/bombermaaan/master/screenshots/ss01.png) 
+![Game Play 1](https://raw.githubusercontent.com/billyaraujo/bombermaaan/master/screenshots/ss02.png) 
+![Game Play 2](https://raw.githubusercontent.com/billyaraujo/bombermaaan/master/screenshots/ss03.png)
 
 ## Copyright
 
@@ -93,11 +95,11 @@ You can call Bombermaaan with the <kbd>--help</kbd> switch to see a message box 
 
 During a match :
 - Here are the configurations :
-  Keyboard 1 (Default) : 8/5/4/6 + PageUp/Home
-  Keyboard 2 (Default) : R/F/D/G + 2/1
+  Keyboard 1 (Default) : Up/Down/Left/Right + X/Z
+  Keyboard 2 (Default) : 8/5/4/6 + Y/T
   Keyboard 3 (Default) : I/K/J/L + 8/7
   Keyboard 4 (Default) : H/N/B/M + 5/4
-  Keyboard 5 (Default) : Up/Down/Left/Right + RightControl/RightShift
+  Keyboard 5 (Default) : R/F/D/G + 1/2
   Joystick X (Default) : Up/Down/Left/Right + Button1/Button2
 - On your configuration :
   - Up/Down/Left/Right : make your bomber move
@@ -123,11 +125,8 @@ In the menu box :
 - Escape................ : make the menu box disappear and resume the match
 
 Anywhere in the game :
-- F1...... : set 320x240 display mode (not available in 32-pixels version)
-- F2...... : set 512x384 display mode (not available in 32-pixels version)
 - F3...... : set 640x480 display mode
 - F4...... : set windowed display mode
-- Ctrl+F12 : quickly exit the game without confirmation
 
 Please note that the display mode you chose may
 be unavailable on your computer. The program will
@@ -150,11 +149,7 @@ Bombermaaan is using SimpleIni from <a href="http://code.jellycan.com/simpleini/
 
 ## Project host
 
-The Bombermaaan project is hosted on SourceForge.net. 
-
-## News
-
-Check <a href="http://bombermaaan.sourceforge.net/">http://bombermaaan.sourceforge.net/</a> for the latest news.
+The original Bombermaaan project is hosted on SourceForge.net. 
 
 ## Compiling
 

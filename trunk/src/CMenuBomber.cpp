@@ -1,3 +1,6 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+
 /************************************************************************************
 
     Copyright (C) 2000-2002, 2007 Thibaut Tollemer
@@ -81,9 +84,9 @@ CMenuBomber::CMenuBomber (void) : CMenuBase ()
         m_Blinking[i] = false;
         m_BlinkTimer[i] = 0.0f;
     }
-	
-	m_CursorPlayer = 0;
-	
+    
+    m_CursorPlayer = 0;
+    
 }
 
 //******************************************************************************************************************************

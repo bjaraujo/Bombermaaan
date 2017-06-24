@@ -1,3 +1,6 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+
 /************************************************************************************
 
     Copyright (C) 2000-2002, 2007 Thibaut Tollemer
@@ -36,7 +39,7 @@
 CMosaic::CMosaic (void)
 {
     m_pDisplay = NULL;
-	
+    
     m_SpriteTable = 0;
     m_Sprite = 0;
     m_SpriteLayer = 0;
@@ -46,12 +49,12 @@ CMosaic::CMosaic (void)
     m_TileCountX = 0; 
     m_TileCountY = 0; 
     m_SpeedX = 0.0f;
-	m_SpeedY = 0.0f;
+    m_SpeedY = 0.0f;
     m_BackgroundPositionX = 0.0f;
     m_BackgroundPositionY = 0.0f;
     m_iBackgroundPositionX = 0;
     m_iBackgroundPositionY = 0;
-	
+    
 }
 
 //******************************************************************************************************************************
@@ -107,7 +110,7 @@ void CMosaic::Destroy (void)
 void CMosaic::Update (float DeltaTime)
 {
     // If the mosaic has to scroll
-    if (m_SpeedX != 0.0f || m_SpeedY != 0.0f)
+    if (m_SpeedX > 0.0f || m_SpeedY > 0.0f)
     {    
         // Update tiled background position (and therefore animate the background on the game view)
         m_BackgroundPositionX += m_SpeedX * DeltaTime;

@@ -1,3 +1,6 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+
 /************************************************************************************
 
     Copyright (C) 2000-2002, 2007 Thibaut Tollemer
@@ -159,7 +162,7 @@ CVictory::CVictory (void) : CModeScreen()
     // Initialize the pointers to NULL so that we 
     // can easily detect the ones we forgot to set.
     m_pScores = NULL;
-	
+    
     m_ModeTime = 0.0f;
 
     m_CrowdTimer = 0.0f;
@@ -173,7 +176,17 @@ CVictory::CVictory (void) : CModeScreen()
     m_HaveToExit = false;
     m_ExitModeTime = 0.0f;
 
-    m_PlayedSound = false;	
+    m_PlayedSound = false;
+
+    m_CrowdFlag = false;
+
+    m_WinnerBomberSprite = 0;
+    m_LoserBomberSprite = 0;
+
+    for (int i = 0; i < NUM_CONFETTIS; i++)
+    {
+        m_Confettis[i] = SConfetti();
+    }
 }
 
 //******************************************************************************************************************************
@@ -356,8 +369,8 @@ EGameMode CVictory::Update (void)
 
             }
 
-			// Check the keyboard as well
-			LeaveScreen |= m_pInput->GetMainInput().TestNext();
+            // Check the keyboard as well
+            LeaveScreen |= m_pInput->GetMainInput().TestNext();
 
             // If the NEXT control is active
             if (LeaveScreen)

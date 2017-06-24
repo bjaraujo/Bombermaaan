@@ -52,6 +52,7 @@ Source: ..\releases\msvc14-win32\Bombermaaan_{#APP_VERSION_INFO}\CrashRpt1403.dl
 Source: ..\releases\msvc14-win32\Bombermaaan_{#APP_VERSION_INFO}\dbghelp.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\releases\msvc14-win32\Bombermaaan_{#APP_VERSION_INFO}\crashrpt_lang.ini; DestDir: {app}; Flags: ignoreversion
 Source: ..\releases\msvc14-win32\Bombermaaan_{#APP_VERSION_INFO}\COPYING.txt; DestDir: {app}; Flags: ignoreversion
+Source: ..\releases\msvc14-win32\Bombermaaan_{#APP_VERSION_INFO}\README.txt; DestDir: {app}; Flags: ignoreversion
 Source: ..\releases\msvc14-win32\Bombermaaan_{#APP_VERSION_INFO}\libFLAC-8.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\releases\msvc14-win32\Bombermaaan_{#APP_VERSION_INFO}\libmikmod-2.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\releases\msvc14-win32\Bombermaaan_{#APP_VERSION_INFO}\libogg-0.dll; DestDir: {app}; Flags: ignoreversion
@@ -70,6 +71,7 @@ Name: {commondesktop}\Bombermaaan; Filename: {app}\Bombermaaan.exe; Tasks: deskt
 
 [Run]
 Filename: {app}\Bombermaaan.exe; Description: {cm:LaunchProgram,Bombermaaan}; Flags: nowait postinstall skipifsilent unchecked; Parameters: --use-appdata-dir
+Filename: {app}\README.txt; Description: "View the README file"; Flags: postinstall shellexec skipifsilent
 
 [Dirs]
 Name: {app}\Levels

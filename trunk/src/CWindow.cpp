@@ -1,3 +1,6 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+
 /************************************************************************************
 
     Copyright (C) 2000-2002, 2007 Thibaut Tollemer
@@ -220,9 +223,9 @@ void CWindow::WinProc (unsigned int msg, WPARAM wParam, LPARAM lParam)
     case WM_CLOSE:          OnClose(wParam, lParam);           break;
     case WM_DESTROY:        OnDestroy(wParam, lParam);         break;
 #ifndef DIRECTX_INPUT
-    case SDL_JOYAXISMOTION: OnJoystickAxis(wParam, lParam);		break;
+    case SDL_JOYAXISMOTION: OnJoystickAxis(wParam, lParam);        break;
     case SDL_JOYBUTTONDOWN:
-    case SDL_JOYBUTTONUP:	OnJoystickButton(wParam, lParam);	break;
+    case SDL_JOYBUTTONUP:    OnJoystickButton(wParam, lParam);    break;
 #endif
     }
 
@@ -320,7 +323,7 @@ void CWindow::MessagePump()
                 WinProc(event.type, (WPARAM)&event.jbutton, (LPARAM)&event);
                 break;
 
-            case SDL_VIDEORESIZE:	 // resize our window
+            case SDL_VIDEORESIZE:     // resize our window
                 WinProc(WM_SIZE, (WPARAM)&event.resize, (LPARAM)&event);
                 break;
 

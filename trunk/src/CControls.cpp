@@ -1,3 +1,6 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+
 /************************************************************************************
 
     Copyright (C) 2000-2002, 2007 Thibaut Tollemer
@@ -98,16 +101,16 @@
 CControls::CControls (void) : CModeScreen()
 {
 
-	m_ModeTime = 0.0f;
-	m_HaveToExit = false;
-	m_ExitModeTime = 0.0f;
-	m_Cursor = 0;
-	m_PlayerInput = 0;
-	m_WaitingForInput = false;
-	m_WaitingForInputAfter = false;
-	m_SongStarted = false;
-	m_pMosaic = NULL;
-	
+    m_ModeTime = 0.0f;
+    m_HaveToExit = false;
+    m_ExitModeTime = 0.0f;
+    m_Cursor = 0;
+    m_PlayerInput = 0;
+    m_WaitingForInput = false;
+    m_WaitingForInputAfter = 0.0f;
+    m_SongStarted = false;
+    m_pMosaic = NULL;
+    
 }
 
 //******************************************************************************************************************************
@@ -242,12 +245,12 @@ EGameMode CControls::Update (void)
         
         // If we are not about to wait for the user input
         // and we are not waiting for the user to activate the control he wants to reconfigure
-        if (m_WaitingForInputAfter == 0.0f && !m_WaitingForInput)
+        if (m_WaitingForInputAfter <= 0.0f && !m_WaitingForInput)
         {
             // Then react to the menu controls...
 
             // If the ESCAPE control is active
-			if (m_pInput->GetMainInput().TestBreak())
+            if (m_pInput->GetMainInput().TestBreak())
             {
                 // Stop playing the song
                 m_pSound->StopSong (SONG_CONTROLS_MUSIC);
@@ -259,7 +262,7 @@ EGameMode CControls::Update (void)
                 m_ExitModeTime = m_ModeTime;
             }
             // If the NEXT control is active
-			else if (m_pInput->GetMainInput().TestNext())
+            else if (m_pInput->GetMainInput().TestNext())
             {
                 // If the cursor is pointing to a control (and therefore not on the 'device' item)
                 if (m_Cursor != 0)
@@ -269,7 +272,7 @@ EGameMode CControls::Update (void)
                 }
             }
             // If the UP control is active
-			else if (m_pInput->GetMainInput().TestUp())
+            else if (m_pInput->GetMainInput().TestUp())
             {
                 // Play the menu beep sound
                 m_pSound->PlaySample (SAMPLE_MENU_BEEP);
@@ -285,7 +288,7 @@ EGameMode CControls::Update (void)
                 }
             }
             // If the DOWN control is active
-			else if (m_pInput->GetMainInput().TestDown())
+            else if (m_pInput->GetMainInput().TestDown())
             {
                 // Play the menu beep sound
                 m_pSound->PlaySample (SAMPLE_MENU_BEEP);
@@ -301,7 +304,7 @@ EGameMode CControls::Update (void)
                 }
             }
             // If the LEFT control is active
-			else if (m_pInput->GetMainInput().TestLeft())
+            else if (m_pInput->GetMainInput().TestLeft())
             {
                 // If the cursor is pointing on the DEVICE menu item
                 if (m_Cursor == DEVICE_MENU_ITEM)
@@ -330,7 +333,7 @@ EGameMode CControls::Update (void)
                 }
             }
             // If the RIGHT control is active
-			else if (m_pInput->GetMainInput().TestRight())
+            else if (m_pInput->GetMainInput().TestRight())
             {
                 // If the cursor is pointing on the DEVICE menu item
                 if (m_Cursor == DEVICE_MENU_ITEM)
@@ -363,7 +366,7 @@ EGameMode CControls::Update (void)
         else
         {
             // If we have to wait before waiting for the user to activate a control
-            if (m_WaitingForInputAfter != 0.0f)
+            if (m_WaitingForInputAfter > 0.0f)
             {
                 // Reduce the time left to wait
                 m_WaitingForInputAfter -= m_pTimer->GetDeltaTime();
@@ -436,7 +439,7 @@ void CControls::Display (void)
 
         // Draw the title of the screen
         m_Font.SetTextColor (FONTCOLOR_WHITE);
-		m_Font.DrawCenteredX(0, VIEW_WIDTH, SCREEN_TITLE_POSITION_Y, SCREEN_CONTROLS_TITLE_STRING);
+        m_Font.DrawCenteredX(0, VIEW_WIDTH, SCREEN_TITLE_POSITION_Y, SCREEN_CONTROLS_TITLE_STRING);
 
         // Position Y on the screen of the first menu item in this screen
         int MenuItemPositionY = FIRST_MENU_ITEM_POSITION_Y;
@@ -529,7 +532,7 @@ void CControls::Display (void)
             // Don't display the value of the menu item if the users currently wants to reconfigure a control.
             // If we are not about to wait for input and not waiting for input -> then display
             // Or if we are, but the cursor hand is not pointing to the current menu item -> then display
-            if ((m_WaitingForInputAfter == 0.0f && !m_WaitingForInput) || m_Cursor != MenuItemIndex)
+            if ((m_WaitingForInputAfter <= 0.0f && !m_WaitingForInput) || m_Cursor != MenuItemIndex)
             {
                 // Draw the name of the value corresponding to the menu item
                 m_Font.SetTextColor (FONTCOLOR_BLUE);

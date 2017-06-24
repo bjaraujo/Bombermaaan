@@ -1,3 +1,6 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+
 /************************************************************************************
 
     Copyright (C) 2000-2002, 2007 Thibaut Tollemer
@@ -39,16 +42,16 @@ CDebug::CDebug()
 {
     m_pTimer = NULL;
     m_pGame = NULL;
-	
-	m_pMatch = NULL;
-	m_GameSpeed = 0.0f;
-	m_CanBombersDie = true;
-	m_CanBombersBeSick = true;
-	m_CanBombersKick = true;
+    
+    m_pMatch = NULL;
+    m_GameSpeed = 0.0f;
+    m_CanBombersDie = true;
+    m_CanBombersBeSick = true;
+    m_CanBombersKick = true;
 
-	for (int i = 0; i < 5; i++)
-		m_IsComputerConsoleActive[i] = false;
-	
+    for (int i = 0; i < 5; i++)
+        m_IsComputerConsoleActive[i] = false;
+    
 }
 
 //******************************************************************************************************************************
@@ -76,8 +79,8 @@ void CDebug::Create()
     m_CanBombersBeSick = true;
     m_CanBombersKick = true;
 
-	for (int i = 0; i < 5; i++)
-		m_IsComputerConsoleActive[i] = false;
+    for (int i = 0; i < 5; i++)
+        m_IsComputerConsoleActive[i] = false;
 
     // Actually set the speed of the game
     m_pTimer->SetSpeed (m_GameSpeed);

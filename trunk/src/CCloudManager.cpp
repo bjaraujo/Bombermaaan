@@ -1,3 +1,6 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+
 /************************************************************************************
 
     Copyright (C) 2000-2002, 2007 Thibaut Tollemer
@@ -36,10 +39,10 @@
 CCloudManager::CCloudManager (void)
 {
     m_pDisplay = NULL;
-	
-	m_CloudSprites[0] = 53;
-	m_CloudSprites[1] = 54;
-	m_CloudSprites[2] = 55;
+    
+    m_CloudSprites[0] = 53;
+    m_CloudSprites[1] = 54;
+    m_CloudSprites[2] = 55;
 
 }
 

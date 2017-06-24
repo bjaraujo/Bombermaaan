@@ -1,3 +1,6 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+
 /************************************************************************************
 
     Copyright (C) 2000-2002, 2007 Thibaut Tollemer
@@ -44,8 +47,8 @@ CMainInput::CMainInput (void)
 {
     m_pTimer = NULL;
     m_pDirectInput = NULL;
-	
-	m_MenuControls[MENU_UP].Key       = KEYBOARD_UP;
+    
+    m_MenuControls[MENU_UP].Key       = KEYBOARD_UP;
     m_MenuControls[MENU_DOWN].Key     = KEYBOARD_DOWN;
     m_MenuControls[MENU_LEFT].Key     = KEYBOARD_LEFT;
     m_MenuControls[MENU_RIGHT].Key    = KEYBOARD_RIGHT;
@@ -53,12 +56,12 @@ CMainInput::CMainInput (void)
     m_MenuControls[MENU_NEXT1].Key    = KEYBOARD_RETURN;
     m_MenuControls[MENU_NEXT2].Key    = KEYBOARD_NUMPADENTER;
     m_MenuControls[MENU_NEXT3].Key    = KEYBOARD_SPACE;
-	
+    
     for (int Control = 0; Control < NUMBER_OF_SYSTEM_CONTROLS; Control++)
     {
         m_SystemControls[Control].State = false;
         m_SystemControls[Control].Pressing = false;
-    }	
+    }    
 }
 
 //******************************************************************************************************************************

@@ -1,3 +1,6 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+
 /************************************************************************************
 
     Copyright (C) 2000-2002, 2007 Thibaut Tollemer
@@ -92,7 +95,7 @@ CDrawGame::CDrawGame (void) : CModeScreen()
     // Initialize the pointers to NULL so that we 
     // can easily detect the ones we forgot to set.
     m_pScores = NULL;
-	
+    
     m_ModeTime = 0.0f;
     m_FlagTimer = 0.0f;
     m_BigFumeTimer = 0.0f;
@@ -101,10 +104,10 @@ CDrawGame::CDrawGame (void) : CModeScreen()
     m_ExitModeTime = 0.0f;
     m_PlayedSound = false;
 
-	m_FlagSprite = FLAG_SPRITE0;
-	m_BigFumeSprite = BIGFUME_SPRITE0;
-	m_SmallFumeSprite = SMALLFUME_SPRITE0;
-	
+    m_FlagSprite = FLAG_SPRITE0;
+    m_BigFumeSprite = BIGFUME_SPRITE0;
+    m_SmallFumeSprite = SMALLFUME_SPRITE0;
+    
 }
 
 //******************************************************************************************************************************
@@ -216,7 +219,7 @@ EGameMode CDrawGame::Update (void)
         if (m_ModeTime >= DRAWGAME_BLACKSCREEN_DURATION + DRAWGAME_MINIMUM_DURATION)
         {
             // If the NEXT control is active
-			if (m_pInput->GetMainInput().TestNext())
+            if (m_pInput->GetMainInput().TestNext())
             {
                 // Remember we have to exit this mode
                 m_HaveToExit = true;

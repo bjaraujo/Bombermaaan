@@ -1,3 +1,6 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+
 /************************************************************************************
 
     Copyright (C) 2000-2002, 2007 Thibaut Tollemer
@@ -61,14 +64,14 @@
 
 CFloor::CFloor (void) : CElement()
 {
-	
+    
     m_iX = -1;
     m_iY = -1;
     m_BlockX = -1;
     m_BlockY = -1;
     m_Dead = false;
     m_FloorAction = FLOORACTION_NONE;
-	
+    
 }
 
 //******************************************************************************************************************************

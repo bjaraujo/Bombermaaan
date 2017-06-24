@@ -1,3 +1,6 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+
 /************************************************************************************
 
     Copyright (C) 2000-2002, 2007 Thibaut Tollemer
@@ -49,21 +52,21 @@ CBomberMove::CBomberMove(void)
 {
     m_pArena = NULL;
     m_Player = -1;
-	
-	m_X = -1;
-	m_Y = -1;
-	
-	m_iX = -1;
-	m_iY = -1;
-	
-	m_BlockX = -1;
-	m_BlockY = -1;
-	
-	m_BomberMove = BOMBERMOVE_NONE;
-	m_LastRealBomberMove = BOMBERMOVE_NONE;
-	m_Turning = TURNING_NOTTURNING;
-	m_CouldMove = false;
-	
+    
+    m_X = -1;
+    m_Y = -1;
+    
+    m_iX = -1;
+    m_iY = -1;
+    
+    m_BlockX = -1;
+    m_BlockY = -1;
+    
+    m_BomberMove = BOMBERMOVE_NONE;
+    m_LastRealBomberMove = BOMBERMOVE_NONE;
+    m_Turning = TURNING_NOTTURNING;
+    m_CouldMove = false;
+    
 }
 
 //******************************************************************************************************************************
@@ -212,6 +215,8 @@ void CBomberMove::Command(EBomberMove BomberMove)
 
             break;
         }
+	case NUMBER_SICKNESSES:
+	    assert(false);
         }
     }
 }

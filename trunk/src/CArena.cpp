@@ -1,3 +1,6 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+
 /************************************************************************************
 
     Copyright (C) 2000-2002, 2007 Thibaut Tollemer
@@ -251,13 +254,13 @@ void CArena::Create(void)
 
             }
 
-			case BLOCKTYPE_ITEM_SKULL:
-			{
+            case BLOCKTYPE_ITEM_SKULL:
+            {
 
-				NewItem(X, Y, ITEM_SKULL, false, false);
-				break;
+                NewItem(X, Y, ITEM_SKULL, false, false);
+                break;
 
-			}
+            }
 
             case BLOCKTYPE_ITEM_SHIELD:
             {
@@ -1020,6 +1023,8 @@ void CArena::NewItem(int BlockX, int BlockY, EItemType Type, bool Fumes, bool Fl
             case ITEM_SKULL: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMSKULL);  break;
             case ITEM_REMOTE: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMREMOTE);  break;
             case ITEM_SHIELD: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMSHIELD);  break;
+            case ITEM_PUNCH: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMPUNCH);  break;
+            case ITEM_THROW: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMTHROW);  break;
             default: break;
             }
 

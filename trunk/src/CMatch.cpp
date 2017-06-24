@@ -1,3 +1,6 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+
 /************************************************************************************
 
     Copyright (C) 2000-2002, 2007 Thibaut Tollemer
@@ -69,7 +72,7 @@ CMatch::CMatch(void) : CModeScreen()
 
     m_pPauseMessage = NULL;
     m_pHurryMessage = NULL;
-	
+    
     m_MatchOver = false;
     m_WinnerTeam = NO_WINNER_TEAM;
 
@@ -77,10 +80,10 @@ CMatch::CMatch(void) : CModeScreen()
     m_NoticedTimeUp = false;
     m_ModeTime = 0.0f;
     m_HaveToExit = false;
-    m_ForceDrawGame = false;	
-	
+    m_ForceDrawGame = false;    
+    
 #ifdef NETWORK_MODE
-	m_pNetwork = NULL;
+    m_pNetwork = NULL;
 #endif
 
     m_CurrentSong = SONG_NONE;
@@ -127,7 +130,7 @@ void CMatch::Create(void)
     m_ForceDrawGame = false;
 
 #ifdef NETWORK_MODE
-    if (m_pNetwork->NetworkMode() != NETWORKMODE_LOCAL)
+    if (m_pNetwork->NetworkMode() != NETWORKMODE_UNKNOWN)
     {
         m_pOptions->SetTimeStart(2, 35);
         m_pOptions->SetTimeUp(0, 30);
@@ -137,7 +140,7 @@ void CMatch::Create(void)
         m_pOptions->SetBomberType(4, BOMBERTYPE_OFF);
         m_pOptions->SetBattleCount(3);
 
-        if (m_pNetwork->NetworkMode() == NETWORKMODE_SERVER)
+        if (m_pNetwork->NetworkMode() == NETWORKMODE_HOST)
         {
             m_pOptions->SetBomberType(0, BOMBERTYPE_MAN);
             m_pOptions->SetBomberType(1, BOMBERTYPE_NET);
@@ -148,7 +151,7 @@ void CMatch::Create(void)
             DWORD TickCount = time(NULL);
 #endif
 
-            m_pNetwork->Send(SOCKET_CLIENT, (const char*)&TickCount, sizeof(DWORD));
+            m_pNetwork->Send((const char*)&TickCount, sizeof(DWORD));
 
             SEED_RANDOM(TickCount);
         }
@@ -159,7 +162,7 @@ void CMatch::Create(void)
 
             DWORD TickCount;
 
-            m_pNetwork->Receive(SOCKET_SERVER, (char*)&TickCount, sizeof(DWORD));
+            m_pNetwork->Receive((char*)&TickCount);
 
         }
     }
@@ -477,7 +480,7 @@ void CMatch::ProcessPlayerCommands(void)
         if (TimeElapsedSinceLastCommandChunk >= 0.050f)
         {
 
-            if (m_pNetwork->NetworkMode() == NETWORKMODE_SERVER)
+            if (m_pNetwork->NetworkMode() == NETWORKMODE_HOST)
             {
 
                 if (m_pNetwork->ReceiveCommandChunk(CommandChunk))
@@ -566,7 +569,7 @@ void CMatch::ManagePauseMessage(void)
                 // If this player input is opened
                 if (m_pInput->GetPlayerInput(PlayerInputNr).IsOpened()) {
 
-					if (m_pInput->GetPlayerInput(PlayerInputNr).TestMenuControl(JOYSTICK_BUTTON_BREAK)) {
+                    if (m_pInput->GetPlayerInput(PlayerInputNr).TestMenuControl(JOYSTICK_BUTTON_BREAK)) {
                         joystickRequestedPause = true;
                     }
 

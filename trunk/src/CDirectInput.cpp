@@ -1,3 +1,6 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+
 /************************************************************************************
 
     Copyright (C) 2000-2002, 2007 Thibaut Tollemer
@@ -49,12 +52,7 @@ CDirectInput::CDirectInput (void)
     m_hInstance = NULL;
     m_Ready = false;
     m_pKeyboard = NULL;
-	
-	m_KeyboardOpened = ;
-	m_KeyState = ;
-	m_KeyRealName = ;
-	m_KeyFriendlyName = ;
-	
+		
 }
 
 //******************************************************************************************************************************

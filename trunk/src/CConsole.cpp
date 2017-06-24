@@ -1,3 +1,6 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+
 /************************************************************************************
 
     Copyright (C) 2000-2002, 2007 Thibaut Tollemer
@@ -56,9 +59,9 @@ CConsole::CConsole()
     
     // Filter repeated messages by default
     m_FilterRepeatedMessage = true;
-	
-	m_StdOut = NULL;
-	
+    
+    m_StdOut = NULL;
+    
 }
 
 //******************************************************************************************************************************
@@ -141,10 +144,10 @@ void CConsole::Write (const char *pMessage, ...)
     {
         // Format the given string using the given arguments ("..." parameter)
         char Message [2048];
-	    va_list arg;
-	    va_start (arg, pMessage);
-	    vsprintf (Message, pMessage, arg);
-	    va_end (arg);
+        va_list arg;
+        va_start (arg, pMessage);
+        vsprintf (Message, pMessage, arg);
+        va_end (arg);
 
         // If we have to filter repeated messages
         if (m_FilterRepeatedMessage)

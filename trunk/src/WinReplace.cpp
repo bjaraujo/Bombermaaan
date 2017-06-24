@@ -1,3 +1,6 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+
 /************************************************************************************
 
     Copyright (C) 2008-2010 Markus Drescher
@@ -133,10 +136,14 @@ long _findfirst(const char *pattern, _finddata_t *findData) {
         free(files);
     }
     
-    if (fileSelectSuffix != NULL) free(fileSelectSuffix);
+    if (fileSelectSuffix != NULL) 
+        free(fileSelectSuffix);
     
     fileSelectSuffix = (char *)malloc(strlen(suffix) + 1);
-    if (fileSelectSuffix == NULL) return -1;
+    
+    if (fileSelectSuffix == NULL) 
+        return -1;
+    
     strcpy(fileSelectSuffix, suffix);
     
     // sort files alphabetically

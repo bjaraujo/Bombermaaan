@@ -1,3 +1,6 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+
 /************************************************************************************
 
     Copyright (C) 2000-2002, 2007 Thibaut Tollemer
@@ -63,36 +66,24 @@
 CLevel::CLevel(std::string filename_full, std::string filename_short) : m_Filename_full(filename_full), m_Filename_short(filename_short)
 {
 
-    int i, j;
-
-    //--m_LevelsData = NULL;
-    for (i = 0; i < ARENA_WIDTH; i++)
+    for (int i = 0; i < ARENA_WIDTH; i++)
     {
-        for (j = 0; j < ARENA_HEIGHT; j++)
+        for (int j = 0; j < ARENA_HEIGHT; j++)
         {
             m_ArenaData[i][j] = BLOCKTYPE_HARDWALL;
         }
     }
 
-    //--m_NumberOfItemsInWalls = NULL;
-    for (i = 0; i < NUMBER_OF_ITEMS; i++)
+    for (int i = 0; i < NUMBER_OF_ITEMS; i++)
     {
         m_NumberOfItemsInWalls[i] = 0;
     }
 
-    //--m_InitialBomberSkills = NULL;
-    for (i = 0; i < NUMBER_OF_BOMBERSKILLS; i++)
+    for (int i = 0; i < NUMBER_OF_BOMBERSKILLS; i++)
     {
         m_InitialBomberSkills[i] = 0;
     }
-}
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-CLevel::CLevel(void)
-{
 }
 
 //******************************************************************************************************************************

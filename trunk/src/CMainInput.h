@@ -89,7 +89,7 @@ class CMainInput
 private:
 
     CTimer*         m_pTimer;
-	InputClass*     m_pDirectInput;
+    InputClass*     m_pDirectInput;
     SMenuControl    m_MenuControls [NUMBER_OF_MENU_CONTROLS];
     SSystemControl  m_SystemControls [NUMBER_OF_SYSTEM_CONTROLS];
 
@@ -97,8 +97,8 @@ public:
 
                     CMainInput (void);
                     ~CMainInput (void);
-	inline InputClass* GetDirectInput (void);
-	inline void     SetDirectInput (InputClass* pDirectInput);
+    inline InputClass* GetDirectInput (void);
+    inline void     SetDirectInput (InputClass* pDirectInput);
     inline void     SetTimer (CTimer* pTimer);
     void            Create (void);
     void            Destroy (void);

@@ -151,7 +151,7 @@ struct SDebugDrawingRequest
 
 struct SSurface
 {
-	struct SDL_Surface		*pSurface;			//!< SDL surface
+    struct SDL_Surface        *pSurface;            //!< SDL surface
     DWORD                   BlitParameters;     //!< Parameter when blitting, depends on if the surface is transparent
 };
 
@@ -170,7 +170,7 @@ private:
     int                     m_Height;                       //!< Display height when fullscreen
     int                     m_Depth;                        //!< Display depth when fullscreen
     bool                    m_FullScreen;                   //!< Is it fullscreen?
-    SDL_Surface             *m_pBackBuffer;					//!< Backbuffer surface
+    SDL_Surface             *m_pBackBuffer;                    //!< Backbuffer surface
     SDL_Surface             *m_pPrimary;                    //!< Primary surface
     vector<SSurface>        m_Surfaces;                     //!< Surfaces
     DWORD                   m_ColorKey;                     //!< Color key for transparent surfaces

@@ -156,7 +156,7 @@ private:
     int             m_NumberOfPunchItems;           //!< Number of picked up punch items
     int             m_NumberOfRemoteItems;          //!< Number of picked up remote controler items
     float           m_ShieldTime;                   //!< Shield time
-	float			m_TimeSinceLastSick;			//!< Time since last sick event
+    float            m_TimeSinceLastSick;            //!< Time since last sick event
     bool            m_ReturnedItems;                //!< Did the bomber return the items he picked up to the arena?
     int             m_Player;                       //!< Number of the player represented by the bomber
     EDead           m_Dead;                         //!< Dead state : alive, dying or dead
@@ -225,13 +225,13 @@ public:
     inline int      GetBlockX(void);               //!< Return the block position X of the bomber
     inline int      GetBlockY(void);               //!< Return the block position Y of the bomber
     inline int      GetPlayer(void);               //!< Return the number of the player who controls this bomber
-	inline ESick    GetSickness(void);             //!< Return the bomber's sickness value
+    inline ESick    GetSickness(void);             //!< Return the bomber's sickness value
     inline bool     CanKickBombs(void);            //!< Return whether the bomber is able to kick bombs
     inline bool     CanThrowBombs(void);           //!< Return whether the bomber is able to throw bombs
     inline bool     CanPunchBombs(void);           //!< Return whether the bomber is able to punch bombs
     inline bool     CanRemoteFuseBombs(void);      //!< Return whether the bomber is able to remote fuse bombs
     inline bool     HasShield(void);               //!<  Return whether the bomber has shield
-	inline float    TimeSinceLastSick(void);       //!<  Return time after last sick event
+    inline float    TimeSinceLastSick(void);       //!<  Return time after last sick event
     inline int      GetUsedBombsCount(void);       //!< Return how many bombs the bomber are currently ticking in the arena
     inline int      GetBombItemsCount(void);       //!< Return how many bomb items the bomber has picked up
     inline int      GetFlameItemsCount(void);      //!< Return how many flame items the bomber has picked up
@@ -337,7 +337,7 @@ inline bool CBomber::HasShield()
 inline float CBomber::TimeSinceLastSick()
 {
 
-	return m_TimeSinceLastSick;
+    return m_TimeSinceLastSick;
 
 }
 
@@ -381,7 +381,7 @@ inline void CBomber::SetSickness(ESick Sickness)
 {
     m_Sickness = Sickness;
     m_JustGotSick = true;
-	m_TimeSinceLastSick = 0.0;
+    m_TimeSinceLastSick = 0.0;
 
 #ifdef _DEBUG
     debugLog.WriteDebugMsg(DEBUGSECT_BOMBER, "Bomber getting sick [id=%d, sickness=%02d].", m_Player, Sickness);

@@ -1,3 +1,6 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+
 /************************************************************************************
 
     Copyright (C) 2000-2002, 2007 Thibaut Tollemer
@@ -48,10 +51,7 @@ CDirectDraw::CDirectDraw(void)
     m_ColorKey = 0;
     m_OriginX = 0;
     m_OriginY = 0;
-	
-	m_rcScreen = ;
-	m_rcViewport = ;
-	
+		
 }
 
 //******************************************************************************************************************************
@@ -991,6 +991,8 @@ bool CDirectDraw::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int S
 {
 
     // TODO:
+
+	return true;
 
 }
 

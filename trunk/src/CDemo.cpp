@@ -1,3 +1,6 @@
+// This is an open source non-commercial project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+
 /************************************************************************************
 
     Copyright (C) 2000-2002, 2007 Thibaut Tollemer
@@ -68,18 +71,18 @@ CDemo::CDemo (void) : CModeScreen()
     m_AiManager.SetArena (&m_Arena);
 
     m_pHurryMessage = NULL;
-	
-	m_MatchOver = false;
-	m_CurrentSong = SONG_NONE;
-	m_IsSongPlaying = false;
-	m_NoticedTimeUp = false;
-	m_DemoTextTime = 0.0f;
-	m_DrawDemoText = false;
-	m_ModeTime = 0.0f;
-	m_ExitModeTime = false;
-	m_ExitGameMode = 0;
-	m_HaveToExit = false;
-	
+    
+    m_MatchOver = false;
+    m_CurrentSong = SONG_NONE;
+    m_IsSongPlaying = false;
+    m_NoticedTimeUp = false;
+    m_DemoTextTime = 0.0f;
+    m_DrawDemoText = false;
+    m_ModeTime = 0.0f;
+    m_ExitModeTime = 0.0f;
+    m_ExitGameMode = 0;
+    m_HaveToExit = false;
+    
 }
 
 //******************************************************************************************************************************
@@ -363,7 +366,7 @@ void CDemo::ProcessPlayerCommands (void)
 void CDemo::ManageExit (void)
 {
     // If the user activates the break control
-	if (m_pInput->GetMainInput().TestBreak())
+    if (m_pInput->GetMainInput().TestBreak())
     {
         // The match is "over"
         m_MatchOver = true;

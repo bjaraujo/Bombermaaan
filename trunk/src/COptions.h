@@ -131,8 +131,9 @@ private:
 public:                 
                         
                         COptions (void);                //!< Constructor.
+                        COptions(const COptions& another);
                         ~COptions (void);               //!< Destructor. Do nothing.
-    COptions&           operator = (COptions& Copy);    //!< Operator = used to copy an option object.
+    COptions&           operator = (const COptions& Copy);    //!< Operator = used to copy an option object.
     bool                Create( bool useAppDataFolder, std::string dynamicDataFolder, std::string pgmFolder );  //!< Load the options. Create the configuration file if it doesn't exist.
     void                Destroy (void);                 //!< Free allocated memory.
     void                SaveBeforeExit (void);          //!< Write the options to the configuration file
