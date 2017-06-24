@@ -669,6 +669,7 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
 
     m_MenuYesNo.Create();
 
+#ifdef NETWORK_MODE
     char IpAddressString[32];
     const char *pos;
 
@@ -747,6 +748,13 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
         // Set the current game mode
         StartGameMode(GAMEMODE_TITLE);
     }
+
+#else
+
+    // Set the current game mode
+    StartGameMode(GAMEMODE_TITLE);
+
+#endif
 
     // Log that initialization is complete
     theLog.WriteLine("Game            => Game initialization is complete!");

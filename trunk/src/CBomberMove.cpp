@@ -215,6 +215,8 @@ void CBomberMove::Command(EBomberMove BomberMove)
 
             break;
         }
+	case NUMBER_SICKNESSES:
+	    assert(false);
         }
     }
 }
