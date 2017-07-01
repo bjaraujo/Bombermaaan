@@ -158,6 +158,15 @@ CWinner::CWinner (void) : CModeScreen()
     m_HappyBomberTimer = 0;
     m_SadBomberTimer = 0;
 
+    m_PlayedSound = false;
+    m_pMosaic = NULL;
+    
+    m_ModeTime = 0.0f;
+    m_ExitModeTime = 0.0f;
+
+    m_CoinTime = 0.0f;
+    m_CoinSpriteOffset = 0;
+
 }
 
 //******************************************************************************************************************************

@@ -28,6 +28,8 @@
  *  \brief The AI arena
  */
 
+#include <array>
+
 #include "StdAfx.h"
 #include "CAiArena.h"
 
@@ -546,8 +548,7 @@ void CAiArena::Update (float DeltaTime)
     // create an index array for the bombs
     // each element represents a bomb. its value is the index to the bomb which
     // will ignite this bomb.
-    int *BombIndex = new int[m_pArena->MaxBombs()];
-    if (BombIndex == NULL) return;
+    std::vector<int> BombIndex(m_pArena->MaxBombs());
     
     for (int Index = 0; Index < m_pArena->MaxBombs(); Index++)
     {
