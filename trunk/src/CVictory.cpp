@@ -41,7 +41,7 @@
 #define VICTORY_BLACKSCREEN_DURATION    0.750f
 
 // Duration of the victory screen
-#define VICTORY_MINIMUM_DURATION        5.0f
+#define VICTORY_MINIMUM_DURATION        0.0f
 #define VICTORY_SCREEN_DURATION         10.0f
 
 // The width of the victory view

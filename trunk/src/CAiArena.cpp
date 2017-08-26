@@ -974,9 +974,7 @@ void CAiArena::Update (float DeltaTime)
         } // for
     } // do
     while (Updated);
-    
-    delete[] BombIndex;
-    
+        
     // If the arena is closing right now
     if (m_pArena->GetArenaCloser().IsClosing ())
     {
