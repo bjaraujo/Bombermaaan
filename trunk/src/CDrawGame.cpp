@@ -42,7 +42,7 @@
 // Draw game screen evolution in time
 #define DRAWGAME_TITLE_DURATION         6.0f    //!< Duration (in seconds) of the draw game screen (with the big title)
 #define DRAWGAME_BLACKSCREEN_DURATION   0.750f  //!< Duration (in seconds) of the two black screens
-#define DRAWGAME_MINIMUM_DURATION       3.0f    //!< Minimum duration (in seconds) of the drawgame screen
+#define DRAWGAME_MINIMUM_DURATION       0.0f    //!< Minimum duration (in seconds) of the drawgame screen
                                                 
 // Display origin                               
 #define DRAWGAME_DISPLAY_ORIGIN_X       0       //!< Display origin of the draw game screen
