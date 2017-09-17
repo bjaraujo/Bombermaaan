@@ -161,7 +161,7 @@ To compile in Linux set LOAD_RESOURCES_FROM_FILES = TRUE and USE_DIRECTX = FALSE
 
 Crashes dumps are stored in: 
 
-%AppData%\..\Local\CrashRpt\UnsentCrashReports
+%AppData%\\..\Local\CrashRpt\UnsentCrashReports
 
 
 
