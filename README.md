@@ -157,6 +157,13 @@ Set SDLDIR, SDLNETDIR and SDLMIXERDIR environment variables and run cmake.
 
 To compile in Linux set LOAD_RESOURCES_FROM_FILES = TRUE and USE_DIRECTX = FALSE in CMake options.
 
+## Crash dumps
+
+Crashes dumps are stored in: 
+
+%AppData%\\..\Local\CrashRpt\UnsentCrashReports
+
+
 
 
 
