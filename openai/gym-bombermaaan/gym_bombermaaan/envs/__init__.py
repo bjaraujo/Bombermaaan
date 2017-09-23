@@ -1,1 +1,1 @@
-from gym_soccer.envs.bombermaaan_env import BombermaaanEnv
+from gym_bombermaaan.envs.bombermaaan_env import BombermaaanEnv
