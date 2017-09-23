@@ -6,7 +6,7 @@ several tasks are supported:
 
 ## Bombermaaan
 
-The bombermaaan task initializes a single offensive agent on the field and rewards +1 for destroying an opponent and 0 otherwise. 
+The bombermaaan task initializes a single offensive agent on the field and rewards +1 for taking out an opponent and 0 otherwise. 
 
 # Installation
 
