@@ -83,6 +83,8 @@ typedef int TBlockHas;
 #define BLOCKHAS_ITEMPUNCH              (1 << 22) //!< The block has a punch glove item (red glove)
 #define BLOCKHAS_ITEMREMOTE             (1 << 23) //!< The block has a remote fuse bomb item
 #define BLOCKHAS_ITEMSHIELD             (1 << 24) //!< The block has a shield item
+#define BLOCKHAS_ITEMSTRONGWEAK         (1 << 25) //!< The block has a strong/weak item
+
 // note hat (1 << 31) is the maximum value for a 32-bit integer
 // BLOCKHAS_ITEMx, where x = {BOMB,FLAME,ROLLER,KICK,THROW,PUNCH,REMOTE} are not necessary
 

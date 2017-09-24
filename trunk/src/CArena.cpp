@@ -270,6 +270,14 @@ void CArena::Create(void)
 
             }
 
+            case BLOCKTYPE_ITEM_STRONGWEAK:
+            {
+
+                NewItem(X, Y, ITEM_STRONGWEAK, false, false);
+                break;
+
+            }
+
             default:
                 break;
             }
@@ -298,7 +306,8 @@ void CArena::Create(void)
         m_pOptions->GetNumberOfItemsInWalls(ITEM_THROW),
         m_pOptions->GetNumberOfItemsInWalls(ITEM_PUNCH),
         m_pOptions->GetNumberOfItemsInWalls(ITEM_REMOTE),
-        m_pOptions->GetNumberOfItemsInWalls(ITEM_SHIELD));
+        m_pOptions->GetNumberOfItemsInWalls(ITEM_SHIELD),
+        m_pOptions->GetNumberOfItemsInWalls(ITEM_STRONGWEAK));
 
     //-----------------
     // Finish creation
@@ -699,6 +708,7 @@ void CArena::UpdateView(void)
                 case ITEM_PUNCH: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMPUNCH); break;
                 case ITEM_REMOTE: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMREMOTE); break;
                 case ITEM_SHIELD: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMSHIELD); break;
+                case ITEM_STRONGWEAK: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMSTRONGWEAK); break;
                 default: break;
                 }
             }
@@ -1025,6 +1035,7 @@ void CArena::NewItem(int BlockX, int BlockY, EItemType Type, bool Fumes, bool Fl
             case ITEM_SHIELD: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMSHIELD);  break;
             case ITEM_PUNCH: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMPUNCH);  break;
             case ITEM_THROW: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMTHROW);  break;
+            case ITEM_STRONGWEAK: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMSTRONGWEAK);  break;
             default: break;
             }
 

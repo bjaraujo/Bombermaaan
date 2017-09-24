@@ -90,7 +90,7 @@ SBomberSpriteTable CBomber::m_BomberSpriteTables[MAX_NUMBER_OF_STATES] =
 
 // Bomber speeds (in pixels per second)
 #define SPEED_SLOW      76                //!< Speed with SLOW sickness
-#define SPEED_FAST      450               //!< Speed with FAST sickness
+#define SPEED_FAST      250               //!< Speed with FAST sickness
 #define SPEED_NORMAL    120               //!< Normal speed
 #define SPEED_INC       25                //!< Speed increase each time a roller item is picked up
 
@@ -241,6 +241,8 @@ SBomberSpriteTable CBomber::m_BomberSpriteTables[MAX_NUMBER_OF_STATES] =
 #define REMOTE_FUSE_ONLY_FIRST_BOMB         true
 
 #define SHIELD_TIME 15.0f
+
+#define STRONGWEAK_TIME 20.0f
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -474,7 +476,7 @@ void CBomber::Burn()
     debugLog.WriteDebugMsg(DEBUGSECT_BOMBER, "Bomber burning [id=%d, x=%02d, y=%02d].", m_Player, m_BomberMove.GetBlockX(), m_BomberMove.GetBlockY());
 #endif
 
-    // The bomber cannot die by flames if he/she has the flameproof contamination or shield
+    // The bomber cannot die by flames if he/she has the flameproof contamination or shield or is strong
     if (m_Sickness != SICK_FLAMEPROOF && m_ShieldTime <= 0.0f) {
         Die();
     }
@@ -1693,6 +1695,7 @@ void CBomber::ReturnItems(float DeltaTime)
                 m_NumberOfThrowItems,
                 m_NumberOfPunchItems,
                 m_NumberOfRemoteItems,
+                1,
                 1))
             {
                 // Play the item fumes sound
@@ -1864,6 +1867,25 @@ void CBomber::ItemEffect(EItemType Type)
         {
             // Picked up shield
             m_ShieldTime += SHIELD_TIME;
+
+            break;
+        }
+
+        case ITEM_STRONGWEAK:
+        {
+            // Picked up strong/weak
+            if (RANDOM(100) >= 25)
+            {
+                m_ShieldTime += SHIELD_TIME;
+                m_Speed = SPEED_FAST;
+                m_FlameSize = 5;
+            }
+            else
+            {
+                m_ShieldTime = 0.75f;
+                m_Speed = SPEED_SLOW;
+                m_FlameSize = 1;
+            }
 
             break;
         }

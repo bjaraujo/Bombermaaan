@@ -40,26 +40,27 @@ enum EBlockType
 {
     BLOCKTYPE_HARDWALL,            //!< There must be a hard wall here
     BLOCKTYPE_SOFTWALL,            //!< There must be a soft wall here
-    BLOCKTYPE_RANDOM,            //!< There must be either a soft wall, or a free place here (random)
+    BLOCKTYPE_RANDOM,              //!< There must be either a soft wall, or a free place here (random)
     BLOCKTYPE_FREE,                //!< There must be a free place here 
-    BLOCKTYPE_WHITEBOMBER,        //!< The white bomber must start here
-    BLOCKTYPE_BLACKBOMBER,        //!< The black bomber must start here
-    BLOCKTYPE_REDBOMBER,        //!< The red bomber must start here
-    BLOCKTYPE_BLUEBOMBER,        //!< The blue bomber must start here
-    BLOCKTYPE_GREENBOMBER,        //!< The green bomber must start here
-    BLOCKTYPE_MOVEBOMB_RIGHT,   //!< A bomb starts moving right if placed here
-    BLOCKTYPE_MOVEBOMB_DOWN,    //!< A bomb starts moving down if placed here
-    BLOCKTYPE_MOVEBOMB_LEFT,    //!< A bomb starts moving left if placed here
-    BLOCKTYPE_MOVEBOMB_UP,      //!< A bomb starts moving up if placed here
-    BLOCKTYPE_ITEM_BOMB,        //!< A bomb item if placed here
-    BLOCKTYPE_ITEM_FLAME,        //!< A flame item if placed here
-    BLOCKTYPE_ITEM_ROLLER,        //!< A roller item if placed here 
-    BLOCKTYPE_ITEM_KICK,        //!< A kick item if placed here
-    BLOCKTYPE_ITEM_THROW,        //!< A throw item if placed here
-    BLOCKTYPE_ITEM_PUNCH,        //!< A punch item if placed here
-    BLOCKTYPE_ITEM_SKULL,        //!< A skull item if placed here
+    BLOCKTYPE_WHITEBOMBER,         //!< The white bomber must start here
+    BLOCKTYPE_BLACKBOMBER,         //!< The black bomber must start here
+    BLOCKTYPE_REDBOMBER,           //!< The red bomber must start here
+    BLOCKTYPE_BLUEBOMBER,          //!< The blue bomber must start here
+    BLOCKTYPE_GREENBOMBER,         //!< The green bomber must start here
+    BLOCKTYPE_MOVEBOMB_RIGHT,      //!< A bomb starts moving right if placed here
+    BLOCKTYPE_MOVEBOMB_DOWN,       //!< A bomb starts moving down if placed here
+    BLOCKTYPE_MOVEBOMB_LEFT,       //!< A bomb starts moving left if placed here
+    BLOCKTYPE_MOVEBOMB_UP,         //!< A bomb starts moving up if placed here
+    BLOCKTYPE_ITEM_BOMB,           //!< A bomb item if placed here
+    BLOCKTYPE_ITEM_FLAME,          //!< A flame item if placed here
+    BLOCKTYPE_ITEM_ROLLER,         //!< A roller item if placed here 
+    BLOCKTYPE_ITEM_KICK,           //!< A kick item if placed here
+    BLOCKTYPE_ITEM_THROW,          //!< A throw item if placed here
+    BLOCKTYPE_ITEM_PUNCH,          //!< A punch item if placed here
+    BLOCKTYPE_ITEM_SKULL,          //!< A skull item if placed here
     BLOCKTYPE_ITEM_REMOTES,        //!< A remote item if placed here
-    BLOCKTYPE_ITEM_SHIELD       //!< A shield item if placed here
+    BLOCKTYPE_ITEM_SHIELD,         //!< A shield item if placed here
+    BLOCKTYPE_ITEM_STRONGWEAK      //!< A strong/weak item if placed here
 };
 
 //******************************************************************************************************************************
@@ -79,6 +80,7 @@ enum EBomberSkills
     BOMBERSKILL_PUNCHITEMS,
     BOMBERSKILL_REMOTEITEMS,
     BOMBERSKILL_SHIELDITEMS,
+    BOMBERSKILL_STRONGWEAKITEMS,
     NUMBER_OF_BOMBERSKILLS
 };
 
@@ -96,6 +98,7 @@ enum EBomberSkills
 #define INITIAL_ITEMPUNCH       2
 #define INITIAL_ITEMREMOTE      2
 #define INITIAL_ITEMSHIELD      1
+#define INITIAL_ITEMSTRONGWEAK  1
 
 // Initial flame size
 #define INITIAL_FLAMESIZE       2

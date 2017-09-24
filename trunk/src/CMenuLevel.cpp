@@ -250,6 +250,7 @@ void CMenuLevel::OnDisplay(void)
                 case BLOCKTYPE_ITEM_PUNCH:        spriteNumberAction = 14;  break;
                 case BLOCKTYPE_ITEM_REMOTES:      spriteNumberAction = 15;  break;
                 case BLOCKTYPE_ITEM_SHIELD:       spriteNumberAction = 16;  break;
+                case BLOCKTYPE_ITEM_STRONGWEAK:   spriteNumberAction = 17;  break;
                 default: break;
                 }
 

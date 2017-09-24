@@ -1077,6 +1077,7 @@ int CAiBomber::ItemMark(int BlockX, int BlockY)
     // According to the item type, modify the current item mark
     switch (ItemType)
     {
+    case BLOCKTYPE_ITEM_SKULL: Mark -= 100; break;
     case ITEM_BOMB: Mark += 10; break;
     case ITEM_FLAME: Mark += 10; break;
     case ITEM_ROLLER: Mark += 20; break;
@@ -1085,6 +1086,7 @@ int CAiBomber::ItemMark(int BlockX, int BlockY)
     case ITEM_PUNCH: Mark += 60; break;
     case ITEM_REMOTE: Mark += 60; break;
     case ITEM_SHIELD: Mark += 80; break;
+    case ITEM_STRONGWEAK: Mark += 0; break;
     default: break;
     }
 
@@ -1195,7 +1197,7 @@ void CAiBomber::ModeThink(void)
     // with quite big probability (not beyond the frontiers)
     if ((EnemyNearAndFront(&EnemyDirection, false) &&
          DropBombOK(m_BlockHereX, m_BlockHereY) &&
-         RANDOM(100) < (70 + (m_pBomber->HasShield() ? 25 : 0))))
+         RANDOM(100) < (60 + (m_pBomber->HasShield() ? 35 : 0))))
     {
         // Switch to the attack mode to drop a bomb
         SetComputerMode(COMPUTERMODE_ATTACK);

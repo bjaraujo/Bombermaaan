@@ -695,7 +695,8 @@ bool CItem::CreateItems(CArena *pArena,
     int NumberOfItemThrow,
     int NumberOfItemPunch,
     int NumberOfItemRemote,
-    int NumberOfItemShield)
+    int NumberOfItemShield,
+    int NumberOfItemStrongWeak)
 {
     int X, Y;
     int Index;
@@ -785,20 +786,22 @@ bool CItem::CreateItems(CArena *pArena,
             NumberOfItemThrow +
             NumberOfItemPunch +
             NumberOfItemRemote +
-            NumberOfItemShield > CountPossible)
+            NumberOfItemShield + 
+            NumberOfItemStrongWeak > CountPossible)
         {
             // Choose a type of item and reduce the number
             switch (RANDOM(NUMBER_OF_ITEMS))
             {
-            case 0: if (NumberOfItemBombs > 0)     NumberOfItemBombs--;    break;
-            case 1: if (NumberOfItemFlames > 0)    NumberOfItemFlames--;   break;
-            case 2: if (NumberOfItemRollers > 0)   NumberOfItemRollers--;  break;
-            case 3: if (NumberOfItemKicks > 0)     NumberOfItemKicks--;    break;
-            case 4: if (NumberOfItemSkulls > 0)    NumberOfItemSkulls--;   break;
-            case 5: if (NumberOfItemThrow > 0)     NumberOfItemThrow--;   break;
-            case 6: if (NumberOfItemPunch > 0)     NumberOfItemPunch--;   break;
-            case 7: if (NumberOfItemRemote > 0)    NumberOfItemRemote--;   break;
-            case 8: if (NumberOfItemShield > 0)    NumberOfItemShield--;   break;
+            case 0: if (NumberOfItemBombs > 0)      NumberOfItemBombs--;        break;
+            case 1: if (NumberOfItemFlames > 0)     NumberOfItemFlames--;       break;
+            case 2: if (NumberOfItemRollers > 0)    NumberOfItemRollers--;      break;
+            case 3: if (NumberOfItemKicks > 0)      NumberOfItemKicks--;        break;
+            case 4: if (NumberOfItemSkulls > 0)     NumberOfItemSkulls--;       break;
+            case 5: if (NumberOfItemThrow > 0)      NumberOfItemThrow--;        break;
+            case 6: if (NumberOfItemPunch > 0)      NumberOfItemPunch--;        break;
+            case 7: if (NumberOfItemRemote > 0)     NumberOfItemRemote--;       break;
+            case 8: if (NumberOfItemShield > 0)     NumberOfItemShield--;       break;
+            case 9: if (NumberOfItemStrongWeak > 0) NumberOfItemStrongWeak--;   break;
             }
         }
 
@@ -811,7 +814,9 @@ bool CItem::CreateItems(CArena *pArena,
             NumberOfItemThrow > 0 ||
             NumberOfItemPunch > 0 ||
             NumberOfItemRemote > 0 ||
-            NumberOfItemShield > 0)
+            NumberOfItemShield > 0 ||
+            NumberOfItemStrongWeak > 0
+            )
         {
             // Choose a type of item to create
             EItemType Type = ITEM_NONE;
@@ -863,6 +868,11 @@ bool CItem::CreateItems(CArena *pArena,
             {
                 Type = ITEM_SHIELD;
                 NumberOfItemShield--;
+            }
+            else if (NumberOfItemStrongWeak > 0)
+            {
+                Type = ITEM_STRONGWEAK;
+                NumberOfItemStrongWeak--;
             }
 
             // Try a random index in the possible places array

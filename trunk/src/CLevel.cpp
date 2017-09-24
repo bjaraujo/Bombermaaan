@@ -236,28 +236,29 @@ bool CLevel::LoadVersion1(ifstream& File) {
             // According to the character value, store the corresponding block type in the current position and level
             switch (Line.c_str()[x])
             {
-            case '*': m_ArenaData[x][y] = BLOCKTYPE_HARDWALL;       break;
-            case '-': m_ArenaData[x][y] = BLOCKTYPE_SOFTWALL;       break;
-            case '?': m_ArenaData[x][y] = BLOCKTYPE_RANDOM;         break;
-            case ' ': m_ArenaData[x][y] = BLOCKTYPE_FREE;           break;
-            case '1': m_ArenaData[x][y] = BLOCKTYPE_WHITEBOMBER;    break;
-            case '2': m_ArenaData[x][y] = BLOCKTYPE_BLACKBOMBER;    break;
-            case '3': m_ArenaData[x][y] = BLOCKTYPE_REDBOMBER;      break;
-            case '4': m_ArenaData[x][y] = BLOCKTYPE_BLUEBOMBER;     break;
-            case '5': m_ArenaData[x][y] = BLOCKTYPE_GREENBOMBER;    break;
-            case 'R': m_ArenaData[x][y] = BLOCKTYPE_MOVEBOMB_RIGHT; break;
-            case 'D': m_ArenaData[x][y] = BLOCKTYPE_MOVEBOMB_DOWN;  break;
-            case 'L': m_ArenaData[x][y] = BLOCKTYPE_MOVEBOMB_LEFT;  break;
-            case 'U': m_ArenaData[x][y] = BLOCKTYPE_MOVEBOMB_UP;    break;
-            case 'B': m_ArenaData[x][y] = BLOCKTYPE_ITEM_BOMB;      break;
-            case 'K': m_ArenaData[x][y] = BLOCKTYPE_ITEM_KICK;      break;
-            case 'F': m_ArenaData[x][y] = BLOCKTYPE_ITEM_FLAME;     break;
-            case 'S': m_ArenaData[x][y] = BLOCKTYPE_ITEM_ROLLER;    break;
-            case 'P': m_ArenaData[x][y] = BLOCKTYPE_ITEM_PUNCH;     break;
-            case 'T': m_ArenaData[x][y] = BLOCKTYPE_ITEM_THROW;     break;
-            case 'Z': m_ArenaData[x][y] = BLOCKTYPE_ITEM_REMOTES;   break;
-            case 'C': m_ArenaData[x][y] = BLOCKTYPE_ITEM_SKULL;     break;
-            case 'I': m_ArenaData[x][y] = BLOCKTYPE_ITEM_SHIELD;    break;
+            case '*': m_ArenaData[x][y] = BLOCKTYPE_HARDWALL;          break;
+            case '-': m_ArenaData[x][y] = BLOCKTYPE_SOFTWALL;          break;
+            case '?': m_ArenaData[x][y] = BLOCKTYPE_RANDOM;            break;
+            case ' ': m_ArenaData[x][y] = BLOCKTYPE_FREE;              break;
+            case '1': m_ArenaData[x][y] = BLOCKTYPE_WHITEBOMBER;       break;
+            case '2': m_ArenaData[x][y] = BLOCKTYPE_BLACKBOMBER;       break;
+            case '3': m_ArenaData[x][y] = BLOCKTYPE_REDBOMBER;         break;
+            case '4': m_ArenaData[x][y] = BLOCKTYPE_BLUEBOMBER;        break;
+            case '5': m_ArenaData[x][y] = BLOCKTYPE_GREENBOMBER;       break;
+            case 'R': m_ArenaData[x][y] = BLOCKTYPE_MOVEBOMB_RIGHT;    break;
+            case 'D': m_ArenaData[x][y] = BLOCKTYPE_MOVEBOMB_DOWN;     break;
+            case 'L': m_ArenaData[x][y] = BLOCKTYPE_MOVEBOMB_LEFT;     break;
+            case 'U': m_ArenaData[x][y] = BLOCKTYPE_MOVEBOMB_UP;       break;
+            case 'B': m_ArenaData[x][y] = BLOCKTYPE_ITEM_BOMB;         break;
+            case 'K': m_ArenaData[x][y] = BLOCKTYPE_ITEM_KICK;         break;
+            case 'F': m_ArenaData[x][y] = BLOCKTYPE_ITEM_FLAME;        break;
+            case 'S': m_ArenaData[x][y] = BLOCKTYPE_ITEM_ROLLER;       break;
+            case 'P': m_ArenaData[x][y] = BLOCKTYPE_ITEM_PUNCH;        break;
+            case 'T': m_ArenaData[x][y] = BLOCKTYPE_ITEM_THROW;        break;
+            case 'Z': m_ArenaData[x][y] = BLOCKTYPE_ITEM_REMOTES;      break;
+            case 'C': m_ArenaData[x][y] = BLOCKTYPE_ITEM_SKULL;        break;
+            case 'V': m_ArenaData[x][y] = BLOCKTYPE_ITEM_SHIELD;       break;
+            case 'I': m_ArenaData[x][y] = BLOCKTYPE_ITEM_STRONGWEAK;   break;
             default:
             {
                 // Log there is a problem
@@ -290,6 +291,7 @@ bool CLevel::LoadVersion1(ifstream& File) {
     m_NumberOfItemsInWalls[ITEM_PUNCH] = INITIAL_ITEMPUNCH;
     m_NumberOfItemsInWalls[ITEM_REMOTE] = INITIAL_ITEMREMOTE;
     m_NumberOfItemsInWalls[ITEM_SHIELD] = INITIAL_ITEMSHIELD;
+    m_NumberOfItemsInWalls[ITEM_STRONGWEAK] = INITIAL_ITEMSTRONGWEAK;
 
     m_InitialBomberSkills[BOMBERSKILL_FLAME] = INITIAL_FLAMESIZE;
     m_InitialBomberSkills[BOMBERSKILL_BOMBS] = INITIAL_BOMBS;
@@ -301,6 +303,7 @@ bool CLevel::LoadVersion1(ifstream& File) {
     m_InitialBomberSkills[BOMBERSKILL_PUNCHITEMS] = 0;
     m_InitialBomberSkills[BOMBERSKILL_REMOTEITEMS] = 0;
     m_InitialBomberSkills[BOMBERSKILL_SHIELDITEMS] = 0;
+    m_InitialBomberSkills[BOMBERSKILL_STRONGWEAKITEMS] = 0;
 
     return !StopReadingFile;
 
@@ -392,28 +395,29 @@ bool CLevel::LoadVersion2(std::string filename)
             // According to the character value, store the corresponding block type in the current position and level
             switch (arenaLine.at(x))
             {
-            case '*': m_ArenaData[x][y] = BLOCKTYPE_HARDWALL;       break;
-            case '-': m_ArenaData[x][y] = BLOCKTYPE_SOFTWALL;       break;
-            case '?': m_ArenaData[x][y] = BLOCKTYPE_RANDOM;         break;
-            case ' ': m_ArenaData[x][y] = BLOCKTYPE_FREE;           break;
-            case '1': m_ArenaData[x][y] = BLOCKTYPE_WHITEBOMBER;    break;
-            case '2': m_ArenaData[x][y] = BLOCKTYPE_BLACKBOMBER;    break;
-            case '3': m_ArenaData[x][y] = BLOCKTYPE_REDBOMBER;      break;
-            case '4': m_ArenaData[x][y] = BLOCKTYPE_BLUEBOMBER;     break;
-            case '5': m_ArenaData[x][y] = BLOCKTYPE_GREENBOMBER;    break;
-            case 'R': m_ArenaData[x][y] = BLOCKTYPE_MOVEBOMB_RIGHT; break;
-            case 'D': m_ArenaData[x][y] = BLOCKTYPE_MOVEBOMB_DOWN;  break;
-            case 'L': m_ArenaData[x][y] = BLOCKTYPE_MOVEBOMB_LEFT;  break;
-            case 'U': m_ArenaData[x][y] = BLOCKTYPE_MOVEBOMB_UP;    break;
-            case 'B': m_ArenaData[x][y] = BLOCKTYPE_ITEM_BOMB;      break;
-            case 'K': m_ArenaData[x][y] = BLOCKTYPE_ITEM_KICK;      break;
-            case 'F': m_ArenaData[x][y] = BLOCKTYPE_ITEM_FLAME;     break;
-            case 'S': m_ArenaData[x][y] = BLOCKTYPE_ITEM_ROLLER;    break;
-            case 'P': m_ArenaData[x][y] = BLOCKTYPE_ITEM_PUNCH;     break;
-            case 'T': m_ArenaData[x][y] = BLOCKTYPE_ITEM_THROW;     break;
-            case 'Z': m_ArenaData[x][y] = BLOCKTYPE_ITEM_REMOTES;   break;
-            case 'C': m_ArenaData[x][y] = BLOCKTYPE_ITEM_SKULL;     break;
-            case 'I': m_ArenaData[x][y] = BLOCKTYPE_ITEM_SHIELD;    break;
+            case '*': m_ArenaData[x][y] = BLOCKTYPE_HARDWALL;        break;
+            case '-': m_ArenaData[x][y] = BLOCKTYPE_SOFTWALL;        break;
+            case '?': m_ArenaData[x][y] = BLOCKTYPE_RANDOM;          break;
+            case ' ': m_ArenaData[x][y] = BLOCKTYPE_FREE;            break;
+            case '1': m_ArenaData[x][y] = BLOCKTYPE_WHITEBOMBER;     break;
+            case '2': m_ArenaData[x][y] = BLOCKTYPE_BLACKBOMBER;     break;
+            case '3': m_ArenaData[x][y] = BLOCKTYPE_REDBOMBER;       break;
+            case '4': m_ArenaData[x][y] = BLOCKTYPE_BLUEBOMBER;      break;
+            case '5': m_ArenaData[x][y] = BLOCKTYPE_GREENBOMBER;     break;
+            case 'R': m_ArenaData[x][y] = BLOCKTYPE_MOVEBOMB_RIGHT;  break;
+            case 'D': m_ArenaData[x][y] = BLOCKTYPE_MOVEBOMB_DOWN;   break;
+            case 'L': m_ArenaData[x][y] = BLOCKTYPE_MOVEBOMB_LEFT;   break;
+            case 'U': m_ArenaData[x][y] = BLOCKTYPE_MOVEBOMB_UP;     break;
+            case 'B': m_ArenaData[x][y] = BLOCKTYPE_ITEM_BOMB;       break;
+            case 'K': m_ArenaData[x][y] = BLOCKTYPE_ITEM_KICK;       break;
+            case 'F': m_ArenaData[x][y] = BLOCKTYPE_ITEM_FLAME;      break;
+            case 'S': m_ArenaData[x][y] = BLOCKTYPE_ITEM_ROLLER;     break;
+            case 'P': m_ArenaData[x][y] = BLOCKTYPE_ITEM_PUNCH;      break;
+            case 'T': m_ArenaData[x][y] = BLOCKTYPE_ITEM_THROW;      break;
+            case 'Z': m_ArenaData[x][y] = BLOCKTYPE_ITEM_REMOTES;    break;
+            case 'C': m_ArenaData[x][y] = BLOCKTYPE_ITEM_SKULL;      break;
+            case 'V': m_ArenaData[x][y] = BLOCKTYPE_ITEM_SHIELD;     break;
+            case 'I': m_ArenaData[x][y] = BLOCKTYPE_ITEM_STRONGWEAK; break;
             default:
             {
                 // Log there is a problem
@@ -439,6 +443,7 @@ bool CLevel::LoadVersion2(std::string filename)
     m_NumberOfItemsInWalls[ITEM_PUNCH] = atoi(iniFile.GetValue("Settings", "ItemsInWalls.Punches", "0"));
     m_NumberOfItemsInWalls[ITEM_REMOTE] = atoi(iniFile.GetValue("Settings", "ItemsInWalls.Remotes", "2"));
     m_NumberOfItemsInWalls[ITEM_SHIELD] = atoi(iniFile.GetValue("Settings", "ItemsInWalls.Shields", "2"));
+    m_NumberOfItemsInWalls[ITEM_STRONGWEAK] = atoi(iniFile.GetValue("Settings", "ItemsInWalls.StrongWeak", "2"));
 
     //---------------------
     // Read the BomberSkillsAtStart values
@@ -454,6 +459,7 @@ bool CLevel::LoadVersion2(std::string filename)
     m_InitialBomberSkills[BOMBERSKILL_PUNCHITEMS] = atoi(iniFile.GetValue("Settings", "BomberSkillsAtStart.PunchItems", "0"));
     m_InitialBomberSkills[BOMBERSKILL_REMOTEITEMS] = atoi(iniFile.GetValue("Settings", "BomberSkillsAtStart.RemoteItems", "0"));
     m_InitialBomberSkills[BOMBERSKILL_SHIELDITEMS] = atoi(iniFile.GetValue("Settings", "BomberSkillsAtStart.ShieldItems", "0"));
+    m_InitialBomberSkills[BOMBERSKILL_STRONGWEAKITEMS] = atoi(iniFile.GetValue("Settings", "BomberSkillsAtStart.StrongWeakItems", "0"));
 
     //---------------------
     // Read the ContaminationsNotUsed setting
