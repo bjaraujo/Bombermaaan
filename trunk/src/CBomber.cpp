@@ -1878,13 +1878,15 @@ void CBomber::ItemEffect(EItemType Type)
             {
                 m_ShieldTime += SHIELD_TIME;
                 m_Speed = SPEED_FAST;
-                m_FlameSize = 5;
+                m_FlameSize = 10;
+                m_NumberOfRemoteItems = 1;
             }
             else
             {
                 m_ShieldTime = 0.75f;
                 m_Speed = SPEED_SLOW;
                 m_FlameSize = 1;
+                m_NumberOfRemoteItems = 0;
             }
 
             break;

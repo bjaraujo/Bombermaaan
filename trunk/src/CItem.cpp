@@ -90,6 +90,8 @@
 #define SPRITE_REMOTE1      15
 #define SPRITE_SHIELD0      16
 #define SPRITE_SHIELD1      17
+#define SPRITE_STRONGWEAK0  18
+#define SPRITE_STRONGWEAK1  19
 
 // Fume animation sprites
 #define ANIM_FUMES_1    0
@@ -242,6 +244,7 @@ void CItem::SetSprites(void)
     case ITEM_PUNCH:       m_Sprite0 = SPRITE_PUNCH0;      m_Sprite1 = SPRITE_PUNCH1;      break;
     case ITEM_REMOTE:      m_Sprite0 = SPRITE_REMOTE0;     m_Sprite1 = SPRITE_REMOTE1;     break;
     case ITEM_SHIELD:      m_Sprite0 = SPRITE_SHIELD0;     m_Sprite1 = SPRITE_SHIELD1;     break;
+    case ITEM_STRONGWEAK:  m_Sprite0 = SPRITE_STRONGWEAK0; m_Sprite1 = SPRITE_STRONGWEAK1; break;
     default: break;
     }
 
