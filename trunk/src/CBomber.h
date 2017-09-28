@@ -155,6 +155,7 @@ private:
     int             m_NumberOfThrowItems;           //!< Number of picked up throw items
     int             m_NumberOfPunchItems;           //!< Number of picked up punch items
     int             m_NumberOfRemoteItems;          //!< Number of picked up remote controler items
+    bool            m_isStrongWeak;                     //!< Bomber is strong
     float           m_ShieldTime;                   //!< Shield time
     float           m_TimeSinceLastSick;            //!< Time since last sick event
     bool            m_ReturnedItems;                //!< Did the bomber return the items he picked up to the arena?

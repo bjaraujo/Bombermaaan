@@ -274,6 +274,7 @@ CBomber::CBomber(void) : CElement()
     m_NumberOfKickItems = 0;
     m_NumberOfThrowItems = 0;
     m_NumberOfPunchItems = 0;
+    m_isStrongWeak = false;
     m_ShieldTime = 0.0f;
     m_TimeSinceLastSick = 0.0f;
     m_ReturnedItems = false;
@@ -1695,8 +1696,8 @@ void CBomber::ReturnItems(float DeltaTime)
                 m_NumberOfThrowItems,
                 m_NumberOfPunchItems,
                 m_NumberOfRemoteItems,
-                1,
-                1))
+                0,
+                0))
             {
                 // Play the item fumes sound
                 m_pSound->PlaySample(SAMPLE_ITEM_FUMES);
@@ -1723,7 +1724,16 @@ bool CBomber::Update(float DeltaTime)
     m_ShieldTime -= DeltaTime;
 
     if (m_ShieldTime < 0.0f)
+    {
         m_ShieldTime = 0.0f;
+
+        if (m_isStrongWeak)
+        {
+            m_isStrongWeak = false;
+            m_Speed = SPEED_NORMAL;
+            m_FlameSize = 1;
+        }
+    }
 
     m_TimeSinceLastSick += DeltaTime;
 
@@ -1873,6 +1883,8 @@ void CBomber::ItemEffect(EItemType Type)
 
         case ITEM_STRONGWEAK:
         {
+            m_isStrongWeak = true;
+
             // Picked up strong/weak
             if (RANDOM(100) >= 25)
             {
@@ -1883,7 +1895,7 @@ void CBomber::ItemEffect(EItemType Type)
             }
             else
             {
-                m_ShieldTime = 0.75f;
+                m_ShieldTime = 0.0f;
                 m_Speed = SPEED_SLOW;
                 m_FlameSize = 1;
                 m_NumberOfRemoteItems = 0;

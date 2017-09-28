@@ -367,7 +367,7 @@ void CExplosion::Burn (int BlockX, int BlockY, EBurnDirection BurnDirection)
     if (m_pArena->IsWall(BlockX,BlockY))
     {
         // Seek this wall
-        for (Index = 0 ; Index < m_pArena->MaxWalls() ; Index++)
+        for (Index = 0 ; Index < m_pArena->MaxWalls(); Index++)
         {
             // Test existence and position
             if (m_pArena->GetWall(Index).Exist() &&
@@ -384,7 +384,7 @@ void CExplosion::Burn (int BlockX, int BlockY, EBurnDirection BurnDirection)
     else if (m_pArena->IsItem(BlockX,BlockY))
     {
         // Seek this item
-        for (Index = 0 ; Index < m_pArena->MaxItems() ; Index++)
+        for (Index = 0 ; Index < m_pArena->MaxItems(); Index++)
         {
             // Test existence and position
             if (m_pArena->GetItem(Index).Exist() &&
@@ -402,7 +402,7 @@ void CExplosion::Burn (int BlockX, int BlockY, EBurnDirection BurnDirection)
     if (m_pArena->IsBomb(BlockX,BlockY))
     {
         // Seek this bomb
-        for (Index = 0 ; Index < m_pArena->MaxBombs() ; Index++)
+        for (Index = 0 ; Index < m_pArena->MaxBombs(); Index++)
         {
             // Test existence and position
             if (m_pArena->GetBomb(Index).Exist() &&
@@ -410,7 +410,7 @@ void CExplosion::Burn (int BlockX, int BlockY, EBurnDirection BurnDirection)
                 m_pArena->GetBomb(Index).GetBlockY() == BlockY)
             {
                 // Make the bomb explode soon
-                m_pArena->GetBomb(Index).Burn ();
+                m_pArena->GetBomb(Index).Burn();
                 break;
             }
         }
