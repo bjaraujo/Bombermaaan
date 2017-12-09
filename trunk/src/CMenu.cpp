@@ -41,11 +41,11 @@
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-#define MENU_BLACKSCREEN_DURATION       0.350f              //!< Duration (in seconds) of the two black screens
+#define MENU_BLACKSCREEN_DURATION          0.350f      //!< Duration (in seconds) of the two black screens
 
-#define MOSAIC_SPRITE_LAYER                0           //!< Sprite layer where to draw the mosaic tiles
-#define MOSAIC_SPRITE_PRIORITY_IN_LAYER    0           //!< Priority to use in the sprite layer where to draw the mosaic tiles
-#define MOSAIC_SPEED_X                     50.0f       //!< Speed of the mosaic background horizontally
+#define MOSAIC_SPRITE_LAYER                  0         //!< Sprite layer where to draw the mosaic tiles
+#define MOSAIC_SPRITE_PRIORITY_IN_LAYER      0         //!< Priority to use in the sprite layer where to draw the mosaic tiles
+#define MOSAIC_SPEED_X                      50.0f      //!< Speed of the mosaic background horizontally
 #define MOSAIC_SPEED_Y                     -50.0f      //!< Speed of the mosaic background vertically
 
 //******************************************************************************************************************************

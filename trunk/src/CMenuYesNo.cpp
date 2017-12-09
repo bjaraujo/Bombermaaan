@@ -242,10 +242,10 @@ void CMenuYesNo::Display (void)
                                 801,
                                 -1);
     
-        m_Font.SetTextColor ((m_YesNo ? FONTCOLOR_WHITE : FONTCOLOR_GREEN));
+        m_Font.SetTextColor ((m_YesNo ? FONTCOLOR_GREEN : FONTCOLOR_WHITE));
         m_Font.Draw (INITIAL_TEXT_POSITION_X, INITIAL_TEXT_POSITION_Y, "YES");
     
-        m_Font.SetTextColor ((m_YesNo ? FONTCOLOR_GREEN : FONTCOLOR_WHITE));
+        m_Font.SetTextColor ((m_YesNo ? FONTCOLOR_WHITE : FONTCOLOR_GREEN));
         m_Font.Draw (INITIAL_TEXT_POSITION_X, INITIAL_TEXT_POSITION_Y + TEXT_SPACE_Y, "NO");
     }
 }
