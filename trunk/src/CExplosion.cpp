@@ -55,12 +55,12 @@
 #define ANIM_LONGER         1
 
 // State times during the explosion evolution
-#define ANIM_STATETIME1     ANIM_LONGER * 0.060f
-#define ANIM_STATETIME2     ANIM_LONGER * 0.130f
-#define ANIM_STATETIME3     ANIM_LONGER * 0.210f
-#define ANIM_STATETIME4     ANIM_LONGER * 0.280f
-#define ANIM_STATETIME5     ANIM_LONGER * 0.340f
-#define ANIM_STATETIME6     ANIM_LONGER * 0.400f
+#define ANIM_STATETIME1     (ANIM_LONGER * 0.060f)
+#define ANIM_STATETIME2     (ANIM_LONGER * 0.130f)
+#define ANIM_STATETIME3     (ANIM_LONGER * 0.210f)
+#define ANIM_STATETIME4     (ANIM_LONGER * 0.280f)
+#define ANIM_STATETIME5     (ANIM_LONGER * 0.340f)
+#define ANIM_STATETIME6     (ANIM_LONGER * 0.400f)
 
 // Describes a type of flame and contains the appropriate sprite number
 #define FLAME_VERT          0

@@ -52,24 +52,24 @@
 
 // Times of item animation (in seconds)
 #define ANIMITEM_TIME1      0.080f
-#define ANIMITEM_TIME2      ANIMITEM_TIME1 * 2
+#define ANIMITEM_TIME2      (ANIMITEM_TIME1 * 2)
 
 // Times of item animation (in seconds)
 #define ANIMFUMES_TIME1      0.100f
-#define ANIMFUMES_TIME2      ANIMFUMES_TIME1 * 2
-#define ANIMFUMES_TIME3      ANIMFUMES_TIME1 * 3
+#define ANIMFUMES_TIME2      (ANIMFUMES_TIME1 * 2)
+#define ANIMFUMES_TIME3      (ANIMFUMES_TIME1 * 3)
 
 // Duration value for the anim fire. Used to speed up or slow down animation
 #define ANIMFIRE_DURATION   0.9f
 
 // Times of item fire animation (in seconds)
-#define ANIMFIRE_TIME1      0.070f * ANIMFIRE_DURATION
-#define ANIMFIRE_TIME2      0.170f * ANIMFIRE_DURATION
-#define ANIMFIRE_TIME3      0.310f * ANIMFIRE_DURATION
-#define ANIMFIRE_TIME4      0.460f * ANIMFIRE_DURATION
-#define ANIMFIRE_TIME5      0.560f * ANIMFIRE_DURATION
-#define ANIMFIRE_TIME6      0.630f * ANIMFIRE_DURATION
-#define ANIMFIRE_TIME7      0.720f * ANIMFIRE_DURATION
+#define ANIMFIRE_TIME1      (0.070f * ANIMFIRE_DURATION)
+#define ANIMFIRE_TIME2      (0.170f * ANIMFIRE_DURATION)
+#define ANIMFIRE_TIME3      (0.310f * ANIMFIRE_DURATION)
+#define ANIMFIRE_TIME4      (0.460f * ANIMFIRE_DURATION)
+#define ANIMFIRE_TIME5      (0.560f * ANIMFIRE_DURATION)
+#define ANIMFIRE_TIME6      (0.630f * ANIMFIRE_DURATION)
+#define ANIMFIRE_TIME7      (0.720f * ANIMFIRE_DURATION)
 
 // Item sprites according to item type
 #define SPRITE_BOMB0        0

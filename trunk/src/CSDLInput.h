@@ -146,7 +146,7 @@
 #define JOYSTICK_DOWN       1
 #define JOYSTICK_LEFT       2
 #define JOYSTICK_RIGHT      3
-#define JOYSTICK_BUTTON(x)  (4 + x)
+#define JOYSTICK_BUTTON(x)  (4 + (x))
 
 #define NUMBER_OF_JOYSTICK_DIRECTIONS     4     //!< Number of joystick directions (up down left right)
 

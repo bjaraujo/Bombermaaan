@@ -881,8 +881,9 @@ void CGame::OnWindowActive(void)
     if (!m_MenuYesNo.IsActive())
     {
         //! - Update the object corresponding to the current game mode and let it tell the next game mode
-        if (GetGameModeObject(m_GameMode) != NULL)
-            NextGameMode = GetGameModeObject(m_GameMode)->Update();
+        CModeScreen* modeScreen = GetGameModeObject(m_GameMode);
+        if (modeScreen != NULL)
+            NextGameMode = modeScreen->Update();
 
     }
 
@@ -903,8 +904,10 @@ void CGame::OnWindowActive(void)
     m_Display.Clear();
 
     //! Display the object corresponding to the current game mode
-    if (GetGameModeObject(m_GameMode) != NULL)
-        GetGameModeObject(m_GameMode)->Display();
+    CModeScreen* modeScreen = GetGameModeObject(m_GameMode);
+    
+    if (modeScreen != NULL)
+        modeScreen->Display();
 
     //! Display the menu yes/no if needed    
     m_MenuYesNo.Display();
@@ -959,8 +962,9 @@ void CGame::StartGameMode(EGameMode GameMode)
     else
     {
         // Create the object corresponding to the new game mode
-        if (GetGameModeObject(m_GameMode) != NULL)
-            GetGameModeObject(m_GameMode)->Create();
+        CModeScreen* modeScreen = GetGameModeObject(m_GameMode);
+        if (modeScreen != NULL)
+            modeScreen->Create();
     }
 }
 
@@ -975,8 +979,9 @@ void CGame::StartGameMode(EGameMode GameMode)
 void CGame::FinishGameMode(void)
 {
     //! Destroy the object corresponding to the new game mode
-    if (GetGameModeObject(m_GameMode) != NULL)
-        GetGameModeObject(m_GameMode)->Destroy();
+    CModeScreen* modeScreen = GetGameModeObject(m_GameMode);
+    if (modeScreen != NULL)
+        modeScreen->Destroy();
 
     //! Set no game mode
     m_GameMode = GAMEMODE_NONE;
@@ -1019,8 +1024,9 @@ void CGame::OnActivateApp(WPARAM wParam, LPARAM lParam)
 
         // Open the needed players inputs according to current game mode
         // Create the object corresponding to the new game mode
-        if (GetGameModeObject(m_GameMode) != NULL)
-            GetGameModeObject(m_GameMode)->OpenInput();
+        CModeScreen* modeScreen = GetGameModeObject(m_GameMode);
+        if (modeScreen != NULL)
+            modeScreen->OpenInput();
     }
     // If the window loses the focus
     else

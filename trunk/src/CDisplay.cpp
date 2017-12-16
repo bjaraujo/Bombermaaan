@@ -74,7 +74,7 @@ bool CDisplay::Create(int Width, int Height, bool FullScreen)
 
     // If no display mode has been set yet or the current display mode is not the right one
 #ifdef DIRECTX_DRAW
-    if (!m_DirectDraw.IsModeSet (Width, Height, Depth, FullScreen))
+    if (!m_DirectDraw.IsModeSet(Width, Height, Depth, FullScreen))
 #else
     if (!m_SDLVideo.IsModeSet(Width, Height, Depth, FullScreen))
 #endif
@@ -84,7 +84,7 @@ bool CDisplay::Create(int Width, int Height, bool FullScreen)
 
         // If DirectDraw/SDLVideo object creation failed
 #ifdef DIRECTX_DRAW
-        if (!m_DirectDraw.Create (Width, Height, Depth, FullScreen))
+        if (!m_DirectDraw.Create(Width, Height, Depth, FullScreen))
 #else
         if (!m_SDLVideo.Create(Width, Height, Depth, FullScreen))
 #endif
@@ -331,6 +331,7 @@ bool CDisplay::IsDisplayModeAvailable(EDisplayMode DisplayMode)
 
 bool CDisplay::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, int BMP_ID)
 {
+
 #ifdef WIN32
     // Load the bitmap as a resource
     HBITMAP hBitmap = (HBITMAP)LoadImage(m_hModule, MAKEINTRESOURCE(BMP_ID), IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION);

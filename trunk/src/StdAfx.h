@@ -78,7 +78,7 @@ using namespace std;
 #define SQRT(_x)    sqrt(_x)
 
 #define SEED_RANDOM(seed)     srand(seed)
-#define RANDOM(max)       (rand() % max)
+#define RANDOM(max)       (rand() % (max))
 
 #define PLAYER_WHITE                    0       //!< Player number of the white bomber
 #define PLAYER_BLACK                    1       //!< Player number of the black bomber

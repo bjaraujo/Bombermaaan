@@ -96,27 +96,27 @@ SBomberSpriteTable CBomber::m_BomberSpriteTables[MAX_NUMBER_OF_STATES] =
 
 //! Sick flashing animation times (in seconds)
 #define ANIMSICK_TIME1      0.090f
-#define ANIMSICK_TIME2      ANIMSICK_TIME1 * 2
+#define ANIMSICK_TIME2      (ANIMSICK_TIME1 * 2)
 
 //! Walk animation times (in seconds)
 #define ANIMWALK_TIME1      0.150f
-#define ANIMWALK_TIME2      ANIMWALK_TIME1 * 2
-#define ANIMWALK_TIME3      ANIMWALK_TIME1 * 3
-#define ANIMWALK_TIME4      ANIMWALK_TIME1 * 4
+#define ANIMWALK_TIME2      (ANIMWALK_TIME1 * 2)
+#define ANIMWALK_TIME3      (ANIMWALK_TIME1 * 3)
+#define ANIMWALK_TIME4      (ANIMWALK_TIME1 * 4)
 
 //! Dying animation times (in seconds)
 #define ANIMDYING_TIME1     0.600f
-#define ANIMDYING_TIME2     ANIMDYING_TIME1 * 1.2
-#define ANIMDYING_TIME3     ANIMDYING_TIME1 * 1.3
-#define ANIMDYING_TIME4     ANIMDYING_TIME1 * 1.4
-#define ANIMDYING_TIME5     ANIMDYING_TIME1 * 1.5
-#define ANIMDYING_TIME6     ANIMDYING_TIME1 * 1.6
-#define ANIMDYING_TIME7     ANIMDYING_TIME1 * 1.7
+#define ANIMDYING_TIME2     (ANIMDYING_TIME1 * 1.2)
+#define ANIMDYING_TIME3     (ANIMDYING_TIME1 * 1.3)
+#define ANIMDYING_TIME4     (ANIMDYING_TIME1 * 1.4)
+#define ANIMDYING_TIME5     (ANIMDYING_TIME1 * 1.5)
+#define ANIMDYING_TIME6     (ANIMDYING_TIME1 * 1.6)
+#define ANIMDYING_TIME7     (ANIMDYING_TIME1 * 1.7)
 
 //! Bomb lifting animation times (in seconds)
 #define ANIMBOMBLIFTING_TIME1     0.060f
-#define ANIMBOMBLIFTING_TIME2     ANIMBOMBLIFTING_TIME1 * 2
-#define ANIMBOMBLIFTING_TIME3     ANIMBOMBLIFTING_TIME1 * 3
+#define ANIMBOMBLIFTING_TIME2     (ANIMBOMBLIFTING_TIME1 * 2)
+#define ANIMBOMBLIFTING_TIME3     (ANIMBOMBLIFTING_TIME1 * 3)
 
 //! Bomb throwing animation times (in seconds)
 #define ANIMBOMBTHROWING_TIME1     0.040f

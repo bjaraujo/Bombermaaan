@@ -75,11 +75,11 @@
                                             
 // Animation                                
 #define ANIMFLAG_TIME_0             0.300f                      //!< Flag animation times
-#define ANIMFLAG_TIME_1             ANIMFLAG_TIME_0 * 2         
+#define ANIMFLAG_TIME_1             (ANIMFLAG_TIME_0 * 2)
 #define ANIMBIGFUME_TIME_0          0.250f                      //!< Big fume animation times
-#define ANIMBIGFUME_TIME_1          ANIMBIGFUME_TIME_0 * 2      
+#define ANIMBIGFUME_TIME_1          (ANIMBIGFUME_TIME_0 * 2)
 #define ANIMSMALLFUME_TIME_0        0.220f                      //!< Small fume animation times
-#define ANIMSMALLFUME_TIME_1        ANIMSMALLFUME_TIME_0 * 2
+#define ANIMSMALLFUME_TIME_1        (ANIMSMALLFUME_TIME_0 * 2)
 
 // Sprite tables
 #define DRAWGAME_MAIN_SPRITETABLE           15

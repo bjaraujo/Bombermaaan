@@ -70,10 +70,10 @@ int main(int argc, char **argv)
     CR_INSTALL_INFO info;
     memset(&info, 0, sizeof(CR_INSTALL_INFO));
     info.cb = sizeof(CR_INSTALL_INFO);                        // Size of the structure
-    info.pszAppName = _T("Bombermaaan");                    // App name
+    info.pszAppName = _T("Bombermaaan");                      // App name
     info.pszAppVersion = _T(APP_VERSION_INFO);                // App version
     info.pszEmailSubject = _T("Bombermaaan Error Report");    // Email subject
-    info.pszEmailTo = _T("bjaraujo@github.com");            // Email recipient address
+    info.pszEmailTo = _T("bjaraujo@github.com");              // Email recipient address
     info.dwFlags = CR_INST_NO_GUI | CR_INST_DONT_SEND_REPORT;
 
     // Install crash handlers

@@ -167,6 +167,9 @@ CWinner::CWinner (void) : CModeScreen()
     m_CoinTime = 0.0f;
     m_CoinSpriteOffset = 0;
 
+    m_HaveToExit = false;
+    m_ExitGameMode = GAMEMODE_NONE;
+
 }
 
 //******************************************************************************************************************************
