@@ -35,9 +35,9 @@ strNewVersion = str(intMajorNumber) + '.' + str(intMinorNumber) + '.' + str(intR
 # Increment version
 incVersionInput = raw_input('Increment version number [Y/n]?')
 
-incVersion = False 
-if incVersionInput == 'Y' or incVersionInput == 'y':
-    incVersion = True
+incVersion = True 
+if incVersionInput == 'n':
+    incVersion = False
 
 fo = open('trunk/src/Bombermaaan.h', 'w')
 
