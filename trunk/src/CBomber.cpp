@@ -1731,7 +1731,7 @@ bool CBomber::Update(float DeltaTime)
         {
             m_isStrongWeak = false;
             m_Speed = SPEED_NORMAL;
-            m_FlameSize = 1;
+            m_FlameSize = 2;
         }
     }
 
