@@ -33,7 +33,7 @@ intBuildNumber = 0
 strNewVersion = str(intMajorNumber) + '.' + str(intMinorNumber) + '.' + str(intReleaseNumber) + '.' + str(intBuildNumber)
 
 # Increment version
-incVersionInput = raw_input('Increment version number [Y/n]?')
+incVersionInput = input('Increment version number [Y/n]?')
 
 incVersion = True 
 if incVersionInput == 'n':
@@ -71,9 +71,9 @@ for strLine in strLines:
 fo.close()
 
 # Build
-print '------------ Building release ------------'
-print 'version: ' + strNewVersion
-print 'build: ' + build
+print('------------ Building release ------------')
+print('version: ' + strNewVersion)
+print('build: ' + build)
 
 time.sleep(3)
 
