@@ -157,6 +157,9 @@
   <data name="ItemSkull" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\ItemSkull.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ItemStrongWeak" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\ItemStrongWeak.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="ItemThrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\ItemThrow.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

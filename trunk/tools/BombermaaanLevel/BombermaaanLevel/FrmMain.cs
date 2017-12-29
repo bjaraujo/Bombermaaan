@@ -78,7 +78,7 @@ namespace BombermaaanLevel
             int k = 0;
             int l = 0;
 
-            int [] spacing = new int[4]  { 4,  5, 4, 9};
+            int [] spacing = new int[4]  { 4, 5, 4, 10 };
 
             foreach (EBlockType val in Enum.GetValues(typeof(EBlockType)))
             {
@@ -212,6 +212,8 @@ namespace BombermaaanLevel
                     return Resource1.ItemRemote;
                 case EBlockType.BLOCKTYPE_ITEM_SHIELD:
                     return Resource1.ItemShield;
+                case EBlockType.BLOCKTYPE_ITEM_STRONGWEAK:
+                    return Resource1.ItemStrongWeak;
                 default:
                     break;
             }

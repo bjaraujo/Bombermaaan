@@ -193,6 +193,16 @@ namespace BombermaaanLevel {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ItemStrongWeak {
+            get {
+                object obj = ResourceManager.GetObject("ItemStrongWeak", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ItemThrow {
             get {
                 object obj = ResourceManager.GetObject("ItemThrow", resourceCulture);
