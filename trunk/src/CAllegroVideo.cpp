@@ -28,6 +28,7 @@
  */
 
 #include "StdAfx.h"
+
 #include "CAllegroVideo.h"
 #include "BombermaaanIco.h"
 
@@ -158,7 +159,7 @@ bool CAllegroVideo::Create(int Width, int Height, int Depth, bool FullScreen)
         theLog.WriteLine("AllegroVideo        => Initializing AllegroVideo interface for windowed mode %dx%d.", m_Width, m_Height);
 
         // Get normal windowed mode
-        m_pPrimary = Allegro_SetVideoMode(m_Width, m_Height, m_Depth, Allegro_HWSURFACE | Allegro_DOUBLEBUF);
+        m_pPrimary = set_gfx_mode(GFX_AUTODETECT_WINDOWED, m_Width, m_Height, 0, 0);
 
         if (m_pPrimary == NULL) {
             // Log failure
@@ -175,7 +176,7 @@ bool CAllegroVideo::Create(int Width, int Height, int Depth, bool FullScreen)
         theLog.WriteLine("AllegroVideo        => Initializing AllegroVideo interface for fullscreen mode %dx%dx%d.", m_Width, m_Height, m_Depth);
 
         // Get fullscreen mode
-        m_pPrimary = Allegro_SetVideoMode(m_Width, m_Height, m_Depth, Allegro_HWSURFACE | Allegro_DOUBLEBUF | Allegro_FULLSCREEN);
+        m_pPrimary = set_gfx_mode(GFX_AUTODETECT_FULLSCREEN, m_Width, m_Height, 0, 0);
 
         if (m_pPrimary == NULL) {
             // Log failure
@@ -197,8 +198,12 @@ bool CAllegroVideo::Create(int Width, int Height, int Depth, bool FullScreen)
     memcpy(&m_rcScreen, &m_rcViewport, sizeof(Allegro_Rect));
 
     // show cursor depending on windowed/fullscreen mode
-    Allegro_ShowCursor(!m_FullScreen);
-
+    if (m_FullScreen)
+    {
+        show_os_cursor(1);
+    }
+    
+    /*
     Allegro_RWops *rwIcon = Allegro_RWFromMem(BombermaaanIcon, sizeof(BombermaaanIcon));
 
     Allegro_Surface *icon = Allegro_LoadBMP_RW(rwIcon, 0);
@@ -215,7 +220,8 @@ bool CAllegroVideo::Create(int Width, int Height, int Depth, bool FullScreen)
 
     Allegro_FreeSurface(icon);
     Allegro_FreeRW(rwIcon);
-
+    */
+    
     // Clear the back buffer surface
     Clear();
 

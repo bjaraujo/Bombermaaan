@@ -29,6 +29,7 @@
  */
 
 #include "StdAfx.h"
+
 #include "CSDLVideo.h"
 #include "BombermaaanIco.h"
 

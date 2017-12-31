@@ -27,119 +27,119 @@
 #ifndef __CALLEGROINPUT_H__
 #define __CALLEGROINPUT_H__
 
-#include "Allegro.h"
+#include "allegro.h"
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-#define MAX_JOYSTICK_BUTTONS    32                      //!< Maximum number of buttons a joystick can have
-#define MAX_KEYS                AllegroK_LAST               //!< Maximum number of keys a keyboard can have
+#define MAX_JOYSTICK_BUTTONS   32                      //!< Maximum number of buttons a joystick can have
+#define MAX_KEYS               ALLEGROK_LAST               //!< Maximum number of keys a keyboard can have
 
-#define KEYBOARD_ESCAPE        AllegroK_ESCAPE              //!< ID for the escape key
-#define KEYBOARD_1             AllegroK_1                   //!< ID for the 1 key
-#define KEYBOARD_2             AllegroK_2
-#define KEYBOARD_3             AllegroK_3
-#define KEYBOARD_4             AllegroK_4
-#define KEYBOARD_5             AllegroK_5
-#define KEYBOARD_6             AllegroK_6
-#define KEYBOARD_7             AllegroK_7
-#define KEYBOARD_8             AllegroK_8
-#define KEYBOARD_9             AllegroK_9
-#define KEYBOARD_0             AllegroK_0
-#define KEYBOARD_MINUS         AllegroK_MINUS               //!< - on main keyboard 
-#define KEYBOARD_EQUALS        AllegroK_EQUALS
-#define KEYBOARD_BACK          AllegroK_BACKSPACE           //!< backspace 
-#define KEYBOARD_TAB           AllegroK_TAB
-#define KEYBOARD_Q             AllegroK_q
-#define KEYBOARD_W             AllegroK_w
-#define KEYBOARD_E             AllegroK_e
-#define KEYBOARD_R             AllegroK_r
-#define KEYBOARD_T             AllegroK_t
-#define KEYBOARD_Y             AllegroK_y
-#define KEYBOARD_U             AllegroK_u
-#define KEYBOARD_I             AllegroK_i
-#define KEYBOARD_O             AllegroK_o
-#define KEYBOARD_P             AllegroK_p                  
-#define KEYBOARD_LBRACKET      AllegroK_LEFTPAREN
-#define KEYBOARD_RBRACKET      AllegroK_RIGHTPAREN
-#define KEYBOARD_RETURN        AllegroK_RETURN              //!< Enter on main keyboard 
-#define KEYBOARD_LCONTROL      AllegroK_LCTRL
-#define KEYBOARD_A             AllegroK_a
-#define KEYBOARD_S             AllegroK_s
-#define KEYBOARD_D             AllegroK_d
-#define KEYBOARD_F             AllegroK_f                    
-#define KEYBOARD_G             AllegroK_g                    
-#define KEYBOARD_H             AllegroK_h                    
-#define KEYBOARD_J             AllegroK_j                    
-#define KEYBOARD_K             AllegroK_k                    
-#define KEYBOARD_L             AllegroK_l                    
-#define KEYBOARD_SEMICOLON     AllegroK_SEMICOLON            
-#define KEYBOARD_APOSTROPHE    AllegroK_QUOTE
-#define KEYBOARD_GRAVE         AllegroK_BACKQUOTE           //!< accent grave 
-#define KEYBOARD_LSHIFT        AllegroK_LSHIFT               
-#define KEYBOARD_BACKSLASH     AllegroK_BACKSLASH            
-#define KEYBOARD_Z             AllegroK_z                    
-#define KEYBOARD_X             AllegroK_x                    
-#define KEYBOARD_C             AllegroK_c                    
-#define KEYBOARD_V             AllegroK_v                    
-#define KEYBOARD_B             AllegroK_b                    
-#define KEYBOARD_N             AllegroK_n                    
-#define KEYBOARD_M             AllegroK_m                    
-#define KEYBOARD_COMMA         AllegroK_COMMA                
-#define KEYBOARD_PERIOD        AllegroK_PERIOD              //!< . on main keyboard 
-#define KEYBOARD_SLASH         AllegroK_SLASH               //!< / on main keyboard 
-#define KEYBOARD_RSHIFT        AllegroK_RSHIFT               
-#define KEYBOARD_MULTIPLY      AllegroK_KP_MULTIPLY         //!< * on numeric keypad 
-#define KEYBOARD_LMENU         AllegroK_LALT                //!< left Alt 
-#define KEYBOARD_SPACE         AllegroK_SPACE                
-#define KEYBOARD_CAPITAL       AllegroK_CAPSLOCK
-#define KEYBOARD_F1            AllegroK_F1                   
-#define KEYBOARD_F2            AllegroK_F2                   
-#define KEYBOARD_F3            AllegroK_F3                   
-#define KEYBOARD_F4            AllegroK_F4                   
-#define KEYBOARD_F5            AllegroK_F5                   
-#define KEYBOARD_F6            AllegroK_F6                   
-#define KEYBOARD_F7            AllegroK_F7                   
-#define KEYBOARD_F8            AllegroK_F8                   
-#define KEYBOARD_F9            AllegroK_F9                   
-#define KEYBOARD_F10           AllegroK_F10                  
-#define KEYBOARD_NUMLOCK       AllegroK_NUMLOCK              
-#define KEYBOARD_SCROLL        AllegroK_SCROLLOCK           //!< Scroll Lock 
-#define KEYBOARD_NUMPAD7       AllegroK_KP7              
-#define KEYBOARD_NUMPAD8       AllegroK_KP8              
-#define KEYBOARD_NUMPAD9       AllegroK_KP9
-#define KEYBOARD_SUBTRACT      AllegroK_KP_MINUS            //!< - on numeric keypad 
-#define KEYBOARD_NUMPAD4       AllegroK_KP4
-#define KEYBOARD_NUMPAD5       AllegroK_KP5
-#define KEYBOARD_NUMPAD6       AllegroK_KP6
-#define KEYBOARD_ADD           AllegroK_KP_PLUS             //!< + on numeric keypad 
-#define KEYBOARD_NUMPAD1       AllegroK_KP1              
-#define KEYBOARD_NUMPAD2       AllegroK_KP2              
-#define KEYBOARD_NUMPAD3       AllegroK_KP3              
-#define KEYBOARD_NUMPAD0       AllegroK_KP0              
-#define KEYBOARD_DECIMAL       AllegroK_KP_PERIOD           //!< . on numeric keypad 
-#define KEYBOARD_F11           AllegroK_F11                  
-#define KEYBOARD_F12           AllegroK_F12                  
-#define KEYBOARD_NUMPADENTER   AllegroK_KP_ENTER            //!< Enter on numeric keypad 
-#define KEYBOARD_RCONTROL      AllegroK_RCTRL
-#define KEYBOARD_DIVIDE        AllegroK_KP_DIVIDE           //!< / on numeric keypad 
-#define KEYBOARD_SYSRQ         AllegroK_SYSREQ                
-#define KEYBOARD_RMENU         AllegroK_RALT                //!< right Alt 
-#define KEYBOARD_PAUSE         AllegroK_BREAK               //!< Pause 
-#define KEYBOARD_HOME          AllegroK_HOME                //!< Home on arrow keypad 
-#define KEYBOARD_UP            AllegroK_UP                  //!< UpArrow on arrow keypad 
-#define KEYBOARD_PRIOR         AllegroK_PAGEUP              //!< PgUp on arrow keypad 
-#define KEYBOARD_LEFT          AllegroK_LEFT                //!< LeftArrow on arrow keypad 
-#define KEYBOARD_RIGHT         AllegroK_RIGHT               //!< RightArrow on arrow keypad 
-#define KEYBOARD_END           AllegroK_END                 //!< End on arrow keypad 
-#define KEYBOARD_DOWN          AllegroK_DOWN                //!< DownArrow on arrow keypad 
-#define KEYBOARD_NEXT          AllegroK_PAGEDOWN            //!< PgDn on arrow keypad 
-#define KEYBOARD_INSERT        AllegroK_INSERT              //!< Insert on arrow keypad 
-#define KEYBOARD_DELETE        AllegroK_DELETE              //!< Delete on arrow keypad 
-#define KEYBOARD_LWIN          AllegroK_LSUPER              //!< Left Windows key 
-#define KEYBOARD_RWIN          AllegroK_RSUPER              //!< Right Windows key 
-#define KEYBOARD_APPS          AllegroK_MENU                //!< AppMenu key 
+#define KEYBOARD_ESCAPE        ALLEGROK_ESCAPE              //!< ID for the escape key
+#define KEYBOARD_1             ALLEGROK_1                   //!< ID for the 1 key
+#define KEYBOARD_2             ALLEGROK_2
+#define KEYBOARD_3             ALLEGROK_3
+#define KEYBOARD_4             ALLEGROK_4
+#define KEYBOARD_5             ALLEGROK_5
+#define KEYBOARD_6             ALLEGROK_6
+#define KEYBOARD_7             ALLEGROK_7
+#define KEYBOARD_8             ALLEGROK_8
+#define KEYBOARD_9             ALLEGROK_9
+#define KEYBOARD_0             ALLEGROK_0
+#define KEYBOARD_MINUS         ALLEGROK_MINUS               //!< - on main keyboard 
+#define KEYBOARD_EQUALS        ALLEGROK_EQUALS
+#define KEYBOARD_BACK          ALLEGROK_BACKSPACE           //!< backspace 
+#define KEYBOARD_TAB           ALLEGROK_TAB
+#define KEYBOARD_Q             ALLEGROK_q
+#define KEYBOARD_W             ALLEGROK_w
+#define KEYBOARD_E             ALLEGROK_e
+#define KEYBOARD_R             ALLEGROK_r
+#define KEYBOARD_T             ALLEGROK_t
+#define KEYBOARD_Y             ALLEGROK_y
+#define KEYBOARD_U             ALLEGROK_u
+#define KEYBOARD_I             ALLEGROK_i
+#define KEYBOARD_O             ALLEGROK_o
+#define KEYBOARD_P             ALLEGROK_p                  
+#define KEYBOARD_LBRACKET      ALLEGROK_LEFTPAREN
+#define KEYBOARD_RBRACKET      ALLEGROK_RIGHTPAREN
+#define KEYBOARD_RETURN        ALLEGROK_RETURN              //!< Enter on main keyboard 
+#define KEYBOARD_LCONTROL      ALLEGROK_LCTRL
+#define KEYBOARD_A             ALLEGROK_a
+#define KEYBOARD_S             ALLEGROK_s
+#define KEYBOARD_D             ALLEGROK_d
+#define KEYBOARD_F             ALLEGROK_f                    
+#define KEYBOARD_G             ALLEGROK_g                    
+#define KEYBOARD_H             ALLEGROK_h                    
+#define KEYBOARD_J             ALLEGROK_j                    
+#define KEYBOARD_K             ALLEGROK_k                    
+#define KEYBOARD_L             ALLEGROK_l                    
+#define KEYBOARD_SEMICOLON     ALLEGROK_SEMICOLON            
+#define KEYBOARD_APOSTROPHE    ALLEGROK_QUOTE
+#define KEYBOARD_GRAVE         ALLEGROK_BACKQUOTE           //!< accent grave 
+#define KEYBOARD_LSHIFT        ALLEGROK_LSHIFT               
+#define KEYBOARD_BACKSLASH     ALLEGROK_BACKSLASH            
+#define KEYBOARD_Z             ALLEGROK_z                    
+#define KEYBOARD_X             ALLEGROK_x                    
+#define KEYBOARD_C             ALLEGROK_c                    
+#define KEYBOARD_V             ALLEGROK_v                    
+#define KEYBOARD_B             ALLEGROK_b                    
+#define KEYBOARD_N             ALLEGROK_n                    
+#define KEYBOARD_M             ALLEGROK_m                    
+#define KEYBOARD_COMMA         ALLEGROK_COMMA                
+#define KEYBOARD_PERIOD        ALLEGROK_PERIOD              //!< . on main keyboard 
+#define KEYBOARD_SLASH         ALLEGROK_SLASH               //!< / on main keyboard 
+#define KEYBOARD_RSHIFT        ALLEGROK_RSHIFT               
+#define KEYBOARD_MULTIPLY      ALLEGROK_KP_MULTIPLY         //!< * on numeric keypad 
+#define KEYBOARD_LMENU         ALLEGROK_LALT                //!< left Alt 
+#define KEYBOARD_SPACE         ALLEGROK_SPACE                
+#define KEYBOARD_CAPITAL       ALLEGROK_CAPSLOCK
+#define KEYBOARD_F1            ALLEGROK_F1                   
+#define KEYBOARD_F2            ALLEGROK_F2                   
+#define KEYBOARD_F3            ALLEGROK_F3                   
+#define KEYBOARD_F4            ALLEGROK_F4                   
+#define KEYBOARD_F5            ALLEGROK_F5                   
+#define KEYBOARD_F6            ALLEGROK_F6                   
+#define KEYBOARD_F7            ALLEGROK_F7                   
+#define KEYBOARD_F8            ALLEGROK_F8                   
+#define KEYBOARD_F9            ALLEGROK_F9                   
+#define KEYBOARD_F10           ALLEGROK_F10                  
+#define KEYBOARD_NUMLOCK       ALLEGROK_NUMLOCK              
+#define KEYBOARD_SCROLL        ALLEGROK_SCROLLOCK           //!< Scroll Lock 
+#define KEYBOARD_NUMPAD7       ALLEGROK_KP7              
+#define KEYBOARD_NUMPAD8       ALLEGROK_KP8              
+#define KEYBOARD_NUMPAD9       ALLEGROK_KP9
+#define KEYBOARD_SUBTRACT      ALLEGROK_KP_MINUS            //!< - on numeric keypad 
+#define KEYBOARD_NUMPAD4       ALLEGROK_KP4
+#define KEYBOARD_NUMPAD5       ALLEGROK_KP5
+#define KEYBOARD_NUMPAD6       ALLEGROK_KP6
+#define KEYBOARD_ADD           ALLEGROK_KP_PLUS             //!< + on numeric keypad 
+#define KEYBOARD_NUMPAD1       ALLEGROK_KP1              
+#define KEYBOARD_NUMPAD2       ALLEGROK_KP2              
+#define KEYBOARD_NUMPAD3       ALLEGROK_KP3              
+#define KEYBOARD_NUMPAD0       ALLEGROK_KP0              
+#define KEYBOARD_DECIMAL       ALLEGROK_KP_PERIOD           //!< . on numeric keypad 
+#define KEYBOARD_F11           ALLEGROK_F11                  
+#define KEYBOARD_F12           ALLEGROK_F12                  
+#define KEYBOARD_NUMPADENTER   ALLEGROK_KP_ENTER            //!< Enter on numeric keypad 
+#define KEYBOARD_RCONTROL      ALLEGROK_RCTRL
+#define KEYBOARD_DIVIDE        ALLEGROK_KP_DIVIDE           //!< / on numeric keypad 
+#define KEYBOARD_SYSRQ         ALLEGROK_SYSREQ                
+#define KEYBOARD_RMENU         ALLEGROK_RALT                //!< right Alt 
+#define KEYBOARD_PAUSE         ALLEGROK_BREAK               //!< Pause 
+#define KEYBOARD_HOME          ALLEGROK_HOME                //!< Home on arrow keypad 
+#define KEYBOARD_UP            ALLEGROK_UP                  //!< UpArrow on arrow keypad 
+#define KEYBOARD_PRIOR         ALLEGROK_PAGEUP              //!< PgUp on arrow keypad 
+#define KEYBOARD_LEFT          ALLEGROK_LEFT                //!< LeftArrow on arrow keypad 
+#define KEYBOARD_RIGHT         ALLEGROK_RIGHT               //!< RightArrow on arrow keypad 
+#define KEYBOARD_END           ALLEGROK_END                 //!< End on arrow keypad 
+#define KEYBOARD_DOWN          ALLEGROK_DOWN                //!< DownArrow on arrow keypad 
+#define KEYBOARD_NEXT          ALLEGROK_PAGEDOWN            //!< PgDn on arrow keypad 
+#define KEYBOARD_INSERT        ALLEGROK_INSERT              //!< Insert on arrow keypad 
+#define KEYBOARD_DELETE        ALLEGROK_DELETE              //!< Delete on arrow keypad 
+#define KEYBOARD_LWIN          ALLEGROK_LSUPER              //!< Left Windows key 
+#define KEYBOARD_RWIN          ALLEGROK_RSUPER              //!< Right Windows key 
+#define KEYBOARD_APPS          ALLEGROK_MENU                //!< AppMenu key 
 
 #define JOYSTICK_UP         0
 #define JOYSTICK_DOWN       1
@@ -207,7 +207,7 @@ private:
     bool                    UpdateDevice(Allegro_Joystick *pDevice, void *pState, int StateSize);
     void                    MakeKeyFriendlyNames(void);
 
-    int                        m_joystickCount;
+    int                     m_joystickCount;
 
 public:
 

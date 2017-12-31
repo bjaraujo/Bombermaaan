@@ -3,10 +3,10 @@ import os
 import sys
 import fileinput
 
-print 'Setting version info...'
+print('Setting version info...')
 
-#print 'Number of arguments: ' + str(len(sys.argv))
-#print 'Argument list: ' + str(sys.argv)
+#print('Number of arguments: ' + str(len(sys.argv)))
+#print('Argument list: ' + str(sys.argv))
 
 # Get project name
 strProjectName = ''
@@ -19,7 +19,7 @@ for strLine in strLines:
 	if 'PROJECT' in strLine.upper(): 
 		strProjectName = strLine.split('(')[-1].replace(')', '').rstrip()
 
-print 'Project Name = ' + strProjectName
+print('Project Name = ' + strProjectName)
 
 fi.close()
 
@@ -57,22 +57,22 @@ for strLine in strLines:
 	
 fo.close()
 
-print strNewVersion
+print(strNewVersion)
 
 fio = fileinput.FileInput('../src/' + strProjectName + '.rc', inplace=True, backup='.bak')
 
 for line in fio:
 
     if 'FILEVERSION' in line:
-        print '  FILEVERSION ' + strNewVersion.replace('.', ',')
+        print('  FILEVERSION ' + strNewVersion.replace('.', ','))
     elif 'PRODUCTVERSION' in line:
-        print '  PRODUCTVERSION ' + strNewVersion.replace('.', ',')    
+        print('  PRODUCTVERSION ' + strNewVersion.replace('.', ','))    
     elif '"FileVersion"' in line:
-        print '      VALUE "FileVersion", "' + strNewVersion + '"'   
+        print('      VALUE "FileVersion", "' + strNewVersion + '"')
     elif '"ProductVersion"' in line:
-        print '      VALUE "ProductVersion", "' + strNewVersion + '"'               
+        print('      VALUE "ProductVersion", "' + strNewVersion + '"')             
     else:
-        print line.rstrip() 
+        print(line.rstrip())
     
 fio.close()
 

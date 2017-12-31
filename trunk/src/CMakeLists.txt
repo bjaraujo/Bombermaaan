@@ -237,8 +237,10 @@ target_link_libraries(Bombermaaan
     ${BOMBERMAAAN_LIBRARIES}
 )
 
+find_package(PythonInterp)
+
 if(WIN32)
     add_dependencies(Bombermaaan Bombermaaan32)
-    add_custom_command(TARGET Bombermaaan PRE_BUILD COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/../scripts/IncVersion.py WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../scripts)
+    add_custom_command(TARGET Bombermaaan PRE_BUILD COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../scripts/IncVersion.py WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../scripts)
 endif(WIN32)
 

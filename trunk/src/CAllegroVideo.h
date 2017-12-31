@@ -27,8 +27,7 @@
 #ifndef __CALLEGROVIDEO_H__
 #define __CALLEGROVIDEO_H__
 
-#include "Allegro.h"
-#include "StdAfx.h"
+#include "allegro.h"
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -163,14 +162,14 @@ class CAllegroVideo
 private:
 
     HWND                    m_hWnd;                         //!< Window handle
-    Allegro_Rect                m_rcScreen;                     //!< Window rect in screen coordinates
-    Allegro_Rect                m_rcViewport;                   //!< Window rect in client coordinates
+    Allegro_Rect            m_rcScreen;                     //!< Window rect in screen coordinates
+    Allegro_Rect            m_rcViewport;                   //!< Window rect in client coordinates
     int                     m_Width;                        //!< Display width when fullscreen
     int                     m_Height;                       //!< Display height when fullscreen
     int                     m_Depth;                        //!< Display depth when fullscreen
     bool                    m_FullScreen;                   //!< Is it fullscreen?
-    Allegro_Surface             *m_pBackBuffer;                    //!< Backbuffer surface
-    Allegro_Surface             *m_pPrimary;                    //!< Primary surface
+    Allegro_Surface         *m_pBackBuffer;                 //!< Backbuffer surface
+    Allegro_Surface         *m_pPrimary;                    //!< Primary surface
     vector<SSurface>        m_Surfaces;                     //!< Surfaces
     DWORD                   m_ColorKey;                     //!< Color key for transparent surfaces
     priority_queue<SDrawingRequest> m_DrawingRequests;      //!< Automatically sorted drawing requests queue
