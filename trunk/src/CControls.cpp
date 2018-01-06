@@ -469,8 +469,7 @@ void CControls::Display (void)
                     strcpy (ItemString, UP_MENU_ITEM_STRING);
 
                     // Value : name of the control on the selected player input
-                    strcpy (ValueString, 
-                            m_pInput->GetPlayerInput(m_PlayerInput).GetControlName(m_pOptions->GetControl(m_PlayerInput, CONTROL_UP)));
+                    strcpy (ValueString, m_pInput->GetPlayerInput(m_PlayerInput).GetControlName(m_pOptions->GetControl(m_PlayerInput, CONTROL_UP)));
                     break;
                 }
 

@@ -204,8 +204,19 @@ set(BOMBERMAAAN_LIBRARIES
 
 add_definitions(-DTIXML_USE_STL -D_CRT_SECURE_NO_WARNINGS)
 
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=gnu++0x")
+endif()
+
+if(MINGW)
+  set(CMAKE_RC_COMPILER_INIT windres)
+  enable_language(RC)
+  set(CMAKE_RC_COMPILE_OBJECT
+    "<CMAKE_RC_COMPILER> <FLAGS> -O coff <DEFINES> -i <SOURCE> -o <OBJECT>")
+endif(MINGW)
+
 if(USE_DIRECTX)
-    add_definitions(-DDIRECTX_DRAW -DDIRECTX_INPUT)
+    add_definitions(-DDIRECTX -DDIRECTX_INPUT)
     list(APPEND BOMBERMAAAN_HEADERS CDirectDraw.h CDirectInput.h)
     list(APPEND BOMBERMAAAN_SOURCES CDirectDraw.cpp CDirectInput.cpp)
     list(APPEND BOMBERMAAAN_LIBRARIES ddraw dinput8 dxguid)    

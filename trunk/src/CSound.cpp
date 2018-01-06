@@ -87,60 +87,7 @@ bool CSound::Create(void)
 
     Mix_AllocateChannels(32); // this was the default in FMOD
 
-#ifndef LOAD_RESOURCES_FROM_FILES
-    if (!LoadSample(SAMPLE_BOMB_DROP, SND_BOMB_DROP) ||
-        !LoadSample(SAMPLE_BOMBER_DEATH, SND_BOMBER_DEATH) ||
-        !LoadSample(SAMPLE_BOMB_BOUNCE, SND_BOMB_BOUNCE) ||
-        !LoadSample(SAMPLE_BOMBER_PUNCH, SND_BOMBER_PUNCH) ||
-        !LoadSample(SAMPLE_BOMBER_THROW, SND_BOMBER_THROW) ||
-        !LoadSample(SAMPLE_BOMBER_LOSE_ITEM, SND_BOMBER_LOSE_ITEM) ||
-        !LoadSample(SAMPLE_BREAK_1, SND_BREAK_1) ||
-        !LoadSample(SAMPLE_BREAK_2, SND_BREAK_2) ||
-        !LoadSample(SAMPLE_DRAW_GAME, SND_DRAW_GAME) ||
-        !LoadSample(SAMPLE_DRAW_GAME_VOICE, SND_DRAW_GAME_VOICE) ||
-        !LoadSample(SAMPLE_EXPLOSION_01_1, SND_EXPLOSION_01_1) ||
-        !LoadSample(SAMPLE_EXPLOSION_01_2, SND_EXPLOSION_01_2) ||
-        !LoadSample(SAMPLE_EXPLOSION_02_1, SND_EXPLOSION_02_1) ||
-        !LoadSample(SAMPLE_EXPLOSION_02_2, SND_EXPLOSION_02_2) ||
-        !LoadSample(SAMPLE_EXPLOSION_03_1, SND_EXPLOSION_03_1) ||
-        !LoadSample(SAMPLE_EXPLOSION_03_2, SND_EXPLOSION_03_2) ||
-        !LoadSample(SAMPLE_EXPLOSION_04_1, SND_EXPLOSION_04_1) ||
-        !LoadSample(SAMPLE_EXPLOSION_04_2, SND_EXPLOSION_04_2) ||
-        !LoadSample(SAMPLE_EXPLOSION_05_1, SND_EXPLOSION_05_1) ||
-        !LoadSample(SAMPLE_EXPLOSION_05_2, SND_EXPLOSION_05_2) ||
-        !LoadSample(SAMPLE_EXPLOSION_06_1, SND_EXPLOSION_06_1) ||
-        !LoadSample(SAMPLE_EXPLOSION_06_2, SND_EXPLOSION_06_2) ||
-        !LoadSample(SAMPLE_EXPLOSION_07_1, SND_EXPLOSION_07_1) ||
-        !LoadSample(SAMPLE_EXPLOSION_07_2, SND_EXPLOSION_07_2) ||
-        !LoadSample(SAMPLE_EXPLOSION_08_1, SND_EXPLOSION_08_1) ||
-        !LoadSample(SAMPLE_EXPLOSION_08_2, SND_EXPLOSION_08_2) ||
-        !LoadSample(SAMPLE_EXPLOSION_09_1, SND_EXPLOSION_09_1) ||
-        !LoadSample(SAMPLE_EXPLOSION_09_2, SND_EXPLOSION_09_2) ||
-        !LoadSample(SAMPLE_EXPLOSION_10_1, SND_EXPLOSION_10_1) ||
-        !LoadSample(SAMPLE_EXPLOSION_10_2, SND_EXPLOSION_10_2) ||
-        !LoadSample(SAMPLE_HURRY, SND_HURRY) ||
-        !LoadSample(SAMPLE_ITEM_FUMES, SND_ITEM_FUMES) ||
-        !LoadSample(SAMPLE_MENU_NEXT, SND_MENU_NEXT) ||
-        !LoadSample(SAMPLE_MENU_PREVIOUS, SND_MENU_PREVIOUS) ||
-        !LoadSample(SAMPLE_MENU_BEEP, SND_MENU_BEEP) ||
-        !LoadSample(SAMPLE_MENU_ERROR, SND_MENU_ERROR) ||
-        !LoadSample(SAMPLE_PAUSE, SND_PAUSE) ||
-        !LoadSample(SAMPLE_PICK_ITEM_1, SND_PICK_ITEM_1) ||
-        !LoadSample(SAMPLE_PICK_ITEM_2, SND_PICK_ITEM_2) ||
-        !LoadSample(SAMPLE_RING_DING, SND_RING_DING) ||
-        !LoadSample(SAMPLE_SICK_1, SND_SICK_1) ||
-        !LoadSample(SAMPLE_SICK_2, SND_SICK_2) ||
-        !LoadSample(SAMPLE_SICK_3, SND_SICK_3) ||
-        !LoadSample(SAMPLE_VICTORY, SND_VICTORY) ||
-        !LoadSample(SAMPLE_VICTORY_VOICE, SND_VICTORY_VOICE) ||
-        !LoadSample(SAMPLE_WALL_CLAP_1, SND_WALL_CLAP_1) ||
-        !LoadSample(SAMPLE_WALL_CLAP_2, SND_WALL_CLAP_2) ||
-        !LoadSample(SAMPLE_WINNER, SND_WINNER))
-    { // songs are loaded when they are needed
-        // Failure, get out (error is logged by the LoadSample() and LoadSong() methods)
-        return false;
-    }
-#else
+#ifdef LOAD_RESOURCES_FROM_FILES
     if (!LoadSample(SAMPLE_BOMB_DROP, SND_BOMB_DROP, "bomb_drop.ogg") ||
         !LoadSample(SAMPLE_BOMBER_DEATH, SND_BOMBER_DEATH, "bomber_death.ogg") ||
         !LoadSample(SAMPLE_BOMB_BOUNCE, SND_BOMB_BOUNCE, "bomb_bounce.ogg") ||
@@ -190,7 +137,60 @@ bool CSound::Create(void)
         !LoadSample(SAMPLE_WALL_CLAP_2, SND_WALL_CLAP_2, "wall_clap_2.ogg") ||
         !LoadSample(SAMPLE_WINNER, SND_WINNER, "winner.ogg"))
     { // songs are loaded when they are needed
-        // Failure, get out (error is logged by the LoadSample() and LoadSong() methods)
+      // Failure, get out (error is logged by the LoadSample() and LoadSong() methods)
+        return false;
+    }
+#else
+    if (!LoadSample(SAMPLE_BOMB_DROP, SND_BOMB_DROP) ||
+        !LoadSample(SAMPLE_BOMBER_DEATH, SND_BOMBER_DEATH) ||
+        !LoadSample(SAMPLE_BOMB_BOUNCE, SND_BOMB_BOUNCE) ||
+        !LoadSample(SAMPLE_BOMBER_PUNCH, SND_BOMBER_PUNCH) ||
+        !LoadSample(SAMPLE_BOMBER_THROW, SND_BOMBER_THROW) ||
+        !LoadSample(SAMPLE_BOMBER_LOSE_ITEM, SND_BOMBER_LOSE_ITEM) ||
+        !LoadSample(SAMPLE_BREAK_1, SND_BREAK_1) ||
+        !LoadSample(SAMPLE_BREAK_2, SND_BREAK_2) ||
+        !LoadSample(SAMPLE_DRAW_GAME, SND_DRAW_GAME) ||
+        !LoadSample(SAMPLE_DRAW_GAME_VOICE, SND_DRAW_GAME_VOICE) ||
+        !LoadSample(SAMPLE_EXPLOSION_01_1, SND_EXPLOSION_01_1) ||
+        !LoadSample(SAMPLE_EXPLOSION_01_2, SND_EXPLOSION_01_2) ||
+        !LoadSample(SAMPLE_EXPLOSION_02_1, SND_EXPLOSION_02_1) ||
+        !LoadSample(SAMPLE_EXPLOSION_02_2, SND_EXPLOSION_02_2) ||
+        !LoadSample(SAMPLE_EXPLOSION_03_1, SND_EXPLOSION_03_1) ||
+        !LoadSample(SAMPLE_EXPLOSION_03_2, SND_EXPLOSION_03_2) ||
+        !LoadSample(SAMPLE_EXPLOSION_04_1, SND_EXPLOSION_04_1) ||
+        !LoadSample(SAMPLE_EXPLOSION_04_2, SND_EXPLOSION_04_2) ||
+        !LoadSample(SAMPLE_EXPLOSION_05_1, SND_EXPLOSION_05_1) ||
+        !LoadSample(SAMPLE_EXPLOSION_05_2, SND_EXPLOSION_05_2) ||
+        !LoadSample(SAMPLE_EXPLOSION_06_1, SND_EXPLOSION_06_1) ||
+        !LoadSample(SAMPLE_EXPLOSION_06_2, SND_EXPLOSION_06_2) ||
+        !LoadSample(SAMPLE_EXPLOSION_07_1, SND_EXPLOSION_07_1) ||
+        !LoadSample(SAMPLE_EXPLOSION_07_2, SND_EXPLOSION_07_2) ||
+        !LoadSample(SAMPLE_EXPLOSION_08_1, SND_EXPLOSION_08_1) ||
+        !LoadSample(SAMPLE_EXPLOSION_08_2, SND_EXPLOSION_08_2) ||
+        !LoadSample(SAMPLE_EXPLOSION_09_1, SND_EXPLOSION_09_1) ||
+        !LoadSample(SAMPLE_EXPLOSION_09_2, SND_EXPLOSION_09_2) ||
+        !LoadSample(SAMPLE_EXPLOSION_10_1, SND_EXPLOSION_10_1) ||
+        !LoadSample(SAMPLE_EXPLOSION_10_2, SND_EXPLOSION_10_2) ||
+        !LoadSample(SAMPLE_HURRY, SND_HURRY) ||
+        !LoadSample(SAMPLE_ITEM_FUMES, SND_ITEM_FUMES) ||
+        !LoadSample(SAMPLE_MENU_NEXT, SND_MENU_NEXT) ||
+        !LoadSample(SAMPLE_MENU_PREVIOUS, SND_MENU_PREVIOUS) ||
+        !LoadSample(SAMPLE_MENU_BEEP, SND_MENU_BEEP) ||
+        !LoadSample(SAMPLE_MENU_ERROR, SND_MENU_ERROR) ||
+        !LoadSample(SAMPLE_PAUSE, SND_PAUSE) ||
+        !LoadSample(SAMPLE_PICK_ITEM_1, SND_PICK_ITEM_1) ||
+        !LoadSample(SAMPLE_PICK_ITEM_2, SND_PICK_ITEM_2) ||
+        !LoadSample(SAMPLE_RING_DING, SND_RING_DING) ||
+        !LoadSample(SAMPLE_SICK_1, SND_SICK_1) ||
+        !LoadSample(SAMPLE_SICK_2, SND_SICK_2) ||
+        !LoadSample(SAMPLE_SICK_3, SND_SICK_3) ||
+        !LoadSample(SAMPLE_VICTORY, SND_VICTORY) ||
+        !LoadSample(SAMPLE_VICTORY_VOICE, SND_VICTORY_VOICE) ||
+        !LoadSample(SAMPLE_WALL_CLAP_1, SND_WALL_CLAP_1) ||
+        !LoadSample(SAMPLE_WALL_CLAP_2, SND_WALL_CLAP_2) ||
+        !LoadSample(SAMPLE_WINNER, SND_WINNER))
+    { // songs are loaded when they are needed
+      // Failure, get out (error is logged by the LoadSample() and LoadSong() methods)
         return false;
     }
 #endif

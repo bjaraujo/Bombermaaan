@@ -30,7 +30,14 @@
  *  \brief The core of the program, handling sub-components, program control
  */
 
+#ifdef ALLEGRO
+    #inlcude "alegro.h"
+#else
+    #include "SDL.h"
+#endif
+
 #include "StdAfx.h"
+
 #include "CGame.h"
 #include "CWindow.h"
 #include "COptions.h"
@@ -161,7 +168,7 @@ CGame::CGame (HINSTANCE hInstance, char** pCommandLine)
         windowTitle.append(__DATE__ + 4, 2);
     }
 
-#ifdef DIRECTX_DRAW
+#ifdef DIRECTX
     SetWindowText(m_hWnd, windowTitle.c_str());
 #else
     // keep the window text in mind
@@ -508,16 +515,29 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
     }
 #endif
 
-#ifdef DIRECTX_DRAW
-    if ((SDL_Init(SDL_INIT_AUDIO) == -1)) // in WIN32 we need AUDIO for SDL_mixer (replacing FMOD)
+#ifdef ALLEGRO
+
+    allegro_init();
+
+    install_timer();
+    install_keyboard();
+    install_joystick(JOY_TYPE_AUTODETECT);
+    install_sound(DIGI_AUTODETECT, MIDI_DETECT, NULL);
+
+    set_color_depth(32);
+
 #else
-    if ((SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_JOYSTICK) == -1))
+    #ifdef DIRECTX
+        if ((SDL_Init(SDL_INIT_AUDIO) == -1)) // in WIN32 we need AUDIO for SDL_mixer (replacing FMOD)
+    #else
+        if ((SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_JOYSTICK) == -1))
+    #endif
+        {
+            theLog.WriteLine("Game            => !!! Could not initialise SDL library");
+            theLog.LogLastError();
+            return false;
+        }
 #endif
-    {
-        theLog.WriteLine("Game            => !!! Could not initialise SDL library");
-        theLog.LogLastError();
-        return false;
-    }
 
     if (!m_Options.Create(useAppDataFolder, dynamicDataFolder, pgmDirectory))
     {
@@ -542,8 +562,15 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
     m_Display.SetModuleHandle (NULL);
 #endif
 
-#ifndef DIRECTX_DRAW
-    SDL_WM_SetCaption(m_WindowTitle.c_str(), NULL);
+#ifdef ALLEGRO
+
+    set_window_title(m_WindowTitle.c_str());
+
+#else
+
+    #ifndef DIRECTX
+        SDL_WM_SetCaption(m_WindowTitle.c_str(), NULL);
+    #endif
 #endif
 
     // Set the objects the match object has to communicate with
@@ -800,7 +827,15 @@ void CGame::Destroy(void)
 
     theDebug.Destroy();
 
+#ifdef ALLEGRO
+
+    allegro_exit();
+
+#else
+
     SDL_Quit(); // shutdown SDL library
+
+#endif
 
     // If there is a connection to the resources
     if (m_hModule != NULL)
@@ -946,17 +981,25 @@ void CGame::StartGameMode(EGameMode GameMode)
         // set when exiting.
         m_Display.Create(DISPLAYMODE_WINDOWED);
 
-        // Close the window
-#ifdef DIRECTX_DRAW
-        PostMessage(m_hWnd, WM_CLOSE, 0, 0);
+#ifdef ALLEGRO
+
+        set_close_button_callback();
+
 #else
-        SDL_Event quitevent;
 
-        quitevent.type = SDL_QUIT;
-        quitevent.quit.type = SDL_QUIT;
+        // Close the window
+        #ifdef DIRECTX
+            PostMessage(m_hWnd, WM_CLOSE, 0, 0);
+        #else
+            SDL_Event quitevent;
 
-        SDL_PushEvent(&quitevent);
+            quitevent.type = SDL_QUIT;
+            quitevent.quit.type = SDL_QUIT;
+
+            SDL_PushEvent(&quitevent);
+        #endif
 #endif
+
     }
     // If we don't have to exit the game
     else
@@ -1107,26 +1150,33 @@ void CGame::OnKeyUp(WPARAM wParam, LPARAM lParam)
         // Assume we have to change the display mode
         bool SetDisplayMode = true;
 
-#ifdef DIRECTX_DRAW 
-        //! Change display mode if this is a F1-F4 key
-        switch (wParam)
-        {
-            //! Display modes #1 and #2 are not available in the 32-pixels version
-            //! since the screen isn't large enough (so disable F1 and F2 keys)
-        case VK_F3: DisplayMode = DISPLAYMODE_FULL3; break;
-        case VK_F4: DisplayMode = DISPLAYMODE_WINDOWED; break;
-        default: SetDisplayMode = false; break;
-        }
+#ifdef ALLEGRO
+
+        // TODO:
+
 #else
-        //! Change display mode if this is a F1-F4 key
-        switch (wParam)
-        {
-            //! Display modes #1 and #2 are not available in the 32-pixels version
-            //! since the screen isn't large enough (so disable F1 and F2 keys)
-        case SDLK_F3: DisplayMode = DISPLAYMODE_FULL3; break;
-        case SDLK_F4: DisplayMode = DISPLAYMODE_WINDOWED; break;
-        default: SetDisplayMode = false; break;
-        }
+
+    #ifdef DIRECTX 
+            //! Change display mode if this is a F1-F4 key
+            switch (wParam)
+            {
+                //! Display modes #1 and #2 are not available in the 32-pixels version
+                //! since the screen isn't large enough (so disable F1 and F2 keys)
+            case VK_F3: DisplayMode = DISPLAYMODE_FULL3; break;
+            case VK_F4: DisplayMode = DISPLAYMODE_WINDOWED; break;
+            default: SetDisplayMode = false; break;
+            }
+    #else
+            //! Change display mode if this is a F1-F4 key
+            switch (wParam)
+            {
+                //! Display modes #1 and #2 are not available in the 32-pixels version
+                //! since the screen isn't large enough (so disable F1 and F2 keys)
+            case SDLK_F3: DisplayMode = DISPLAYMODE_FULL3; break;
+            case SDLK_F4: DisplayMode = DISPLAYMODE_WINDOWED; break;
+            default: SetDisplayMode = false; break;
+            }
+    #endif
 #endif
 
         // If we have to change the display mode 

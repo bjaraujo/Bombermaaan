@@ -31,7 +31,7 @@
 #include "StdAfx.h"
 #include "CWindow.h"
 
-#ifndef DIRECTX_DRAW
+#ifndef DIRECTX
 #include "SDL.h"
 #endif
 
@@ -90,7 +90,7 @@ CWindow::CWindow(HINSTANCE hInstance, const char *pWindowTitle, int IconResource
     m_Active = false;
 
     // Init the window class
-#ifdef DIRECTX_DRAW
+#ifdef DIRECTX
     WNDCLASSEX WndClassEx;
     WndClassEx.cbSize = sizeof(WNDCLASSEX);
     WndClassEx.lpszClassName = "Class name";
@@ -166,7 +166,7 @@ CWindow::CWindow(HINSTANCE hInstance, const char *pWindowTitle, int IconResource
 CWindow::~CWindow()
 {
     // If the window exists
-#ifdef DIRECTX_DRAW
+#ifdef DIRECTX
     if (m_hWnd != NULL)
     {
         // Destroy the window
@@ -186,7 +186,7 @@ CWindow::~CWindow()
 
 void CWindow::SetClientSize(int ClientWidth, int ClientHeight)
 {
-#ifdef DIRECTX_DRAW
+#ifdef DIRECTX
     RECT rc;
     SetRect (&rc, 0, 0, ClientWidth, ClientHeight);
     AdjustWindowRectEx (&rc, GetWindowStyle(m_hWnd), (int)GetMenu (m_hWnd), GetWindowExStyle (m_hWnd));
@@ -241,11 +241,11 @@ void CWindow::WinProc (unsigned int msg, WPARAM wParam, LPARAM lParam)
 //******************************************************************************************************************************
 
 
-void CWindow::ShowWindow()
+void CWindow::Show()
 {
-#ifdef DIRECTX_DRAW
-    ::ShowWindow (m_hWnd, SW_SHOW); 
-    UpdateWindow (m_hWnd);
+#ifdef DIRECTX
+    ShowWindow(m_hWnd, SW_SHOW); 
+    UpdateWindow(m_hWnd);
 #endif
 }
 
@@ -428,7 +428,7 @@ void CWindow::OnActivateApp(WPARAM wParam, LPARAM lParam)
 void CWindow::OnSize(WPARAM wParam, LPARAM lParam)
 {
     // Check to see if we are losing our window...
-#ifdef DIRECTX_DRAW
+#ifdef DIRECTX
     m_Active = (wParam != SIZE_MAXHIDE && wParam != SIZE_MINIMIZED);
 #endif
 }
@@ -558,7 +558,7 @@ bool CWindow::OnSysCommand(WPARAM wParam, LPARAM lParam)
 
 void CWindow::OnClose(WPARAM wParam, LPARAM lParam)
 {
-#ifdef DIRECTX_DRAW
+#ifdef DIRECTX
     DestroyWindow (m_hWnd); // Posts WM_DESTROY
 #endif
 }
@@ -577,7 +577,7 @@ void CWindow::OnClose(WPARAM wParam, LPARAM lParam)
 
 void CWindow::OnDestroy(WPARAM wParam, LPARAM lParam)
 {
-#ifdef DIRECTX_DRAW
+#ifdef DIRECTX
     PostQuitMessage (0); // Posts WM_QUIT
 #endif
 }

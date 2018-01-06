@@ -142,8 +142,10 @@ source_group("Header Files" FILES ${RES_HEADERS})
 source_group("Source Files" FILES ${RES_SOURCES})
 source_group("Resource Files" FILES ${RES_RESOURCES_IMAGES} ${RES_RESOURCES_SOUNDS})
 
-add_library(Bombermaaan32 SHARED ${RES_HEADERS} ${RES_SOURCES} ${RES_RESOURCES_IMAGES} ${RES_RESOURCES_SOUNDS} ${RES_RESOURCES})
+add_library(Bombermaaan32 MODULE ${RES_HEADERS} ${RES_SOURCES} ${RES_RESOURCES_IMAGES} ${RES_RESOURCES_SOUNDS} ${RES_RESOURCES})
 
-add_custom_command(TARGET Bombermaaan32 POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${PROJECT_BINARY_DIR}/$\(Configuration\)/Bombermaaan32.dll ${PROJECT_BINARY_DIR}/../src/$\(Configuration\)/Bombermaaan32.dll)
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+  add_custom_command(TARGET Bombermaaan32 POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${PROJECT_BINARY_DIR}/$\(Configuration\)/Bombermaaan32.dll ${PROJECT_BINARY_DIR}/../src/$\(Configuration\)/Bombermaaan32.dll)
+endif()
 
 

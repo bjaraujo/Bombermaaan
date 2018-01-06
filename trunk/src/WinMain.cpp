@@ -109,8 +109,8 @@ int main(int argc, char **argv)
         return -1;
     }
 
-    //! Show the game window (CGame::ShowWindow())
-    Game.ShowWindow();
+    //! Show the game window (CGame::Show())
+    Game.Show();
 
     // Update the game (CGame::MesagePump())
     Game.MessagePump();

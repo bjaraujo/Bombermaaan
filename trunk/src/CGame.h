@@ -92,7 +92,7 @@ private:
     CNetwork        m_Network;                //!< Network object
 #endif
 
-#ifndef DIRECTX_DRAW
+#ifndef DIRECTX
     string          m_WindowTitle;
 #endif
 

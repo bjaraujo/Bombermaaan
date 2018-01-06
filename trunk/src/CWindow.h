@@ -78,7 +78,7 @@ public:
 
     virtual ~CWindow(void);
     void SetClientSize(int ClientWidth, int ClientHeight);
-    void ShowWindow(void);
+    void Show(void);
     void MessagePump(void);
 #ifdef WIN32
     LRESULT CALLBACK WinProc(unsigned int msg, WPARAM wParam, LPARAM lParam);
