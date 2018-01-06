@@ -94,8 +94,8 @@
 CGame::CGame(HINSTANCE hInstance, const char* pCommandLine)
     : CWindow(hInstance, pCommandLine, IDI_BOMBER)
 #else
-CGame::CGame (HINSTANCE hInstance, char** pCommandLine) 
-    : CWindow (hInstance, "Bomberman", IDI_BOMBER) 
+CGame::CGame (HINSTANCE hInstance, char** pCommandLine)
+    : CWindow (hInstance, "Bomberman", IDI_BOMBER)
 #endif
 {
     m_GameMode = GAMEMODE_NONE;
@@ -923,7 +923,7 @@ void CGame::OnWindowActive(void)
     }
 
     //! If the mode screen object corresponding to the current game mode
-    //! is not asking for changing the game mode 
+    //! is not asking for changing the game mode
     if (NextGameMode == m_GameMode)
     {
         //! - Then let the menu yes/no ask for changing the game mode if needed.
@@ -940,11 +940,11 @@ void CGame::OnWindowActive(void)
 
     //! Display the object corresponding to the current game mode
     CModeScreen* modeScreen = GetGameModeObject(m_GameMode);
-    
+
     if (modeScreen != NULL)
         modeScreen->Display();
 
-    //! Display the menu yes/no if needed    
+    //! Display the menu yes/no if needed
     m_MenuYesNo.Display();
 
     //! Display everything (CDisplay::Update())
@@ -1035,7 +1035,7 @@ void CGame::FinishGameMode(void)
 //******************************************************************************************************************************
 
 
-// This is called when the active state of the window 
+// This is called when the active state of the window
 // changes. This is NOT called on window creation.
 
 void CGame::OnActivateApp(WPARAM wParam, LPARAM lParam)
@@ -1156,7 +1156,7 @@ void CGame::OnKeyUp(WPARAM wParam, LPARAM lParam)
 
 #else
 
-    #ifdef DIRECTX 
+    #ifdef DIRECTX
             //! Change display mode if this is a F1-F4 key
             switch (wParam)
             {
@@ -1179,7 +1179,7 @@ void CGame::OnKeyUp(WPARAM wParam, LPARAM lParam)
     #endif
 #endif
 
-        // If we have to change the display mode 
+        // If we have to change the display mode
         // and the new display mode to set is available on the graphic card
         if (SetDisplayMode && m_Display.IsDisplayModeAvailable(DisplayMode))
         {
@@ -1278,11 +1278,8 @@ void CGame::OnSize(WPARAM wParam, LPARAM lParam)
 void CGame::OnJoystickAxis(WPARAM wParam, LPARAM lParam)
 {
     SDL_JoyAxisEvent *jaxis;
-    SDL_Event *event;
 
     if (wParam != 0) jaxis = (SDL_JoyAxisEvent *)wParam;
-    else return;
-    if (lParam != 0) event = (SDL_Event *)lParam;
     else return;
 
     CMainInput m_pMainInput = m_Input.GetMainInput();
@@ -1329,11 +1326,8 @@ void CGame::OnJoystickAxis(WPARAM wParam, LPARAM lParam)
 void CGame::OnJoystickButton(WPARAM wParam, LPARAM lParam)
 {
     SDL_JoyButtonEvent *jbutton;
-    SDL_Event *event;
 
     if (wParam != 0) jbutton = (SDL_JoyButtonEvent *)wParam;
-    else return;
-    if (lParam != 0) event = (SDL_Event *)lParam;
     else return;
 
     CMainInput m_pMainInput = m_Input.GetMainInput();
