@@ -50,8 +50,8 @@
 // Minimum duration (in seconds) of the mode. Before this duration we don't check input.
 // After this minimum duration has elapsed we receive input and start exiting when any control is pressed
 #define WINNER_MINIMUM_DURATION         0.0f
-                                                
-// Display origin                               
+
+// Display origin
 #define WINNER_DISPLAY_ORIGIN_X       0       //!< Display origin of the winner screen
 #define WINNER_DISPLAY_ORIGIN_Y       0
 
@@ -59,7 +59,7 @@
 #define WINNER_SPRITES_OFFSET_X         ((VIEW_WIDTH - 240) / 2)
 #define WINNER_SPRITES_OFFSET_Y         ((VIEW_HEIGHT - 234) / 2)
 
-// Sprite layer & priority                  
+// Sprite layer & priority
 #define WINNER_SPRITE_LAYER             0       //!< Sprite layer where to draw the winner screen sprites
 #define WINNER_LIGHTS_PRIORITY          1       //!< Priority-in-layer to use for light sprites
 #define WINNER_BOMBER_PRIORITY          1       //!< Priority-in-layer to use for bomber sprites
@@ -74,7 +74,7 @@
 
 // Lights stuff
 #define LIGHTS_FULLROW1_POSITION_X      9       //!< First light position of the first full row of lights to draw
-#define LIGHTS_FULLROW1_POSITION_Y      7      
+#define LIGHTS_FULLROW1_POSITION_Y      7
 #define LIGHTS_FULLROW2_POSITION_X      9       //!< First light position of the second full row of lights to draw
 #define LIGHTS_FULLROW2_POSITION_Y      42
 #define LIGHTS_FULLROW3_POSITION_X      9       //!< First light position of the third full row of lights to draw
@@ -95,7 +95,7 @@
 #define LIGHTS_ANIMATION_TIME_2         LIGHTS_ANIMATION_TIME_0 * 3
 #define LIGHTS_ANIMATION_TIME_3         LIGHTS_ANIMATION_TIME_0 * 4
 #define LIGHTS_COLORS_COUNT             4       //!< Number of different colors a light can have
-       
+
 // Bomber stuff
 #define BOMBER_INITIAL_POSITION_X       20      //!< First (top) bomber position
 #define BOMBER_INITIAL_POSITION_Y       55
@@ -108,10 +108,10 @@
 #define BOMBER_HAPPY_ANIMATION_TIME_0   0.700f  //!< Happy bomber animation times
 #define BOMBER_HAPPY_ANIMATION_TIME_1   1.600f
 #define BOMBER_SAD_ANIMATION_TIME_0     0.100f  //!< Sad bomber animation times
-#define BOMBER_SAD_ANIMATION_TIME_1     0.250f  
-#define BOMBER_SAD_ANIMATION_TIME_2     0.600f  
-#define BOMBER_SAD_ANIMATION_TIME_3     1.200f 
-                                            
+#define BOMBER_SAD_ANIMATION_TIME_1     0.250f
+#define BOMBER_SAD_ANIMATION_TIME_2     0.600f
+#define BOMBER_SAD_ANIMATION_TIME_3     1.200f
+
 // Coins stuff
 #define COINS_INITIAL_POSITION_X        68      //!< Position of the first (left) coin of the first (top) bomber
 #define COINS_INITIAL_POSITION_Y        61
@@ -145,7 +145,7 @@
 
 CWinner::CWinner (void) : CModeScreen()
 {
-    // Initialize the pointers to NULL so that we 
+    // Initialize the pointers to NULL so that we
     // can easily detect the ones we forgot to set.
     m_pScores = NULL;
     m_pMatch = NULL;
@@ -160,7 +160,7 @@ CWinner::CWinner (void) : CModeScreen()
 
     m_PlayedSound = false;
     m_pMosaic = NULL;
-    
+
     m_ModeTime = 0.0f;
     m_ExitModeTime = 0.0f;
 
@@ -190,7 +190,7 @@ CWinner::~CWinner (void)
 void CWinner::Create (void)
 {
     CModeScreen::Create();
-    
+
     // Check if all the objects to communicate with are set
     ASSERT (m_pScores != NULL);
     ASSERT (m_pMatch != NULL);
@@ -215,8 +215,6 @@ void CWinner::Create (void)
     m_SadBomberSpriteOffset = BOMBER_SAD_SPRITE_0;
 
     // Update the winner player's score in the scores object
-    int Team = m_pMatch->GetWinnerTeam();
-
     for (int Player = 0; Player < MAX_PLAYERS; Player++)
     {
         if (m_pMatch->IsPlayerWinner(Player))
@@ -226,14 +224,14 @@ void CWinner::Create (void)
     m_PlayedSound = false;
 
     // Make a random green mosaic object
-    m_pMosaic = CRandomMosaic::CreateRandomMosaic (m_pDisplay, 
-                                                   MOSAIC_SPRITE_LAYER, 
-                                                   MOSAIC_SPRITE_PRIORITY_IN_LAYER, 
-                                                   MOSAIC_SPEED_X, 
-                                                   MOSAIC_SPEED_Y, 
+    m_pMosaic = CRandomMosaic::CreateRandomMosaic (m_pDisplay,
+                                                   MOSAIC_SPRITE_LAYER,
+                                                   MOSAIC_SPRITE_PRIORITY_IN_LAYER,
+                                                   MOSAIC_SPEED_X,
+                                                   MOSAIC_SPEED_Y,
                                                    MOSAICCOLOR_GREEN);
 }
-    
+
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -243,7 +241,7 @@ void CWinner::Create (void)
 void CWinner::Destroy (void)
 {
     CModeScreen::Destroy();
-    
+
     // Delete the scrolling mosaic background
     m_pMosaic->Destroy();
     delete m_pMosaic;
@@ -278,7 +276,7 @@ void CWinner::CloseInput (void)
         m_pInput->GetPlayerInput(m_pOptions->GetPlayerInput(i)).Close();
     }
 }
-                   
+
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -291,7 +289,7 @@ EGameMode CWinner::Update (void)
     // If we have to make the first black screen
     if (m_ModeTime <= WINNER_BLACKSCREEN_DURATION)
     {
-        
+
     }
     // If minimum duration of the mode has not elapsed OR we don't have to exit yet
     else if (m_ModeTime <= WINNER_MINIMUM_DURATION || !m_HaveToExit)
@@ -327,7 +325,7 @@ EGameMode CWinner::Update (void)
 
                 // If this player plays and is a human
                 if (m_pOptions->GetBomberType (Player) == BOMBERTYPE_MAN)
-                {   
+                {
                     // Get his player input using the options object
                     int PlayerInputNr = m_pOptions->GetPlayerInput (Player);
 
@@ -414,7 +412,7 @@ EGameMode CWinner::Update (void)
         // Animate coin
         //-----------------------------
 
-        if ( m_CoinSpriteOffset % COINS_SPRITE_COUNT == COINS_STATIC_SPRITE && 
+        if ( m_CoinSpriteOffset % COINS_SPRITE_COUNT == COINS_STATIC_SPRITE &&
             m_CoinSpriteOffset >= COINS_ANIMATION_TURNS * COINS_SPRITE_COUNT ) {
             // Don't animate coin any longer
         } else {
@@ -432,11 +430,11 @@ EGameMode CWinner::Update (void)
             }
         }
     }
-    // The minimum mode duration has elapsed AND we have to exit, 
+    // The minimum mode duration has elapsed AND we have to exit,
     // so we have to make the last black screen
     else if (m_ModeTime - m_ExitModeTime <= WINNER_BLACKSCREEN_DURATION)
     {
-        
+
     }
     // Last black screen is complete! Get out of here!
     else
@@ -445,7 +443,7 @@ EGameMode CWinner::Update (void)
         for (int Player = 0; Player < MAX_PLAYERS; Player++)
         {
             if (m_pScores->GetPlayerScore(Player) == m_pOptions->GetBattleCount())
-            {            
+            {
                 // Ask for a game mode switch to victory screen to congratulate the victorious player
                 return GAMEMODE_VICTORY;
             }
@@ -503,13 +501,13 @@ void CWinner::Display (void)
         //--------------------------
 
         // Draw the big title
-        m_pDisplay->DrawSprite (SCOREBOARD_TITLE_POSITION_X, 
-                                SCOREBOARD_TITLE_POSITION_Y, 
+        m_pDisplay->DrawSprite (SCOREBOARD_TITLE_POSITION_X,
+                                SCOREBOARD_TITLE_POSITION_Y,
                                 NULL,                            // Draw entire sprite
                                 NULL,                            // No need to clip
-                                WINNER_TITLE_SPRITETABLE, 
-                                SCOREBOARD_SPRITE, 
-                                WINNER_SPRITE_LAYER, 
+                                WINNER_TITLE_SPRITETABLE,
+                                SCOREBOARD_SPRITE,
+                                WINNER_SPRITE_LAYER,
                                 WINNER_SCOREBOARD_PRIORITY);
 
         //----------------------------------
@@ -522,33 +520,33 @@ void CWinner::Display (void)
         for (Column = 0 ; Column < LIGHTS_FULLROW_COUNT ; Column++)
         {
             // Draw one light for the first full row. The sprite number determines the light color.
-            m_pDisplay->DrawSprite (LIGHTS_FULLROW1_POSITION_X + Column * LIGHTS_SPACE_X, 
-                                    LIGHTS_FULLROW1_POSITION_Y, 
+            m_pDisplay->DrawSprite (LIGHTS_FULLROW1_POSITION_X + Column * LIGHTS_SPACE_X,
+                                    LIGHTS_FULLROW1_POSITION_Y,
                                     NULL,                            // Draw entire sprite
                                     NULL,                            // No need to clip
-                                    WINNER_LIGHTS_SPRITETABLE, 
+                                    WINNER_LIGHTS_SPRITETABLE,
                                     (m_LightSpriteOffset + Light) % LIGHTS_COLORS_COUNT,
-                                    WINNER_SPRITE_LAYER, 
+                                    WINNER_SPRITE_LAYER,
                                     WINNER_LIGHTS_PRIORITY);
 
             // Draw one light for the second full row. The sprite number determines the light color.
-            m_pDisplay->DrawSprite (LIGHTS_FULLROW2_POSITION_X + Column * LIGHTS_SPACE_X, 
-                                    LIGHTS_FULLROW2_POSITION_Y, 
+            m_pDisplay->DrawSprite (LIGHTS_FULLROW2_POSITION_X + Column * LIGHTS_SPACE_X,
+                                    LIGHTS_FULLROW2_POSITION_Y,
                                     NULL,                            // Draw entire sprite
                                     NULL,                            // No need to clip
-                                    WINNER_LIGHTS_SPRITETABLE, 
+                                    WINNER_LIGHTS_SPRITETABLE,
                                     (m_LightSpriteOffset + Light) % LIGHTS_COLORS_COUNT,
-                                    WINNER_SPRITE_LAYER, 
+                                    WINNER_SPRITE_LAYER,
                                     WINNER_LIGHTS_PRIORITY);
 
             // Draw one light for the third full row. The sprite number determines the light color.
-            m_pDisplay->DrawSprite (LIGHTS_FULLROW3_POSITION_X + Column * LIGHTS_SPACE_X, 
-                                    LIGHTS_FULLROW3_POSITION_Y, 
+            m_pDisplay->DrawSprite (LIGHTS_FULLROW3_POSITION_X + Column * LIGHTS_SPACE_X,
+                                    LIGHTS_FULLROW3_POSITION_Y,
                                     NULL,                            // Draw entire sprite
                                     NULL,                            // No need to clip
-                                    WINNER_LIGHTS_SPRITETABLE, 
+                                    WINNER_LIGHTS_SPRITETABLE,
                                     (m_LightSpriteOffset + Light) % LIGHTS_COLORS_COUNT,
-                                    WINNER_SPRITE_LAYER, 
+                                    WINNER_SPRITE_LAYER,
                                     WINNER_LIGHTS_PRIORITY);
 
             // One more light! This allows to scan the colors.
@@ -565,23 +563,23 @@ void CWinner::Display (void)
         for (Row = 0 ; Row < LIGHTS_FULLCOLUMN_COUNT ; Row++)
         {
             // Draw one light for the first full column. The sprite number determines the light color.
-            m_pDisplay->DrawSprite (LIGHTS_FULLCOLUMN1_POSITION_X, 
-                                    LIGHTS_FULLCOLUMN1_POSITION_Y + Row * LIGHTS_SPACE_Y, 
+            m_pDisplay->DrawSprite (LIGHTS_FULLCOLUMN1_POSITION_X,
+                                    LIGHTS_FULLCOLUMN1_POSITION_Y + Row * LIGHTS_SPACE_Y,
                                     NULL,                            // Draw entire sprite
                                     NULL,                            // No need to clip
-                                    WINNER_LIGHTS_SPRITETABLE, 
+                                    WINNER_LIGHTS_SPRITETABLE,
                                     (m_LightSpriteOffset + Light) % LIGHTS_COLORS_COUNT,
-                                    WINNER_SPRITE_LAYER, 
+                                    WINNER_SPRITE_LAYER,
                                     WINNER_LIGHTS_PRIORITY);
 
             // Draw one light for the second full column. The sprite number determines the light color.
-            m_pDisplay->DrawSprite (LIGHTS_FULLCOLUMN2_POSITION_X, 
-                                    LIGHTS_FULLCOLUMN2_POSITION_Y + Row * LIGHTS_SPACE_Y, 
+            m_pDisplay->DrawSprite (LIGHTS_FULLCOLUMN2_POSITION_X,
+                                    LIGHTS_FULLCOLUMN2_POSITION_Y + Row * LIGHTS_SPACE_Y,
                                     NULL,                            // Draw entire sprite
                                     NULL,                            // No need to clip
-                                    WINNER_LIGHTS_SPRITETABLE, 
+                                    WINNER_LIGHTS_SPRITETABLE,
                                     (m_LightSpriteOffset + Light) % LIGHTS_COLORS_COUNT,
-                                    WINNER_SPRITE_LAYER, 
+                                    WINNER_SPRITE_LAYER,
                                     WINNER_LIGHTS_PRIORITY);
 
             // One more light! This allows to scan the colors.
@@ -598,13 +596,13 @@ void CWinner::Display (void)
         for (Row = 0 ; Row < LIGHTS_SEMICOLUMN_COUNT ; Row++)
         {
             // Draw one light for the semi column. The sprite number determines the light color.
-            m_pDisplay->DrawSprite (LIGHTS_SEMICOLUMN_POSITION_X, 
-                                    LIGHTS_SEMICOLUMN_POSITION_Y + Row * LIGHTS_SPACE_Y, 
+            m_pDisplay->DrawSprite (LIGHTS_SEMICOLUMN_POSITION_X,
+                                    LIGHTS_SEMICOLUMN_POSITION_Y + Row * LIGHTS_SPACE_Y,
                                     NULL,                            // Draw entire sprite
                                     NULL,                            // No need to clip
-                                    WINNER_LIGHTS_SPRITETABLE, 
+                                    WINNER_LIGHTS_SPRITETABLE,
                                     (m_LightSpriteOffset + Light) % LIGHTS_COLORS_COUNT,
-                                    WINNER_SPRITE_LAYER, 
+                                    WINNER_SPRITE_LAYER,
                                     WINNER_LIGHTS_PRIORITY);
 
             // One more light! This allows to scan the colors.
@@ -628,13 +626,13 @@ void CWinner::Display (void)
                                        m_HappyBomberSpriteOffset : m_SadBomberSpriteOffset);
 
                 // Draw the bomber head
-                m_pDisplay->DrawSprite (BOMBER_INITIAL_POSITION_X, 
-                                        BOMBER_INITIAL_POSITION_Y + Player * BOMBER_SPACE_Y, 
+                m_pDisplay->DrawSprite (BOMBER_INITIAL_POSITION_X,
+                                        BOMBER_INITIAL_POSITION_Y + Player * BOMBER_SPACE_Y,
                                         NULL,                            // Draw entire sprite
                                         NULL,                            // No need to clip
-                                        WINNER_BOMBER_SPRITETABLE, 
+                                        WINNER_BOMBER_SPRITETABLE,
                                         BomberSprite,       // Appropriate bomber sprite (color + happiness)
-                                        WINNER_SPRITE_LAYER, 
+                                        WINNER_SPRITE_LAYER,
                                         WINNER_BOMBER_PRIORITY);
 
                 // Draw as many coins as the player score
@@ -648,13 +646,13 @@ void CWinner::Display (void)
                         currentCoinSprite = m_CoinSpriteOffset % COINS_SPRITE_COUNT;
                     }
                     // Draw the coin
-                    m_pDisplay->DrawSprite (COINS_INITIAL_POSITION_X + Coin * COINS_SPACE_X, 
-                                            COINS_INITIAL_POSITION_Y + Player * COINS_SPACE_Y, 
+                    m_pDisplay->DrawSprite (COINS_INITIAL_POSITION_X + Coin * COINS_SPACE_X,
+                                            COINS_INITIAL_POSITION_Y + Player * COINS_SPACE_Y,
                                             NULL,                            // Draw entire sprite
                                             NULL,                            // No need to clip
-                                            WINNER_COIN_SPRITETABLE, 
+                                            WINNER_COIN_SPRITETABLE,
                                             currentCoinSprite,
-                                            WINNER_SPRITE_LAYER, 
+                                            WINNER_SPRITE_LAYER,
                                             WINNER_COIN_PRIORITY);
                 }
             }
@@ -662,18 +660,18 @@ void CWinner::Display (void)
             else
             {
                 // Draw a cross sprite of the color of the bomber
-                m_pDisplay->DrawSprite (BOMBER_INITIAL_POSITION_X + CROSS_SPACE_X, 
-                                        BOMBER_INITIAL_POSITION_Y + CROSS_SPACE_Y + Player * BOMBER_SPACE_Y, 
+                m_pDisplay->DrawSprite (BOMBER_INITIAL_POSITION_X + CROSS_SPACE_X,
+                                        BOMBER_INITIAL_POSITION_Y + CROSS_SPACE_Y + Player * BOMBER_SPACE_Y,
                                         NULL,                            // Draw entire sprite
                                         NULL,                            // No need to clip
-                                        WINNER_CROSS_SPRITETABLE, 
+                                        WINNER_CROSS_SPRITETABLE,
                                         Player,       // Appropriate color
-                                        WINNER_SPRITE_LAYER, 
+                                        WINNER_SPRITE_LAYER,
                                         WINNER_CROSS_PRIORITY);
             }
         }
     }
-    // The minimum mode duration has elapsed AND we have to exit, 
+    // The minimum mode duration has elapsed AND we have to exit,
     // so we have to make the last black screen
     else if (m_ModeTime - m_ExitModeTime <= WINNER_BLACKSCREEN_DURATION)
     {

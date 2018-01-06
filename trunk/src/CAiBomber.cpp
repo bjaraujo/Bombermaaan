@@ -89,7 +89,7 @@ CAiBomber::CAiBomber(void)
     m_BlockLeftY = 0;
     m_BlockRightX = 0;
     m_BlockRightY = 0;
-    
+
     for (int BlockX = 0; BlockX < ARENA_WIDTH; BlockX++)
     {
         for (int BlockY = 0; BlockY < ARENA_HEIGHT; BlockY++)
@@ -533,7 +533,7 @@ bool CAiBomber::EnemyNearAndFront(EEnemyDirection *direction, bool BeyondArenaFr
             if (EnemyBomber)
             {
                 // We have an enemy bomber above that is near
-                // and in front of our bomber.            
+                // and in front of our bomber.
                 if (direction != NULL)
                     *direction = ENEMYDIRECTION_ABOVE;
                 return true;
@@ -845,8 +845,8 @@ bool CAiBomber::DropBombOK(int BlockX, int BlockY)
     // would be on the tested block (function parameters).
 
     //----------------------------------------------------------------------------------------
-    // Simulate the flame ray (right) of the explosion. Count how many accessible blocks 
-    // are endangered by this flame ray. Check if it won't hit a valuable item or a wall 
+    // Simulate the flame ray (right) of the explosion. Count how many accessible blocks
+    // are endangered by this flame ray. Check if it won't hit a valuable item or a wall
     // that is burning or that will soon burn.
     //----------------------------------------------------------------------------------------
 
@@ -890,8 +890,8 @@ bool CAiBomber::DropBombOK(int BlockX, int BlockY)
     }
 
     //----------------------------------------------------------------------------------------
-    // Simulate the flame ray (left) of the explosion. Count how many accessible blocks 
-    // are endangered by this flame ray. Check if it won't hit a valuable item or a wall 
+    // Simulate the flame ray (left) of the explosion. Count how many accessible blocks
+    // are endangered by this flame ray. Check if it won't hit a valuable item or a wall
     // that is burning or that will soon burn.
     //----------------------------------------------------------------------------------------
 
@@ -935,8 +935,8 @@ bool CAiBomber::DropBombOK(int BlockX, int BlockY)
     }
 
     //----------------------------------------------------------------------------------------
-    // Simulate the flame ray (up) of the explosion. Count how many accessible blocks 
-    // are endangered by this flame ray. Check if it won't hit a valuable item or a wall 
+    // Simulate the flame ray (up) of the explosion. Count how many accessible blocks
+    // are endangered by this flame ray. Check if it won't hit a valuable item or a wall
     // that is burning or that will soon burn.
     //----------------------------------------------------------------------------------------
 
@@ -980,8 +980,8 @@ bool CAiBomber::DropBombOK(int BlockX, int BlockY)
     }
 
     //----------------------------------------------------------------------------------------
-    // Simulate the flame ray (down) of the explosion. Count how many accessible blocks 
-    // are endangered by this flame ray. Check if it won't hit a valuable item or a wall 
+    // Simulate the flame ray (down) of the explosion. Count how many accessible blocks
+    // are endangered by this flame ray. Check if it won't hit a valuable item or a wall
     // that is burning or that will soon burn.
     //----------------------------------------------------------------------------------------
 
@@ -1077,7 +1077,7 @@ int CAiBomber::ItemMark(int BlockX, int BlockY)
     // According to the item type, modify the current item mark
     switch (ItemType)
     {
-    case BLOCKTYPE_ITEM_SKULL: Mark -= 100; break;
+    case ITEM_SKULL: Mark -= 100; break;
     case ITEM_BOMB: Mark += 10; break;
     case ITEM_FLAME: Mark += 10; break;
     case ITEM_ROLLER: Mark += 20; break;
@@ -1821,7 +1821,7 @@ void CAiBomber::ModeDefence(float DeltaTime)
     // If the bomber is not in danger
     if (m_pArena->GetDanger(m_BlockHereX, m_BlockHereY) == DANGER_NONE && m_pArena->GetArena()->GetArenaCloser().GetNumberOfBlocksLeft() > 10)
     {
-        // Reset commands to send to the bomber in order 
+        // Reset commands to send to the bomber in order
         // to stop moving when the bomber is in a safe block.
         m_BomberMove = BOMBERMOVE_NONE;
 
@@ -1943,8 +1943,8 @@ void CAiBomber::ModeDefence(float DeltaTime)
         {
 
             m_pDisplay->DrawDebugRectangle (
-                m_pArena->GetArena()->ToPosition(BestBlockX), 
-                m_pArena->GetArena()->ToPosition(BestBlockY), 
+                m_pArena->GetArena()->ToPosition(BestBlockX),
+                m_pArena->GetArena()->ToPosition(BestBlockY),
                 w, h, r, g, b, AIDEBUG_SPRITELAYER, PRIORITY_UNUSED);
         }
     }
@@ -2001,8 +2001,8 @@ void CAiBomber::ModeDefence(float DeltaTime)
             {
 
                 m_pDisplay->DrawDebugRectangle (
-                    m_pArena->GetArena()->ToPosition(BestBlockX), 
-                    m_pArena->GetArena()->ToPosition(BestBlockY), 
+                    m_pArena->GetArena()->ToPosition(BestBlockX),
+                    m_pArena->GetArena()->ToPosition(BestBlockY),
                     w, h, r, g, b, AIDEBUG_SPRITELAYER, PRIORITY_UNUSED);
             }
 #endif
@@ -2192,8 +2192,8 @@ void CAiBomber::ModeDefence(float DeltaTime)
         {
 
             m_pDisplay->DrawDebugRectangle (
-                m_pArena->GetArena()->ToPosition(BestBlockX), 
-                m_pArena->GetArena()->ToPosition(BestBlockY), 
+                m_pArena->GetArena()->ToPosition(BestBlockX),
+                m_pArena->GetArena()->ToPosition(BestBlockY),
                 w, h, r, g, b, AIDEBUG_SPRITELAYER, PRIORITY_UNUSED);
         }
 #endif
@@ -2509,7 +2509,7 @@ void CAiBomber::ModeWalk(float DeltaTime)
 
 bool CAiBomber::GoTo(int GoalBlockX, int GoalBlockY)
 {
-    // If the block to go to is not accessible 
+    // If the block to go to is not accessible
     // or the bomber is already on this block
     if (m_Accessible[GoalBlockX][GoalBlockY] == -1 ||
         m_Accessible[GoalBlockX][GoalBlockY] == 0)
@@ -2520,7 +2520,7 @@ bool CAiBomber::GoTo(int GoalBlockX, int GoalBlockY)
     // If the block to go to is accessible and the bomber is not on this block
     else
     {
-        // Block coordinates used to go from the goal to the 
+        // Block coordinates used to go from the goal to the
         // bomber using the accessible array.
         // Start from the goal.
         int BlockX = GoalBlockX;
@@ -2724,7 +2724,7 @@ void CAiBomber::UpdateAccessibility()
     m_NumAccessible = 1;
 
     // Find all the squares that are accessible to the bomber
-    // If no update was performed then it's over because there 
+    // If no update was performed then it's over because there
     // are no more accessible squares that weren't marked.
     do
     {
@@ -2741,7 +2741,7 @@ void CAiBomber::UpdateAccessibility()
                 {
                     continue;
                 }
-                // If it is an accessible square 
+                // If it is an accessible square
                 else if (m_Accessible[BlockX][BlockY] != -1)
                 {
                     // If there is a square ABOVE that is marked as not accessible and it's not a wall/bomb
@@ -2851,8 +2851,8 @@ void CAiBomber::UpdateAccessibility()
                     }
 
                     m_pDisplay->DrawDebugRectangle (
-                        m_pArena->GetArena()->ToPosition(BlockX), 
-                        m_pArena->GetArena()->ToPosition(BlockY), 
+                        m_pArena->GetArena()->ToPosition(BlockX),
+                        m_pArena->GetArena()->ToPosition(BlockY),
                         w, h, r, g, b, AIDEBUG_SPRITELAYER, PRIORITY_UNUSED);
                 }
             }
@@ -2879,7 +2879,7 @@ void CAiBomber::UpdateAccessibility()
     m_NumAccessible = 1;
 
     // Find all the squares that are accessible to the bomber
-    // If no update was performed then it's over because there 
+    // If no update was performed then it's over because there
     // are no more accessible squares that weren't marked.
     do
     {
@@ -2896,7 +2896,7 @@ void CAiBomber::UpdateAccessibility()
                 {
                     continue;
                 }
-                // If it is an accessible square 
+                // If it is an accessible square
                 else if (m_PseudoAccessible[BlockX][BlockY] != -1)
                 {
                     // If there is a square ABOVE that is marked as not accessible and it's not a wall/bomb
@@ -2980,8 +2980,8 @@ void CAiBomber::UpdateAccessibility()
                     b = bbase + m_PseudoAccessible[BlockX][BlockY] * 8;
 
                     m_pDisplay->DrawDebugRectangle (
-                        m_pArena->GetArena()->ToPosition(BlockX), 
-                        m_pArena->GetArena()->ToPosition(BlockY), 
+                        m_pArena->GetArena()->ToPosition(BlockX),
+                        m_pArena->GetArena()->ToPosition(BlockY),
                         w, h, r, g, b, AIDEBUG_SPRITELAYER, PRIORITY_UNUSED);
                 }
             }
