@@ -1272,7 +1272,7 @@ void CGame::OnSize(WPARAM wParam, LPARAM lParam)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-// When the window is active and a jostick axis changes,
+// When the window is active and a joystick axis changes,
 // this method will be called.
 #ifndef DIRECTX_INPUT
 void CGame::OnJoystickAxis(WPARAM wParam, LPARAM lParam)
@@ -1319,7 +1319,7 @@ void CGame::OnJoystickAxis(WPARAM wParam, LPARAM lParam)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-// When the window is active and a jostick button is pressed/released,
+// When the window is active and a joystick button is pressed/released,
 // this method will be called.
 
 #ifndef DIRECTX_INPUT
