@@ -168,7 +168,7 @@ CGame::CGame (HINSTANCE hInstance, char** pCommandLine)
         windowTitle.append(__DATE__ + 4, 2);
     }
 
-#ifdef DIRECTX
+#ifdef DIRECTX_VIDEO
     SetWindowText(m_hWnd, windowTitle.c_str());
 #else
     // keep the window text in mind
@@ -527,7 +527,7 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
     set_color_depth(32);
 
 #else
-    #ifdef DIRECTX
+    #ifdef DIRECTX_VIDEO
         if ((SDL_Init(SDL_INIT_AUDIO) == -1)) // in WIN32 we need AUDIO for SDL_mixer (replacing FMOD)
     #else
         if ((SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_JOYSTICK) == -1))
@@ -568,7 +568,7 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
 
 #else
 
-    #ifndef DIRECTX
+    #ifndef DIRECTX_VIDEO
         SDL_WM_SetCaption(m_WindowTitle.c_str(), NULL);
     #endif
 #endif
@@ -988,7 +988,7 @@ void CGame::StartGameMode(EGameMode GameMode)
 #else
 
         // Close the window
-        #ifdef DIRECTX
+        #ifdef DIRECTX_VIDEO
             PostMessage(m_hWnd, WM_CLOSE, 0, 0);
         #else
             SDL_Event quitevent;
@@ -1156,7 +1156,7 @@ void CGame::OnKeyUp(WPARAM wParam, LPARAM lParam)
 
 #else
 
-    #ifdef DIRECTX
+    #ifdef DIRECTX_VIDEO
             //! Change display mode if this is a F1-F4 key
             switch (wParam)
             {
@@ -1283,7 +1283,7 @@ void CGame::OnJoystickAxis(WPARAM wParam, LPARAM lParam)
     else return;
 
     CMainInput m_pMainInput = m_Input.GetMainInput();
-    CSDLInput *m_pDirectInput = m_pMainInput.GetDirectInput();
+    CInputSDL *m_pDirectInput = m_pMainInput.GetDirectInput();
 
     // update main menu input
     if (jaxis->axis == 0) { // X axis
@@ -1332,7 +1332,7 @@ void CGame::OnJoystickButton(WPARAM wParam, LPARAM lParam)
 
     CMainInput m_pMainInput = m_Input.GetMainInput();
 
-    CSDLInput *m_pDirectInput = m_pMainInput.GetDirectInput();
+    CInputSDL *m_pDirectInput = m_pMainInput.GetDirectInput();
 
     // update main menu input
     m_pDirectInput->SetJoystickButton(jbutton->which, jbutton->button,

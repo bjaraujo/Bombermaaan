@@ -24,13 +24,13 @@
     ************************************************************************************/
 
 /**
- *  \file CSDLVideo.cpp
+ *  \file CVideoSDL.cpp
  *  \brief SDL video on Linux
  */
 
 #include "StdAfx.h"
 
-#include "CSDLVideo.h"
+#include "CVideoSDL.h"
 #include "BombermaaanIco.h"
 
 static const char* GetSDLVideoError();
@@ -40,7 +40,7 @@ static void AddDisplayMode(int width, int height, int depth, vector<SDisplayMode
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CSDLVideo::CSDLVideo(void)
+CVideoSDL::CVideoSDL(void)
 {
     m_hWnd = NULL;
     m_pBackBuffer = NULL;
@@ -60,7 +60,7 @@ CSDLVideo::CSDLVideo(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CSDLVideo::~CSDLVideo(void)
+CVideoSDL::~CVideoSDL(void)
 {
     // Nothing to do
 }
@@ -86,7 +86,7 @@ static void AddDisplayMode(int width, int height, int depth, vector<SDisplayMode
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CSDLVideo::Create(int Width, int Height, int Depth, bool FullScreen)
+bool CVideoSDL::Create(int Width, int Height, int Depth, bool FullScreen)
 {
     // Set the display properties
     m_Width = Width;
@@ -235,7 +235,7 @@ bool CSDLVideo::Create(int Width, int Height, int Depth, bool FullScreen)
 
 // Destroys the SDLVideo interface
 
-void CSDLVideo::Destroy(void)
+void CVideoSDL::Destroy(void)
 {
     // Free drawing requests, sprite tables, surfaces...
     FreeSprites();
@@ -284,7 +284,7 @@ void CSDLVideo::Destroy(void)
 // Updates the display by blitting the back buffer
 // surface on the primary surface.
 
-void CSDLVideo::UpdateScreen(void)
+void CVideoSDL::UpdateScreen(void)
 {
     HRESULT hRet;
 
@@ -315,7 +315,7 @@ void CSDLVideo::UpdateScreen(void)
 // Updates the object : this updates the drawing zones
 // in case the window moves.
 
-void CSDLVideo::OnWindowMove()
+void CVideoSDL::OnWindowMove()
 {
 
 }
@@ -324,7 +324,7 @@ void CSDLVideo::OnWindowMove()
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CSDLVideo::DrawSprite(int PositionX,
+void CVideoSDL::DrawSprite(int PositionX,
     int PositionY,
     RECT *pZone,
     RECT *pClip,
@@ -451,7 +451,7 @@ void CSDLVideo::DrawSprite(int PositionX,
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CSDLVideo::DrawDebugRectangle(int PositionX,
+void CVideoSDL::DrawDebugRectangle(int PositionX,
     int PositionY,
     int w, int h,
     Uint8 r, Uint8 g, Uint8 b,
@@ -490,7 +490,7 @@ void CSDLVideo::DrawDebugRectangle(int PositionX,
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CSDLVideo::RemoveAllDebugRectangles()
+void CVideoSDL::RemoveAllDebugRectangles()
 {
     m_DebugDrawingRequests.clear();
 }
@@ -501,7 +501,7 @@ void CSDLVideo::RemoveAllDebugRectangles()
 
 // Makes the display black.
 
-void CSDLVideo::Clear()
+void CVideoSDL::Clear()
 {
     HRESULT hRet;
     hRet = SDL_FillRect(m_pPrimary, &m_rcViewport, 0);
@@ -511,7 +511,7 @@ void CSDLVideo::Clear()
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-WORD CSDLVideo::GetNumberOfBits(DWORD dwMask)
+WORD CVideoSDL::GetNumberOfBits(DWORD dwMask)
 {
     WORD wBits = 0;
     while (dwMask)
@@ -526,7 +526,7 @@ WORD CSDLVideo::GetNumberOfBits(DWORD dwMask)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CSDLVideo::SetTransparentColor(int Red, int Green, int Blue)
+bool CVideoSDL::SetTransparentColor(int Red, int Green, int Blue)
 {
     // Get the pixel format of the primary surface
     SDL_PixelFormat *pf = m_pPrimary->format;
@@ -541,7 +541,7 @@ bool CSDLVideo::SetTransparentColor(int Red, int Green, int Blue)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CSDLVideo::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, HBITMAP hBitmap)
+bool CVideoSDL::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, HBITMAP hBitmap)
 {
 
     SSurface Surface;
@@ -638,8 +638,8 @@ bool CSDLVideo::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spr
 
     SDL_FreeSurface(surf);
 
-
 #else
+
     SDL_RWops *rwBitmap;
 
     DWORD DataSize;
@@ -762,11 +762,11 @@ bool CSDLVideo::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spr
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CSDLVideo::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, const char* file)
+bool CVideoSDL::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, const char* file)
 {
-    
+
     SSurface Surface;
-    
+
     std::string path(IMAGE_FOLDER);
 
 #ifdef WIN32
@@ -876,7 +876,7 @@ bool CSDLVideo::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spr
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CSDLVideo::FreeSprites(void)
+void CVideoSDL::FreeSprites(void)
 {
     // Empty drawing requests queue
     while (!m_DrawingRequests.empty())
@@ -905,7 +905,7 @@ void CSDLVideo::FreeSprites(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CSDLVideo::UpdateAll(void)
+void CVideoSDL::UpdateAll(void)
 {
 
     // While all the drawing requests have not been executed
@@ -1012,7 +1012,7 @@ void CSDLVideo::UpdateAll(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CSDLVideo::IsModeAvailable(int Width, int Height, int Depth)
+bool CVideoSDL::IsModeAvailable(int Width, int Height, int Depth)
 {
     // Scan all available display modes
     for (unsigned int i = 0; i < m_AvailableDisplayModes.size(); i++)

@@ -38,14 +38,14 @@
 
 CInput::CInput (void)
 {
-    // Initialize the pointers to NULL so that we 
+    // Initialize the pointers to NULL so that we
     // can easily detect the ones we forgot to set.
     m_pOptions = NULL;
     m_pTimer = NULL;
     m_PlayerInput = NULL;
-    
-    // Set the directinput object used by the main input
-    m_MainInput.SetDirectInput (&m_DirectInput);
+
+    // Set the input object used by the main input
+    m_MainInput.SetInput(&m_input);
 }
 
 //******************************************************************************************************************************
@@ -68,26 +68,26 @@ bool CInput::Create (void)
     ASSERT (m_pTimer != NULL);
 
     // If we could not create the DirectInput interface
-    if (!m_DirectInput.Create())
+    if (!m_input.Create())
     {
         // Get out
         return false;
     }
-    
+
     // Initialize the main input
     m_MainInput.Create();
 
     // Allocate a player input object for every available ones
     m_PlayerInput = new CPlayerInput [GetPlayerInputCount()];
-    
+
     // Initialize every player input object
     for (int PlayerInput = 0 ; PlayerInput < GetPlayerInputCount() ; PlayerInput++)
     {
-        m_PlayerInput[PlayerInput].SetDirectInput (&m_DirectInput);
+        m_PlayerInput[PlayerInput].SetDirectInput (&m_input);
         m_PlayerInput[PlayerInput].SetOptions (m_pOptions);
         m_PlayerInput[PlayerInput].Create (PlayerInput);
     }
-    
+
     return true;
 }
 
@@ -105,12 +105,12 @@ void CInput::Destroy (void)
 
     // Deallocate every player input object
     delete [] m_PlayerInput;
-    
+
     // Uninitialize the main input
     m_MainInput.Destroy();
-    
+
     // Destroy the DirectInput interface
-    m_DirectInput.Destroy ();
+    m_input.Destroy ();
 }
 
 //******************************************************************************************************************************

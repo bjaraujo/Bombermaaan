@@ -32,9 +32,9 @@
 #include "COptions.h"
 
 #ifdef DIRECTX_INPUT
-#include "CDirectInput.h"
+#include "CInputDX.h"
 #else
-#include "CSDLInput.h"
+#include "CInputSDL.h"
 #endif
 
 //******************************************************************************************************************************
@@ -60,11 +60,11 @@ private:
     int                 m_PlayerInput;
     char                m_Name [MAX_PLAYER_INPUT_NAME_LENGTH];
     char                m_ControlName [MAX_CONTROL_NAME_LENGTH];
-                        
+
     void                CreateName (void);
-                        
-public:                 
-                        
+
+public:
+
                         CPlayerInput();
                         ~CPlayerInput();
     inline InputClass*  GetDirectInput (void);

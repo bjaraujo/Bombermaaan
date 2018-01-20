@@ -1,6 +1,7 @@
 /************************************************************************************
 
     Copyright (C) 2000-2002, 2007 Thibaut Tollemer
+    Copyright (C) 2008 Markus Drescher
 
     This file is part of Bombermaaan.
 
@@ -19,16 +20,16 @@
 
 ************************************************************************************/
 
-
 /**
- *  \file CDirectDraw.h
- *  \brief Header file of the direct draw interface
+ *  \file CVideoSDL.h
+ *  \brief Header file of the SDL video
  */
 
-#ifndef __CDIRECTDRAW_H__
-#define __CDIRECTDRAW_H__
+#ifndef __CVIDEOSDL_H__
+#define __CVIDEOSDL_H__
 
-#include <DDRAW.H>
+#include "SDL.h"
+#include "StdAfx.h"
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -58,14 +59,11 @@ struct SDisplayMode
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-/**
- *  \brief Describes a drawing request
- *
- *  Drawing requests are stored in a CSpriteManager
- *  instance. They describe a sprite to draw, and
- *  where to draw it, and when to draw to it (using
- *  sprites layers and PriorityInLayer-inside-layer.
- */
+
+// Drawing requests are stored in a CSpriteManager
+// instance. They describe a sprite to draw, and
+// where to draw it, and when to draw to it (using
+// sprites layers and PriorityInLayer-inside-layer.
 
 struct SDrawingRequest
 {
@@ -81,24 +79,24 @@ struct SDrawingRequest
     int PriorityInLayer;  //!< PriorityInLayer value inside the layer.
 
     #define PRIORITY_UNUSED     -1
-    
+
     // Operators used by STL's PriorityInLayer_queue when sorting
     // The top layer on the screen is the greatest layer number
     // The top priority is the greatest priority value
 
-    bool operator < (const SDrawingRequest &DR) const 
-    { 
-        return SpriteLayer > DR.SpriteLayer 
+    bool operator < (const SDrawingRequest &DR) const
+    {
+        return SpriteLayer > DR.SpriteLayer
                ||
                (
                 SpriteLayer == DR.SpriteLayer &&
                 PriorityInLayer > DR.PriorityInLayer
-               ); 
+               );
     }
-    bool operator == (const SDrawingRequest &DR) const 
-    { 
+    bool operator == (const SDrawingRequest &DR) const
+    {
         return SpriteLayer == DR.SpriteLayer &&
-               PriorityInLayer == DR.PriorityInLayer; 
+               PriorityInLayer == DR.PriorityInLayer;
     }
 };
 
@@ -116,34 +114,34 @@ struct SDebugDrawingRequest
     int ZoneY1;
     int ZoneX2;
     int ZoneY2;
-    
+
     // rectangle colour
-    BYTE R;
-    BYTE G;
-    BYTE B;
-    
+    Uint8 R;
+    Uint8 G;
+    Uint8 B;
+
     int SpriteLayer;      //!< Number of the layer where the sprite has to be drawn
     int PriorityInLayer;  //!< PriorityInLayer value inside the layer.
 
     #define PRIORITY_UNUSED     -1
-    
+
     // Operators used by STL's PriorityInLayer_queue when sorting
     // The top layer on the screen is the greatest layer number
     // The top priority is the greatest priority value
 
-    bool operator < (const SDebugDrawingRequest &DR) const 
-    { 
-        return SpriteLayer > DR.SpriteLayer 
+    bool operator < (const SDebugDrawingRequest &DR) const
+    {
+        return SpriteLayer > DR.SpriteLayer
                ||
                (
                 SpriteLayer == DR.SpriteLayer &&
                 PriorityInLayer > DR.PriorityInLayer
-               ); 
+               );
     }
-    bool operator == (const SDebugDrawingRequest &DR) const 
-    { 
+    bool operator == (const SDebugDrawingRequest &DR) const
+    {
         return SpriteLayer == DR.SpriteLayer &&
-               PriorityInLayer == DR.PriorityInLayer; 
+               PriorityInLayer == DR.PriorityInLayer;
     }
 };
 
@@ -153,7 +151,7 @@ struct SDebugDrawingRequest
 
 struct SSurface
 {
-    LPDIRECTDRAWSURFACE7    pSurface;           //!< Directdraw surface
+    struct SDL_Surface        *pSurface;            //!< SDL surface
     DWORD                   BlitParameters;     //!< Parameter when blitting, depends on if the surface is transparent
 };
 
@@ -161,21 +159,19 @@ struct SSurface
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-//! CDirectDraw manages the DirectDraw stuff
-class CDirectDraw
+class CVideoSDL
 {
 private:
 
     HWND                    m_hWnd;                         //!< Window handle
-    RECT                    m_rcScreen;                     //!< Window rect in screen coordinates
-    RECT                    m_rcViewport;                   //!< Window rect in client coordinates
+    SDL_Rect                m_rcScreen;                     //!< Window rect in screen coordinates
+    SDL_Rect                m_rcViewport;                   //!< Window rect in client coordinates
     int                     m_Width;                        //!< Display width when fullscreen
     int                     m_Height;                       //!< Display height when fullscreen
     int                     m_Depth;                        //!< Display depth when fullscreen
     bool                    m_FullScreen;                   //!< Is it fullscreen?
-    LPDIRECTDRAW7           m_pDD;                          //!< Directdraw object
-    LPDIRECTDRAWSURFACE7    m_pBackBuffer;                  //!< Backbuffer surface
-    LPDIRECTDRAWSURFACE7    m_pPrimary;                     //!< Primary surface
+    SDL_Surface             *m_pBackBuffer;                 //!< Backbuffer surface
+    SDL_Surface             *m_pPrimary;                    //!< Primary surface
     vector<SSurface>        m_Surfaces;                     //!< Surfaces
     DWORD                   m_ColorKey;                     //!< Color key for transparent surfaces
     priority_queue<SDrawingRequest> m_DrawingRequests;      //!< Automatically sorted drawing requests queue
@@ -188,11 +184,12 @@ private:
 private:
 
     WORD                    GetNumberOfBits (DWORD dwMask);
-    
+
 public:
 
-    CDirectDraw (void);
-    ~CDirectDraw (void);
+    CVideoSDL (void);
+    ~CVideoSDL (void);
+
 
     inline void             SetWindowHandle (HWND hWnd);
     bool                    Create (int Width, int Height, int Depth, bool FullScreen);
@@ -207,8 +204,9 @@ public:
     void                    UpdateAll (void);
     void                    UpdateScreen (void);
     inline void             SetOrigin (int OriginX, int OriginY);
+    inline void             SetNewPrimary (SDL_Surface *pSurface);
     void                    DrawSprite (int PositionX, int PositionY, RECT *pZone, RECT *pClip, int SpriteTable, int Sprite, int SpriteLayer, int PriorityInLayer);
-    void                    DrawDebugRectangle (int PositionX, int PositionY, int w, int h, BYTE r, BYTE g, BYTE b, int SpriteLayer, int PriorityInLayer);
+    void                    DrawDebugRectangle (int PositionX, int PositionY, int w, int h, Uint8 r, Uint8 g, Uint8 b, int SpriteLayer, int PriorityInLayer);
     void                    RemoveAllDebugRectangles ();
     inline bool             IsModeSet (int Width, int Height, int Depth, bool FullScreen);
     bool                    IsModeAvailable (int Width, int Height, int Depth);
@@ -218,40 +216,33 @@ public:
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline void CDirectDraw::SetWindowHandle (HWND hWnd)
+inline void CVideoSDL::SetWindowHandle (HWND hWnd)
 {
     m_hWnd = hWnd;
 }
 
-inline bool CDirectDraw::IsModeSet (int Width, int Height, int Depth, bool FullScreen)
+inline bool CVideoSDL::IsModeSet (int Width, int Height, int Depth, bool FullScreen)
 {
-    return m_Width == Width     && 
-           m_Height == Height   && 
-           m_Depth == Depth     && 
+    return m_Width == Width     &&
+           m_Height == Height   &&
+           m_Depth == Depth     &&
            m_FullScreen == FullScreen;
 }
 
-/**
- *  \brief Update the screen
- *
- *  \sa UpdateScreen()
- */
-
-inline void CDirectDraw::OnPaint (void)
+inline void CVideoSDL::OnPaint (void)
 {
     UpdateScreen ();
 }
 
-/**
- *  \brief Set the origin of the top left position
- *
- *  Draw requests are relative to this position
- */
-
-inline void CDirectDraw::SetOrigin (int OriginX, int OriginY)
+inline void CVideoSDL::SetOrigin (int OriginX, int OriginY)
 {
     m_OriginX = OriginX;
     m_OriginY = OriginY;
+}
+
+inline void CVideoSDL::SetNewPrimary (SDL_Surface *pSurface)
+{
+    m_pPrimary = pSurface;
 }
 
 //******************************************************************************************************************************

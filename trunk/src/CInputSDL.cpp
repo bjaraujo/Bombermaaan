@@ -24,19 +24,19 @@
 ************************************************************************************/
 
 /**
- *  \file CSDLInput.cpp
+ *  \file CInputSDL.cpp
  *  \brief SDL input devices on Linux
  */
 
 #include "StdAfx.h"
 
-#include "CSDLInput.h"
+#include "CInputSDL.h"
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-#define JOYSTICK_DEAD_ZONE      10          //!< Percentage of the dead zone to set for each joystick 
+#define JOYSTICK_DEAD_ZONE      10          //!< Percentage of the dead zone to set for each joystick
 #define JOYSTICK_MINIMUM_AXIS   -32768      //!< Minimum axis value to set for each joystick
 #define JOYSTICK_MAXIMUM_AXIS   +32767       //!< Maximum axis value to set for each joystick
 
@@ -44,12 +44,12 @@
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CSDLInput::CSDLInput (void)
+CInputSDL::CInputSDL (void)
 {
     m_hWnd = NULL;
     m_hInstance = NULL;
     m_Ready = false;
-    
+
     m_KeyboardOpened = false;
     memset(m_KeyState, 0, MAX_KEYS);
     memset(m_KeyFriendlyName, 0, MAX_KEYS * MAX_PATH);
@@ -62,7 +62,7 @@ CSDLInput::CSDLInput (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CSDLInput::~CSDLInput (void)
+CInputSDL::~CInputSDL (void)
 {
     // Nothing to do
 }
@@ -87,20 +87,20 @@ struct SEnumParam
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CSDLInput::Create (void)
+bool CInputSDL::Create (void)
 {
     if (!m_Ready)
     {
         // Reset the keyboard state
         memset (m_KeyState, 0, MAX_KEYS);
-        
+
         //SDL_EnableKeyRepeat(100, SDL_DEFAULT_REPEAT_INTERVAL);
 
         // Prepare the friendly name for each key
         MakeKeyFriendlyNames ();
 
         // Create all joysticks that are installed on the system
-        for(int i=0; i < SDL_NumJoysticks(); i++ ) 
+        for(int i=0; i < SDL_NumJoysticks(); i++ )
         {
             SJoystick *pJoystick = new SJoystick;
 
@@ -108,14 +108,14 @@ bool CSDLInput::Create (void)
             {
                 // Log failure
                 theLog.WriteLine ("SDLInput        => !!! Could not allocate memory for a joystick.");
-            
+
                 // Get out
                 return false;
             }
 
             // Reset the joystick state
             memset (&pJoystick->State, 0, sizeof(pJoystick->State));
-            
+
             // The joystick is not opened yet
             pJoystick->Opened = false;
 
@@ -125,14 +125,14 @@ bool CSDLInput::Create (void)
             m_pJoysticks.push_back (pJoystick); // the joystick is not opened
 
             theLog.WriteLine ("SDLInput        => A joystick was added.");
-            
+
         }
-        
+
         m_Ready = true;
     }
 
     SDL_JoystickEventState(SDL_ENABLE);
-    
+
     // Everything went right
     return true;
 }
@@ -141,7 +141,7 @@ bool CSDLInput::Create (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CSDLInput::Destroy (void)
+void CInputSDL::Destroy (void)
 {
     if (m_Ready)
     {
@@ -151,15 +151,15 @@ void CSDLInput::Destroy (void)
             // Release the joystick SDLinput device
             SDL_JoystickClose(m_pJoysticks[Index]->pDevice);
             m_pJoysticks[Index]->pDevice = NULL;
-            
+
             // Delete the joystick variable
             delete m_pJoysticks[Index];
 
             // Log we released a joystick
             theLog.WriteLine ("SDLInput        => A joystick was released.");
         }
-                    
-        // Remove the joystick pointers from the container 
+
+        // Remove the joystick pointers from the container
         m_pJoysticks.clear();
 
         // Log we released the SDLInput object
@@ -171,7 +171,7 @@ void CSDLInput::Destroy (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CSDLInput::UpdateDevice (SDL_Joystick *pDevice, void *pState, int StateSize)
+bool CInputSDL::UpdateDevice (SDL_Joystick *pDevice, void *pState, int StateSize)
 {
     return true;
 }
@@ -180,7 +180,7 @@ bool CSDLInput::UpdateDevice (SDL_Joystick *pDevice, void *pState, int StateSize
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CSDLInput::UpdateDevice(void *pState, int StateSize)
+bool CInputSDL::UpdateDevice(void *pState, int StateSize)
 {
 
     Uint8* keyState = SDL_GetKeyState(NULL);
@@ -196,7 +196,7 @@ bool CSDLInput::UpdateDevice(void *pState, int StateSize)
 //******************************************************************************************************************************
 
 
-void CSDLInput::UpdateKeyboard (void)
+void CInputSDL::UpdateKeyboard (void)
 {
 
     UpdateDevice(m_KeyState, MAX_KEYS);
@@ -207,7 +207,7 @@ void CSDLInput::UpdateKeyboard (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CSDLInput::UpdateJoystick (int Joystick)
+void CInputSDL::UpdateJoystick (int Joystick)
 {
 
 
@@ -217,10 +217,10 @@ void CSDLInput::UpdateJoystick (int Joystick)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CSDLInput::MakeKeyFriendlyNames (void)
+void CInputSDL::MakeKeyFriendlyNames (void)
 {
     int c;
-    
+
     for (int Key = 0 ; Key < MAX_KEYS ; Key++)
     {
         switch (Key)
@@ -342,7 +342,7 @@ void CSDLInput::MakeKeyFriendlyNames (void)
                     m_KeyFriendlyName[Key][sizeof(m_KeyFriendlyName[Key])-1] = '\0';
                 else
                     m_KeyFriendlyName[Key][c] = '\0';
-                
+
                 break;
         }
     }

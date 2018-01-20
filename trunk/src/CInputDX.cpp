@@ -24,12 +24,12 @@
 
 
 /**
- *  \file CDirectInput.cpp
+ *  \file CInputDX.cpp
  *  \brief Handling input devices on Windows
  */
 
 #include "StdAfx.h"
-#include "CDirectInput.h"
+#include "CInputDX.h"
 
 static const char* GetDirectInputError(HRESULT hRet);
 
@@ -45,7 +45,7 @@ static const char* GetDirectInputError(HRESULT hRet);
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CDirectInput::CDirectInput(void)
+CInputDX::CInputDX(void)
 {
     m_pDI = NULL;
     m_hWnd = NULL;
@@ -59,7 +59,7 @@ CDirectInput::CDirectInput(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CDirectInput::~CDirectInput(void)
+CInputDX::~CInputDX(void)
 {
     // Nothing to do
 }
@@ -112,7 +112,7 @@ static BOOL CALLBACK CreateInputDevice(LPCDIDEVICEINSTANCE pDeviceInstance, LPVO
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CDirectInput::Create(void)
+bool CInputDX::Create(void)
 {
     if (!m_Ready)
     {
@@ -318,7 +318,7 @@ bool CDirectInput::Create(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CDirectInput::Destroy(void)
+void CInputDX::Destroy(void)
 {
     if (m_Ready)
     {
@@ -367,7 +367,7 @@ void CDirectInput::Destroy(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CDirectInput::UpdateDevice(LPDIRECTINPUTDEVICE8 pDevice, void *pState, int StateSize)
+bool CInputDX::UpdateDevice(LPDIRECTINPUTDEVICE8 pDevice, void *pState, int StateSize)
 {
     HRESULT hRet;
     bool Opened = false;
@@ -421,7 +421,7 @@ bool CDirectInput::UpdateDevice(LPDIRECTINPUTDEVICE8 pDevice, void *pState, int 
 //******************************************************************************************************************************
 
 
-void CDirectInput::UpdateKeyboard(void)
+void CInputDX::UpdateKeyboard(void)
 {
     // Update the device and get the latest real opened state
     m_KeyboardOpened = UpdateDevice(m_pKeyboard, m_KeyState, MAX_KEYS);
@@ -431,7 +431,7 @@ void CDirectInput::UpdateKeyboard(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CDirectInput::UpdateJoystick(int Joystick)
+void CInputDX::UpdateJoystick(int Joystick)
 {
     // Check if the joystick number is correct
     ASSERT(Joystick >= 0 && Joystick < static_cast<int>(m_pJoysticks.size()));
@@ -449,7 +449,7 @@ void CDirectInput::UpdateJoystick(int Joystick)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CDirectInput::MakeKeyFriendlyNames(void)
+void CInputDX::MakeKeyFriendlyNames(void)
 {
     for (int Key = 0; Key < MAX_KEYS; Key++)
     {

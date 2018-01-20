@@ -31,9 +31,9 @@
 class CTimer;
 
 #ifdef DIRECTX_INPUT
-#include "CDirectInput.h"
+#include "CInputDX.h"
 #else
-#include "CSDLInput.h"
+#include "CInputSDL.h"
 #endif
 
 #include "CMainInput.h"
@@ -56,16 +56,17 @@ private:
 
     COptions*               m_pOptions;         //!< Link to options object to use
     CTimer*                 m_pTimer;           //!< Link to timer object to use
-#ifdef DIRECTX_INPUT
-    CDirectInput            m_DirectInput;      //!< DirectInput object managing the DirectInput interface
-#else
-    CSDLInput               m_DirectInput;      //!< SDLInput object managing the DirectInput interface
-#endif
     CMainInput              m_MainInput;        //!< The main input device
     CPlayerInput*           m_PlayerInput;      //!< Dynamically allocated array of player input devices
-                            
-public:                     
-                            
+
+#ifdef DIRECTX_INPUT
+    CInputDX                m_input;            //!< InputDX object managing the Input interface
+#else
+    CInputSDL               m_input;            //!< InputSDL object managing the Input interface
+#endif
+
+public:
+
                             CInput (void);
                             ~CInput (void);
     inline void             SetWindowHandle (HWND hWnd);                //!< Set the window whose input should be received
@@ -76,13 +77,13 @@ public:
     void                    Destroy (void);                             //!< Uninitialize the object
     inline CMainInput&      GetMainInput (void);
 #ifdef DIRECTX_INPUT
-    inline CDirectInput&    GetDirectInput (void);
+    inline CInputDX&    GetDirectInput (void);
 #else
-    inline CSDLInput&       GetDirectInput (void);
+    inline CInputSDL&       GetDirectInput (void);
 #endif
     inline CPlayerInput&    GetPlayerInput (int PlayerInput);
-    inline int              GetPlayerInputCount (void);                 
-    
+    inline int              GetPlayerInputCount (void);
+
 };
 
 //******************************************************************************************************************************
@@ -92,13 +93,13 @@ public:
 inline void CInput::SetWindowHandle (HWND hWnd)
 {
     // Set the window handle the DirectInput object has to communicate with
-    m_DirectInput.SetWindowHandle (hWnd);
+    m_input.SetWindowHandle (hWnd);
 }
 
 inline void CInput::SetInstanceHandle (HINSTANCE hInstance)
 {
     // Set the instance handle the DirectInput object has to communicate with
-    m_DirectInput.SetInstanceHandle (hInstance);
+    m_input.SetInstanceHandle (hInstance);
 }
 
 inline void CInput::SetOptions (COptions *pOptions)
@@ -118,12 +119,12 @@ inline CMainInput& CInput::GetMainInput (void)
 }
 
 #ifdef DIRECTX_INPUT
-inline CDirectInput& CInput::GetDirectInput (void)
+inline CInputDX& CInput::GetDirectInput (void)
 #else
-inline CSDLInput& CInput::GetDirectInput (void)
+inline CInputSDL& CInput::GetDirectInput (void)
 #endif
 {
-    return m_DirectInput;
+    return m_input;
 }
 
 inline CPlayerInput& CInput::GetPlayerInput (int PlayerInput)
@@ -136,7 +137,7 @@ inline CPlayerInput& CInput::GetPlayerInput (int PlayerInput)
 
 inline int CInput::GetPlayerInputCount (void)
 {
-    return NUMBER_OF_KEYBOARD_CONFIGURATIONS + m_DirectInput.GetJoystickCount();
+    return NUMBER_OF_KEYBOARD_CONFIGURATIONS + m_input.GetJoystickCount();
 }
 
 //******************************************************************************************************************************

@@ -21,12 +21,12 @@
 
 
 /**
- *  \file CDirectInput.h
+ *  \file CInputDX.h
  *  \brief Header file of the direct input on Windows
  */
 
-#ifndef __CDIRECTINPUT_H__
-#define __CDIRECTINPUT_H__
+#ifndef __CInputDX_H__
+#define __CInputDX_H__
 
 #define DIRECTINPUT_VERSION 0x0800 // Use DirectInput 7
 #include <DINPUT.H>
@@ -179,7 +179,7 @@ struct SJoystick
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-class CDirectInput
+class CInputDX
 {
 private:
 
@@ -201,8 +201,8 @@ private:
     
 public:
 
-                            CDirectInput (void);
-                            ~CDirectInput (void);
+                            CInputDX (void);
+                            ~CInputDX (void);
     inline void             SetWindowHandle     (HWND hWnd);
     inline void             SetInstanceHandle   (HINSTANCE hInstance);
     bool                    Create              (void);
@@ -224,23 +224,23 @@ public:
     inline bool             GetJoystickButton   (int Joystick, int Button);
 };
 
-typedef CDirectInput InputClass;
+typedef CInputDX InputClass;
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline void CDirectInput::SetWindowHandle (HWND hWnd)
+inline void CInputDX::SetWindowHandle (HWND hWnd)
 {
     m_hWnd = hWnd;
 }
 
-inline void CDirectInput::SetInstanceHandle (HINSTANCE hInstance)
+inline void CInputDX::SetInstanceHandle (HINSTANCE hInstance)
 {
     m_hInstance = hInstance;
 }
 
-inline void CDirectInput::OpenKeyboard (void)
+inline void CInputDX::OpenKeyboard (void)
 {
     // Try to acquire the keyboard
     HRESULT hRet = m_pKeyboard->Acquire ();
@@ -252,13 +252,13 @@ inline void CDirectInput::OpenKeyboard (void)
     m_KeyboardOpened = (hRet == DI_OK || hRet == S_FALSE);
 }
 
-inline bool CDirectInput::IsKeyboardOpened (void)
+inline bool CInputDX::IsKeyboardOpened (void)
 {
     // Return the opened state of the keyboard
     return m_KeyboardOpened;
 }
 
-inline void CDirectInput::CloseKeyboard (void)
+inline void CInputDX::CloseKeyboard (void)
 {
     // Release access to keyboard
     m_pKeyboard->Unacquire ();
@@ -267,7 +267,7 @@ inline void CDirectInput::CloseKeyboard (void)
     m_KeyboardOpened = false;
 }
 
-inline bool CDirectInput::GetKey (int Key)
+inline bool CInputDX::GetKey (int Key)
 {
     // Assert the key number is correct
     ASSERT (Key >= 0 && Key < MAX_KEYS);
@@ -276,7 +276,7 @@ inline bool CDirectInput::GetKey (int Key)
     return (m_KeyState[Key] & 0x80) != 0;
 }
 
-inline const char* CDirectInput::GetKeyRealName (int Key)
+inline const char* CInputDX::GetKeyRealName (int Key)
 {
     // Assert the key number is correct
     ASSERT (Key >= 0 && Key < MAX_KEYS);
@@ -285,7 +285,7 @@ inline const char* CDirectInput::GetKeyRealName (int Key)
     return m_KeyRealName[Key];
 }
 
-inline const char* CDirectInput::GetKeyFriendlyName (int Key)
+inline const char* CInputDX::GetKeyFriendlyName (int Key)
 {
     // Assert the key number is correct
     ASSERT (Key >= 0 && Key < MAX_KEYS);
@@ -294,13 +294,13 @@ inline const char* CDirectInput::GetKeyFriendlyName (int Key)
     return m_KeyFriendlyName[Key];
 }
 
-inline int CDirectInput::GetJoystickCount (void)
+inline int CInputDX::GetJoystickCount (void)
 {
     // Return the number of joysticks installed in Windows
     return m_pJoysticks.size ();
 }
 
-inline void CDirectInput::OpenJoystick (int Joystick)
+inline void CInputDX::OpenJoystick (int Joystick)
 {
     // Check if the joystick number is correct
     ASSERT(Joystick >= 0 && Joystick < static_cast<int>(m_pJoysticks.size()));
@@ -315,7 +315,7 @@ inline void CDirectInput::OpenJoystick (int Joystick)
     m_pJoysticks[Joystick]->Opened = (hRet == DI_OK || hRet == S_FALSE);
 }
 
-inline bool CDirectInput::IsJoystickOpened (int Joystick)
+inline bool CInputDX::IsJoystickOpened (int Joystick)
 {
     // Check if the joystick number is correct
     ASSERT(Joystick >= 0 && Joystick < static_cast<int>(m_pJoysticks.size()));
@@ -324,7 +324,7 @@ inline bool CDirectInput::IsJoystickOpened (int Joystick)
     return m_pJoysticks[Joystick]->Opened;
 }
 
-inline void CDirectInput::CloseJoystick (int Joystick)
+inline void CInputDX::CloseJoystick (int Joystick)
 {
     // Check if the joystick number is correct
     ASSERT(Joystick >= 0 && Joystick < static_cast<int>(m_pJoysticks.size()));
@@ -336,7 +336,7 @@ inline void CDirectInput::CloseJoystick (int Joystick)
     m_pJoysticks[Joystick]->Opened = false;
 }
 
-inline int CDirectInput::GetJoystickAxisX (int Joystick)
+inline int CInputDX::GetJoystickAxisX (int Joystick)
 {
     // Check if the joystick number is correct
     ASSERT(Joystick >= 0 && Joystick < static_cast<int>(m_pJoysticks.size()));
@@ -345,7 +345,7 @@ inline int CDirectInput::GetJoystickAxisX (int Joystick)
     return m_pJoysticks[Joystick]->State.lX;
 }
 
-inline int CDirectInput::GetJoystickAxisY (int Joystick)
+inline int CInputDX::GetJoystickAxisY (int Joystick)
 {
     // Check if the joystick number is correct
     ASSERT(Joystick >= 0 && Joystick < static_cast<int>(m_pJoysticks.size()));
@@ -354,7 +354,7 @@ inline int CDirectInput::GetJoystickAxisY (int Joystick)
     return m_pJoysticks[Joystick]->State.lY;
 }
 
-inline bool CDirectInput::GetJoystickButton (int Joystick, int Button)
+inline bool CInputDX::GetJoystickButton (int Joystick, int Button)
 {
     // Check if the joystick number is correct
     ASSERT(Joystick >= 0 && Joystick < static_cast<int>(m_pJoysticks.size()));
@@ -370,4 +370,4 @@ inline bool CDirectInput::GetJoystickButton (int Joystick, int Button)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-#endif // __CDIRECTINPUT_H__
+#endif // __CInputDX_H__

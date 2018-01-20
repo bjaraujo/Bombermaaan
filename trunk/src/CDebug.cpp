@@ -153,7 +153,7 @@ void CDebug::HandleKey (DWORD VirtualKeyCode, DWORD Modifier)
         switch (VirtualKeyCode)
         {            
 
-#ifdef DIRECTX
+#ifdef DIRECTX_VIDEO
         case VK_MULTIPLY:
 #else
         case SDLK_KP_MULTIPLY:
@@ -167,7 +167,7 @@ void CDebug::HandleKey (DWORD VirtualKeyCode, DWORD Modifier)
                 break;
             }
         
-#ifdef DIRECTX
+#ifdef DIRECTX_VIDEO
             case VK_DIVIDE:
 #else
             case SDLK_KP_DIVIDE:
@@ -181,7 +181,7 @@ void CDebug::HandleKey (DWORD VirtualKeyCode, DWORD Modifier)
                 break;
             }
 
-#ifdef DIRECTX
+#ifdef DIRECTX_VIDEO
             case VK_RETURN:
 #else
             case SDLK_RETURN:
@@ -195,7 +195,7 @@ void CDebug::HandleKey (DWORD VirtualKeyCode, DWORD Modifier)
                 break;
             }
         
-#ifdef DIRECTX
+#ifdef DIRECTX_VIDEO
             case VK_ADD:
 #else
             case SDLK_PLUS:
@@ -214,7 +214,7 @@ void CDebug::HandleKey (DWORD VirtualKeyCode, DWORD Modifier)
                 break;
             }
 
-#ifdef DIRECTX
+#ifdef DIRECTX_VIDEO
             case VK_SUBTRACT:
 #else
             case SDLK_MINUS:
@@ -233,7 +233,7 @@ void CDebug::HandleKey (DWORD VirtualKeyCode, DWORD Modifier)
                 break;
             }
 
-#ifdef DIRECTX
+#ifdef DIRECTX_VIDEO
             case VK_F1:
 #else
             case SDLK_F1:
@@ -244,7 +244,7 @@ void CDebug::HandleKey (DWORD VirtualKeyCode, DWORD Modifier)
                 break;
             }
 
-#ifdef DIRECTX
+#ifdef DIRECTX_VIDEO
             case VK_F2:
 #else
             case SDLK_F2:
@@ -257,7 +257,7 @@ void CDebug::HandleKey (DWORD VirtualKeyCode, DWORD Modifier)
             }
 
 #ifdef _DEBUG_FLAG_1
-#ifdef DIRECTX
+#ifdef DIRECTX_VIDEO
             case VK_F5:
 #else
             case SDLK_F5:

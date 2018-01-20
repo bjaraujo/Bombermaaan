@@ -1,7 +1,6 @@
 /************************************************************************************
 
     Copyright (C) 2000-2002, 2007 Thibaut Tollemer
-    Copyright (C) 2008 Markus Drescher
 
     This file is part of Bombermaaan.
 
@@ -20,16 +19,16 @@
 
 ************************************************************************************/
 
+
 /**
- *  \file CSDLVideo.h
- *  \brief Header file of the SDL video
+ *  \file CVideoDX.h
+ *  \brief Header file of the direct draw interface
  */
 
-#ifndef __CSDLVIDEO_H__
-#define __CSDLVIDEO_H__
+#ifndef __CVideoDX_H__
+#define __CVideoDX_H__
 
-#include "SDL.h"
-#include "StdAfx.h"
+#include <Ddraw.h>
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -59,11 +58,14 @@ struct SDisplayMode
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-
-// Drawing requests are stored in a CSpriteManager
-// instance. They describe a sprite to draw, and
-// where to draw it, and when to draw to it (using
-// sprites layers and PriorityInLayer-inside-layer.
+/**
+ *  \brief Describes a drawing request
+ *
+ *  Drawing requests are stored in a CSpriteManager
+ *  instance. They describe a sprite to draw, and
+ *  where to draw it, and when to draw to it (using
+ *  sprites layers and PriorityInLayer-inside-layer.
+ */
 
 struct SDrawingRequest
 {
@@ -116,9 +118,9 @@ struct SDebugDrawingRequest
     int ZoneY2;
     
     // rectangle colour
-    Uint8 R;
-    Uint8 G;
-    Uint8 B;
+    BYTE R;
+    BYTE G;
+    BYTE B;
     
     int SpriteLayer;      //!< Number of the layer where the sprite has to be drawn
     int PriorityInLayer;  //!< PriorityInLayer value inside the layer.
@@ -151,7 +153,7 @@ struct SDebugDrawingRequest
 
 struct SSurface
 {
-    struct SDL_Surface        *pSurface;            //!< SDL surface
+    LPDIRECTDRAWSURFACE7    pSurface;           //!< Directdraw surface
     DWORD                   BlitParameters;     //!< Parameter when blitting, depends on if the surface is transparent
 };
 
@@ -159,19 +161,21 @@ struct SSurface
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-class CSDLVideo
+//! CVideoDX manages the DirectDraw stuff
+class CVideoDX
 {
 private:
 
     HWND                    m_hWnd;                         //!< Window handle
-    SDL_Rect                m_rcScreen;                     //!< Window rect in screen coordinates
-    SDL_Rect                m_rcViewport;                   //!< Window rect in client coordinates
+    RECT                    m_rcScreen;                     //!< Window rect in screen coordinates
+    RECT                    m_rcViewport;                   //!< Window rect in client coordinates
     int                     m_Width;                        //!< Display width when fullscreen
     int                     m_Height;                       //!< Display height when fullscreen
     int                     m_Depth;                        //!< Display depth when fullscreen
     bool                    m_FullScreen;                   //!< Is it fullscreen?
-    SDL_Surface             *m_pBackBuffer;                    //!< Backbuffer surface
-    SDL_Surface             *m_pPrimary;                    //!< Primary surface
+    LPDIRECTDRAW7           m_pDD;                          //!< Directdraw object
+    LPDIRECTDRAWSURFACE7    m_pBackBuffer;                  //!< Backbuffer surface
+    LPDIRECTDRAWSURFACE7    m_pPrimary;                     //!< Primary surface
     vector<SSurface>        m_Surfaces;                     //!< Surfaces
     DWORD                   m_ColorKey;                     //!< Color key for transparent surfaces
     priority_queue<SDrawingRequest> m_DrawingRequests;      //!< Automatically sorted drawing requests queue
@@ -187,9 +191,8 @@ private:
     
 public:
 
-    CSDLVideo (void);
-    ~CSDLVideo (void);
-
+    CVideoDX (void);
+    ~CVideoDX (void);
 
     inline void             SetWindowHandle (HWND hWnd);
     bool                    Create (int Width, int Height, int Depth, bool FullScreen);
@@ -204,9 +207,8 @@ public:
     void                    UpdateAll (void);
     void                    UpdateScreen (void);
     inline void             SetOrigin (int OriginX, int OriginY);
-    inline void             SetNewPrimary (SDL_Surface *pSurface);
     void                    DrawSprite (int PositionX, int PositionY, RECT *pZone, RECT *pClip, int SpriteTable, int Sprite, int SpriteLayer, int PriorityInLayer);
-    void                    DrawDebugRectangle (int PositionX, int PositionY, int w, int h, Uint8 r, Uint8 g, Uint8 b, int SpriteLayer, int PriorityInLayer);
+    void                    DrawDebugRectangle (int PositionX, int PositionY, int w, int h, BYTE r, BYTE g, BYTE b, int SpriteLayer, int PriorityInLayer);
     void                    RemoveAllDebugRectangles ();
     inline bool             IsModeSet (int Width, int Height, int Depth, bool FullScreen);
     bool                    IsModeAvailable (int Width, int Height, int Depth);
@@ -216,12 +218,12 @@ public:
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline void CSDLVideo::SetWindowHandle (HWND hWnd)
+inline void CVideoDX::SetWindowHandle (HWND hWnd)
 {
     m_hWnd = hWnd;
 }
 
-inline bool CSDLVideo::IsModeSet (int Width, int Height, int Depth, bool FullScreen)
+inline bool CVideoDX::IsModeSet (int Width, int Height, int Depth, bool FullScreen)
 {
     return m_Width == Width     && 
            m_Height == Height   && 
@@ -229,20 +231,27 @@ inline bool CSDLVideo::IsModeSet (int Width, int Height, int Depth, bool FullScr
            m_FullScreen == FullScreen;
 }
 
-inline void CSDLVideo::OnPaint (void)
+/**
+ *  \brief Update the screen
+ *
+ *  \sa UpdateScreen()
+ */
+
+inline void CVideoDX::OnPaint (void)
 {
     UpdateScreen ();
 }
 
-inline void CSDLVideo::SetOrigin (int OriginX, int OriginY)
+/**
+ *  \brief Set the origin of the top left position
+ *
+ *  Draw requests are relative to this position
+ */
+
+inline void CVideoDX::SetOrigin (int OriginX, int OriginY)
 {
     m_OriginX = OriginX;
     m_OriginY = OriginY;
-}
-
-inline void CSDLVideo::SetNewPrimary (SDL_Surface *pSurface)
-{
-    m_pPrimary = pSurface;
 }
 
 //******************************************************************************************************************************

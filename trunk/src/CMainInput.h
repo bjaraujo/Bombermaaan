@@ -30,9 +30,9 @@
 #define __CMAININPUT_H__
 
 #ifdef DIRECTX_INPUT
-#  include "CDirectInput.h"
+#  include "CInputDX.h"
 #else
-#  include "CSDLInput.h"
+#  include "CInputSDL.h"
 #endif
 
 //******************************************************************************************************************************
@@ -98,14 +98,14 @@ public:
                     CMainInput (void);
                     ~CMainInput (void);
     inline InputClass* GetDirectInput (void);
-    inline void     SetDirectInput (InputClass* pDirectInput);
+    inline void     SetInput (InputClass* pDirectInput);
     inline void     SetTimer (CTimer* pTimer);
     void            Create (void);
     void            Destroy (void);
     void            Open (void);
     bool            IsOpened (void);
     void            Close (void);
-    void            Update (void); 
+    void            Update (void);
     inline bool     TestUp (void);
     inline bool     TestDown (void);
     inline bool     TestLeft (void);
@@ -125,7 +125,7 @@ inline InputClass* CMainInput::GetDirectInput (void)
     return m_pDirectInput;
 }
 
-inline void CMainInput::SetDirectInput (InputClass* pDirectInput)
+inline void CMainInput::SetInput (InputClass* pDirectInput)
 {
     m_pDirectInput = pDirectInput;
 }
@@ -161,7 +161,7 @@ inline bool CMainInput::TestPrevious (void)
 }
 
 inline bool CMainInput::TestNext (void)
-{   
+{
     return m_MenuControls[MENU_NEXT1].Active || m_MenuControls[MENU_NEXT2].Active || m_MenuControls[MENU_NEXT3].Active;
 }
 

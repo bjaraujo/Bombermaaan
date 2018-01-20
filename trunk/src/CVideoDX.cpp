@@ -24,12 +24,12 @@
 
 
 /**
- *  \file CDirectDraw.cpp
+ *  \file CVideoDX.cpp
  *  \brief Direct draw function calls on Windows
  */
 
 #include "StdAfx.h"
-#include "CDirectDraw.h"
+#include "CVideoDX.h"
 
 static const char* GetDirectDrawError(HRESULT hRet);
 static HRESULT WINAPI AddDisplayMode(LPDDSURFACEDESC2 lpDDSurfaceDesc, LPVOID lpContext);
@@ -38,7 +38,7 @@ static HRESULT WINAPI AddDisplayMode(LPDDSURFACEDESC2 lpDDSurfaceDesc, LPVOID lp
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CDirectDraw::CDirectDraw(void)
+CVideoDX::CVideoDX(void)
 {
     m_hWnd = NULL;
     m_pDD = NULL;
@@ -58,7 +58,7 @@ CDirectDraw::CDirectDraw(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CDirectDraw::~CDirectDraw(void)
+CVideoDX::~CVideoDX(void)
 {
     // Nothing to do
 }
@@ -87,7 +87,7 @@ static HRESULT WINAPI AddDisplayMode(LPDDSURFACEDESC2 lpDDSurfaceDesc, LPVOID lp
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CDirectDraw::Create(int Width, int Height, int Depth, bool FullScreen)
+bool CVideoDX::Create(int Width, int Height, int Depth, bool FullScreen)
 {
     //! Set the display properties
     m_Width = Width;
@@ -361,7 +361,7 @@ bool CDirectDraw::Create(int Width, int Height, int Depth, bool FullScreen)
 
 //! Destroys the directdraw interface
 
-void CDirectDraw::Destroy(void)
+void CVideoDX::Destroy(void)
 {
     // Free drawing requests, sprite tables, surfaces...
     FreeSprites();
@@ -433,7 +433,7 @@ void CDirectDraw::Destroy(void)
 
 //! Updates the display by blitting the back buffer surface on the primary surface.
 
-void CDirectDraw::UpdateScreen(void)
+void CVideoDX::UpdateScreen(void)
 {
     HRESULT hRet;
 
@@ -499,7 +499,7 @@ void CDirectDraw::UpdateScreen(void)
 
 //! Update the drawing zones in case the window moves.
 
-void CDirectDraw::OnWindowMove()
+void CVideoDX::OnWindowMove()
 {
     // Update the window rect that is used when updating the screen
     GetClientRect(m_hWnd, &m_rcViewport);
@@ -521,7 +521,7 @@ void CDirectDraw::OnWindowMove()
  *  @see SetOrigin()
  */
 
-void CDirectDraw::DrawSprite(int PositionX,
+void CVideoDX::DrawSprite(int PositionX,
     int PositionY,
     RECT *pZone,
     RECT *pClip,
@@ -649,7 +649,7 @@ void CDirectDraw::DrawSprite(int PositionX,
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CDirectDraw::DrawDebugRectangle(int PositionX,
+void CVideoDX::DrawDebugRectangle(int PositionX,
     int PositionY,
     int w, int h,
     BYTE r, BYTE g, BYTE b,
@@ -688,7 +688,7 @@ void CDirectDraw::DrawDebugRectangle(int PositionX,
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CDirectDraw::RemoveAllDebugRectangles()
+void CVideoDX::RemoveAllDebugRectangles()
 {
     m_DebugDrawingRequests.clear();
 }
@@ -699,7 +699,7 @@ void CDirectDraw::RemoveAllDebugRectangles()
 
 //! Makes the display black.
 
-void CDirectDraw::Clear()
+void CVideoDX::Clear()
 {
     DDBLTFX blt = { 0 };
     blt.dwSize = sizeof(blt);
@@ -711,7 +711,7 @@ void CDirectDraw::Clear()
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-WORD CDirectDraw::GetNumberOfBits(DWORD dwMask)
+WORD CVideoDX::GetNumberOfBits(DWORD dwMask)
 {
     WORD wBits = 0;
     while (dwMask)
@@ -726,7 +726,7 @@ WORD CDirectDraw::GetNumberOfBits(DWORD dwMask)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CDirectDraw::SetTransparentColor(int Red, int Green, int Blue)
+bool CVideoDX::SetTransparentColor(int Red, int Green, int Blue)
 {
     // Get the pixel format of the primary surface
     DDPIXELFORMAT pf;
@@ -767,7 +767,7 @@ bool CDirectDraw::SetTransparentColor(int Red, int Green, int Blue)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CDirectDraw::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, HBITMAP hBitmap)
+bool CVideoDX::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, HBITMAP hBitmap)
 {
     HRESULT hRet;
 
@@ -987,7 +987,7 @@ bool CDirectDraw::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int S
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CDirectDraw::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, const char* file)
+bool CVideoDX::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, const char* file)
 {
 
     // TODO:
@@ -1000,7 +1000,7 @@ bool CDirectDraw::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int S
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CDirectDraw::FreeSprites(void)
+void CVideoDX::FreeSprites(void)
 {
     // Empty drawing requests queue
     while (!m_DrawingRequests.empty())
@@ -1037,7 +1037,7 @@ void CDirectDraw::FreeSprites(void)
  *  @see UpdateScreen()
  */
 
-void CDirectDraw::UpdateAll(void)
+void CVideoDX::UpdateAll(void)
 {
     // we need the pixel format for drawing the debug rectangles
     static DDPIXELFORMAT pf;
@@ -1231,7 +1231,7 @@ void CDirectDraw::UpdateAll(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CDirectDraw::IsModeAvailable(int Width, int Height, int Depth)
+bool CVideoDX::IsModeAvailable(int Width, int Height, int Depth)
 {
     // Scan all available display modes
     for (unsigned int i = 0; i < m_AvailableDisplayModes.size(); i++)

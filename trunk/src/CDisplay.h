@@ -29,10 +29,10 @@
 #ifndef __CDISPLAY_H__
 #define __CDISPLAY_H__
 
-#ifdef DIRECTX
-#include "CDirectDraw.h"
+#ifdef DIRECTX_VIDEO
+#include "CVideoDX.h"
 #else
-#include "CSDLVideo.h"
+#include "CVideoSDL.h"
 #endif
 
 //******************************************************************************************************************************
@@ -57,14 +57,14 @@ class CDisplay
 private:
 
     HMODULE         m_hModule;          //!< Connection to the resources
-#ifdef DIRECTX
-    CDirectDraw     m_DirectDraw;         //!< Object used for display
+#ifdef DIRECTX_VIDEO
+    CVideoDX        m_VideoDX;         //!< Object used for display
 #else
-    CSDLVideo       m_SDLVideo;           //!< Object used for display
+    CVideoSDL       m_VideoSDL;           //!< Object used for display
 #endif
     int             m_ViewOriginX;      //!< Top left corner of the game view
     int             m_ViewOriginY;
-    
+
     bool            Create (int Width, int Height, bool FullScreen); //!< (Re)Create the DirectDraw/SDLVideo interface and (re)load the sprite tables given the resolution
     bool            LoadSprites (int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, int BMP_ID); //!< Load a sprite table given its bitmap data and its properties.
     bool            LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, int BMP_ID, const char *file); //!< Load a sprite table given its bitmap data and its properties.
@@ -85,8 +85,8 @@ public:
     inline void     DrawSprite (int PositionX, int PositionY, RECT *pZone, RECT *pClip, int SpriteTable, int Sprite, int SpriteLayer, int PriorityInLayer); //!< Record a drawing request that will be executed on next call to Update
     inline void     DrawDebugRectangle (int PositionX, int PositionY, int w, int h, BYTE r, BYTE g, BYTE b, int SpriteLayer, int PriorityInLayer); //!< Record a drawing request for debug purposes
     inline void     RemoveAllDebugRectangles(void);
-#ifndef DIRECTX
-    inline CSDLVideo& GetSDLVideo(void);
+#ifndef DIRECTX_VIDEO
+    inline CVideoSDL& GetSDLVideo(void);
 #endif
     bool            IsDisplayModeAvailable (EDisplayMode DisplayMode);
 };
@@ -97,10 +97,10 @@ public:
 
 inline void CDisplay::SetWindowHandle (HWND hWnd)
 {
-#ifdef DIRECTX
-    m_DirectDraw.SetWindowHandle (hWnd);
+#ifdef DIRECTX_VIDEO
+    m_VideoDX.SetWindowHandle (hWnd);
 #else
-    m_SDLVideo.SetWindowHandle (hWnd);
+    m_VideoSDL.SetWindowHandle (hWnd);
 #endif
 }
 
@@ -111,79 +111,79 @@ inline void CDisplay::SetModuleHandle (HMODULE hModule)
 
 inline void CDisplay::SetOrigin (int OriginX, int OriginY)
 {
-#ifdef DIRECTX
-    m_DirectDraw.SetOrigin (m_ViewOriginX + OriginX, m_ViewOriginY + OriginY);
+#ifdef DIRECTX_VIDEO
+    m_VideoDX.SetOrigin (m_ViewOriginX + OriginX, m_ViewOriginY + OriginY);
 #else
-    m_SDLVideo.SetOrigin (m_ViewOriginX + OriginX, m_ViewOriginY + OriginY);
+    m_VideoSDL.SetOrigin (m_ViewOriginX + OriginX, m_ViewOriginY + OriginY);
 #endif
 }
 
 inline void CDisplay::Clear (void)
 {
-#ifdef DIRECTX
-    m_DirectDraw.Clear ();
+#ifdef DIRECTX_VIDEO
+    m_VideoDX.Clear ();
 #else
-    m_SDLVideo.Clear ();
+    m_VideoSDL.Clear ();
 #endif
 }
 
 inline void CDisplay::Update (void)
 {
-#ifdef DIRECTX
-    m_DirectDraw.UpdateAll ();
+#ifdef DIRECTX_VIDEO
+    m_VideoDX.UpdateAll ();
 #else
-    m_SDLVideo.UpdateAll ();
+    m_VideoSDL.UpdateAll ();
 #endif
 }
 
 inline void CDisplay::OnWindowMove (void)
 {
-#ifdef DIRECTX
-    m_DirectDraw.OnWindowMove ();
+#ifdef DIRECTX_VIDEO
+    m_VideoDX.OnWindowMove ();
 #else
-    m_SDLVideo.OnWindowMove ();
+    m_VideoSDL.OnWindowMove ();
 #endif
 }
 
 inline void CDisplay::OnPaint (void)
 {
-#ifdef DIRECTX
-    m_DirectDraw.UpdateScreen ();
+#ifdef DIRECTX_VIDEO
+    m_VideoDX.UpdateScreen ();
 #else
-    m_SDLVideo.UpdateScreen ();
+    m_VideoSDL.UpdateScreen ();
 #endif
 }
 
 inline void CDisplay::DrawSprite (int PositionX, int PositionY, RECT *pZone, RECT *pClip, int SpriteTable, int Sprite, int SpriteLayer, int PriorityInLayer)
 {
-#ifdef DIRECTX
-    m_DirectDraw.DrawSprite (PositionX, PositionY, pZone, pClip, SpriteTable, Sprite, SpriteLayer, PriorityInLayer);
+#ifdef DIRECTX_VIDEO
+    m_VideoDX.DrawSprite (PositionX, PositionY, pZone, pClip, SpriteTable, Sprite, SpriteLayer, PriorityInLayer);
 #else
-    m_SDLVideo.DrawSprite (PositionX, PositionY, pZone, pClip, SpriteTable, Sprite, SpriteLayer, PriorityInLayer);
+    m_VideoSDL.DrawSprite (PositionX, PositionY, pZone, pClip, SpriteTable, Sprite, SpriteLayer, PriorityInLayer);
 #endif
 }
 
 inline void CDisplay::DrawDebugRectangle (int PositionX, int PositionY, int w, int h, BYTE r, BYTE g, BYTE b, int SpriteLayer, int PriorityInLayer)
 {
-#ifdef DIRECTX
-    m_DirectDraw.DrawDebugRectangle (PositionX, PositionY, w, h, r, g, b, SpriteLayer, PriorityInLayer);
+#ifdef DIRECTX_VIDEO
+    m_VideoDX.DrawDebugRectangle (PositionX, PositionY, w, h, r, g, b, SpriteLayer, PriorityInLayer);
 #else
-    m_SDLVideo.DrawDebugRectangle (PositionX, PositionY, w, h, r, g, b, SpriteLayer, PriorityInLayer);
+    m_VideoSDL.DrawDebugRectangle (PositionX, PositionY, w, h, r, g, b, SpriteLayer, PriorityInLayer);
 #endif
 }
 
 inline void CDisplay::RemoveAllDebugRectangles (void)
 {
-#ifdef DIRECTX
-    m_DirectDraw.RemoveAllDebugRectangles();
+#ifdef DIRECTX_VIDEO
+    m_VideoDX.RemoveAllDebugRectangles();
 #else
-    m_SDLVideo.RemoveAllDebugRectangles();
+    m_VideoSDL.RemoveAllDebugRectangles();
 #endif
 }
 
-#ifndef DIRECTX
-inline CSDLVideo& CDisplay::GetSDLVideo(void) {
-    return m_SDLVideo;
+#ifndef DIRECTX_VIDEO
+inline CVideoSDL& CDisplay::GetSDLVideo(void) {
+    return m_VideoSDL;
 }
 #endif
 

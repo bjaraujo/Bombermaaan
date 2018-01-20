@@ -31,6 +31,7 @@ CFont.h
 CGame.h
 CHurryMessage.h
 CInput.h
+CInputSDL.h
 CItem.h
 CLevel.h
 CLog.h
@@ -52,8 +53,8 @@ CPlayerInput.h
 CRandomMosaic.h
 CScores.h
 CScroller.h
-CSDLInput.h
-CSDLVideo.h
+CVideo.h
+CVideoSDL.h
 CSound.h
 CTeam.h
 CTimer.h
@@ -94,6 +95,7 @@ CFont.cpp
 CGame.cpp
 CHurryMessage.cpp
 CInput.cpp
+CInputSDL.cpp
 CItem.cpp
 CLevel.cpp
 CLog.cpp
@@ -115,12 +117,12 @@ CPlayerInput.cpp
 CRandomMosaic.cpp
 CScores.cpp
 CScroller.cpp
-CSDLInput.cpp
-CSDLVideo.cpp
 CSound.cpp
 CTitle.cpp
 CTeam.cpp
 CVictory.cpp
+CVideo.cpp
+CVideoSDL.cpp
 CWall.cpp
 CWindow.cpp
 CWinner.cpp
@@ -130,13 +132,13 @@ Bombermaaan.rc
 )
 
 set(BOMBERMAAAN_DX_HEADERS
-CDirectDraw.h
-CDirectInput.h
+CInputDX.h
+CVideoDX.h
 )
 
 set(BOMBERMAAAN_DX_SOURCES
-CDirectDraw.cpp
-CDirectInput.cpp
+CInputDX.cpp
+CVideoDX.cpp
 )
 
 set(BOMBERMAAAN_NET_HEADERS
@@ -204,7 +206,7 @@ set(BOMBERMAAAN_LIBRARIES
 
 add_definitions(-DTIXML_USE_STL -D_CRT_SECURE_NO_WARNINGS)
 
-if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+if(${CMAKE_CXX_COMPILER_ID} STREQUAL GNU)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=gnu++0x")
 endif()
 
@@ -216,9 +218,9 @@ if(MINGW)
 endif(MINGW)
 
 if(USE_DIRECTX)
-    add_definitions(-DDIRECTX -DDIRECTX_INPUT)
-    list(APPEND BOMBERMAAAN_HEADERS CDirectDraw.h CDirectInput.h)
-    list(APPEND BOMBERMAAAN_SOURCES CDirectDraw.cpp CDirectInput.cpp)
+    add_definitions(-DDIRECTX_VIDEO -DDIRECTX_INPUT)
+    list(APPEND BOMBERMAAAN_HEADERS ${BOMBERMAAAN_DX_HEADERS})
+    list(APPEND BOMBERMAAAN_SOURCES ${BOMBERMAAAN_DX_SOURCES})
     list(APPEND BOMBERMAAAN_LIBRARIES ddraw dinput8 dxguid)    
 endif(USE_DIRECTX)
 
