@@ -116,12 +116,12 @@ class CLevel
 private:
 
     EBlockType          m_ArenaData[ARENA_WIDTH][ARENA_HEIGHT];         //!< Arena cells are walls etc.?
-    std::string         m_FilenameShort;                                //!< The short level file name withouth path
+    std::string         m_FilenameShort;                                //!< The short level file name without path
     std::string         m_FilenameFull;                                 //!< The full name of a level file including path
     int                 m_NumberOfItemsInWalls[NUMBER_OF_ITEMS];        //!< The number of items in the soft walls
     int                 m_InitialBomberSkills[NUMBER_OF_BOMBERSKILLS];  //!< The initial bomber skills
 
-    bool                LoadVersion1(ifstream& File);                         //!< Load level file version 1
+    bool                LoadVersion1(std::ifstream& File);                    //!< Load level file version 1
     bool                LoadVersion2(std::string filename);                   //!< Load level file version 2 (requiredRemoteFuse = false) or 3 (requiredRemoteFuse = true)
     bool                CheckMaxNumberOfItems(unsigned int *sumOfMaxItems);   //!< Check if number of max items is valid
     bool                Validate();                                           //!< Check if this level is valid

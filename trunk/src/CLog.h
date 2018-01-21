@@ -26,7 +26,7 @@
  *  \brief Header file of the log
  *
  *  by Thibaut "Fury" Tollemer
- *  
+ *
  *  Most of the code was taken in the
  *  Log.cpp/Log.h files of HaCKeR source,
  *  by Michaël Schoonbrood :
@@ -83,7 +83,7 @@ public:
 
 private:
 
-    ofstream        m_theLog;
+    std::ofstream        m_theLog;
     bool            m_bOpen;
 };
 

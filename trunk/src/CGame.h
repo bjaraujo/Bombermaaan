@@ -60,14 +60,14 @@
  * The CGame class is a window. It initializes itself
  * using an application instance, then initializes
  * the timer, the input, the display, the game screens
- * objects, etc. It's the core of the game and manages 
+ * objects, etc. It's the core of the game and manages
  * switches between game modes (see EGameMode).
  */
 
 class CGame : public CWindow
 {
 private:
-    
+
     EGameMode       m_GameMode;             //!< Current game mode defining what to update
     HMODULE         m_hModule;              //!< Connection to the resources
     HINSTANCE       m_hInstance;            //!< Application instance handle
@@ -86,14 +86,14 @@ private:
     CControls       m_Controls;             //!< Controls screen object
     CDemo           m_Demo;                 //!< Demo screen object in which we show a match betweeen computer players.
     CMenuYesNo      m_MenuYesNo;            //!< Yes/No message box object
-    CCredits        m_Credits;                //!< Credits screen object 
+    CCredits        m_Credits;                //!< Credits screen object
 
 #ifdef NETWORK_MODE
     CNetwork        m_Network;                //!< Network object
 #endif
 
-#ifndef DIRECTX_VIDEO
-    string          m_WindowTitle;
+#ifndef DIRECTX
+    std::string     m_WindowTitle;
 #endif
 
     void            OnActivateApp  (WPARAM wParam, LPARAM lParam);
@@ -103,7 +103,7 @@ private:
     void            OnPaint        (WPARAM wParam, LPARAM lParam);
     bool            OnSysCommand   (WPARAM wParam, LPARAM lParam);
     void            OnSize         (WPARAM wParam, LPARAM lParam);
-#ifndef DIRECTX_INPUT
+#ifndef DIRECTX
     void            OnJoystickAxis (WPARAM wParam, LPARAM lParam);             // SDL_JOYAXISMOTION
     void            OnJoystickButton (WPARAM wParam, LPARAM lParam);       // SDL_JOYBUTTONDOWN/-UP
 #endif

@@ -34,7 +34,7 @@
 #include "BombermaaanIco.h"
 
 static const char* GetSDLVideoError();
-static void AddDisplayMode(int width, int height, int depth, vector<SDisplayMode>& displayModes);
+static void AddDisplayMode(int width, int height, int depth, std::vector<SDisplayMode>& displayModes);
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -69,7 +69,7 @@ CVideoSDL::~CVideoSDL(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-static void AddDisplayMode(int width, int height, int depth, vector<SDisplayMode>& displayModes)
+static void AddDisplayMode(int width, int height, int depth, std::vector<SDisplayMode>& displayModes)
 {
     // The DirectInput device that will be created
     SDisplayMode DisplayMode;
@@ -503,8 +503,7 @@ void CVideoSDL::RemoveAllDebugRectangles()
 
 void CVideoSDL::Clear()
 {
-    HRESULT hRet;
-    hRet = SDL_FillRect(m_pPrimary, &m_rcViewport, 0);
+    SDL_FillRect(m_pPrimary, &m_rcViewport, 0);
 }
 
 //******************************************************************************************************************************
@@ -607,8 +606,6 @@ bool CVideoSDL::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spr
     }
 
     delete[] temp;
-
-    LONG a = Bitmap.bmWidthBytes;
 
     int p = 0;
 
@@ -713,7 +710,7 @@ bool CVideoSDL::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spr
     //---------------------------
 
     // Prepare a sprite table
-    vector<SSprite> SpriteTable;
+    std::vector<SSprite> SpriteTable;
 
     // Variable rectangle coordinates that will be passed during sprite creations
     int ZoneX1 = 1;
@@ -827,7 +824,7 @@ bool CVideoSDL::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spr
     //---------------------------
 
     // Prepare a sprite table
-    vector<SSprite> SpriteTable;
+    std::vector<SSprite> SpriteTable;
 
     // Variable rectangle coordinates that will be passed during sprite creations
     int ZoneX1 = 1;
@@ -940,7 +937,7 @@ void CVideoSDL::UpdateAll(void)
         m_DrawingRequests.pop();
     }
 
-    vector<SDebugDrawingRequest>::iterator it;
+    std::vector<SDebugDrawingRequest>::iterator it;
 
     // Debug rectangles?
     for (it = m_DebugDrawingRequests.begin(); it < m_DebugDrawingRequests.end(); it++)

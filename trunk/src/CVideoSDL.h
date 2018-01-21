@@ -163,23 +163,23 @@ class CVideoSDL
 {
 private:
 
-    HWND                    m_hWnd;                         //!< Window handle
-    SDL_Rect                m_rcScreen;                     //!< Window rect in screen coordinates
-    SDL_Rect                m_rcViewport;                   //!< Window rect in client coordinates
-    int                     m_Width;                        //!< Display width when fullscreen
-    int                     m_Height;                       //!< Display height when fullscreen
-    int                     m_Depth;                        //!< Display depth when fullscreen
-    bool                    m_FullScreen;                   //!< Is it fullscreen?
-    SDL_Surface             *m_pBackBuffer;                 //!< Backbuffer surface
-    SDL_Surface             *m_pPrimary;                    //!< Primary surface
-    vector<SSurface>        m_Surfaces;                     //!< Surfaces
-    DWORD                   m_ColorKey;                     //!< Color key for transparent surfaces
-    priority_queue<SDrawingRequest> m_DrawingRequests;      //!< Automatically sorted drawing requests queue
-    vector<SDebugDrawingRequest> m_DebugDrawingRequests;    //!< vector of drawing requests for debugging purposes
-    vector<vector<SSprite> > m_SpriteTables;                //!< Available sprite tables
-    int                     m_OriginX;                      //!< Origin position where to draw from
+    HWND                    m_hWnd;                              //!< Window handle
+    SDL_Rect                m_rcScreen;                          //!< Window rect in screen coordinates
+    SDL_Rect                m_rcViewport;                        //!< Window rect in client coordinates
+    int                     m_Width;                             //!< Display width when fullscreen
+    int                     m_Height;                            //!< Display height when fullscreen
+    int                     m_Depth;                             //!< Display depth when fullscreen
+    bool                    m_FullScreen;                        //!< Is it fullscreen?
+    SDL_Surface             *m_pBackBuffer;                      //!< Backbuffer surface
+    SDL_Surface             *m_pPrimary;                         //!< Primary surface
+    std::vector<SSurface>        m_Surfaces;                     //!< Surfaces
+    DWORD                   m_ColorKey;                          //!< Color key for transparent surfaces
+    std::priority_queue<SDrawingRequest> m_DrawingRequests;      //!< Automatically sorted drawing requests queue
+    std::vector<SDebugDrawingRequest> m_DebugDrawingRequests;    //!< vector of drawing requests for debugging purposes
+    std::vector<std::vector<SSprite> > m_SpriteTables;                //!< Available sprite tables
+    int                     m_OriginX;                           //!< Origin position where to draw from
     int                     m_OriginY;
-    vector<SDisplayMode>    m_AvailableDisplayModes;
+    std::vector<SDisplayMode>    m_AvailableDisplayModes;
 
 private:
 

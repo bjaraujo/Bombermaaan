@@ -31,8 +31,11 @@
 #include "StdAfx.h"
 #include "CWindow.h"
 
-#ifndef DIRECTX_VIDEO
-#include "SDL.h"
+#ifdef ALLEGRO
+    #include "allegro.h"
+    #include "winalleg.h"
+#else
+    #include "SDL.h"
 #endif
 
 //******************************************************************************************************************************
@@ -41,12 +44,12 @@
 
 
 // Default WinProc
-// HackHackHack!!! We have to do this because the real WinProc is in the class. This is very very hard to 
+// HackHackHack!!! We have to do this because the real WinProc is in the class. This is very very hard to
 // explain. Let's define two memory places where you can store a CWindow* :
-// M1 --> We pass our 'this' pointer in this during CreateWindowEx(). When the WM_CREATE message will be received 
+// M1 --> We pass our 'this' pointer in this during CreateWindowEx(). When the WM_CREATE message will be received
 //        in DefaultWinProc, M1 will be in a member of the CREATESTRUCT (lParam contains the CREATESTRUCT).
-// M2 --> This is a memory place you can access by using GetWindowLong (or Set...). When M1 is accessible, we will 
-//        store M1 in M2, as M1 is permanent (until the window's destruction) and M2 is temporary (we can only get 
+// M2 --> This is a memory place you can access by using GetWindowLong (or Set...). When M1 is accessible, we will
+//        store M1 in M2, as M1 is permanent (until the window's destruction) and M2 is temporary (we can only get
 //        it when WM_CREATE is received).
 // This hack was found in the source code of the Network tutorial of Dan Royer.
 // Dan Royer's homepage : http://members.home.com/droyer
@@ -90,7 +93,7 @@ CWindow::CWindow(HINSTANCE hInstance, const char *pWindowTitle, int IconResource
     m_Active = false;
 
     // Init the window class
-#ifdef DIRECTX_VIDEO
+#ifdef DIRECTX
     WNDCLASSEX WndClassEx;
     WndClassEx.cbSize = sizeof(WNDCLASSEX);
     WndClassEx.lpszClassName = "Class name";
@@ -122,13 +125,13 @@ CWindow::CWindow(HINSTANCE hInstance, const char *pWindowTitle, int IconResource
         pWindowTitle,      // Title
         Style,             // Style
         CW_USEDEFAULT,     // Position
-        CW_USEDEFAULT,     
+        CW_USEDEFAULT,
         CW_USEDEFAULT,     // Size
-        CW_USEDEFAULT,     
+        CW_USEDEFAULT,
         NULL,              // Parent window
         NULL,              // Menu
         hInstance,         // Handle to instance
-        this);             // Pointer to window creation data 
+        this);             // Pointer to window creation data
     // (Allows us to store the 'this' pointer)
 
     // If it failed
@@ -166,7 +169,7 @@ CWindow::CWindow(HINSTANCE hInstance, const char *pWindowTitle, int IconResource
 CWindow::~CWindow()
 {
     // If the window exists
-#ifdef DIRECTX_VIDEO
+#ifdef DIRECTX
     if (m_hWnd != NULL)
     {
         // Destroy the window
@@ -186,7 +189,7 @@ CWindow::~CWindow()
 
 void CWindow::SetClientSize(int ClientWidth, int ClientHeight)
 {
-#ifdef DIRECTX_VIDEO
+#ifdef DIRECTX
     RECT rc;
     SetRect (&rc, 0, 0, ClientWidth, ClientHeight);
     AdjustWindowRectEx (&rc, GetWindowStyle(m_hWnd), (int)GetMenu (m_hWnd), GetWindowExStyle (m_hWnd));
@@ -243,8 +246,8 @@ void CWindow::WinProc (unsigned int msg, WPARAM wParam, LPARAM lParam)
 
 void CWindow::Show()
 {
-#ifdef DIRECTX_VIDEO
-    ShowWindow(m_hWnd, SW_SHOW); 
+#ifdef DIRECTX
+    ShowWindow(m_hWnd, SW_SHOW);
     UpdateWindow(m_hWnd);
 #endif
 }
@@ -276,12 +279,12 @@ void CWindow::MessagePump()
                 break;
             }
 
-            TranslateMessage (&msg); 
+            TranslateMessage (&msg);
             DispatchMessage (&msg);
         }
         // No message to manage ?
         else
-        {           
+        {
             if (m_Active)
             {
                 // call the virtual activity method
@@ -406,7 +409,7 @@ void CWindow::OnInitDialog(WPARAM wParam, LPARAM lParam)
 //******************************************************************************************************************************
 
 
-// Handles the WM_ACTIVATEAPP message  (Sent when a window belonging to a different 
+// Handles the WM_ACTIVATEAPP message  (Sent when a window belonging to a different
 // application than the active window is about to be activated)
 
 void CWindow::OnActivateApp(WPARAM wParam, LPARAM lParam)
@@ -428,7 +431,7 @@ void CWindow::OnActivateApp(WPARAM wParam, LPARAM lParam)
 void CWindow::OnSize(WPARAM wParam, LPARAM lParam)
 {
     // Check to see if we are losing our window...
-#ifdef DIRECTX_VIDEO
+#ifdef DIRECTX
     m_Active = (wParam != SIZE_MAXHIDE && wParam != SIZE_MINIMIZED);
 #endif
 }
@@ -456,7 +459,7 @@ void CWindow::OnMove(WPARAM wParam, LPARAM lParam)
 //******************************************************************************************************************************
 
 
-// Handles the WM_PAINT message (Sent when Windows or another application makes a 
+// Handles the WM_PAINT message (Sent when Windows or another application makes a
 // request to paint a portion of the application's window)
 
 void CWindow::OnPaint(WPARAM wParam, LPARAM lParam)
@@ -472,7 +475,7 @@ void CWindow::OnPaint(WPARAM wParam, LPARAM lParam)
 
 
 
-// Handles the WM_KEYDOWN message (Posted to the window with the keyboard focus when 
+// Handles the WM_KEYDOWN message (Posted to the window with the keyboard focus when
 // a nonsystem key is pressed (ALT not pressed)).
 
 void CWindow::OnKeyDown(WPARAM wParam, LPARAM lParam)
@@ -488,7 +491,7 @@ void CWindow::OnKeyDown(WPARAM wParam, LPARAM lParam)
 
 
 
-// Handles the WM_KEYUP message (Posted to the window with the keyboard focus when 
+// Handles the WM_KEYUP message (Posted to the window with the keyboard focus when
 // a nonsystem key is released (ALT not pressed)).
 
 void CWindow::OnKeyUp(WPARAM wParam, LPARAM lParam)
@@ -504,7 +507,7 @@ void CWindow::OnKeyUp(WPARAM wParam, LPARAM lParam)
 
 
 
-// Handles the WM_TIMER message (Sent after each interval specified in the SetTimer 
+// Handles the WM_TIMER message (Sent after each interval specified in the SetTimer
 // function used to install a timer).
 
 void CWindow::OnTimer(WPARAM wParam, LPARAM lParam)
@@ -520,8 +523,8 @@ void CWindow::OnTimer(WPARAM wParam, LPARAM lParam)
 
 
 
-// Handles the WM_COMMAND message (Sent when the user selects a command item from a 
-// menu, when a control sends a notification message to its parent window, or when an 
+// Handles the WM_COMMAND message (Sent when the user selects a command item from a
+// menu, when a control sends a notification message to its parent window, or when an
 // accelerator keystroke is translated)
 
 void CWindow::OnCommand(WPARAM wParam, LPARAM lParam)
@@ -536,8 +539,8 @@ void CWindow::OnCommand(WPARAM wParam, LPARAM lParam)
 
 
 
-// Handles the WM_SYSCOMMAND message (A window receives this message when the user 
-// chooses a command from the window menu (also known as the System menu or Control 
+// Handles the WM_SYSCOMMAND message (A window receives this message when the user
+// chooses a command from the window menu (also known as the System menu or Control
 // menu) or when the user chooses the Maximize button or Minimize button.)
 // Returns whether to call the default window proc or not after handling this message
 
@@ -553,12 +556,12 @@ bool CWindow::OnSysCommand(WPARAM wParam, LPARAM lParam)
 
 
 
-// Handles the WM_CLOSE message (Sent as a signal that a window or an application 
-// should terminate) 
+// Handles the WM_CLOSE message (Sent as a signal that a window or an application
+// should terminate)
 
 void CWindow::OnClose(WPARAM wParam, LPARAM lParam)
 {
-#ifdef DIRECTX_VIDEO
+#ifdef DIRECTX
     DestroyWindow (m_hWnd); // Posts WM_DESTROY
 #endif
 }
@@ -571,13 +574,13 @@ void CWindow::OnClose(WPARAM wParam, LPARAM lParam)
 
 
 
-// Handles the WM_DESTROY message (Sent when a window is being destroyed. It is sent 
-// to the window procedure of the window being destroyed after the window is removed 
-// from the screen) 
+// Handles the WM_DESTROY message (Sent when a window is being destroyed. It is sent
+// to the window procedure of the window being destroyed after the window is removed
+// from the screen)
 
 void CWindow::OnDestroy(WPARAM wParam, LPARAM lParam)
 {
-#ifdef DIRECTX_VIDEO
+#ifdef DIRECTX
     PostQuitMessage (0); // Posts WM_QUIT
 #endif
 }

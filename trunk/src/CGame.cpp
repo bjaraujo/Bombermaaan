@@ -31,10 +31,9 @@
  */
 
 #ifdef ALLEGRO
-    #inlcude "alegro.h"
-#endif
-
-#ifdef SDL
+    #include "allegro.h"
+    #include "winalleg.h"
+#else
     #include "SDL.h"
 #endif
 
@@ -97,7 +96,7 @@ CGame::CGame(HINSTANCE hInstance, const char* pCommandLine)
     : CWindow(hInstance, pCommandLine, IDI_BOMBER)
 #else
 CGame::CGame (HINSTANCE hInstance, char** pCommandLine)
-    : CWindow (hInstance, "Bomberman", IDI_BOMBER)
+    : CWindow (hInstance, "Bombermaaan", IDI_BOMBER)
 #endif
 {
     m_GameMode = GAMEMODE_NONE;
@@ -113,10 +112,10 @@ CGame::CGame (HINSTANCE hInstance, char** pCommandLine)
     // Set the window title
     //
 
-    std::string windowTitle = "Bombermaaan ";
+    std::string windowTitle = "Bombermaaan";
 
+    windowTitle.append(" ");
     windowTitle.append(APP_VERSION_INFO);
-
     windowTitle.append(" - Compiled ");
 
     // At the end, the windowTitle is "... - Compiled YYYY-MM-DD"
@@ -170,7 +169,7 @@ CGame::CGame (HINSTANCE hInstance, char** pCommandLine)
         windowTitle.append(__DATE__ + 4, 2);
     }
 
-#ifdef DIRECTX_VIDEO
+#ifdef DIRECTX
     SetWindowText(m_hWnd, windowTitle.c_str());
 #else
     // keep the window text in mind
@@ -517,31 +516,30 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
     }
 #endif
 
-#ifdef ALLEGRO
-
+#ifdef SDL
+    if ((SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_JOYSTICK) == -1))
+    {
+        theLog.WriteLine("Game            => !!! Could not initialise SDL library");
+        theLog.LogLastError();
+        return false;
+    }
+#elif ALLEGRO
     allegro_init();
 
     install_timer();
     install_keyboard();
     install_joystick(JOY_TYPE_AUTODETECT);
-    install_sound(DIGI_AUTODETECT, MIDI_DETECT, NULL);
+    install_sound(DIGI_AUTODETECT, MIDI_AUTODETECT, NULL);
 
     set_color_depth(32);
-
-#endif // ALLEGRO
-
-#ifdef SDL
-    #ifdef DIRECTX_VIDEO
-        if ((SDL_Init(SDL_INIT_AUDIO) == -1)) // in WIN32 we need AUDIO for SDL_mixer (replacing FMOD)
-    #else
-        if ((SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_JOYSTICK) == -1))
-    #endif // DIRECTX_VIDEO
-        {
-            theLog.WriteLine("Game            => !!! Could not initialise SDL library");
-            theLog.LogLastError();
-            return false;
-        }
-#endif // SDL
+#elif DIRECTX
+    if ((SDL_Init(SDL_INIT_AUDIO) == -1))
+    {
+        theLog.WriteLine("Game            => !!! Could not initialise SDL library");
+        theLog.LogLastError();
+        return false;
+    }
+#endif
 
     if (!m_Options.Create(useAppDataFolder, dynamicDataFolder, pgmDirectory))
     {
@@ -564,17 +562,12 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
     m_Display.SetModuleHandle(m_hModule);
 #else
     m_Display.SetModuleHandle (NULL);
-#endif
+#endif // WIN32
 
-#ifdef ALLEGRO
-
+#ifdef SDL
+    SDL_WM_SetCaption(m_WindowTitle.c_str(), NULL);
+#elif ALLEGRO
     set_window_title(m_WindowTitle.c_str());
-
-#else
-
-    #ifndef DIRECTX_VIDEO
-        SDL_WM_SetCaption(m_WindowTitle.c_str(), NULL);
-    #endif
 #endif
 
     // Set the objects the match object has to communicate with
@@ -831,14 +824,10 @@ void CGame::Destroy(void)
 
     theDebug.Destroy();
 
-#ifdef ALLEGRO
-
+#ifdef SDL
+    SDL_Quit(); // shut down SDL library
+#elif ALLEGRO
     allegro_exit();
-
-#else
-
-    SDL_Quit(); // shutdown SDL library
-
 #endif
 
     // If there is a connection to the resources
@@ -847,7 +836,7 @@ void CGame::Destroy(void)
         // Close the connection to the resources
 #ifdef WIN32
         FreeLibrary(m_hModule);
-#endif
+#endif // WIN32
         m_hModule = NULL;
     }
 
@@ -985,24 +974,18 @@ void CGame::StartGameMode(EGameMode GameMode)
         // set when exiting.
         m_Display.Create(DISPLAYMODE_WINDOWED);
 
-#ifdef ALLEGRO
+    #ifdef SDL
+        SDL_Event quitevent;
 
-        set_close_button_callback();
+        quitevent.type = SDL_QUIT;
+        quitevent.quit.type = SDL_QUIT;
 
-#else
-
-        // Close the window
-        #ifdef DIRECTX_VIDEO
-            PostMessage(m_hWnd, WM_CLOSE, 0, 0);
-        #else
-            SDL_Event quitevent;
-
-            quitevent.type = SDL_QUIT;
-            quitevent.quit.type = SDL_QUIT;
-
-            SDL_PushEvent(&quitevent);
-        #endif
-#endif
+        SDL_PushEvent(&quitevent);
+    #elif ALLEGRO
+        //set_close_button_callback();
+    #elif DIRECTX
+        PostMessage(m_hWnd, WM_CLOSE, 0, 0);
+    #endif
 
     }
     // If we don't have to exit the game
@@ -1154,34 +1137,41 @@ void CGame::OnKeyUp(WPARAM wParam, LPARAM lParam)
         // Assume we have to change the display mode
         bool SetDisplayMode = true;
 
-#ifdef ALLEGRO
-
+    #ifdef SDL
+        //! Change display mode if this is a F1-F4 key
+        switch (wParam)
+        {
+            //! Display modes #1 and #2 are not available in the 32-pixels version
+            //! since the screen isn't large enough (so disable F1 and F2 keys)
+        case SDLK_F3:
+            DisplayMode = DISPLAYMODE_FULL3;
+            break;
+        case SDLK_F4:
+            DisplayMode = DISPLAYMODE_WINDOWED;
+            break;
+        default:
+            SetDisplayMode = false;
+            break;
+        }
+    #elif ALLEGRO
         // TODO:
-
-#else
-
-    #ifdef DIRECTX_VIDEO
-            //! Change display mode if this is a F1-F4 key
-            switch (wParam)
-            {
-                //! Display modes #1 and #2 are not available in the 32-pixels version
-                //! since the screen isn't large enough (so disable F1 and F2 keys)
-            case VK_F3: DisplayMode = DISPLAYMODE_FULL3; break;
-            case VK_F4: DisplayMode = DISPLAYMODE_WINDOWED; break;
-            default: SetDisplayMode = false; break;
-            }
-    #else
-            //! Change display mode if this is a F1-F4 key
-            switch (wParam)
-            {
-                //! Display modes #1 and #2 are not available in the 32-pixels version
-                //! since the screen isn't large enough (so disable F1 and F2 keys)
-            case SDLK_F3: DisplayMode = DISPLAYMODE_FULL3; break;
-            case SDLK_F4: DisplayMode = DISPLAYMODE_WINDOWED; break;
-            default: SetDisplayMode = false; break;
-            }
+    #elif DIRECTX
+        //! Change display mode if this is a F1-F4 key
+        switch (wParam)
+        {
+            //! Display modes #1 and #2 are not available in the 32-pixels version
+            //! since the screen isn't large enough (so disable F1 and F2 keys)
+        case VK_F3:
+            DisplayMode = DISPLAYMODE_FULL3;
+            break;
+        case VK_F4:
+            DisplayMode = DISPLAYMODE_WINDOWED;
+            break;
+        default:
+            SetDisplayMode = false;
+            break;
+        }
     #endif
-#endif
 
         // If we have to change the display mode
         // and the new display mode to set is available on the graphic card

@@ -202,7 +202,7 @@ private:
     char                    m_KeyState[MAX_KEYS];          //!< State of each key on the system keyboard
     char                    m_KeyFriendlyName[MAX_KEYS][MAX_PATH]; //!< More friendly name for each key
 
-    vector<SJoystick*>      m_pJoysticks;   //!< All joystick SDLInput devices installed in the system
+    std::vector<SJoystick*> m_pJoysticks;   //!< All joystick SDLInput devices installed in the system
 
     bool                    UpdateDevice(void *pState, int StateSize);
     bool                    UpdateDevice(SDL_Joystick *pDevice, void *pState, int StateSize);

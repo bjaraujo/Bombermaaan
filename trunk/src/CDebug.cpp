@@ -42,7 +42,7 @@ CDebug::CDebug()
 {
     m_pTimer = NULL;
     m_pGame = NULL;
-    
+
     m_pMatch = NULL;
     m_GameSpeed = 0.0f;
     m_CanBombersDie = true;
@@ -51,7 +51,7 @@ CDebug::CDebug()
 
     for (int i = 0; i < 5; i++)
         m_IsComputerConsoleActive[i] = false;
-    
+
 }
 
 //******************************************************************************************************************************
@@ -60,7 +60,7 @@ CDebug::CDebug()
 
 CDebug::~CDebug()
 {
-    
+
 }
 
 //******************************************************************************************************************************
@@ -68,7 +68,7 @@ CDebug::~CDebug()
 //******************************************************************************************************************************
 
 void CDebug::Create()
-{   
+{
     ASSERT(m_pTimer != NULL);
     ASSERT(m_pGame != NULL);
     ASSERT(m_pMatch != NULL);
@@ -91,7 +91,7 @@ void CDebug::Create()
 //******************************************************************************************************************************
 
 void CDebug::Destroy()
-{   
+{
     // Reset the game speed to normal
     m_pTimer->SetSpeed (1.0f);
 }
@@ -126,7 +126,7 @@ CDebug& CDebug::GetInstance()
  *  START OR RESTART A MATCH
  *  Press the F1 key
  *  You may run out of bombs if you do this to often. Example: one bomber is holding a bomb
- *  while restarting the match by pressing Ctrl+F1. This is because m_BombsInUse of CArena is 
+ *  while restarting the match by pressing Ctrl+F1. This is because m_BombsInUse of CArena is
  *  not reduced.
  *  I guess it can't happen in a 'normal' game because the bomber throws his bomb when he dies or
  *  he is the winner of the match. At least I couldn't recreate this issue in a 'normal' game.
@@ -151,58 +151,58 @@ void CDebug::HandleKey (DWORD VirtualKeyCode, DWORD Modifier)
 #endif
     {
         switch (VirtualKeyCode)
-        {            
+        {
 
-#ifdef DIRECTX_VIDEO
+#ifdef DIRECTX
         case VK_MULTIPLY:
 #else
         case SDLK_KP_MULTIPLY:
 #endif
             {
                 m_GameSpeed = 5.0f;
-            
+
                 // Set the new game speed
                 m_pTimer->SetSpeed (m_GameSpeed);
 
                 break;
             }
-        
-#ifdef DIRECTX_VIDEO
+
+#ifdef DIRECTX
             case VK_DIVIDE:
 #else
             case SDLK_KP_DIVIDE:
 #endif
             {
                 m_GameSpeed = 0.2f;
-            
+
                 // Set the timer speed
                 m_pTimer->SetSpeed (m_GameSpeed);
 
                 break;
             }
 
-#ifdef DIRECTX_VIDEO
+#ifdef DIRECTX
             case VK_RETURN:
 #else
             case SDLK_RETURN:
 #endif
             {
                 m_GameSpeed = 1.0f;
-            
+
                 // Set the timer speed
                 m_pTimer->SetSpeed (m_GameSpeed);
 
                 break;
             }
-        
-#ifdef DIRECTX_VIDEO
+
+#ifdef DIRECTX
             case VK_ADD:
 #else
             case SDLK_PLUS:
 #endif
             {
                 m_GameSpeed += 0.2f;
-            
+
                 if (m_GameSpeed > 5.0f)
                 {
                     m_GameSpeed = 5.0f;
@@ -214,14 +214,14 @@ void CDebug::HandleKey (DWORD VirtualKeyCode, DWORD Modifier)
                 break;
             }
 
-#ifdef DIRECTX_VIDEO
+#ifdef DIRECTX
             case VK_SUBTRACT:
 #else
             case SDLK_MINUS:
 #endif
             {
                 m_GameSpeed -= 0.2f;
-            
+
                 if (m_GameSpeed < 0.0f)
                 {
                     m_GameSpeed = 0.0f;
@@ -233,7 +233,7 @@ void CDebug::HandleKey (DWORD VirtualKeyCode, DWORD Modifier)
                 break;
             }
 
-#ifdef DIRECTX_VIDEO
+#ifdef DIRECTX
             case VK_F1:
 #else
             case SDLK_F1:
@@ -244,7 +244,7 @@ void CDebug::HandleKey (DWORD VirtualKeyCode, DWORD Modifier)
                 break;
             }
 
-#ifdef DIRECTX_VIDEO
+#ifdef DIRECTX
             case VK_F2:
 #else
             case SDLK_F2:
@@ -252,12 +252,12 @@ void CDebug::HandleKey (DWORD VirtualKeyCode, DWORD Modifier)
             {
                 // Make the bombers invulnerable or not
                 m_CanBombersDie = !m_CanBombersDie;
-                
+
                 break;
             }
 
 #ifdef _DEBUG_FLAG_1
-#ifdef DIRECTX_VIDEO
+#ifdef DIRECTX
             case VK_F5:
 #else
             case SDLK_F5:

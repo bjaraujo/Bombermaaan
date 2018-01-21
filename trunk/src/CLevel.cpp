@@ -110,8 +110,8 @@ bool CLevel::LoadFromFile()
     bool ErrorOccurred = false;
 
     // Open the existing level file for reading
-    ifstream in;
-    in.open(m_FilenameFull.c_str(), ios_base::in);
+    std::ifstream in;
+    in.open(m_FilenameFull.c_str(), std::ios_base::in);
 
     // If it failed
     if (!in.is_open())
@@ -123,10 +123,10 @@ bool CLevel::LoadFromFile()
 
 
     // This is the first line for the level files beginning with version 2 (therefore "V2plus")
-    string headerV2plus("; Bombermaaan level file version=");
+    std::string headerV2plus("; Bombermaaan level file version=");
 
-    string s;
-    getline(in, s);
+    std::string s;
+    std::getline(in, s);
     int LevelVersion;
 
     // When header string is found at the beginning of the string, find() returns 0 (offset 0)
@@ -192,25 +192,25 @@ bool CLevel::LoadFromFile()
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CLevel::LoadVersion1(ifstream& File) {
+bool CLevel::LoadVersion1(std::ifstream& File) {
 
     bool StopReadingFile = false;
-    filebuf *pbuf = File.rdbuf();
+    std::filebuf *pbuf = File.rdbuf();
 
     // go to the beginning
-    pbuf->pubseekpos(0, ios::in);
+    pbuf->pubseekpos(0, std::ios::in);
 
     // For each line of characters to read
     for (int y = 0; y < ARENA_HEIGHT; y++)
     {
         // Buffer where we'll store one line of characters. We'll read the two EOL characters as well.
-        string Line;
+        std::string Line;
         int ReadBytes;
 
         // Read one line of characters (including the EOL chars)
         if (File.good())
         {
-            getline(File, Line);
+            std::getline(File, Line);
             ReadBytes = Line.size();
         }
         else
@@ -324,7 +324,7 @@ bool CLevel::LoadVersion2(std::string filename)
     SI_Error rc = iniFile.LoadFile(filename.c_str());
     if (rc < 0) return false;
 
-    string s;
+    std::string s;
     int value;
 
     // Read the width of the map and check whether it is allowed

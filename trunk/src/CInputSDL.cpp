@@ -73,7 +73,7 @@ CInputSDL::~CInputSDL (void)
 
 struct SEnumParam
 {
-    vector<SDL_Joystick *> pDevices;
+    std::vector<SDL_Joystick *> pDevices;
 };
 
 //******************************************************************************************************************************

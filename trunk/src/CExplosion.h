@@ -39,7 +39,7 @@ class CArenaSnapshot;
 //******************************************************************************************************************************
 
 //! Describe a flame created by an explosion.
-/*! 
+/*!
 This is used by the AI to scan all the flames of an explosion
 and by the explosion itself when displaying the flames.
 */
@@ -77,18 +77,18 @@ enum EBurnDirection
 
 //! Mode of the explosion : original style or new style
 /*!
-<B>New style</B> (not so good) : makes the explosions as up-to-date as 
-possible : the flame rays always go further until they are 
+<B>New style</B> (not so good) : makes the explosions as up-to-date as
+possible : the flame rays always go further until they are
 forced to stop. On each update the blocks where there are
 some flames and where the flame rays stop BURN. So if the
 explosion duration is too long, the explosion can burn a
 wall, and the item under it afterwards.
 
-<B>Original style</B> (Super Bomberman) : the flame sizes are 
-computed once when the explosion is created. These flames 
+<B>Original style</B> (Super Bomberman) : the flame sizes are
+computed once when the explosion is created. These flames
 can be shorter, but not longer than the computed flame sizes.
-The blocks where the flame rays stop BURN once. On each update 
-the blocks where there are flames BURN. So unlike the new 
+The blocks where the flame rays stop BURN once. On each update
+the blocks where there are flames BURN. So unlike the new
 style, the result does not depend on the explosion duration.
 */
 
@@ -98,7 +98,7 @@ style, the result does not depend on the explosion duration.
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-//! An element in the arena which represents an explosion. 
+//! An element in the arena which represents an explosion.
 
 class CExplosion : public CElement
 {
@@ -111,10 +111,10 @@ private:
     int             m_State;            //!< State of the explosion (min = STATE0, max = STATE3)
     float           m_Timer;            //!< Time counter for states evolution
     int             m_FlameSize;        //!< Maximum size of the rays of flames (in blocks)
-    vector<SFlame>  m_Flames;           //!< Flames created by the explosion
+    std::vector<SFlame>  m_Flames;           //!< Flames created by the explosion
     bool            m_Dead;             //!< Is the explosion dead? (can it be deleted by the arena?)
 
-#ifdef EXPLOSIONS_ORIGINALSTYLE         
+#ifdef EXPLOSIONS_ORIGINALSTYLE
 
     int             m_FlameSizeUp;      //!< Maximum flame size (in blocks) of the ray of flames which goes up
     int             m_FlameSizeDown;    //!< Maximum flame size (in blocks) of the ray of flames which goes down
@@ -124,14 +124,14 @@ private:
     bool            m_StopDown;         //!< Is the flame ray stopped by something is this direction?
     bool            m_StopLeft;         //!< Is the flame ray stopped by something is this direction?
     bool            m_StopRight;        //!< Is the flame ray stopped by something is this direction?
-                                        
+
 #endif // EXPLOSIONS_ORIGINALSTYLE
 
     void            Burn (int X, int Y, EBurnDirection BurnDirection);  //!< Globally burn the specified block (walls, unprotected items, ...)
     void            PutFlame (int BlockX, int BlockY, int FlameType);   //!< Record a flame whose description is specified
-                                                
-public:                                 
-               
+
+public:
+
                     CExplosion (void);          //!< Constructor (initialize the base class)
     virtual         ~CExplosion (void);         //!< Destructor (uninitialize the base class)
     void            Create (int BlockX, int BlockY, int FlameSize); //!< Initialize the explosion
@@ -142,26 +142,26 @@ public:
     void            OnReadSnapshot (CArenaSnapshot& Snapshot);
     inline int      GetBlockX (void);           //!< Return the block position X of the center of the explosion
     inline int      GetBlockY (void);           //!< Return the block position Y of the center of the explosion
-    inline const vector<SFlame>& GetFlames (void); //!< Return the (read-only) flames of the explosions
+    inline const std::vector<SFlame>& GetFlames (void); //!< Return the (read-only) flames of the explosions
 };
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline int CExplosion::GetBlockX (void) 
-{ 
-    return m_BlockX; 
+inline int CExplosion::GetBlockX (void)
+{
+    return m_BlockX;
 }
 
-inline int CExplosion::GetBlockY (void) 
-{ 
-    return m_BlockY; 
+inline int CExplosion::GetBlockY (void)
+{
+    return m_BlockY;
 }
 
-inline const vector<SFlame>& CExplosion::GetFlames (void) 
-{ 
-    return m_Flames; 
+inline const std::vector<SFlame>& CExplosion::GetFlames (void)
+{
+    return m_Flames;
 }
 
 //******************************************************************************************************************************

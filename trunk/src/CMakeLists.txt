@@ -163,6 +163,10 @@ source_group("Source Files" FILES ${BOMBERMAAAN_SOURCES} ${BOMBERMAAAN_DX_SOURCE
 find_package(SDL REQUIRED)
 find_package(SDL_mixer REQUIRED)
 
+if(USE_ALLEGRO)
+find_package(Allegro4 REQUIRED)
+endif(USE_ALLEGRO)
+
 if(NETWORK_MODE)
     find_package(SDL_net REQUIRED)
 endif(NETWORK_MODE)
@@ -173,26 +177,26 @@ if(CRASH_REPORT)
     endif(WIN32)
 endif(CRASH_REPORT)
 
+set(BOMBERMAAAN_INCLUDE_DIRS
+    ${SDL_INCLUDE_DIR}
+    ${SDL_MIXER_INCLUDE_DIRS}
+)
+
+if(USE_ALLEGRO)
+    list(APPEND BOMBERMAAAN_INCLUDE_DIRS ${ALLEGRO_INCLUDE_DIR})    
+    add_definitions(-DNOGDI)
+endif(USE_ALLEGRO)
+
 if(NETWORK_MODE)
-    include_directories(
-        ${SDL_INCLUDE_DIR}
-        ${SDL_MIXER_INCLUDE_DIRS}
-        ${SDL_NET_INCLUDE_DIRS}    
-    )
-else(NETWORK_MODE)
-    include_directories(
-        ${SDL_INCLUDE_DIR}
-        ${SDL_MIXER_INCLUDE_DIRS}
-    )
+    list(APPEND BOMBERMAAAN_INCLUDE_DIRS ${SDL_NET_INCLUDE_DIRS})    
 endif(NETWORK_MODE)
 
 if(CRASH_REPORT)
-    include_directories(
-        ${CRASHRPT_INCLUDE_DIR}
-    )
+    list(APPEND BOMBERMAAAN_INCLUDE_DIRS ${CRASHRPT_INCLUDE_DIR})    
 endif(CRASH_REPORT)
 
 include_directories(
+    ${BOMBERMAAAN_INCLUDE_DIRS}
     ${CMAKE_CURRENT_SOURCE_DIR}/../res
     ${CMAKE_CURRENT_SOURCE_DIR}/../dep/tinyxml
     ${CMAKE_CURRENT_SOURCE_DIR}/../dep/simpleini
@@ -217,18 +221,21 @@ if(MINGW)
     "<CMAKE_RC_COMPILER> <FLAGS> -O coff <DEFINES> -i <SOURCE> -o <OBJECT>")
 endif(MINGW)
 
-add_definitions(-DSDL)
+if(USE_SDL)
+    add_definitions(-DSDL)
+endif(USE_SDL)
+
+if(USE_ALLEGRO)
+    add_definitions(-DALLEGRO)
+    list(APPEND BOMBERMAAAN_LIBRARIES ${ALLEGRO_LIBRARY})    
+endif(USE_ALLEGRO)
 
 if(USE_DIRECTX)
-    add_definitions(-DDIRECTX_VIDEO -DDIRECTX_INPUT)
+    add_definitions(-DDIRECTX)
     list(APPEND BOMBERMAAAN_HEADERS ${BOMBERMAAAN_DX_HEADERS})
     list(APPEND BOMBERMAAAN_SOURCES ${BOMBERMAAAN_DX_SOURCES})
     list(APPEND BOMBERMAAAN_LIBRARIES ddraw dinput8 dxguid)    
 endif(USE_DIRECTX)
-
-if(USE_ALLEGRO)
-    add_definitions(-DALLEGRO)
-endif(USE_ALLEGRO)
 
 if(LOAD_RESOURCES_FROM_FILES)
     add_definitions(-DLOAD_RESOURCES_FROM_FILES)
