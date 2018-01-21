@@ -14,6 +14,7 @@ list(FIND GRAPHICS_LIBRARY_OPTION_VALUES ${GRAPHICS_LIBRARY_OPTION} GRAPHICS_LIB
 
 if(${GRAPHICS_LIBRARY_OPTION_INDEX} EQUAL 0)
   message("Use SDL only")
+  set(USE_SDL ON INTERNAL FORCE) 
 elseif(${GRAPHICS_LIBRARY_OPTION_INDEX} EQUAL 1)
   message("Use Allegro")
   set(USE_ALEGRO ON INTERNAL FORCE) 
@@ -35,5 +36,4 @@ add_subdirectory(resgen)
 endif(WIN32)
 
 #add_subdirectory(net)
-
 add_subdirectory(src)

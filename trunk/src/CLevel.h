@@ -41,7 +41,7 @@ enum EBlockType
     BLOCKTYPE_HARDWALL,            //!< There must be a hard wall here
     BLOCKTYPE_SOFTWALL,            //!< There must be a soft wall here
     BLOCKTYPE_RANDOM,              //!< There must be either a soft wall, or a free place here (random)
-    BLOCKTYPE_FREE,                //!< There must be a free place here 
+    BLOCKTYPE_FREE,                //!< There must be a free place here
     BLOCKTYPE_WHITEBOMBER,         //!< The white bomber must start here
     BLOCKTYPE_BLACKBOMBER,         //!< The black bomber must start here
     BLOCKTYPE_REDBOMBER,           //!< The red bomber must start here
@@ -53,7 +53,7 @@ enum EBlockType
     BLOCKTYPE_MOVEBOMB_UP,         //!< A bomb starts moving up if placed here
     BLOCKTYPE_ITEM_BOMB,           //!< A bomb item if placed here
     BLOCKTYPE_ITEM_FLAME,          //!< A flame item if placed here
-    BLOCKTYPE_ITEM_ROLLER,         //!< A roller item if placed here 
+    BLOCKTYPE_ITEM_ROLLER,         //!< A roller item if placed here
     BLOCKTYPE_ITEM_KICK,           //!< A kick item if placed here
     BLOCKTYPE_ITEM_THROW,          //!< A throw item if placed here
     BLOCKTYPE_ITEM_PUNCH,          //!< A punch item if placed here
@@ -116,15 +116,15 @@ class CLevel
 private:
 
     EBlockType          m_ArenaData[ARENA_WIDTH][ARENA_HEIGHT];         //!< Arena cells are walls etc.?
-    std::string         m_Filename_short;                               //!< The short level file name withouth path
-    std::string         m_Filename_full;                                //!< The full name of a level file including path
+    std::string         m_FilenameShort;                                //!< The short level file name withouth path
+    std::string         m_FilenameFull;                                 //!< The full name of a level file including path
     int                 m_NumberOfItemsInWalls[NUMBER_OF_ITEMS];        //!< The number of items in the soft walls
     int                 m_InitialBomberSkills[NUMBER_OF_BOMBERSKILLS];  //!< The initial bomber skills
 
-    bool                LoadVersion1(ifstream& File);                 //!< Load level file version 1
-    bool                LoadVersion2(std::string filename);           //!< Load level file version 2 (requiredRemoteFuse = false) or 3 (requiredRemoteFuse = true)
+    bool                LoadVersion1(ifstream& File);                         //!< Load level file version 1
+    bool                LoadVersion2(std::string filename);                   //!< Load level file version 2 (requiredRemoteFuse = false) or 3 (requiredRemoteFuse = true)
     bool                CheckMaxNumberOfItems(unsigned int *sumOfMaxItems);   //!< Check if number of max items is valid
-    bool                Validate();                                     //!< Check if this level is valid
+    bool                Validate();                                           //!< Check if this level is valid
 
 public:
 
@@ -132,8 +132,8 @@ public:
     ~CLevel(void);                                 //!< Destructor.
     bool                LoadFromFile();                                 //!< Load game level data from the file.
     inline EBlockType   GetBlockType(int X, int Y);
-    inline int            GetNumberOfItemsInWalls(EItemType ItemType);
-    inline int            GetInitialBomberSkills(EBomberSkills BomberSkill);
+    inline int          GetNumberOfItemsInWalls(EItemType ItemType);
+    inline int          GetInitialBomberSkills(EBomberSkills BomberSkill);
     inline const char*  GetLevelName(void);
 };
 
@@ -165,7 +165,7 @@ inline int CLevel::GetInitialBomberSkills(EBomberSkills BomberSkill)
 
 inline const char* CLevel::GetLevelName(void)
 {
-    return m_Filename_short.c_str();
+    return m_FilenameShort.c_str();
 }
 
 //******************************************************************************************************************************

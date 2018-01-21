@@ -97,7 +97,7 @@ public:
 
                     CMainInput (void);
                     ~CMainInput (void);
-    inline InputClass* GetDirectInput (void);
+    inline InputClass* GetInput (void);
     inline void     SetInput (InputClass* pDirectInput);
     inline void     SetTimer (CTimer* pTimer);
     void            Create (void);
@@ -120,7 +120,7 @@ public:
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline InputClass* CMainInput::GetDirectInput (void)
+inline InputClass* CMainInput::GetInput (void)
 {
     return m_pDirectInput;
 }

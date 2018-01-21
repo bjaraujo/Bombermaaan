@@ -32,7 +32,9 @@
 
 #ifdef ALLEGRO
     #inlcude "alegro.h"
-#else
+#endif
+
+#ifdef SDL
     #include "SDL.h"
 #endif
 
@@ -526,18 +528,20 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
 
     set_color_depth(32);
 
-#else
+#endif // ALLEGRO
+
+#ifdef SDL
     #ifdef DIRECTX_VIDEO
         if ((SDL_Init(SDL_INIT_AUDIO) == -1)) // in WIN32 we need AUDIO for SDL_mixer (replacing FMOD)
     #else
         if ((SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_JOYSTICK) == -1))
-    #endif
+    #endif // DIRECTX_VIDEO
         {
             theLog.WriteLine("Game            => !!! Could not initialise SDL library");
             theLog.LogLastError();
             return false;
         }
-#endif
+#endif // SDL
 
     if (!m_Options.Create(useAppDataFolder, dynamicDataFolder, pgmDirectory))
     {
@@ -1283,14 +1287,14 @@ void CGame::OnJoystickAxis(WPARAM wParam, LPARAM lParam)
     else return;
 
     CMainInput m_pMainInput = m_Input.GetMainInput();
-    CInputSDL *m_pDirectInput = m_pMainInput.GetDirectInput();
+    CInputSDL *m_pInput = m_pMainInput.GetInput();
 
     // update main menu input
     if (jaxis->axis == 0) { // X axis
-        m_pDirectInput->SetJoystickAxisX(jaxis->which, jaxis->value);
+        m_pInput->SetJoystickAxisX(jaxis->which, jaxis->value);
     }
     else if (jaxis->axis == 1) { // Y axis
-        m_pDirectInput->SetJoystickAxisY(jaxis->which, jaxis->value);
+        m_pInput->SetJoystickAxisY(jaxis->which, jaxis->value);
     }
 
     m_pMainInput.Update();
@@ -1300,13 +1304,13 @@ void CGame::OnJoystickAxis(WPARAM wParam, LPARAM lParam)
     int i = NUMBER_OF_KEYBOARD_CONFIGURATIONS + jaxis->which;
 
     m_pPlayerInput = m_Input.GetPlayerInput(i);
-    m_pDirectInput = m_pPlayerInput.GetDirectInput();
+    m_pInput = m_pPlayerInput.GetDirectInput();
 
     if (jaxis->axis == 0) { // X axis
-        m_pDirectInput->SetJoystickAxisX(jaxis->which, jaxis->value);
+        m_pInput->SetJoystickAxisX(jaxis->which, jaxis->value);
     }
     else if (jaxis->axis == 1) { // Y axis
-        m_pDirectInput->SetJoystickAxisY(jaxis->which, jaxis->value);
+        m_pInput->SetJoystickAxisY(jaxis->which, jaxis->value);
     }
 
     m_pPlayerInput.Update();
@@ -1332,7 +1336,7 @@ void CGame::OnJoystickButton(WPARAM wParam, LPARAM lParam)
 
     CMainInput m_pMainInput = m_Input.GetMainInput();
 
-    CInputSDL *m_pDirectInput = m_pMainInput.GetDirectInput();
+    CInputSDL *m_pDirectInput = m_pMainInput.GetInput();
 
     // update main menu input
     m_pDirectInput->SetJoystickButton(jbutton->which, jbutton->button,

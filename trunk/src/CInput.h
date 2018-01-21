@@ -77,7 +77,7 @@ public:
     void                    Destroy (void);                             //!< Uninitialize the object
     inline CMainInput&      GetMainInput (void);
 #ifdef DIRECTX_INPUT
-    inline CInputDX&    GetDirectInput (void);
+    inline CInputDX&        GetDirectInput (void);
 #else
     inline CInputSDL&       GetDirectInput (void);
 #endif

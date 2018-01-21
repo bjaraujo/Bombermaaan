@@ -21,7 +21,7 @@
     ************************************************************************************/
 
 /**
- *  \file CSDLInput.h
+ *  \file CInputSDL.h
  *  \brief Header file of the SDL input
  */
 
@@ -34,8 +34,8 @@
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-#define MAX_JOYSTICK_BUTTONS    32                      //!< Maximum number of buttons a joystick can have
-#define MAX_KEYS                SDLK_LAST               //!< Maximum number of keys a keyboard can have
+#define MAX_JOYSTICK_BUTTONS   32                       //!< Maximum number of buttons a joystick can have
+#define MAX_KEYS               SDLK_LAST                //!< Maximum number of keys a keyboard can have
 
 #define KEYBOARD_ESCAPE        SDLK_ESCAPE              //!< ID for the escape key
 #define KEYBOARD_1             SDLK_1                   //!< ID for the 1 key
@@ -154,7 +154,7 @@
 
 //! The third joystick button can be used for leaving the winner screen
 #define JOYSTICK_BUTTON_MENU_PREVIOUS   JOYSTICK_BUTTON(1)
-#define JOYSTICK_BUTTON_MENU_NEXT        JOYSTICK_BUTTON(0)
+#define JOYSTICK_BUTTON_MENU_NEXT       JOYSTICK_BUTTON(0)
 
 //! The 9th joystick button (this usually is the "start" button) can be used for leaving the winner screen
 //! On xbox controller, the start button could be the 7th button (see tracker item #2907122)
@@ -208,7 +208,7 @@ private:
     bool                    UpdateDevice(SDL_Joystick *pDevice, void *pState, int StateSize);
     void                    MakeKeyFriendlyNames(void);
 
-    int                        m_joystickCount;
+    int                     m_joystickCount;
 
 public:
 
@@ -237,14 +237,14 @@ public:
     inline void             SetJoystickAxisY(int Joystick, int AxisY);
     inline void             SetJoystickButton(int Joystick, int Button, bool onoff);
 
-    inline bool                TestUp(int Joystick);
-    inline bool                TestDown(int Joystick);
-    inline bool                TestLeft(int Joystick);
-    inline bool                TestRight(int Joystick);
-    inline bool                TestNext(int Joystick);
-    inline bool                TestPrevious(int Joystick);
-    inline bool                TestBreak(int Joystick);
-    inline bool                TestStart(int Joystick);
+    inline bool             TestUp(int Joystick);
+    inline bool             TestDown(int Joystick);
+    inline bool             TestLeft(int Joystick);
+    inline bool             TestRight(int Joystick);
+    inline bool             TestNext(int Joystick);
+    inline bool             TestPrevious(int Joystick);
+    inline bool             TestBreak(int Joystick);
+    inline bool             TestStart(int Joystick);
 
 };
 

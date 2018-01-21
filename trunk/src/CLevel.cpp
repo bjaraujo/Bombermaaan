@@ -63,7 +63,9 @@
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CLevel::CLevel(std::string filename_full, std::string filename_short) : m_Filename_full(filename_full), m_Filename_short(filename_short)
+CLevel::CLevel(std::string filename_full, std::string filename_short) :
+    m_FilenameShort(filename_short),
+    m_FilenameFull(filename_full)
 {
 
     for (int i = 0; i < ARENA_WIDTH; i++)
@@ -109,12 +111,12 @@ bool CLevel::LoadFromFile()
 
     // Open the existing level file for reading
     ifstream in;
-    in.open(m_Filename_full.c_str(), ios_base::in);
+    in.open(m_FilenameFull.c_str(), ios_base::in);
 
     // If it failed
     if (!in.is_open())
     {
-        theLog.WriteLine("Options         => Loading level file %s failed.", m_Filename_full.c_str());
+        theLog.WriteLine("Options         => Loading level file %s failed.", m_FilenameFull.c_str());
         // Stop loading levels
         return false;
     }
@@ -146,13 +148,13 @@ bool CLevel::LoadFromFile()
         break;
 
     case 2:
-        if (!LoadVersion2(m_Filename_full)) {
+        if (!LoadVersion2(m_FilenameFull)) {
             ErrorOccurred = true;
         }
         break;
 
     default:
-        theLog.WriteLine("Options         => !!! Unsupported version of level file %s.", m_Filename_short.c_str());
+        theLog.WriteLine("Options         => !!! Unsupported version of level file %s.", m_FilenameShort.c_str());
         ErrorOccurred = true;
         break;
 
@@ -170,12 +172,12 @@ bool CLevel::LoadFromFile()
     // If there wasn't any problem
     if (!ErrorOccurred)
     {
-        theLog.WriteLine("Options         => Level file %s was successfully loaded (version %d).", m_Filename_short.c_str(), LevelVersion);
+        theLog.WriteLine("Options         => Level file %s was successfully loaded (version %d).", m_FilenameShort.c_str(), LevelVersion);
     }
     // If there was a problem
     else
     {
-        theLog.WriteLine("Options         => !!! Could not load level file %s (version %d).", m_Filename_short.c_str(), LevelVersion);
+        theLog.WriteLine("Options         => !!! Could not load level file %s (version %d).", m_FilenameShort.c_str(), LevelVersion);
     }
 
     // If we had to stop then there is a problem.
