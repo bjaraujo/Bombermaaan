@@ -647,6 +647,13 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
     m_Credits.SetTimer(&m_Timer);
     m_Credits.SetSound(&m_Sound);
 
+    // Set the objects the help object has to communicate with
+    m_Help.SetDisplay(&m_Display);
+    m_Help.SetInput(&m_Input);
+    m_Help.SetOptions(&m_Options);
+    m_Help.SetTimer(&m_Timer);
+    m_Help.SetSound(&m_Sound);
+
     // Set the objects the victory object has to communicate with
     m_MenuYesNo.SetDisplay(&m_Display);
     m_MenuYesNo.SetInput(&m_Input);
@@ -881,6 +888,7 @@ CModeScreen* CGame::GetGameModeObject(EGameMode GameMode)
     case GAMEMODE_VICTORY:  return &m_Victory;  break;
     case GAMEMODE_CONTROLS:  return &m_Controls; break;
     case GAMEMODE_GREETS:  return &m_Credits; break;
+    case GAMEMODE_HELP:  return &m_Help; break;
     case GAMEMODE_EXIT:  break;
     default:  break;
     }

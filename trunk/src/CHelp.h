@@ -1,6 +1,3 @@
-// This is an open source non-commercial project. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
-
 /************************************************************************************
 
     Copyright (C) 2000-2002, 2007 Thibaut Tollemer
@@ -24,80 +21,66 @@
 
 
 /**
- *  \file CRandomMosaic.cpp
- *  \brief A random mosaic
+ *  \file CControls.h
+ *  \brief Header file of the controls
  */
 
-#include "StdAfx.h"
-#include "CRandomMosaic.h"
-#include "CMosaic.h"
+#ifndef __CHELP_H__
+#define __CHELP_H__
+
+#include "CFont.h"
+#include "CModeScreen.h"
+
+class CDisplay;
+class CInput;
+class COptions;
+class CTimer;
+class CSound;
+class CMosaic;
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-SMosaicTileProperties CRandomMosaic::m_MosaicTileProperties [4][4] =
+//! The help screen.
+
+class CHelp : public CModeScreen
 {
-    // PURPLE
-    {
-        { 46, 0, 7, 12, 82, 41 },
-        { 47, 0, 7, 12, 82, 41 },
-        { 48, 0, 7, 12, 82, 41 }
-    },
-    
-    // GREEN
-    {
-        { 19, 0, 7, 12, 82, 41 },
-        { 51, 0, 7, 12, 82, 41 },
-        { 52, 0, 7, 12, 82, 41 }
-    },
+private:
 
-    // BLUE
-    {
-        { 29, 0, 7, 12, 82, 41 },
-        { 49, 0, 7, 12, 82, 41 },
-        { 50, 0, 7, 12, 82, 41 }
-    },
+    float           m_ModeTime;                 //!< Time (in seconds) that elapsed since the mode has started
+    bool            m_HaveToExit;               //!< Do we have to exit this mode?
+    float           m_ExitModeTime;             //!< Mode time when we realized we have to exit (used for blackscreen)
+    CFont           m_Font;                     //!< Font object used to draw strings
+    int             m_Cursor;                   //!< Number of the menu item the cursor hand is pointing to
+    bool            m_SongStarted;              //!< Did we start playing the song after the black screen?
+    CMosaic*        m_pMosaic;
 
-    // ORANGE
-    {
-        { 66, 0, 7, 12, 82, 41 },
-        { 67, 0, 7, 12, 82, 41 },
-        { 68, 0, 7, 12, 82, 41 }
-    }
+public:
 
+                    CHelp();                            //!< Constructor. Initialize some members.
+    virtual         ~CHelp();                           //!< Destructor. Does nothing.
+    inline void     SetDisplay (CDisplay *pDisplay);    //!< Set link to the display object to use
+    void            Create (void);                      //!< Initialize the object
+    void            Destroy (void);                     //!< Uninitialize the object
+    void            OpenInput (void);                   //!< Get access to the input this object needs
+    void            CloseInput (void);                  //!< Release access to the input this object needs
+    EGameMode       Update (void);                      //!< Update the object and return what game mode should be set
+    void            Display (void);                     //!< Display the game screen
 };
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CMosaic* CRandomMosaic::CreateRandomMosaic (CDisplay* pDisplay, 
-                                            int SpriteLayer, 
-                                            int PriorityInLayer, 
-                                            float SpeedX, 
-                                            float SpeedY, 
-                                            EMosaicColor Color)
+inline void CHelp::SetDisplay (CDisplay *pDisplay)
 {
-    SMosaicTileProperties* pMosaicTileProperties = &m_MosaicTileProperties[(int)Color][RANDOM(3)];    
-
-    CMosaic* pNewMosaic = new CMosaic;
-    
-    pNewMosaic->SetDisplay (pDisplay);
-    pNewMosaic->Create (pMosaicTileProperties->SpriteTable, 
-                        pMosaicTileProperties->Sprite, 
-                        SpriteLayer, 
-                        PriorityInLayer, 
-                        pMosaicTileProperties->Width, 
-                        pMosaicTileProperties->Height, 
-                        pMosaicTileProperties->CountX, 
-                        pMosaicTileProperties->CountY, 
-                        SpeedX,
-                        SpeedY);
-
-    return pNewMosaic;
+    CModeScreen::SetDisplay (pDisplay);
+    m_Font.SetDisplay (m_pDisplay);
 }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
+
+#endif  // __CHELP_H__

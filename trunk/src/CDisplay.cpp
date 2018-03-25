@@ -171,7 +171,10 @@ bool CDisplay::Create(int Width, int Height, bool FullScreen)
             !LoadSprites(4, 8, 42, 44, true, BMP_ARENA_BOMBER_STUNT) ||
             !LoadSprites(4, 1, 32, 32, true, BMP_ARENA_ARROWS) || // 63
             !LoadSprites(1, 1, 30, 32, true, BMP_MENU_HAND_TITLE) ||
-            !LoadSprites(3, 1, 32, 32, true, BMP_ARENA_REMOTE_BOMB)
+            !LoadSprites(3, 1, 32, 32, true, BMP_ARENA_REMOTE_BOMB) ||
+            !LoadSprites(1, 1, 82, 41, false, BMP_HELP_BACKGROUND_1) ||
+            !LoadSprites(1, 1, 82, 41, false, BMP_HELP_BACKGROUND_2) ||
+            !LoadSprites(1, 1, 82, 41, false, BMP_HELP_BACKGROUND_3)
             )
         {
             // Failure, get out (error is logged by the LoadSprites() method)
@@ -244,7 +247,10 @@ bool CDisplay::Create(int Width, int Height, bool FullScreen)
             !LoadSprites(4, 8, 42, 44, true, BMP_ARENA_BOMBER_STUNT, "arena_bomber_stunt.bmp") ||
             !LoadSprites(4, 1, 32, 32, true, BMP_ARENA_ARROWS, "arena_arrows.bmp") || // 63
             !LoadSprites(1, 1, 30, 32, true, BMP_MENU_HAND_TITLE, "menu_hand_title.bmp") ||
-            !LoadSprites(3, 1, 32, 32, true, BMP_ARENA_REMOTE_BOMB, "arena_remote_bomb.bmp")
+            !LoadSprites(3, 1, 32, 32, true, BMP_ARENA_REMOTE_BOMB, "arena_remote_bomb.bmp") ||
+            !LoadSprites(1, 1, 82, 41, false, BMP_HELP_BACKGROUND_1, "help_background_1.bmp") ||
+            !LoadSprites(1, 1, 82, 41, false, BMP_HELP_BACKGROUND_2, "help_background_2.bmp") ||
+            !LoadSprites(1, 1, 82, 41, false, BMP_HELP_BACKGROUND_3, "help_background_3.bmp")
             )
         {
             // Failure, get out (error is logged by the LoadSprites() method)

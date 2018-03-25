@@ -53,7 +53,8 @@ enum EMosaicColor
 {
     MOSAICCOLOR_PURPLE,
     MOSAICCOLOR_GREEN,
-    MOSAICCOLOR_BLUE
+    MOSAICCOLOR_BLUE,
+    MOSAICCOLOR_ORANGE
 };
 
 //******************************************************************************************************************************
@@ -64,7 +65,7 @@ class CRandomMosaic
 {
 private:
 
-    static SMosaicTileProperties m_MosaicTileProperties[3][3];
+    static SMosaicTileProperties m_MosaicTileProperties[4][4];
 
 public:
 

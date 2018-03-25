@@ -91,6 +91,9 @@
 #define BMP_ARENA_ARROWS                         1064
 #define BMP_MENU_HAND_TITLE                      1065
 #define BMP_ARENA_REMOTE_BOMB                    1066
+#define BMP_HELP_BACKGROUND_1                    1067
+#define BMP_HELP_BACKGROUND_2                    1068
+#define BMP_HELP_BACKGROUND_3                    1069
 
 #define SND_EXPLOSION_02_2                       2001
 #define SND_BOMBER_DEATH                         2002

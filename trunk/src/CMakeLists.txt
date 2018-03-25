@@ -29,6 +29,7 @@ CExplosion.h
 CFloor.h
 CFont.h
 CGame.h
+CHelp.h
 CHurryMessage.h
 CInput.h
 CInputSDL.h
@@ -93,6 +94,7 @@ CExplosion.cpp
 CFloor.cpp
 CFont.cpp
 CGame.cpp
+CHelp.cpp
 CHurryMessage.cpp
 CInput.cpp
 CInputSDL.cpp

@@ -139,6 +139,9 @@ BMP_ARENA_BOMBER_STUNT         BITMAP  DISCARDABLE     "images\\arena_bomber_stu
 BMP_ARENA_ARROWS               BITMAP  DISCARDABLE     "images\\arena_arrows.bmp"
 BMP_MENU_HAND_TITLE            BITMAP  DISCARDABLE     "images\\menu_hand_title.bmp"
 BMP_ARENA_REMOTE_BOMB          BITMAP  DISCARDABLE     "images\\arena_remote_bomb.bmp"
+BMP_HELP_BACKGROUND_1          BITMAP  DISCARDABLE     "images\\help_background_1.bmp"
+BMP_HELP_BACKGROUND_2          BITMAP  DISCARDABLE     "images\\help_background_2.bmp"
+BMP_HELP_BACKGROUND_3          BITMAP  DISCARDABLE     "images\\help_background_3.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //
