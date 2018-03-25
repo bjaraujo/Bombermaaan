@@ -23,6 +23,8 @@
 #ifndef __RESGEN_H__
 #define __RESGEN_H__
 
+#include <fstream>
+
 #include <stdio.h>
 #include <string.h>
 
@@ -59,11 +61,13 @@ enum {
     NUM_TYPES
 };
 
+using namespace std;
+
 // function prototypes
-void determineResourceCount(ifstream& rcfile, ifstream& hfile, int& rcBitmapCount, int& rcSoundCount, int& hBitmapCount, int& hSoundCount);
-bool buildResourceArrayWithHeader(int hBitmapCount, int hSoundCount, ifstream& hfile, filebuf *hbuf, int& bitmapNo, int& soundNo);
+void determineResourceCount(std::ifstream& rcfile, std::ifstream& hfile, int& rcBitmapCount, int& rcSoundCount, int& hBitmapCount, int& hSoundCount);
+bool buildResourceArrayWithHeader(int hBitmapCount, int hSoundCount, std::ifstream& hfile, filebuf *hbuf, int& bitmapNo, int& soundNo);
 int findResourceElement(int type, const char *name, int count);
-bool completeResourceArrayWithRC(int rcBitmapCount, int rcSoundCount, ifstream& rcfile, filebuf *rcbuf, int& bitmapNo, int& soundNo);
+bool completeResourceArrayWithRC(int rcBitmapCount, int rcSoundCount, std::ifstream& rcfile, filebuf *rcbuf, int& bitmapNo, int& soundNo);
 bool generateSourceCode(int hBitmapCount, int hSoundCount, int realBitmapCount, int realSoundCount);
 
 string RES_DIR;
