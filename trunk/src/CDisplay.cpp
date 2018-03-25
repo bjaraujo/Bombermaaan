@@ -125,7 +125,7 @@ bool CDisplay::Create(int Width, int Height, bool FullScreen)
             !LoadSprites(2, 1, 68, 96, false, BMP_DRAWGAME_FLAG) ||
             !LoadSprites(4, 1, 20, 62, true, BMP_DRAWGAME_FUMES) ||
             !LoadSprites(4, 5, 24, 32, true, BMP_WINNER_BOMBER) ||
-            !LoadSprites(1, 1, 64, 32, false, BMP_WINNER_BACKGROUND_1) ||
+            !LoadSprites(1, 1, 82, 41, false, BMP_WINNER_BACKGROUND_1) ||
             !LoadSprites(16, 1, 22, 22, true, BMP_WINNER_COIN) || // 20
             !LoadSprites(4, 1, 6, 6, true, BMP_WINNER_LIGHTS) ||
             !LoadSprites(4, 2, 16, 16, true, BMP_WINNER_SPARKS) ||
@@ -135,7 +135,7 @@ bool CDisplay::Create(int Width, int Height, bool FullScreen)
             !LoadSprites(14, 5, 36, 61, true, BMP_VICTORY_BOMBER) ||
             !LoadSprites(1, 1, 192, 60, true, BMP_VICTORY_TITLE) ||
             !LoadSprites(46, 6, 10, 10, true, BMP_GLOBAL_FONT) ||
-            !LoadSprites(1, 1, 64, 32, false, BMP_MENU_BACKGROUND_1) ||
+            !LoadSprites(1, 1, 82, 41, false, BMP_MENU_BACKGROUND_1) ||
             !LoadSprites(5, 2, 21, 19, true, BMP_MENU_BOMBER) || // 30
             !LoadSprites(1, 1, 420, 362, true, BMP_MENU_FRAME_1) ||
             !LoadSprites(2, 1, 15, 16, true, BMP_MENU_HAND) ||
@@ -152,7 +152,7 @@ bool CDisplay::Create(int Width, int Height, bool FullScreen)
             !LoadSprites(1, 1, 480, 126, true, BMP_TITLE_BOMBERS) ||
             !LoadSprites(1, 1, 298, 139, true, BMP_TITLE_TITLE) ||
             !LoadSprites(2, 6, 128, 26, true, BMP_TITLE_MENU_ITEMS) ||
-            !LoadSprites(1, 1, 64, 32, false, BMP_CONTROLS_BACKGROUND_1) ||
+            !LoadSprites(1, 1, 82, 41, false, BMP_CONTROLS_BACKGROUND_1) ||
             !LoadSprites(1, 1, 82, 41, false, BMP_CONTROLS_BACKGROUND_2) ||
             !LoadSprites(1, 1, 82, 41, false, BMP_CONTROLS_BACKGROUND_3) ||
             !LoadSprites(1, 1, 82, 41, false, BMP_MENU_BACKGROUND_2) ||
@@ -198,7 +198,7 @@ bool CDisplay::Create(int Width, int Height, bool FullScreen)
             !LoadSprites(2, 1, 68, 96, false, BMP_DRAWGAME_FLAG, "drawgame_flag.bmp") ||
             !LoadSprites(4, 1, 20, 62, true, BMP_DRAWGAME_FUMES, "drawgame_fumes.bmp") ||
             !LoadSprites(4, 5, 24, 32, true, BMP_WINNER_BOMBER, "winner_bomber.bmp") ||
-            !LoadSprites(1, 1, 64, 32, false, BMP_WINNER_BACKGROUND_1, "winner_background_1.bmp") ||
+            !LoadSprites(1, 1, 82, 41, false, BMP_WINNER_BACKGROUND_1, "winner_background_1.bmp") ||
             !LoadSprites(16, 1, 22, 22, true, BMP_WINNER_COIN, "winner_coin.bmp") || // 20
             !LoadSprites(4, 1, 6, 6, true, BMP_WINNER_LIGHTS, "winner_lights.bmp") ||
             !LoadSprites(4, 2, 16, 16, true, BMP_WINNER_SPARKS, "winner_sparks.bmp") ||
@@ -208,7 +208,7 @@ bool CDisplay::Create(int Width, int Height, bool FullScreen)
             !LoadSprites(14, 5, 36, 61, true, BMP_VICTORY_BOMBER, "victory_bomber.bmp") ||
             !LoadSprites(1, 1, 192, 60, true, BMP_VICTORY_TITLE, "victory_title.bmp") ||
             !LoadSprites(46, 6, 10, 10, true, BMP_GLOBAL_FONT, "global_font.bmp") ||
-            !LoadSprites(1, 1, 64, 32, false, BMP_MENU_BACKGROUND_1, "menu_background_1.bmp") ||
+            !LoadSprites(1, 1, 82, 41, false, BMP_MENU_BACKGROUND_1, "menu_background_1.bmp") ||
             !LoadSprites(5, 2, 21, 19, true, BMP_MENU_BOMBER, "menu_bomber.bmp") || // 30
             !LoadSprites(1, 1, 420, 362, true, BMP_MENU_FRAME_1, "menu_frame_1.bmp") ||
             !LoadSprites(2, 1, 15, 16, true, BMP_MENU_HAND, "menu_hand.bmp") ||
@@ -225,7 +225,7 @@ bool CDisplay::Create(int Width, int Height, bool FullScreen)
             !LoadSprites(1, 1, 480, 126, true, BMP_TITLE_BOMBERS, "title_bombers.bmp") ||
             !LoadSprites(1, 1, 298, 139, true, BMP_TITLE_TITLE, "title_title.bmp") ||
             !LoadSprites(2, 6, 128, 26, true, BMP_TITLE_MENU_ITEMS, "title_menu_items.bmp") ||
-            !LoadSprites(1, 1, 64, 32, false, BMP_CONTROLS_BACKGROUND_1, "controls_background_1.bmp") ||
+            !LoadSprites(1, 1, 82, 41, false, BMP_CONTROLS_BACKGROUND_1, "controls_background_1.bmp") ||
             !LoadSprites(1, 1, 82, 41, false, BMP_CONTROLS_BACKGROUND_2, "controls_background_2.bmp") ||
             !LoadSprites(1, 1, 82, 41, false, BMP_CONTROLS_BACKGROUND_3, "controls_background_3.bmp") ||
             !LoadSprites(1, 1, 82, 41, false, BMP_MENU_BACKGROUND_2, "menu_background_2.bmp") ||
