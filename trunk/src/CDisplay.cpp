@@ -151,7 +151,7 @@ bool CDisplay::Create(int Width, int Height, bool FullScreen)
             !LoadSprites(1, 1, 480, 442, false, BMP_TITLE_BACKGROUND) ||
             !LoadSprites(1, 1, 480, 126, true, BMP_TITLE_BOMBERS) ||
             !LoadSprites(1, 1, 298, 139, true, BMP_TITLE_TITLE) ||
-            !LoadSprites(2, 5, 128, 26, true, BMP_TITLE_MENU_ITEMS) ||
+            !LoadSprites(2, 6, 128, 26, true, BMP_TITLE_MENU_ITEMS) ||
             !LoadSprites(1, 1, 64, 32, false, BMP_CONTROLS_BACKGROUND_1) ||
             !LoadSprites(1, 1, 82, 41, false, BMP_CONTROLS_BACKGROUND_2) ||
             !LoadSprites(1, 1, 82, 41, false, BMP_CONTROLS_BACKGROUND_3) ||
@@ -224,7 +224,7 @@ bool CDisplay::Create(int Width, int Height, bool FullScreen)
             !LoadSprites(1, 1, 480, 442, false, BMP_TITLE_BACKGROUND, "title_background.bmp") ||
             !LoadSprites(1, 1, 480, 126, true, BMP_TITLE_BOMBERS, "title_bombers.bmp") ||
             !LoadSprites(1, 1, 298, 139, true, BMP_TITLE_TITLE, "title_title.bmp") ||
-            !LoadSprites(2, 5, 128, 26, true, BMP_TITLE_MENU_ITEMS, "title_menu_items.bmp") ||
+            !LoadSprites(2, 6, 128, 26, true, BMP_TITLE_MENU_ITEMS, "title_menu_items.bmp") ||
             !LoadSprites(1, 1, 64, 32, false, BMP_CONTROLS_BACKGROUND_1, "controls_background_1.bmp") ||
             !LoadSprites(1, 1, 82, 41, false, BMP_CONTROLS_BACKGROUND_2, "controls_background_2.bmp") ||
             !LoadSprites(1, 1, 82, 41, false, BMP_CONTROLS_BACKGROUND_3, "controls_background_3.bmp") ||

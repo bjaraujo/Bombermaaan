@@ -66,7 +66,7 @@
 #define TITLE_SPRITE_LAYER                      0
 #define TITLE_SPRITE_PRIORITY_IN_LAYER          2
 
-#define NUMBER_OF_MENU_ITEMS                    5
+#define NUMBER_OF_MENU_ITEMS                    6
 #define FIRST_MENU_ITEM                         0
 #define LAST_MENU_ITEM                          (NUMBER_OF_MENU_ITEMS - 1)
 #define FIRST_MENU_ITEM_POSITION_Y              180
@@ -94,7 +94,8 @@
 #define MENU_ITEM_DEMO                          1
 #define MENU_ITEM_OPTIONS                       2
 #define MENU_ITEM_CREDITS                       3
-#define MENU_ITEM_EXIT                          4
+#define MENU_ITEM_HELP                          4
+#define MENU_ITEM_EXIT                          5
 
 #define MAX_IDLE_TIME                            30.0f   // Duration (in seconds) of maximum idle time
 
@@ -261,6 +262,7 @@ EGameMode CTitle::Update (void)
                 case MENU_ITEM_DEMO    : m_ExitGameMode = GAMEMODE_DEMO;     break;
                 case MENU_ITEM_OPTIONS : m_ExitGameMode = GAMEMODE_CONTROLS; break;
                 case MENU_ITEM_CREDITS : m_ExitGameMode = GAMEMODE_GREETS;   break;
+                case MENU_ITEM_HELP    : m_ExitGameMode = GAMEMODE_HELP;     break;
                 case MENU_ITEM_EXIT    : m_ExitGameMode = GAMEMODE_EXIT;     break;
             }
 
