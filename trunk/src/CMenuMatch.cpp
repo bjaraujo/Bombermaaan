@@ -367,7 +367,7 @@ void CMenuMatch::OnDisplay (void)
                 m_pFont->Draw(INITIAL_TEXT_POSITION_X, PositionY, MODE_STRING);
 
                 // Set the right font text color and write the value of the field
-                m_pFont->SetTextColor(FONTCOLOR_BLUE);
+                m_pFont->SetTextColor(FONTCOLOR_YELLOW);
                 m_pFont->Draw(INITIAL_TEXT_POSITION_X + VALUE_TEXT_SPACE_X,
                     PositionY,
                     "%s",
@@ -382,7 +382,7 @@ void CMenuMatch::OnDisplay (void)
                 m_pFont->Draw (INITIAL_TEXT_POSITION_X, PositionY, BATTLE_STRING); 
                 
                 // Set the right font text color and write the value of the field
-                m_pFont->SetTextColor (FONTCOLOR_BLUE);
+                m_pFont->SetTextColor (FONTCOLOR_YELLOW);
                 m_pFont->Draw (INITIAL_TEXT_POSITION_X + VALUE_TEXT_SPACE_X, 
                                PositionY, 
                                "%d", 
@@ -397,7 +397,7 @@ void CMenuMatch::OnDisplay (void)
                 m_pFont->Draw (INITIAL_TEXT_POSITION_X, PositionY, TIMESTART_STRING); 
                 
                 // Set the right font text color and write the value of the field
-                m_pFont->SetTextColor (FONTCOLOR_BLUE);
+                m_pFont->SetTextColor (FONTCOLOR_YELLOW);
                 
                 // If there is no time start
                 if (m_pOptions->GetTimeStartMinutes() == 0 && m_pOptions->GetTimeStartSeconds() == 0)
@@ -425,7 +425,7 @@ void CMenuMatch::OnDisplay (void)
                 m_pFont->Draw (INITIAL_TEXT_POSITION_X, PositionY, TIMEUP_STRING); 
                 
                 // Set the right font text color and write the value of the field
-                m_pFont->SetTextColor (FONTCOLOR_BLUE);
+                m_pFont->SetTextColor (FONTCOLOR_YELLOW);
                 
                 // If there is no time up
                 if (m_pOptions->GetTimeUpMinutes() == 0 && m_pOptions->GetTimeUpSeconds() == 0)

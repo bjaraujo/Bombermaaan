@@ -534,7 +534,7 @@ void CControls::Display (void)
             if ((m_WaitingForInputAfter <= 0.0f && !m_WaitingForInput) || m_Cursor != MenuItemIndex)
             {
                 // Draw the name of the value corresponding to the menu item
-                m_Font.SetTextColor (FONTCOLOR_BLUE);
+                m_Font.SetTextColor (FONTCOLOR_YELLOW);
                 m_Font.Draw (ALL_MENU_ITEMS_POSITION_X + SPACE_X_FROM_MENU_ITEM_TO_VALUE, MenuItemPositionY, ValueString);
             }
             

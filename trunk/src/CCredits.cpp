@@ -136,7 +136,7 @@ void CCredits::Create (void)
                                                    MOSAIC_SPRITE_PRIORITY_IN_LAYER, 
                                                    MOSAIC_SPEED_X, 
                                                    MOSAIC_SPEED_Y, 
-                                                   MOSAICCOLOR_GREEN);
+                                                   MOSAICCOLOR_RED);
 }
     
 //******************************************************************************************************************************

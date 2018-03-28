@@ -298,7 +298,7 @@ void CMenuBomber::OnDisplay (void)
             case BOMBERTYPE_OFF :
             {
                 // Set the font text color and write the bomber type string
-                m_pFont->SetTextColor (FONTCOLOR_YELLOW);
+                m_pFont->SetTextColor (FONTCOLOR_RED);
                 m_pFont->Draw (INITIAL_TEXT_POSITION_X + TYPE_TEXT_SPACE_X, PositionY, BOMBERTYPE_OFF_STRING);
     
                 break;
@@ -307,7 +307,7 @@ void CMenuBomber::OnDisplay (void)
             case BOMBERTYPE_MAN :
             {
                 // Set the font text color and write the bomber type string
-                m_pFont->SetTextColor (FONTCOLOR_BLUE);
+                m_pFont->SetTextColor (FONTCOLOR_YELLOW);
                 m_pFont->Draw (INITIAL_TEXT_POSITION_X + TYPE_TEXT_SPACE_X, PositionY, BOMBERTYPE_MAN_STRING);
 
                 break;
@@ -316,7 +316,7 @@ void CMenuBomber::OnDisplay (void)
             case BOMBERTYPE_COM :
             {
                 // Set the font text color and write the bomber type string
-                m_pFont->SetTextColor (FONTCOLOR_RED);
+                m_pFont->SetTextColor (FONTCOLOR_BLUE);
                 m_pFont->Draw (INITIAL_TEXT_POSITION_X + TYPE_TEXT_SPACE_X, PositionY, BOMBERTYPE_COM_STRING);
 
                 break;

@@ -54,7 +54,7 @@ enum EMosaicColor
     MOSAICCOLOR_PURPLE,
     MOSAICCOLOR_GREEN,
     MOSAICCOLOR_BLUE,
-    MOSAICCOLOR_ORANGE
+    MOSAICCOLOR_RED
 };
 
 //******************************************************************************************************************************
