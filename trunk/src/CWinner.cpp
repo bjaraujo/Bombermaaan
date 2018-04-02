@@ -126,14 +126,6 @@
 #define CROSS_SPACE_X           1   //!< Space in pixels between a cross sprite position for one player
 #define CROSS_SPACE_Y           4   //!< and the bomber sprite position for the same player
 
-// Sprite table stuff
-#define WINNER_BOMBER_SPRITETABLE           18
-#define WINNER_COIN_SPRITETABLE             20
-#define WINNER_LIGHTS_SPRITETABLE           21
-#define WINNER_SPARKS_SPRITETABLE           22
-#define WINNER_TITLE_SPRITETABLE            23
-#define WINNER_CROSS_SPRITETABLE            33
-
 #define MOSAIC_SPRITE_LAYER                0           //!< Sprite layer where to draw the mosaic tiles
 #define MOSAIC_SPRITE_PRIORITY_IN_LAYER    0           //!< Priority to use in the sprite layer where to draw the mosaic tiles
 #define MOSAIC_SPEED_X              20.0f       //!< Speed of the scrolling background horizontally
@@ -505,7 +497,7 @@ void CWinner::Display (void)
                                 SCOREBOARD_TITLE_POSITION_Y,
                                 NULL,                            // Draw entire sprite
                                 NULL,                            // No need to clip
-                                WINNER_TITLE_SPRITETABLE,
+                                BMP_WINNER_TITLE,
                                 SCOREBOARD_SPRITE,
                                 WINNER_SPRITE_LAYER,
                                 WINNER_SCOREBOARD_PRIORITY);
@@ -524,7 +516,7 @@ void CWinner::Display (void)
                                     LIGHTS_FULLROW1_POSITION_Y,
                                     NULL,                            // Draw entire sprite
                                     NULL,                            // No need to clip
-                                    WINNER_LIGHTS_SPRITETABLE,
+                                    BMP_WINNER_LIGHTS,
                                     (m_LightSpriteOffset + Light) % LIGHTS_COLORS_COUNT,
                                     WINNER_SPRITE_LAYER,
                                     WINNER_LIGHTS_PRIORITY);
@@ -534,7 +526,7 @@ void CWinner::Display (void)
                                     LIGHTS_FULLROW2_POSITION_Y,
                                     NULL,                            // Draw entire sprite
                                     NULL,                            // No need to clip
-                                    WINNER_LIGHTS_SPRITETABLE,
+                                    BMP_WINNER_LIGHTS,
                                     (m_LightSpriteOffset + Light) % LIGHTS_COLORS_COUNT,
                                     WINNER_SPRITE_LAYER,
                                     WINNER_LIGHTS_PRIORITY);
@@ -544,7 +536,7 @@ void CWinner::Display (void)
                                     LIGHTS_FULLROW3_POSITION_Y,
                                     NULL,                            // Draw entire sprite
                                     NULL,                            // No need to clip
-                                    WINNER_LIGHTS_SPRITETABLE,
+                                    BMP_WINNER_LIGHTS,
                                     (m_LightSpriteOffset + Light) % LIGHTS_COLORS_COUNT,
                                     WINNER_SPRITE_LAYER,
                                     WINNER_LIGHTS_PRIORITY);
@@ -567,7 +559,7 @@ void CWinner::Display (void)
                                     LIGHTS_FULLCOLUMN1_POSITION_Y + Row * LIGHTS_SPACE_Y,
                                     NULL,                            // Draw entire sprite
                                     NULL,                            // No need to clip
-                                    WINNER_LIGHTS_SPRITETABLE,
+                                    BMP_WINNER_LIGHTS,
                                     (m_LightSpriteOffset + Light) % LIGHTS_COLORS_COUNT,
                                     WINNER_SPRITE_LAYER,
                                     WINNER_LIGHTS_PRIORITY);
@@ -577,7 +569,7 @@ void CWinner::Display (void)
                                     LIGHTS_FULLCOLUMN2_POSITION_Y + Row * LIGHTS_SPACE_Y,
                                     NULL,                            // Draw entire sprite
                                     NULL,                            // No need to clip
-                                    WINNER_LIGHTS_SPRITETABLE,
+                                    BMP_WINNER_LIGHTS,
                                     (m_LightSpriteOffset + Light) % LIGHTS_COLORS_COUNT,
                                     WINNER_SPRITE_LAYER,
                                     WINNER_LIGHTS_PRIORITY);
@@ -600,7 +592,7 @@ void CWinner::Display (void)
                                     LIGHTS_SEMICOLUMN_POSITION_Y + Row * LIGHTS_SPACE_Y,
                                     NULL,                            // Draw entire sprite
                                     NULL,                            // No need to clip
-                                    WINNER_LIGHTS_SPRITETABLE,
+                                    BMP_WINNER_LIGHTS,
                                     (m_LightSpriteOffset + Light) % LIGHTS_COLORS_COUNT,
                                     WINNER_SPRITE_LAYER,
                                     WINNER_LIGHTS_PRIORITY);
@@ -630,7 +622,7 @@ void CWinner::Display (void)
                                         BOMBER_INITIAL_POSITION_Y + Player * BOMBER_SPACE_Y,
                                         NULL,                            // Draw entire sprite
                                         NULL,                            // No need to clip
-                                        WINNER_BOMBER_SPRITETABLE,
+                                        BMP_WINNER_BOMBER,
                                         BomberSprite,       // Appropriate bomber sprite (color + happiness)
                                         WINNER_SPRITE_LAYER,
                                         WINNER_BOMBER_PRIORITY);
@@ -650,7 +642,7 @@ void CWinner::Display (void)
                                             COINS_INITIAL_POSITION_Y + Player * COINS_SPACE_Y,
                                             NULL,                            // Draw entire sprite
                                             NULL,                            // No need to clip
-                                            WINNER_COIN_SPRITETABLE,
+                                            BMP_WINNER_COIN,
                                             currentCoinSprite,
                                             WINNER_SPRITE_LAYER,
                                             WINNER_COIN_PRIORITY);
@@ -664,7 +656,7 @@ void CWinner::Display (void)
                                         BOMBER_INITIAL_POSITION_Y + CROSS_SPACE_Y + Player * BOMBER_SPACE_Y,
                                         NULL,                            // Draw entire sprite
                                         NULL,                            // No need to clip
-                                        WINNER_CROSS_SPRITETABLE,
+                                        BMP_WINNER_CROSS,
                                         Player,       // Appropriate color
                                         WINNER_SPRITE_LAYER,
                                         WINNER_CROSS_PRIORITY);

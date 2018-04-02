@@ -48,7 +48,6 @@
 
 #define FRAME_POSITION_X            30      //!< Position of the menu frame
 #define FRAME_POSITION_Y            52
-#define FRAME_SPRITETABLE           31      //!< Sprite table number of the menu frame
 #define FRAME_SPRITE                0       //!< Sprite number of the menu frame sprite 
 #define FRAME_PRIORITY              1       //!< Priority to use in the menu sprite layer when drawing the frame
 #define FRAME_SPRITELAYER           0       //!< Sprite layer where to draw the menu frame
@@ -216,7 +215,7 @@ void CMenuBase::Display (void)
                                 FRAME_POSITION_Y, 
                                 NULL, 
                                 NULL, 
-                                FRAME_SPRITETABLE, 
+                                BMP_MENU_FRAME_1, 
                                 FRAME_SPRITE, 
                                 FRAME_SPRITELAYER, 
                                 FRAME_PRIORITY);

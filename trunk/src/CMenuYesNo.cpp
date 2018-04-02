@@ -45,7 +45,6 @@
 
 #define CURSOR_HAND_SPACE_X         -25     //!< Space X to apply to text position to get the cursor hand sprite position X
 #define CURSOR_HAND_SPACE_Y         -2      //!< Space Y to apply to text position to get the cursor hand sprite position Y
-#define CURSOR_HAND_SPRITE_TABLE    32      //!< Sprite table of the cursor hand sprites
 #define CURSOR_HAND_SPRITE          0       //!< Sprite number to use for the cursor hand
 
 #define SPRITE_LAYER_FRAME          800     //!< Sprite layer where to draw the menu frame sprite
@@ -229,7 +228,7 @@ void CMenuYesNo::Display (void)
         m_pDisplay->SetOrigin (0, 0);
 
         // Draw the menu frame sprite
-        m_pDisplay->DrawSprite (164, 73, NULL, NULL, 39, 0, 800, -1);
+        m_pDisplay->DrawSprite (164, 73, NULL, NULL, BMP_MENU_FRAME_2, 0, 800, -1);
 
         m_Font.SetTextColor (FONTCOLOR_WHITE);
         m_Font.DrawCenteredX (0, VIEW_WIDTH, 93, m_Title);
@@ -238,15 +237,15 @@ void CMenuYesNo::Display (void)
                                 INITIAL_TEXT_POSITION_Y + (m_YesNo ? 0 : TEXT_SPACE_Y) + CURSOR_HAND_SPACE_Y,
                                 NULL,
                                 NULL,
-                                CURSOR_HAND_SPRITE_TABLE,
+                                BMP_MENU_HAND,
                                 CURSOR_HAND_SPRITE,
                                 801,
                                 -1);
     
-        m_Font.SetTextColor ((m_YesNo ? FONTCOLOR_YELLOW : FONTCOLOR_BLACK));
+        m_Font.SetTextColor ((m_YesNo ? FONTCOLOR_YELLOW : FONTCOLOR_WHITE));
         m_Font.Draw (INITIAL_TEXT_POSITION_X, INITIAL_TEXT_POSITION_Y, "YES");
     
-        m_Font.SetTextColor ((m_YesNo ? FONTCOLOR_BLACK : FONTCOLOR_YELLOW));
+        m_Font.SetTextColor ((m_YesNo ? FONTCOLOR_WHITE : FONTCOLOR_YELLOW));
         m_Font.Draw (INITIAL_TEXT_POSITION_X, INITIAL_TEXT_POSITION_Y + TEXT_SPACE_Y, "NO");
     }
 }

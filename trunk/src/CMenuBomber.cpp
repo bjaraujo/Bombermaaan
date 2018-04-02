@@ -52,7 +52,6 @@
 
 #define BOMBER_HEAD_SPACE_X         -29     //!< Space in pixels between the "BOMBER" text position
 #define BOMBER_HEAD_SPACE_Y         -7      //!< and the corresponding bomber head
-#define BOMBER_HEAD_SPRITE_TABLE    30      //!< Sprite table where the menu's bomber head sprites are contained
 #define BOMBER_HEAD_PRIORITY        0       //!< Priority to use when drawing the menu's bomber head sprites
 
 #define CURSOR_HAND_SPACE_X         -54     //!< Space in pixels between the "BOMBER" text position
@@ -330,7 +329,7 @@ void CMenuBomber::OnDisplay (void)
                                 PositionY + BOMBER_HEAD_SPACE_Y,
                                 NULL,
                                 NULL,
-                                BOMBER_HEAD_SPRITE_TABLE,
+                                BMP_MENU_BOMBER,
                                 Player + (m_Blinking[Player] ? MAX_PLAYERS : 0), // Blinking bomber head sprite or not
                                 MENUBOMBER_SPRITELAYER,
                                 BOMBER_HEAD_PRIORITY);
@@ -343,7 +342,7 @@ void CMenuBomber::OnDisplay (void)
                                     PositionY + CURSOR_HAND_SPACE_Y,
                                     NULL,
                                     NULL,
-                                    CURSOR_HAND_SPRITE_TABLE,
+                                    BMP_MENU_HAND,
                                     CURSOR_HAND_SPRITE,
                                     MENUBOMBER_SPRITELAYER,
                                     CURSOR_HAND_PRIORITY);

@@ -40,30 +40,30 @@ SMosaicTileProperties CRandomMosaic::m_MosaicTileProperties [4][4] =
 {
     // PURPLE
     {
-        { 46, 0, 7, 12, 82, 41 },
-        { 47, 0, 7, 12, 82, 41 },
-        { 48, 0, 7, 12, 82, 41 }
+        { BMP_PURPLE_BACKGROUND_1, 0, 7, 12, 82, 41 },
+        { BMP_PURPLE_BACKGROUND_2, 0, 7, 12, 82, 41 },
+        { BMP_PURPLE_BACKGROUND_3, 0, 7, 12, 82, 41 }
     },
     
     // GREEN
     {
-        { 19, 0, 7, 12, 82, 41 },
-        { 51, 0, 7, 12, 82, 41 },
-        { 52, 0, 7, 12, 82, 41 }
+        { BMP_GREEN_BACKGROUND_1, 0, 7, 12, 82, 41 },
+        { BMP_GREEN_BACKGROUND_2, 0, 7, 12, 82, 41 },
+        { BMP_GREEN_BACKGROUND_3, 0, 7, 12, 82, 41 }
     },
 
     // BLUE
     {
-        { 29, 0, 7, 12, 82, 41 },
-        { 49, 0, 7, 12, 82, 41 },
-        { 50, 0, 7, 12, 82, 41 }
+        { BMP_BLUE_BACKGROUND_1, 0, 7, 12, 82, 41 },
+        { BMP_BLUE_BACKGROUND_2, 0, 7, 12, 82, 41 },
+        { BMP_BLUE_BACKGROUND_3, 0, 7, 12, 82, 41 }
     },
 
-    // ORANGE
+    // RED
     {
-        { 66, 0, 7, 12, 82, 41 },
-        { 67, 0, 7, 12, 82, 41 },
-        { 68, 0, 7, 12, 82, 41 }
+        { BMP_RED_BACKGROUND_1, 0, 7, 12, 82, 41 },
+        { BMP_RED_BACKGROUND_2, 0, 7, 12, 82, 41 },
+        { BMP_RED_BACKGROUND_3, 0, 7, 12, 82, 41 }
     }
 
 };

@@ -111,10 +111,6 @@
 #define FIRE_OFFSETX        (-10)
 #define FIRE_OFFSETY        (-(54-32))
 
-#define ARENA_ITEM_SPRITETABLE              3
-#define ARENA_FIRE_SPRITETABLE              6
-#define ARENA_FLY_SPRITETABLE               8
-
 // Flying item animation sprites
 #define ANIM_FLYING1            0
 #define ANIM_FLYING2            1
@@ -526,7 +522,7 @@ void CItem::Display(void)
                     m_iY,
                     NULL,                            // Draw entire sprite
                     NULL,                            // No need to clip
-                    ARENA_ITEM_SPRITETABLE,
+                    BMP_ARENA_ITEM,
                     m_Sprite,
                     ITEM_SPRITELAYER,
                     0);
@@ -540,7 +536,7 @@ void CItem::Display(void)
                         m_iY - fumesOffset,
                         NULL,
                         NULL,
-                        40,
+                        BMP_ARENA_FUMES,
                         m_FumeSprite + 3 * 0,
                         50,
                         m_iY - 4);
@@ -550,7 +546,7 @@ void CItem::Display(void)
                         m_iY - fumesOffset,
                         NULL,
                         NULL,
-                        40,
+                        BMP_ARENA_FUMES,
                         m_FumeSprite + 3 * 1,
                         50,
                         m_iY - 4);
@@ -560,7 +556,7 @@ void CItem::Display(void)
                         m_iY + fumesOffset,
                         NULL,
                         NULL,
-                        40,
+                        BMP_ARENA_FUMES,
                         m_FumeSprite + 3 * 2,
                         50,
                         m_iY + 4);
@@ -570,7 +566,7 @@ void CItem::Display(void)
                         m_iY + fumesOffset,
                         NULL,
                         NULL,
-                        40,
+                        BMP_ARENA_FUMES,
                         m_FumeSprite + 3 * 3,
                         50,
                         m_iY + 4);
@@ -584,7 +580,7 @@ void CItem::Display(void)
                     m_iY + FIRE_OFFSETY,
                     NULL,                            // Draw entire sprite
                     NULL,                            // No need to clip
-                    ARENA_FIRE_SPRITETABLE,
+                    BMP_ARENA_FIRE,
                     m_Sprite,
                     FIRE_SPRITELAYER,
                     m_iY);
@@ -594,7 +590,7 @@ void CItem::Display(void)
                     m_iY,
                     NULL,                            // Draw entire sprite
                     NULL,                            // No need to clip
-                    ARENA_ITEM_SPRITETABLE,
+                    BMP_ARENA_ITEM,
                     m_Sprite0,
                     ITEM_SPRITELAYER,
                     PRIORITY_UNUSED);
@@ -618,7 +614,7 @@ void CItem::Display(void)
             m_iY,
             NULL,                            // Draw entire sprite
             &Clip,                           // Clip sprite to arena view!!!
-            ARENA_FLY_SPRITETABLE,
+            BMP_ARENA_FLY,
             m_Sprite,
             FLY_SPRITELAYER,
             m_iY);

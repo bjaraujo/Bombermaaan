@@ -50,7 +50,6 @@
 #define CONTROLS_TEXT_SPRITE_LAYER              1       //!< Sprite layer where to draw strings
 #define CONTROLS_CURSOR_HAND_SPRITE_LAYER       1       //!< Sprite layer where to draw the cursor hand
 
-#define SPRITE_TABLE_CURSOR_HAND                32      //!< Sprite table of the cursor hand
 #define SPRITE_CURSOR_HAND                      0
                                                 
 #define TIME_TO_WAIT_BEFORE_READING_INPUT       0.200f
@@ -546,7 +545,7 @@ void CControls::Display (void)
                                         MenuItemPositionY + SPACE_Y_FROM_MENU_ITEM_TO_CURSOR_HAND,
                                         NULL,
                                         NULL,
-                                        SPRITE_TABLE_CURSOR_HAND,
+                                        BMP_MENU_HAND,
                                         SPRITE_CURSOR_HAND,
                                         CONTROLS_CURSOR_HAND_SPRITE_LAYER,
                                         PRIORITY_UNUSED);

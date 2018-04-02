@@ -52,7 +52,6 @@
                                                     
 #define CURSOR_HAND_SPACE_X         -25             //!< Space in pixels between the "BOMBER" text position
 #define CURSOR_HAND_SPACE_Y         -2              //!< and the cursor hand pointing to the corresponding bomber head
-#define CURSOR_HAND_SPRITE_TABLE    32              //!< Sprite table where the menu's cursor hand sprites are contained
 #define CURSOR_HAND_SPRITE          0               //!< Sprite number of the cursor hand in the sprite table
 #define CURSOR_HAND_PRIORITY        0               //!< Priority to use when drawing the menu's bomber hand sprites
                                                     
@@ -456,7 +455,7 @@ void CMenuMatch::OnDisplay (void)
                                     PositionY + CURSOR_HAND_SPACE_Y,
                                     NULL,
                                     NULL,
-                                    CURSOR_HAND_SPRITE_TABLE,
+                                    BMP_MENU_HAND,
                                     CURSOR_HAND_SPRITE,
                                     MENUMATCH_SPRITELAYER,
                                     CURSOR_HAND_PRIORITY);

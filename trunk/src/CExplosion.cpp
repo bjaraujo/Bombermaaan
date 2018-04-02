@@ -71,8 +71,6 @@
 #define FLAME_HORIZRIGHT    20
 #define FLAME_CENTER        24
 
-#define ARENA_FLAME_SPRITETABLE             2
-
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -827,7 +825,7 @@ void CExplosion::Display (void)
                                 m_pArena->ToPosition (m_Flames[i].BlockY),   // Position Y
                                 NULL,                                        // Draw entire sprite
                                 NULL,                                        // No need to clip
-                                ARENA_FLAME_SPRITETABLE,                     // Sprite table number
+                                BMP_ARENA_FLAME,                             // Sprite table number
                                 m_Flames[i].FlameType + m_State,             // Sprite number
                                 EXPLOSION_SPRITELAYER,                       // Sprite layer number
                                 PRIORITY_UNUSED);

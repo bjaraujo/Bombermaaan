@@ -47,21 +47,18 @@
                                                 
 #define BACKGROUND_POSITION_X                   0
 #define BACKGROUND_POSITION_Y                   0
-#define BACKGROUND_SPRITE_TABLE                 42
 #define BACKGROUND_SPRITE                       0
 #define BACKGROUND_SPRITE_LAYER                 0
 #define BACKGROUND_SPRITE_PRIORITY_IN_LAYER     0
 
 #define BOMBERS_POSITION_X                      0
 #define BOMBERS_POSITION_Y                      (VIEW_HEIGHT - 126)
-#define BOMBERS_SPRITE_TABLE                    43
 #define BOMBERS_SPRITE                          0
 #define BOMBERS_SPRITE_LAYER                    0
 #define BOMBERS_SPRITE_PRIORITY_IN_LAYER        2
 
 #define TITLE_POSITION_X                        7
 #define TITLE_POSITION_Y                        7
-#define TITLE_SPRITE_TABLE                      44
 #define TITLE_SPRITE                            0
 #define TITLE_SPRITE_LAYER                      0
 #define TITLE_SPRITE_PRIORITY_IN_LAYER          2
@@ -71,11 +68,9 @@
 #define LAST_MENU_ITEM                          (NUMBER_OF_MENU_ITEMS - 1)
 #define FIRST_MENU_ITEM_POSITION_Y              180
 #define ALL_MENU_ITEMS_POSITION_X               195
-#define MENU_ITEM_SPRITE_TABLE                  45
 #define MENU_ITEM_SPRITE_LAYER                  0
 #define MENU_ITEM_SPRITE_PRIORITY_IN_LAYER      2
 #define SPACE_X_FROM_MENU_ITEM_TO_CURSOR_HAND   -40
-#define CURSOR_HAND_SPRITE_TABLE                64
 #define CURSOR_HAND_SPRITE                      0
 #define CURSOR_HAND_SPRITE_LAYER                0
 #define CURSOR_HAND_SPRITE_PRIORITY_IN_LAYER    2
@@ -385,7 +380,7 @@ void CTitle::Display (void)
                                 BACKGROUND_POSITION_Y,
                                 NULL,
                                 NULL,
-                                BACKGROUND_SPRITE_TABLE,
+                                BMP_TITLE_BACKGROUND,
                                 BACKGROUND_SPRITE,
                                 BACKGROUND_SPRITE_LAYER,
                                 BACKGROUND_SPRITE_PRIORITY_IN_LAYER);
@@ -395,7 +390,7 @@ void CTitle::Display (void)
                                 BOMBERS_POSITION_Y,
                                 NULL,
                                 NULL,
-                                BOMBERS_SPRITE_TABLE,
+                                BMP_TITLE_BOMBERS,
                                 BOMBERS_SPRITE,
                                 BOMBERS_SPRITE_LAYER,
                                 BOMBERS_SPRITE_PRIORITY_IN_LAYER);
@@ -405,7 +400,7 @@ void CTitle::Display (void)
                                 TITLE_POSITION_Y,
                                 NULL,
                                 NULL,
-                                TITLE_SPRITE_TABLE,
+                                BMP_TITLE_TITLE,
                                 TITLE_SPRITE,
                                 TITLE_SPRITE_LAYER,
                                 TITLE_SPRITE_PRIORITY_IN_LAYER);
@@ -421,7 +416,7 @@ void CTitle::Display (void)
                                     MenuItemPositionY,
                                     NULL,
                                     NULL,
-                                    MENU_ITEM_SPRITE_TABLE,
+                                    BMP_TITLE_MENU_ITEMS,
                                     MenuItemIndex * 2 + (m_Cursor == MenuItemIndex ? 1 : 0), // Sprite of the menu item + color
                                     MENU_ITEM_SPRITE_LAYER,
                                     MENU_ITEM_SPRITE_PRIORITY_IN_LAYER);
@@ -434,7 +429,7 @@ void CTitle::Display (void)
                                         MenuItemPositionY,
                                         NULL,
                                         NULL,
-                                        CURSOR_HAND_SPRITE_TABLE,
+                                        BMP_MENU_HAND_TITLE,
                                         CURSOR_HAND_SPRITE,
                                         CURSOR_HAND_SPRITE_LAYER,
                                         CURSOR_HAND_SPRITE_PRIORITY_IN_LAYER);

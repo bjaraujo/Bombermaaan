@@ -34,8 +34,6 @@
 #include "CScroller.h"
 #include "CDisplay.h"
 
-#define HURRY_SPRITETABLE            38
-
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -101,12 +99,12 @@ void CHurryMessage::Display (void)
     Clip.right  = VIEW_WIDTH;
     Clip.bottom = VIEW_HEIGHT;
 
-    // Draw the scroller sprite
+    // Draw the hurry message
     m_pDisplay->DrawSprite (m_Scroller.GetPositionX(),   // Position of the current tile
                             m_Scroller.GetPositionY(),                      
                             NULL,                           // Draw entire tile
                             &Clip,                          // Clip with game view
-                            HURRY_SPRITETABLE,
+                            BMP_HURRY,
                             0, 
                             700, 
                             -1);

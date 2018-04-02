@@ -133,10 +133,6 @@ int CBomb::m_BounceMoveY[NUMBER_OF_BOMBFLY_DIRECTIONS][3] =
 #define BOMB_SPRITELAYER_BELOW_BOMBERS        40
 #define BOMB_SPRITELAYER_ABOVE_BOMBERS        55
 
-// Sprite table
-#define ARENA_BOMB_SPRITETABLE              4
-#define ARENA_REMOTE_BOMB_SPRITETABLE        65
-
 // Movement times when the bomb is flying
 #define THROW_BASE_FRAME_TIME       0.030f // When bomb was thrown
 #define BOUNCE_BASE_FRAME_TIME      0.030f // When bomb is bouncing on a bomber or on a wall
@@ -813,7 +809,7 @@ void CBomb::Display(void)
         m_iY,
         NULL,                            // Draw entire sprite
         &Clip,                           // Clip sprite to arena view !!!
-        ARENA_BOMB_SPRITETABLE,
+        BMP_ARENA_BOMB,
         m_Sprite,
         SpriteTable,
         PRIORITY_UNUSED);
@@ -822,7 +818,7 @@ void CBomb::Display(void)
         m_iY,
         NULL,                            // Draw entire sprite
         &Clip,                           // Clip sprite to arena view !!!
-        ARENA_REMOTE_BOMB_SPRITETABLE,
+        BMP_ARENA_REMOTE_BOMB,
         m_Sprite,
         SpriteTable,
         PRIORITY_UNUSED);

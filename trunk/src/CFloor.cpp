@@ -47,16 +47,11 @@
 #define FLOORSPRITE_NOSHADOW    0       // Floor with no shadow
 #define FLOORSPRITE_SHADOW      1       // Floor with shadow
 
-#define ARENA_FLOOR_SPRITETABLE             0
-
 // Arrow sprites
 #define ARENA_FLOOR_ARROW_RIGHT     0
 #define ARENA_FLOOR_ARROW_DOWN      1
 #define ARENA_FLOOR_ARROW_LEFT      2
 #define ARENA_FLOOR_ARROW_UP        3
-
-#define ARENA_FLOOR_ARROW_SPRITETABLE       63
-
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -162,7 +157,7 @@ void CFloor::Display (void)
                                 m_iY, 
                                 NULL,                            // Draw entire sprite
                                 NULL,                            // No need to clip
-                                ARENA_FLOOR_SPRITETABLE, 
+                                BMP_ARENA_FLOOR,
                                 Sprite, 
                                 FLOOR_SPRITELAYER,
                                 PRIORITY_UNUSED);
@@ -182,7 +177,7 @@ void CFloor::Display (void)
                                 m_iY, 
                                 NULL,                            // Draw entire sprite
                                 NULL,                            // No need to clip
-                                ARENA_FLOOR_ARROW_SPRITETABLE,
+                                BMP_ARENA_ARROWS,
                                 Sprite,
                                 ACTION_SPRITELAYER,
                                 PRIORITY_UNUSED);

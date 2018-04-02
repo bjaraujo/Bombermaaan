@@ -334,14 +334,6 @@ void CVideoSDL::DrawSprite(int PositionX,
     int PriorityInLayer)
 {
 
-    // Check if the parameters are valid
-    ASSERT(SpriteTable >= 0 && SpriteTable < (int)m_SpriteTables.size());
-    ASSERT(Sprite >= 0 && Sprite < (int)m_SpriteTables[SpriteTable].size());
-
-    // Bound always into range
-    SpriteTable = MAX(0, MIN(SpriteTable, (int)m_SpriteTables.size() - 1));
-    Sprite = MAX(0, MIN(Sprite, (int)m_SpriteTables[SpriteTable].size() - 1));
-
     // Prepare a drawing request
     SDrawingRequest DrawingRequest;
 
@@ -540,7 +532,7 @@ bool CVideoSDL::SetTransparentColor(int Red, int Green, int Blue)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CVideoSDL::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, HBITMAP hBitmap)
+bool CVideoSDL::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, int BMP_ID, HBITMAP hBitmap)
 {
 
     SSurface Surface;
@@ -749,7 +741,7 @@ bool CVideoSDL::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spr
     }
 
     // Store the sprite table
-    m_SpriteTables.push_back(SpriteTable);
+    m_SpriteTables[BMP_ID] = SpriteTable;
 
     // Everything went right
     return true;
@@ -759,7 +751,7 @@ bool CVideoSDL::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spr
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CVideoSDL::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, const char* file)
+bool CVideoSDL::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, int BMP_ID, const char* file)
 {
 
     SSurface Surface;
@@ -863,7 +855,7 @@ bool CVideoSDL::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spr
     }
 
     // Store the sprite table
-    m_SpriteTables.push_back(SpriteTable);
+    m_SpriteTables[BMP_ID] = SpriteTable;
 
     // Everything went right
     return true;

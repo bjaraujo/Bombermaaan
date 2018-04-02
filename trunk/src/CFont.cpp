@@ -41,7 +41,6 @@
 #define CHAR_WIDTH                      10      //!< Size (in pixels) of one character
 #define CHAR_HEIGHT                     10
 #define CHAR_SPACE                      1       //!< Space (in pixels) between two chars when drawing a string
-#define FONT_SPRITETABLE                28      //!< Sprite layer for the font
 
 // Character offset stuff
 #define LETTERS_CHAR_OFFSET_BEGIN       0       //!< Beginning character offset for letters
@@ -188,7 +187,7 @@ void CFont::DrawString (int PositionX, int PositionY, const char *pString)
                                     PositionY, 
                                     NULL, 
                                     NULL, 
-                                    FONT_SPRITETABLE, 
+                                    BMP_GLOBAL_FONT,
                                     m_TextColorOffset + CharacterOffset, 
                                     m_SpriteLayer, 
                                     TEXT_PRIORITY);
@@ -201,7 +200,7 @@ void CFont::DrawString (int PositionX, int PositionY, const char *pString)
                                         PositionY + m_ShadowOffsetY,    // on the chosen shadow direction.
                                         NULL, 
                                         NULL, 
-                                        FONT_SPRITETABLE, 
+                                        BMP_GLOBAL_FONT,
                                         m_ShadowColorOffset + CharacterOffset, 
                                         m_SpriteLayer, 
                                         SHADOW_PRIORITY);

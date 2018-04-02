@@ -87,13 +87,6 @@
 #define TIME_POSITION_X                 23      // Position of the board time from board origin
 #define TIME_POSITION_Y                 8
 
-#define BOARD_BACKGROUND_SPRITETABLE        9   
-#define BOARD_TIME_SPRITETABLE              10
-#define BOARD_CLOCK_TOP_SPRITETABLE         11
-#define BOARD_CLOCK_BOTTOM_SPRITETABLE      12    
-#define BOARD_SCORE_SPRITETABLE             13
-#define BOARD_HEADS_SPRITETABLE             14 
-
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -265,7 +258,7 @@ void CBoard::Display (void)
                             BOARD_BACKGROUND_POSITION_Y, 
                             NULL,                            // Draw entire background
                             NULL,                            // No need to clip
-                            BOARD_BACKGROUND_SPRITETABLE, 
+                            BMP_BOARD_BACKGROUND,
                             SPRITE_BOARD_BACKGROUND, 
                             BOARD_SPRITELAYER,
                             BOARD_BACKGROUND_PRIORITY);
@@ -279,7 +272,7 @@ void CBoard::Display (void)
                             CLOCKBOTTOM_POSITION_Y, 
                             NULL,                            // Draw entire sprite
                             NULL,                            // No need to clip
-                            BOARD_CLOCK_BOTTOM_SPRITETABLE, 
+                            BMP_BOARD_CLOCK_BOTTOM, 
                             m_ClockBottomSprite, 
                             BOARD_SPRITELAYER,
                             BOARD_OBJECTS_PRIORITY);
@@ -289,7 +282,7 @@ void CBoard::Display (void)
                             CLOCKTOP_POSITION_Y, 
                             NULL,                            // Draw entire sprite
                             NULL,                            // No need to clip
-                            BOARD_CLOCK_TOP_SPRITETABLE, 
+                            BMP_BOARD_CLOCK_TOP, 
                             m_ClockTopSprite, 
                             BOARD_SPRITELAYER,
                             BOARD_OBJECTS_PRIORITY);
@@ -313,7 +306,7 @@ void CBoard::Display (void)
                                 TIME_POSITION_Y, 
                                 NULL,                            // Draw entire sprite
                                 NULL,                            // No need to clip
-                                BOARD_TIME_SPRITETABLE, 
+                                BMP_BOARD_TIME, 
                                 Minutes, 
                                 BOARD_SPRITELAYER,
                                 BOARD_OBJECTS_PRIORITY);
@@ -323,7 +316,7 @@ void CBoard::Display (void)
                                 TIME_POSITION_Y, 
                                 NULL,                            // Draw entire sprite
                                 NULL,                            // No need to clip
-                                BOARD_TIME_SPRITETABLE, 
+                                BMP_BOARD_TIME, 
                                 SPRITE_SEMICOLON, 
                                 BOARD_SPRITELAYER,
                                 BOARD_OBJECTS_PRIORITY);
@@ -349,7 +342,7 @@ void CBoard::Display (void)
                                 TIME_POSITION_Y, 
                                 NULL,                            // Draw entire sprite
                                 NULL,                            // No need to clip
-                                BOARD_TIME_SPRITETABLE, 
+                                BMP_BOARD_TIME, 
                                 Seconds10, 
                                 BOARD_SPRITELAYER,
                                 BOARD_OBJECTS_PRIORITY);
@@ -358,7 +351,7 @@ void CBoard::Display (void)
                                 TIME_POSITION_Y, 
                                 NULL,                            // Draw entire sprite
                                 NULL,                            // No need to clip
-                                BOARD_TIME_SPRITETABLE, 
+                                BMP_BOARD_TIME, 
                                 Seconds1, 
                                 BOARD_SPRITELAYER,
                                 BOARD_OBJECTS_PRIORITY);
@@ -371,7 +364,7 @@ void CBoard::Display (void)
                                 TIME_POSITION_Y, 
                                 NULL,                            // Draw entire sprite
                                 NULL,                            // No need to clip
-                                BOARD_TIME_SPRITETABLE, 
+                                BMP_BOARD_TIME, 
                                 SPRITE_DASH, 
                                 BOARD_SPRITELAYER,
                                 BOARD_OBJECTS_PRIORITY);
@@ -381,7 +374,7 @@ void CBoard::Display (void)
                                 TIME_POSITION_Y, 
                                 NULL,                            // Draw entire sprite
                                 NULL,                            // No need to clip
-                                BOARD_TIME_SPRITETABLE, 
+                                BMP_BOARD_TIME, 
                                 SPRITE_SEMICOLON, 
                                 BOARD_SPRITELAYER,
                                 BOARD_OBJECTS_PRIORITY);
@@ -391,7 +384,7 @@ void CBoard::Display (void)
                                 TIME_POSITION_Y, 
                                 NULL,                            // Draw entire sprite
                                 NULL,                            // No need to clip
-                                BOARD_TIME_SPRITETABLE, 
+                                BMP_BOARD_TIME, 
                                 SPRITE_DASH, 
                                 BOARD_SPRITELAYER,
                                 BOARD_OBJECTS_PRIORITY);
@@ -401,7 +394,7 @@ void CBoard::Display (void)
                                 TIME_POSITION_Y, 
                                 NULL,                            // Draw entire sprite
                                 NULL,                            // No need to clip
-                                BOARD_TIME_SPRITETABLE, 
+                                BMP_BOARD_TIME, 
                                 SPRITE_DASH, 
                                 BOARD_SPRITELAYER,
                                 BOARD_OBJECTS_PRIORITY);
@@ -433,7 +426,7 @@ void CBoard::Display (void)
                                     ScoreY, 
                                     NULL,                            // Draw entire sprite
                                     NULL,                            // No need to clip
-                                    BOARD_HEADS_SPRITETABLE, 
+                                    BMP_BOARD_HEADS, 
                                     DeadHeadOffset + Player, 
                                     BOARD_SPRITELAYER,
                                     BOARD_OBJECTS_PRIORITY);
@@ -443,7 +436,7 @@ void CBoard::Display (void)
                                     ScoreY + HEAD_TO_SCORE_Y_OFFSET, 
                                     NULL,                            // Draw entire sprite
                                     NULL,                            // No need to clip
-                                    BOARD_SCORE_SPRITETABLE, 
+                                    BMP_BOARD_SCORE, 
                                     m_pScores->GetPlayerScore(Player), 
                                     BOARD_SPRITELAYER,
                                     BOARD_OBJECTS_PRIORITY);
@@ -458,7 +451,7 @@ void CBoard::Display (void)
                             ScoreY, 
                             NULL,                            // Draw entire sprite
                             NULL,                            // No need to clip
-                            41, 
+                            BMP_BOARD_DRAWGAME,
                             0, 
                             BOARD_SPRITELAYER,
                             BOARD_OBJECTS_PRIORITY);
@@ -468,7 +461,7 @@ void CBoard::Display (void)
                             ScoreY + HEAD_TO_SCORE_Y_OFFSET, 
                             NULL,                            // Draw entire sprite
                             NULL,                            // No need to clip
-                            BOARD_SCORE_SPRITETABLE, 
+                            BMP_BOARD_SCORE, 
                             m_pScores->GetDrawGamesCount(), 
                             BOARD_SPRITELAYER,
                             BOARD_OBJECTS_PRIORITY);

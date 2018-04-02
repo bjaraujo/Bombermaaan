@@ -51,6 +51,7 @@
 
 #include <string>
 #include <vector>
+#include <map>
 #include <list>
 #include <stack>
 #include <queue>
@@ -104,6 +105,7 @@
 #include "CDebug.h"
 #include "CTimer.h"
 
+#include "res.h"
 #include "resource.h"
 
 // Originally taken from CGame.h

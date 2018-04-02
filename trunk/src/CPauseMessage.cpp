@@ -111,12 +111,12 @@ void CPauseMessage::Display (void)
     Clip.right  = VIEW_WIDTH;
     Clip.bottom = VIEW_HEIGHT;
 
-    // Draw the scroller sprite
+    // Draw the pause message
     m_pDisplay->DrawSprite (m_Scroller.GetPositionX(),   // Position of the current tile
                             m_Scroller.GetPositionY(),                      
                             NULL,                           // Draw entire tile
                             &Clip,                          // Clip with game view
-                            37, 
+                            BMP_PAUSE,
                             0, 
                             700, 
                             -1);

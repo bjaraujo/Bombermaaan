@@ -75,13 +75,13 @@
 
 SBomberSpriteTable CBomber::m_BomberSpriteTables[MAX_NUMBER_OF_STATES] =
 {
-    { 5, 12 }, // Walk
-    { 7, 12 }, // Walk and hold bomb
-    { 58, 7 }, // Death
-    { 59, 12 }, // Lift bomb
-    { 60, 20 }, // Throw bomb
-    { 61, 8 }, // Punch bomb
-    { 62, 4 }  // Stunt
+    { BMP_ARENA_BOMBER_WALK, 12 }, // Walk
+    { BMP_ARENA_BOMBER_WALK_HOLD, 12 }, // Walk and hold bomb
+    { BMP_ARENA_BOMBER_DEATH, 7 }, // Death
+    { BMP_ARENA_BOMBER_LIFT, 12 }, // Lift bomb
+    { BMP_ARENA_BOMBER_THROW, 20 }, // Throw bomb
+    { BMP_ARENA_BOMBER_PUNCH, 8 }, // Punch bomb
+    { BMP_ARENA_BOMBER_STUNT, 4 }  // Stunt
 };
 
 //******************************************************************************************************************************

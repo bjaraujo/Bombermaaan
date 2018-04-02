@@ -145,14 +145,6 @@
 #define VICTORY_CONFETTIS_LAYER         3       //!< Sprite layer where to draw the confettis sprites
 #define VICTORY_TITLE_LAYER             4       //!< Sprite layer where to draw the VICTORY! title sprite
 
-#define VICTORY_WALL_SPRITETABLE                24
-#define VICTORY_CROWD_SPRITETABLE               25
-#define VICTORY_BOMBER_SPRITETABLE              26
-#define VICTORY_TITLE_SPRITETABLE               27
-#define VICTORY_CONFETTIS_LARGE_SPRITETABLE     34
-#define VICTORY_CONFETTIS_MEDIUM_SPRITETABLE    35
-#define VICTORY_CONFETTIS_SMALL_SPRITETABLE     36
-
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -644,7 +636,7 @@ void CVictory::Display (void)
                                         CROWD_INITIAL_TILE_Y + TileY * CROWD_TILES_SPACE_Y + OffsetY, 
                                         NULL,                            // Draw entire sprite
                                         &Clip,                           // Clip to game view
-                                        VICTORY_CROWD_SPRITETABLE, 
+                                        BMP_VICTORY_CROWD, 
                                         Color % CROWD_COLORS_COUNT, 
                                         VICTORY_CROWD_LAYER,
                                         TileY);
@@ -665,7 +657,7 @@ void CVictory::Display (void)
                                     VICTORYWALL_TILES_INITIAL_Y, 
                                     NULL,                            // Draw entire sprite
                                     &Clip,                           // Clip to game view
-                                    VICTORY_WALL_SPRITETABLE, 
+                                    BMP_VICTORY_WALL, 
                                     VICTORYWALL_TILE_SPRITE, 
                                     VICTORY_WALL_LAYER,
                                     PRIORITY_UNUSED);
@@ -732,7 +724,7 @@ void CVictory::Display (void)
                                             WINNER_BOMBER_POSITION_Y, 
                                             NULL,                            // Draw entire sprite
                                             NULL,                            // No need to clip
-                                            VICTORY_BOMBER_SPRITETABLE, 
+                                            BMP_VICTORY_BOMBER, 
                                             m_WinnerBomberSprite + Player * BOMBER_SPRITES_COUNT_PER_COLOR, 
                                             VICTORY_BOMBER_LAYER,
                                             PRIORITY_UNUSED);
@@ -751,7 +743,7 @@ void CVictory::Display (void)
                                             LOSER_BOMBER_POSITION_Y, 
                                             NULL,                            // Draw entire sprite
                                             NULL,                            // No need to clip
-                                            VICTORY_BOMBER_SPRITETABLE, 
+                                            BMP_VICTORY_BOMBER, 
                                             m_LoserBomberSprite + Player * BOMBER_SPRITES_COUNT_PER_COLOR, 
                                             VICTORY_BOMBER_LAYER,
                                             PRIORITY_UNUSED);
@@ -799,9 +791,9 @@ void CVictory::Display (void)
             // Save the sprite table to use according to the type of the confetti
             switch (m_Confettis[Confetti].Type)
             {
-                case CONFETTI_LARGE  : ConfettiSpriteTable = VICTORY_CONFETTIS_LARGE_SPRITETABLE;  break;
-                case CONFETTI_MEDIUM : ConfettiSpriteTable = VICTORY_CONFETTIS_MEDIUM_SPRITETABLE; break;
-                case CONFETTI_SMALL  : ConfettiSpriteTable = VICTORY_CONFETTIS_SMALL_SPRITETABLE;  break;
+                case CONFETTI_LARGE  : ConfettiSpriteTable = BMP_VICTORY_CONFETTIS_LARGE;  break;
+                case CONFETTI_MEDIUM : ConfettiSpriteTable = BMP_VICTORY_CONFETTIS_MEDIUM; break;
+                case CONFETTI_SMALL  : ConfettiSpriteTable = BMP_VICTORY_CONFETTIS_SMALL;  break;
             }
 
             ASSERT (ConfettiSpriteTable != -1);
@@ -825,7 +817,7 @@ void CVictory::Display (void)
                                 VICTORY_TITLE_POSITION_Y,
                                 NULL,                            // Draw entire sprite
                                 &Clip,                           // Clip to game view
-                                VICTORY_TITLE_SPRITETABLE,
+                                BMP_VICTORY_TITLE,
                                 VICTORY_TITLE_SPRITE,
                                 VICTORY_TITLE_LAYER,
                                 PRIORITY_UNUSED);

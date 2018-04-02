@@ -39,7 +39,7 @@
 #define BMP_BOARD_SCORE                          1012
 #define BMP_BOARD_TIME                           1013
 #define BMP_ARENA_WALL                           1014
-#define BMP_WINNER_BACKGROUND_1                  1015
+#define BMP_GREEN_BACKGROUND_1                   1015
 #define BMP_DRAWGAME_MAIN                        1016
 #define BMP_GLOBAL_FONT                          1017
 #define BMP_VICTORY_BOMBER                       1018
@@ -52,7 +52,7 @@
 #define BMP_WINNER_LIGHTS                        1025
 #define BMP_WINNER_SPARKS                        1026
 #define BMP_WINNER_BOMBER                        1027
-#define BMP_MENU_BACKGROUND_1                    1028
+#define BMP_BLUE_BACKGROUND_1                    1028
 #define BMP_MENU_FRAME_1                         1029
 #define BMP_MENU_BOMBER                          1030
 #define BMP_MENU_HAND                            1031
@@ -69,13 +69,13 @@
 #define BMP_TITLE_BOMBERS                        1042
 #define BMP_TITLE_MENU_ITEMS                     1043
 #define BMP_TITLE_TITLE                          1044
-#define BMP_CONTROLS_BACKGROUND_1                1045
-#define BMP_CONTROLS_BACKGROUND_2                1046
-#define BMP_CONTROLS_BACKGROUND_3                1047
-#define BMP_MENU_BACKGROUND_2                    1048
-#define BMP_MENU_BACKGROUND_3                    1049
-#define BMP_WINNER_BACKGROUND_3                  1050
-#define BMP_WINNER_BACKGROUND_2                  1051
+#define BMP_PURPLE_BACKGROUND_1                  1045
+#define BMP_PURPLE_BACKGROUND_2                  1046
+#define BMP_PURPLE_BACKGROUND_3                  1047
+#define BMP_BLUE_BACKGROUND_2                    1048
+#define BMP_BLUE_BACKGROUND_3                    1049
+#define BMP_GREEN_BACKGROUND_3                   1050
+#define BMP_GREEN_BACKGROUND_2                   1051
 #define BMP_TITLE_CLOUD_1                        1052
 #define BMP_TITLE_CLOUD_2                        1053
 #define BMP_TITLE_CLOUD_3                        1054
@@ -91,9 +91,9 @@
 #define BMP_ARENA_ARROWS                         1064
 #define BMP_MENU_HAND_TITLE                      1065
 #define BMP_ARENA_REMOTE_BOMB                    1066
-#define BMP_HELP_BACKGROUND_1                    1067
-#define BMP_HELP_BACKGROUND_2                    1068
-#define BMP_HELP_BACKGROUND_3                    1069
+#define BMP_RED_BACKGROUND_1                     1067
+#define BMP_RED_BACKGROUND_2                     1068
+#define BMP_RED_BACKGROUND_3                     1069
 
 #define SND_EXPLOSION_02_2                       2001
 #define SND_BOMBER_DEATH                         2002

@@ -91,9 +91,6 @@
 // priority in the wall sprite layer must be higher than WALL_PRIORITY.
 #define FLYSHADOW_PRIORITY      1
 
-#define ARENA_WALL_SPRITETABLE              1
-#define ARENA_FLY_SPRITETABLE               8
-
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -400,7 +397,7 @@ void CWall::Display (void)
                                 m_iY, 
                                 NULL,                            // Draw entire sprite
                                 NULL,                            // No need to clip
-                                ARENA_WALL_SPRITETABLE, 
+                                BMP_ARENA_WALL,
                                 m_Sprite, 
                                 WALL_SPRITELAYER, 
                                 WALL_PRIORITY);
@@ -413,7 +410,7 @@ void CWall::Display (void)
                                 m_iY, 
                                 NULL,                            // Draw entire sprite
                                 NULL,                            // No need to clip
-                                ARENA_WALL_SPRITETABLE, 
+                                BMP_ARENA_WALL,
                                 m_Sprite, 
                                 WALL_SPRITELAYER, 
                                 WALL_PRIORITY);
@@ -435,7 +432,7 @@ void CWall::Display (void)
                                 int(m_fY), 
                                 NULL,                            // Draw entire sprite
                                 &Clip,                           // Clip sprite to arena view!!!
-                                ARENA_FLY_SPRITETABLE, 
+                                BMP_ARENA_FLY,
                                 m_Sprite, 
                                 FLY_SPRITELAYER, 
                                 m_iY);
@@ -445,7 +442,7 @@ void CWall::Display (void)
                                 m_iY, 
                                 NULL,                            // Draw entire sprite
                                 NULL,                            // No need to clip
-                                ARENA_FLY_SPRITETABLE, 
+                                BMP_ARENA_FLY,
                                 FALLING_SHADOW, 
                                 WALL_SPRITELAYER, 
                                 FLYSHADOW_PRIORITY);

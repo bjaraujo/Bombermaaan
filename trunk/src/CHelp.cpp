@@ -49,9 +49,6 @@
                                                         
 #define HELP_TEXT_SPRITE_LAYER                  1       //!< Sprite layer where to draw strings
 #define HELP_CURSOR_HAND_SPRITE_LAYER           1       //!< Sprite layer where to draw the cursor hand
-
-#define SPRITE_TABLE_CURSOR_HAND                32      //!< Sprite table of the cursor hand
-#define SPRITE_CURSOR_HAND                      0
                                                 
 #define TIME_TO_WAIT_BEFORE_READING_INPUT       0.200f
                                                 
@@ -283,7 +280,7 @@ void CHelp::Display (void)
             SCREEN_TITLE_POSITION_Y + 60,
             NULL,
             NULL,
-            56,
+            BMP_LEVEL_MINI_TILES,
             ITEM_BOMB,
             2,
             0);
@@ -296,7 +293,7 @@ void CHelp::Display (void)
             SCREEN_TITLE_POSITION_Y + 80,
             NULL,
             NULL,
-            56,
+            BMP_LEVEL_MINI_TILES,
             ITEM_FLAME,
             2,
             0);
@@ -309,7 +306,7 @@ void CHelp::Display (void)
             SCREEN_TITLE_POSITION_Y + 100,
             NULL,
             NULL,
-            56,
+            BMP_LEVEL_MINI_TILES,
             ITEM_ROLLER,
             2,
             0);
@@ -322,7 +319,7 @@ void CHelp::Display (void)
             SCREEN_TITLE_POSITION_Y + 120,
             NULL,
             NULL,
-            56,
+            BMP_LEVEL_MINI_TILES,
             ITEM_KICK,
             2,
             0);
@@ -335,7 +332,7 @@ void CHelp::Display (void)
             SCREEN_TITLE_POSITION_Y + 140,
             NULL,
             NULL,
-            56,
+            BMP_LEVEL_MINI_TILES,
             ITEM_THROW,
             2,
             0);
@@ -348,7 +345,7 @@ void CHelp::Display (void)
             SCREEN_TITLE_POSITION_Y + 160,
             NULL,
             NULL,
-            56,
+            BMP_LEVEL_MINI_TILES,
             ITEM_PUNCH,
             2,
             0);
@@ -361,7 +358,7 @@ void CHelp::Display (void)
             SCREEN_TITLE_POSITION_Y + 180,
             NULL,
             NULL,
-            56,
+            BMP_LEVEL_MINI_TILES,
             ITEM_REMOTES,
             2,
             0);
@@ -374,7 +371,7 @@ void CHelp::Display (void)
             SCREEN_TITLE_POSITION_Y + 200,
             NULL,
             NULL,
-            56,
+            BMP_LEVEL_MINI_TILES,
             ITEM_SHIELD,
             2,
             0);
@@ -387,7 +384,7 @@ void CHelp::Display (void)
             SCREEN_TITLE_POSITION_Y + 220,
             NULL,
             NULL,
-            56,
+            BMP_LEVEL_MINI_TILES,
             ITEM_STRONGWEAK,
             2,
             0);
@@ -400,7 +397,7 @@ void CHelp::Display (void)
             SCREEN_TITLE_POSITION_Y + 240,
             NULL,
             NULL,
-            56,
+            BMP_LEVEL_MINI_TILES,
             ITEM_SKULL,
             2,
             0);

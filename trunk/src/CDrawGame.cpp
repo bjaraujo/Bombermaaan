@@ -81,11 +81,6 @@
 #define ANIMSMALLFUME_TIME_0        0.220f                      //!< Small fume animation times
 #define ANIMSMALLFUME_TIME_1        (ANIMSMALLFUME_TIME_0 * 2)
 
-// Sprite tables
-#define DRAWGAME_MAIN_SPRITETABLE           15
-#define DRAWGAME_FLAG_SPRITETABLE           16
-#define DRAWGAME_FUMES_SPRITETABLE          17
-
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -323,7 +318,7 @@ void CDrawGame::Display (void)
                                 DRAWGAME_MAIN_POSITION_Y, 
                                 NULL,                            // Draw entire sprite
                                 NULL,                            // No need to clip
-                                DRAWGAME_MAIN_SPRITETABLE, 
+                                BMP_DRAWGAME_MAIN, 
                                 DRAWGAME_MAIN_SPRITE, 
                                 DRAWGAME_SPRITE_LAYER, 
                                 DRAWGAME_MAIN_PRIORITY);
@@ -333,7 +328,7 @@ void CDrawGame::Display (void)
                                 DRAWGAME_FLAG_POSITION_Y, 
                                 NULL,                            // Draw entire sprite
                                 NULL,                            // No need to clip
-                                DRAWGAME_FLAG_SPRITETABLE, 
+                                BMP_DRAWGAME_FLAG, 
                                 m_FlagSprite, 
                                 DRAWGAME_SPRITE_LAYER, 
                                 DRAWGAME_FLAG_PRIORITY);
@@ -343,7 +338,7 @@ void CDrawGame::Display (void)
                                 DRAWGAME_BIGFUME_POSITION_Y, 
                                 NULL,                            // Draw entire sprite
                                 NULL,                            // No need to clip
-                                DRAWGAME_FUMES_SPRITETABLE, 
+                                BMP_DRAWGAME_FUMES,
                                 m_BigFumeSprite, 
                                 DRAWGAME_SPRITE_LAYER, 
                                 DRAWGAME_FUME_PRIORITY);
@@ -353,7 +348,7 @@ void CDrawGame::Display (void)
                                 DRAWGAME_SMALLFUME_POSITION_Y, 
                                 NULL,                            // Draw entire sprite
                                 NULL,                            // No need to clip
-                                DRAWGAME_FUMES_SPRITETABLE, 
+                                BMP_DRAWGAME_FUMES,
                                 m_SmallFumeSprite, 
                                 DRAWGAME_SPRITE_LAYER, 
                                 DRAWGAME_FUME_PRIORITY);

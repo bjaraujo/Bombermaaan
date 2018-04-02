@@ -49,9 +49,6 @@
                                                         
 #define CREDITS_TEXT_SPRITE_LAYER              1       //!< Sprite layer where to draw strings
 #define CREDITS_CURSOR_HAND_SPRITE_LAYER       1       //!< Sprite layer where to draw the cursor hand
-
-#define SPRITE_TABLE_CURSOR_HAND                32      //!< Sprite table of the cursor hand
-#define SPRITE_CURSOR_HAND                      0
                                                 
 #define TIME_TO_WAIT_BEFORE_READING_INPUT       0.200f
                                                 

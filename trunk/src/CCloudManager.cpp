@@ -40,9 +40,9 @@ CCloudManager::CCloudManager (void)
 {
     m_pDisplay = NULL;
     
-    m_CloudSprites[0] = 53;
-    m_CloudSprites[1] = 54;
-    m_CloudSprites[2] = 55;
+    m_CloudSprites[0] = BMP_TITLE_CLOUD_1;
+    m_CloudSprites[1] = BMP_TITLE_CLOUD_2;
+    m_CloudSprites[2] = BMP_TITLE_CLOUD_3;
 
 }
 
@@ -64,9 +64,9 @@ void CCloudManager::Create (void)
     ASSERT (m_pDisplay != NULL);
 
     // Set the sprite for each cloud
-    m_CloudSprites[0] = 53;
-    m_CloudSprites[1] = 54;
-    m_CloudSprites[2] = 55;
+    m_CloudSprites[0] = BMP_TITLE_CLOUD_1;
+    m_CloudSprites[1] = BMP_TITLE_CLOUD_2;
+    m_CloudSprites[2] = BMP_TITLE_CLOUD_3;
 
     // Set the properties of each cloud
     m_Clouds[0].Create (50, 18, 138, 46, 50.0f, 0.0f, 6.0f);
