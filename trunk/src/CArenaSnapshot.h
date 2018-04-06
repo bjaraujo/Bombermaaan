@@ -38,6 +38,8 @@
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
+// POD CLASS 
+
 class CArenaSnapshot
 {
 private:
@@ -47,8 +49,6 @@ private:
                                                             
 public:                                                 
                                                         
-                CArenaSnapshot (void);              //!< Constructor.
-    virtual     ~CArenaSnapshot (void);             //!< Destructor.
     void        Create (void);                      //!< 
     void        Destroy (void);                     //!< 
     void        Begin (void);

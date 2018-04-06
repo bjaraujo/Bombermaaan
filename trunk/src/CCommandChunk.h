@@ -51,6 +51,8 @@ struct SCommandStep
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
+// POD CLASS 
+
 class CCommandChunk
 {
 private:
@@ -59,9 +61,7 @@ private:
     int                     m_NumberOfSteps;
                                                         
 public:                                                 
-                                                        
-                            CCommandChunk (void);               //!< Constructor.
-    virtual                 ~CCommandChunk (void);              //!< Destructor.
+
     void                    Create (void);                      //!< 
     void                    Destroy (void);                     //!< 
     void                    Reset (void);                       //!< 
