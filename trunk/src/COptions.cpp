@@ -607,7 +607,7 @@ bool COptions::LoadLevels(std::string dynamicDataFolder, std::string pgmFolder)
     }
 
 #ifdef WIN32
-    levelFilePath_pgmFolder.append( "levels\\" );
+    levelFilePath_pgmFolder.append( "Levels\\" );
 #else
     levelFilePath_pgmFolder.append( "levels/" );
 #endif

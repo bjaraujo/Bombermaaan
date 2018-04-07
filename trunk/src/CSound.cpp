@@ -291,19 +291,7 @@ bool CSound::LoadSample(ESample Sample, int ResourceID, const char *file)
     // Check if the sample slot is free
     ASSERT(m_Samples[Sample] == NULL);
 
-#ifdef BOMBERMAAAN_DATA_DIR
-    std::string path(BOMBERMAAAN_DATA_DIR);
-#else
-    std::string path("");
-#endif
-
-#ifdef WIN32
-    path.append("\\");
-#else
-    path.append("/");
-#endif
-
-    path.append(SOUND_FOLDER);
+    std::string path(SOUND_FOLDER);
 
 #ifdef WIN32
     path.append("\\");
@@ -396,19 +384,7 @@ bool CSound::LoadSong(ESong Song, int ResourceID)
 bool CSound::LoadSong(ESong Song, int ResourceID, const char* file)
 {
 
-#ifdef BOMBERMAAAN_DATA_DIR
-    std::string path(BOMBERMAAAN_DATA_DIR);
-#else
-    std::string path("");
-#endif
-
-#ifdef WIN32
-    path.append("\\");
-#else
-    path.append("/");
-#endif
-
-    path.append(SOUND_FOLDER);
+    std::string path(SOUND_FOLDER);
 
 #ifdef WIN32
     path.append("\\");

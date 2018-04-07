@@ -311,7 +311,6 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
 #else
     // determine level path by resolving the symlink /proc/self/exe
     // (assume something like /usr/bin/Bombermaaan or /usr/games/Bombermaaan)
-    // -> /usr/bin/../share/games/bombermaaan/levels
     struct stat selftest;
     if (stat("/proc/self/exe", &selftest) == 0)
     {
