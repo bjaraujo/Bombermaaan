@@ -66,7 +66,7 @@ CDisplay::~CDisplay(void)
 bool CDisplay::Create(int Width, int Height, bool FullScreen)
 {
     // Check if we have a connection with the resources
-#ifndef LOAD_RESOURCES_FROM_FILES
+#ifndef LOAD_RESOURCES_FILES
     ASSERT(m_hModule != NULL);
 #endif
 
@@ -103,7 +103,7 @@ bool CDisplay::Create(int Width, int Height, bool FullScreen)
         }
 #endif
 
-#ifndef LOAD_RESOURCES_FROM_FILES
+#ifndef LOAD_RESOURCES_FILES
         // Load the sprite tables. If at least one sprite table could not be loaded
         if (
             !LoadSprites(1, 1, 82, 41, false, BMP_GREEN_BACKGROUND_1) ||
@@ -358,11 +358,7 @@ bool CDisplay::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spri
 #ifdef DIRECTX
     if (!m_VideoDX.LoadSprites(SpriteTableWidth, SpriteTableHeight, SpriteWidth, SpriteHeight, Transparent, BMP_ID, hBitmap))
 #else
-#ifdef WIN32
     if (!m_VideoSDL.LoadSprites(SpriteTableWidth, SpriteTableHeight, SpriteWidth, SpriteHeight, Transparent, BMP_ID, hBitmap))
-#else
-    if (!m_VideoSDL.LoadSprites(SpriteTableWidth, SpriteTableHeight, SpriteWidth, SpriteHeight, Transparent, BMP_ID))
-#endif
 #endif
     {
         // Get out, failure
