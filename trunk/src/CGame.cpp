@@ -545,9 +545,6 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
     }
 #endif
 
-    std::cout << pgmDirectory << std::endl;
-    std::cout << dynamicDataFolder << std::endl;    
-
     if (!m_Options.Create(useAppDataFolder, dynamicDataFolder, pgmDirectory))
     {
         // Get out
