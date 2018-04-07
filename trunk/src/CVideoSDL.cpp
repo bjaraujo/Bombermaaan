@@ -756,7 +756,19 @@ bool CVideoSDL::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spr
 
     SSurface Surface;
 
-    std::string path(IMAGE_FOLDER);
+#ifdef BOMBERMAAAN_DATA_DIR
+    std::string path(BOMBERMAAAN_DATA_DIR);
+#else
+    std::string path("");
+#endif
+
+#ifdef WIN32
+    path.append("\\");
+#else
+    path.append("/");
+#endif
+
+    path.append(IMAGE_FOLDER);
 
 #ifdef WIN32
     path.append("\\");

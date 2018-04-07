@@ -376,8 +376,6 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
         pgmDirectory.append( "" );
     }
 
-    pgmDirectory.append ( "share/games/bombermaaan" );
-
     // check for existance
     if (stat(pgmDirectory.c_str(), &selftest) == -1 || !S_ISDIR(selftest.st_mode))
     {
@@ -540,6 +538,8 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
         return false;
     }
 #endif
+
+    std::cout << pgmDirectory << std::endl;
 
     if (!m_Options.Create(useAppDataFolder, dynamicDataFolder, pgmDirectory))
     {

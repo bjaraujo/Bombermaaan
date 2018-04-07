@@ -559,7 +559,7 @@ void COptions::WriteXMLData()
  *  @todo Set first three parameters to const if possible
  */
 
-void COptions::ReadIntFromXML( TiXmlDocument &doc, std::string configNode, std::string attrName, int *value )
+void COptions::ReadIntFromXML(TiXmlDocument &doc, std::string configNode, std::string attrName, int *value)
 {
     // Create a handle to the XML document
     TiXmlHandle handle( &doc );
@@ -577,7 +577,7 @@ void COptions::ReadIntFromXML( TiXmlDocument &doc, std::string configNode, std::
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool COptions::LoadLevels( std::string dynamicDataFolder, std::string pgmFolder )
+bool COptions::LoadLevels(std::string dynamicDataFolder, std::string pgmFolder)
 {
     long FindHandle;
     _finddata_t FindData;
