@@ -121,7 +121,6 @@ bool CLevel::LoadFromFile()
         return false;
     }
 
-
     // This is the first line for the level files beginning with version 2 (therefore "V2plus")
     std::string headerV2plus("; Bombermaaan level file version=");
 

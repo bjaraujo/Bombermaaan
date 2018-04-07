@@ -97,8 +97,8 @@
 
 #define MAX_ITER       50
 
-#define IMAGE_FOLDER "Images"
-#define SOUND_FOLDER "Sounds"
+#define IMAGE_FOLDER "images"
+#define SOUND_FOLDER "sounds"
 
 #include "CLog.h"
 #include "CConsole.h"
