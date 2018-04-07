@@ -301,15 +301,85 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
 #endif
 
     std::string pgmDirectory;
-
-    pgmDirectory.append(__argv[0]);
-    pgmDirectory.append("\\..");
-
 #ifdef WIN32
     // Set the current directory to the directory where the Bombermaaan exe file resides
     // __argv[0] is the full path including the exe file name
     // If we append a "\.." to the full path, we get the location where the dll and exe file(s) are placed
+    pgmDirectory.append(__argv[0]);
+    pgmDirectory.append("\\..");
     SetCurrentDirectory(pgmDirectory.c_str());
+#else
+    // determine level path by resolving the symlink /proc/self/exe
+    // (assume something like /usr/bin/Bombermaaan or /usr/games/Bombermaaan)
+    struct stat selftest;
+    if (stat("/proc/self/exe", &selftest) == 0)
+    {
+        char buf[1024];
+        char *lastSlash;
+        char *beforeLastSlash;
+        int bytes = readlink("/proc/self/exe", buf, 1024);
+
+        if (bytes > 0)
+        {
+            buf[bytes] = '\0';
+
+            // now we have the path of the app, strip app name.
+            lastSlash = strrchr(buf, '/');
+            if (lastSlash == NULL)
+            {
+                pgmDirectory.append( "" );
+            }
+            else if (lastSlash == buf)
+            {
+                // root directory
+                pgmDirectory.append( "/" );
+            }
+            else
+            {
+                // find out ../
+                char *tempPath = new char [lastSlash - buf + 1];
+                if (tempPath == NULL) return false;
+
+                strncpy(tempPath, buf, lastSlash - buf);
+                tempPath[lastSlash - buf] = '\0';
+
+                beforeLastSlash = strrchr(tempPath, '/');
+                if (beforeLastSlash == NULL || beforeLastSlash == tempPath)
+                {
+                    pgmDirectory.append( "/" );
+                    delete[] tempPath;
+                }
+                else
+                {
+                    char *appendPath = new char [beforeLastSlash - tempPath + 2];
+                    if (appendPath == NULL) return false;
+
+                    // copy path (include slash)
+                    strncpy(appendPath, tempPath, beforeLastSlash - tempPath + 1);
+                    appendPath[beforeLastSlash - tempPath + 1] = '\0';
+                    pgmDirectory.append( appendPath );
+                    delete[] tempPath;
+                    delete[] appendPath;
+                }
+            }
+        }
+        else
+        {
+            // assume that we're in the correct working dir
+            pgmDirectory.append( "" );
+        }
+    }
+    else
+    {
+        // assume that we're in the correct working dir
+        pgmDirectory.append( "" );
+    }
+
+    // check for existance
+    if (stat(pgmDirectory.c_str(), &selftest) == -1 || !S_ISDIR(selftest.st_mode))
+    {
+        pgmDirectory.clear(); // use current directory
+    }
 #endif
 
     if (useAppDataFolder)
@@ -469,6 +539,7 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
 #endif
 
     std::cout << pgmDirectory << std::endl;
+    std::cout << dynamicDataFolder << std::endl;    
 
     if (!m_Options.Create(useAppDataFolder, dynamicDataFolder, pgmDirectory))
     {

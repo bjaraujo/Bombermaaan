@@ -171,7 +171,6 @@ bool COptions::Create( bool useAppDataFolder, std::string dynamicDataFolder, std
     oldconfigFileName = dynamicDataFolder.c_str();
     oldconfigFileName.append( "config.dat" );
 
-    
     // Set default configuration values before loading the configuration file and overwriting the default
     SetDefaultValues();
 
