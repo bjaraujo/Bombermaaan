@@ -149,36 +149,40 @@ if platform.system().lower() == 'windows':
         shutil.copy2(os.environ.get('CRASHRPTDIR') + '/bin/crashrpt_lang.ini', strNewFolder + '/crashrpt_lang.ini')
         shutil.copy2('build/' + build + '/src/' + configuration + '/Bombermaaan.pdb', strNewFolder + '/Bombermaaan.pdb')
 
+    if not os.path.isdir(strNewFolder + '/Levels'):
+        os.mkdir(strNewFolder + '/Levels')
+    for file in glob.glob('trunk/Levels/*.TXT'):
+        shutil.copy2(file, os.path.join(strNewFolder, 'Levels', os.path.basename(file)))
+        
 elif platform.system().lower() == 'linux':
 
     shutil.copy2('build/' + build + '/src/Bombermaaan', strNewFolder + '/Bombermaaan')    
     shutil.copy2('build/' + build + '/resgen/libBombermaaan32.so', strNewFolder + '/libBombermaaan32.so')
 
-    if not os.path.isdir(strNewFolder + '/Images'):
-        os.mkdir(strNewFolder + '/Images')
+    if not os.path.isdir(strNewFolder + '/images'):
+        os.mkdir(strNewFolder + '/images')
     for file in glob.glob('trunk/res/image/*.bmp'):
         shutil.copy2(file, os.path.join(strNewFolder, 'Images', os.path.basename(file)))
 
-    if not os.path.isdir(strNewFolder + '/Sounds'):
-        os.mkdir(strNewFolder + '/Sounds')
+    if not os.path.isdir(strNewFolder + '/sounds'):
+        os.mkdir(strNewFolder + '/sounds')
     for file in glob.glob('trunk/res/sound/*.ogg'):
-        shutil.copy2(file, os.path.join(strNewFolder, 'Sounds', os.path.basename(file)))
+        shutil.copy2(file, os.path.join(strNewFolder, 'sounds', os.path.basename(file)))
     for file in glob.glob('trunk/res/sound/*.mod'):
-        shutil.copy2(file, os.path.join(strNewFolder, 'Sounds', os.path.basename(file)))
+        shutil.copy2(file, os.path.join(strNewFolder, 'sounds', os.path.basename(file)))
     for file in glob.glob('trunk/res/sound/*.s3m'):
-        shutil.copy2(file, os.path.join(strNewFolder, 'Sounds', os.path.basename(file)))
+        shutil.copy2(file, os.path.join(strNewFolder, 'sounds', os.path.basename(file)))
 
+    if not os.path.isdir(strNewFolder + '/levels'):
+        os.mkdir(strNewFolder + '/levels')
+    for file in glob.glob('trunk/levels/*.TXT'):
+        shutil.copy2(file, os.path.join(strNewFolder, 'levels', os.path.basename(file)))
+        
 # Copy license
 shutil.copy2('COPYING.txt', strNewFolder + '/COPYING.txt')
 
 # Copy read me
 shutil.copy2('README.md', strNewFolder + '/README.txt')
-
-# Copy levels
-if not os.path.isdir(strNewFolder + '/Levels'):
-    os.mkdir(strNewFolder + '/Levels')
-for file in glob.glob('trunk/levels/*.TXT'):
-    shutil.copy2(file, os.path.join(strNewFolder, 'Levels', os.path.basename(file)))
 
 # Create tag
 os.system('git commit -a -m v' + strNewVersion)
