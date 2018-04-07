@@ -16,7 +16,7 @@ rp_module_section="exp"
 rp_module_flags="!mali !kms"
 
 function depends_bombermaaan() {
-    getDepends cmake libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev build-essential
+    getDepends cmake libsdl1.2-dev libsdl-mixer1.2-dev build-essential
 }
 
 function sources_bombermaaan() {
