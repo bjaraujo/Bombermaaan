@@ -24,13 +24,15 @@ function sources_bombermaaan() {
 }
 
 function build_bombermaaan() {
+    cd trunk
     cmake . -DCMAKE_INSTALL_PREFIX="$md_inst" -DLOAD_RESOURCES_FROM_FILES:BOOL=ON
     make
     md_ret_require="$md_build/trunk/bombermaaan"
 }
 
 function install_bombermaaan() {
-    md_ret_files=(
+    md_ret_files=(        
+        'bombermaaan'
         'trunk/levels'
         'trunk/res/images'
         'trunk/res/sounds'

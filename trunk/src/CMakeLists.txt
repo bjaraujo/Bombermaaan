@@ -240,7 +240,7 @@ if(USE_DIRECTX)
 endif()
 
 if(LOAD_RESOURCES_FROM_FILES)
-  add_definitions(-DLOAD_RESOURCE_FILES)
+  add_definitions(-DLOAD_RESOURCES_FROM_FILES)
 endif()
 
 if(NETWORK_MODE)
