@@ -14,6 +14,18 @@ res.rc
 )
 
 set(RES_RESOURCES_IMAGES
+images/red_background_1.bmp
+images/red_background_2.bmp
+images/red_background_3.bmp
+images/blue_background_1.bmp
+images/blue_background_2.bmp
+images/blue_background_3.bmp
+images/green_background_1.bmp
+images/green_background_2.bmp
+images/green_background_3.bmp
+images/purple_background_1.bmp
+images/purple_background_2.bmp
+images/purple_background_3.bmp
 images/arena_arrows.bmp
 images/arena_bomb.bmp
 images/arena_bomber_death.bmp
@@ -40,18 +52,12 @@ images/board_drawgame.bmp
 images/board_heads.bmp
 images/board_score.bmp
 images/board_time.bmp
-images/controls_background_1.bmp
-images/controls_background_2.bmp
-images/controls_background_3.bmp
 images/drawgame_flag.bmp
 images/drawgame_fumes.bmp
 images/drawgame_main.bmp
 images/global_font.bmp
 images/level_mini_bombers.bmp
 images/level_mini_tiles.bmp
-images/menu_background_1.bmp
-images/menu_background_2.bmp
-images/menu_background_3.bmp
 images/menu_bomber.bmp
 images/menu_frame_1.bmp
 images/menu_frame_2.bmp
@@ -71,9 +77,6 @@ images/victory_confettis_small.bmp
 images/victory_crowd.bmp
 images/victory_title.bmp
 images/victory_wall.bmp
-images/winner_background_1.bmp
-images/winner_background_2.bmp
-images/winner_background_3.bmp
 images/winner_bomber.bmp
 images/winner_coin.bmp
 images/winner_cross.bmp

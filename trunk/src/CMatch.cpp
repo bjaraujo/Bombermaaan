@@ -130,7 +130,7 @@ void CMatch::Create(void)
     m_ForceDrawGame = false;
 
 #ifdef NETWORK_MODE
-    if (m_pNetwork->NetworkMode() != NETWORKMODE_UNKNOWN)
+    if (m_pNetwork->NetworkMode() != NETWORKMODE_LOCAL)
     {
         m_pOptions->SetTimeStart(2, 35);
         m_pOptions->SetTimeUp(0, 30);
@@ -140,7 +140,7 @@ void CMatch::Create(void)
         m_pOptions->SetBomberType(4, BOMBERTYPE_OFF);
         m_pOptions->SetBattleCount(3);
 
-        if (m_pNetwork->NetworkMode() == NETWORKMODE_HOST)
+        if (m_pNetwork->NetworkMode() == NETWORKMODE_SERVER)
         {
             m_pOptions->SetBomberType(0, BOMBERTYPE_MAN);
             m_pOptions->SetBomberType(1, BOMBERTYPE_NET);
@@ -151,7 +151,7 @@ void CMatch::Create(void)
             DWORD TickCount = time(NULL);
 #endif
 
-            m_pNetwork->Send((const char*)&TickCount, sizeof(DWORD));
+            m_pNetwork->Send(SOCKET_CLIENT, (const char*)&TickCount, sizeof(DWORD));
 
             SEED_RANDOM(TickCount);
         }
@@ -162,7 +162,7 @@ void CMatch::Create(void)
 
             DWORD TickCount;
 
-            m_pNetwork->Receive((char*)&TickCount);
+            m_pNetwork->Receive(SOCKET_SERVER, (char*)&TickCount, sizeof(DWORD));
 
         }
     }
@@ -189,6 +189,14 @@ void CMatch::Create(void)
         m_Teams[i].SetVictorious(false);
     }
 
+#ifdef NETWORK_MODE
+
+    // Each bomber is its own team
+    for (int i = 0; i < MAX_BOMBERS; i++) {
+        m_Arena.GetBomber(i).SetTeam(&m_Teams[i]);
+    }
+
+#else
     if (m_pOptions->GetBattleMode() == BATTLEMODE_TEAM)
     {
         // Set in selected team
@@ -206,6 +214,7 @@ void CMatch::Create(void)
             m_Arena.GetBomber(i).SetTeam(&m_Teams[i]);
         }
     }
+#endif
 
 }
 
@@ -480,7 +489,7 @@ void CMatch::ProcessPlayerCommands(void)
         if (TimeElapsedSinceLastCommandChunk >= 0.050f)
         {
 
-            if (m_pNetwork->NetworkMode() == NETWORKMODE_HOST)
+            if (m_pNetwork->NetworkMode() == NETWORKMODE_SERVER)
             {
 
                 if (m_pNetwork->ReceiveCommandChunk(CommandChunk))

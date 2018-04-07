@@ -726,9 +726,9 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
     pos = strstr(pCommandLine, "--host");
     if (pos != NULL)
     {
-        strcpy(IpAddressString, pos + 6);
-        OutputDebugString("*** STARTING GAME AS HOST\n");
-        m_Network.SetNetworkMode(NETWORKMODE_HOST);
+        strcpy(IpAddressString, pos + 7);
+        OutputDebugString("*** STARTING GAME AS SERVER\n");
+        m_Network.SetNetworkMode(NETWORKMODE_SERVER);
     }
     else
     {
@@ -736,8 +736,8 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
         if (pos != NULL)
         {
             strcpy(IpAddressString, pos + 3);
-            OutputDebugString("*** STARTING GAME AS HOST\n");
-            m_Network.SetNetworkMode(NETWORKMODE_HOST);
+            OutputDebugString("*** STARTING GAME AS SERVER\n");
+            m_Network.SetNetworkMode(NETWORKMODE_SERVER);
         }
     }
 #else
@@ -746,8 +746,8 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
         if (strncmp(pCommandLine[i], "-h", 2) == 0 ||
             strncmp(pCommandLine[i], "--host", 6) == 0)
         {
-            printf("*** STARTING GAME AS HOST\n");
-            m_Network.SetNetworkMode(NETWORKMODE_HOST);
+            printf("*** STARTING GAME AS SERVER\n");
+            m_Network.SetNetworkMode(NETWORKMODE_SERVER);
             break;
         }
         else if ((strncmp(pCommandLine[i], "-c", 2) == 0 ||
@@ -763,7 +763,7 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
     }
 #endif
 
-    if (m_Network.NetworkMode() != NETWORKMODE_UNKNOWN)
+    if (m_Network.NetworkMode() != NETWORKMODE_LOCAL)
     {
         if (!m_Network.Connect(IpAddressString, 1234))
         {
