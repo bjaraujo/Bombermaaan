@@ -223,7 +223,11 @@ void COptions::SetDefaultValues(void)
     m_Level = 0;
 
     // Default display mode is windowed, not full-screen
+#ifdef _DEBUG
     m_DisplayMode = DISPLAYMODE_WINDOWED;
+#else
+    m_DisplayMode = DISPLAYMODE_FULL3;
+#endif
 
     // Set the bomber types
     m_BomberType[0] = BOMBERTYPE_MAN;
