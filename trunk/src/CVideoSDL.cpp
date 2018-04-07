@@ -286,26 +286,10 @@ void CVideoSDL::Destroy(void)
 
 void CVideoSDL::UpdateScreen(void)
 {
-    HRESULT hRet;
 
-    while (true)
-    {
-        // Update the primary surface by flipping backbuffer and primary surface
-        hRet = SDL_Flip(m_pPrimary);
+    SDL_UpdateRect(m_pPrimary, 0, 0, VIEW_WIDTH, VIEW_HEIGHT);
+    SDL_Delay(10);
 
-        // If it worked fine
-        if (hRet == 0)
-        {
-            // Get out
-            break;
-        }
-
-        // Log failure
-        if (hRet != 0) {
-            theLog.WriteLine("SDLVideo        => !!! Updating failed (switching primary/backbuffer).");
-            theLog.WriteLine("SDLVideo        => !!! SDLVideo error is : %s.", GetSDLVideoError());
-        }
-    }
 }
 
 //******************************************************************************************************************************
