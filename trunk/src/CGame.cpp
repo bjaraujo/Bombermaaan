@@ -53,6 +53,8 @@
 
 #include "Bombermaaan.h"
 
+#define ENABLE_DEBUG_LOG
+
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -316,7 +318,7 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
     {
         char buf[1024];
         char *lastSlash;
-        char *beforeLastSlash;
+        //char *beforeLastSlash;
         int bytes = readlink("/proc/self/exe", buf, 1024);
 
         if (bytes > 0)
@@ -343,6 +345,9 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
                 strncpy(tempPath, buf, lastSlash - buf);
                 tempPath[lastSlash - buf] = '\0';
 
+                pgmDirectory.append(tempPath);
+
+		/*
                 beforeLastSlash = strrchr(tempPath, '/');
                 if (beforeLastSlash == NULL || beforeLastSlash == tempPath)
                 {
@@ -361,6 +366,8 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
                     delete[] tempPath;
                     delete[] appendPath;
                 }
+		*/
+
             }
         }
         else
