@@ -401,13 +401,9 @@ int GetObject(HBITMAP hBitmap, int ignored, LPVOID *lpvObject)
  */
 HRSRC FindResource( HMODULE hModule, int name, LPCSTR type )
 {
-    // currently we have two types of resources: BITMAP and SOUND
-    int t;
-    
+    // currently we have two types of resources: BITMAP and SOUND    
     if (strncmp(type, "BITMAP", 6) == 0)
-        t = 0;
     else if (strncmp(type, "SOUND", 5) == 0)
-        t = 1;
     else
         return NULL;
     
