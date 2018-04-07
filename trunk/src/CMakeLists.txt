@@ -166,48 +166,48 @@ find_package(SDL REQUIRED)
 find_package(SDL_mixer REQUIRED)
 
 if(USE_ALLEGRO)
-find_package(Allegro4 REQUIRED)
-endif(USE_ALLEGRO)
+  find_package(Allegro4 REQUIRED)
+endif()
 
 if(NETWORK_MODE)
-    find_package(SDL_net REQUIRED)
-endif(NETWORK_MODE)
+  find_package(SDL_net REQUIRED)
+endif()
 
 if(CRASH_REPORT)
-    if(WIN32)
-        find_package(CrashRpt)
-    endif(WIN32)
-endif(CRASH_REPORT)
+  if(WIN32)
+    find_package(CrashRpt)
+  endif()
+endif()
 
 set(BOMBERMAAAN_INCLUDE_DIRS
-    ${SDL_INCLUDE_DIR}
-    ${SDL_MIXER_INCLUDE_DIRS}
+  ${SDL_INCLUDE_DIR}
+  ${SDL_MIXER_INCLUDE_DIRS}
 )
 
 if(USE_ALLEGRO)
-    list(APPEND BOMBERMAAAN_INCLUDE_DIRS ${ALLEGRO_INCLUDE_DIR})    
-    add_definitions(-DNOGDI)
-endif(USE_ALLEGRO)
+  list(APPEND BOMBERMAAAN_INCLUDE_DIRS ${ALLEGRO_INCLUDE_DIR})    
+  add_definitions(-DNOGDI)
+endif()
 
 if(NETWORK_MODE)
     list(APPEND BOMBERMAAAN_INCLUDE_DIRS ${SDL_NET_INCLUDE_DIRS})    
-endif(NETWORK_MODE)
+endif()
 
 if(CRASH_REPORT)
     list(APPEND BOMBERMAAAN_INCLUDE_DIRS ${CRASHRPT_INCLUDE_DIR})    
-endif(CRASH_REPORT)
+endif()
 
 include_directories(
-    ${BOMBERMAAAN_INCLUDE_DIRS}
-    ${CMAKE_CURRENT_SOURCE_DIR}/../res
-    ${CMAKE_CURRENT_SOURCE_DIR}/../dep/tinyxml
-    ${CMAKE_CURRENT_SOURCE_DIR}/../dep/simpleini
+  ${BOMBERMAAAN_INCLUDE_DIRS}
+  ${CMAKE_CURRENT_SOURCE_DIR}/../res
+  ${CMAKE_CURRENT_SOURCE_DIR}/../dep/tinyxml
+  ${CMAKE_CURRENT_SOURCE_DIR}/../dep/simpleini
 )
 
 set(BOMBERMAAAN_LIBRARIES
-    ${SDL_LIBRARY}
-    ${SDLMIXER_LIBRARY}
-    tinyxml
+  ${SDL_LIBRARY}
+  ${SDLMIXER_LIBRARY}
+  tinyxml
 )
 
 add_definitions(-DTIXML_USE_STL -D_CRT_SECURE_NO_WARNINGS)
@@ -221,54 +221,54 @@ if(MINGW)
   enable_language(RC)
   set(CMAKE_RC_COMPILE_OBJECT
     "<CMAKE_RC_COMPILER> <FLAGS> -O coff <DEFINES> -i <SOURCE> -o <OBJECT>")
-endif(MINGW)
+endif()
 
 if(USE_SDL)
-    add_definitions(-DSDL)
+  add_definitions(-DSDL)
 endif(USE_SDL)
 
 if(USE_ALLEGRO)
-    add_definitions(-DALLEGRO)
-    list(APPEND BOMBERMAAAN_LIBRARIES ${ALLEGRO_LIBRARY})    
-endif(USE_ALLEGRO)
+  add_definitions(-DALLEGRO)
+  list(APPEND BOMBERMAAAN_LIBRARIES ${ALLEGRO_LIBRARY})    
+endif()
 
 if(USE_DIRECTX)
-    add_definitions(-DDIRECTX)
-    list(APPEND BOMBERMAAAN_HEADERS ${BOMBERMAAAN_DX_HEADERS})
-    list(APPEND BOMBERMAAAN_SOURCES ${BOMBERMAAAN_DX_SOURCES})
-    list(APPEND BOMBERMAAAN_LIBRARIES ddraw dinput8 dxguid)    
-endif(USE_DIRECTX)
+  add_definitions(-DDIRECTX)
+  list(APPEND BOMBERMAAAN_HEADERS ${BOMBERMAAAN_DX_HEADERS})
+  list(APPEND BOMBERMAAAN_SOURCES ${BOMBERMAAAN_DX_SOURCES})
+  list(APPEND BOMBERMAAAN_LIBRARIES ddraw dinput8 dxguid)    
+endif()
 
 if(LOAD_RESOURCES_FROM_FILES)
-    add_definitions(-DLOAD_RESOURCES_FROM_FILES)
-endif(LOAD_RESOURCES_FROM_FILES)
+  add_definitions(-DLOAD_RESOURCES_FROM_FILES)
+endif()
 
 if(NETWORK_MODE)
-    add_definitions(-DNETWORK_MODE)
-    list(APPEND BOMBERMAAAN_HEADERS CNetwork.h)
-    list(APPEND BOMBERMAAAN_SOURCES CNetwork.cpp)
-    list(APPEND BOMBERMAAAN_LIBRARIES ${SDLNET_LIBRARY})    
-endif(NETWORK_MODE)
+  add_definitions(-DNETWORK_MODE)
+  list(APPEND BOMBERMAAAN_HEADERS CNetwork.h)
+  list(APPEND BOMBERMAAAN_SOURCES CNetwork.cpp)
+  list(APPEND BOMBERMAAAN_LIBRARIES ${SDLNET_LIBRARY})    
+endif()
 
 if(CRASH_REPORT)
     add_definitions(-DCRASH_REPORT)
     list(APPEND BOMBERMAAAN_LIBRARIES ${CRASHRPT_LIBRARY})    
-endif(CRASH_REPORT)
+endif()
 
 if(WIN32)
-    add_executable(Bombermaaan WIN32 ${BOMBERMAAAN_HEADERS} ${BOMBERMAAAN_SOURCES})
-else(WIN32)
-    add_executable(Bombermaaan ${BOMBERMAAAN_HEADERS} ${BOMBERMAAAN_SOURCES} ${WINREPLACE_HEADERS} ${WINREPLACE_SOURCES})
-endif(WIN32)
+  add_executable(Bombermaaan WIN32 ${BOMBERMAAAN_HEADERS} ${BOMBERMAAAN_SOURCES})
+else()
+  add_executable(Bombermaaan ${BOMBERMAAAN_HEADERS} ${BOMBERMAAAN_SOURCES} ${WINREPLACE_HEADERS} ${WINREPLACE_SOURCES})
+endif()
 
 target_link_libraries(Bombermaaan 
-    ${BOMBERMAAAN_LIBRARIES}
+  ${BOMBERMAAAN_LIBRARIES}
 )
 
 find_package(PythonInterp)
 
 if(WIN32)
-    add_dependencies(Bombermaaan Bombermaaan32)
-    add_custom_command(TARGET Bombermaaan PRE_BUILD COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../scripts/IncVersion.py WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../scripts)
-endif(WIN32)
+  add_dependencies(Bombermaaan Bombermaaan32)
+  add_custom_command(TARGET Bombermaaan PRE_BUILD COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../scripts/IncVersion.py WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../scripts)
+endif()
 
