@@ -160,7 +160,7 @@ bool CVideoSDL::Create(int Width, int Height, int Depth, bool FullScreen)
         theLog.WriteLine("SDLVideo        => Initializing SDLVideo interface for windowed mode %dx%d.", m_Width, m_Height);
 
         // Get normal windowed mode
-        m_pPrimary = SDL_SetVideoMode(m_Width, m_Height, m_Depth, SDL_HWSURFACE | SDL_DOUBLEBUF);
+        m_pPrimary = SDL_SetVideoMode(m_Width, m_Height, m_Depth, SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_VIDEO_OPENGL);
 
         if (m_pPrimary == NULL) {
             // Log failure
@@ -177,7 +177,7 @@ bool CVideoSDL::Create(int Width, int Height, int Depth, bool FullScreen)
         theLog.WriteLine("SDLVideo        => Initializing SDLVideo interface for fullscreen mode %dx%dx%d.", m_Width, m_Height, m_Depth);
 
         // Get fullscreen mode
-        m_pPrimary = SDL_SetVideoMode(m_Width, m_Height, m_Depth, SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_FULLSCREEN);
+        m_pPrimary = SDL_SetVideoMode(m_Width, m_Height, m_Depth, SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_VIDEO_OPENGL | SDL_FULLSCREEN);
 
         if (m_pPrimary == NULL) {
             // Log failure
@@ -287,8 +287,27 @@ void CVideoSDL::Destroy(void)
 void CVideoSDL::UpdateScreen(void)
 {
 
-    SDL_UpdateRect(m_pPrimary, 0, 0, VIEW_WIDTH, VIEW_HEIGHT);
-    SDL_Delay(10);
+    HRESULT hRet;
+
+    while (true)
+    {
+        // Update the primary surface by flipping backbuffer and primary surface
+        hRet = SDL_Flip(m_pPrimary);
+        SDL_Delay(10);
+
+        // If it worked fine
+        if (hRet == 0)
+        {
+            // Get out
+            break;
+        }
+
+        // Log failure
+        if (hRet != 0) {
+            theLog.WriteLine("SDLVideo        => !!! Updating failed (switching primary/backbuffer).");
+            theLog.WriteLine("SDLVideo        => !!! SDLVideo error is : %s.", GetSDLVideoError());
+        }
+    }
 
 }
 
