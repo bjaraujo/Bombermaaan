@@ -293,7 +293,7 @@ void CVideoSDL::UpdateScreen(void)
     {
         // Update the primary surface by flipping backbuffer and primary surface
         hRet = SDL_Flip(m_pPrimary);
-        SDL_Delay(10);
+        SDL_Delay(15);
 
         // If it worked fine
         if (hRet == 0)
