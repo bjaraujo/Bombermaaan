@@ -80,6 +80,12 @@
 #define ITEM_SHIELD          16
 #define ITEM_STRONGWEAK      17
 
+#define FRAME_POSITION_X            30      //!< Position of the menu frame
+#define FRAME_POSITION_Y            52
+#define FRAME_SPRITE                0       //!< Sprite number of the menu frame sprite 
+#define FRAME_PRIORITY              1       //!< Priority to use in the menu sprite layer when drawing the frame
+#define FRAME_SPRITELAYER           0       //!< Sprite layer where to draw the menu frame
+
 #define MOSAIC_SPRITE_LAYER                     0           //!< Sprite layer where to draw the mosaic tiles
 #define MOSAIC_SPRITE_PRIORITY_IN_LAYER         0           //!< Priority to use in the sprite layer where to draw the mosaic tiles
 #define MOSAIC_SPEED_X                          20.0f       //!< Speed of the mosaic background horizontally
@@ -270,6 +276,16 @@ void CHelp::Display (void)
 
         // Display the scrolling mosaic background
         m_pMosaic->Display ();
+
+        // Draw the menu frame sprite
+        m_pDisplay->DrawSprite(FRAME_POSITION_X,
+            FRAME_POSITION_Y,
+            NULL,
+            NULL,
+            BMP_MENU_FRAME_1,
+            FRAME_SPRITE,
+            FRAME_SPRITELAYER,
+            FRAME_PRIORITY);
 
         // Draw the title of the screen
         m_Font.SetTextColor (FONTCOLOR_WHITE);
