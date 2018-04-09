@@ -96,8 +96,8 @@
 
 #define MOSAIC_SPRITE_LAYER                     0           //!< Sprite layer where to draw the mosaic tiles
 #define MOSAIC_SPRITE_PRIORITY_IN_LAYER         0           //!< Priority to use in the sprite layer where to draw the mosaic tiles
-#define MOSAIC_SPEED_X                          20.0f       //!< Speed of the mosaic background horizontally
-#define MOSAIC_SPEED_Y                          -20.0f      //!< Speed of the mosaic background vertically
+#define MOSAIC_SPEED_X                          50.0f       //!< Speed of the mosaic background horizontally
+#define MOSAIC_SPEED_Y                          -50.0f      //!< Speed of the mosaic background vertically
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -167,7 +167,9 @@ void CControls::Create (void)
                                                    MOSAIC_SPRITE_PRIORITY_IN_LAYER, 
                                                    MOSAIC_SPEED_X, 
                                                    MOSAIC_SPEED_Y, 
-                                                   MOSAICCOLOR_PURPLE);
+                                                   MOSAICCOLOR_PURPLE,
+                                                   false);
+
 }
     
 //******************************************************************************************************************************

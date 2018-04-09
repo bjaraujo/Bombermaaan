@@ -73,18 +73,16 @@ END
 // Bitmap
 //
 
-BMP_GREEN_BACKGROUND_1         BITMAP  DISCARDABLE     "images\\green_background_1.bmp"
-BMP_GREEN_BACKGROUND_2         BITMAP  DISCARDABLE     "images\\green_background_2.bmp"
-BMP_GREEN_BACKGROUND_3         BITMAP  DISCARDABLE     "images\\green_background_3.bmp"
-BMP_BLUE_BACKGROUND_1          BITMAP  DISCARDABLE     "images\\blue_background_1.bmp"
-BMP_BLUE_BACKGROUND_2          BITMAP  DISCARDABLE     "images\\blue_background_2.bmp"
-BMP_BLUE_BACKGROUND_3          BITMAP  DISCARDABLE     "images\\blue_background_3.bmp"
-BMP_PURPLE_BACKGROUND_1        BITMAP  DISCARDABLE     "images\\purple_background_1.bmp"
-BMP_PURPLE_BACKGROUND_2        BITMAP  DISCARDABLE     "images\\purple_background_2.bmp"
-BMP_PURPLE_BACKGROUND_3        BITMAP  DISCARDABLE     "images\\purple_background_3.bmp"
-BMP_RED_BACKGROUND_1           BITMAP  DISCARDABLE     "images\\red_background_1.bmp"
-BMP_RED_BACKGROUND_2           BITMAP  DISCARDABLE     "images\\red_background_2.bmp"
-BMP_RED_BACKGROUND_3           BITMAP  DISCARDABLE     "images\\red_background_3.bmp"
+BMP_GREEN_BACKGROUND_SOLID     BITMAP  DISCARDABLE     "images\\green_background_solid.bmp"
+BMP_BLUE_BACKGROUND_SOLID      BITMAP  DISCARDABLE     "images\\blue_background_solid.bmp"
+BMP_PURPLE_BACKGROUND_SOLID    BITMAP  DISCARDABLE     "images\\purple_background_solid.bmp"
+BMP_RED_BACKGROUND_SOLID       BITMAP  DISCARDABLE     "images\\red_background_solid.bmp"
+
+BMP_GREEN_BACKGROUND_BOMB      BITMAP  DISCARDABLE     "images\\green_background_bomb.bmp"
+BMP_BLUE_BACKGROUND_BOMB       BITMAP  DISCARDABLE     "images\\blue_background_bomb.bmp"
+BMP_PURPLE_BACKGROUND_BOMB     BITMAP  DISCARDABLE     "images\\purple_background_bomb.bmp"
+BMP_RED_BACKGROUND_BOMB        BITMAP  DISCARDABLE     "images\\red_background_bomb.bmp"
+
 BMP_ARENA_FIRE                 BITMAP  DISCARDABLE     "images\\arena_fire.bmp"
 BMP_ARENA_FLAME                BITMAP  DISCARDABLE     "images\\arena_flame.bmp"
 BMP_ARENA_FLOOR                BITMAP  DISCARDABLE     "images\\arena_floor.bmp"

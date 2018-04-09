@@ -128,8 +128,8 @@
 
 #define MOSAIC_SPRITE_LAYER                0           //!< Sprite layer where to draw the mosaic tiles
 #define MOSAIC_SPRITE_PRIORITY_IN_LAYER    0           //!< Priority to use in the sprite layer where to draw the mosaic tiles
-#define MOSAIC_SPEED_X              20.0f       //!< Speed of the scrolling background horizontally
-#define MOSAIC_SPEED_Y              -20.0f      //!< Speed of the scrolling background vertically
+#define MOSAIC_SPEED_X                     0.0f       //!< Speed of the scrolling background horizontally
+#define MOSAIC_SPEED_Y                     0.0f      //!< Speed of the scrolling background vertically
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -221,7 +221,9 @@ void CWinner::Create (void)
                                                    MOSAIC_SPRITE_PRIORITY_IN_LAYER,
                                                    MOSAIC_SPEED_X,
                                                    MOSAIC_SPEED_Y,
-                                                   MOSAICCOLOR_GREEN);
+                                                   MOSAICCOLOR_GREEN,
+                                                   true);
+
 }
 
 //******************************************************************************************************************************

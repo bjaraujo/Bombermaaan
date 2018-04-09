@@ -36,34 +36,30 @@
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-SMosaicTileProperties CRandomMosaic::m_MosaicTileProperties [4][4] =
+SMosaicTileProperties CRandomMosaic::m_MosaicTileProperties [4][2] =
 {
     // PURPLE
     {
-        { BMP_PURPLE_BACKGROUND_1, 0, 7, 12, 82, 41 },
-        { BMP_PURPLE_BACKGROUND_2, 0, 7, 12, 82, 41 },
-        { BMP_PURPLE_BACKGROUND_3, 0, 7, 12, 82, 41 }
+        { BMP_PURPLE_BACKGROUND_SOLID, 0, 7, 12, 82, 41 },
+        { BMP_PURPLE_BACKGROUND_BOMB, 0, 7, 12, 82, 41 },
     },
     
     // GREEN
     {
-        { BMP_GREEN_BACKGROUND_1, 0, 7, 12, 82, 41 },
-        { BMP_GREEN_BACKGROUND_2, 0, 7, 12, 82, 41 },
-        { BMP_GREEN_BACKGROUND_3, 0, 7, 12, 82, 41 }
+        { BMP_GREEN_BACKGROUND_SOLID, 0, 7, 12, 82, 41 },
+        { BMP_GREEN_BACKGROUND_BOMB, 0, 7, 12, 82, 41 },
     },
 
     // BLUE
     {
-        { BMP_BLUE_BACKGROUND_1, 0, 7, 12, 82, 41 },
-        { BMP_BLUE_BACKGROUND_2, 0, 7, 12, 82, 41 },
-        { BMP_BLUE_BACKGROUND_3, 0, 7, 12, 82, 41 }
+        { BMP_BLUE_BACKGROUND_SOLID, 0, 7, 12, 82, 41 },
+        { BMP_BLUE_BACKGROUND_BOMB, 0, 7, 12, 82, 41 },
     },
 
     // RED
     {
-        { BMP_RED_BACKGROUND_1, 0, 7, 12, 82, 41 },
-        { BMP_RED_BACKGROUND_2, 0, 7, 12, 82, 41 },
-        { BMP_RED_BACKGROUND_3, 0, 7, 12, 82, 41 }
+        { BMP_RED_BACKGROUND_SOLID, 0, 7, 12, 82, 41 },
+        { BMP_RED_BACKGROUND_BOMB, 0, 7, 12, 82, 41 },
     }
 
 };
@@ -77,9 +73,16 @@ CMosaic* CRandomMosaic::CreateRandomMosaic (CDisplay* pDisplay,
                                             int PriorityInLayer, 
                                             float SpeedX, 
                                             float SpeedY, 
-                                            EMosaicColor Color)
+                                            EMosaicColor Color,
+                                            bool IsSolid)
 {
-    SMosaicTileProperties* pMosaicTileProperties = &m_MosaicTileProperties[(int)Color][RANDOM(3)];    
+
+    SMosaicTileProperties* pMosaicTileProperties;
+
+    if (IsSolid)
+        pMosaicTileProperties = &m_MosaicTileProperties[(int)Color][0];
+    else
+        pMosaicTileProperties = &m_MosaicTileProperties[(int)Color][1];
 
     CMosaic* pNewMosaic = new CMosaic;
     

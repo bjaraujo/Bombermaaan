@@ -65,7 +65,7 @@ class CRandomMosaic
 {
 private:
 
-    static SMosaicTileProperties m_MosaicTileProperties[4][4];
+    static SMosaicTileProperties m_MosaicTileProperties[4][2];
 
 public:
 
@@ -74,7 +74,8 @@ public:
                                         int PriorityInLayer, 
                                         float SpeedX, 
                                         float SpeedY, 
-                                        EMosaicColor Color);
+                                        EMosaicColor Color,
+                                        bool IsSolid);
 };
 
 //******************************************************************************************************************************

@@ -103,18 +103,14 @@ bool CDisplay::Create(int Width, int Height, bool FullScreen)
         }
 #endif
 
-        if (!LoadSprites(1, 1, 82, 41, false, BMP_GREEN_BACKGROUND_1, "green_background_1.bmp") ||
-            !LoadSprites(1, 1, 82, 41, false, BMP_GREEN_BACKGROUND_2, "green_background_2.bmp") ||
-            !LoadSprites(1, 1, 82, 41, false, BMP_GREEN_BACKGROUND_3, "green_background_3.bmp") ||
-            !LoadSprites(1, 1, 82, 41, false, BMP_BLUE_BACKGROUND_1, "blue_background_1.bmp") ||
-            !LoadSprites(1, 1, 82, 41, false, BMP_BLUE_BACKGROUND_2, "blue_background_2.bmp") ||
-            !LoadSprites(1, 1, 82, 41, false, BMP_BLUE_BACKGROUND_3, "blue_background_3.bmp") ||
-            !LoadSprites(1, 1, 82, 41, false, BMP_PURPLE_BACKGROUND_1, "purple_background_1.bmp") ||
-            !LoadSprites(1, 1, 82, 41, false, BMP_PURPLE_BACKGROUND_2, "purple_background_2.bmp") ||
-            !LoadSprites(1, 1, 82, 41, false, BMP_PURPLE_BACKGROUND_3, "purple_background_3.bmp") ||
-            !LoadSprites(1, 1, 82, 41, false, BMP_RED_BACKGROUND_1, "red_background_1.bmp") ||
-            !LoadSprites(1, 1, 82, 41, false, BMP_RED_BACKGROUND_2, "red_background_2.bmp") ||
-            !LoadSprites(1, 1, 82, 41, false, BMP_RED_BACKGROUND_3, "red_background_3.bmp") ||
+        if (!LoadSprites(1, 1, 82, 41, false, BMP_GREEN_BACKGROUND_SOLID, "green_background_solid.bmp") ||
+            !LoadSprites(1, 1, 82, 41, false, BMP_BLUE_BACKGROUND_SOLID, "blue_background_solid.bmp") ||
+            !LoadSprites(1, 1, 82, 41, false, BMP_PURPLE_BACKGROUND_SOLID, "purple_background_solid.bmp") ||
+            !LoadSprites(1, 1, 82, 41, false, BMP_RED_BACKGROUND_SOLID, "red_background_solid.bmp") ||
+            !LoadSprites(1, 1, 82, 41, false, BMP_GREEN_BACKGROUND_BOMB, "green_background_bomb.bmp") ||
+            !LoadSprites(1, 1, 82, 41, false, BMP_BLUE_BACKGROUND_BOMB, "blue_background_bomb.bmp") ||
+            !LoadSprites(1, 1, 82, 41, false, BMP_PURPLE_BACKGROUND_BOMB, "purple_background_bomb.bmp") ||
+            !LoadSprites(1, 1, 82, 41, false, BMP_RED_BACKGROUND_BOMB, "red_background_bomb.bmp") ||
             !LoadSprites(2, 1, 32, 32, false, BMP_ARENA_FLOOR, "arena_floor.bmp") ||
             !LoadSprites(7, 1, 32, 32, true, BMP_ARENA_WALL, "arena_wall.bmp") ||
             !LoadSprites(28, 1, 32, 32, true, BMP_ARENA_FLAME, "arena_flame.bmp") ||

@@ -25,13 +25,13 @@ Line.11 = *SSS*R U L*SSS*
 Line.12 = ***************
 
 [Settings]
-ItemsInWalls.Bombs = 2
-ItemsInWalls.Flames = 2
-ItemsInWalls.Kicks = 1
-ItemsInWalls.Rollers = 1
-ItemsInWalls.Skulls = 1
-ItemsInWalls.Throws = 1
-ItemsInWalls.Punches = 1
+ItemsInWalls.Bombs = 0
+ItemsInWalls.Flames = 0
+ItemsInWalls.Kicks = 0
+ItemsInWalls.Rollers = 0
+ItemsInWalls.Skulls = 0
+ItemsInWalls.Throws = 0
+ItemsInWalls.Punches = 0
 ItemsInWalls.Remotes = 0
 BomberSkillsAtStart.FlameSize = 2
 BomberSkillsAtStart.MaxBombs = 1
