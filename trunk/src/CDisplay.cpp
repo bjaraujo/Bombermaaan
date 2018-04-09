@@ -103,86 +103,7 @@ bool CDisplay::Create(int Width, int Height, bool FullScreen)
         }
 #endif
 
-#ifndef LOAD_RESOURCES_FROM_FILES
-        // Load the sprite tables. If at least one sprite table could not be loaded
-        if (
-            !LoadSprites(1, 1, 82, 41, false, BMP_GREEN_BACKGROUND_1) ||
-            !LoadSprites(1, 1, 82, 41, false, BMP_GREEN_BACKGROUND_2) ||
-            !LoadSprites(1, 1, 82, 41, false, BMP_GREEN_BACKGROUND_3) ||
-            !LoadSprites(1, 1, 82, 41, false, BMP_BLUE_BACKGROUND_1) ||
-            !LoadSprites(1, 1, 82, 41, false, BMP_BLUE_BACKGROUND_2) ||
-            !LoadSprites(1, 1, 82, 41, false, BMP_BLUE_BACKGROUND_3) ||
-            !LoadSprites(1, 1, 82, 41, false, BMP_PURPLE_BACKGROUND_1) ||
-            !LoadSprites(1, 1, 82, 41, false, BMP_PURPLE_BACKGROUND_2) ||
-            !LoadSprites(1, 1, 82, 41, false, BMP_PURPLE_BACKGROUND_3) ||
-            !LoadSprites(1, 1, 82, 41, false, BMP_RED_BACKGROUND_1) ||
-            !LoadSprites(1, 1, 82, 41, false, BMP_RED_BACKGROUND_2) ||
-            !LoadSprites(1, 1, 82, 41, false, BMP_RED_BACKGROUND_3) ||
-            !LoadSprites(2, 1, 32, 32, false, BMP_ARENA_FLOOR) ||
-            !LoadSprites(7, 1, 32, 32, true, BMP_ARENA_WALL) ||
-            !LoadSprites(28, 1, 32, 32, true, BMP_ARENA_FLAME) ||
-            !LoadSprites(20, 1, 32, 32, false, BMP_ARENA_ITEM) ||
-            !LoadSprites(3, 1, 32, 32, true, BMP_ARENA_BOMB) ||
-            !LoadSprites(12, 8, 42, 44, true, BMP_ARENA_BOMBER_WALK) ||
-            !LoadSprites(7, 1, 52, 54, true, BMP_ARENA_FIRE) ||
-            !LoadSprites(12, 8, 42, 44, true, BMP_ARENA_BOMBER_WALK_HOLD) ||
-            !LoadSprites(4, 1, 32, 32, true, BMP_ARENA_FLY) ||
-            !LoadSprites(1, 1, 480, 26, false, BMP_BOARD_BACKGROUND) ||
-            !LoadSprites(12, 1, 7, 10, true, BMP_BOARD_TIME) ||
-            !LoadSprites(2, 1, 15, 7, true, BMP_BOARD_CLOCK_TOP) ||
-            !LoadSprites(8, 1, 15, 13, true, BMP_BOARD_CLOCK_BOTTOM) ||
-            !LoadSprites(6, 1, 6, 8, true, BMP_BOARD_SCORE) ||
-            !LoadSprites(5, 2, 14, 14, true, BMP_BOARD_HEADS) ||
-            !LoadSprites(1, 1, 480, 442, false, BMP_DRAWGAME_MAIN) ||
-            !LoadSprites(2, 1, 68, 96, false, BMP_DRAWGAME_FLAG) ||
-            !LoadSprites(4, 1, 20, 62, true, BMP_DRAWGAME_FUMES) ||
-            !LoadSprites(4, 5, 24, 32, true, BMP_WINNER_BOMBER) ||
-            !LoadSprites(16, 1, 22, 22, true, BMP_WINNER_COIN) ||
-            !LoadSprites(4, 1, 6, 6, true, BMP_WINNER_LIGHTS) ||
-            !LoadSprites(4, 2, 16, 16, true, BMP_WINNER_SPARKS) ||
-            !LoadSprites(1, 1, 158, 16, true, BMP_WINNER_TITLE) ||
-            !LoadSprites(1, 1, 32, 405, false, BMP_VICTORY_WALL) ||
-            !LoadSprites(9, 1, 14, 16, true, BMP_VICTORY_CROWD) ||
-            !LoadSprites(14, 5, 36, 61, true, BMP_VICTORY_BOMBER) ||
-            !LoadSprites(1, 1, 192, 60, true, BMP_VICTORY_TITLE) ||
-            !LoadSprites(46, 6, 10, 10, true, BMP_GLOBAL_FONT) ||
-            !LoadSprites(5, 2, 21, 19, true, BMP_MENU_BOMBER) ||
-            !LoadSprites(1, 1, 420, 362, true, BMP_MENU_FRAME_1) ||
-            !LoadSprites(2, 1, 15, 16, true, BMP_MENU_HAND) ||
-            !LoadSprites(5, 1, 23, 23, true, BMP_WINNER_CROSS) ||
-            !LoadSprites(5, 5, 14, 15, true, BMP_VICTORY_CONFETTIS_LARGE) ||
-            !LoadSprites(5, 5, 13, 14, true, BMP_VICTORY_CONFETTIS_MEDIUM) ||
-            !LoadSprites(5, 5, 10, 10, true, BMP_VICTORY_CONFETTIS_SMALL) ||
-            !LoadSprites(1, 1, 200, 36, true, BMP_PAUSE) ||
-            !LoadSprites(1, 1, 200, 36, true, BMP_HURRY) ||
-            !LoadSprites(1, 1, 154, 93, true, BMP_MENU_FRAME_2) ||
-            !LoadSprites(3, 4, 32, 32, true, BMP_ARENA_FUMES) ||
-            !LoadSprites(1, 1, 14, 14, true, BMP_BOARD_DRAWGAME) ||
-            !LoadSprites(1, 1, 480, 442, false, BMP_TITLE_BACKGROUND) ||
-            !LoadSprites(1, 1, 480, 126, true, BMP_TITLE_BOMBERS) ||
-            !LoadSprites(1, 1, 298, 139, true, BMP_TITLE_TITLE) ||
-            !LoadSprites(2, 6, 128, 26, true, BMP_TITLE_MENU_ITEMS) ||
-            !LoadSprites(1, 1, 138, 46, true, BMP_TITLE_CLOUD_1) ||
-            !LoadSprites(1, 1, 106, 46, true, BMP_TITLE_CLOUD_2) ||
-            !LoadSprites(1, 1, 66, 22, true, BMP_TITLE_CLOUD_3) ||
-            !LoadSprites(18, 1, 16, 16, true, BMP_LEVEL_MINI_TILES) ||
-            !LoadSprites(5, 1, 24, 20, true, BMP_LEVEL_MINI_BOMBERS) ||
-            !LoadSprites(7, 5, 42, 44, true, BMP_ARENA_BOMBER_DEATH) ||
-            !LoadSprites(12, 8, 42, 44, true, BMP_ARENA_BOMBER_LIFT) ||
-            !LoadSprites(20, 8, 42, 44, true, BMP_ARENA_BOMBER_THROW) ||
-            !LoadSprites(8, 8, 42, 44, true, BMP_ARENA_BOMBER_PUNCH) ||
-            !LoadSprites(4, 8, 42, 44, true, BMP_ARENA_BOMBER_STUNT) ||
-            !LoadSprites(4, 1, 32, 32, true, BMP_ARENA_ARROWS) ||
-            !LoadSprites(1, 1, 30, 32, true, BMP_MENU_HAND_TITLE) ||
-            !LoadSprites(3, 1, 32, 32, true, BMP_ARENA_REMOTE_BOMB)
-            )
-        {
-            // Failure, get out (error is logged by the LoadSprites() method)
-            return false;
-        }
-#else
-        if (
-            !LoadSprites(1, 1, 82, 41, false, BMP_GREEN_BACKGROUND_1, "green_background_1.bmp") ||
+        if (!LoadSprites(1, 1, 82, 41, false, BMP_GREEN_BACKGROUND_1, "green_background_1.bmp") ||
             !LoadSprites(1, 1, 82, 41, false, BMP_GREEN_BACKGROUND_2, "green_background_2.bmp") ||
             !LoadSprites(1, 1, 82, 41, false, BMP_GREEN_BACKGROUND_3, "green_background_3.bmp") ||
             !LoadSprites(1, 1, 82, 41, false, BMP_BLUE_BACKGROUND_1, "blue_background_1.bmp") ||
@@ -256,7 +177,6 @@ bool CDisplay::Create(int Width, int Height, bool FullScreen)
             // Failure, get out (error is logged by the LoadSprites() method)
             return false;
         }
-#endif
 
         // Save origin where to draw from
         m_ViewOriginX = (Width - VIEW_WIDTH) / 2;
@@ -331,14 +251,14 @@ bool CDisplay::IsDisplayModeAvailable(EDisplayMode DisplayMode)
     }
 }
 
-#ifndef LOAD_RESOURCES_FROM_FILES
-
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CDisplay::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, int BMP_ID)
+bool CDisplay::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, int BMP_ID, const char *file)
 {
+
+#ifndef LOAD_RESOURCES_FROM_FILES
 
 #ifdef WIN32
     // Load the bitmap as a resource
@@ -385,18 +305,7 @@ bool CDisplay::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spri
     }
 #endif
 
-    // Everything went right
-    return true;
-}
-
 #else
-    
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-bool CDisplay::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, int BMP_ID, const char *file)
-{
 
 #ifdef DIRECTX
     if (!m_VideoDX.LoadSprites(SpriteTableWidth, SpriteTableHeight, SpriteWidth, SpriteHeight, Transparent, BMP_ID, file))
@@ -408,11 +317,11 @@ bool CDisplay::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spri
         return false;
     }
 
+#endif
+
     // Everything went right
     return true;
 }
-
-#endif
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************

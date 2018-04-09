@@ -695,11 +695,6 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
         return false;
     }
 
-    m_Sound.SetSongVolume(SONG_MATCH_MUSIC_1_NORMAL, 65);
-    m_Sound.SetSongVolume(SONG_MATCH_MUSIC_1_FAST, 65);
-    m_Sound.SetSongVolume(SONG_MENU_MUSIC, 65);
-    m_Sound.SetSampleVolume(100);
-
 #endif
 
     m_MenuYesNo.Create();

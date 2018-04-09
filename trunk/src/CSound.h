@@ -121,14 +121,11 @@ private:
     Mix_Chunk *m_Samples[NUM_SAMPLES];          //!< The available samples
     Mix_Music *m_CurrentSong;                   //!< The current song
     ESong m_ESong;                              //!< current song number
-    //AudioDevicePtr m_Device;
 
     bool GetSoundResource(int ResourceID, LPVOID &pData, DWORD &DataSize);
-    bool LoadSample(ESample Sample, int ResourceID);
     bool LoadSample(ESample Sample, int ResourceID, const char *file);
 
     void FreeSample(ESample Sample);
-    bool LoadSong(ESong Song, int ResourceID);
     bool LoadSong(ESong Song, int ResourceID, const char* file);
     void FreeSong(ESong Song);
 

@@ -85,9 +85,10 @@ bool CSound::Create(void)
         return false;
     }
 
+    Mix_Volume(-1, MIX_MAX_VOLUME);
+
     Mix_AllocateChannels(32); // this was the default in FMOD
 
-#ifdef LOAD_RESOURCES_FROM_FILES
     if (!LoadSample(SAMPLE_BOMB_DROP, SND_BOMB_DROP, "bomb_drop.ogg") ||
         !LoadSample(SAMPLE_BOMBER_DEATH, SND_BOMBER_DEATH, "bomber_death.ogg") ||
         !LoadSample(SAMPLE_BOMB_BOUNCE, SND_BOMB_BOUNCE, "bomb_bounce.ogg") ||
@@ -140,60 +141,6 @@ bool CSound::Create(void)
       // Failure, get out (error is logged by the LoadSample() and LoadSong() methods)
         return false;
     }
-#else
-    if (!LoadSample(SAMPLE_BOMB_DROP, SND_BOMB_DROP) ||
-        !LoadSample(SAMPLE_BOMBER_DEATH, SND_BOMBER_DEATH) ||
-        !LoadSample(SAMPLE_BOMB_BOUNCE, SND_BOMB_BOUNCE) ||
-        !LoadSample(SAMPLE_BOMBER_PUNCH, SND_BOMBER_PUNCH) ||
-        !LoadSample(SAMPLE_BOMBER_THROW, SND_BOMBER_THROW) ||
-        !LoadSample(SAMPLE_BOMBER_LOSE_ITEM, SND_BOMBER_LOSE_ITEM) ||
-        !LoadSample(SAMPLE_BREAK_1, SND_BREAK_1) ||
-        !LoadSample(SAMPLE_BREAK_2, SND_BREAK_2) ||
-        !LoadSample(SAMPLE_DRAW_GAME, SND_DRAW_GAME) ||
-        !LoadSample(SAMPLE_DRAW_GAME_VOICE, SND_DRAW_GAME_VOICE) ||
-        !LoadSample(SAMPLE_EXPLOSION_01_1, SND_EXPLOSION_01_1) ||
-        !LoadSample(SAMPLE_EXPLOSION_01_2, SND_EXPLOSION_01_2) ||
-        !LoadSample(SAMPLE_EXPLOSION_02_1, SND_EXPLOSION_02_1) ||
-        !LoadSample(SAMPLE_EXPLOSION_02_2, SND_EXPLOSION_02_2) ||
-        !LoadSample(SAMPLE_EXPLOSION_03_1, SND_EXPLOSION_03_1) ||
-        !LoadSample(SAMPLE_EXPLOSION_03_2, SND_EXPLOSION_03_2) ||
-        !LoadSample(SAMPLE_EXPLOSION_04_1, SND_EXPLOSION_04_1) ||
-        !LoadSample(SAMPLE_EXPLOSION_04_2, SND_EXPLOSION_04_2) ||
-        !LoadSample(SAMPLE_EXPLOSION_05_1, SND_EXPLOSION_05_1) ||
-        !LoadSample(SAMPLE_EXPLOSION_05_2, SND_EXPLOSION_05_2) ||
-        !LoadSample(SAMPLE_EXPLOSION_06_1, SND_EXPLOSION_06_1) ||
-        !LoadSample(SAMPLE_EXPLOSION_06_2, SND_EXPLOSION_06_2) ||
-        !LoadSample(SAMPLE_EXPLOSION_07_1, SND_EXPLOSION_07_1) ||
-        !LoadSample(SAMPLE_EXPLOSION_07_2, SND_EXPLOSION_07_2) ||
-        !LoadSample(SAMPLE_EXPLOSION_08_1, SND_EXPLOSION_08_1) ||
-        !LoadSample(SAMPLE_EXPLOSION_08_2, SND_EXPLOSION_08_2) ||
-        !LoadSample(SAMPLE_EXPLOSION_09_1, SND_EXPLOSION_09_1) ||
-        !LoadSample(SAMPLE_EXPLOSION_09_2, SND_EXPLOSION_09_2) ||
-        !LoadSample(SAMPLE_EXPLOSION_10_1, SND_EXPLOSION_10_1) ||
-        !LoadSample(SAMPLE_EXPLOSION_10_2, SND_EXPLOSION_10_2) ||
-        !LoadSample(SAMPLE_HURRY, SND_HURRY) ||
-        !LoadSample(SAMPLE_ITEM_FUMES, SND_ITEM_FUMES) ||
-        !LoadSample(SAMPLE_MENU_NEXT, SND_MENU_NEXT) ||
-        !LoadSample(SAMPLE_MENU_PREVIOUS, SND_MENU_PREVIOUS) ||
-        !LoadSample(SAMPLE_MENU_BEEP, SND_MENU_BEEP) ||
-        !LoadSample(SAMPLE_MENU_ERROR, SND_MENU_ERROR) ||
-        !LoadSample(SAMPLE_PAUSE, SND_PAUSE) ||
-        !LoadSample(SAMPLE_PICK_ITEM_1, SND_PICK_ITEM_1) ||
-        !LoadSample(SAMPLE_PICK_ITEM_2, SND_PICK_ITEM_2) ||
-        !LoadSample(SAMPLE_RING_DING, SND_RING_DING) ||
-        !LoadSample(SAMPLE_SICK_1, SND_SICK_1) ||
-        !LoadSample(SAMPLE_SICK_2, SND_SICK_2) ||
-        !LoadSample(SAMPLE_SICK_3, SND_SICK_3) ||
-        !LoadSample(SAMPLE_VICTORY, SND_VICTORY) ||
-        !LoadSample(SAMPLE_VICTORY_VOICE, SND_VICTORY_VOICE) ||
-        !LoadSample(SAMPLE_WALL_CLAP_1, SND_WALL_CLAP_1) ||
-        !LoadSample(SAMPLE_WALL_CLAP_2, SND_WALL_CLAP_2) ||
-        !LoadSample(SAMPLE_WINNER, SND_WINNER))
-    { // songs are loaded when they are needed
-      // Failure, get out (error is logged by the LoadSample() and LoadSong() methods)
-        return false;
-    }
-#endif
 
     m_SoundOK = true;
 
@@ -244,8 +191,11 @@ void CSound::Destroy(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CSound::LoadSample(ESample Sample, int ResourceID)
+bool CSound::LoadSample(ESample Sample, int ResourceID, const char *file)
 {
+
+#ifndef LOAD_RESOURCES_FROM_FILES
+
     SDL_RWops *rwSample;
 
     // Check if the sample slot is free
@@ -268,25 +218,7 @@ bool CSound::LoadSample(ESample Sample, int ResourceID)
     m_Samples[Sample] = Mix_LoadWAV_RW(rwSample, 0);
     SDL_FreeRW(rwSample);
 
-    if (!m_Samples[Sample])
-    {
-        // Log failure
-        theLog.WriteLine("Sound           => !!! Could not open sample %d because %s", ResourceID, Mix_GetError());
-
-        // Get out
-        return false;
-    }
-
-    // Everything went right
-    return true;
-}
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-bool CSound::LoadSample(ESample Sample, int ResourceID, const char *file)
-{
+#else
 
     // Check if the sample slot is free
     ASSERT(m_Samples[Sample] == NULL);
@@ -303,6 +235,8 @@ bool CSound::LoadSample(ESample Sample, int ResourceID, const char *file)
 
     m_Samples[Sample] = Mix_LoadWAV(path.c_str());
 
+#endif
+
     if (!m_Samples[Sample])
     {
         // Log failure
@@ -314,6 +248,7 @@ bool CSound::LoadSample(ESample Sample, int ResourceID, const char *file)
 
     // Everything went right
     return true;
+
 }
 
 //******************************************************************************************************************************
@@ -340,13 +275,15 @@ void CSound::FreeSample(ESample Sample)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CSound::LoadSong(ESong Song, int ResourceID)
+bool CSound::LoadSong(ESong Song, int ResourceID, const char* file)
 {
-
-    SDL_RWops *rwSong;
 
     // Check if the song slot is free
     ASSERT(m_CurrentSong == NULL);
+
+#ifndef LOAD_RESOURCES_FROM_FILES
+
+    SDL_RWops *rwSong;
 
     LPVOID pData;
     DWORD DataSize;
@@ -365,24 +302,7 @@ bool CSound::LoadSong(ESong Song, int ResourceID)
     m_CurrentSong = Mix_LoadMUS_RW(rwSong);
     SDL_FreeRW(rwSong);
 
-    if (!m_CurrentSong) {
-        // Log failure
-        theLog.WriteLine("Sound           => !!! Could not load song %d because %s.", ResourceID, Mix_GetError());
-
-        // Get out
-        return false;
-    }
-
-    // Everything went right
-    return true;
-}
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-bool CSound::LoadSong(ESong Song, int ResourceID, const char* file)
-{
+#else
 
     std::string path(SOUND_FOLDER);
 
@@ -397,6 +317,8 @@ bool CSound::LoadSong(ESong Song, int ResourceID, const char* file)
     // Open Sample
     m_CurrentSong = Mix_LoadMUS(path.c_str());
 
+#endif
+
     if (!m_CurrentSong) {
         // Log failure
         theLog.WriteLine("Sound           => !!! Could not load song %d because %s.", ResourceID, Mix_GetError());
@@ -407,6 +329,7 @@ bool CSound::LoadSong(ESong Song, int ResourceID, const char* file)
 
     // Everything went right
     return true;
+
 }
 
 //******************************************************************************************************************************
@@ -521,6 +444,8 @@ void CSound::SetPause(bool Pause)
 void CSound::PlaySong(ESong Song)
 {
     bool result = true;
+    int VolumePerCent = 25;
+
     // If the sound works
     if (m_SoundOK)
     {
@@ -532,39 +457,19 @@ void CSound::PlaySong(ESong Song)
         if (m_ESong != Song || m_CurrentSong == NULL) {
             switch (Song) {
             case SONG_MATCH_MUSIC_1_NORMAL:
-#ifndef LOAD_RESOURCES_FROM_FILES
-                result = LoadSong(SONG_MATCH_MUSIC_1_NORMAL, SND_MATCH_MUSIC_1_NORMAL);
-#else
                 result = LoadSong(SONG_MATCH_MUSIC_1_NORMAL, SND_MATCH_MUSIC_1_NORMAL, "match_music_1_normal.mod");
-#endif
                 break;
             case SONG_MATCH_MUSIC_1_FAST:
-#ifndef LOAD_RESOURCES_FROM_FILES
-                result = LoadSong(SONG_MATCH_MUSIC_1_FAST, SND_MATCH_MUSIC_1_FAST);
-#else
                 result = LoadSong(SONG_MATCH_MUSIC_1_FAST, SND_MATCH_MUSIC_1_FAST, "match_music_1_fast.mod");
-#endif
                 break;
             case SONG_MENU_MUSIC:
-#ifndef LOAD_RESOURCES_FROM_FILES
-                result = LoadSong(SONG_MENU_MUSIC, SND_MENU_MUSIC);
-#else
                 result = LoadSong(SONG_MENU_MUSIC, SND_MENU_MUSIC, "menu_music.s3m");
-#endif
                 break;
             case SONG_CONTROLS_MUSIC:
-#ifndef LOAD_RESOURCES_FROM_FILES
-                result = LoadSong(SONG_CONTROLS_MUSIC, SND_CONTROLS_MUSIC);
-#else
                 result = LoadSong(SONG_CONTROLS_MUSIC, SND_CONTROLS_MUSIC, "controls_music.s3m");
-#endif
                 break;
             case SONG_TITLE_MUSIC:
-#ifndef LOAD_RESOURCES_FROM_FILES
-                result = LoadSong(SONG_TITLE_MUSIC, SND_TITLE_MUSIC);
-#else
                 result = LoadSong(SONG_TITLE_MUSIC, SND_TITLE_MUSIC, "title_music.s3m");
-#endif
                 break;
             default:
                 result = false;
@@ -575,6 +480,8 @@ void CSound::PlaySong(ESong Song)
         {
             // Start playing this song (-1 infinite loop)
             Mix_PlayMusic(m_CurrentSong, -1);
+            Mix_VolumeMusic(VolumePerCent * MIX_MAX_VOLUME / 100);
+
             m_ESong = Song;
         }
     }
