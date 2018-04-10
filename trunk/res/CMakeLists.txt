@@ -14,18 +14,14 @@ res.rc
 )
 
 set(RES_RESOURCES_IMAGES
-images/red_background_1.bmp
-images/red_background_2.bmp
-images/red_background_3.bmp
-images/blue_background_1.bmp
-images/blue_background_2.bmp
-images/blue_background_3.bmp
-images/green_background_1.bmp
-images/green_background_2.bmp
-images/green_background_3.bmp
-images/purple_background_1.bmp
-images/purple_background_2.bmp
-images/purple_background_3.bmp
+images/red_background_solid.bmp
+images/red_background_bomb.bmp
+images/blue_background_solid.bmp
+images/blue_background_bomb.bmp
+images/green_background_solid.bmp
+images/green_background_bomb.bmp
+images/purple_background_solid.bmp
+images/purple_background_bomb.bmp
 images/arena_arrows.bmp
 images/arena_bomb.bmp
 images/arena_bomber_death.bmp
