@@ -239,6 +239,18 @@ if(USE_DIRECTX)
   list(APPEND BOMBERMAAAN_LIBRARIES ddraw dinput8 dxguid)    
 endif()
 
+if(ENABLE_LOG)
+  add_definitions(-DENABLE_LOG)
+endif()
+
+if(ENABLE_DEBUG_LOG)
+  add_definitions(-DENABLE_DEBUG_LOG)
+endif()
+
+if(ENABLE_DEBUG_KEYS)
+  add_definitions(-DENABLE_DEBUG_KEYS)
+endif()
+
 if(LOAD_RESOURCES_FROM_FILES)
   add_definitions(-DLOAD_RESOURCES_FROM_FILES)
 endif()

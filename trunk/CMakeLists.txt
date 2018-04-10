@@ -23,9 +23,12 @@ elseif(${GRAPHICS_LIBRARY_OPTION_INDEX} EQUAL 2)
   set(USE_DIRECTX ON INTERNAL FORCE) 
 endif()
  
-set(LOAD_RESOURCES_FROM_FILES OFF CACHE BOOL "Load Resources From Files")
-set(NETWORK_MODE OFF CACHE BOOL "Network Mode")
-set(CRASH_REPORT OFF CACHE BOOL "Crash Report")
+set(ENABLE_LOG OFF CACHE BOOL "Enable logging")
+set(ENABLE_DEBUG_LOG OFF CACHE BOOL "Enable debug logging")
+set(ENABLE_DEBUG_KEYS OFF CACHE BOOL "Enable debug keys")
+set(LOAD_RESOURCES_FROM_FILES OFF CACHE BOOL "Load resources from files")
+set(NETWORK_MODE OFF CACHE BOOL "Network mode")
+set(CRASH_REPORT OFF CACHE BOOL "Crash report")
 
 add_subdirectory(dep)
 
