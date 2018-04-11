@@ -553,7 +553,7 @@ bool CVideoSDL::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spr
     if (GetObject(hBitmap, sizeof(Bitmap), &Bitmap) == 0)
     {
         // Log failure
-        theLog.WriteLine("DirectDraw      => !!! Could not get the bitmap's attributes.");
+        theLog.WriteLine("SDLVideo      => !!! Could not get the bitmap's attributes.");
         theLog.LogLastError();
 
         // Get out
