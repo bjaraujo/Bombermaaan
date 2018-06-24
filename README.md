@@ -13,7 +13,6 @@
 - 2007, 2008 Bernd Arnold
 - 2008 Jerome Bigot
 - 2008 Markus Drescher
-- 2016 Billy Araujo
 
 ## License
 
