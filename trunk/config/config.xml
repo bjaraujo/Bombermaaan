@@ -5,10 +5,12 @@
         <ConfigRevision value="1" />
         <TimeUp minutes="0" seconds="55" />
         <TimeStart minutes="2" seconds="30" />
+        <BattleMode value="0" />
         <BattleCount value="3" />
         <LevelFileNumber value="0" />
         <DisplayMode value="4" />
-        <BomberTypes bomber0="1" bomber1="1" bomber2="2" bomber3="0" bomber4="0" />
+        <BomberTypes bomber0="1" bomber1="2" bomber2="0" bomber3="0" bomber4="0" />
+        <BomberTeams bomber0="0" bomber1="0" bomber2="1" bomber3="1" bomber4="1" />
         <PlayerInputs bomber0="0" bomber1="1" bomber2="2" bomber3="3" bomber4="4" />
         <ControlList>
             <Control id="0" control0="200" control1="208" control2="203" control3="205" control4="45" control5="44" />
