@@ -178,9 +178,6 @@ elif platform.system().lower() == 'linux':
     for file in glob.glob('trunk/levels/*.TXT'):
         shutil.copy2(file, os.path.join(strNewFolder, 'levels', os.path.basename(file)))
 
-# Copy config file
-shutil.copy2('trunk/config/config.xml', strNewFolder + '/config.xml')
-
 # Copy license
 shutil.copy2('COPYING.txt', strNewFolder + '/COPYING.txt')
 

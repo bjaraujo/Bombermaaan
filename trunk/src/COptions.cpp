@@ -231,7 +231,7 @@ void COptions::SetDefaultValues(void)
 
     // Set the bomber types
     m_BomberType[0] = BOMBERTYPE_MAN;
-    m_BomberType[1] = BOMBERTYPE_MAN;
+    m_BomberType[1] = BOMBERTYPE_COM;
     m_BomberType[2] = BOMBERTYPE_OFF;
     m_BomberType[3] = BOMBERTYPE_OFF;
     m_BomberType[4] = BOMBERTYPE_OFF;

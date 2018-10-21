@@ -51,7 +51,6 @@ Source: ..\releases\msvc14-win32\Bombermaaan_{#APP_VERSION_INFO}\CrashSender1403
 Source: ..\releases\msvc14-win32\Bombermaaan_{#APP_VERSION_INFO}\CrashRpt1403.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\releases\msvc14-win32\Bombermaaan_{#APP_VERSION_INFO}\dbghelp.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\releases\msvc14-win32\Bombermaaan_{#APP_VERSION_INFO}\crashrpt_lang.ini; DestDir: {app}; Flags: ignoreversion
-Source: ..\releases\msvc14-win32\Bombermaaan_{#APP_VERSION_INFO}\config.xml; DestDir: {app}; Flags: ignoreversion
 Source: ..\releases\msvc14-win32\Bombermaaan_{#APP_VERSION_INFO}\COPYING.txt; DestDir: {app}; Flags: ignoreversion
 Source: ..\releases\msvc14-win32\Bombermaaan_{#APP_VERSION_INFO}\README.txt; DestDir: {app}; Flags: ignoreversion
 Source: ..\releases\msvc14-win32\Bombermaaan_{#APP_VERSION_INFO}\libFLAC-8.dll; DestDir: {app}; Flags: ignoreversion
