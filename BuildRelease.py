@@ -128,7 +128,7 @@ if platform.system().lower() == 'windows':
 
     shutil.copy2('build/' + build + '/src/' + configuration + '/Bombermaaan.exe', strNewFolder + '/Bombermaaan.exe')
     shutil.copy2('build/' + build + '/src/' + configuration + '/Bombermaaan32.dll', strNewFolder + '/Bombermaaan32.dll')
-    
+        
     shutil.copy2(os.environ.get('SDLDIR')      + '/lib/x86/SDL.dll', strNewFolder + '/SDL.dll')
     shutil.copy2(os.environ.get('SDLMIXERDIR') + '/lib/x86/SDL_mixer.dll', strNewFolder + '/SDL_mixer.dll')
     shutil.copy2(os.environ.get('SDLMIXERDIR') + '/lib/x86/smpeg.dll', strNewFolder + '/smpeg.dll')
@@ -177,7 +177,10 @@ elif platform.system().lower() == 'linux':
         os.mkdir(strNewFolder + '/levels')
     for file in glob.glob('trunk/levels/*.TXT'):
         shutil.copy2(file, os.path.join(strNewFolder, 'levels', os.path.basename(file)))
-        
+
+# Copy config file
+shutil.copy2('trunk/config/config.xml', strNewFolder + '/config.xml')
+
 # Copy license
 shutil.copy2('COPYING.txt', strNewFolder + '/COPYING.txt')
 

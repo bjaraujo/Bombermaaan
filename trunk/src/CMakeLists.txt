@@ -267,6 +267,10 @@ if(CRASH_REPORT)
     list(APPEND BOMBERMAAAN_LIBRARIES ${CRASHRPT_LIBRARY})    
 endif()
 
+if(MSVC)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")
+endif()
+
 if(WIN32)
   add_executable(Bombermaaan WIN32 ${BOMBERMAAAN_HEADERS} ${BOMBERMAAAN_SOURCES})
 else()
