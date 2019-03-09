@@ -457,19 +457,24 @@ void CSound::PlaySong(ESong Song)
         if (m_ESong != Song || m_CurrentSong == NULL) {
             switch (Song) {
             case SONG_MATCH_MUSIC_1_NORMAL:
-                result = LoadSong(SONG_MATCH_MUSIC_1_NORMAL, SND_MATCH_MUSIC_1_NORMAL, "match_music_1_normal.mod");
+                result = LoadSong(SONG_MATCH_MUSIC_1_NORMAL, SND_MATCH_MUSIC_1_NORMAL, "match.ogg");
+                VolumePerCent = 100;
                 break;
             case SONG_MATCH_MUSIC_1_FAST:
-                result = LoadSong(SONG_MATCH_MUSIC_1_FAST, SND_MATCH_MUSIC_1_FAST, "match_music_1_fast.mod");
+                result = LoadSong(SONG_MATCH_MUSIC_1_FAST, SND_MATCH_MUSIC_1_FAST, "match.ogg");
+                VolumePerCent = 100;
                 break;
             case SONG_MENU_MUSIC:
                 result = LoadSong(SONG_MENU_MUSIC, SND_MENU_MUSIC, "menu_music.s3m");
+                VolumePerCent = 20;
                 break;
             case SONG_CONTROLS_MUSIC:
                 result = LoadSong(SONG_CONTROLS_MUSIC, SND_CONTROLS_MUSIC, "controls_music.s3m");
+                VolumePerCent = 20;
                 break;
             case SONG_TITLE_MUSIC:
                 result = LoadSong(SONG_TITLE_MUSIC, SND_TITLE_MUSIC, "title_music.s3m");
+                VolumePerCent = 20;
                 break;
             default:
                 result = false;
@@ -519,6 +524,7 @@ void CSound::PlaySample(ESample Sample)
         {
             // Start playing this sample
             Mix_PlayChannel(-1, m_Samples[Sample], 0);
+            Mix_VolumeChunk(m_Samples[Sample], 64);
         }
     }
 }
