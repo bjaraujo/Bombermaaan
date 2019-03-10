@@ -40,19 +40,16 @@
 
 CHurryMessage::CHurryMessage (CDisplay* pDisplay, CSound* pSound)
 {
-    ASSERT (pDisplay != NULL);
-    ASSERT (pSound != NULL);
+    ASSERT(pDisplay != NULL);
+    ASSERT(pSound != NULL);
 
     m_pDisplay = pDisplay;
     m_pSound = pSound;
 
     // Play the hurry up sound
-    m_pSound->PlaySample (SAMPLE_HURRY);
+    m_pSound->PlaySample(SAMPLE_HURRY);
 
-    // Stop the match music song (the normal one)
-    m_pSound->StopSong (SONG_MATCH_MUSIC_1_NORMAL);
-
-    m_Scroller.Create (-68, 96, 69, 16, 308.0f, 0.0f, -1.0f);
+    m_Scroller.Create(-68, 96, 69, 16, 308.0f, 0.0f, -1.0f);
 }
 
 //******************************************************************************************************************************

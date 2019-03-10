@@ -110,11 +110,10 @@
 #define SND_EXPLOSION_07_2                       2016
 #define SND_EXPLOSION_08_1                       2017
 #define SND_EXPLOSION_06_1                       2018
-#define SND_MATCH_MUSIC_1_NORMAL                 2019
+#define SND_MATCH_MUSIC                          2019
 #define SND_EXPLOSION_09_2                       2020
 #define SND_EXPLOSION_10_1                       2021
 #define SND_EXPLOSION_10_2                       2022
-#define SND_MATCH_MUSIC_1_FAST                   2023
 #define SND_EXPLOSION_09_1                       2024
 #define SND_MENU_MUSIC                           2025
 #define SND_MENU_NEXT                            2026

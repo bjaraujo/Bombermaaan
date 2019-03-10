@@ -375,10 +375,10 @@ void CMatch::PlaySong(void)
     if (!m_IsSongPlaying)
     {
         // Start playing the match song
-        m_pSound->PlaySong(SONG_MATCH_MUSIC_1_NORMAL);
+        m_pSound->PlaySong(SONG_MATCH_MUSIC);
 
         // Save current song number
-        m_CurrentSong = SONG_MATCH_MUSIC_1_NORMAL;
+        m_CurrentSong = SONG_MATCH_MUSIC;
 
         // A song is currently playing
         m_IsSongPlaying = true;
@@ -673,7 +673,7 @@ void CMatch::UpdateMatch(void)
 
             if (ForceArenaClosing) {
                 // Stop the match music song (the normal one)
-                m_pSound->StopSong(SONG_MATCH_MUSIC_1_NORMAL);
+                m_pSound->StopSong(SONG_MATCH_MUSIC);
             }
 
         }
@@ -698,12 +698,6 @@ void CMatch::UpdateMatch(void)
                 {
                     // Make the arena start closing
                     m_Arena.GetArenaCloser().Start();
-
-                    // Start playing the fast match song
-                    m_pSound->PlaySong(SONG_MATCH_MUSIC_1_FAST);
-
-                    // Save current song number
-                    m_CurrentSong = SONG_MATCH_MUSIC_1_FAST;
 
                     // Don't do this more than once
                     m_NoticedTimeUp = true;

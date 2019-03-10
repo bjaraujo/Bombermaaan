@@ -340,10 +340,10 @@ void CDemo::PlaySong (void)
     if (!m_IsSongPlaying)
     {
         // Start playing the match song
-        m_pSound->PlaySong (SONG_MATCH_MUSIC_1_NORMAL);
+        m_pSound->PlaySong (SONG_MATCH_MUSIC);
 
         // Save current song number
-        m_CurrentSong = SONG_MATCH_MUSIC_1_NORMAL;
+        m_CurrentSong = SONG_MATCH_MUSIC;
 
         // A song is currently playing
         m_IsSongPlaying = true;
@@ -395,13 +395,7 @@ void CDemo::UpdateMatch (void)
                  m_Clock.GetSeconds() <= m_Options.GetTimeUpSeconds()))
             {
                 // Make the arena start closing
-                m_Arena.GetArenaCloser().Start ();
-
-                // Start playing the fast match song
-                m_pSound->PlaySong (SONG_MATCH_MUSIC_1_FAST);
-
-                // Save current song number
-                m_CurrentSong = SONG_MATCH_MUSIC_1_FAST;
+                m_Arena.GetArenaCloser().Start();
 
                 // Don't do this more than once
                 m_NoticedTimeUp = true;
