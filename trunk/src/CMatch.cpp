@@ -929,7 +929,7 @@ void CMatch::ManageMatchOver(void)
             }
 
             // Play the bell sound (ding ding ding ding ding!)
-            m_pSound->PlaySample(SAMPLE_RING_DING);
+            //m_pSound->PlaySample(SAMPLE_RING_DING);
 
             // Stop the match song which was playing
             m_pSound->StopSong(m_CurrentSong);
@@ -970,7 +970,7 @@ void CMatch::ManageMatchOver(void)
             }
 
             // Play the bell sound (ding ding ding ding ding!)
-            m_pSound->PlaySample(SAMPLE_RING_DING);
+            //m_pSound->PlaySample(SAMPLE_RING_DING);
 
             // Stop the match song which was playing
             m_pSound->StopSong(m_CurrentSong);
