@@ -90,7 +90,7 @@ sounds/bomber_punch.ogg
 sounds/bomber_throw.ogg
 sounds/break_1.ogg
 sounds/break_2.ogg
-sounds/controls_music.s3m
+sounds/controls_music.ogg
 sounds/draw_game.ogg
 sounds/draw_game_voice.ogg
 sounds/explosion_01_1.ogg
@@ -115,11 +115,10 @@ sounds/explosion_10_1.ogg
 sounds/explosion_10_2.ogg
 sounds/hurry.ogg
 sounds/item_fumes.ogg
-sounds/match_music_1_fast.mod
-sounds/match_music_1_normal.mod
+sounds/match_music.ogg
 sounds/menu_beep.ogg
 sounds/menu_error.ogg
-sounds/menu_music.s3m
+sounds/menu_music.ogg
 sounds/menu_next.ogg
 sounds/menu_previous.ogg
 sounds/pause.ogg
@@ -129,7 +128,7 @@ sounds/ring_ding.ogg
 sounds/sick_1.ogg
 sounds/sick_2.ogg
 sounds/sick_3.ogg
-sounds/title_music.s3m
+sounds/title_music.ogg
 sounds/victory.ogg
 sounds/victory_voice.ogg
 sounds/wall_clap_1.ogg
