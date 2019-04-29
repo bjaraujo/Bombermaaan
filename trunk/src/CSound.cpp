@@ -283,8 +283,6 @@ bool CSound::LoadSong(ESong Song, int ResourceID, const char* file)
 
 #ifndef LOAD_RESOURCES_FROM_FILES
 
-    SDL_RWops *rwSong;
-
     LPVOID pData;
     DWORD DataSize;
 
@@ -296,11 +294,10 @@ bool CSound::LoadSong(ESong Song, int ResourceID, const char* file)
     }
 
     // Convert pData to SDL_RWops
-    rwSong = SDL_RWFromMem(pData, DataSize);
+    m_rwSong = SDL_RWFromMem(pData, DataSize);
 
     // Open Sample
-    m_CurrentSong = Mix_LoadMUS_RW(rwSong);
-    SDL_FreeRW(rwSong);
+    m_CurrentSong = Mix_LoadMUS_RW(m_rwSong);
 
 #else
 
@@ -343,6 +340,8 @@ void CSound::FreeSong(ESong Song)
     {
         Mix_HaltMusic();
         Mix_FreeMusic(m_CurrentSong);
+
+		SDL_RWclose(m_rwSong);
 
         // Free the song slot
         m_CurrentSong = NULL;

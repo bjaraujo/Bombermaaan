@@ -119,6 +119,7 @@ private:
     bool m_SoundOK;                             //!< Could SDL_mixer be initialized? This may be false if there is no sound card
     Mix_Chunk *m_Samples[NUM_SAMPLES];          //!< The available samples
     Mix_Music *m_CurrentSong;                   //!< The current song
+	SDL_RWops *m_rwSong;                        //!< The current raw song data
     ESong m_ESong;                              //!< current song number
 
     bool GetSoundResource(int ResourceID, LPVOID &pData, DWORD &DataSize);
