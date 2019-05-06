@@ -8,7 +8,7 @@ import glob
 
 # Build platform
 if platform.system().lower() == 'windows':
-    build = 'msvc15-win32'
+    build = 'msvc16-win32'
 elif platform.system().lower() == 'linux':
     build = 'gxx-linux-x86'
 
@@ -78,7 +78,7 @@ print('build: ' + build)
 time.sleep(3)
 
 if platform.system().lower() == 'windows':
-    os.system('"C:\Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/MSBuild/15.0/Bin/MSBuild.exe" build/' + build + '/src/Bombermaaan.vcxproj /p:Configuration=' + configuration + ' /t:Rebuild')
+    os.system('"C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/MSBuild/Current/Bin/MSBuild.exe" build/' + build + '/src/Bombermaaan.vcxproj /p:Configuration=' + configuration + ' /t:Rebuild')
        
 elif platform.system().lower() == 'linux':
     os.system('make -C build/' + build + ' clean');
@@ -191,7 +191,7 @@ os.system('git push --tags')
 
 # Create package
 if platform.system().lower() == 'windows':
-    os.system('"C:\Program Files (x86)/Inno Setup 5/iscc.exe" installers\InstallScriptWin32.iss')
+    os.system('"C:/Program Files (x86)/Inno Setup 5/iscc.exe" installers\InstallScriptWin32.iss')
 
 elif platform.system().lower() == 'linux':
     os.system('fpm -s dir -t deb -C ' + strNewFolder \
