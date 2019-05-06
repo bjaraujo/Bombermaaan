@@ -341,11 +341,15 @@ void CSound::FreeSong(ESong Song)
         Mix_HaltMusic();
         Mix_FreeMusic(m_CurrentSong);
 
-		SDL_RWclose(m_rwSong);
-
-        // Free the song slot
         m_CurrentSong = NULL;
     }
+
+    if (m_rwSong != NULL)
+    {
+        SDL_RWclose(m_rwSong);
+        m_rwSong = NULL;
+    }
+
 }
 
 //******************************************************************************************************************************
