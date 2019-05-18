@@ -878,6 +878,8 @@ bool CAiBomber::DropBombOK(int BlockX, int BlockY)
         // Continue scanning (go right)
         DangerBlockX++;
         Depth++;
+
+		assert(DangerBlockX < ARENA_WIDTH);
     }
 
     // If the scan was stopped because of a wall
@@ -923,6 +925,8 @@ bool CAiBomber::DropBombOK(int BlockX, int BlockY)
         // Continue scanning (go left)
         DangerBlockX--;
         Depth++;
+
+		assert(DangerBlockX >= 0);
     }
 
     // If the scan was stopped because of a wall
@@ -968,6 +972,8 @@ bool CAiBomber::DropBombOK(int BlockX, int BlockY)
         // Continue scanning (go up)
         DangerBlockY--;
         Depth++;
+
+		assert(DangerBlockY >= 0);
     }
 
     // If the scan was stopped because of a wall
@@ -1013,6 +1019,8 @@ bool CAiBomber::DropBombOK(int BlockX, int BlockY)
         // Continue scanning (go down)
         DangerBlockY++;
         Depth++;
+
+		assert(DangerBlockY < ARENA_HEIGHT);
     }
 
     // If the scan was stopped because of a wall

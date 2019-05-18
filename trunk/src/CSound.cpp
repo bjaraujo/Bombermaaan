@@ -461,7 +461,7 @@ void CSound::PlaySong(ESong Song)
             switch (Song) {
             case SONG_MATCH_MUSIC:
                 result = LoadSong(SONG_MATCH_MUSIC, SND_MATCH_MUSIC, "match_music.ogg");
-                VolumePerCent = 100;
+                VolumePerCent = 20;
                 break;
             case SONG_MENU_MUSIC:
                 result = LoadSong(SONG_MENU_MUSIC, SND_MENU_MUSIC, "menu_music.ogg");

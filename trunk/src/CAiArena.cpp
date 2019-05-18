@@ -714,6 +714,8 @@ void CAiArena::Update (float DeltaTime)
                         DangerBlockX++;
                         Depth++;            // Go deeper
 
+						assert(DangerBlockX < ARENA_WIDTH);
+
                         // Update auxiliary variables
                         IsWall = m_pArena->IsWall(DangerBlockX,DangerBlockY);
                         IsBomb = m_pArena->IsBomb(DangerBlockX,DangerBlockY);
@@ -794,8 +796,10 @@ void CAiArena::Update (float DeltaTime)
                         }
                         
                         // Continue scanning (go left)
-                        DangerBlockX--;
+                        DangerBlockX--;						
                         Depth++;            // Go deeper
+
+						assert(DangerBlockX >= 0);
 
                         // Update auxiliary variables
                         IsWall = m_pArena->IsWall(DangerBlockX,DangerBlockY);
@@ -881,6 +885,8 @@ void CAiArena::Update (float DeltaTime)
                         DangerBlockY--;
                         Depth++;            // Go deeper
 
+						assert(DangerBlockY >= 0);
+
                         // Update auxiliary variables
                         IsWall = m_pArena->IsWall(DangerBlockX,DangerBlockY);
                         IsBomb = m_pArena->IsBomb(DangerBlockX,DangerBlockY);
@@ -964,6 +970,8 @@ void CAiArena::Update (float DeltaTime)
                         // Continue scanning (go down)
                         DangerBlockY++;
                         Depth++;            // Go deeper
+
+						assert(DangerBlockY < ARENA_HEIGHT);
 
                         // Update auxiliary variables
                         IsWall = m_pArena->IsWall(DangerBlockX,DangerBlockY);
