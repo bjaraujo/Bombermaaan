@@ -345,27 +345,7 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
 
                 pgmDirectory.append(tempPath);
 
-		/*
-                beforeLastSlash = strrchr(tempPath, '/');
-                if (beforeLastSlash == NULL || beforeLastSlash == tempPath)
-                {
-                    pgmDirectory.append( "/" );
-                    delete[] tempPath;
-                }
-                else
-                {
-                    char *appendPath = new char [beforeLastSlash - tempPath + 2];
-                    if (appendPath == NULL) return false;
-
-                    // copy path (include slash)
-                    strncpy(appendPath, tempPath, beforeLastSlash - tempPath + 1);
-                    appendPath[beforeLastSlash - tempPath + 1] = '\0';
-                    pgmDirectory.append( appendPath );
-                    delete[] tempPath;
-                    delete[] appendPath;
-                }
-		*/
-
+                delete[] tempPath;
             }
         }
         else
