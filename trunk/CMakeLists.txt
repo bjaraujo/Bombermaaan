@@ -26,7 +26,7 @@ endif()
 set(ENABLE_LOG OFF CACHE BOOL "Enable logging")
 set(ENABLE_DEBUG_LOG OFF CACHE BOOL "Enable debug logging")
 set(ENABLE_DEBUG_KEYS OFF CACHE BOOL "Enable debug keys")
-set(LOAD_RESOURCES_FROM_FILES OFF CACHE BOOL "Load resources from files")
+set(LOAD_RESOURCES_FROM_FILES ON CACHE BOOL "Load resources from files")
 set(NETWORK_MODE OFF CACHE BOOL "Network mode")
 set(CRASH_REPORT OFF CACHE BOOL "Crash report")
 

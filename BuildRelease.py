@@ -2,7 +2,6 @@
 import os
 import platform
 import time
-import sys
 import shutil
 import glob
 
@@ -13,13 +12,13 @@ elif platform.system().lower() == 'linux':
     build = 'gxx-linux-x86'
 
 configuration = 'Release'
-    
+
 # Crash report
 bCrashReport = True
 
 if bCrashReport:
     configuration = 'RelWithDebInfo'
-    
+
 # Read version info
 fi = open('trunk/src/Bombermaaan.h', 'r')
 strLines = fi.readlines()
