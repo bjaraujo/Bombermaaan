@@ -289,13 +289,13 @@ EGameMode CDemo::Update (void)
     // If we have to make the first black screen
     if (m_ModeTime <= BLACKSCREEN_DURATION)
     {
-
+        // Stay in this game mode
     }
     // If the first black screen is done and we have to make a little 
     // pause to allow the players to see the arena before playing
     else if (m_ModeTime <= BLACKSCREEN_DURATION + PAUSE_BEGIN)
     {
-
+        // Stay in this game mode
     }
     // If match is currently playing and it's not over
     else if (!m_MatchOver)

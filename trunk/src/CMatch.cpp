@@ -1005,13 +1005,13 @@ EGameMode CMatch::Update(void)
     // If we have to make the first black screen
     if (m_ModeTime <= BLACKSCREEN_DURATION)
     {
-
+        // Stay in this game mode
     }
     // If the first black screen is done and we have to make a little 
     // pause to allow the players to see the arena before playing
     else if (m_ModeTime <= BLACKSCREEN_DURATION + PAUSE_BEGIN)
     {
-
+        // Stay in this game mode
     }
     // If match is currently playing and it's not over
     else if (!m_MatchOver)
@@ -1033,7 +1033,7 @@ EGameMode CMatch::Update(void)
     // If the pause is over and we have to make the last black screen
     else if (m_ModeTime <= m_ExitModeTime + BLACKSCREEN_DURATION)
     {
-
+        // Stay in this game mode
     }
     // If the last black screen is over then ask for another game mode
     else
@@ -1065,6 +1065,7 @@ void CMatch::Display(void)
     // If we have to make the first black screen
     if (m_ModeTime <= BLACKSCREEN_DURATION)
     {
+        // Do nothing
     }
     // If first black screen is done and we have to make a little 
     // pause to allow the players to see the arena before playing
@@ -1093,6 +1094,7 @@ void CMatch::Display(void)
     // If the pause is over and we have to make the last black screen
     else if (m_ModeTime <= m_ExitModeTime + BLACKSCREEN_DURATION)
     {
+        // Do nothing
     }
 }
 

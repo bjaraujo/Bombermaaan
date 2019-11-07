@@ -283,7 +283,7 @@ EGameMode CWinner::Update (void)
     // If we have to make the first black screen
     if (m_ModeTime <= WINNER_BLACKSCREEN_DURATION)
     {
-
+        // Stay in this game mode
     }
     // If minimum duration of the mode has not elapsed OR we don't have to exit yet
     else if (m_ModeTime <= WINNER_MINIMUM_DURATION || !m_HaveToExit)
@@ -423,12 +423,14 @@ EGameMode CWinner::Update (void)
                 }
             }
         }
+
+        // Stay in this game mode
     }
     // The minimum mode duration has elapsed AND we have to exit,
     // so we have to make the last black screen
     else if (m_ModeTime - m_ExitModeTime <= WINNER_BLACKSCREEN_DURATION)
     {
-
+        // Stay in this game mode
     }
     // Last black screen is complete! Get out of here!
     else
@@ -445,7 +447,6 @@ EGameMode CWinner::Update (void)
 
         // Ask for a game mode switch to match screen to continue the battle!
         return GAMEMODE_MATCH;
-
     }
 
     // Stay in this game mode
@@ -461,6 +462,7 @@ void CWinner::Display (void)
     // If we have to make the first black screen
     if (m_ModeTime <= WINNER_BLACKSCREEN_DURATION)
     {
+        // Do nothing
     }
     // If minimum duration of the mode has not elapsed OR we don't have to exit yet
     else if (m_ModeTime <= WINNER_MINIMUM_DURATION || !m_HaveToExit)
@@ -669,6 +671,7 @@ void CWinner::Display (void)
     // so we have to make the last black screen
     else if (m_ModeTime - m_ExitModeTime <= WINNER_BLACKSCREEN_DURATION)
     {
+        // Do nothing
     }
 }
 

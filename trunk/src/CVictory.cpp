@@ -317,7 +317,7 @@ EGameMode CVictory::Update (void)
     // If we have to make the first black screen
     if (m_ModeTime <= VICTORY_BLACKSCREEN_DURATION)
     {
-        
+        // Stay in this game mode
     }
     // If we don't have to exit yet
     else if (!m_HaveToExit)
@@ -517,7 +517,7 @@ EGameMode CVictory::Update (void)
     // so we have to make the last black screen
     else if (m_ModeTime - m_ExitModeTime <= VICTORY_BLACKSCREEN_DURATION)
     {
-        
+        // Stay in this game mode
     }
     // Last black screen is complete! Get out of here!
     else
@@ -542,6 +542,7 @@ void CVictory::Display (void)
     // If we have to make the first black screen
     if (m_ModeTime <= VICTORY_BLACKSCREEN_DURATION)
     {
+        // Do nothing
     }
     // If we don't have to exit yet
     else if (!m_HaveToExit)
@@ -826,6 +827,7 @@ void CVictory::Display (void)
     // so we have to make the last black screen
     else if (m_ModeTime - m_ExitModeTime <= VICTORY_BLACKSCREEN_DURATION)
     {
+        // Do nothing
     }
 }
 
