@@ -1,6 +1,3 @@
-import sys
-import os.path
-import re
 
 file_in = 'res.rc'
 

@@ -1,6 +1,4 @@
 
-import os
-import sys
 import fileinput
 
 print('Setting version info...')
@@ -16,8 +14,8 @@ fi = open('../CMakeLists.txt', 'r')
 strLines = fi.readlines()
 
 for strLine in strLines:
-	if 'PROJECT' in strLine.upper(): 
-		strProjectName = strLine.split('(')[-1].replace(')', '').rstrip()
+    if 'PROJECT' in strLine.upper(): 
+        strProjectName = strLine.split('(')[-1].replace(')', '').rstrip()
 
 print('Project Name = ' + strProjectName)
 
@@ -39,22 +37,22 @@ fo = open('../src/' + strProjectName + '.h', 'w')
 
 for strLine in strLines:
 
-	if 'APP_VERSION_INFO' in strLine.upper(): 
-		strPrevVersion = strLine.split(' ')[-1].rstrip().replace('"', '')
-				
-		intMajorNumber = int(strPrevVersion.split('.')[0])
-		intMinorNumber = int(strPrevVersion.split('.')[1])
-		intReleaseNumber = int(strPrevVersion.split('.')[2])
-		intBuildNumber = int(strPrevVersion.split('.')[3])
-				
-		intBuildNumber = intBuildNumber + 1
-		
-		strNewVersion = str(intMajorNumber) + '.' + str(intMinorNumber) + '.' + str(intReleaseNumber) + '.' + str(intBuildNumber)
-		
-		strLine = strLine.replace(strPrevVersion, strNewVersion)
-				
-	fo.write(strLine)
-	
+    if 'APP_VERSION_INFO' in strLine.upper(): 
+        strPrevVersion = strLine.split(' ')[-1].rstrip().replace('"', '')
+                
+        intMajorNumber = int(strPrevVersion.split('.')[0])
+        intMinorNumber = int(strPrevVersion.split('.')[1])
+        intReleaseNumber = int(strPrevVersion.split('.')[2])
+        intBuildNumber = int(strPrevVersion.split('.')[3])
+                
+        intBuildNumber = intBuildNumber + 1
+        
+        strNewVersion = str(intMajorNumber) + '.' + str(intMinorNumber) + '.' + str(intReleaseNumber) + '.' + str(intBuildNumber)
+        
+        strLine = strLine.replace(strPrevVersion, strNewVersion)
+                
+    fo.write(strLine)
+    
 fo.close()
 
 print(strNewVersion)

@@ -1,8 +1,5 @@
-import os, subprocess, time, signal
 import gym
-from gym import error, spaces
-from gym import utils
-from gym.utils import seeding
+from gym import spaces
 
 import logging
 logger = logging.getLogger(__name__)
