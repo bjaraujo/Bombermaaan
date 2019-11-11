@@ -1,0 +1,7 @@
+extraction:
+  cpp:
+    prepare:
+      packages:
+        - libsdl1.2-dev 
+        - libsdl-mixer1.2-dev
+
