@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/bjaraujo/Bombermaaan.svg?branch=master)](https://travis-ci.org/bjaraujo/Bombermaaan/build)
+[![Build Status](https://travis-ci.org/bjaraujo/Bombermaaan.svg?branch=master)](https://travis-ci.org/bjaraujo/Bombermaaan)
 [![License: GPL v3](https://img.shields.io/badge/license-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 # Bombermaaan
