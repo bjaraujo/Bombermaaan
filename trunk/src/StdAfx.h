@@ -49,6 +49,8 @@
 #include <unistd.h>
 #endif
 
+#include <iomanip>
+#include <ctime>
 #include <string>
 #include <vector>
 #include <map>
@@ -56,6 +58,7 @@
 #include <stack>
 #include <queue>
 #include <map>
+#include <sstream>
 
 #ifndef ASSERT
 #define ASSERT assert

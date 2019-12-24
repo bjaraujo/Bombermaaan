@@ -120,54 +120,14 @@ CGame::CGame (HINSTANCE hInstance, char** pCommandLine)
 
     // At the end, the windowTitle is "... - Compiled YYYY-MM-DD"
 
-    // Year
-    windowTitle.append(__DATE__ + 7);
-    windowTitle.append("-");
+    std::time_t t = std::time(nullptr);
+    std::tm tm = *std::localtime(&t);
+    
+    std::stringstream buffer;
+    buffer << std::put_time(&tm, "%Y-%m-%d");
 
-    // Month: Jan/Jun/Jul, Feb, Mar/May, Apr/Aug, Sep, Oct, Nov, Dec
-    // Inspired by the file TortoiseProc.cpp from TortoiseSVN
-    if (__DATE__[0] == 'J') {
-        if (__DATE__[1] == 'a')      { windowTitle.append("01"); }
-        else if (__DATE__[2] == 'n') { windowTitle.append("06"); }
-        else                             { windowTitle.append("07"); }
-    }
-    else if (__DATE__[0] == 'F') {
-        windowTitle.append("02");
-    }
-    else if (__DATE__[0] == 'M') {
-        if (__DATE__[2] == 'r')      { windowTitle.append("03"); }
-        else                             { windowTitle.append("05"); }
-    }
-    else if (__DATE__[0] == 'A') {
-        if (__DATE__[1] == 'p')      { windowTitle.append("04"); }
-        else                             { windowTitle.append("08"); }
-    }
-    else if (__DATE__[0] == 'S') {
-        windowTitle.append("09");
-    }
-    else if (__DATE__[0] == 'O') {
-        windowTitle.append("10");
-    }
-    else if (__DATE__[0] == 'N') {
-        windowTitle.append("11");
-    }
-    else if (__DATE__[0] == 'D') {
-        windowTitle.append("12");
-    }
-    else {
-        // Should never be reached
-        ASSERT(0);
-    }
-    windowTitle.append("-");
-
-    // Day (ensure for leading zero when day is 1 to 9)
-    if (__DATE__[4] == ' ') {
-        windowTitle.append("0");
-        windowTitle.append(__DATE__ + 5, 1);
-    }
-    else {
-        windowTitle.append(__DATE__ + 4, 2);
-    }
+    windowTitle.append(" - ");
+    windowTitle.append(buffer.str());
 
 #ifdef DIRECTX
     SetWindowText(m_hWnd, windowTitle.c_str());
