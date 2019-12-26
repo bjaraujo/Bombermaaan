@@ -126,7 +126,7 @@ CGame::CGame (HINSTANCE hInstance, char** pCommandLine)
     std::stringstream buffer;
     buffer << std::put_time(&tm, "%Y-%m-%d");
 
-    windowTitle.append(" - ");
+    windowTitle.append(" ");
     windowTitle.append(buffer.str());
 
 #ifdef DIRECTX
