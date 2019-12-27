@@ -9,7 +9,7 @@ before_install:
 script:
   - mkdir build
   - cd build
-  - cmake .. -DLOAD_RESOURCES_FROM_FILES:BOOL=ON
+  - cmake ../trunk -DLOAD_RESOURCES_FROM_FILES:BOOL=ON
   - make
 
 notifications:
