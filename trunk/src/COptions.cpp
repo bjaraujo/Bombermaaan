@@ -163,12 +163,12 @@ COptions& COptions::operator = (const COptions& Copy)
 bool COptions::Create( bool useAppDataFolder, std::string dynamicDataFolder, std::string pgmFolder )
 {
     // Set the file name of the configuration file including full path
-    configFileName = dynamicDataFolder.c_str();
+    configFileName = dynamicDataFolder;
     configFileName.append( "config.xml" );
     theLog.WriteLine( "Options         => Name of config file: '%s'.", configFileName.c_str() );
 
     // Set the file name of the old configuration file
-    oldconfigFileName = dynamicDataFolder.c_str();
+    oldconfigFileName = dynamicDataFolder;
     oldconfigFileName.append( "config.dat" );
 
     // Set default configuration values before loading the configuration file and overwriting the default
