@@ -91,9 +91,9 @@
 #define LIGHTS_SPACE_X                  7       //!< Space (in pixels) between two lights's X positions
 #define LIGHTS_SPACE_Y                  7       //!< Space (in pixels) between two lights's Y positions
 #define LIGHTS_ANIMATION_TIME_0         0.150f  //!< Light animation times
-#define LIGHTS_ANIMATION_TIME_1         LIGHTS_ANIMATION_TIME_0 * 2
-#define LIGHTS_ANIMATION_TIME_2         LIGHTS_ANIMATION_TIME_0 * 3
-#define LIGHTS_ANIMATION_TIME_3         LIGHTS_ANIMATION_TIME_0 * 4
+#define LIGHTS_ANIMATION_TIME_1         (LIGHTS_ANIMATION_TIME_0 * 2)
+#define LIGHTS_ANIMATION_TIME_2         (LIGHTS_ANIMATION_TIME_0 * 3)
+#define LIGHTS_ANIMATION_TIME_3         (LIGHTS_ANIMATION_TIME_0 * 4)
 #define LIGHTS_COLORS_COUNT             4       //!< Number of different colors a light can have
 
 // Bomber stuff

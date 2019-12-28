@@ -651,7 +651,7 @@ bool COptions::LoadLevels(std::string dynamicDataFolder, std::string pgmFolder)
 
 
     // If a dynamic folder is set, load level files from there, too
-    if ( dynamicDataFolder != "" ) {
+    if (!dynamicDataFolder.empty()) {
 
         //-------------------------------------------
         // Set the path where the level files are stored

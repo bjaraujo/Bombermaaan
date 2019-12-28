@@ -303,10 +303,8 @@ void CVideoSDL::UpdateScreen(void)
         }
 
         // Log failure
-        if (hRet != 0) {
-            theLog.WriteLine("SDLVideo        => !!! Updating failed (switching primary/backbuffer).");
-            theLog.WriteLine("SDLVideo        => !!! SDLVideo error is : %s.", GetSDLVideoError());
-        }
+        theLog.WriteLine("SDLVideo        => !!! Updating failed (switching primary/backbuffer).");
+        theLog.WriteLine("SDLVideo        => !!! SDLVideo error is : %s.", GetSDLVideoError());
     }
 
 }
