@@ -24,7 +24,6 @@
 
     ************************************************************************************/
 
-
 /**
  *  \file CArena.cpp
  *  \brief Arena during a match
@@ -32,29 +31,29 @@
  *  - Ca sert a rien d'enregistrer les centres d'explosions et les bombers vivants ou entrain de mourir dans la vue.
  */
 
-#include "StdAfx.h"
 #include "CArena.h"
-#include "CDisplay.h"
-#include "COptions.h"
-#include "CClock.h"
-#include "CBomber.h"
-#include "CExplosion.h"
-#include "CBomb.h"
-#include "CItem.h"
-#include "CWall.h"
-#include "CFloor.h"
 #include "CArenaSnapshot.h"
+#include "CBomb.h"
+#include "CBomber.h"
+#include "CClock.h"
+#include "CDisplay.h"
+#include "CExplosion.h"
+#include "CFloor.h"
+#include "CItem.h"
+#include "COptions.h"
+#include "CWall.h"
+#include "StdAfx.h"
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
 // How many chances to have a soft wall instead of a floor? (in %)
-#define CHANCE_SOFTWALL       50
+#define CHANCE_SOFTWALL 50
 
 // Position of the up left corner of the arena from the game's view up left corner.
-#define ARENA_POSITION_X     0
-#define ARENA_POSITION_Y     26
+#define ARENA_POSITION_X 0
+#define ARENA_POSITION_Y 26
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -62,7 +61,7 @@
 
 CArena::CArena(void)
 {
-    // Initialize the pointers to NULL so that we 
+    // Initialize the pointers to NULL so that we
     // can easily detect the ones we forgot to set.
     m_pDisplay = NULL;
     m_pSound = NULL;
@@ -97,9 +96,7 @@ CArena::CArena(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CArena::~CArena()
-{
-}
+CArena::~CArena() {}
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -203,7 +200,6 @@ void CArena::Create(void)
 
                 NewItem(X, Y, ITEM_BOMB, false, false);
                 break;
-
             }
 
             case BLOCKTYPE_ITEM_FLAME:
@@ -211,7 +207,6 @@ void CArena::Create(void)
 
                 NewItem(X, Y, ITEM_FLAME, false, false);
                 break;
-
             }
 
             case BLOCKTYPE_ITEM_KICK:
@@ -219,7 +214,6 @@ void CArena::Create(void)
 
                 NewItem(X, Y, ITEM_KICK, false, false);
                 break;
-
             }
 
             case BLOCKTYPE_ITEM_PUNCH:
@@ -227,7 +221,6 @@ void CArena::Create(void)
 
                 NewItem(X, Y, ITEM_PUNCH, false, false);
                 break;
-
             }
 
             case BLOCKTYPE_ITEM_ROLLER:
@@ -235,7 +228,6 @@ void CArena::Create(void)
 
                 NewItem(X, Y, ITEM_ROLLER, false, false);
                 break;
-
             }
 
             case BLOCKTYPE_ITEM_THROW:
@@ -243,7 +235,6 @@ void CArena::Create(void)
 
                 NewItem(X, Y, ITEM_THROW, false, false);
                 break;
-
             }
 
             case BLOCKTYPE_ITEM_REMOTES:
@@ -251,7 +242,6 @@ void CArena::Create(void)
 
                 NewItem(X, Y, ITEM_REMOTE, false, false);
                 break;
-
             }
 
             case BLOCKTYPE_ITEM_SKULL:
@@ -259,7 +249,6 @@ void CArena::Create(void)
 
                 NewItem(X, Y, ITEM_SKULL, false, false);
                 break;
-
             }
 
             case BLOCKTYPE_ITEM_SHIELD:
@@ -267,7 +256,6 @@ void CArena::Create(void)
 
                 NewItem(X, Y, ITEM_SHIELD, false, false);
                 break;
-
             }
 
             case BLOCKTYPE_ITEM_STRONGWEAK:
@@ -275,7 +263,6 @@ void CArena::Create(void)
 
                 NewItem(X, Y, ITEM_STRONGWEAK, false, false);
                 break;
-
             }
 
             default:
@@ -296,18 +283,7 @@ void CArena::Create(void)
 
     // Create some items under soft walls
     //! @see CItem::CreateItems()
-    CItem::CreateItems(this,
-        ITEMPLACE_SOFTWALLS,
-        m_pOptions->GetNumberOfItemsInWalls(ITEM_BOMB),
-        m_pOptions->GetNumberOfItemsInWalls(ITEM_FLAME),
-        m_pOptions->GetNumberOfItemsInWalls(ITEM_ROLLER),
-        m_pOptions->GetNumberOfItemsInWalls(ITEM_KICK),
-        m_pOptions->GetNumberOfItemsInWalls(ITEM_SKULL),
-        m_pOptions->GetNumberOfItemsInWalls(ITEM_THROW),
-        m_pOptions->GetNumberOfItemsInWalls(ITEM_PUNCH),
-        m_pOptions->GetNumberOfItemsInWalls(ITEM_REMOTE),
-        m_pOptions->GetNumberOfItemsInWalls(ITEM_SHIELD),
-        m_pOptions->GetNumberOfItemsInWalls(ITEM_STRONGWEAK));
+    CItem::CreateItems(this, ITEMPLACE_SOFTWALLS, m_pOptions->GetNumberOfItemsInWalls(ITEM_BOMB), m_pOptions->GetNumberOfItemsInWalls(ITEM_FLAME), m_pOptions->GetNumberOfItemsInWalls(ITEM_ROLLER), m_pOptions->GetNumberOfItemsInWalls(ITEM_KICK), m_pOptions->GetNumberOfItemsInWalls(ITEM_SKULL), m_pOptions->GetNumberOfItemsInWalls(ITEM_THROW), m_pOptions->GetNumberOfItemsInWalls(ITEM_PUNCH), m_pOptions->GetNumberOfItemsInWalls(ITEM_REMOTE), m_pOptions->GetNumberOfItemsInWalls(ITEM_SHIELD), m_pOptions->GetNumberOfItemsInWalls(ITEM_STRONGWEAK));
 
     //-----------------
     // Finish creation
@@ -317,13 +293,11 @@ void CArena::Create(void)
     UpdateView();
 }
 
-
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-
-CArena& CArena::operator = (const CArena &Arena)
+CArena& CArena::operator=(const CArena& Arena)
 {
     m_pDisplay = Arena.m_pDisplay;
     m_pSound = Arena.m_pSound;
@@ -377,11 +351,9 @@ CArena& CArena::operator = (const CArena &Arena)
     return (*this);
 }
 
-
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
-
 
 // Deletes every existing element
 
@@ -523,7 +495,7 @@ void CArena::UpdateSingleBomber(int Player, float DeltaTime)
         if (GetBomber(Player).Update(DeltaTime))
             DeleteBomber(Player);
 
-    // Update the simplified elements view. Otherwise the bomber 
+    // Update the simplified elements view. Otherwise the bomber
     // being updated could drop a bomb and then not be blocked
     // by this bomb.
     UpdateView();
@@ -564,7 +536,7 @@ void CArena::UpdateView(void)
         if (GetExplosion(Index).Exist())
         {
             // Make a reference to this explosion for easier access
-            CExplosion &Explosion = GetExplosion(Index);
+            CExplosion& Explosion = GetExplosion(Index);
 
             // Record the center of the explosion in the view
             SetBlockHas(Explosion.GetBlockX(), Explosion.GetBlockY(), BLOCKHAS_EXPLOSION);
@@ -573,9 +545,7 @@ void CArena::UpdateView(void)
             for (unsigned int Flame = 0; Flame < Explosion.GetFlames().size(); Flame++)
             {
                 // Record the flame in the view
-                SetBlockHas(Explosion.GetFlames()[Flame].BlockX,
-                    Explosion.GetFlames()[Flame].BlockY,
-                    BLOCKHAS_FLAME);
+                SetBlockHas(Explosion.GetFlames()[Flame].BlockX, Explosion.GetFlames()[Flame].BlockY, BLOCKHAS_FLAME);
             }
         }
     }
@@ -613,8 +583,10 @@ void CArena::UpdateView(void)
             SetBlockHas(BlockX, BlockY, BLOCKHAS_BOMBER);
 
             // Record the bomber according to alive or dying
-            if (GetBomber(Index).IsAlive()) SetBlockHas(BlockX, BlockY, BLOCKHAS_BOMBERALIVE);
-            else if (GetBomber(Index).IsDying()) SetBlockHas(BlockX, BlockY, BLOCKHAS_BOMBERDYING);
+            if (GetBomber(Index).IsAlive())
+                SetBlockHas(BlockX, BlockY, BLOCKHAS_BOMBERALIVE);
+            else if (GetBomber(Index).IsDying())
+                SetBlockHas(BlockX, BlockY, BLOCKHAS_BOMBERDYING);
         }
     }
 
@@ -641,15 +613,21 @@ void CArena::UpdateView(void)
                 // Record the wall in the view according to its type
                 switch (GetWall(Index).GetType())
                 {
-                case WALL_HARD: SetBlockHas(BlockX, BlockY, BLOCKHAS_WALLHARD);    break;
-                case WALL_SOFT: SetBlockHas(BlockX, BlockY, BLOCKHAS_WALLSOFT);    break;
-                case WALL_FALLING: SetBlockHas(BlockX, BlockY, BLOCKHAS_WALLFALLING); break;
+                case WALL_HARD:
+                    SetBlockHas(BlockX, BlockY, BLOCKHAS_WALLHARD);
+                    break;
+                case WALL_SOFT:
+                    SetBlockHas(BlockX, BlockY, BLOCKHAS_WALLSOFT);
+                    break;
+                case WALL_FALLING:
+                    SetBlockHas(BlockX, BlockY, BLOCKHAS_WALLFALLING);
+                    break;
                 }
             }
             // If wall is burning
             else
             {
-                // Record a burning wall in the view 
+                // Record a burning wall in the view
                 SetBlockHas(BlockX, BlockY, BLOCKHAS_WALLBURNING);
             }
         }
@@ -668,7 +646,8 @@ void CArena::UpdateView(void)
             // Record the floor in the view
             SetBlockHas(GetFloor(Index).GetBlockX(), GetFloor(Index).GetBlockY(), BLOCKHAS_FLOOR);
 
-            if (GetFloor(Index).HasAction()) {
+            if (GetFloor(Index).HasAction())
+            {
                 SetBlockHas(GetFloor(Index).GetBlockX(), GetFloor(Index).GetBlockY(), BLOCKHAS_FLOORWITHMOVEEFFECT);
             }
         }
@@ -682,8 +661,7 @@ void CArena::UpdateView(void)
     for (Index = 0; Index < MaxItems(); Index++)
     {
         // If the item exists and it is not flying
-        if (GetItem(Index).Exist() &&
-            !GetItem(Index).IsFlying())
+        if (GetItem(Index).Exist() && !GetItem(Index).IsFlying())
         {
             // Save the block position of the item
             BlockX = GetItem(Index).GetBlockX();
@@ -699,17 +677,38 @@ void CArena::UpdateView(void)
                 switch (GetItem(Index).GetType())
                 {
                     /// @todo: Check which functions depend on these BLOCKHAS_xxx values
-                case ITEM_BOMB: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMBOMB); break;
-                case ITEM_FLAME: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMFLAME); break;
-                case ITEM_ROLLER: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMROLLER); break;
-                case ITEM_KICK: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMKICK); break;
-                case ITEM_SKULL: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMSKULL); break;
-                case ITEM_THROW: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMTHROW); break;
-                case ITEM_PUNCH: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMPUNCH); break;
-                case ITEM_REMOTE: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMREMOTE); break;
-                case ITEM_SHIELD: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMSHIELD); break;
-                case ITEM_STRONGWEAK: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMSTRONGWEAK); break;
-                default: break;
+                case ITEM_BOMB:
+                    SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMBOMB);
+                    break;
+                case ITEM_FLAME:
+                    SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMFLAME);
+                    break;
+                case ITEM_ROLLER:
+                    SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMROLLER);
+                    break;
+                case ITEM_KICK:
+                    SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMKICK);
+                    break;
+                case ITEM_SKULL:
+                    SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMSKULL);
+                    break;
+                case ITEM_THROW:
+                    SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMTHROW);
+                    break;
+                case ITEM_PUNCH:
+                    SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMPUNCH);
+                    break;
+                case ITEM_REMOTE:
+                    SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMREMOTE);
+                    break;
+                case ITEM_SHIELD:
+                    SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMSHIELD);
+                    break;
+                case ITEM_STRONGWEAK:
+                    SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMSTRONGWEAK);
+                    break;
+                default:
+                    break;
                 }
             }
             // If the item is burning
@@ -721,7 +720,6 @@ void CArena::UpdateView(void)
         }
     }
 }
-
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -820,7 +818,6 @@ void CArena::WriteSnapshot(CArenaSnapshot& Snapshot)
     // Further attributes
     Snapshot.WriteBoolean(m_Prediction);
     Snapshot.WriteInteger(m_BombsInUse);
-
 }
 
 //******************************************************************************************************************************
@@ -869,7 +866,6 @@ void CArena::ReadSnapshot(CArenaSnapshot& Snapshot)
 
     // update view
     UpdateView();
-
 }
 
 //******************************************************************************************************************************
@@ -886,12 +882,22 @@ void CArena::NewFloor(int BlockX, int BlockY, EBlockType BlockType)
 
     EFloorAction action = FLOORACTION_NONE;
 
-    switch (BlockType) {
-    case BLOCKTYPE_MOVEBOMB_RIGHT:  action = FLOORACTION_MOVEBOMB_RIGHT;    break;
-    case BLOCKTYPE_MOVEBOMB_DOWN:   action = FLOORACTION_MOVEBOMB_DOWN;     break;
-    case BLOCKTYPE_MOVEBOMB_LEFT:   action = FLOORACTION_MOVEBOMB_LEFT;     break;
-    case BLOCKTYPE_MOVEBOMB_UP:     action = FLOORACTION_MOVEBOMB_UP;       break;
-    default:                                                                break;
+    switch (BlockType)
+    {
+    case BLOCKTYPE_MOVEBOMB_RIGHT:
+        action = FLOORACTION_MOVEBOMB_RIGHT;
+        break;
+    case BLOCKTYPE_MOVEBOMB_DOWN:
+        action = FLOORACTION_MOVEBOMB_DOWN;
+        break;
+    case BLOCKTYPE_MOVEBOMB_LEFT:
+        action = FLOORACTION_MOVEBOMB_LEFT;
+        break;
+    case BLOCKTYPE_MOVEBOMB_UP:
+        action = FLOORACTION_MOVEBOMB_UP;
+        break;
+    default:
+        break;
     }
 
     // Scan the floors
@@ -1026,17 +1032,38 @@ void CArena::NewItem(int BlockX, int BlockY, EItemType Type, bool Fumes, bool Fl
             // Record the item in the view according to its type
             switch (Type)
             {
-            case ITEM_BOMB: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMBOMB);   break;
-            case ITEM_FLAME: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMFLAME);  break;
-            case ITEM_ROLLER: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMROLLER); break;
-            case ITEM_KICK: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMKICK);   break;
-            case ITEM_SKULL: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMSKULL);  break;
-            case ITEM_REMOTE: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMREMOTE);  break;
-            case ITEM_SHIELD: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMSHIELD);  break;
-            case ITEM_PUNCH: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMPUNCH);  break;
-            case ITEM_THROW: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMTHROW);  break;
-            case ITEM_STRONGWEAK: SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMSTRONGWEAK);  break;
-            default: break;
+            case ITEM_BOMB:
+                SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMBOMB);
+                break;
+            case ITEM_FLAME:
+                SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMFLAME);
+                break;
+            case ITEM_ROLLER:
+                SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMROLLER);
+                break;
+            case ITEM_KICK:
+                SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMKICK);
+                break;
+            case ITEM_SKULL:
+                SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMSKULL);
+                break;
+            case ITEM_REMOTE:
+                SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMREMOTE);
+                break;
+            case ITEM_SHIELD:
+                SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMSHIELD);
+                break;
+            case ITEM_PUNCH:
+                SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMPUNCH);
+                break;
+            case ITEM_THROW:
+                SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMTHROW);
+                break;
+            case ITEM_STRONGWEAK:
+                SetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMSTRONGWEAK);
+                break;
+            default:
+                break;
             }
 
             return;
@@ -1076,16 +1103,17 @@ EFloorAction CArena::GetFloorAction(int BlockX, int BlockY)
     CFloor* floor;
 
     // Search the floor given by x and y
-    for (int i = 0; i < MaxFloors(); i++) {
+    for (int i = 0; i < MaxFloors(); i++)
+    {
 
         floor = &(GetFloor(i));
 
         ASSERT(floor);
 
-        if (floor->GetBlockX() == BlockX && floor->GetBlockY() == BlockY) {
+        if (floor->GetBlockX() == BlockX && floor->GetBlockY() == BlockY)
+        {
             return floor->GetFloorAction();
         }
-
     }
 
     ASSERT(false);

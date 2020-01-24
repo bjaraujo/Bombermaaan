@@ -20,7 +20,6 @@
 
     ************************************************************************************/
 
-
 /**
  *  \file CSound.h
  *  \brief Header file of the sound
@@ -30,12 +29,14 @@
 #define __CSOUND_H__
 
 #ifdef ALLEGRO
-    #include "allegro.h"
-    #include "winalleg.h"
+#include "allegro.h"
+#include "winalleg.h"
 #else
-    #include "SDL.h"
-    #include "SDL_mixer.h"
+#include "SDL.h"
+#include "SDL_mixer.h"
 #endif
+
+#include "StdAfx.h"
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -113,53 +114,45 @@ enum ESong
 class CSound
 {
 private:
+    HMODULE m_hModule; //!< Connection to the resources
+    bool m_GlobalPause; //!< Is the sound paused?
+    bool m_SoundOK; //!< Could SDL_mixer be initialized? This may be false if there is no sound card
+    Mix_Chunk* m_Samples[NUM_SAMPLES]; //!< The available samples
+    Mix_Music* m_CurrentSong; //!< The current song
+    SDL_RWops* m_rwSong; //!< The current raw song data
+    ESong m_ESong; //!< current song number
 
-    HMODULE m_hModule;                          //!< Connection to the resources
-    bool m_GlobalPause;                         //!< Is the sound paused?
-    bool m_SoundOK;                             //!< Could SDL_mixer be initialized? This may be false if there is no sound card
-    Mix_Chunk *m_Samples[NUM_SAMPLES];          //!< The available samples
-    Mix_Music *m_CurrentSong;                   //!< The current song
-	SDL_RWops *m_rwSong;                        //!< The current raw song data
-    ESong m_ESong;                              //!< current song number
-
-    bool GetSoundResource(int ResourceID, LPVOID &pData, DWORD &DataSize);
-    bool LoadSample(ESample Sample, int ResourceID, const char *file);
+    bool GetSoundResource(int ResourceID, LPVOID& pData, DWORD& DataSize);
+    bool LoadSample(ESample Sample, int ResourceID, const char* file);
 
     void FreeSample(ESample Sample);
     bool LoadSong(ESong Song, int ResourceID, const char* file);
     void FreeSong(ESong Song);
 
 public:
-
     CSound(void);
     ~CSound(void);
 
-    inline void SetModuleHandle(HMODULE hModule);             //!< Set the connection to the resources
-    bool        Create(void);                                 //!< Initialize the object
-    void        Destroy(void);                                //!< Uninitialize the object
-    void        SetPause(bool Pause);                         //!< Pause or resume the sound
+    inline void SetModuleHandle(HMODULE hModule); //!< Set the connection to the resources
+    bool Create(void); //!< Initialize the object
+    void Destroy(void); //!< Uninitialize the object
+    void SetPause(bool Pause); //!< Pause or resume the sound
     inline bool IsPaused(void);
-    void        PlaySong(ESong Song);                         //!< Start playing a song
-    void        StopSong(ESong Song);                         //!< Stop playing a specific song
-    void        PlaySample(ESample Sample);                   //!< Start playing a sample
-    void        StopAllSamples();                              //!< Stops all samples
-    void        SetSampleVolume(int VolumePerCent);           //!< Set the volume for all samples
-    void        SetSongVolume(ESong Song, int VolumePerCent); //!< Set the volume for a specific song
+    void PlaySong(ESong Song); //!< Start playing a song
+    void StopSong(ESong Song); //!< Stop playing a specific song
+    void PlaySample(ESample Sample); //!< Start playing a sample
+    void StopAllSamples(); //!< Stops all samples
+    void SetSampleVolume(int VolumePerCent); //!< Set the volume for all samples
+    void SetSongVolume(ESong Song, int VolumePerCent); //!< Set the volume for a specific song
 };
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline void CSound::SetModuleHandle(HMODULE hModule)
-{
-    m_hModule = hModule;
-}
+inline void CSound::SetModuleHandle(HMODULE hModule) { m_hModule = hModule; }
 
-inline bool CSound::IsPaused(void)
-{
-    return m_GlobalPause;
-}
+inline bool CSound::IsPaused(void) { return m_GlobalPause; }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************

@@ -19,7 +19,6 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CDrawGame.h
  *  \brief Header file of a draw game
@@ -46,43 +45,38 @@ class CSound;
 class CDrawGame : public CModeScreen
 {
 private:
-
-    CScores*        m_pScores;          //!< Link to the scores object to use
-    float           m_FlagTimer;        //!< Timer for flag animation
-    float           m_BigFumeTimer;     //!< Timer for the big fume animation
-    float           m_SmallFumeTimer;   //!< Timer for the small fume animation
-    int             m_FlagSprite;       //!< Flag sprite to draw
-    int             m_BigFumeSprite;    //!< Big fume sprite to draw
-    int             m_SmallFumeSprite;  //!< Small fume sprite to draw
-    float           m_ModeTime;         //!< Time elapsed since the mode has started
-    bool            m_HaveToExit;       //!< Do we have to exit this mode?
-    float           m_ExitModeTime;     //!< Mode time when we realized we have to exit (used for blackscreen)
-    bool            m_PlayedSound;      //!< Did we start playing the draw game sound?
+    CScores* m_pScores; //!< Link to the scores object to use
+    float m_FlagTimer; //!< Timer for flag animation
+    float m_BigFumeTimer; //!< Timer for the big fume animation
+    float m_SmallFumeTimer; //!< Timer for the small fume animation
+    int m_FlagSprite; //!< Flag sprite to draw
+    int m_BigFumeSprite; //!< Big fume sprite to draw
+    int m_SmallFumeSprite; //!< Small fume sprite to draw
+    float m_ModeTime; //!< Time elapsed since the mode has started
+    bool m_HaveToExit; //!< Do we have to exit this mode?
+    float m_ExitModeTime; //!< Mode time when we realized we have to exit (used for blackscreen)
+    bool m_PlayedSound; //!< Did we start playing the draw game sound?
 
 public:
-
-                    CDrawGame();                        //!< Constructor. Initialize some members.
-    virtual         ~CDrawGame();                       //!< Destructor. Does nothing.
-    inline void     SetScores (CScores *pScores);       //!< Set link to the scores object to use
-    void            Create (void);                      //!< Initialize the object
-    void            Destroy (void);                     //!< Uninitialize the object
-    void            OpenInput (void);                   //!< Get access to the input this object needs
-    void            CloseInput (void);                  //!< Release access to the input this object needs
-    EGameMode       Update (void);                      //!< Update the object and return which game mode should be set
-    void            Display (void);                     //!< Display on the screen
+    CDrawGame(); //!< Constructor. Initialize some members.
+    virtual ~CDrawGame(); //!< Destructor. Does nothing.
+    inline void SetScores(CScores* pScores); //!< Set link to the scores object to use
+    void Create(void); //!< Initialize the object
+    void Destroy(void); //!< Uninitialize the object
+    void OpenInput(void); //!< Get access to the input this object needs
+    void CloseInput(void); //!< Release access to the input this object needs
+    EGameMode Update(void); //!< Update the object and return which game mode should be set
+    void Display(void); //!< Display on the screen
 };
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline void CDrawGame::SetScores (CScores *pScores)
-{
-    m_pScores = pScores;
-}
+inline void CDrawGame::SetScores(CScores* pScores) { m_pScores = pScores; }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-#endif  // __CDRAWGAME_H__
+#endif // __CDRAWGAME_H__

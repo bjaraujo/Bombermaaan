@@ -22,16 +22,15 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CAiManager.cpp
  *  \brief The AI management functions
  */
 
-#include "StdAfx.h"
 #include "CAiManager.h"
 #include "CAiBomber.h"
 #include "COptions.h"
+#include "StdAfx.h"
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -41,10 +40,10 @@
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CAiManager::CAiManager (void)
+CAiManager::CAiManager(void)
 {
     m_pDisplay = NULL;
-    for (int Player = 0 ; Player < MAX_PLAYERS ; Player++)
+    for (int Player = 0; Player < MAX_PLAYERS; Player++)
         m_pBombers[Player] = NULL;
 }
 
@@ -52,21 +51,17 @@ CAiManager::CAiManager (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CAiManager::~CAiManager (void)
-{
-    Destroy();
-}
+CAiManager::~CAiManager(void) { Destroy(); }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CAiManager::Create (COptions* pOptions)
+void CAiManager::Create(COptions* pOptions)
 {
-    for (int Player = 0 ; Player < MAX_PLAYERS ; Player++)
+    for (int Player = 0; Player < MAX_PLAYERS; Player++)
     {
-        if (pOptions->GetBomberType(Player) == BOMBERTYPE_COM &&
-            m_Arena.GetArena()->GetBomber(Player).Exist())
+        if (pOptions->GetBomberType(Player) == BOMBERTYPE_COM && m_Arena.GetArena()->GetBomber(Player).Exist())
         {
             m_pBombers[Player] = new CAiBomber;
             m_pBombers[Player]->SetArena(&m_Arena);
@@ -83,11 +78,11 @@ void CAiManager::Create (COptions* pOptions)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CAiManager::Destroy (void)
+void CAiManager::Destroy(void)
 {
     m_Arena.Destroy();
 
-    for (int Player = 0 ; Player < MAX_PLAYERS ; Player++)
+    for (int Player = 0; Player < MAX_PLAYERS; Player++)
     {
         if (m_pBombers[Player] != NULL)
         {
@@ -97,16 +92,15 @@ void CAiManager::Destroy (void)
     }
 }
 
-
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CAiManager::Update (float DeltaTime)
+void CAiManager::Update(float DeltaTime)
 {
     m_Arena.Update(DeltaTime);
 
-    for (int Player = 0 ; Player < MAX_PLAYERS ; Player++)
+    for (int Player = 0; Player < MAX_PLAYERS; Player++)
         if (m_pBombers[Player] != NULL)
             m_pBombers[Player]->Update(DeltaTime);
 }

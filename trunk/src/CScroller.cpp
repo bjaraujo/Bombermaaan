@@ -22,22 +22,21 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CScroller.cpp
  *  \brief The scroller used by pause and hurry message
  */
 
-#include "StdAfx.h"
 #include "CScroller.h"
+#include "StdAfx.h"
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CScroller::CScroller (void)
+CScroller::CScroller(void)
 {
- 
+
     m_SpriteWidth = 0;
     m_SpriteHeight = 0;
     m_SpeedX = 0.0f;
@@ -46,28 +45,24 @@ CScroller::CScroller (void)
     m_RemainingLoopTime = 0.0f;
     m_iPositionX = -1;
     m_iPositionY = -1;
-    m_fPositionX = (float) m_iPositionX;
-    m_fPositionY = (float) m_iPositionY;
+    m_fPositionX = (float)m_iPositionX;
+    m_fPositionY = (float)m_iPositionY;
     m_Looping = false;
-    
 }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CScroller::~CScroller (void)
+CScroller::~CScroller(void) {}
+
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+
+void CScroller::Create(int PositionX, int PositionY, int SpriteWidth, int SpriteHeight, float SpeedX, float SpeedY, float LoopTime)
 {
-
-}
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-void CScroller::Create (int PositionX, int PositionY, int SpriteWidth, int SpriteHeight, float SpeedX, float SpeedY, float LoopTime)
-{
-    ASSERT (LoopTime >= 0.0f || LoopTime == -1.0f);
+    ASSERT(LoopTime >= 0.0f || LoopTime == -1.0f);
 
     m_SpriteWidth = SpriteWidth;
     m_SpriteHeight = SpriteHeight;
@@ -77,8 +72,8 @@ void CScroller::Create (int PositionX, int PositionY, int SpriteWidth, int Sprit
     m_RemainingLoopTime = 0.0f;
     m_iPositionX = PositionX;
     m_iPositionY = PositionY;
-    m_fPositionX = (float) m_iPositionX;
-    m_fPositionY = (float) m_iPositionY;
+    m_fPositionX = (float)m_iPositionX;
+    m_fPositionY = (float)m_iPositionY;
     m_Looping = false;
 }
 
@@ -86,16 +81,13 @@ void CScroller::Create (int PositionX, int PositionY, int SpriteWidth, int Sprit
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CScroller::Destroy (void)
-{
-  
-}
+void CScroller::Destroy(void) {}
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CScroller::Update (float DeltaTime)
+void CScroller::Update(float DeltaTime)
 {
     if (!m_Looping)
     {
@@ -104,8 +96,8 @@ void CScroller::Update (float DeltaTime)
         m_fPositionY += m_SpeedY * DeltaTime;
 
         // Compute the new integer position of the scroller
-        m_iPositionX = int (m_fPositionX);
-        m_iPositionY = int (m_fPositionY);
+        m_iPositionX = int(m_fPositionX);
+        m_iPositionY = int(m_fPositionY);
 
         if (OutOfBounds() && m_LoopTime != -1.0f)
         {
@@ -116,31 +108,31 @@ void CScroller::Update (float DeltaTime)
     else
     {
         m_RemainingLoopTime -= DeltaTime;
-        
+
         if (m_RemainingLoopTime <= 0.0f)
         {
             m_RemainingLoopTime = 0.0f;
             m_Looping = false;
-            
+
             if (m_iPositionX + m_SpriteWidth < 0)
             {
                 m_iPositionX = VIEW_WIDTH;
-                m_fPositionX = (float) m_iPositionX;
+                m_fPositionX = (float)m_iPositionX;
             }
             else if (m_iPositionX >= VIEW_WIDTH)
             {
                 m_iPositionX = -m_SpriteWidth;
-                m_fPositionX = (float) m_iPositionX;
+                m_fPositionX = (float)m_iPositionX;
             }
             else if (m_iPositionY + m_SpriteHeight < 0)
             {
                 m_iPositionY = VIEW_HEIGHT;
-                m_fPositionY = (float) m_iPositionY;
+                m_fPositionY = (float)m_iPositionY;
             }
             else if (m_iPositionY >= VIEW_HEIGHT)
             {
                 m_iPositionY = -m_SpriteHeight;
-                m_fPositionY = (float) m_iPositionY;
+                m_fPositionY = (float)m_iPositionY;
             }
         }
     }
@@ -150,11 +142,7 @@ void CScroller::Update (float DeltaTime)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CScroller::OutOfBounds (void)
-{
-    return (m_iPositionX > VIEW_WIDTH  || m_iPositionX + m_SpriteWidth  < 0 ||
-            m_iPositionY > VIEW_HEIGHT || m_iPositionY + m_SpriteHeight < 0);
-}
+bool CScroller::OutOfBounds(void) { return (m_iPositionX > VIEW_WIDTH || m_iPositionX + m_SpriteWidth < 0 || m_iPositionY > VIEW_HEIGHT || m_iPositionY + m_SpriteHeight < 0); }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************

@@ -19,7 +19,6 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CPauseMessage.h
  *  \brief Header file of the pause message
@@ -41,37 +40,29 @@ class CSound;
 class CPauseMessage
 {
 private:
-
-    CScroller   m_Scroller;
-    CDisplay*   m_pDisplay;
-    CSound*     m_pSound;
-    bool        m_Waiting;
-    bool        m_HaveToGetOut;
+    CScroller m_Scroller;
+    CDisplay* m_pDisplay;
+    CSound* m_pSound;
+    bool m_Waiting;
+    bool m_HaveToGetOut;
 
 public:
-
-                CPauseMessage (CDisplay* pDisplay, CSound* pSound);
-                ~CPauseMessage (void);
-    void        Update (float DeltaTime);
-    void        Display (void);
-    inline bool IsWaiting (void);
-    void        GetOut (void);
-    inline bool IsOutOfBounds (void);
+    CPauseMessage(CDisplay* pDisplay, CSound* pSound);
+    ~CPauseMessage(void);
+    void Update(float DeltaTime);
+    void Display(void);
+    inline bool IsWaiting(void);
+    void GetOut(void);
+    inline bool IsOutOfBounds(void);
 };
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline bool CPauseMessage::IsWaiting (void)
-{
-    return m_Waiting;
-}
+inline bool CPauseMessage::IsWaiting(void) { return m_Waiting; }
 
-inline bool CPauseMessage::IsOutOfBounds (void)
-{
-    return m_Scroller.OutOfBounds ();
-}
+inline bool CPauseMessage::IsOutOfBounds(void) { return m_Scroller.OutOfBounds(); }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************

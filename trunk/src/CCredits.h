@@ -19,7 +19,6 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CControls.h
  *  \brief Header file of the controls
@@ -47,40 +46,38 @@ class CMosaic;
 class CCredits : public CModeScreen
 {
 private:
-
-    float           m_ModeTime;                 //!< Time (in seconds) that elapsed since the mode has started
-    bool            m_HaveToExit;               //!< Do we have to exit this mode?
-    float           m_ExitModeTime;             //!< Mode time when we realized we have to exit (used for blackscreen)
-    CFont           m_Font;                     //!< Font object used to draw strings
-    int             m_Cursor;                   //!< Number of the menu item the cursor hand is pointing to
-    bool            m_SongStarted;              //!< Did we start playing the song after the black screen?
-    CMosaic*        m_pMosaic;
+    float m_ModeTime; //!< Time (in seconds) that elapsed since the mode has started
+    bool m_HaveToExit; //!< Do we have to exit this mode?
+    float m_ExitModeTime; //!< Mode time when we realized we have to exit (used for blackscreen)
+    CFont m_Font; //!< Font object used to draw strings
+    int m_Cursor; //!< Number of the menu item the cursor hand is pointing to
+    bool m_SongStarted; //!< Did we start playing the song after the black screen?
+    CMosaic* m_pMosaic;
 
 public:
-
-                    CCredits();                         //!< Constructor. Initialize some members.
-    virtual         ~CCredits();                        //!< Destructor. Does nothing.
-    inline void     SetDisplay (CDisplay *pDisplay);    //!< Set link to the display object to use
-    void            Create (void);                      //!< Initialize the object
-    void            Destroy (void);                     //!< Uninitialize the object
-    void            OpenInput (void);                   //!< Get access to the input this object needs
-    void            CloseInput (void);                  //!< Release access to the input this object needs
-    EGameMode       Update (void);                      //!< Update the object and return what game mode should be set
-    void            Display (void);                     //!< Display the game screen
+    CCredits(); //!< Constructor. Initialize some members.
+    virtual ~CCredits(); //!< Destructor. Does nothing.
+    inline void SetDisplay(CDisplay* pDisplay); //!< Set link to the display object to use
+    void Create(void); //!< Initialize the object
+    void Destroy(void); //!< Uninitialize the object
+    void OpenInput(void); //!< Get access to the input this object needs
+    void CloseInput(void); //!< Release access to the input this object needs
+    EGameMode Update(void); //!< Update the object and return what game mode should be set
+    void Display(void); //!< Display the game screen
 };
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline void CCredits::SetDisplay (CDisplay *pDisplay)
+inline void CCredits::SetDisplay(CDisplay* pDisplay)
 {
-    CModeScreen::SetDisplay (pDisplay);
-    m_Font.SetDisplay (m_pDisplay);
+    CModeScreen::SetDisplay(pDisplay);
+    m_Font.SetDisplay(m_pDisplay);
 }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-#endif  // __CCREDITS_H__
+#endif // __CCREDITS_H__

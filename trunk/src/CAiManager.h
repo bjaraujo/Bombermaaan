@@ -19,7 +19,6 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CAiManager.h
  *  \brief Header file of the AI manager
@@ -41,38 +40,35 @@ class CAiBomber;
 class CAiManager
 {
 private:
+    CAiBomber* m_pBombers[MAX_PLAYERS];
+    CAiArena m_Arena;
+    CDisplay* m_pDisplay;
 
-    CAiBomber*      m_pBombers [MAX_PLAYERS];
-    CAiArena        m_Arena;
-    CDisplay*       m_pDisplay;
-                                                        
-public:                                                 
-                                                        
-                    CAiManager (void);
-    virtual         ~CAiManager (void);
-    inline void     SetArena (CArena* pArena);
-    inline void     SetDisplay (CDisplay* pDisplay);
-    void            Create (COptions* pOptions);
-    void            Destroy (void);
-    void            Update (float DeltaTime);
+public:
+    CAiManager(void);
+    virtual ~CAiManager(void);
+    inline void SetArena(CArena* pArena);
+    inline void SetDisplay(CDisplay* pDisplay);
+    void Create(COptions* pOptions);
+    void Destroy(void);
+    void Update(float DeltaTime);
 };
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline void CAiManager::SetArena (CArena* pArena)
+inline void CAiManager::SetArena(CArena* pArena)
 {
     ASSERT(pArena != NULL);
     m_Arena.SetArena(pArena);
 }
 
-inline void CAiManager::SetDisplay (CDisplay *pDisplay)
+inline void CAiManager::SetDisplay(CDisplay* pDisplay)
 {
     // Save the display object pointer to pass to elements
     m_pDisplay = pDisplay;
 }
-
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************

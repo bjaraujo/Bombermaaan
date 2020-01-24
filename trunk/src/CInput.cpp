@@ -22,21 +22,20 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CInput.cpp
  *  \brief Input
  */
 
-#include "StdAfx.h"
 #include "CInput.h"
 #include "COptions.h"
+#include "StdAfx.h"
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CInput::CInput (void)
+CInput::CInput(void)
 {
     // Initialize the pointers to NULL so that we
     // can easily detect the ones we forgot to set.
@@ -52,7 +51,7 @@ CInput::CInput (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CInput::~CInput (void)
+CInput::~CInput(void)
 {
     // Do nothing
 }
@@ -61,11 +60,11 @@ CInput::~CInput (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CInput::Create (void)
+bool CInput::Create(void)
 {
     // Check if all the objects to communicate with are set
-    ASSERT (m_pOptions != NULL);
-    ASSERT (m_pTimer != NULL);
+    ASSERT(m_pOptions != NULL);
+    ASSERT(m_pTimer != NULL);
 
     // If we could not create the DirectInput interface
     if (!m_input.Create())
@@ -78,14 +77,14 @@ bool CInput::Create (void)
     m_MainInput.Create();
 
     // Allocate a player input object for every available ones
-    m_PlayerInput = new CPlayerInput [GetPlayerInputCount()];
+    m_PlayerInput = new CPlayerInput[GetPlayerInputCount()];
 
     // Initialize every player input object
-    for (int PlayerInput = 0 ; PlayerInput < GetPlayerInputCount() ; PlayerInput++)
+    for (int PlayerInput = 0; PlayerInput < GetPlayerInputCount(); PlayerInput++)
     {
-        m_PlayerInput[PlayerInput].SetDirectInput (&m_input);
-        m_PlayerInput[PlayerInput].SetOptions (m_pOptions);
-        m_PlayerInput[PlayerInput].Create (PlayerInput);
+        m_PlayerInput[PlayerInput].SetDirectInput(&m_input);
+        m_PlayerInput[PlayerInput].SetOptions(m_pOptions);
+        m_PlayerInput[PlayerInput].Create(PlayerInput);
     }
 
     return true;
@@ -95,22 +94,22 @@ bool CInput::Create (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CInput::Destroy (void)
+void CInput::Destroy(void)
 {
     // Destroy every player input object
-    for (int PlayerInput = 0 ; PlayerInput < GetPlayerInputCount() ; PlayerInput++)
+    for (int PlayerInput = 0; PlayerInput < GetPlayerInputCount(); PlayerInput++)
     {
         m_PlayerInput[PlayerInput].Destroy();
     }
 
     // Deallocate every player input object
-    delete [] m_PlayerInput;
+    delete[] m_PlayerInput;
 
     // Uninitialize the main input
     m_MainInput.Destroy();
 
     // Destroy the DirectInput interface
-    m_input.Destroy ();
+    m_input.Destroy();
 }
 
 //******************************************************************************************************************************

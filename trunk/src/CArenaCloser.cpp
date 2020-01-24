@@ -22,25 +22,24 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CArenaCloser.cpp
  *  \brief Arena closer (walls falling down)
  */
 
-#include "StdAfx.h"
 #include "CArenaCloser.h"
 #include "CArena.h"
-#include "COptions.h"
 #include "CArenaSnapshot.h"
+#include "COptions.h"
+#include "StdAfx.h"
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CArenaCloser::CArenaCloser (void)
+CArenaCloser::CArenaCloser(void)
 {
-    // Initialize the pointers to NULL so that we 
+    // Initialize the pointers to NULL so that we
     // can easily detect the ones we forgot to set.
     m_pArena = NULL;
     m_pOptions = NULL;
@@ -49,28 +48,31 @@ CArenaCloser::CArenaCloser (void)
     m_TimeLeftBeforeClosingNextBlock = 0.0f;
     m_ClosureData.clear();
     m_IsClosing = false;
-}   
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-CArenaCloser::~CArenaCloser (void)
-{
-    
 }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CArenaCloser::Create (void)
+CArenaCloser::~CArenaCloser(void) {}
+
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+
+void CArenaCloser::Create(void)
 {
     switch (RANDOM(3))
     {
-        case 0 : CreateSpiralClosing();     break;
-        case 1 : CreateHorizontalClosing(); break;
-        case 2 : CreateVerticalClosing();   break;
+    case 0:
+        CreateSpiralClosing();
+        break;
+    case 1:
+        CreateHorizontalClosing();
+        break;
+    case 2:
+        CreateVerticalClosing();
+        break;
     }
 
     m_IsClosing = false;
@@ -80,25 +82,22 @@ void CArenaCloser::Create (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CArenaCloser::Destroy (void)
+void CArenaCloser::Destroy(void) { Stop(); }
+
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+
+void CArenaCloser::Start(void)
 {
-    Stop();
-}
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-void CArenaCloser::Start (void)
-{   
     // Check if the pointers were all set
-    ASSERT (m_pArena != NULL);
-    ASSERT (m_pOptions != NULL);
-          
+    ASSERT(m_pArena != NULL);
+    ASSERT(m_pOptions != NULL);
+
     // Make some dummy variables
     int TotalSeconds = m_pOptions->GetTimeUpMinutes() * 60 + m_pOptions->GetTimeUpSeconds();
     int TotalBlocksToClose = m_ClosureData.size();
-    
+
     // Set close interval to (Total closing time / Number of blocks to close)
     if (TotalBlocksToClose > 0)
         m_TimeBetweenTwoBlockClosures = (float)TotalSeconds / TotalBlocksToClose;
@@ -116,7 +115,7 @@ void CArenaCloser::Start (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CArenaCloser::CreateSpiralClosing (void)
+void CArenaCloser::CreateSpiralClosing(void)
 {
     SClosePosition ClosePosition;
     int I = 0;
@@ -130,8 +129,8 @@ void CArenaCloser::CreateSpiralClosing (void)
         {
             ClosePosition.X = X;
             ClosePosition.Y = Y;
-            m_ClosureData.push_back (ClosePosition);
-            X++; 
+            m_ClosureData.push_back(ClosePosition);
+            X++;
             I++;
         }
 
@@ -142,7 +141,7 @@ void CArenaCloser::CreateSpiralClosing (void)
         {
             ClosePosition.X = X;
             ClosePosition.Y = Y;
-            m_ClosureData.push_back (ClosePosition);
+            m_ClosureData.push_back(ClosePosition);
             Y++;
             I++;
         }
@@ -154,7 +153,7 @@ void CArenaCloser::CreateSpiralClosing (void)
         {
             ClosePosition.X = X;
             ClosePosition.Y = Y;
-            m_ClosureData.push_back (ClosePosition);
+            m_ClosureData.push_back(ClosePosition);
             X--;
             I++;
         }
@@ -166,7 +165,7 @@ void CArenaCloser::CreateSpiralClosing (void)
         {
             ClosePosition.X = X;
             ClosePosition.Y = Y;
-            m_ClosureData.push_back (ClosePosition);
+            m_ClosureData.push_back(ClosePosition);
             Y--;
             I++;
         }
@@ -181,7 +180,7 @@ void CArenaCloser::CreateSpiralClosing (void)
     {
         ClosePosition.X = X;
         ClosePosition.Y = Y;
-        m_ClosureData.push_back (ClosePosition);
+        m_ClosureData.push_back(ClosePosition);
         X++;
         I++;
     }
@@ -191,7 +190,7 @@ void CArenaCloser::CreateSpiralClosing (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CArenaCloser::CreateHorizontalClosing (void)
+void CArenaCloser::CreateHorizontalClosing(void)
 {
     SClosePosition ClosePosition;
     int I = 0;
@@ -202,13 +201,13 @@ void CArenaCloser::CreateHorizontalClosing (void)
     {
         X = ARENA_WIDTH - 2;
         Y = ARENA_HEIGHT - 2 - I;
-    
+
         while (X >= 1)
         {
             ClosePosition.X = X;
             ClosePosition.Y = Y;
-            m_ClosureData.push_back (ClosePosition);
-            X--; 
+            m_ClosureData.push_back(ClosePosition);
+            X--;
         }
 
         X = 1;
@@ -218,21 +217,21 @@ void CArenaCloser::CreateHorizontalClosing (void)
         {
             ClosePosition.X = X;
             ClosePosition.Y = Y;
-            m_ClosureData.push_back (ClosePosition);
-            X++; 
+            m_ClosureData.push_back(ClosePosition);
+            X++;
         }
-    
-        I++;    
+
+        I++;
     }
 
     Y = ARENA_HEIGHT - 2 - I;
-    
+
     while (X >= 1)
     {
         ClosePosition.X = X;
         ClosePosition.Y = Y;
-        m_ClosureData.push_back (ClosePosition);
-        X--; 
+        m_ClosureData.push_back(ClosePosition);
+        X--;
     }
 }
 
@@ -240,7 +239,7 @@ void CArenaCloser::CreateHorizontalClosing (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CArenaCloser::CreateVerticalClosing (void)
+void CArenaCloser::CreateVerticalClosing(void)
 {
     SClosePosition ClosePosition;
     int I = 0;
@@ -251,13 +250,13 @@ void CArenaCloser::CreateVerticalClosing (void)
     {
         X = 1 + I;
         Y = 1;
-    
+
         while (Y <= ARENA_HEIGHT - 2)
         {
             ClosePosition.X = X;
             ClosePosition.Y = Y;
-            m_ClosureData.push_back (ClosePosition);
-            Y++; 
+            m_ClosureData.push_back(ClosePosition);
+            Y++;
         }
 
         X = ARENA_WIDTH - 2 - I;
@@ -267,11 +266,11 @@ void CArenaCloser::CreateVerticalClosing (void)
         {
             ClosePosition.X = X;
             ClosePosition.Y = Y;
-            m_ClosureData.push_back (ClosePosition);
-            Y--; 
+            m_ClosureData.push_back(ClosePosition);
+            Y--;
         }
-    
-        I++; 
+
+        I++;
     }
 
     X = 1 + I;
@@ -281,8 +280,8 @@ void CArenaCloser::CreateVerticalClosing (void)
     {
         ClosePosition.X = X;
         ClosePosition.Y = Y;
-        m_ClosureData.push_back (ClosePosition);
-        Y++; 
+        m_ClosureData.push_back(ClosePosition);
+        Y++;
     }
 }
 
@@ -290,11 +289,11 @@ void CArenaCloser::CreateVerticalClosing (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CArenaCloser::Stop (void)
+void CArenaCloser::Stop(void)
 {
     // Empty the closure data
     m_ClosureData.clear();
-    
+
     m_IsClosing = false;
 }
 
@@ -302,7 +301,7 @@ void CArenaCloser::Stop (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CArenaCloser::Update (float DeltaTime)
+void CArenaCloser::Update(float DeltaTime)
 {
     // If the arena must be closing
     if (m_IsClosing)
@@ -312,7 +311,7 @@ void CArenaCloser::Update (float DeltaTime)
         {
             // Reduce time left before closing the next block
             m_TimeLeftBeforeClosingNextBlock -= DeltaTime;
-    
+
             // If we have to start closing the next block
             if (m_TimeLeftBeforeClosingNextBlock <= 0.0f)
             {
@@ -328,12 +327,9 @@ void CArenaCloser::Update (float DeltaTime)
 
                 // Scan the walls to see if there is not a hard wall at the block
                 // that must be closed. If there is one then no need to close this block.
-                for (int Index = 0 ; Index < m_pArena->MaxWalls() ; Index++)
+                for (int Index = 0; Index < m_pArena->MaxWalls(); Index++)
                 {
-                    if (m_pArena->GetWall(Index).Exist() &&
-                        m_pArena->GetWall(Index).GetType() == WALL_HARD &&
-                        m_pArena->GetWall(Index).GetBlockX() == BlockX &&
-                        m_pArena->GetWall(Index).GetBlockY() == BlockY)
+                    if (m_pArena->GetWall(Index).Exist() && m_pArena->GetWall(Index).GetType() == WALL_HARD && m_pArena->GetWall(Index).GetBlockX() == BlockX && m_pArena->GetWall(Index).GetBlockY() == BlockY)
                     {
                         // No need to close this block.
                         CloseIt = false;
@@ -345,11 +341,11 @@ void CArenaCloser::Update (float DeltaTime)
                 if (CloseIt)
                 {
                     // Create a falling wall on the block to close
-                    m_pArena->NewWall (BlockX, BlockY, WALL_FALLING);
+                    m_pArena->NewWall(BlockX, BlockY, WALL_FALLING);
                 }
 
                 // Remove the front element of the queue : this one is done
-                m_ClosureData.pop_front ();
+                m_ClosureData.pop_front();
             }
         }
         // If all blocks were closed
@@ -365,11 +361,11 @@ void CArenaCloser::Update (float DeltaTime)
 //******************************************************************************************************************************
 //****************************************************************************************************************************
 
-void CArenaCloser::WriteSnapshot (CArenaSnapshot& Snapshot)
+void CArenaCloser::WriteSnapshot(CArenaSnapshot& Snapshot)
 {
     Snapshot.WriteBoolean(m_IsClosing);
     Snapshot.WriteBoolean(m_ClosureData.empty());
-    
+
     if (!m_ClosureData.empty())
     {
         Snapshot.WriteFloat(m_TimeLeftBeforeClosingNextBlock);
@@ -382,13 +378,13 @@ void CArenaCloser::WriteSnapshot (CArenaSnapshot& Snapshot)
 //******************************************************************************************************************************
 //****************************************************************************************************************************
 
-void CArenaCloser::ReadSnapshot (CArenaSnapshot& Snapshot)
+void CArenaCloser::ReadSnapshot(CArenaSnapshot& Snapshot)
 {
     Snapshot.ReadBoolean(&m_IsClosing);
-    
+
     bool ClosureDateEmpty;
     Snapshot.ReadBoolean(&ClosureDateEmpty);
-    
+
     if (!ClosureDateEmpty)
     {
         int BlockX;

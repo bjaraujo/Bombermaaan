@@ -1,0 +1,5 @@
+BasedOnStyle: Webkit
+BreakBeforeBraces: Allman
+ReflowComments: false
+IndentWidth: 4
+ColumnLimit: 999

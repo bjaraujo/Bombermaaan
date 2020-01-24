@@ -23,21 +23,20 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CConsole.cpp
  *  \brief The console (helpful during development)
  */
 
-#include "StdAfx.h"
 #include "CConsole.h"
+#include "StdAfx.h"
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
 //! Display a dot on the console every X repeated messages
-#define REPEATED_MESSAGES_LIMIT     300
+#define REPEATED_MESSAGES_LIMIT 300
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -49,19 +48,16 @@ CConsole::CConsole()
     m_Open = false;
 
     // Default console text color : black background, grey foreground.
-    m_Color = CONSOLE_FOREGROUND_RED | 
-              CONSOLE_FOREGROUND_GREEN | 
-              CONSOLE_FOREGROUND_BLUE;
+    m_Color = CONSOLE_FOREGROUND_RED | CONSOLE_FOREGROUND_GREEN | CONSOLE_FOREGROUND_BLUE;
 
     // No message
     m_Message[0] = '\0';
     m_NumberOfRepeatedMessages = 0;
-    
+
     // Filter repeated messages by default
     m_FilterRepeatedMessage = true;
-    
+
     m_StdOut = NULL;
-    
 }
 
 //******************************************************************************************************************************
@@ -74,7 +70,7 @@ CConsole::~CConsole()
     if (m_Open)
     {
         // Close the console
-        Close ();
+        Close();
     }
 }
 
@@ -82,11 +78,11 @@ CConsole::~CConsole()
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CConsole& CConsole::GetConsole (void)
+CConsole& CConsole::GetConsole(void)
 {
     static CConsole rConsole;
 
-    // Return the console singleton   
+    // Return the console singleton
     return rConsole;
 }
 
@@ -94,21 +90,21 @@ CConsole& CConsole::GetConsole (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CConsole::Open (void)
+void CConsole::Open(void)
 {
     // If the console is not opened yet
     if (!m_Open)
     {
         // Create a console window
 #ifdef WIN32
-        AllocConsole ();
+        AllocConsole();
 
         // Get the console output (needed to send data to the console)
-        m_StdOut = GetStdHandle (STD_OUTPUT_HANDLE);
+        m_StdOut = GetStdHandle(STD_OUTPUT_HANDLE);
 #else
         m_StdOut = stdout;
 #endif
-        
+
         // The console window is now opened
         m_Open = true;
     }
@@ -118,14 +114,14 @@ void CConsole::Open (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CConsole::Close (void)
+void CConsole::Close(void)
 {
     // If the console is opened
     if (m_Open)
     {
         // Destroy the console window
 #ifdef WIN32
-        FreeConsole ();
+        FreeConsole();
 #endif
 
         // The console window is not opened anymore
@@ -137,28 +133,28 @@ void CConsole::Close (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CConsole::Write (const char *pMessage, ...)
+void CConsole::Write(const char* pMessage, ...)
 {
     // If the console is opened
     if (m_Open)
     {
         // Format the given string using the given arguments ("..." parameter)
-        char Message [2048];
+        char Message[2048];
         va_list arg;
-        va_start (arg, pMessage);
-        vsprintf (Message, pMessage, arg);
-        va_end (arg);
+        va_start(arg, pMessage);
+        vsprintf(Message, pMessage, arg);
+        va_end(arg);
 
         // If we have to filter repeated messages
         if (m_FilterRepeatedMessage)
-        {        
+        {
             // If the last message written to the console is not the same
             if (strcmp(Message, m_Message) != 0)
             {
                 // Send the formatted string to the console output
 #ifdef WIN32
                 DWORD Count;
-                WriteConsole (m_StdOut, Message, strlen(Message), &Count, NULL);
+                WriteConsole(m_StdOut, Message, strlen(Message), &Count, NULL);
 #else
                 fprintf(m_StdOut, "%s", Message);
 #endif
@@ -175,13 +171,13 @@ void CConsole::Write (const char *pMessage, ...)
                 // It's a repeated message
                 m_NumberOfRepeatedMessages++;
 
-                // Show that messages are being repeated, by writing a dot 
+                // Show that messages are being repeated, by writing a dot
                 // every REPEATED_MESSAGES_LIMIT repeated messages.
                 if ((m_NumberOfRepeatedMessages % REPEATED_MESSAGES_LIMIT) == 0)
                 {
 #ifdef WIN32
                     DWORD Count;
-                    WriteConsole (m_StdOut, ".", 1, &Count, NULL);
+                    WriteConsole(m_StdOut, ".", 1, &Count, NULL);
 #else
                     fprintf(m_StdOut, ",");
 #endif
@@ -194,7 +190,7 @@ void CConsole::Write (const char *pMessage, ...)
             // Send the formatted string to the console output
 #ifdef WIN32
             DWORD Count;
-            WriteConsole (m_StdOut, Message, strlen(Message), &Count, NULL);
+            WriteConsole(m_StdOut, Message, strlen(Message), &Count, NULL);
 #else
             fprintf(m_StdOut, "%s", Message);
 #endif

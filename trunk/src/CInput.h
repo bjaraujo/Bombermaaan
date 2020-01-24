@@ -19,7 +19,6 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CInput.h
  *  \brief Header file of input devices
@@ -37,14 +36,14 @@ class CTimer;
 #endif
 
 #include "CMainInput.h"
-#include "CPlayerInput.h"
 #include "COptions.h"
+#include "CPlayerInput.h"
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-#define NUMBER_OF_KEYBOARD_CONFIGURATIONS     5   //!< Number of keyboard configurations to allow
+#define NUMBER_OF_KEYBOARD_CONFIGURATIONS 5 //!< Number of keyboard configurations to allow
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -53,95 +52,83 @@ class CTimer;
 class CInput
 {
 private:
-
-    COptions*               m_pOptions;         //!< Link to options object to use
-    CTimer*                 m_pTimer;           //!< Link to timer object to use
-    CMainInput              m_MainInput;        //!< The main input device
-    CPlayerInput*           m_PlayerInput;      //!< Dynamically allocated array of player input devices
+    COptions* m_pOptions; //!< Link to options object to use
+    CTimer* m_pTimer; //!< Link to timer object to use
+    CMainInput m_MainInput; //!< The main input device
+    CPlayerInput* m_PlayerInput; //!< Dynamically allocated array of player input devices
 
 #ifdef DIRECTX_INPUT
-    CInputDX                m_input;            //!< InputDX object managing the Input interface
+    CInputDX m_input; //!< InputDX object managing the Input interface
 #else
-    CInputSDL               m_input;            //!< InputSDL object managing the Input interface
+    CInputSDL m_input; //!< InputSDL object managing the Input interface
 #endif
 
 public:
-
-                            CInput (void);
-                            ~CInput (void);
-    inline void             SetWindowHandle (HWND hWnd);                //!< Set the window whose input should be received
-    inline void             SetInstanceHandle (HINSTANCE hInstance);    //!< Set the instance of the application
-    inline void             SetOptions (COptions *pOptions);            //!< Set link to options object to use
-    inline void             SetTimer (CTimer *pTimer);                  //!< Set link to timer object to use
-    bool                    Create (void);                              //!< Initialize the object
-    void                    Destroy (void);                             //!< Uninitialize the object
-    inline CMainInput&      GetMainInput (void);
+    CInput(void);
+    ~CInput(void);
+    inline void SetWindowHandle(HWND hWnd); //!< Set the window whose input should be received
+    inline void SetInstanceHandle(HINSTANCE hInstance); //!< Set the instance of the application
+    inline void SetOptions(COptions* pOptions); //!< Set link to options object to use
+    inline void SetTimer(CTimer* pTimer); //!< Set link to timer object to use
+    bool Create(void); //!< Initialize the object
+    void Destroy(void); //!< Uninitialize the object
+    inline CMainInput& GetMainInput(void);
 #ifdef DIRECTX_INPUT
-    inline CInputDX&        GetDirectInput (void);
+    inline CInputDX& GetDirectInput(void);
 #else
-    inline CInputSDL&       GetDirectInput (void);
+    inline CInputSDL& GetDirectInput(void);
 #endif
-    inline CPlayerInput&    GetPlayerInput (int PlayerInput);
-    inline int              GetPlayerInputCount (void);
-
+    inline CPlayerInput& GetPlayerInput(int PlayerInput);
+    inline int GetPlayerInputCount(void);
 };
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline void CInput::SetWindowHandle (HWND hWnd)
+inline void CInput::SetWindowHandle(HWND hWnd)
 {
     // Set the window handle the DirectInput object has to communicate with
-    m_input.SetWindowHandle (hWnd);
+    m_input.SetWindowHandle(hWnd);
 }
 
-inline void CInput::SetInstanceHandle (HINSTANCE hInstance)
+inline void CInput::SetInstanceHandle(HINSTANCE hInstance)
 {
     // Set the instance handle the DirectInput object has to communicate with
-    m_input.SetInstanceHandle (hInstance);
+    m_input.SetInstanceHandle(hInstance);
 }
 
-inline void CInput::SetOptions (COptions *pOptions)
-{
-    m_pOptions = pOptions;
-}
+inline void CInput::SetOptions(COptions* pOptions) { m_pOptions = pOptions; }
 
-inline void CInput::SetTimer (CTimer *pTimer)
+inline void CInput::SetTimer(CTimer* pTimer)
 {
     m_pTimer = pTimer;
-    m_MainInput.SetTimer (pTimer);
+    m_MainInput.SetTimer(pTimer);
 }
 
-inline CMainInput& CInput::GetMainInput (void)
-{
-    return m_MainInput;
-}
+inline CMainInput& CInput::GetMainInput(void) { return m_MainInput; }
 
 #ifdef DIRECTX_INPUT
-inline CInputDX& CInput::GetDirectInput (void)
+inline CInputDX& CInput::GetDirectInput(void)
 #else
-inline CInputSDL& CInput::GetDirectInput (void)
+inline CInputSDL& CInput::GetDirectInput(void)
 #endif
 {
     return m_input;
 }
 
-inline CPlayerInput& CInput::GetPlayerInput (int PlayerInput)
+inline CPlayerInput& CInput::GetPlayerInput(int PlayerInput)
 {
-    ASSERT (PlayerInput >= 0);
-    ASSERT (PlayerInput < GetPlayerInputCount());
+    ASSERT(PlayerInput >= 0);
+    ASSERT(PlayerInput < GetPlayerInputCount());
 
     return m_PlayerInput[PlayerInput];
 }
 
-inline int CInput::GetPlayerInputCount (void)
-{
-    return NUMBER_OF_KEYBOARD_CONFIGURATIONS + m_input.GetJoystickCount();
-}
+inline int CInput::GetPlayerInputCount(void) { return NUMBER_OF_KEYBOARD_CONFIGURATIONS + m_input.GetJoystickCount(); }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-#endif  // __CINPUT_H__
+#endif // __CINPUT_H__

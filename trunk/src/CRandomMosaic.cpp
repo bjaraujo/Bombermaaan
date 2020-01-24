@@ -22,28 +22,26 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CRandomMosaic.cpp
  *  \brief A random mosaic
  */
 
-#include "StdAfx.h"
 #include "CRandomMosaic.h"
 #include "CMosaic.h"
+#include "StdAfx.h"
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-SMosaicTileProperties CRandomMosaic::m_MosaicTileProperties [4][2] =
-{
+SMosaicTileProperties CRandomMosaic::m_MosaicTileProperties[4][2] = {
     // PURPLE
     {
         { BMP_PURPLE_BACKGROUND_SOLID, 0, 7, 12, 82, 41 },
         { BMP_PURPLE_BACKGROUND_BOMB, 0, 7, 12, 82, 41 },
     },
-    
+
     // GREEN
     {
         { BMP_GREEN_BACKGROUND_SOLID, 0, 7, 12, 82, 41 },
@@ -68,13 +66,7 @@ SMosaicTileProperties CRandomMosaic::m_MosaicTileProperties [4][2] =
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CMosaic* CRandomMosaic::CreateRandomMosaic (CDisplay* pDisplay, 
-                                            int SpriteLayer, 
-                                            int PriorityInLayer, 
-                                            float SpeedX, 
-                                            float SpeedY, 
-                                            EMosaicColor Color,
-                                            bool IsSolid)
+CMosaic* CRandomMosaic::CreateRandomMosaic(CDisplay* pDisplay, int SpriteLayer, int PriorityInLayer, float SpeedX, float SpeedY, EMosaicColor Color, bool IsSolid)
 {
 
     SMosaicTileProperties* pMosaicTileProperties;
@@ -85,18 +77,9 @@ CMosaic* CRandomMosaic::CreateRandomMosaic (CDisplay* pDisplay,
         pMosaicTileProperties = &m_MosaicTileProperties[(int)Color][1];
 
     CMosaic* pNewMosaic = new CMosaic;
-    
-    pNewMosaic->SetDisplay (pDisplay);
-    pNewMosaic->Create (pMosaicTileProperties->SpriteTable, 
-                        pMosaicTileProperties->Sprite, 
-                        SpriteLayer, 
-                        PriorityInLayer, 
-                        pMosaicTileProperties->Width, 
-                        pMosaicTileProperties->Height, 
-                        pMosaicTileProperties->CountX, 
-                        pMosaicTileProperties->CountY, 
-                        SpeedX,
-                        SpeedY);
+
+    pNewMosaic->SetDisplay(pDisplay);
+    pNewMosaic->Create(pMosaicTileProperties->SpriteTable, pMosaicTileProperties->Sprite, SpriteLayer, PriorityInLayer, pMosaicTileProperties->Width, pMosaicTileProperties->Height, pMosaicTileProperties->CountX, pMosaicTileProperties->CountY, SpeedX, SpeedY);
 
     return pNewMosaic;
 }

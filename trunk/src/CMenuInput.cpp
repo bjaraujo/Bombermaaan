@@ -22,61 +22,60 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CMenuInput.cpp
  *  \brief Handling inputs during the menu
  */
 
-#include "StdAfx.h"
 #include "CMenuInput.h"
 #include "CDisplay.h"
-#include "CInput.h"
-#include "COptions.h"
 #include "CFont.h"
+#include "CInput.h"
 #include "CMenu.h"
+#include "COptions.h"
 #include "CSound.h"
+#include "StdAfx.h"
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-#define MENUINPUT_SPRITELAYER       1       //!< Sprite layer where to draw sprites
+#define MENUINPUT_SPRITELAYER 1 //!< Sprite layer where to draw sprites
 
-#define TITLE_TEXT_POSITION_Y       90      //!< Position Y of the title text that is centered on the X axis
-#define INITIAL_TEXT_POSITION_X     191     //!< Initial position of the player input's name
-#define INITIAL_TEXT_POSITION_Y     (77+90)
+#define TITLE_TEXT_POSITION_Y 90 //!< Position Y of the title text that is centered on the X axis
+#define INITIAL_TEXT_POSITION_X 191 //!< Initial position of the player input's name
+#define INITIAL_TEXT_POSITION_Y (77 + 90)
 
-#define TEXT_SPACE_Y                21      //!< Y Space in pixels between each text Y position
+#define TEXT_SPACE_Y 21 //!< Y Space in pixels between each text Y position
 
-#define BOMBER_HEAD_SPACE_X         -29     //!< Space in pixels between the player input name text position
-#define BOMBER_HEAD_SPACE_Y         -7      //!< and the corresponding bomber head
-#define BOMBER_HEAD_PRIORITY        0       
-#define BOMBER_HEAD_PRIORITY        0       //!< Priority to use when drawing the menu's bomber head sprites
+#define BOMBER_HEAD_SPACE_X -29 //!< Space in pixels between the player input name text position
+#define BOMBER_HEAD_SPACE_Y -7 //!< and the corresponding bomber head
+#define BOMBER_HEAD_PRIORITY 0
+#define BOMBER_HEAD_PRIORITY 0 //!< Priority to use when drawing the menu's bomber head sprites
 
-#define CURSOR_HAND_SPACE_X         -54     //!< Space in pixels between the player input name text position
-#define CURSOR_HAND_SPACE_Y         -2      //!< and the cursor hand pointing to the corresponding bomber head
-#define CURSOR_HAND_SPRITE          0       //!< Sprite number of the cursor hand in the sprite table
-#define CURSOR_HAND_PRIORITY        0       //!< Priority to use when drawing the menu's bomber hand sprites
+#define CURSOR_HAND_SPACE_X -54 //!< Space in pixels between the player input name text position
+#define CURSOR_HAND_SPACE_Y -2 //!< and the cursor hand pointing to the corresponding bomber head
+#define CURSOR_HAND_SPRITE 0 //!< Sprite number of the cursor hand in the sprite table
+#define CURSOR_HAND_PRIORITY 0 //!< Priority to use when drawing the menu's bomber hand sprites
 
-#define TITLE_STRING                "INPUT" //!< String of the menu's title centered on the X axis
+#define TITLE_STRING "INPUT" //!< String of the menu's title centered on the X axis
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CMenuInput::CMenuInput (void) : CMenuBase ()
+CMenuInput::CMenuInput(void)
+    : CMenuBase()
 {
-    
-    m_CursorPlayer = 0;
 
+    m_CursorPlayer = 0;
 }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CMenuInput::~CMenuInput (void)
+CMenuInput::~CMenuInput(void)
 {
     // Nothing to do
 }
@@ -85,7 +84,7 @@ CMenuInput::~CMenuInput (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMenuInput::OnCreate (void)
+void CMenuInput::OnCreate(void)
 {
     // Make the hand cursor point to the first player
     m_CursorPlayer = 0;
@@ -102,15 +101,13 @@ void CMenuInput::OnCreate (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMenuInput::OnDestroy (void)
-{
-}
+void CMenuInput::OnDestroy(void) {}
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMenuInput::OnUp (void)
+void CMenuInput::OnUp(void)
 {
     do
     {
@@ -132,7 +129,7 @@ void CMenuInput::OnUp (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMenuInput::OnDown (void)
+void CMenuInput::OnDown(void)
 {
     do
     {
@@ -154,19 +151,19 @@ void CMenuInput::OnDown (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMenuInput::OnLeft (void)
+void CMenuInput::OnLeft(void)
 {
     // If the current player's current player input is the first one
     if (m_pOptions->GetPlayerInput(m_CursorPlayer) - 1 < 0)
     {
         // Set the last player input for the current player
-        m_pOptions->SetPlayerInput (m_CursorPlayer, m_pInput->GetPlayerInputCount() - 1);
+        m_pOptions->SetPlayerInput(m_CursorPlayer, m_pInput->GetPlayerInputCount() - 1);
     }
     // If the current player's current player input is not the first one
     else
     {
         // Set the previous player input for the current player
-        m_pOptions->SetPlayerInput (m_CursorPlayer, m_pOptions->GetPlayerInput(m_CursorPlayer) - 1);
+        m_pOptions->SetPlayerInput(m_CursorPlayer, m_pOptions->GetPlayerInput(m_CursorPlayer) - 1);
     }
 }
 
@@ -174,19 +171,19 @@ void CMenuInput::OnLeft (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMenuInput::OnRight (void)
+void CMenuInput::OnRight(void)
 {
     // If the current player's current player input is the last one
     if (m_pOptions->GetPlayerInput(m_CursorPlayer) + 1 >= m_pInput->GetPlayerInputCount())
     {
         // Set the first player input for the current player
-        m_pOptions->SetPlayerInput (m_CursorPlayer, 0);
+        m_pOptions->SetPlayerInput(m_CursorPlayer, 0);
     }
     // If the current player's current player input is not the last one
     else
     {
         // Set the next player input for the current player
-        m_pOptions->SetPlayerInput (m_CursorPlayer, m_pOptions->GetPlayerInput(m_CursorPlayer) + 1);
+        m_pOptions->SetPlayerInput(m_CursorPlayer, m_pOptions->GetPlayerInput(m_CursorPlayer) + 1);
     }
 }
 
@@ -194,82 +191,64 @@ void CMenuInput::OnRight (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMenuInput::OnPrevious (void)
+void CMenuInput::OnPrevious(void)
 {
     // Go to the previous screen
-    Exit (MENUACTION_PREVIOUS);
+    Exit(MENUACTION_PREVIOUS);
 }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMenuInput::OnNext (void)
+void CMenuInput::OnNext(void)
 {
     // Play the menu next sound
-    m_pSound->PlaySample (SAMPLE_MENU_NEXT);
-    
+    m_pSound->PlaySample(SAMPLE_MENU_NEXT);
+
     // Go to the next screen
-    Exit (MENUACTION_NEXT);
+    Exit(MENUACTION_NEXT);
 }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMenuInput::OnUpdate (void)
-{ 
-}
+void CMenuInput::OnUpdate(void) {}
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMenuInput::OnDisplay (void)
+void CMenuInput::OnDisplay(void)
 {
     // Set the right font text color and write the menu title string
-    m_pFont->SetTextColor (FONTCOLOR_WHITE);
-    m_pFont->DrawCenteredX (0, VIEW_WIDTH - 1, TITLE_TEXT_POSITION_Y, TITLE_STRING); 
+    m_pFont->SetTextColor(FONTCOLOR_WHITE);
+    m_pFont->DrawCenteredX(0, VIEW_WIDTH - 1, TITLE_TEXT_POSITION_Y, TITLE_STRING);
 
     // Y Position where to write the text with the font object
     int PositionY = INITIAL_TEXT_POSITION_Y;
 
     // Scan the players
-    for (int Player = 0 ; Player < MAX_PLAYERS ; Player++)
+    for (int Player = 0; Player < MAX_PLAYERS; Player++)
     {
         // If the current player is a human
         if (m_pOptions->GetBomberType(Player) == BOMBERTYPE_MAN)
         {
             int PlayerInput = m_pOptions->GetPlayerInput(Player);
-            
+
             // Set the right font text color and write the current player input name
-            m_pFont->SetTextColor (FONTCOLOR_GREEN);
-            m_pFont->Draw (INITIAL_TEXT_POSITION_X, 
-                           PositionY, 
-                           m_pInput->GetPlayerInput(PlayerInput).GetName()); 
+            m_pFont->SetTextColor(FONTCOLOR_GREEN);
+            m_pFont->Draw(INITIAL_TEXT_POSITION_X, PositionY, m_pInput->GetPlayerInput(PlayerInput).GetName());
 
             // Draw the bomber head corresponding to the current player
-            m_pDisplay->DrawSprite (INITIAL_TEXT_POSITION_X + BOMBER_HEAD_SPACE_X,
-                                    PositionY + BOMBER_HEAD_SPACE_Y,
-                                    NULL,
-                                    NULL,
-                                    BMP_MENU_BOMBER,
-                                    Player,
-                                    MENUINPUT_SPRITELAYER,
-                                    BOMBER_HEAD_PRIORITY);
+            m_pDisplay->DrawSprite(INITIAL_TEXT_POSITION_X + BOMBER_HEAD_SPACE_X, PositionY + BOMBER_HEAD_SPACE_Y, NULL, NULL, BMP_MENU_BOMBER, Player, MENUINPUT_SPRITELAYER, BOMBER_HEAD_PRIORITY);
 
             // If the cursor hand is pointing to the current player
             if (m_CursorPlayer == Player)
             {
                 // Draw the cursor hand sprite in front of the corresponding bomber head
-                m_pDisplay->DrawSprite (INITIAL_TEXT_POSITION_X + CURSOR_HAND_SPACE_X,
-                                        PositionY + CURSOR_HAND_SPACE_Y,
-                                        NULL,
-                                        NULL,
-                                        BMP_MENU_HAND,
-                                        CURSOR_HAND_SPRITE,
-                                        MENUINPUT_SPRITELAYER,
-                                        CURSOR_HAND_PRIORITY);
+                m_pDisplay->DrawSprite(INITIAL_TEXT_POSITION_X + CURSOR_HAND_SPACE_X, PositionY + CURSOR_HAND_SPACE_Y, NULL, NULL, BMP_MENU_HAND, CURSOR_HAND_SPRITE, MENUINPUT_SPRITELAYER, CURSOR_HAND_PRIORITY);
             }
 
             // Go down

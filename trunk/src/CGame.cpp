@@ -24,32 +24,31 @@
 
     ************************************************************************************/
 
-
 /**
  *  \file CGame.cpp
  *  \brief The core of the program, handling sub-components, program control
  */
 
 #ifdef ALLEGRO
-    #include "allegro.h"
-    #include "winalleg.h"
+#include "allegro.h"
+#include "winalleg.h"
 #else
-    #include "SDL.h"
+#include "SDL.h"
 #endif
 
 #include "StdAfx.h"
 
-#include "CGame.h"
-#include "CWindow.h"
-#include "COptions.h"
-#include "CDisplay.h"
-#include "CInput.h"
-#include "CDrawGame.h"
-#include "CWinner.h"
-#include "CVictory.h"
-#include "CMatch.h"
-#include "CScores.h"
 #include "CControls.h"
+#include "CDisplay.h"
+#include "CDrawGame.h"
+#include "CGame.h"
+#include "CInput.h"
+#include "CMatch.h"
+#include "COptions.h"
+#include "CScores.h"
+#include "CVictory.h"
+#include "CWindow.h"
+#include "CWinner.h"
 
 #include "Bombermaaan.h"
 
@@ -90,13 +89,12 @@
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-
 #ifdef WIN32
 CGame::CGame(HINSTANCE hInstance, const char* pCommandLine)
     : CWindow(hInstance, pCommandLine, IDI_BOMBER)
 #else
-CGame::CGame (HINSTANCE hInstance, char** pCommandLine)
-    : CWindow (hInstance, "Bombermaaan", IDI_BOMBER)
+CGame::CGame(HINSTANCE hInstance, char** pCommandLine)
+    : CWindow(hInstance, "Bombermaaan", IDI_BOMBER)
 #endif
 {
     m_GameMode = GAMEMODE_NONE;
@@ -122,7 +120,7 @@ CGame::CGame (HINSTANCE hInstance, char** pCommandLine)
 
     std::time_t t = std::time(nullptr);
     std::tm tm = *std::localtime(&t);
-    
+
     std::stringstream buffer;
     buffer << std::put_time(&tm, "%Y-%m-%d");
 
@@ -135,7 +133,6 @@ CGame::CGame (HINSTANCE hInstance, char** pCommandLine)
     // keep the window text in mind
     m_WindowTitle = windowTitle;
 #endif
-
 }
 
 //******************************************************************************************************************************
@@ -157,28 +154,21 @@ CGame::~CGame()
 #ifdef WIN32
 bool CGame::Create(const char* pCommandLine)
 #else
-bool CGame::Create (char **pCommandLine, int pCommandLineCount)
+bool CGame::Create(char** pCommandLine, int pCommandLineCount)
 #endif
 {
     // If certain strings are detected in the command line arguments...
     // There is no check if the parameters are surrounded by spaces, or at the beginning of the line,
     // or the end. So "-----__/-h999" would also match (the -h is found).
 #ifdef WIN32
-    if (strstr(pCommandLine, "-?") != NULL ||
-        strstr(pCommandLine, "--help") != NULL ||  // Not really necessary, since "-?" already did the job
-        strstr(pCommandLine, "--license") != NULL ||
-        strstr(pCommandLine, "--show-license") != NULL ||
-        strstr(pCommandLine, "/?") != NULL)
+    if (strstr(pCommandLine, "-?") != NULL || strstr(pCommandLine, "--help") != NULL || // Not really necessary, since "-?" already did the job
+        strstr(pCommandLine, "--license") != NULL || strstr(pCommandLine, "--show-license") != NULL || strstr(pCommandLine, "/?") != NULL)
 #else
     bool helpRequested = false;
 
     for (int i = 0; i < pCommandLineCount; i++)
     {
-        if (strncmp(pCommandLine[i], "-h", 2) == 0 ||
-            strncmp(pCommandLine[i], "--help", 6) == 0 ||
-            strncmp(pCommandLine[i], "--license", 6) == 0 ||
-            strncmp(pCommandLine[i], "--show-license", 6) == 0 ||
-            strncmp(pCommandLine[i], "/?", 6) == 0)
+        if (strncmp(pCommandLine[i], "-h", 2) == 0 || strncmp(pCommandLine[i], "--help", 6) == 0 || strncmp(pCommandLine[i], "--license", 6) == 0 || strncmp(pCommandLine[i], "--show-license", 6) == 0 || strncmp(pCommandLine[i], "/?", 2) == 0)
         {
             helpRequested = true;
             break;
@@ -214,20 +204,20 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
             "You should have received a copy of the GNU General Public License\n"
             "along with Bombermaaan.  If not, see <http://www.gnu.org/licenses/>.\n"
 #ifdef WIN32
-            , "Bombermaaan", MB_ICONINFORMATION);
+            ,
+            "Bombermaaan", MB_ICONINFORMATION);
 #else
-            );
+        );
 #endif
         // Return false so the program will terminate after the message box was closed
         return false;
     }
 
-
     //! @see ENABLE_CONSOLE
 #ifdef ENABLE_CONSOLE
 
     // Open the console window
-    theConsole.Open ();
+    theConsole.Open();
 
 #ifndef ENABLE_CONSOLE_REPEATED_MESSAGE_FILTERING
 
@@ -236,7 +226,6 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
 #endif
 
 #endif
-
 
     // A folder where log file and configuration file are stored.
     // Is %APPDATA%\Bombermaaan when called with --use-appdata-dir (see below) on Windows
@@ -252,7 +241,7 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
 
     for (int i = 0; i < pCommandLineCount; i++)
     {
-        if (strncmp(pCommandLine[i], "--ignore-home-dir", 22) == 0)
+        if (strncmp(pCommandLine[i], "--ignore-home-dir", 17) == 0)
         {
             useAppDataFolder = false;
             break;
@@ -275,7 +264,7 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
     if (stat("/proc/self/exe", &selftest) == 0)
     {
         char buf[1024];
-        char *lastSlash;
+        char* lastSlash;
         //char *beforeLastSlash;
         int bytes = readlink("/proc/self/exe", buf, 1024);
 
@@ -287,18 +276,19 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
             lastSlash = strrchr(buf, '/');
             if (lastSlash == NULL)
             {
-                pgmDirectory.append( "" );
+                pgmDirectory.append("");
             }
             else if (lastSlash == buf)
             {
                 // root directory
-                pgmDirectory.append( "/" );
+                pgmDirectory.append("/");
             }
             else
             {
                 // find out ../
-                char *tempPath = new char [lastSlash - buf + 1];
-                if (tempPath == NULL) return false;
+                char* tempPath = new char[lastSlash - buf + 1];
+                if (tempPath == NULL)
+                    return false;
 
                 strncpy(tempPath, buf, lastSlash - buf);
                 tempPath[lastSlash - buf] = '\0';
@@ -311,13 +301,13 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
         else
         {
             // assume that we're in the correct working dir
-            pgmDirectory.append( "" );
+            pgmDirectory.append("");
         }
     }
     else
     {
         // assume that we're in the correct working dir
-        pgmDirectory.append( "" );
+        pgmDirectory.append("");
     }
 
     // check for existance
@@ -331,15 +321,14 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
     {
         // Check for the Bombermaaan directory in the appdata folder
 #ifdef WIN32
-        const char *appDataPath = getenv("APPDATA");
+        const char* appDataPath = getenv("APPDATA");
 #else
-        const char *appDataPath = getenv( "HOME" );
+        const char* appDataPath = getenv("HOME");
 #endif
-        if (!appDataPath) {
+        if (!appDataPath)
+        {
 #ifdef WIN32
-            MessageBox(m_hWnd,
-                "Could not get the user application folder (%APPDATA%).\nBombermaaan terminates.",
-                "Error", MB_OK | MB_ICONERROR);
+            MessageBox(m_hWnd, "Could not get the user application folder (%APPDATA%).\nBombermaaan terminates.", "Error", MB_OK | MB_ICONERROR);
 #else
             fprintf(stderr, "Could not determine home directory ($HOME).\nBombermaaan terminates.\n");
 #endif
@@ -352,20 +341,20 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
         dynamicDataFolder.append("\\Bombermaaan\\");
 
         // Create the Bombermaaan directory
-        if (!CreateDirectory(dynamicDataFolder.c_str(), NULL)) {
+        if (!CreateDirectory(dynamicDataFolder.c_str(), NULL))
+        {
             // Exit the game if the folder cannot be created and it doesn't exist already
-            if (GetLastError() != ERROR_ALREADY_EXISTS) {
+            if (GetLastError() != ERROR_ALREADY_EXISTS)
+            {
                 std::string errorMsg = "Could not create folder '";
                 errorMsg.append(dynamicDataFolder);
                 errorMsg.append("'.\nBombermaaan cannot run without this folder.");
-                MessageBox(m_hWnd,
-                    errorMsg.c_str(),
-                    "Error", MB_OK | MB_ICONERROR);
+                MessageBox(m_hWnd, errorMsg.c_str(), "Error", MB_OK | MB_ICONERROR);
                 return false;
             }
         }
 #else
-        dynamicDataFolder.append( "/.Bombermaaan/" );
+        dynamicDataFolder.append("/.Bombermaaan/");
         struct stat dirStatus;
 
         if (stat(dynamicDataFolder.c_str(), &dirStatus) == 0 && S_ISDIR(dirStatus.st_mode))
@@ -378,9 +367,9 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
             return false;
         }
 #endif
-
     }
-    else {
+    else
+    {
         // The current folder
 #ifdef WIN32
         dynamicDataFolder = ".\\";
@@ -407,11 +396,11 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
 #ifdef ENABLE_DEBUG_LOG
 
     std::string debugLogFileName;
-    debugLogFileName.append( dynamicDataFolder );
-    debugLogFileName.append( "debug.log" );
+    debugLogFileName.append(dynamicDataFolder);
+    debugLogFileName.append("debug.log");
 
     // Open the log file
-    debugLog.Open( debugLogFileName.c_str() );
+    debugLog.Open(debugLogFileName.c_str());
 
 #endif
 
@@ -422,7 +411,7 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
 #ifdef WIN32
         __argv[0]);
 #else
-        pCommandLine[0] );
+        pCommandLine[0]);
 #endif
 
     theDebug.SetGame(this);
@@ -503,7 +492,7 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
     m_Display.SetWindowHandle(m_hWnd);
     m_Display.SetModuleHandle(m_hModule);
 #else
-    m_Display.SetModuleHandle (NULL);
+    m_Display.SetModuleHandle(NULL);
 #endif // WIN32
 
 #ifdef SDL
@@ -606,7 +595,7 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
 #ifdef WIN32
     m_Sound.SetModuleHandle(m_hModule);
 #else
-    m_Sound.SetModuleHandle (NULL);
+    m_Sound.SetModuleHandle(NULL);
 #endif
 
     // If creating the display and setting the display mode failed
@@ -639,7 +628,7 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
 
 #ifdef NETWORK_MODE
     char IpAddressString[32];
-    const char *pos;
+    const char* pos;
 
 #ifdef WIN32
     pos = strstr(pCommandLine, "--client");
@@ -680,21 +669,18 @@ bool CGame::Create (char **pCommandLine, int pCommandLineCount)
 #else
     for (int i = 0; i < pCommandLineCount; i++)
     {
-        if (strncmp(pCommandLine[i], "-h", 2) == 0 ||
-            strncmp(pCommandLine[i], "--host", 6) == 0)
+        if (strncmp(pCommandLine[i], "-h", 2) == 0 || strncmp(pCommandLine[i], "--host", 6) == 0)
         {
             printf("*** STARTING GAME AS SERVER\n");
             m_Network.SetNetworkMode(NETWORKMODE_SERVER);
             break;
         }
-        else if ((strncmp(pCommandLine[i], "-c", 2) == 0 ||
-            strncmp(pCommandLine[i], "--client", 8) == 0) &&
-            pCommandLineCount > i + 1)
+        else if ((strncmp(pCommandLine[i], "-c", 2) == 0 || strncmp(pCommandLine[i], "--client", 8) == 0) && pCommandLineCount > i + 1)
         {
             printf("*** STARTING GAME AS CLIENT\n");
             m_Network.SetNetworkMode(NETWORKMODE_CLIENT);
 
-            strcpy(IpAddressString, pCommandLine[i+1]);
+            strcpy(IpAddressString, pCommandLine[i + 1]);
             break;
         }
     }
@@ -787,7 +773,7 @@ void CGame::Destroy(void)
 #ifdef ENABLE_CONSOLE
 
     // Close the console window
-    theConsole.Close ();
+    theConsole.Close();
 
 #endif
 
@@ -801,10 +787,9 @@ void CGame::Destroy(void)
 #ifdef ENABLE_DEBUG_LOG
 
     // Close the debug log file
-    debugLog.Close ();
+    debugLog.Close();
 
 #endif
-
 }
 
 //******************************************************************************************************************************
@@ -816,18 +801,40 @@ CModeScreen* CGame::GetGameModeObject(EGameMode GameMode)
     // According to the specified game mode, return a pointer to the object manager of this mode
     switch (GameMode)
     {
-    case GAMEMODE_TITLE:  return &m_Title;    break;
-    case GAMEMODE_DEMO:  return &m_Demo;     break;
-    case GAMEMODE_MENU:  return &m_Menu;     break;
-    case GAMEMODE_MATCH:  return &m_Match;    break;
-    case GAMEMODE_WINNER:  return &m_Winner;   break;
-    case GAMEMODE_DRAWGAME:  return &m_DrawGame; break;
-    case GAMEMODE_VICTORY:  return &m_Victory;  break;
-    case GAMEMODE_CONTROLS:  return &m_Controls; break;
-    case GAMEMODE_GREETS:  return &m_Credits; break;
-    case GAMEMODE_HELP:  return &m_Help; break;
-    case GAMEMODE_EXIT:  break;
-    default:  break;
+    case GAMEMODE_TITLE:
+        return &m_Title;
+        break;
+    case GAMEMODE_DEMO:
+        return &m_Demo;
+        break;
+    case GAMEMODE_MENU:
+        return &m_Menu;
+        break;
+    case GAMEMODE_MATCH:
+        return &m_Match;
+        break;
+    case GAMEMODE_WINNER:
+        return &m_Winner;
+        break;
+    case GAMEMODE_DRAWGAME:
+        return &m_DrawGame;
+        break;
+    case GAMEMODE_VICTORY:
+        return &m_Victory;
+        break;
+    case GAMEMODE_CONTROLS:
+        return &m_Controls;
+        break;
+    case GAMEMODE_GREETS:
+        return &m_Credits;
+        break;
+    case GAMEMODE_HELP:
+        return &m_Help;
+        break;
+    case GAMEMODE_EXIT:
+        break;
+    default:
+        break;
     }
 
     // There is no object manager for this game mode
@@ -857,7 +864,6 @@ void CGame::OnWindowActive(void)
         CModeScreen* modeScreen = GetGameModeObject(m_GameMode);
         if (modeScreen != NULL)
             NextGameMode = modeScreen->Update();
-
     }
 
     //! If the mode screen object corresponding to the current game mode
@@ -870,7 +876,6 @@ void CGame::OnWindowActive(void)
 
         if (NextGameMode == GAMEMODE_TITLE)
             m_Menu.SetMenuMode(MENUMODE_BOMBER);
-
     }
 
     //! Make the display black
@@ -892,8 +897,8 @@ void CGame::OnWindowActive(void)
     if (NextGameMode != m_GameMode)
     {
         //! - Change the game mode
-        FinishGameMode();                      //!< @see FinishGameMode()
-        StartGameMode(NextGameMode);           //!< @see StartGameMode()
+        FinishGameMode(); //!< @see FinishGameMode()
+        StartGameMode(NextGameMode); //!< @see StartGameMode()
     }
 }
 
@@ -919,19 +924,18 @@ void CGame::StartGameMode(EGameMode GameMode)
         // set when exiting.
         m_Display.Create(DISPLAYMODE_WINDOWED);
 
-    #ifdef SDL
+#ifdef SDL
         SDL_Event quitevent;
 
         quitevent.type = SDL_QUIT;
         quitevent.quit.type = SDL_QUIT;
 
         SDL_PushEvent(&quitevent);
-    #elif ALLEGRO
+#elif ALLEGRO
         //set_close_button_callback();
-    #elif DIRECTX
+#elif DIRECTX
         PostMessage(m_hWnd, WM_CLOSE, 0, 0);
-    #endif
-
+#endif
     }
     // If we don't have to exit the game
     else
@@ -966,16 +970,14 @@ void CGame::FinishGameMode(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-
 // This is called when the active state of the window
 // changes. This is NOT called on window creation.
 
 void CGame::OnActivateApp(WPARAM wParam, LPARAM lParam)
 {
 #ifdef ENABLE_SOUND
-    static bool  soundWasPausedWhenLosingFocus = false;
+    static bool soundWasPausedWhenLosingFocus = false;
 #endif
-
 
     CWindow::OnActivateApp(wParam, lParam);
 
@@ -991,7 +993,8 @@ void CGame::OnActivateApp(WPARAM wParam, LPARAM lParam)
 
 #ifdef ENABLE_SOUND
         // Unpause the sound
-        if (soundWasPausedWhenLosingFocus) {
+        if (soundWasPausedWhenLosingFocus)
+        {
             m_Sound.SetPause(false);
             soundWasPausedWhenLosingFocus = false;
         }
@@ -1011,7 +1014,8 @@ void CGame::OnActivateApp(WPARAM wParam, LPARAM lParam)
 
 #ifdef ENABLE_SOUND
         // Pause the sound when it is not already paused (by a pause in a match for example)
-        if (!m_Sound.IsPaused()) {
+        if (!m_Sound.IsPaused())
+        {
             m_Sound.SetPause(true);
             soundWasPausedWhenLosingFocus = true;
         }
@@ -1038,21 +1042,14 @@ void CGame::OnMove(WPARAM wParam, LPARAM lParam)
     m_Display.OnWindowMove();
 }
 
-
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
-
 
 // When the window is active and a key is pressed down,
 // this method will be called.
 
-void CGame::OnKeyDown(WPARAM wParam, LPARAM lParam)
-{
-
-
-}
-
+void CGame::OnKeyDown(WPARAM wParam, LPARAM lParam) {}
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -1082,7 +1079,7 @@ void CGame::OnKeyUp(WPARAM wParam, LPARAM lParam)
         // Assume we have to change the display mode
         bool SetDisplayMode = true;
 
-    #ifdef SDL
+#ifdef SDL
         //! Change display mode if this is a F1-F4 key
         switch (wParam)
         {
@@ -1098,9 +1095,9 @@ void CGame::OnKeyUp(WPARAM wParam, LPARAM lParam)
             SetDisplayMode = false;
             break;
         }
-    #elif ALLEGRO
+#elif ALLEGRO
         // TODO:
-    #elif DIRECTX
+#elif DIRECTX
         //! Change display mode if this is a F1-F4 key
         switch (wParam)
         {
@@ -1116,7 +1113,7 @@ void CGame::OnKeyUp(WPARAM wParam, LPARAM lParam)
             SetDisplayMode = false;
             break;
         }
-    #endif
+#endif
 
         // If we have to change the display mode
         // and the new display mode to set is available on the graphic card
@@ -1128,9 +1125,9 @@ void CGame::OnKeyUp(WPARAM wParam, LPARAM lParam)
             // Save it in the options
             m_Options.SetDisplayMode(DisplayMode);
         }
-
     }
-    else {
+    else
+    {
 
         //! Quickly exit the game with Ctrl + F12
         if (wParam == VK_F12)
@@ -1138,15 +1135,12 @@ void CGame::OnKeyUp(WPARAM wParam, LPARAM lParam)
             FinishGameMode();
             StartGameMode(GAMEMODE_EXIT);
         }
-
     }
 }
 
-
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
-
 
 /**
  *  If the window has to be repainted, the display
@@ -1195,7 +1189,6 @@ bool CGame::OnSysCommand(WPARAM wParam, LPARAM lParam)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-
 // Handles the WM_SIZE message (Sent after the window's size has changed)
 
 void CGame::OnSize(WPARAM wParam, LPARAM lParam)
@@ -1206,7 +1199,6 @@ void CGame::OnSize(WPARAM wParam, LPARAM lParam)
 #endif
 }
 
-
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -1216,19 +1208,23 @@ void CGame::OnSize(WPARAM wParam, LPARAM lParam)
 #ifndef DIRECTX_INPUT
 void CGame::OnJoystickAxis(WPARAM wParam, LPARAM lParam)
 {
-    SDL_JoyAxisEvent *jaxis;
+    SDL_JoyAxisEvent* jaxis;
 
-    if (wParam != 0) jaxis = (SDL_JoyAxisEvent *)wParam;
-    else return;
+    if (wParam != 0)
+        jaxis = (SDL_JoyAxisEvent*)wParam;
+    else
+        return;
 
     CMainInput m_pMainInput = m_Input.GetMainInput();
-    CInputSDL *m_pInput = m_pMainInput.GetInput();
+    CInputSDL* m_pInput = m_pMainInput.GetInput();
 
     // update main menu input
-    if (jaxis->axis == 0) { // X axis
+    if (jaxis->axis == 0)
+    { // X axis
         m_pInput->SetJoystickAxisX(jaxis->which, jaxis->value);
     }
-    else if (jaxis->axis == 1) { // Y axis
+    else if (jaxis->axis == 1)
+    { // Y axis
         m_pInput->SetJoystickAxisY(jaxis->which, jaxis->value);
     }
 
@@ -1241,10 +1237,12 @@ void CGame::OnJoystickAxis(WPARAM wParam, LPARAM lParam)
     m_pPlayerInput = m_Input.GetPlayerInput(i);
     m_pInput = m_pPlayerInput.GetDirectInput();
 
-    if (jaxis->axis == 0) { // X axis
+    if (jaxis->axis == 0)
+    { // X axis
         m_pInput->SetJoystickAxisX(jaxis->which, jaxis->value);
     }
-    else if (jaxis->axis == 1) { // Y axis
+    else if (jaxis->axis == 1)
+    { // Y axis
         m_pInput->SetJoystickAxisY(jaxis->which, jaxis->value);
     }
 
@@ -1264,18 +1262,19 @@ void CGame::OnJoystickAxis(WPARAM wParam, LPARAM lParam)
 #ifndef DIRECTX_INPUT
 void CGame::OnJoystickButton(WPARAM wParam, LPARAM lParam)
 {
-    SDL_JoyButtonEvent *jbutton;
+    SDL_JoyButtonEvent* jbutton;
 
-    if (wParam != 0) jbutton = (SDL_JoyButtonEvent *)wParam;
-    else return;
+    if (wParam != 0)
+        jbutton = (SDL_JoyButtonEvent*)wParam;
+    else
+        return;
 
     CMainInput m_pMainInput = m_Input.GetMainInput();
 
-    CInputSDL *m_pDirectInput = m_pMainInput.GetInput();
+    CInputSDL* m_pDirectInput = m_pMainInput.GetInput();
 
     // update main menu input
-    m_pDirectInput->SetJoystickButton(jbutton->which, jbutton->button,
-        (jbutton->state == SDL_PRESSED));
+    m_pDirectInput->SetJoystickButton(jbutton->which, jbutton->button, (jbutton->state == SDL_PRESSED));
     m_pMainInput.Update();
 
     // update player input (for each player with keyboard)
@@ -1285,10 +1284,8 @@ void CGame::OnJoystickButton(WPARAM wParam, LPARAM lParam)
     m_pPlayerInput = m_Input.GetPlayerInput(i);
     m_pDirectInput = m_pPlayerInput.GetDirectInput();
 
-    m_pDirectInput->SetJoystickButton(jbutton->which, jbutton->button,
-        (jbutton->state == SDL_PRESSED));
+    m_pDirectInput->SetJoystickButton(jbutton->which, jbutton->button, (jbutton->state == SDL_PRESSED));
     m_pPlayerInput.Update();
-
 }
 #endif
 

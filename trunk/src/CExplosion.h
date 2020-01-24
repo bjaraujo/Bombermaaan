@@ -19,7 +19,6 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CExplosion.h
  *  \brief Header file of an explosion
@@ -28,6 +27,7 @@
 #ifndef __CEXPLOSION_H__
 #define __CEXPLOSION_H__
 
+#include <vector>
 #include "CElement.h"
 
 class CArena;
@@ -46,9 +46,9 @@ and by the explosion itself when displaying the flames.
 
 struct SFlame
 {
-    int BlockX;     //!< Block position X of the flame
-    int BlockY;     //!< Block position Y of the flame
-    int FlameType;  //!< Flame type used to know what sprite to draw
+    int BlockX; //!< Block position X of the flame
+    int BlockY; //!< Block position Y of the flame
+    int FlameType; //!< Flame type used to know what sprite to draw
 };
 
 //******************************************************************************************************************************
@@ -64,11 +64,11 @@ to fly.
 
 enum EBurnDirection
 {
-    BURNDIRECTION_NONE,     //!< A center of explosion hits elements in this direction
-    BURNDIRECTION_UP,       //!< The element is hit from below (so go up)
-    BURNDIRECTION_DOWN,     //!< The element is hit from above (so go down)
-    BURNDIRECTION_LEFT,     //!< The element is hit from the right (so go left)
-    BURNDIRECTION_RIGHT     //!< The element is hit from the left (so go right)
+    BURNDIRECTION_NONE, //!< A center of explosion hits elements in this direction
+    BURNDIRECTION_UP, //!< The element is hit from below (so go up)
+    BURNDIRECTION_DOWN, //!< The element is hit from above (so go down)
+    BURNDIRECTION_LEFT, //!< The element is hit from the right (so go left)
+    BURNDIRECTION_RIGHT //!< The element is hit from the left (so go right)
 };
 
 //******************************************************************************************************************************
@@ -103,66 +103,55 @@ style, the result does not depend on the explosion duration.
 class CExplosion : public CElement
 {
 private:
-
-    int             m_iX;               //!< Position X (in pixels) of the center of the explosion in the arena
-    int             m_iY;               //!< Position Y (in pixels) of the center of the explosion in the arena
-    int             m_BlockX;           //!< Position X (in blocks) of the center of the explosion in the arena grid
-    int             m_BlockY;           //!< Position Y (in blocks) of the center of the explosion in the arena grid
-    int             m_State;            //!< State of the explosion (min = STATE0, max = STATE3)
-    float           m_Timer;            //!< Time counter for states evolution
-    int             m_FlameSize;        //!< Maximum size of the rays of flames (in blocks)
-    std::vector<SFlame>  m_Flames;           //!< Flames created by the explosion
-    bool            m_Dead;             //!< Is the explosion dead? (can it be deleted by the arena?)
+    int m_iX; //!< Position X (in pixels) of the center of the explosion in the arena
+    int m_iY; //!< Position Y (in pixels) of the center of the explosion in the arena
+    int m_BlockX; //!< Position X (in blocks) of the center of the explosion in the arena grid
+    int m_BlockY; //!< Position Y (in blocks) of the center of the explosion in the arena grid
+    int m_State; //!< State of the explosion (min = STATE0, max = STATE3)
+    float m_Timer; //!< Time counter for states evolution
+    int m_FlameSize; //!< Maximum size of the rays of flames (in blocks)
+    std::vector<SFlame> m_Flames; //!< Flames created by the explosion
+    bool m_Dead; //!< Is the explosion dead? (can it be deleted by the arena?)
 
 #ifdef EXPLOSIONS_ORIGINALSTYLE
 
-    int             m_FlameSizeUp;      //!< Maximum flame size (in blocks) of the ray of flames which goes up
-    int             m_FlameSizeDown;    //!< Maximum flame size (in blocks) of the ray of flames which goes down
-    int             m_FlameSizeLeft;    //!< Maximum flame size (in blocks) of the ray of flames which goes left
-    int             m_FlameSizeRight;   //!< Maximum flame size (in blocks) of the ray of flames which goes right
-    bool            m_StopUp;           //!< Is the flame ray stopped by something is this direction?
-    bool            m_StopDown;         //!< Is the flame ray stopped by something is this direction?
-    bool            m_StopLeft;         //!< Is the flame ray stopped by something is this direction?
-    bool            m_StopRight;        //!< Is the flame ray stopped by something is this direction?
+    int m_FlameSizeUp; //!< Maximum flame size (in blocks) of the ray of flames which goes up
+    int m_FlameSizeDown; //!< Maximum flame size (in blocks) of the ray of flames which goes down
+    int m_FlameSizeLeft; //!< Maximum flame size (in blocks) of the ray of flames which goes left
+    int m_FlameSizeRight; //!< Maximum flame size (in blocks) of the ray of flames which goes right
+    bool m_StopUp; //!< Is the flame ray stopped by something is this direction?
+    bool m_StopDown; //!< Is the flame ray stopped by something is this direction?
+    bool m_StopLeft; //!< Is the flame ray stopped by something is this direction?
+    bool m_StopRight; //!< Is the flame ray stopped by something is this direction?
 
 #endif // EXPLOSIONS_ORIGINALSTYLE
 
-    void            Burn (int X, int Y, EBurnDirection BurnDirection);  //!< Globally burn the specified block (walls, unprotected items, ...)
-    void            PutFlame (int BlockX, int BlockY, int FlameType);   //!< Record a flame whose description is specified
+    void Burn(int X, int Y, EBurnDirection BurnDirection); //!< Globally burn the specified block (walls, unprotected items, ...)
+    void PutFlame(int BlockX, int BlockY, int FlameType); //!< Record a flame whose description is specified
 
 public:
-
-                    CExplosion (void);          //!< Constructor (initialize the base class)
-    virtual         ~CExplosion (void);         //!< Destructor (uninitialize the base class)
-    void            Create (int BlockX, int BlockY, int FlameSize); //!< Initialize the explosion
-    void            Destroy (void);             //!< Uninitialize the explosion
-    bool            Update (float DeltaTime);   //!< Update the explosion. Return whether the element should be deleted by the arena.
-    void            Display (void);             //!< Display the explosion
-    void            OnWriteSnapshot (CArenaSnapshot& Snapshot);
-    void            OnReadSnapshot (CArenaSnapshot& Snapshot);
-    inline int      GetBlockX (void);           //!< Return the block position X of the center of the explosion
-    inline int      GetBlockY (void);           //!< Return the block position Y of the center of the explosion
-    inline const std::vector<SFlame>& GetFlames (void); //!< Return the (read-only) flames of the explosions
+    CExplosion(void); //!< Constructor (initialize the base class)
+    virtual ~CExplosion(void); //!< Destructor (uninitialize the base class)
+    void Create(int BlockX, int BlockY, int FlameSize); //!< Initialize the explosion
+    void Destroy(void); //!< Uninitialize the explosion
+    bool Update(float DeltaTime); //!< Update the explosion. Return whether the element should be deleted by the arena.
+    void Display(void); //!< Display the explosion
+    void OnWriteSnapshot(CArenaSnapshot& Snapshot);
+    void OnReadSnapshot(CArenaSnapshot& Snapshot);
+    inline int GetBlockX(void); //!< Return the block position X of the center of the explosion
+    inline int GetBlockY(void); //!< Return the block position Y of the center of the explosion
+    inline const std::vector<SFlame>& GetFlames(void); //!< Return the (read-only) flames of the explosions
 };
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline int CExplosion::GetBlockX (void)
-{
-    return m_BlockX;
-}
+inline int CExplosion::GetBlockX(void) { return m_BlockX; }
 
-inline int CExplosion::GetBlockY (void)
-{
-    return m_BlockY;
-}
+inline int CExplosion::GetBlockY(void) { return m_BlockY; }
 
-inline const std::vector<SFlame>& CExplosion::GetFlames (void)
-{
-    return m_Flames;
-}
+inline const std::vector<SFlame>& CExplosion::GetFlames(void) { return m_Flames; }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************

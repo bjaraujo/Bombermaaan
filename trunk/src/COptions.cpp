@@ -25,37 +25,36 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file COptions.cpp
  *  \brief Handling game options, saving to and reading from file
  */
 
+#include <algorithm>
 #include <sstream>
 #include <vector>
-#include <algorithm>
 
-#include "StdAfx.h"
-#include "COptions.h"
-#include "CInput.h"
 #include "CArena.h"
+#include "CInput.h"
+#include "COptions.h"
+#include "StdAfx.h"
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-#define TIMESTART_MINUTES   1
-#define TIMESTART_SECONDS   0
+#define TIMESTART_MINUTES 1
+#define TIMESTART_SECONDS 0
 
-#define TIMEUP_MINUTES      0
-#define TIMEUP_SECONDS      35
+#define TIMEUP_MINUTES 0
+#define TIMEUP_SECONDS 35
 
-#define CONFIGURATION_KEYBOARD_1      0
-#define CONFIGURATION_KEYBOARD_2      1
-#define CONFIGURATION_KEYBOARD_3      2
-#define CONFIGURATION_KEYBOARD_4      3
-#define CONFIGURATION_KEYBOARD_5      4
-#define CONFIGURATION_JOYSTICK_1      5
+#define CONFIGURATION_KEYBOARD_1 0
+#define CONFIGURATION_KEYBOARD_2 1
+#define CONFIGURATION_KEYBOARD_3 2
+#define CONFIGURATION_KEYBOARD_4 3
+#define CONFIGURATION_KEYBOARD_5 4
+#define CONFIGURATION_JOYSTICK_1 5
 
 // This check ensures we've also set NUMBER_OF_KEYBOARD_CONFIGURATIONS in CInput.h appropriate
 #if NUMBER_OF_KEYBOARD_CONFIGURATIONS != CONFIGURATION_JOYSTICK_1
@@ -72,7 +71,7 @@ struct SFileInfo
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-COptions::COptions (void)
+COptions::COptions(void)
 {
 
     m_DisplayMode = DISPLAYMODE_NONE;
@@ -87,7 +86,7 @@ COptions::COptions (void)
     m_BattleCount = 0;
 
     m_Level = 0;
-    
+
     for (int i = 0; i < MAX_PLAYERS; i++)
     {
         m_BomberType[i] = BOMBERTYPE_OFF;
@@ -98,34 +97,25 @@ COptions::COptions (void)
     for (int i = 0; i < MAX_PLAYER_INPUT; i++)
         for (int j = 0; j < NUM_CONTROLS; j++)
             m_Control[i][j] = 0;
-
 }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-COptions::COptions(const COptions& another)
-{
-
-    operator=(another);
-
-}
+COptions::COptions(const COptions& another) { operator=(another); }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-COptions::~COptions (void)
-{
-    Destroy();
-}
+COptions::~COptions(void) { Destroy(); }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-COptions& COptions::operator = (const COptions& Copy)
+COptions& COptions::operator=(const COptions& Copy)
 {
     m_TimeStartMinutes = Copy.m_TimeStartMinutes;
     m_TimeStartSeconds = Copy.m_TimeStartSeconds;
@@ -134,7 +124,7 @@ COptions& COptions::operator = (const COptions& Copy)
 
     int i, j;
 
-    for (i = 0 ; i < MAX_PLAYERS ; i++)
+    for (i = 0; i < MAX_PLAYERS; i++)
     {
         m_BomberType[i] = Copy.m_BomberType[i];
         m_PlayerInput[i] = Copy.m_PlayerInput[i];
@@ -144,10 +134,10 @@ COptions& COptions::operator = (const COptions& Copy)
     m_BattleCount = Copy.m_BattleCount;
     m_DisplayMode = Copy.m_DisplayMode;
 
-    for (i = 0 ; i < MAX_PLAYER_INPUT ; i++)
-        for (j = 0 ; j < NUM_CONTROLS ; j++)
+    for (i = 0; i < MAX_PLAYER_INPUT; i++)
+        for (j = 0; j < NUM_CONTROLS; j++)
             m_Control[i][j] = Copy.m_Control[i][j];
-    
+
     m_Level = Copy.m_Level;
 
     // Copy all the level data files
@@ -160,16 +150,16 @@ COptions& COptions::operator = (const COptions& Copy)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool COptions::Create( bool useAppDataFolder, std::string dynamicDataFolder, std::string pgmFolder )
+bool COptions::Create(bool useAppDataFolder, std::string dynamicDataFolder, std::string pgmFolder)
 {
     // Set the file name of the configuration file including full path
     configFileName = dynamicDataFolder;
-    configFileName.append( "config.xml" );
-    theLog.WriteLine( "Options         => Name of config file: '%s'.", configFileName.c_str() );
+    configFileName.append("config.xml");
+    theLog.WriteLine("Options         => Name of config file: '%s'.", configFileName.c_str());
 
     // Set the file name of the old configuration file
     oldconfigFileName = dynamicDataFolder;
-    oldconfigFileName.append( "config.dat" );
+    oldconfigFileName.append("config.dat");
 
     // Set default configuration values before loading the configuration file and overwriting the default
     SetDefaultValues();
@@ -179,9 +169,9 @@ bool COptions::Create( bool useAppDataFolder, std::string dynamicDataFolder, std
         return false;
 
     // Load game levels data and names
-    if (!LoadLevels( useAppDataFolder ? dynamicDataFolder : "", pgmFolder ))
+    if (!LoadLevels(useAppDataFolder ? dynamicDataFolder : "", pgmFolder))
         return false;
-    
+
     // Everything went ok.
     return true;
 }
@@ -190,15 +180,13 @@ bool COptions::Create( bool useAppDataFolder, std::string dynamicDataFolder, std
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void COptions::Destroy (void)
-{
-}
+void COptions::Destroy(void) {}
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void COptions::SaveBeforeExit (void)
+void COptions::SaveBeforeExit(void)
 {
     // Write the values to the XML based configuration file
     WriteXMLData();
@@ -244,51 +232,51 @@ void COptions::SetDefaultValues(void)
     m_BomberTeam[4] = BOMBERTEAM_B;
 
     // Initialise player inputs
-    for (int i = 0 ; i < MAX_PLAYERS ; i++)
+    for (int i = 0; i < MAX_PLAYERS; i++)
         m_PlayerInput[i] = CONFIGURATION_KEYBOARD_1 + i;
 
     // Set default keyboard keys and joystick buttons
-    m_Control[CONFIGURATION_KEYBOARD_1][CONTROL_UP]      = KEYBOARD_UP;
-    m_Control[CONFIGURATION_KEYBOARD_1][CONTROL_DOWN]    = KEYBOARD_DOWN;
-    m_Control[CONFIGURATION_KEYBOARD_1][CONTROL_LEFT]    = KEYBOARD_LEFT;
-    m_Control[CONFIGURATION_KEYBOARD_1][CONTROL_RIGHT]   = KEYBOARD_RIGHT;
+    m_Control[CONFIGURATION_KEYBOARD_1][CONTROL_UP] = KEYBOARD_UP;
+    m_Control[CONFIGURATION_KEYBOARD_1][CONTROL_DOWN] = KEYBOARD_DOWN;
+    m_Control[CONFIGURATION_KEYBOARD_1][CONTROL_LEFT] = KEYBOARD_LEFT;
+    m_Control[CONFIGURATION_KEYBOARD_1][CONTROL_RIGHT] = KEYBOARD_RIGHT;
     m_Control[CONFIGURATION_KEYBOARD_1][CONTROL_ACTION1] = KEYBOARD_X;
     m_Control[CONFIGURATION_KEYBOARD_1][CONTROL_ACTION2] = KEYBOARD_Z;
 
-    m_Control[CONFIGURATION_KEYBOARD_2][CONTROL_UP]      = KEYBOARD_NUMPAD8;
-    m_Control[CONFIGURATION_KEYBOARD_2][CONTROL_DOWN]    = KEYBOARD_NUMPAD5;
-    m_Control[CONFIGURATION_KEYBOARD_2][CONTROL_LEFT]    = KEYBOARD_NUMPAD4;
-    m_Control[CONFIGURATION_KEYBOARD_2][CONTROL_RIGHT]   = KEYBOARD_NUMPAD6;
+    m_Control[CONFIGURATION_KEYBOARD_2][CONTROL_UP] = KEYBOARD_NUMPAD8;
+    m_Control[CONFIGURATION_KEYBOARD_2][CONTROL_DOWN] = KEYBOARD_NUMPAD5;
+    m_Control[CONFIGURATION_KEYBOARD_2][CONTROL_LEFT] = KEYBOARD_NUMPAD4;
+    m_Control[CONFIGURATION_KEYBOARD_2][CONTROL_RIGHT] = KEYBOARD_NUMPAD6;
     m_Control[CONFIGURATION_KEYBOARD_2][CONTROL_ACTION1] = KEYBOARD_Y;
     m_Control[CONFIGURATION_KEYBOARD_2][CONTROL_ACTION2] = KEYBOARD_T;
 
-    m_Control[CONFIGURATION_KEYBOARD_3][CONTROL_UP]      = KEYBOARD_I;
-    m_Control[CONFIGURATION_KEYBOARD_3][CONTROL_DOWN]    = KEYBOARD_K;
-    m_Control[CONFIGURATION_KEYBOARD_3][CONTROL_LEFT]    = KEYBOARD_J;
-    m_Control[CONFIGURATION_KEYBOARD_3][CONTROL_RIGHT]   = KEYBOARD_L;
+    m_Control[CONFIGURATION_KEYBOARD_3][CONTROL_UP] = KEYBOARD_I;
+    m_Control[CONFIGURATION_KEYBOARD_3][CONTROL_DOWN] = KEYBOARD_K;
+    m_Control[CONFIGURATION_KEYBOARD_3][CONTROL_LEFT] = KEYBOARD_J;
+    m_Control[CONFIGURATION_KEYBOARD_3][CONTROL_RIGHT] = KEYBOARD_L;
     m_Control[CONFIGURATION_KEYBOARD_3][CONTROL_ACTION1] = KEYBOARD_8;
     m_Control[CONFIGURATION_KEYBOARD_3][CONTROL_ACTION2] = KEYBOARD_7;
 
-    m_Control[CONFIGURATION_KEYBOARD_4][CONTROL_UP]      = KEYBOARD_H;
-    m_Control[CONFIGURATION_KEYBOARD_4][CONTROL_DOWN]    = KEYBOARD_N;
-    m_Control[CONFIGURATION_KEYBOARD_4][CONTROL_LEFT]    = KEYBOARD_B;
-    m_Control[CONFIGURATION_KEYBOARD_4][CONTROL_RIGHT]   = KEYBOARD_M;
+    m_Control[CONFIGURATION_KEYBOARD_4][CONTROL_UP] = KEYBOARD_H;
+    m_Control[CONFIGURATION_KEYBOARD_4][CONTROL_DOWN] = KEYBOARD_N;
+    m_Control[CONFIGURATION_KEYBOARD_4][CONTROL_LEFT] = KEYBOARD_B;
+    m_Control[CONFIGURATION_KEYBOARD_4][CONTROL_RIGHT] = KEYBOARD_M;
     m_Control[CONFIGURATION_KEYBOARD_4][CONTROL_ACTION1] = KEYBOARD_5;
     m_Control[CONFIGURATION_KEYBOARD_4][CONTROL_ACTION2] = KEYBOARD_4;
 
-    m_Control[CONFIGURATION_KEYBOARD_5][CONTROL_UP]      = KEYBOARD_R;
-    m_Control[CONFIGURATION_KEYBOARD_5][CONTROL_DOWN]    = KEYBOARD_F;
-    m_Control[CONFIGURATION_KEYBOARD_5][CONTROL_LEFT]    = KEYBOARD_D;
-    m_Control[CONFIGURATION_KEYBOARD_5][CONTROL_RIGHT]   = KEYBOARD_G;
+    m_Control[CONFIGURATION_KEYBOARD_5][CONTROL_UP] = KEYBOARD_R;
+    m_Control[CONFIGURATION_KEYBOARD_5][CONTROL_DOWN] = KEYBOARD_F;
+    m_Control[CONFIGURATION_KEYBOARD_5][CONTROL_LEFT] = KEYBOARD_D;
+    m_Control[CONFIGURATION_KEYBOARD_5][CONTROL_RIGHT] = KEYBOARD_G;
     m_Control[CONFIGURATION_KEYBOARD_5][CONTROL_ACTION1] = KEYBOARD_1;
     m_Control[CONFIGURATION_KEYBOARD_5][CONTROL_ACTION2] = KEYBOARD_2;
 
-    for ( unsigned int j = CONFIGURATION_JOYSTICK_1 ; j < MAX_PLAYER_INPUT ; j++)
+    for (unsigned int j = CONFIGURATION_JOYSTICK_1; j < MAX_PLAYER_INPUT; j++)
     {
-        m_Control[j][CONTROL_UP]      = JOYSTICK_UP;
-        m_Control[j][CONTROL_DOWN]    = JOYSTICK_DOWN;
-        m_Control[j][CONTROL_LEFT]    = JOYSTICK_LEFT;
-        m_Control[j][CONTROL_RIGHT]   = JOYSTICK_RIGHT;
+        m_Control[j][CONTROL_UP] = JOYSTICK_UP;
+        m_Control[j][CONTROL_DOWN] = JOYSTICK_DOWN;
+        m_Control[j][CONTROL_LEFT] = JOYSTICK_LEFT;
+        m_Control[j][CONTROL_RIGHT] = JOYSTICK_RIGHT;
         m_Control[j][CONTROL_ACTION1] = JOYSTICK_BUTTON(0);
         m_Control[j][CONTROL_ACTION2] = JOYSTICK_BUTTON(1);
     }
@@ -307,15 +295,15 @@ void COptions::SetDefaultValues(void)
  *  This feature will be removed in the future.
  */
 
-bool COptions::LoadConfiguration (void)
+bool COptions::LoadConfiguration(void)
 {
     // Try to open the old configuration file
-    FILE* pConfigFile = fopen( oldconfigFileName.c_str(), "rb" );
+    FILE* pConfigFile = fopen(oldconfigFileName.c_str(), "rb");
 
     // If the old configuration file exists
-    if ( pConfigFile != NULL )
+    if (pConfigFile != NULL)
     {
-        theLog.WriteLine( "Options         => Note: Reading old configuration file (config.dat) values now. Once the XML file is written, you may delete the old configuration file." );
+        theLog.WriteLine("Options         => Note: Reading old configuration file (config.dat) values now. Once the XML file is written, you may delete the old configuration file.");
 
         // Read each configuration value in the file
         fread(&m_TimeUpMinutes, sizeof(int), 1, pConfigFile);
@@ -330,43 +318,44 @@ bool COptions::LoadConfiguration (void)
         fread(&m_Level, sizeof(int), 1, pConfigFile);
 
         // The configuration file is not needed anymore
-        fclose( pConfigFile );
+        fclose(pConfigFile);
     }
 
+    TiXmlDocument configDoc(configFileName);
 
-    TiXmlDocument configDoc( configFileName );
-    
     // Try to load XML file
-    if ( configDoc.LoadFile() ) {
+    if (configDoc.LoadFile())
+    {
 
         // The file could be loaded successfully
         int tempRevision = 0;
-        TiXmlHandle configHandle( &configDoc );
-        TiXmlElement *confRevision = configHandle.FirstChild( "Bombermaaan" ).FirstChild( "Configuration" ).FirstChild( "ConfigRevision" ).ToElement();
-        if ( confRevision )
-            confRevision->QueryIntAttribute( "value", &tempRevision );
+        TiXmlHandle configHandle(&configDoc);
+        TiXmlElement* confRevision = configHandle.FirstChild("Bombermaaan").FirstChild("Configuration").FirstChild("ConfigRevision").ToElement();
+        if (confRevision)
+            confRevision->QueryIntAttribute("value", &tempRevision);
 
-        theLog.WriteLine( "Options         => Configuration file was successfully loaded and is at revision %d.", tempRevision );
+        theLog.WriteLine("Options         => Configuration file was successfully loaded and is at revision %d.", tempRevision);
 
-        ReadIntFromXML( configDoc, "TimeUp", "minutes", &m_TimeUpMinutes );
-        ReadIntFromXML( configDoc, "TimeUp", "seconds", &m_TimeUpSeconds );
+        ReadIntFromXML(configDoc, "TimeUp", "minutes", &m_TimeUpMinutes);
+        ReadIntFromXML(configDoc, "TimeUp", "seconds", &m_TimeUpSeconds);
 
-        ReadIntFromXML( configDoc, "TimeStart", "minutes", &m_TimeStartMinutes );
-        ReadIntFromXML( configDoc, "TimeStart", "seconds", &m_TimeStartSeconds );
+        ReadIntFromXML(configDoc, "TimeStart", "minutes", &m_TimeStartMinutes);
+        ReadIntFromXML(configDoc, "TimeStart", "seconds", &m_TimeStartSeconds);
 
         ReadIntFromXML(configDoc, "BattleMode", "value", (int*)&m_BattleMode);
 
-        ReadIntFromXML( configDoc, "BattleCount", "value", &m_BattleCount );
-        
-        ReadIntFromXML( configDoc, "LevelFileNumber", "value", &m_Level );
+        ReadIntFromXML(configDoc, "BattleCount", "value", &m_BattleCount);
 
-        ReadIntFromXML( configDoc, "DisplayMode", "value", (int*) &m_DisplayMode );
+        ReadIntFromXML(configDoc, "LevelFileNumber", "value", &m_Level);
 
-        for ( int i = 0; i < MAX_PLAYERS; i++ ) {
+        ReadIntFromXML(configDoc, "DisplayMode", "value", (int*)&m_DisplayMode);
+
+        for (int i = 0; i < MAX_PLAYERS; i++)
+        {
             std::ostringstream oss;
             oss << "bomber" << i;
             std::string attributeName = oss.str();
-            ReadIntFromXML( configDoc, "BomberTypes", attributeName, (int*) (&m_BomberType[i]) );
+            ReadIntFromXML(configDoc, "BomberTypes", attributeName, (int*)(&m_BomberType[i]));
             ReadIntFromXML(configDoc, "BomberTeams", attributeName, (int*)(&m_BomberTeam[i]));
             ReadIntFromXML(configDoc, "PlayerInputs", attributeName, (int*)(&m_PlayerInput[i]));
         }
@@ -377,26 +366,26 @@ bool COptions::LoadConfiguration (void)
         //
 
         // Create a handle to the XML document
-        TiXmlHandle handle( &configDoc );
+        TiXmlHandle handle(&configDoc);
 
         // Fetch the element
-        TiXmlElement *element = handle.FirstChild( "Bombermaaan" ).FirstChild( "Configuration" ).FirstChild( "ControlList" ).FirstChild( "Control" ).ToElement();
+        TiXmlElement* element = handle.FirstChild("Bombermaaan").FirstChild("Configuration").FirstChild("ControlList").FirstChild("Control").ToElement();
 
         // If the element exists, go on
-        if ( element )
+        if (element)
         {
             // Loop through all sub-elements of the ControlList node
-            for ( ; element; element = element->NextSiblingElement() )
+            for (; element; element = element->NextSiblingElement())
             {
                 int id = -1;
-                element->QueryIntAttribute( "id", &id );
+                element->QueryIntAttribute("id", &id);
 
                 // The id must be between 0 and MAX_PLAYER_INPUT
-                if ( id < 0 || id >= MAX_PLAYER_INPUT )
+                if (id < 0 || id >= MAX_PLAYER_INPUT)
                     continue;
 
                 // Read all control values (up, down, left, right, action1, action2)
-                for ( unsigned int ctrl = 0; ctrl < NUM_CONTROLS; ctrl++ )
+                for (unsigned int ctrl = 0; ctrl < NUM_CONTROLS; ctrl++)
                 {
                     int ctrldata = -1;
 
@@ -404,22 +393,22 @@ bool COptions::LoadConfiguration (void)
                     oss << "control" << ctrl;
                     std::string attributeName = oss.str();
 
-                    element->QueryIntAttribute( attributeName, &ctrldata);
+                    element->QueryIntAttribute(attributeName, &ctrldata);
 
                     // Verify we have read a valid number
-                    if ( ctrldata >= 0 )
+                    if (ctrldata >= 0)
                     {
                         m_Control[id][ctrl] = ctrldata;
                     }
                 }
             }
         }
-
-    } else {
+    }
+    else
+    {
 
         // The configuration could not be loaded, maybe it doesn't exist
-        theLog.WriteLine ("Options         => Configuration file could not be loaded." );
-
+        theLog.WriteLine("Options         => Configuration file could not be loaded.");
     }
 
     //! We always return true since it doesn't matter if the configuration file could not be loaded
@@ -435,38 +424,38 @@ void COptions::WriteXMLData()
 {
     // Create document
     TiXmlDocument newConfig;
-    TiXmlDeclaration* decl = new TiXmlDeclaration( "1.0", "UTF-8", "" );
-    newConfig.LinkEndChild( decl );
+    TiXmlDeclaration* decl = new TiXmlDeclaration("1.0", "UTF-8", "");
+    newConfig.LinkEndChild(decl);
 
     // Root node
-    TiXmlElement * root = new TiXmlElement( "Bombermaaan" );
-    newConfig.LinkEndChild( root );
+    TiXmlElement* root = new TiXmlElement("Bombermaaan");
+    newConfig.LinkEndChild(root);
 
     // Comment
-    TiXmlComment * comment = new TiXmlComment();
-    comment->SetValue(" Configuration settings for the Bombermaaan game (http://bombermaaan.sf.net/) " );
-    root->LinkEndChild( comment );
+    TiXmlComment* comment = new TiXmlComment();
+    comment->SetValue(" Configuration settings for the Bombermaaan game (http://bombermaaan.sf.net/) ");
+    root->LinkEndChild(comment);
 
     // Configuration tree node - all options have this node as parent
-    TiXmlElement * config = new TiXmlElement( "Configuration" );
-    root->LinkEndChild( config );
+    TiXmlElement* config = new TiXmlElement("Configuration");
+    root->LinkEndChild(config);
 
     //! The revision number is currently 1
-    TiXmlElement* configRev = new TiXmlElement( "ConfigRevision" );
-    configRev->SetAttribute( "value", 1 );
-    config->LinkEndChild( configRev );
+    TiXmlElement* configRev = new TiXmlElement("ConfigRevision");
+    configRev->SetAttribute("value", 1);
+    config->LinkEndChild(configRev);
 
     // TimeUp (when will arena close begin)
-    TiXmlElement* configTimeUp = new TiXmlElement( "TimeUp" );
-    configTimeUp->SetAttribute( "minutes", m_TimeUpMinutes );
-    configTimeUp->SetAttribute( "seconds", m_TimeUpSeconds );
-    config->LinkEndChild( configTimeUp );
+    TiXmlElement* configTimeUp = new TiXmlElement("TimeUp");
+    configTimeUp->SetAttribute("minutes", m_TimeUpMinutes);
+    configTimeUp->SetAttribute("seconds", m_TimeUpSeconds);
+    config->LinkEndChild(configTimeUp);
 
     // TimeStart (the duration of a match)
-    TiXmlElement* configTimeStart = new TiXmlElement( "TimeStart" );
-    configTimeStart->SetAttribute( "minutes", m_TimeStartMinutes );
-    configTimeStart->SetAttribute( "seconds", m_TimeStartSeconds );
-    config->LinkEndChild( configTimeStart );
+    TiXmlElement* configTimeStart = new TiXmlElement("TimeStart");
+    configTimeStart->SetAttribute("minutes", m_TimeStartMinutes);
+    configTimeStart->SetAttribute("seconds", m_TimeStartSeconds);
+    config->LinkEndChild(configTimeStart);
 
     // BattleMode
     TiXmlElement* configBattleMode = new TiXmlElement("BattleMode");
@@ -474,35 +463,37 @@ void COptions::WriteXMLData()
     config->LinkEndChild(configBattleMode);
 
     // BattleCount
-    TiXmlElement* configBattleCount = new TiXmlElement( "BattleCount" );
-    configBattleCount->SetAttribute( "value", m_BattleCount );
-    config->LinkEndChild( configBattleCount );
+    TiXmlElement* configBattleCount = new TiXmlElement("BattleCount");
+    configBattleCount->SetAttribute("value", m_BattleCount);
+    config->LinkEndChild(configBattleCount);
 
     // LevelFileNumber
-    TiXmlElement* configLevel = new TiXmlElement( "LevelFileNumber" );
-    configLevel->SetAttribute( "value", m_Level );
-    config->LinkEndChild( configLevel );
+    TiXmlElement* configLevel = new TiXmlElement("LevelFileNumber");
+    configLevel->SetAttribute("value", m_Level);
+    config->LinkEndChild(configLevel);
 
     // DisplayMode
-    TiXmlElement* configDisplayMode = new TiXmlElement( "DisplayMode" );
-    configDisplayMode->SetAttribute( "value", (int) m_DisplayMode );
-    config->LinkEndChild( configDisplayMode );
+    TiXmlElement* configDisplayMode = new TiXmlElement("DisplayMode");
+    configDisplayMode->SetAttribute("value", (int)m_DisplayMode);
+    config->LinkEndChild(configDisplayMode);
 
     int i;
 
     // BomberTypes
-    TiXmlElement* configBomberTypes = new TiXmlElement( "BomberTypes" );
-    for ( i = 0; i < MAX_PLAYERS; i++ ) {
+    TiXmlElement* configBomberTypes = new TiXmlElement("BomberTypes");
+    for (i = 0; i < MAX_PLAYERS; i++)
+    {
         std::ostringstream oss;
         oss << "bomber" << i;
         std::string attributeName = oss.str();
-        configBomberTypes->SetAttribute( attributeName, (int) m_BomberType[i] );
+        configBomberTypes->SetAttribute(attributeName, (int)m_BomberType[i]);
     }
-    config->LinkEndChild( configBomberTypes );
+    config->LinkEndChild(configBomberTypes);
 
     // BomberTeams
     TiXmlElement* configBomberTeams = new TiXmlElement("BomberTeams");
-    for (i = 0; i < MAX_PLAYERS; i++) {
+    for (i = 0; i < MAX_PLAYERS; i++)
+    {
         std::ostringstream oss;
         oss << "bomber" << i;
         std::string attributeName = oss.str();
@@ -511,40 +502,40 @@ void COptions::WriteXMLData()
     config->LinkEndChild(configBomberTeams);
 
     // PlayerInputs
-    TiXmlElement* configPlayerInputs = new TiXmlElement( "PlayerInputs" );
-    for ( i = 0; i < MAX_PLAYERS; i++ ) {
+    TiXmlElement* configPlayerInputs = new TiXmlElement("PlayerInputs");
+    for (i = 0; i < MAX_PLAYERS; i++)
+    {
         std::ostringstream oss;
         oss << "bomber" << i;
         std::string attributeName = oss.str();
-        configPlayerInputs->SetAttribute( attributeName, (int) m_PlayerInput[i] );
+        configPlayerInputs->SetAttribute(attributeName, (int)m_PlayerInput[i]);
     }
-    config->LinkEndChild( configPlayerInputs );
+    config->LinkEndChild(configPlayerInputs);
 
     // ControlList
-    TiXmlElement* configControlList = new TiXmlElement( "ControlList" );
-    for ( unsigned int j = 0; j < MAX_PLAYER_INPUT; j++ )
+    TiXmlElement* configControlList = new TiXmlElement("ControlList");
+    for (unsigned int j = 0; j < MAX_PLAYER_INPUT; j++)
     {
-        TiXmlElement* configControl = new TiXmlElement( "Control" );
-        configControl->SetAttribute( "id", j );
-        for ( unsigned int ctrl = 0; ctrl < NUM_CONTROLS; ctrl++ )
+        TiXmlElement* configControl = new TiXmlElement("Control");
+        configControl->SetAttribute("id", j);
+        for (unsigned int ctrl = 0; ctrl < NUM_CONTROLS; ctrl++)
         {
             std::ostringstream oss;
             oss << "control" << ctrl;
             std::string attributeName = oss.str();
-            configControl->SetAttribute( attributeName, (int) m_Control[j][ctrl] );
+            configControl->SetAttribute(attributeName, (int)m_Control[j][ctrl]);
         }
-        configControlList->LinkEndChild( configControl );
+        configControlList->LinkEndChild(configControl);
     }
-    config->LinkEndChild( configControlList );
-
+    config->LinkEndChild(configControlList);
 
     //
     // Save file
     //
-    bool saveOkay = newConfig.SaveFile( configFileName );
+    bool saveOkay = newConfig.SaveFile(configFileName);
 
     // Log a message
-    theLog.WriteLine( "Options         => Configuration file was %s written.", ( saveOkay ? "successfully" : "not" ) );
+    theLog.WriteLine("Options         => Configuration file was %s written.", (saveOkay ? "successfully" : "not"));
 }
 
 //******************************************************************************************************************************
@@ -562,18 +553,18 @@ void COptions::WriteXMLData()
  *  @todo Set first three parameters to const if possible
  */
 
-void COptions::ReadIntFromXML(TiXmlDocument &doc, std::string configNode, std::string attrName, int *value)
+void COptions::ReadIntFromXML(TiXmlDocument& doc, std::string configNode, std::string attrName, int* value)
 {
     // Create a handle to the XML document
-    TiXmlHandle handle( &doc );
+    TiXmlHandle handle(&doc);
 
     // Fetch the element
-    TiXmlElement *element = handle.FirstChild( "Bombermaaan" ).FirstChild( "Configuration" ).FirstChild( configNode ).ToElement();
+    TiXmlElement* element = handle.FirstChild("Bombermaaan").FirstChild("Configuration").FirstChild(configNode).ToElement();
 
     // If the element exists, read the int value from the specified attribute
     // The value variable stays unchanged if there's no int value
-    if ( element )
-        element->QueryIntAttribute( attrName, value );
+    if (element)
+        element->QueryIntAttribute(attrName, value);
 }
 
 //******************************************************************************************************************************
@@ -590,17 +581,17 @@ bool COptions::LoadLevels(std::string dynamicDataFolder, std::string pgmFolder)
     FindData.name = NULL;
     FindData.suffix = NULL;
 #endif
-            
+
     //-------------------------------------------
     // Set the path where the level files are stored
     // (in the program files folder)
     //-------------------------------------------
-    
+
     std::string levelFilePath_pgmFolder;
     levelFilePath_pgmFolder = pgmFolder;
     if (pgmFolder.length() >= 1)
     {
-        char delim = pgmFolder.c_str()[pgmFolder.length()-1];
+        char delim = pgmFolder.c_str()[pgmFolder.length() - 1];
         if (delim != '\\' && delim != '/')
 #ifdef WIN32
             levelFilePath_pgmFolder.append("\\");
@@ -610,29 +601,29 @@ bool COptions::LoadLevels(std::string dynamicDataFolder, std::string pgmFolder)
     }
 
 #ifdef WIN32
-    levelFilePath_pgmFolder.append( "Levels\\" );
+    levelFilePath_pgmFolder.append("Levels\\");
 #else
-    levelFilePath_pgmFolder.append( "levels/" );
+    levelFilePath_pgmFolder.append("levels/");
 #endif
-    
+
     std::string levelFilePath_pgmFolderMask;
     levelFilePath_pgmFolderMask = levelFilePath_pgmFolder;
-    levelFilePath_pgmFolderMask.append( "*.TXT" );
+    levelFilePath_pgmFolderMask.append("*.TXT");
 
     //-------------------------------------------
     // Determine number of level files available
     // (in the program files folder)
     //-------------------------------------------
-    
-    theLog.WriteLine( "Options         => Loading level files '%s'.", levelFilePath_pgmFolderMask.c_str() );
+
+    theLog.WriteLine("Options         => Loading level files '%s'.", levelFilePath_pgmFolderMask.c_str());
 
     std::vector<SFileInfo> files;
 
-    FindHandle = _findfirst( levelFilePath_pgmFolderMask.c_str(), &FindData );
-    
+    FindHandle = _findfirst(levelFilePath_pgmFolderMask.c_str(), &FindData);
+
     if (FindHandle != -1)
     {
-        do 
+        do
         {
 
             SFileInfo file;
@@ -643,15 +634,14 @@ bool COptions::LoadLevels(std::string dynamicDataFolder, std::string pgmFolder)
 
             files.push_back(file);
 
-        }
-        while (_findnext(FindHandle, &FindData) != -1);
+        } while (_findnext(FindHandle, &FindData) != -1);
     }
 
     _findclose(FindHandle);
 
-
     // If a dynamic folder is set, load level files from there, too
-    if (!dynamicDataFolder.empty()) {
+    if (!dynamicDataFolder.empty())
+    {
 
         //-------------------------------------------
         // Set the path where the level files are stored
@@ -662,27 +652,27 @@ bool COptions::LoadLevels(std::string dynamicDataFolder, std::string pgmFolder)
         levelFilePath_dynamicDataFolder = dynamicDataFolder;
 
 #ifdef WIN32
-        levelFilePath_dynamicDataFolder.append( "levels\\" );
+        levelFilePath_dynamicDataFolder.append("levels\\");
 #else
-        levelFilePath_dynamicDataFolder.append( "levels/" );
+        levelFilePath_dynamicDataFolder.append("levels/");
 #endif
 
         std::string levelFilePath_dynamicDataFolderMask;
         levelFilePath_dynamicDataFolderMask = levelFilePath_dynamicDataFolder;
-        levelFilePath_dynamicDataFolderMask.append( "*.TXT" );
+        levelFilePath_dynamicDataFolderMask.append("*.TXT");
 
         //-------------------------------------------
         // Determine number of level files available
         // (in the dynamic data folder)
-        //-------------------------------------------    
+        //-------------------------------------------
 
-        theLog.WriteLine( "Options         => Loading level files '%s'.", levelFilePath_dynamicDataFolderMask.c_str() );
+        theLog.WriteLine("Options         => Loading level files '%s'.", levelFilePath_dynamicDataFolderMask.c_str());
 
-        FindHandle = _findfirst( levelFilePath_dynamicDataFolderMask.c_str(), &FindData );
-        
+        FindHandle = _findfirst(levelFilePath_dynamicDataFolderMask.c_str(), &FindData);
+
         if (FindHandle != -1)
         {
-            do 
+            do
             {
                 SFileInfo file;
 
@@ -691,21 +681,17 @@ bool COptions::LoadLevels(std::string dynamicDataFolder, std::string pgmFolder)
                 file.fileNameWithPath.append(FindData.name);
 
                 files.push_back(file);
-            }
-            while (_findnext(FindHandle, &FindData) != -1);
+            } while (_findnext(FindHandle, &FindData) != -1);
         }
 
         _findclose(FindHandle);
-
     }
 
     //---------------------
     // Sort
     //---------------------
 #ifdef WIN32
-    sort(files.begin(), files.end(),
-        [&](const SFileInfo& a, const SFileInfo& b) {return (a.fileNameWithoutPath < b.fileNameWithoutPath);}
-    );
+    sort(files.begin(), files.end(), [&](const SFileInfo& a, const SFileInfo& b) { return (a.fileNameWithoutPath < b.fileNameWithoutPath); });
 #endif
 
     for (std::vector<SFileInfo>::iterator it = files.begin(); it != files.end(); ++it)
@@ -722,7 +708,7 @@ bool COptions::LoadLevels(std::string dynamicDataFolder, std::string pgmFolder)
     if (m_Levels.size() == 0)
     {
         // Log failure
-        theLog.WriteLine ("Options         => !!! There should be at least 1 level.");
+        theLog.WriteLine("Options         => !!! There should be at least 1 level.");
 
         return false;
     }
@@ -737,22 +723,20 @@ bool COptions::LoadLevels(std::string dynamicDataFolder, std::string pgmFolder)
     //------------------------------------------------------
     // Load all the level files detected earlier
     //------------------------------------------------------
-    
-    bool ErrorOccurred = false;    
-    
-    for( unsigned int CurrentLevel = 0; CurrentLevel < m_Levels.size(); CurrentLevel++ )
+
+    bool ErrorOccurred = false;
+
+    for (unsigned int CurrentLevel = 0; CurrentLevel < m_Levels.size(); CurrentLevel++)
     {
 
         //theLog.WriteLine ("Options         => Loading level file %s...", levelFileNames_full.at(CurrentLevel).c_str() );
 
-        if ( !m_Levels.at( CurrentLevel ).LoadFromFile() )
+        if (!m_Levels.at(CurrentLevel).LoadFromFile())
         {
             ErrorOccurred = true;
             break;
         }
-
     }
-
 
     // If we had to stop then there is a problem.
     if (ErrorOccurred)

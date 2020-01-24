@@ -19,7 +19,6 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CMenuBomber.h
  *  \brief Header file of the bomber menu
@@ -38,26 +37,24 @@
 class CMenuBomber : public CMenuBase
 {
 private:
+    int m_CursorPlayer; //!< Cursor used to remember on what player it's pointing to
+    bool m_Blinking[MAX_PLAYERS]; //!< Is the bomber head (given its index) currently blinking?
+    float m_BlinkTimer[MAX_PLAYERS]; //!< Time left to wait before toggling the corresponding blink state
 
-    int             m_CursorPlayer;             //!< Cursor used to remember on what player it's pointing to
-    bool            m_Blinking[MAX_PLAYERS];    //!< Is the bomber head (given its index) currently blinking?
-    float           m_BlinkTimer[MAX_PLAYERS];  //!< Time left to wait before toggling the corresponding blink state
+    void OnCreate(void);
+    void OnDestroy(void);
+    void OnUpdate(void);
+    void OnDisplay(void);
+    void OnUp(void);
+    void OnDown(void);
+    void OnLeft(void);
+    void OnRight(void);
+    void OnPrevious(void);
+    void OnNext(void);
 
-    void            OnCreate (void);
-    void            OnDestroy (void);
-    void            OnUpdate (void);
-    void            OnDisplay (void);
-    void            OnUp (void);
-    void            OnDown (void);
-    void            OnLeft (void);
-    void            OnRight (void);
-    void            OnPrevious (void);
-    void            OnNext (void);
-    
 public:
-
-    CMenuBomber (void);
-    virtual ~CMenuBomber (void);
+    CMenuBomber(void);
+    virtual ~CMenuBomber(void);
 };
 
 //******************************************************************************************************************************

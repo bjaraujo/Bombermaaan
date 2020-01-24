@@ -20,7 +20,6 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CLog.h
  *  \brief Header file of the log
@@ -48,14 +47,15 @@
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-#define theLog      CLog::GetLog()
-#define debugLog    CLog::GetDebugLog()
+#define theLog CLog::GetLog()
+#define debugLog CLog::GetDebugLog()
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-enum EDebugSection {
+enum EDebugSection
+{
     DEBUGSECT_BOMBER,
     DEBUGSECT_BOMB,
     DEBUGSECT_EXPLOSION
@@ -69,22 +69,21 @@ enum EDebugSection {
 class CLog
 {
 public:
-                    CLog();
-    virtual         ~CLog();
-    static CLog&    GetLog();                               //!< Get an instance of CLog (singleton)
-    static CLog&    GetDebugLog();                          //!< Get an instance of CLog (singleton) for debug messages
-    bool            Open( const char *pFilename );          //!< Open the log
-    bool            Close();                                //!< Close the log
-    void            LogLastError();                         //!< Log the last occured error!
-    long            Write ( const char *pMessage, ... );
-    long            WriteLine( const char *pMessage, ... ); //!< Write a line to the log
-    inline bool     IsOpen();                               //!< Return whether the log is open or not
-    long            WriteDebugMsg( EDebugSection section, const char *pMessage, ... ); //!< Write a line to the log
+    CLog();
+    virtual ~CLog();
+    static CLog& GetLog(); //!< Get an instance of CLog (singleton)
+    static CLog& GetDebugLog(); //!< Get an instance of CLog (singleton) for debug messages
+    bool Open(const char* pFilename); //!< Open the log
+    bool Close(); //!< Close the log
+    void LogLastError(); //!< Log the last occured error!
+    long Write(const char* pMessage, ...);
+    long WriteLine(const char* pMessage, ...); //!< Write a line to the log
+    inline bool IsOpen(); //!< Return whether the log is open or not
+    long WriteDebugMsg(EDebugSection section, const char* pMessage, ...); //!< Write a line to the log
 
 private:
-
-    std::ofstream        m_theLog;
-    bool            m_bOpen;
+    std::ofstream m_theLog;
+    bool m_bOpen;
 };
 
 //******************************************************************************************************************************
@@ -92,10 +91,7 @@ private:
 //******************************************************************************************************************************
 
 // Return whether the log is open or not
-inline bool CLog::IsOpen()
-{
-    return m_bOpen;
-}
+inline bool CLog::IsOpen() { return m_bOpen; }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************

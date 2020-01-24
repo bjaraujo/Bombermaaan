@@ -19,7 +19,6 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CArenaSnapshot.h
  *  \brief Header file of the arena snapshot
@@ -32,32 +31,30 @@
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-#define ARENA_SNAPSHOT_SIZE     32768
+#define ARENA_SNAPSHOT_SIZE 32768
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-// POD CLASS 
+// POD CLASS
 
 class CArenaSnapshot
 {
 private:
+    char m_Buffer[ARENA_SNAPSHOT_SIZE];
+    int m_Position;
 
-    char        m_Buffer [ARENA_SNAPSHOT_SIZE];
-    int         m_Position;
-                                                            
-public:                                                 
-                                                        
-    void        Create (void);                      //!< 
-    void        Destroy (void);                     //!< 
-    void        Begin (void);
-    void        ReadInteger (int* pValue);
-    void        ReadFloat (float* pValue);
-    void        ReadBoolean (bool* pValue);
-    void        WriteInteger (int Value);
-    void        WriteFloat (float Value);
-    void        WriteBoolean (bool Value);
+public:
+    void Create(void); //!<
+    void Destroy(void); //!<
+    void Begin(void);
+    void ReadInteger(int* pValue);
+    void ReadFloat(float* pValue);
+    void ReadBoolean(bool* pValue);
+    void WriteInteger(int Value);
+    void WriteFloat(float Value);
+    void WriteBoolean(bool Value);
 };
 
 //******************************************************************************************************************************
@@ -69,4 +66,3 @@ public:
 //******************************************************************************************************************************
 
 #endif
-

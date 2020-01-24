@@ -19,7 +19,6 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CScroller.h
  *  \brief Header file of the scroller
@@ -35,47 +34,39 @@
 class CScroller
 {
 private:
-
-    int         m_SpriteWidth;
-    int         m_SpriteHeight;
-    float       m_SpeedX;
-    float       m_SpeedY;
-    float       m_LoopTime;
-    float       m_RemainingLoopTime;
-    bool        m_Looping;
-    float       m_fPositionX;
-    float       m_fPositionY;
-    int         m_iPositionX;
-    int         m_iPositionY;
+    int m_SpriteWidth;
+    int m_SpriteHeight;
+    float m_SpeedX;
+    float m_SpeedY;
+    float m_LoopTime;
+    float m_RemainingLoopTime;
+    bool m_Looping;
+    float m_fPositionX;
+    float m_fPositionY;
+    int m_iPositionX;
+    int m_iPositionY;
 
 public:
-
-                CScroller (void);
-                ~CScroller (void);
-    void        Create (int PositionX, int PositionY, int SpriteWidth, int SpriteHeight, float SpeedX, float SpeedY, float LoopTime);
-    void        Destroy (void);
-    void        Update (float DeltaTime);
-    bool        OutOfBounds (void);
-    inline int  GetPositionX (void);
-    inline int  GetPositionY (void);
-    inline void SetSpeed (float SpeedX, float SpeedY);
+    CScroller(void);
+    ~CScroller(void);
+    void Create(int PositionX, int PositionY, int SpriteWidth, int SpriteHeight, float SpeedX, float SpeedY, float LoopTime);
+    void Destroy(void);
+    void Update(float DeltaTime);
+    bool OutOfBounds(void);
+    inline int GetPositionX(void);
+    inline int GetPositionY(void);
+    inline void SetSpeed(float SpeedX, float SpeedY);
 };
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline int CScroller::GetPositionX (void)
-{
-    return m_iPositionX;
-}
+inline int CScroller::GetPositionX(void) { return m_iPositionX; }
 
-inline int CScroller::GetPositionY (void)
-{
-    return m_iPositionY;
-}
+inline int CScroller::GetPositionY(void) { return m_iPositionY; }
 
-inline void CScroller::SetSpeed (float SpeedX, float SpeedY)
+inline void CScroller::SetSpeed(float SpeedX, float SpeedY)
 {
     m_SpeedX = SpeedX;
     m_SpeedY = SpeedY;

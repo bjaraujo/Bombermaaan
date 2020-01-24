@@ -19,14 +19,13 @@ along with Bombermaaan.  If not, see <http://www.gnu.org/licenses/>.
 
 ************************************************************************************/
 
-
 /**
 *  \file CNetwork.cpp
 *  \brief Network communication
 */
 
-#include "StdAfx.h"
 #include "CNetwork.h"
+#include "StdAfx.h"
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -38,40 +37,25 @@ CNetwork::CNetwork()
     m_NetworkMode = NETWORKMODE_LOCAL;
 
     m_Socket = NULL;
-
 }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CNetwork::~CNetwork(void)
-{
-
-
-}
+CNetwork::~CNetwork(void) {}
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-ENetworkMode CNetwork::NetworkMode()
-{
-
-    return m_NetworkMode;
-
-}
+ENetworkMode CNetwork::NetworkMode() { return m_NetworkMode; }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CNetwork::SetNetworkMode(ENetworkMode NetworkMode)
-{
-
-    m_NetworkMode = NetworkMode;
-
-}
+void CNetwork::SetNetworkMode(ENetworkMode NetworkMode) { m_NetworkMode = NetworkMode; }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -122,11 +106,9 @@ bool CNetwork::Connect(const char* IpAddressString, int port)
 
             if (m_ClientSocket)
                 break;
-
         }
 
         SDLNet_TCP_AddSocket(m_socketSet, m_ClientSocket);
-
     }
     else if (m_NetworkMode == NETWORKMODE_CLIENT)
     {
@@ -152,11 +134,9 @@ bool CNetwork::Connect(const char* IpAddressString, int port)
         m_socketSet = SDLNet_AllocSocketSet(1);
 
         SDLNet_TCP_AddSocket(m_socketSet, m_Socket);
-
     }
 
     return true;
-
 }
 
 //******************************************************************************************************************************
@@ -173,11 +153,9 @@ bool CNetwork::Disconnect()
 
         if (m_NetworkMode == NETWORKMODE_SERVER)
             SDLNet_TCP_Close(m_ClientSocket);
-
     }
 
     return true;
-
 }
 
 //******************************************************************************************************************************
@@ -207,7 +185,6 @@ bool CNetwork::Send(ESocketType SocketType, const char* buf, int len)
     }
 
     return true;
-
 }
 
 //******************************************************************************************************************************
@@ -233,7 +210,6 @@ int CNetwork::Receive(ESocketType SocketType, char* buf, int len)
     }
     else
         return 0;
-
 }
 
 /**
@@ -265,11 +241,9 @@ int CNetwork::ReceiveNonBlocking(ESocketType SocketType, char* buf, int len)
         }
         else
             return 0;
-
     }
     else
         return 0;
-
 }
 
 //******************************************************************************************************************************
@@ -292,7 +266,6 @@ bool CNetwork::SendCommandChunk(const CCommandChunk& CommandChunk)
     this->Send(SOCKET_SERVER, (const char*)&CommandChunk, sizeof(CommandChunk));
 
     return true;
-
 }
 
 //******************************************************************************************************************************
@@ -312,7 +285,8 @@ bool CNetwork::ReceiveCommandChunk(CCommandChunk& CommandChunk)
         int Received = 0;
 
         // Receive checksum
-        do {
+        do
+        {
 
             Received += this->Receive(SOCKET_CLIENT, &LongBytes.ByteArray[Received], bufsize);
 
@@ -328,17 +302,17 @@ bool CNetwork::ReceiveCommandChunk(CCommandChunk& CommandChunk)
                 break;
 
         } while (bufsize > 0);
-
     }
 
-    // Receive client command chunk 
+    // Receive client command chunk
     {
         int bufsize = sizeof(CommandChunk);
         int Received = 0;
 
         char* recvBuf = new char[bufsize];
 
-        do {
+        do
+        {
 
             Received += this->Receive(SOCKET_CLIENT, &recvBuf[Received], bufsize);
 
@@ -358,19 +332,16 @@ bool CNetwork::ReceiveCommandChunk(CCommandChunk& CommandChunk)
 
             if (this->CheckSum(recvBuf) == LongBytes.LongValue)
             {
-                memcpy((char *)&CommandChunk, recvBuf, sizeof(CommandChunk));
+                memcpy((char*)&CommandChunk, recvBuf, sizeof(CommandChunk));
                 delete[] recvBuf;
                 return true;
             }
-
         }
 
         delete[] recvBuf;
-
     }
 
     return false;
-
 }
 
 //******************************************************************************************************************************
@@ -391,7 +362,6 @@ bool CNetwork::SendSnapshot(const CArenaSnapshot& Snapshot)
 
     // Send snapshot to the client
     return this->Send(SOCKET_CLIENT, (const char*)&Snapshot, sizeof(Snapshot));
-
 }
 
 //******************************************************************************************************************************
@@ -411,7 +381,8 @@ bool CNetwork::ReceiveSnapshot(CArenaSnapshot& Snapshot)
         int Received = 0;
 
         // Receive checksum
-        do {
+        do
+        {
 
             Received += this->Receive(SOCKET_SERVER, &LongBytes.ByteArray[Received], bufsize);
 
@@ -427,7 +398,6 @@ bool CNetwork::ReceiveSnapshot(CArenaSnapshot& Snapshot)
                 break;
 
         } while (bufsize > 0);
-
     }
 
     // Receive and apply the arena snapshot from the server
@@ -437,7 +407,8 @@ bool CNetwork::ReceiveSnapshot(CArenaSnapshot& Snapshot)
 
         char* recvBuf = new char[bufsize];
 
-        do {
+        do
+        {
 
             Received += this->Receive(SOCKET_SERVER, &recvBuf[Received], bufsize);
 
@@ -460,33 +431,31 @@ bool CNetwork::ReceiveSnapshot(CArenaSnapshot& Snapshot)
 
             if (this->CheckSum(recvBuf) == LongBytes.LongValue)
             {
-                memcpy((char *)&Snapshot, recvBuf, sizeof(Snapshot));
+                memcpy((char*)&Snapshot, recvBuf, sizeof(Snapshot));
                 delete[] recvBuf;
                 return true;
             }
         }
 
         delete[] recvBuf;
-
     }
 
     return false;
-
 }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-unsigned long CNetwork::CheckSum(const char *buf)
+unsigned long CNetwork::CheckSum(const char* buf)
 {
     unsigned long hash = 5381;
     int c;
 
-    while (c = *buf++) {
+    while (c = *buf++)
+    {
         hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
     }
 
     return hash;
 }
-

@@ -19,7 +19,6 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CGame.h
  *  \brief Header file of the game
@@ -28,24 +27,24 @@
 #ifndef __CGAME_H__
 #define __CGAME_H__
 
-#include "CWindow.h"
-#include "CTimer.h"
-#include "COptions.h"
-#include "CDisplay.h"
-#include "CInput.h"
-#include "CDrawGame.h"
-#include "CWinner.h"
-#include "CVictory.h"
-#include "CMatch.h"
-#include "CScores.h"
-#include "CMenu.h"
-#include "CSound.h"
-#include "CMenuYesNo.h"
-#include "CTitle.h"
 #include "CControls.h"
-#include "CDemo.h"
 #include "CCredits.h"
+#include "CDemo.h"
+#include "CDisplay.h"
+#include "CDrawGame.h"
 #include "CHelp.h"
+#include "CInput.h"
+#include "CMatch.h"
+#include "CMenu.h"
+#include "CMenuYesNo.h"
+#include "COptions.h"
+#include "CScores.h"
+#include "CSound.h"
+#include "CTimer.h"
+#include "CTitle.h"
+#include "CVictory.h"
+#include "CWindow.h"
+#include "CWinner.h"
 
 #ifdef NETWORK_MODE
 #include "CNetwork.h"
@@ -68,77 +67,74 @@
 class CGame : public CWindow
 {
 private:
-
-    EGameMode       m_GameMode;             //!< Current game mode defining what to update
-    HMODULE         m_hModule;              //!< Connection to the resources
-    HINSTANCE       m_hInstance;            //!< Application instance handle
-    CTimer          m_Timer;                //!< Timer object for movement, animation, synchronization...
-    CDisplay        m_Display;              //!< Needed to draw sprites and manage display
-    CInput          m_Input;                //!< Needed to read the players choices in menus, match, etc
-    CSound          m_Sound;                //!< Needed to play sounds and musics
-    COptions        m_Options;              //!< Options chosen by the players
-    CScores         m_Scores;               //!< Scores object where we keep the player scores and the draw games count
-    CDrawGame       m_DrawGame;             //!< Draw game screen object (happens when the previous match was a draw game)
-    CWinner         m_Winner;               //!< Winner screen object (happens when a player just won one match)
-    CVictory        m_Victory;              //!< Victory screen object (happens when a player has the score to reach)
-    CMatch          m_Match;                //!< Match screen object in which the players fight
-    CMenu           m_Menu;                 //!< Menu screen object for the user to choose the options
-    CTitle          m_Title;                //!< Title screen object with the main menu
-    CControls       m_Controls;             //!< Controls screen object
-    CDemo           m_Demo;                 //!< Demo screen object in which we show a match betweeen computer players.
-    CMenuYesNo      m_MenuYesNo;            //!< Yes/No message box object
-    CCredits        m_Credits;              //!< Credits screen object
-    CHelp           m_Help;                 //!< Help screen object
+    EGameMode m_GameMode; //!< Current game mode defining what to update
+    HMODULE m_hModule; //!< Connection to the resources
+    HINSTANCE m_hInstance; //!< Application instance handle
+    CTimer m_Timer; //!< Timer object for movement, animation, synchronization...
+    CDisplay m_Display; //!< Needed to draw sprites and manage display
+    CInput m_Input; //!< Needed to read the players choices in menus, match, etc
+    CSound m_Sound; //!< Needed to play sounds and musics
+    COptions m_Options; //!< Options chosen by the players
+    CScores m_Scores; //!< Scores object where we keep the player scores and the draw games count
+    CDrawGame m_DrawGame; //!< Draw game screen object (happens when the previous match was a draw game)
+    CWinner m_Winner; //!< Winner screen object (happens when a player just won one match)
+    CVictory m_Victory; //!< Victory screen object (happens when a player has the score to reach)
+    CMatch m_Match; //!< Match screen object in which the players fight
+    CMenu m_Menu; //!< Menu screen object for the user to choose the options
+    CTitle m_Title; //!< Title screen object with the main menu
+    CControls m_Controls; //!< Controls screen object
+    CDemo m_Demo; //!< Demo screen object in which we show a match betweeen computer players.
+    CMenuYesNo m_MenuYesNo; //!< Yes/No message box object
+    CCredits m_Credits; //!< Credits screen object
+    CHelp m_Help; //!< Help screen object
 
 #ifdef NETWORK_MODE
-    CNetwork        m_Network;                //!< Network object
+    CNetwork m_Network; //!< Network object
 #endif
 
 #ifndef DIRECTX
-    std::string     m_WindowTitle;
+    std::string m_WindowTitle;
 #endif
 
-    void            OnActivateApp  (WPARAM wParam, LPARAM lParam);
-    void            OnMove         (WPARAM wParam, LPARAM lParam);
-    void            OnKeyDown      (WPARAM wParam, LPARAM lParam);
-    void            OnKeyUp        (WPARAM wParam, LPARAM lParam);
-    void            OnPaint        (WPARAM wParam, LPARAM lParam);
-    bool            OnSysCommand   (WPARAM wParam, LPARAM lParam);
-    void            OnSize         (WPARAM wParam, LPARAM lParam);
+    void OnActivateApp(WPARAM wParam, LPARAM lParam);
+    void OnMove(WPARAM wParam, LPARAM lParam);
+    void OnKeyDown(WPARAM wParam, LPARAM lParam);
+    void OnKeyUp(WPARAM wParam, LPARAM lParam);
+    void OnPaint(WPARAM wParam, LPARAM lParam);
+    bool OnSysCommand(WPARAM wParam, LPARAM lParam);
+    void OnSize(WPARAM wParam, LPARAM lParam);
 #ifndef DIRECTX
-    void            OnJoystickAxis (WPARAM wParam, LPARAM lParam);             // SDL_JOYAXISMOTION
-    void            OnJoystickButton (WPARAM wParam, LPARAM lParam);       // SDL_JOYBUTTONDOWN/-UP
+    void OnJoystickAxis(WPARAM wParam, LPARAM lParam); // SDL_JOYAXISMOTION
+    void OnJoystickButton(WPARAM wParam, LPARAM lParam); // SDL_JOYBUTTONDOWN/-UP
 #endif
-    void            OnWindowActive (void);
-    void            StartGameMode (EGameMode GameMode);
-    void            FinishGameMode (void);
-    CModeScreen*    GetGameModeObject (EGameMode GameMode);
+    void OnWindowActive(void);
+    void StartGameMode(EGameMode GameMode);
+    void FinishGameMode(void);
+    CModeScreen* GetGameModeObject(EGameMode GameMode);
 
 public:
-
 #ifdef WIN32
-                    CGame (HINSTANCE hInstance, const char* pCommandLine);
+    CGame(HINSTANCE hInstance, const char* pCommandLine);
 #else
-                    CGame (HINSTANCE hInstance, char **pCommandLine);
+    CGame(HINSTANCE hInstance, char** pCommandLine);
 #endif
 
-    virtual         ~CGame (void);
+    virtual ~CGame(void);
 #ifdef WIN32
-    bool            Create (const char* pCommandLine);
+    bool Create(const char* pCommandLine);
 #else
-    bool            Create (char **pCommandLine, int pCommandLineCount);
+    bool Create(char** pCommandLine, int pCommandLineCount);
 #endif
 
-    void            Destroy (void);
-    inline void     SwitchToGameMode (EGameMode GameMode);
+    void Destroy(void);
+    inline void SwitchToGameMode(EGameMode GameMode);
 };
 
-
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline void CGame::SwitchToGameMode (EGameMode GameMode)
+inline void CGame::SwitchToGameMode(EGameMode GameMode)
 {
     FinishGameMode();
     StartGameMode(GameMode);
@@ -148,4 +144,4 @@ inline void CGame::SwitchToGameMode (EGameMode GameMode)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-#endif  // __CGAME_H__
+#endif // __CGAME_H__

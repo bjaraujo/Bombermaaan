@@ -19,7 +19,6 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CFont.h
  *  \brief Header file of the font
@@ -67,64 +66,47 @@ enum EShadowDirection
 class CFont
 {
 private:
+    CDisplay* m_pDisplay; //!< We need a display object to draw the string characters
+    int m_TextColorOffset; //!< Sprite offset to use to write text using the selected font color
+    int m_ShadowColorOffset; //!< Sprite offset to use to write text shadow using the selected font color
+    int m_SpriteLayer; //!< Sprite layer in which string characters will be drawn
+    bool m_DrawShadow; //!< Do we have to draw a shadow under the string we draw?
+    int m_ShadowOffsetX; //!< Offset to apply to text position in order to get shadow position
+    int m_ShadowOffsetY;
 
-    CDisplay*       m_pDisplay;             //!< We need a display object to draw the string characters
-    int             m_TextColorOffset;      //!< Sprite offset to use to write text using the selected font color
-    int             m_ShadowColorOffset;    //!< Sprite offset to use to write text shadow using the selected font color
-    int             m_SpriteLayer;          //!< Sprite layer in which string characters will be drawn
-    bool            m_DrawShadow;           //!< Do we have to draw a shadow under the string we draw?
-    int             m_ShadowOffsetX;        //!< Offset to apply to text position in order to get shadow position
-    int             m_ShadowOffsetY;
-
-    void            DrawString (int PositionX, int PositionY, const char *pString);
-    int             GetColorOffset (EFontColor FontColor);
+    void DrawString(int PositionX, int PositionY, const char* pString);
+    int GetColorOffset(EFontColor FontColor);
 
 public:
-
-                    CFont (void);
-                    ~CFont (void);
-    inline void     SetDisplay (CDisplay *pDisplay);
-    void            Create (void);
-    void            Destroy (void);
-    inline void     SetShadow (bool DrawShadow);
-    inline void     SetTextColor (EFontColor FontColor);
-    inline void     SetShadowColor (EFontColor FontColor);
-    void            SetShadowDirection (EShadowDirection ShadowDirection);
-    inline void     SetSpriteLayer (int SpriteLayer);
-    void            Draw (int PositionX, int PositionY, const char *pString, ...);
-    void            DrawCenteredX (int BorderLeft, int BorderRight, int PositionY, const char *pString, ...);
-    void            DrawCenteredY (int PositionX, int BorderUp, int BorderDown, const char *pString, ...);
-    void            DrawCenteredXY (int BorderUp, int BorderDown, int BorderLeft, int BorderRight, const char *pString, ...);
+    CFont(void);
+    ~CFont(void);
+    inline void SetDisplay(CDisplay* pDisplay);
+    void Create(void);
+    void Destroy(void);
+    inline void SetShadow(bool DrawShadow);
+    inline void SetTextColor(EFontColor FontColor);
+    inline void SetShadowColor(EFontColor FontColor);
+    void SetShadowDirection(EShadowDirection ShadowDirection);
+    inline void SetSpriteLayer(int SpriteLayer);
+    void Draw(int PositionX, int PositionY, const char* pString, ...);
+    void DrawCenteredX(int BorderLeft, int BorderRight, int PositionY, const char* pString, ...);
+    void DrawCenteredY(int PositionX, int BorderUp, int BorderDown, const char* pString, ...);
+    void DrawCenteredXY(int BorderUp, int BorderDown, int BorderLeft, int BorderRight, const char* pString, ...);
 };
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline void CFont::SetDisplay (CDisplay *pDisplay)
-{
-    m_pDisplay = pDisplay;
-}
+inline void CFont::SetDisplay(CDisplay* pDisplay) { m_pDisplay = pDisplay; }
 
-inline void CFont::SetSpriteLayer (int SpriteLayer)
-{
-    m_SpriteLayer = SpriteLayer;
-}
+inline void CFont::SetSpriteLayer(int SpriteLayer) { m_SpriteLayer = SpriteLayer; }
 
-inline void CFont::SetShadow (bool DrawShadow)
-{
-    m_DrawShadow = DrawShadow;
-}
+inline void CFont::SetShadow(bool DrawShadow) { m_DrawShadow = DrawShadow; }
 
-inline void CFont::SetTextColor (EFontColor FontColor)
-{
-    m_TextColorOffset = GetColorOffset (FontColor);
-}
+inline void CFont::SetTextColor(EFontColor FontColor) { m_TextColorOffset = GetColorOffset(FontColor); }
 
-inline void CFont::SetShadowColor (EFontColor FontColor)
-{
-    m_ShadowColorOffset = GetColorOffset (FontColor);
-}
+inline void CFont::SetShadowColor(EFontColor FontColor) { m_ShadowColorOffset = GetColorOffset(FontColor); }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************

@@ -23,16 +23,15 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CDebug.cpp
  *  \brief Utilities for debugging
  */
 
-#include "StdAfx.h"
 #include "CDebug.h"
 #include "CGame.h"
 #include "CTimer.h"
+#include "StdAfx.h"
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -51,17 +50,13 @@ CDebug::CDebug()
 
     for (int i = 0; i < 5; i++)
         m_IsComputerConsoleActive[i] = false;
-
 }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CDebug::~CDebug()
-{
-
-}
+CDebug::~CDebug() {}
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -83,7 +78,7 @@ void CDebug::Create()
         m_IsComputerConsoleActive[i] = false;
 
     // Actually set the speed of the game
-    m_pTimer->SetSpeed (m_GameSpeed);
+    m_pTimer->SetSpeed(m_GameSpeed);
 }
 
 //******************************************************************************************************************************
@@ -93,7 +88,7 @@ void CDebug::Create()
 void CDebug::Destroy()
 {
     // Reset the game speed to normal
-    m_pTimer->SetSpeed (1.0f);
+    m_pTimer->SetSpeed(1.0f);
 }
 
 //******************************************************************************************************************************
@@ -102,9 +97,9 @@ void CDebug::Destroy()
 
 CDebug& CDebug::GetInstance()
 {
-   static CDebug Debug;
+    static CDebug Debug;
 
-   return Debug;
+    return Debug;
 }
 
 //******************************************************************************************************************************
@@ -141,7 +136,7 @@ CDebug& CDebug::GetInstance()
  *  @param   Modifier        Modifier (SDL only)
  */
 
-void CDebug::HandleKey (DWORD VirtualKeyCode, DWORD Modifier)
+void CDebug::HandleKey(DWORD VirtualKeyCode, DWORD Modifier)
 {
 
 #ifdef WIN32
@@ -158,120 +153,130 @@ void CDebug::HandleKey (DWORD VirtualKeyCode, DWORD Modifier)
 #else
         case SDLK_KP_MULTIPLY:
 #endif
+        {
+            m_GameSpeed = 5.0f;
+
+            // Set the new game speed
+            m_pTimer->SetSpeed(m_GameSpeed);
+
+            break;
+        }
+
+#ifdef DIRECTX
+        case VK_DIVIDE:
+#else
+        case SDLK_KP_DIVIDE:
+#endif
+        {
+            m_GameSpeed = 0.2f;
+
+            // Set the timer speed
+            m_pTimer->SetSpeed(m_GameSpeed);
+
+            break;
+        }
+
+#ifdef DIRECTX
+        case VK_RETURN:
+#else
+        case SDLK_RETURN:
+#endif
+        {
+            m_GameSpeed = 1.0f;
+
+            // Set the timer speed
+            m_pTimer->SetSpeed(m_GameSpeed);
+
+            break;
+        }
+
+#ifdef DIRECTX
+        case VK_ADD:
+#else
+        case SDLK_PLUS:
+#endif
+        {
+            m_GameSpeed += 0.2f;
+
+            if (m_GameSpeed > 5.0f)
             {
                 m_GameSpeed = 5.0f;
-
-                // Set the new game speed
-                m_pTimer->SetSpeed (m_GameSpeed);
-
-                break;
             }
+
+            // Set the timer speed
+            m_pTimer->SetSpeed(m_GameSpeed);
+
+            break;
+        }
 
 #ifdef DIRECTX
-            case VK_DIVIDE:
+        case VK_SUBTRACT:
 #else
-            case SDLK_KP_DIVIDE:
+        case SDLK_MINUS:
 #endif
+        {
+            m_GameSpeed -= 0.2f;
+
+            if (m_GameSpeed < 0.0f)
             {
-                m_GameSpeed = 0.2f;
-
-                // Set the timer speed
-                m_pTimer->SetSpeed (m_GameSpeed);
-
-                break;
+                m_GameSpeed = 0.0f;
             }
+
+            // Set the timer speed
+            m_pTimer->SetSpeed(m_GameSpeed);
+
+            break;
+        }
 
 #ifdef DIRECTX
-            case VK_RETURN:
+        case VK_F1:
 #else
-            case SDLK_RETURN:
+        case SDLK_F1:
 #endif
-            {
-                m_GameSpeed = 1.0f;
+        {
+            m_pGame->SwitchToGameMode(GAMEMODE_MATCH);
 
-                // Set the timer speed
-                m_pTimer->SetSpeed (m_GameSpeed);
-
-                break;
-            }
+            break;
+        }
 
 #ifdef DIRECTX
-            case VK_ADD:
+        case VK_F2:
 #else
-            case SDLK_PLUS:
+        case SDLK_F2:
 #endif
-            {
-                m_GameSpeed += 0.2f;
+        {
+            // Make the bombers invulnerable or not
+            m_CanBombersDie = !m_CanBombersDie;
 
-                if (m_GameSpeed > 5.0f)
-                {
-                    m_GameSpeed = 5.0f;
-                }
-
-                // Set the timer speed
-                m_pTimer->SetSpeed (m_GameSpeed);
-
-                break;
-            }
-
-#ifdef DIRECTX
-            case VK_SUBTRACT:
-#else
-            case SDLK_MINUS:
-#endif
-            {
-                m_GameSpeed -= 0.2f;
-
-                if (m_GameSpeed < 0.0f)
-                {
-                    m_GameSpeed = 0.0f;
-                }
-
-                // Set the timer speed
-                m_pTimer->SetSpeed (m_GameSpeed);
-
-                break;
-            }
-
-#ifdef DIRECTX
-            case VK_F1:
-#else
-            case SDLK_F1:
-#endif
-            {
-                m_pGame->SwitchToGameMode (GAMEMODE_MATCH);
-
-                break;
-            }
-
-#ifdef DIRECTX
-            case VK_F2:
-#else
-            case SDLK_F2:
-#endif
-            {
-                // Make the bombers invulnerable or not
-                m_CanBombersDie = !m_CanBombersDie;
-
-                break;
-            }
+            break;
+        }
 
 #ifdef _DEBUG_FLAG_1
 #ifdef DIRECTX
-            case VK_F5:
+        case VK_F5:
 #else
-            case SDLK_F5:
+        case SDLK_F5:
 #endif
-                theConsole.Write("CDebug::HandleKey(...): Ctrl+F5 was pressed. Writing bombs to log...\n");
-                m_pMatch->_Debug_WriteBombsToLog();
-                break;
+            theConsole.Write("CDebug::HandleKey(...): Ctrl+F5 was pressed. Writing bombs to log...\n");
+            m_pMatch->_Debug_WriteBombsToLog();
+            break;
 #endif
 
-            case VK_NUMPAD0 : m_IsComputerConsoleActive[0] = !m_IsComputerConsoleActive[0]; break;
-            case VK_NUMPAD1 : m_IsComputerConsoleActive[1] = !m_IsComputerConsoleActive[1]; break;
-            case VK_NUMPAD2 : m_IsComputerConsoleActive[2] = !m_IsComputerConsoleActive[2]; break;
-            case VK_NUMPAD3 : m_IsComputerConsoleActive[3] = !m_IsComputerConsoleActive[3]; break;
-            case VK_NUMPAD4 : m_IsComputerConsoleActive[4] = !m_IsComputerConsoleActive[4]; break;
+        case VK_NUMPAD0:
+            m_IsComputerConsoleActive[0] = !m_IsComputerConsoleActive[0];
+            break;
+        case VK_NUMPAD1:
+            m_IsComputerConsoleActive[1] = !m_IsComputerConsoleActive[1];
+            break;
+        case VK_NUMPAD2:
+            m_IsComputerConsoleActive[2] = !m_IsComputerConsoleActive[2];
+            break;
+        case VK_NUMPAD3:
+            m_IsComputerConsoleActive[3] = !m_IsComputerConsoleActive[3];
+            break;
+        case VK_NUMPAD4:
+            m_IsComputerConsoleActive[4] = !m_IsComputerConsoleActive[4];
+            break;
         }
     }
 }

@@ -20,7 +20,6 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CDisplay.h
  *  \brief Header file of the display
@@ -55,123 +54,118 @@ enum EDisplayMode
 class CDisplay
 {
 private:
-
-    HMODULE         m_hModule;          //!< Connection to the resources
+    HMODULE m_hModule; //!< Connection to the resources
 #ifdef DIRECTX
-    CVideoDX        m_VideoDX;         //!< Object used for display
+    CVideoDX m_VideoDX; //!< Object used for display
 #else
-    CVideoSDL       m_VideoSDL;           //!< Object used for display
+    CVideoSDL m_VideoSDL; //!< Object used for display
 #endif
-    int             m_ViewOriginX;      //!< Top left corner of the game view
-    int             m_ViewOriginY;
+    int m_ViewOriginX; //!< Top left corner of the game view
+    int m_ViewOriginY;
 
-    bool            Create (int Width, int Height, bool FullScreen); //!< (Re)Create the DirectDraw/SDLVideo interface and (re)load the sprite tables given the resolution
-    bool            LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, int BMP_ID, const char *file); //!< Load a sprite table given its bitmap data and its properties.
+    bool Create(int Width, int Height, bool FullScreen); //!< (Re)Create the DirectDraw/SDLVideo interface and (re)load the sprite tables given the resolution
+    bool LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, int BMP_ID, const char* file); //!< Load a sprite table given its bitmap data and its properties.
 
 public:
-
-                    CDisplay (void);    //!< Initialize some members
-                    ~CDisplay (void);   //!< Does nothing
-    inline void     SetWindowHandle (HWND hWnd); //!< Set the handle of the window DirectDraw/SDLVideo has to work with
-    inline void     SetModuleHandle (HMODULE hModule); //!< Set the handle of the module linked to the resources
-    bool            Create (EDisplayMode DisplayMode); //!< (Re)Create the DirectDraw/SDLVideo interface and (re)load the sprite tables given the display mode
-    void            Destroy (void);     //!< Destroy the DirectDraw/SDLVideo interface and the sprite tables
-    inline void     OnWindowMove (void); //!< Has to be called when the window moves (WM_MOVE)
-    inline void     OnPaint (void);     //!< Has to be called when the window has to be repainted (WM_PAINT)
-    inline void     Clear (void);       //!< Make the window's client area black
-    inline void     Update (void);      //!< Draw the sprites that DrawSprite recorded and update the window's client area
-    inline void     SetOrigin (int OriginX, int OriginY); //!< Set the origin to draw from the game view origin
-    inline void     DrawSprite (int PositionX, int PositionY, RECT *pZone, RECT *pClip, int SpriteTable, int Sprite, int SpriteLayer, int PriorityInLayer); //!< Record a drawing request that will be executed on next call to Update
-    inline void     DrawDebugRectangle (int PositionX, int PositionY, int w, int h, BYTE r, BYTE g, BYTE b, int SpriteLayer, int PriorityInLayer); //!< Record a drawing request for debug purposes
-    inline void     RemoveAllDebugRectangles(void);
+    CDisplay(void); //!< Initialize some members
+    ~CDisplay(void); //!< Does nothing
+    inline void SetWindowHandle(HWND hWnd); //!< Set the handle of the window DirectDraw/SDLVideo has to work with
+    inline void SetModuleHandle(HMODULE hModule); //!< Set the handle of the module linked to the resources
+    bool Create(EDisplayMode DisplayMode); //!< (Re)Create the DirectDraw/SDLVideo interface and (re)load the sprite tables given the display mode
+    void Destroy(void); //!< Destroy the DirectDraw/SDLVideo interface and the sprite tables
+    inline void OnWindowMove(void); //!< Has to be called when the window moves (WM_MOVE)
+    inline void OnPaint(void); //!< Has to be called when the window has to be repainted (WM_PAINT)
+    inline void Clear(void); //!< Make the window's client area black
+    inline void Update(void); //!< Draw the sprites that DrawSprite recorded and update the window's client area
+    inline void SetOrigin(int OriginX, int OriginY); //!< Set the origin to draw from the game view origin
+    inline void DrawSprite(int PositionX, int PositionY, RECT* pZone, RECT* pClip, int SpriteTable, int Sprite, int SpriteLayer, int PriorityInLayer); //!< Record a drawing request that will be executed on next call to Update
+    inline void DrawDebugRectangle(int PositionX, int PositionY, int w, int h, BYTE r, BYTE g, BYTE b, int SpriteLayer, int PriorityInLayer); //!< Record a drawing request for debug purposes
+    inline void RemoveAllDebugRectangles(void);
 #ifndef DIRECTX
     inline CVideoSDL& GetSDLVideo(void);
 #endif
-    bool            IsDisplayModeAvailable (EDisplayMode DisplayMode);
+    bool IsDisplayModeAvailable(EDisplayMode DisplayMode);
 };
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline void CDisplay::SetWindowHandle (HWND hWnd)
+inline void CDisplay::SetWindowHandle(HWND hWnd)
 {
 #ifdef DIRECTX
-    m_VideoDX.SetWindowHandle (hWnd);
+    m_VideoDX.SetWindowHandle(hWnd);
 #else
-    m_VideoSDL.SetWindowHandle (hWnd);
+    m_VideoSDL.SetWindowHandle(hWnd);
 #endif
 }
 
-inline void CDisplay::SetModuleHandle (HMODULE hModule)
-{
-    m_hModule = hModule;
-}
+inline void CDisplay::SetModuleHandle(HMODULE hModule) { m_hModule = hModule; }
 
-inline void CDisplay::SetOrigin (int OriginX, int OriginY)
+inline void CDisplay::SetOrigin(int OriginX, int OriginY)
 {
 #ifdef DIRECTX
-    m_VideoDX.SetOrigin (m_ViewOriginX + OriginX, m_ViewOriginY + OriginY);
+    m_VideoDX.SetOrigin(m_ViewOriginX + OriginX, m_ViewOriginY + OriginY);
 #else
-    m_VideoSDL.SetOrigin (m_ViewOriginX + OriginX, m_ViewOriginY + OriginY);
+    m_VideoSDL.SetOrigin(m_ViewOriginX + OriginX, m_ViewOriginY + OriginY);
 #endif
 }
 
-inline void CDisplay::Clear (void)
+inline void CDisplay::Clear(void)
 {
 #ifdef DIRECTX
-    m_VideoDX.Clear ();
+    m_VideoDX.Clear();
 #else
-    m_VideoSDL.Clear ();
+    m_VideoSDL.Clear();
 #endif
 }
 
-inline void CDisplay::Update (void)
+inline void CDisplay::Update(void)
 {
 #ifdef DIRECTX
-    m_VideoDX.UpdateAll ();
+    m_VideoDX.UpdateAll();
 #else
-    m_VideoSDL.UpdateAll ();
+    m_VideoSDL.UpdateAll();
 #endif
 }
 
-inline void CDisplay::OnWindowMove (void)
+inline void CDisplay::OnWindowMove(void)
 {
 #ifdef DIRECTX
-    m_VideoDX.OnWindowMove ();
+    m_VideoDX.OnWindowMove();
 #else
-    m_VideoSDL.OnWindowMove ();
+    m_VideoSDL.OnWindowMove();
 #endif
 }
 
-inline void CDisplay::OnPaint (void)
+inline void CDisplay::OnPaint(void)
 {
 #ifdef DIRECTX
-    m_VideoDX.UpdateScreen ();
+    m_VideoDX.UpdateScreen();
 #else
-    m_VideoSDL.UpdateScreen ();
+    m_VideoSDL.UpdateScreen();
 #endif
 }
 
-inline void CDisplay::DrawSprite (int PositionX, int PositionY, RECT *pZone, RECT *pClip, int SpriteTable, int Sprite, int SpriteLayer, int PriorityInLayer)
+inline void CDisplay::DrawSprite(int PositionX, int PositionY, RECT* pZone, RECT* pClip, int SpriteTable, int Sprite, int SpriteLayer, int PriorityInLayer)
 {
 #ifdef DIRECTX
-    m_VideoDX.DrawSprite (PositionX, PositionY, pZone, pClip, SpriteTable, Sprite, SpriteLayer, PriorityInLayer);
+    m_VideoDX.DrawSprite(PositionX, PositionY, pZone, pClip, SpriteTable, Sprite, SpriteLayer, PriorityInLayer);
 #else
-    m_VideoSDL.DrawSprite (PositionX, PositionY, pZone, pClip, SpriteTable, Sprite, SpriteLayer, PriorityInLayer);
+    m_VideoSDL.DrawSprite(PositionX, PositionY, pZone, pClip, SpriteTable, Sprite, SpriteLayer, PriorityInLayer);
 #endif
 }
 
-inline void CDisplay::DrawDebugRectangle (int PositionX, int PositionY, int w, int h, BYTE r, BYTE g, BYTE b, int SpriteLayer, int PriorityInLayer)
+inline void CDisplay::DrawDebugRectangle(int PositionX, int PositionY, int w, int h, BYTE r, BYTE g, BYTE b, int SpriteLayer, int PriorityInLayer)
 {
 #ifdef DIRECTX
-    m_VideoDX.DrawDebugRectangle (PositionX, PositionY, w, h, r, g, b, SpriteLayer, PriorityInLayer);
+    m_VideoDX.DrawDebugRectangle(PositionX, PositionY, w, h, r, g, b, SpriteLayer, PriorityInLayer);
 #else
-    m_VideoSDL.DrawDebugRectangle (PositionX, PositionY, w, h, r, g, b, SpriteLayer, PriorityInLayer);
+    m_VideoSDL.DrawDebugRectangle(PositionX, PositionY, w, h, r, g, b, SpriteLayer, PriorityInLayer);
 #endif
 }
 
-inline void CDisplay::RemoveAllDebugRectangles (void)
+inline void CDisplay::RemoveAllDebugRectangles(void)
 {
 #ifdef DIRECTX
     m_VideoDX.RemoveAllDebugRectangles();
@@ -181,9 +175,7 @@ inline void CDisplay::RemoveAllDebugRectangles (void)
 }
 
 #ifndef DIRECTX
-inline CVideoSDL& CDisplay::GetSDLVideo(void) {
-    return m_VideoSDL;
-}
+inline CVideoSDL& CDisplay::GetSDLVideo(void) { return m_VideoSDL; }
 #endif
 
 //******************************************************************************************************************************

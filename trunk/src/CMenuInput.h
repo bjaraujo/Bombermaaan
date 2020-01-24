@@ -19,7 +19,6 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CMenuInput.h
  *  \brief Header file of the menu input
@@ -37,24 +36,22 @@
 class CMenuInput : public CMenuBase
 {
 private:
+    int m_CursorPlayer; //!< Player the cursor hand is currently pointing to
 
-    int             m_CursorPlayer;         //!< Player the cursor hand is currently pointing to
+    void OnCreate(void);
+    void OnDestroy(void);
+    void OnUp(void);
+    void OnDown(void);
+    void OnLeft(void);
+    void OnRight(void);
+    void OnPrevious(void);
+    void OnNext(void);
+    void OnUpdate(void);
+    void OnDisplay(void);
 
-    void            OnCreate (void);
-    void            OnDestroy (void);
-    void            OnUp (void);
-    void            OnDown (void);
-    void            OnLeft (void);
-    void            OnRight (void);
-    void            OnPrevious (void);
-    void            OnNext (void);
-    void            OnUpdate (void);
-    void            OnDisplay (void);
-    
 public:
-
-    CMenuInput (void);
-    virtual ~CMenuInput (void);
+    CMenuInput(void);
+    virtual ~CMenuInput(void);
 };
 
 //******************************************************************************************************************************

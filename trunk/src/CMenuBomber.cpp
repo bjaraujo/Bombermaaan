@@ -22,77 +22,75 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CMenuBomber.cpp
  *  \brief The menu where you can choose the bombers
  */
 
-#include "StdAfx.h"
 #include "CMenuBomber.h"
 #include "CDisplay.h"
-#include "CInput.h"
-#include "COptions.h"
 #include "CFont.h"
+#include "CInput.h"
 #include "CMenu.h"
+#include "COptions.h"
 #include "CSound.h"
+#include "StdAfx.h"
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-#define MENUBOMBER_SPRITELAYER      1       //!< Sprite layer where to draw sprites
+#define MENUBOMBER_SPRITELAYER 1 //!< Sprite layer where to draw sprites
 
-#define TITLE_TEXT_POSITION_Y       90      //!< Position Y of the title text that is centered on the X axis
+#define TITLE_TEXT_POSITION_Y 90 //!< Position Y of the title text that is centered on the X axis
 
-#define INITIAL_TEXT_POSITION_X     191     //!< Initial position of the text "BOMBER"
-#define INITIAL_TEXT_POSITION_Y     (77+90)
-#define TYPE_TEXT_SPACE_X           75      //!< X Space in pixels between the "BOMBER" text X position and the type's text X position
-#define TEXT_SPACE_Y                21      //!< Y Space in pixels between each "BOMBER" text Y position
+#define INITIAL_TEXT_POSITION_X 191 //!< Initial position of the text "BOMBER"
+#define INITIAL_TEXT_POSITION_Y (77 + 90)
+#define TYPE_TEXT_SPACE_X 75 //!< X Space in pixels between the "BOMBER" text X position and the type's text X position
+#define TEXT_SPACE_Y 21 //!< Y Space in pixels between each "BOMBER" text Y position
 
-#define BOMBER_HEAD_SPACE_X         -29     //!< Space in pixels between the "BOMBER" text position
-#define BOMBER_HEAD_SPACE_Y         -7      //!< and the corresponding bomber head
-#define BOMBER_HEAD_PRIORITY        0       //!< Priority to use when drawing the menu's bomber head sprites
+#define BOMBER_HEAD_SPACE_X -29 //!< Space in pixels between the "BOMBER" text position
+#define BOMBER_HEAD_SPACE_Y -7 //!< and the corresponding bomber head
+#define BOMBER_HEAD_PRIORITY 0 //!< Priority to use when drawing the menu's bomber head sprites
 
-#define CURSOR_HAND_SPACE_X         -54     //!< Space in pixels between the "BOMBER" text position
-#define CURSOR_HAND_SPACE_Y         -2      //!< and the cursor hand pointing to the corresponding bomber head
-#define CURSOR_HAND_SPRITE_TABLE    32      //!< Sprite table where the menu's cursor hand sprites are contained
-#define CURSOR_HAND_SPRITE          0       //!< Sprite number of the cursor hand in the sprite table
-#define CURSOR_HAND_PRIORITY        0       //!< Priority to use when drawing the menu's bomber hand sprites
+#define CURSOR_HAND_SPACE_X -54 //!< Space in pixels between the "BOMBER" text position
+#define CURSOR_HAND_SPACE_Y -2 //!< and the cursor hand pointing to the corresponding bomber head
+#define CURSOR_HAND_SPRITE_TABLE 32 //!< Sprite table where the menu's cursor hand sprites are contained
+#define CURSOR_HAND_SPRITE 0 //!< Sprite number of the cursor hand in the sprite table
+#define CURSOR_HAND_PRIORITY 0 //!< Priority to use when drawing the menu's bomber hand sprites
 
-#define TITLE_STRING                "BOMBER TYPE"   //!< String of the menu's title centered on the X axis
-#define BOMBER_STRING               "BOMBER"        //!< String of the text between the bomber head and the bomber type text
-#define BOMBERTYPE_OFF_STRING       "OFF"           //!< String for the OFF bomber type
-#define BOMBERTYPE_MAN_STRING       "MAN"           //!< String for the MAN bomber type
-#define BOMBERTYPE_COM_STRING       "COM"           //!< String for the COM bomber type
+#define TITLE_STRING "BOMBER TYPE" //!< String of the menu's title centered on the X axis
+#define BOMBER_STRING "BOMBER" //!< String of the text between the bomber head and the bomber type text
+#define BOMBERTYPE_OFF_STRING "OFF" //!< String for the OFF bomber type
+#define BOMBERTYPE_MAN_STRING "MAN" //!< String for the MAN bomber type
+#define BOMBERTYPE_COM_STRING "COM" //!< String for the COM bomber type
 
-#define BLINKING_TIME                           0.100f      //!< Time (in seconds) the bomber head has to spend blinking
-#define NOT_BLINKING_MINIMUM_TIME               3.0f        //!< Minimum time (in seconds) the bomber head has to spend without blinking
-#define NOT_BLINKING_MAXIMUM_ADDITIONAL_TIME    5000        //!< Maximum additional time (Caution : IN MILLISECONDS)
-
+#define BLINKING_TIME 0.100f //!< Time (in seconds) the bomber head has to spend blinking
+#define NOT_BLINKING_MINIMUM_TIME 3.0f //!< Minimum time (in seconds) the bomber head has to spend without blinking
+#define NOT_BLINKING_MAXIMUM_ADDITIONAL_TIME 5000 //!< Maximum additional time (Caution : IN MILLISECONDS)
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CMenuBomber::CMenuBomber (void) : CMenuBase ()
+CMenuBomber::CMenuBomber(void)
+    : CMenuBase()
 {
     // Initialize the blink values
-    for (int i = 0 ; i < MAX_PLAYERS ; i++)
+    for (int i = 0; i < MAX_PLAYERS; i++)
     {
         m_Blinking[i] = false;
         m_BlinkTimer[i] = 0.0f;
     }
-    
+
     m_CursorPlayer = 0;
-    
 }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CMenuBomber::~CMenuBomber (void)
+CMenuBomber::~CMenuBomber(void)
 {
     // Nothing to do
 }
@@ -101,7 +99,7 @@ CMenuBomber::~CMenuBomber (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMenuBomber::OnCreate (void)
+void CMenuBomber::OnCreate(void)
 {
     // Make the hand cursor point to the first player
     m_CursorPlayer = 0;
@@ -111,15 +109,13 @@ void CMenuBomber::OnCreate (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMenuBomber::OnDestroy (void)
-{
-}
+void CMenuBomber::OnDestroy(void) {}
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMenuBomber::OnUp (void)
+void CMenuBomber::OnUp(void)
 {
     // Make the cursor go up
     m_CursorPlayer--;
@@ -136,7 +132,7 @@ void CMenuBomber::OnUp (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMenuBomber::OnDown (void)
+void CMenuBomber::OnDown(void)
 {
     // Make the cursor go down
     m_CursorPlayer++;
@@ -153,15 +149,22 @@ void CMenuBomber::OnDown (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMenuBomber::OnLeft (void)
+void CMenuBomber::OnLeft(void)
 {
     // Set the previous bomber type (and wrap if necessary)
     switch (m_pOptions->GetBomberType(m_CursorPlayer))
     {
-        case BOMBERTYPE_OFF : m_pOptions->SetBomberType (m_CursorPlayer, BOMBERTYPE_COM); break;
-        case BOMBERTYPE_MAN : m_pOptions->SetBomberType (m_CursorPlayer, BOMBERTYPE_OFF); break;
-        case BOMBERTYPE_COM : m_pOptions->SetBomberType (m_CursorPlayer, BOMBERTYPE_MAN); break;
-        default:                                                                          break;
+    case BOMBERTYPE_OFF:
+        m_pOptions->SetBomberType(m_CursorPlayer, BOMBERTYPE_COM);
+        break;
+    case BOMBERTYPE_MAN:
+        m_pOptions->SetBomberType(m_CursorPlayer, BOMBERTYPE_OFF);
+        break;
+    case BOMBERTYPE_COM:
+        m_pOptions->SetBomberType(m_CursorPlayer, BOMBERTYPE_MAN);
+        break;
+    default:
+        break;
     }
 }
 
@@ -169,15 +172,22 @@ void CMenuBomber::OnLeft (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMenuBomber::OnRight (void)
+void CMenuBomber::OnRight(void)
 {
     // Set the next bomber type (and wrap if necessary)
     switch (m_pOptions->GetBomberType(m_CursorPlayer))
     {
-        case BOMBERTYPE_OFF : m_pOptions->SetBomberType (m_CursorPlayer, BOMBERTYPE_MAN); break;
-        case BOMBERTYPE_MAN : m_pOptions->SetBomberType (m_CursorPlayer, BOMBERTYPE_COM); break;
-        case BOMBERTYPE_COM : m_pOptions->SetBomberType (m_CursorPlayer, BOMBERTYPE_OFF); break;
-        default:                                                                          break;
+    case BOMBERTYPE_OFF:
+        m_pOptions->SetBomberType(m_CursorPlayer, BOMBERTYPE_MAN);
+        break;
+    case BOMBERTYPE_MAN:
+        m_pOptions->SetBomberType(m_CursorPlayer, BOMBERTYPE_COM);
+        break;
+    case BOMBERTYPE_COM:
+        m_pOptions->SetBomberType(m_CursorPlayer, BOMBERTYPE_OFF);
+        break;
+    default:
+        break;
     }
 }
 
@@ -185,24 +195,24 @@ void CMenuBomber::OnRight (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMenuBomber::OnPrevious (void)
+void CMenuBomber::OnPrevious(void)
 {
     // Go to the previous menu mode
-    Exit (MENUACTION_PREVIOUS);
+    Exit(MENUACTION_PREVIOUS);
 }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMenuBomber::OnNext (void)
+void CMenuBomber::OnNext(void)
 {
     // Variables used to count human and computer players
     int ManCount = 0;
     int ComCount = 0;
 
     // Scan the players
-    for (int Player = 0 ; Player < MAX_PLAYERS ; Player++)
+    for (int Player = 0; Player < MAX_PLAYERS; Player++)
     {
         // If this player is a human player
         if (m_pOptions->GetBomberType(Player) == BOMBERTYPE_MAN)
@@ -222,16 +232,16 @@ void CMenuBomber::OnNext (void)
     if (ManCount + ComCount >= 2)
     {
         // Play the menu next sound
-        m_pSound->PlaySample (SAMPLE_MENU_NEXT);
-        
+        m_pSound->PlaySample(SAMPLE_MENU_NEXT);
+
         // The choices in this menu are correct, we can now exit this menu mode
-        Exit (MENUACTION_NEXT);
+        Exit(MENUACTION_NEXT);
     }
     // If there are no enough real players (less than 2)
     else
     {
         // Play the menu error sound
-        m_pSound->PlaySample (SAMPLE_MENU_ERROR);
+        m_pSound->PlaySample(SAMPLE_MENU_ERROR);
     }
 }
 
@@ -239,10 +249,10 @@ void CMenuBomber::OnNext (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMenuBomber::OnUpdate (void)
-{ 
+void CMenuBomber::OnUpdate(void)
+{
     // Scan the bomber heads
-    for (int i = 0 ; i < MAX_PLAYERS ; i++)
+    for (int i = 0; i < MAX_PLAYERS; i++)
     {
         // Decrease the time left before the blink state for this bomber head changes
         m_BlinkTimer[i] -= m_pTimer->GetDeltaTime();
@@ -264,7 +274,7 @@ void CMenuBomber::OnUpdate (void)
             else
             {
                 // Set a long random time
-                m_BlinkTimer[i] = NOT_BLINKING_MINIMUM_TIME + (float) RANDOM(NOT_BLINKING_MAXIMUM_ADDITIONAL_TIME) / 1000.0f;
+                m_BlinkTimer[i] = NOT_BLINKING_MINIMUM_TIME + (float)RANDOM(NOT_BLINKING_MAXIMUM_ADDITIONAL_TIME) / 1000.0f;
             }
         }
     }
@@ -274,78 +284,66 @@ void CMenuBomber::OnUpdate (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMenuBomber::OnDisplay (void)
+void CMenuBomber::OnDisplay(void)
 {
     // Set the right font text color and write the menu title string
-    m_pFont->SetTextColor (FONTCOLOR_WHITE);
-    m_pFont->DrawCenteredX (0, VIEW_WIDTH - 1, TITLE_TEXT_POSITION_Y, TITLE_STRING); 
+    m_pFont->SetTextColor(FONTCOLOR_WHITE);
+    m_pFont->DrawCenteredX(0, VIEW_WIDTH - 1, TITLE_TEXT_POSITION_Y, TITLE_STRING);
 
     // Y Position where to write the text with the font object
     int PositionY = INITIAL_TEXT_POSITION_Y;
 
     // Scan the players
-    for (int Player = 0 ; Player < MAX_PLAYERS ; Player++)
+    for (int Player = 0; Player < MAX_PLAYERS; Player++)
     {
         // Set the right font text color and write the bomber string
-        m_pFont->SetTextColor (FONTCOLOR_GREEN);
-        m_pFont->Draw (INITIAL_TEXT_POSITION_X, PositionY, BOMBER_STRING); 
+        m_pFont->SetTextColor(FONTCOLOR_GREEN);
+        m_pFont->Draw(INITIAL_TEXT_POSITION_X, PositionY, BOMBER_STRING);
 
-        // Write a different bomber type string according to the 
+        // Write a different bomber type string according to the
         // bomber type of the current player in the options object
         switch (m_pOptions->GetBomberType(Player))
         {
-            case BOMBERTYPE_OFF :
-            {
-                // Set the font text color and write the bomber type string
-                m_pFont->SetTextColor (FONTCOLOR_RED);
-                m_pFont->Draw (INITIAL_TEXT_POSITION_X + TYPE_TEXT_SPACE_X, PositionY, BOMBERTYPE_OFF_STRING);
-    
-                break;
-            }
+        case BOMBERTYPE_OFF:
+        {
+            // Set the font text color and write the bomber type string
+            m_pFont->SetTextColor(FONTCOLOR_RED);
+            m_pFont->Draw(INITIAL_TEXT_POSITION_X + TYPE_TEXT_SPACE_X, PositionY, BOMBERTYPE_OFF_STRING);
 
-            case BOMBERTYPE_MAN :
-            {
-                // Set the font text color and write the bomber type string
-                m_pFont->SetTextColor (FONTCOLOR_YELLOW);
-                m_pFont->Draw (INITIAL_TEXT_POSITION_X + TYPE_TEXT_SPACE_X, PositionY, BOMBERTYPE_MAN_STRING);
+            break;
+        }
 
-                break;
-            }
+        case BOMBERTYPE_MAN:
+        {
+            // Set the font text color and write the bomber type string
+            m_pFont->SetTextColor(FONTCOLOR_YELLOW);
+            m_pFont->Draw(INITIAL_TEXT_POSITION_X + TYPE_TEXT_SPACE_X, PositionY, BOMBERTYPE_MAN_STRING);
 
-            case BOMBERTYPE_COM :
-            {
-                // Set the font text color and write the bomber type string
-                m_pFont->SetTextColor (FONTCOLOR_BLUE);
-                m_pFont->Draw (INITIAL_TEXT_POSITION_X + TYPE_TEXT_SPACE_X, PositionY, BOMBERTYPE_COM_STRING);
+            break;
+        }
 
-                break;
-            }
-            default :
-                break;
+        case BOMBERTYPE_COM:
+        {
+            // Set the font text color and write the bomber type string
+            m_pFont->SetTextColor(FONTCOLOR_BLUE);
+            m_pFont->Draw(INITIAL_TEXT_POSITION_X + TYPE_TEXT_SPACE_X, PositionY, BOMBERTYPE_COM_STRING);
+
+            break;
+        }
+        default:
+            break;
         }
 
         // Draw the bomber head corresponding to the current player
-        m_pDisplay->DrawSprite (INITIAL_TEXT_POSITION_X + BOMBER_HEAD_SPACE_X,
-                                PositionY + BOMBER_HEAD_SPACE_Y,
-                                NULL,
-                                NULL,
-                                BMP_MENU_BOMBER,
-                                Player + (m_Blinking[Player] ? MAX_PLAYERS : 0), // Blinking bomber head sprite or not
-                                MENUBOMBER_SPRITELAYER,
-                                BOMBER_HEAD_PRIORITY);
+        m_pDisplay->DrawSprite(INITIAL_TEXT_POSITION_X + BOMBER_HEAD_SPACE_X, PositionY + BOMBER_HEAD_SPACE_Y, NULL, NULL, BMP_MENU_BOMBER,
+            Player + (m_Blinking[Player] ? MAX_PLAYERS : 0), // Blinking bomber head sprite or not
+            MENUBOMBER_SPRITELAYER, BOMBER_HEAD_PRIORITY);
 
         // If the cursor hand is pointing to the current player
         if (m_CursorPlayer == Player)
         {
             // Draw the cursor hand sprite in front of the corresponding bomber head
-            m_pDisplay->DrawSprite (INITIAL_TEXT_POSITION_X + CURSOR_HAND_SPACE_X,
-                                    PositionY + CURSOR_HAND_SPACE_Y,
-                                    NULL,
-                                    NULL,
-                                    BMP_MENU_HAND,
-                                    CURSOR_HAND_SPRITE,
-                                    MENUBOMBER_SPRITELAYER,
-                                    CURSOR_HAND_PRIORITY);
+            m_pDisplay->DrawSprite(INITIAL_TEXT_POSITION_X + CURSOR_HAND_SPACE_X, PositionY + CURSOR_HAND_SPACE_Y, NULL, NULL, BMP_MENU_HAND, CURSOR_HAND_SPRITE, MENUBOMBER_SPRITELAYER, CURSOR_HAND_PRIORITY);
         }
 
         // Go down

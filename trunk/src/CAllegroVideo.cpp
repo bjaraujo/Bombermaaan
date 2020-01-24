@@ -29,8 +29,8 @@
 
 #include "StdAfx.h"
 
-#include "CAllegroVideo.h"
 #include "BombermaaanIco.h"
+#include "CAllegroVideo.h"
 
 static const char* GetAllegroVideoError();
 static void AddDisplayMode(int width, int height, int depth, vector<SDisplayMode>& displayModes);
@@ -97,7 +97,7 @@ bool CAllegroVideo::Create(int Width, int Height, int Depth, bool FullScreen)
     m_pPrimary = NULL;
     m_ColorKey = 0;
 
-    Allegro_Rect **modes;
+    Allegro_Rect** modes;
 
     int i;
     bool validMode = false; // is this video mode valid?
@@ -106,14 +106,16 @@ bool CAllegroVideo::Create(int Width, int Height, int Depth, bool FullScreen)
     modes = Allegro_ListModes(NULL, Allegro_HWSURFACE | Allegro_DOUBLEBUF);
 
     // some mode available?
-    if (modes == (Allegro_Rect **)0) {
+    if (modes == (Allegro_Rect**)0)
+    {
         // Log failure
         theLog.WriteLine("AllegroVideo        => !!! Could not find any video modes.");
 
         // Get out
         return false;
     }
-    else if (modes == (Allegro_Rect **)-1) {
+    else if (modes == (Allegro_Rect**)-1)
+    {
         // Log success
         theLog.WriteLine("AllegroVideo        => All modes available");
 
@@ -126,25 +128,26 @@ bool CAllegroVideo::Create(int Width, int Height, int Depth, bool FullScreen)
         // so this mode is possible
         validMode = true;
     }
-    else {
+    else
+    {
         // enumerate modes and add certain
-        for (i = 0; modes[i]; ++i) {
-            if ((modes[i]->w == 240 && modes[i]->h == 234) ||
-                (modes[i]->w == 320 && modes[i]->h == 240) ||
-                (modes[i]->w == 512 && modes[i]->h == 384) ||
-                (modes[i]->w == 640 && modes[i]->h == 480)) {
+        for (i = 0; modes[i]; ++i)
+        {
+            if ((modes[i]->w == 240 && modes[i]->h == 234) || (modes[i]->w == 320 && modes[i]->h == 240) || (modes[i]->w == 512 && modes[i]->h == 384) || (modes[i]->w == 640 && modes[i]->h == 480))
+            {
                 AddDisplayMode(modes[i]->w, modes[i]->h, 32, m_AvailableDisplayModes);
 
                 // is our requested mode possbile?
-                if (modes[i]->w == m_Width && modes[i]->h == m_Height) {
+                if (modes[i]->w == m_Width && modes[i]->h == m_Height)
+                {
                     validMode = true;
                 }
             }
         }
-
     }
 
-    if (!validMode) {
+    if (!validMode)
+    {
         // Log failure
         theLog.WriteLine("AllegroVideo        => !!! Requested video mode %dx%d not found.", m_Width, m_Height);
 
@@ -161,7 +164,8 @@ bool CAllegroVideo::Create(int Width, int Height, int Depth, bool FullScreen)
         // Get normal windowed mode
         m_pPrimary = set_gfx_mode(GFX_AUTODETECT_WINDOWED, m_Width, m_Height, 0, 0);
 
-        if (m_pPrimary == NULL) {
+        if (m_pPrimary == NULL)
+        {
             // Log failure
             theLog.WriteLine("AllegroVideo        => !!! Requested video mode could not be set. (primary surface)");
 
@@ -178,14 +182,14 @@ bool CAllegroVideo::Create(int Width, int Height, int Depth, bool FullScreen)
         // Get fullscreen mode
         m_pPrimary = set_gfx_mode(GFX_AUTODETECT_FULLSCREEN, m_Width, m_Height, 0, 0);
 
-        if (m_pPrimary == NULL) {
+        if (m_pPrimary == NULL)
+        {
             // Log failure
             theLog.WriteLine("AllegroVideo        => !!! Requested video mode could not be set. (primary/backbuffer)");
 
             // Get out
             return false;
         }
-
     }
 
     // Get the rects of the viewport and screen bounds
@@ -202,7 +206,7 @@ bool CAllegroVideo::Create(int Width, int Height, int Depth, bool FullScreen)
     {
         show_os_cursor(1);
     }
-    
+
     /*
     Allegro_RWops *rwIcon = Allegro_RWFromMem(BombermaaanIcon, sizeof(BombermaaanIcon));
 
@@ -221,7 +225,7 @@ bool CAllegroVideo::Create(int Width, int Height, int Depth, bool FullScreen)
     Allegro_FreeSurface(icon);
     Allegro_FreeRW(rwIcon);
     */
-    
+
     // Clear the back buffer surface
     Clear();
 
@@ -305,7 +309,8 @@ void CAllegroVideo::UpdateScreen(void)
         }
 
         // Log failure
-        if (hRet != 0) {
+        if (hRet != 0)
+        {
             theLog.WriteLine("AllegroVideo        => !!! Updating failed (switching primary/backbuffer).");
             theLog.WriteLine("AllegroVideo        => !!! AllegroVideo error is : %s.", GetAllegroVideoError());
         }
@@ -319,23 +324,13 @@ void CAllegroVideo::UpdateScreen(void)
 // Updates the object : this updates the drawing zones
 // in case the window moves.
 
-void CAllegroVideo::OnWindowMove()
-{
-
-}
+void CAllegroVideo::OnWindowMove() {}
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CAllegroVideo::DrawSprite(int PositionX,
-    int PositionY,
-    RECT *pZone,
-    RECT *pClip,
-    int SpriteTable,
-    int Sprite,
-    int SpriteLayer,
-    int PriorityInLayer)
+void CAllegroVideo::DrawSprite(int PositionX, int PositionY, RECT* pZone, RECT* pClip, int SpriteTable, int Sprite, int SpriteLayer, int PriorityInLayer)
 {
 
     // Check if the parameters are valid
@@ -350,7 +345,7 @@ void CAllegroVideo::DrawSprite(int PositionX,
     SDrawingRequest DrawingRequest;
 
     // Save the sprite pointer
-    SSprite *pSprite = &m_SpriteTables[SpriteTable][Sprite];
+    SSprite* pSprite = &m_SpriteTables[SpriteTable][Sprite];
 
     // If we have to take care of clipping
     if (pClip != NULL)
@@ -360,10 +355,7 @@ void CAllegroVideo::DrawSprite(int PositionX,
         int SpriteSizeY = pSprite->ZoneY2 - pSprite->ZoneY1;
 
         // If the sprite is completely out of the clip rect
-        if (PositionX >= pClip->right ||
-            PositionY >= pClip->bottom ||
-            PositionX + SpriteSizeX < pClip->left ||
-            PositionY + SpriteSizeY < pClip->top)
+        if (PositionX >= pClip->right || PositionY >= pClip->bottom || PositionX + SpriteSizeX < pClip->left || PositionY + SpriteSizeY < pClip->top)
         {
             // Get out, don't even register the drawing request
             return;
@@ -455,12 +447,7 @@ void CAllegroVideo::DrawSprite(int PositionX,
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CAllegroVideo::DrawDebugRectangle(int PositionX,
-    int PositionY,
-    int w, int h,
-    Uint8 r, Uint8 g, Uint8 b,
-    int SpriteLayer,
-    int PriorityInLayer)
+void CAllegroVideo::DrawDebugRectangle(int PositionX, int PositionY, int w, int h, Uint8 r, Uint8 g, Uint8 b, int SpriteLayer, int PriorityInLayer)
 {
     // Prepare a drawing request
     SDebugDrawingRequest DrawingRequest;
@@ -494,10 +481,7 @@ void CAllegroVideo::DrawDebugRectangle(int PositionX,
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CAllegroVideo::RemoveAllDebugRectangles()
-{
-    m_DebugDrawingRequests.clear();
-}
+void CAllegroVideo::RemoveAllDebugRectangles() { m_DebugDrawingRequests.clear(); }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -533,7 +517,7 @@ WORD CAllegroVideo::GetNumberOfBits(DWORD dwMask)
 bool CAllegroVideo::SetTransparentColor(int Red, int Green, int Blue)
 {
     // Get the pixel format of the primary surface
-    Allegro_PixelFormat *pf = m_pPrimary->format;
+    Allegro_PixelFormat* pf = m_pPrimary->format;
 
     m_ColorKey = Allegro_MapRGB(pf, Red, Green, Blue);
 
@@ -551,7 +535,7 @@ bool CAllegroVideo::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int
     SSurface Surface;
 
     // Create a AllegroVideo surface for this bitmap
-    Allegro_Surface *ddsd = NULL;
+    Allegro_Surface* ddsd = NULL;
 
 #ifdef WIN32
 
@@ -586,15 +570,15 @@ bool CAllegroVideo::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int
     amask = 0xff000000;
 #endif
 
-    Allegro_Surface *surf = Allegro_CreateRGBSurface(Allegro_SWSURFACE, Bitmap.bmWidth, Bitmap.bmHeight, Bitmap.bmBitsPixel, rmask, gmask, bmask, amask);
+    Allegro_Surface* surf = Allegro_CreateRGBSurface(Allegro_SWSURFACE, Bitmap.bmWidth, Bitmap.bmHeight, Bitmap.bmBitsPixel, rmask, gmask, bmask, amask);
 
     BYTE* bits = new BYTE[Bitmap.bmWidthBytes * Bitmap.bmHeight];
     BYTE* temp = new BYTE[Bitmap.bmWidthBytes * Bitmap.bmHeight];
 
     memcpy(temp, Bitmap.bmBits, Bitmap.bmWidthBytes * Bitmap.bmHeight);
 
-    BYTE *ptemp;
-    BYTE *pbits = bits;
+    BYTE* ptemp;
+    BYTE* pbits = bits;
 
     for (int y = Bitmap.bmHeight - 1; y >= 0; y--)
     {
@@ -607,7 +591,6 @@ bool CAllegroVideo::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int
             pbits++;
             ptemp++;
         }
-
     }
 
     delete[] temp;
@@ -627,7 +610,6 @@ bool CAllegroVideo::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int
             BYTE aux = bits[p];
             bits[p] = bits[p + 2];
             bits[p + 2] = aux;
-
         }
     }
 
@@ -642,9 +624,8 @@ bool CAllegroVideo::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int
 
     Allegro_FreeSurface(surf);
 
-
 #else
-    Allegro_RWops *rwBitmap;
+    Allegro_RWops* rwBitmap;
 
     DWORD DataSize;
     LPVOID pData;
@@ -732,7 +713,7 @@ bool CAllegroVideo::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int
         {
             // Prepare a sprite
             SSprite Sprite;
-            Sprite.SurfaceNumber = m_Surfaces.size() - 1;       // The surface we just added to the container
+            Sprite.SurfaceNumber = m_Surfaces.size() - 1; // The surface we just added to the container
             Sprite.ZoneX1 = ZoneX1;
             Sprite.ZoneY1 = ZoneY1;
             Sprite.ZoneX2 = ZoneX2;
@@ -768,9 +749,9 @@ bool CAllegroVideo::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int
 
 bool CAllegroVideo::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, const char* file)
 {
-    
+
     SSurface Surface;
-    
+
     std::string path(IMAGE_FOLDER);
 
 #ifdef WIN32
@@ -781,7 +762,7 @@ bool CAllegroVideo::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int
 
     path.append(file);
 
-    Allegro_Surface *ddsd = Allegro_LoadBMP(path.c_str());
+    Allegro_Surface* ddsd = Allegro_LoadBMP(path.c_str());
 
     // If it failed
     if (ddsd == NULL)
@@ -846,7 +827,7 @@ bool CAllegroVideo::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int
         {
             // Prepare a sprite
             SSprite Sprite;
-            Sprite.SurfaceNumber = m_Surfaces.size() - 1;       // The surface we just added to the container
+            Sprite.SurfaceNumber = m_Surfaces.size() - 1; // The surface we just added to the container
             Sprite.ZoneX1 = ZoneX1;
             Sprite.ZoneY1 = ZoneY1;
             Sprite.ZoneX2 = ZoneX2;
@@ -916,10 +897,10 @@ void CAllegroVideo::UpdateAll(void)
     while (!m_DrawingRequests.empty())
     {
         // Save the top drawing request
-        const SDrawingRequest &DR = m_DrawingRequests.top();
+        const SDrawingRequest& DR = m_DrawingRequests.top();
 
         // Save the sprite as specified by this drawing request
-        const SSprite *pSprite = &m_SpriteTables[DR.SpriteTable][DR.Sprite];
+        const SSprite* pSprite = &m_SpriteTables[DR.SpriteTable][DR.Sprite];
 
         // Build a RECT structure containing the zone to draw
         Allegro_Rect SourceRect;
@@ -935,7 +916,8 @@ void CAllegroVideo::UpdateAll(void)
         DestRect.h = 0;
 
         // Blit the surface zone on the back buffer
-        if (Allegro_BlitSurface(m_Surfaces[pSprite->SurfaceNumber].pSurface, &SourceRect, m_pPrimary, &DestRect) < 0) {
+        if (Allegro_BlitSurface(m_Surfaces[pSprite->SurfaceNumber].pSurface, &SourceRect, m_pPrimary, &DestRect) < 0)
+        {
             // blitting failed
             theLog.WriteLine("AllegroVideo        => !!! AllegroVideo error is : %s.", GetAllegroVideoError());
         }
@@ -950,7 +932,7 @@ void CAllegroVideo::UpdateAll(void)
     for (it = m_DebugDrawingRequests.begin(); it < m_DebugDrawingRequests.end(); it++)
     {
         // Save the top drawing request
-        const SDebugDrawingRequest &DR = *it;
+        const SDebugDrawingRequest& DR = *it;
 
         // Build a RECT structure containing the zone to draw
         Allegro_Rect SourceRect;
@@ -984,9 +966,9 @@ void CAllegroVideo::UpdateAll(void)
 #endif
 
         // create surface
-        Allegro_Surface *rectangle = Allegro_CreateRGBSurface(Allegro_HWSURFACE | Allegro_SRCALPHA, SourceRect.w, SourceRect.h, 32, rmask, gmask, bmask, amask);
+        Allegro_Surface* rectangle = Allegro_CreateRGBSurface(Allegro_HWSURFACE | Allegro_SRCALPHA, SourceRect.w, SourceRect.h, 32, rmask, gmask, bmask, amask);
 
-        Allegro_Surface *reals = NULL;
+        Allegro_Surface* reals = NULL;
 
         Allegro_SetAlpha(rectangle, Allegro_SRCALPHA | Allegro_RLEACCEL, 128);
 
@@ -996,7 +978,8 @@ void CAllegroVideo::UpdateAll(void)
             reals = Allegro_DisplayFormatAlpha(rectangle);
 
             // Blit the surface zone on the back buffer
-            if (reals != NULL && Allegro_BlitSurface(reals, &SourceRect, m_pPrimary, &DestRect) < 0) {
+            if (reals != NULL && Allegro_BlitSurface(reals, &SourceRect, m_pPrimary, &DestRect) < 0)
+            {
                 // blitting failed
                 theLog.WriteLine("AllegroVideo        => !!! AllegroVideo error is : %s.", GetAllegroVideoError());
             }
@@ -1022,9 +1005,7 @@ bool CAllegroVideo::IsModeAvailable(int Width, int Height, int Depth)
     for (unsigned int i = 0; i < m_AvailableDisplayModes.size(); i++)
     {
         // If this is the display mode we are looking for
-        if (m_AvailableDisplayModes[i].Width == Width &&
-            m_AvailableDisplayModes[i].Height == Height &&
-            m_AvailableDisplayModes[i].Depth == Depth)
+        if (m_AvailableDisplayModes[i].Width == Width && m_AvailableDisplayModes[i].Height == Height && m_AvailableDisplayModes[i].Depth == Depth)
         {
             // Then it's available
             return true;
@@ -1039,10 +1020,7 @@ bool CAllegroVideo::IsModeAvailable(int Width, int Height, int Depth)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-static const char* GetAllegroVideoError()
-{
-    return Allegro_GetError();
-}
+static const char* GetAllegroVideoError() { return Allegro_GetError(); }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************

@@ -19,7 +19,6 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CMosaic.h
  *  \brief Header file of the mosaic
@@ -37,42 +36,37 @@ class CDisplay;
 class CMosaic
 {
 private:
-
-    CDisplay*   m_pDisplay;                     //!< Link to the display object to use to draw the mosaic
-    int         m_SpriteTable;                  //!< Sprite table of the mosaic tile sprite to use
-    int         m_Sprite;                       //!< Number of the mosaic tile sprite to use
-    int         m_SpriteLayer;                  //!< Sprite layer where to draw the mosaic
-    int         m_PriorityInLayer;              //!< Priority to use in the sprite layer where to draw the mosaic
-    int         m_SpriteWidth;                  //!< Width in pixels of the mosaic tile sprite
-    int         m_SpriteHeight;                 //!< Height in pixels of the mosaic tile sprite
-    int         m_TileCountX;                   //!< How many mosaic tiles to draw horizontally?
-    int         m_TileCountY;                   //!< How many mosaic tiles to draw vertically?
-    float       m_SpeedX;                       //!< Scrolling speed X of the mosaic
-    float       m_SpeedY;                       //!< Scrolling speed Y of the mosaic
-    float       m_BackgroundPositionX;          //!< Top left corner of the animated tiled background
-    float       m_BackgroundPositionY;          //!< This position is modified to animate the background on the game view
-    int         m_iBackgroundPositionX;         //!< Integer coordinates of the position above,
-    int         m_iBackgroundPositionY;         //!< these coordinates _are_ in the screen coordinates.
+    CDisplay* m_pDisplay; //!< Link to the display object to use to draw the mosaic
+    int m_SpriteTable; //!< Sprite table of the mosaic tile sprite to use
+    int m_Sprite; //!< Number of the mosaic tile sprite to use
+    int m_SpriteLayer; //!< Sprite layer where to draw the mosaic
+    int m_PriorityInLayer; //!< Priority to use in the sprite layer where to draw the mosaic
+    int m_SpriteWidth; //!< Width in pixels of the mosaic tile sprite
+    int m_SpriteHeight; //!< Height in pixels of the mosaic tile sprite
+    int m_TileCountX; //!< How many mosaic tiles to draw horizontally?
+    int m_TileCountY; //!< How many mosaic tiles to draw vertically?
+    float m_SpeedX; //!< Scrolling speed X of the mosaic
+    float m_SpeedY; //!< Scrolling speed Y of the mosaic
+    float m_BackgroundPositionX; //!< Top left corner of the animated tiled background
+    float m_BackgroundPositionY; //!< This position is modified to animate the background on the game view
+    int m_iBackgroundPositionX; //!< Integer coordinates of the position above,
+    int m_iBackgroundPositionY; //!< these coordinates _are_ in the screen coordinates.
 
 public:
-
-                CMosaic (void);
-                ~CMosaic (void);
-    inline void SetDisplay (CDisplay* pDisplay);
-    void        Create (int SpriteTable, int Sprite, int SpriteLayer, int PriorityInLayer, int SpriteWidth, int SpriteHeight, int TileCountX, int TileCountY, float SpeedX, float SpeedY);
-    void        Destroy (void);
-    void        Update (float DeltaTime);              //!< Update the mosaic state
-    void        Display (void);                        //!< Display the mosaic in its current state
+    CMosaic(void);
+    ~CMosaic(void);
+    inline void SetDisplay(CDisplay* pDisplay);
+    void Create(int SpriteTable, int Sprite, int SpriteLayer, int PriorityInLayer, int SpriteWidth, int SpriteHeight, int TileCountX, int TileCountY, float SpeedX, float SpeedY);
+    void Destroy(void);
+    void Update(float DeltaTime); //!< Update the mosaic state
+    void Display(void); //!< Display the mosaic in its current state
 };
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline void CMosaic::SetDisplay (CDisplay* pDisplay)
-{
-    m_pDisplay = pDisplay;
-}
+inline void CMosaic::SetDisplay(CDisplay* pDisplay) { m_pDisplay = pDisplay; }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************

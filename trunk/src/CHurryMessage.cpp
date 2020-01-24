@@ -22,23 +22,22 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CHurryMessage.cpp
  *  \brief The hurry message
  */
 
-#include "StdAfx.h"
 #include "CHurryMessage.h"
-#include "CSound.h"
-#include "CScroller.h"
 #include "CDisplay.h"
+#include "CScroller.h"
+#include "CSound.h"
+#include "StdAfx.h"
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CHurryMessage::CHurryMessage (CDisplay* pDisplay, CSound* pSound)
+CHurryMessage::CHurryMessage(CDisplay* pDisplay, CSound* pSound)
 {
     ASSERT(pDisplay != NULL);
     ASSERT(pSound != NULL);
@@ -56,7 +55,7 @@ CHurryMessage::CHurryMessage (CDisplay* pDisplay, CSound* pSound)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CHurryMessage::~CHurryMessage (void)
+CHurryMessage::~CHurryMessage(void)
 {
     // Delete the scroller
     m_Scroller.Destroy();
@@ -72,10 +71,10 @@ CHurryMessage::~CHurryMessage (void)
  *  @see SCroller::Update()
  */
 
-bool CHurryMessage::Update (float DeltaTime)
+bool CHurryMessage::Update(float DeltaTime)
 {
     //! Update the scroller (move)
-    m_Scroller.Update (DeltaTime);
+    m_Scroller.Update(DeltaTime);
 
     // Return whether the hurry message is over,
     // that is to say if the scroller is out of the screen.
@@ -86,25 +85,22 @@ bool CHurryMessage::Update (float DeltaTime)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CHurryMessage::Display (void)
+void CHurryMessage::Display(void)
 {
     // We need to prepare a clip structure of the size of the game view
     // because of the tiled background which moves to animate
     RECT Clip;
-    Clip.left   = 0;
-    Clip.top    = 0;
-    Clip.right  = VIEW_WIDTH;
+    Clip.left = 0;
+    Clip.top = 0;
+    Clip.right = VIEW_WIDTH;
     Clip.bottom = VIEW_HEIGHT;
 
     // Draw the hurry message
-    m_pDisplay->DrawSprite (m_Scroller.GetPositionX(),   // Position of the current tile
-                            m_Scroller.GetPositionY(),                      
-                            NULL,                           // Draw entire tile
-                            &Clip,                          // Clip with game view
-                            BMP_HURRY,
-                            0, 
-                            700, 
-                            -1);
+    m_pDisplay->DrawSprite(m_Scroller.GetPositionX(), // Position of the current tile
+        m_Scroller.GetPositionY(),
+        NULL, // Draw entire tile
+        &Clip, // Clip with game view
+        BMP_HURRY, 0, 700, -1);
 }
 
 //******************************************************************************************************************************

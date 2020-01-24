@@ -22,39 +22,39 @@
 
     ************************************************************************************/
 
-
 /**
  *  \file CMenu.cpp
  *  \brief Menu
  */
 
-#include "StdAfx.h"
 #include "CMenu.h"
-#include "CGame.h"
 #include "CDisplay.h"
-#include "CScores.h"
+#include "CGame.h"
 #include "CMosaic.h"
-#include "CRandomMosaic.h"
 #include "COptions.h"
+#include "CRandomMosaic.h"
+#include "CScores.h"
+#include "StdAfx.h"
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-#define MENU_BLACKSCREEN_DURATION          0.350f      //!< Duration (in seconds) of the two black screens
+#define MENU_BLACKSCREEN_DURATION 0.350f //!< Duration (in seconds) of the two black screens
 
-#define MOSAIC_SPRITE_LAYER                  0         //!< Sprite layer where to draw the mosaic tiles
-#define MOSAIC_SPRITE_PRIORITY_IN_LAYER      0         //!< Priority to use in the sprite layer where to draw the mosaic tiles
-#define MOSAIC_SPEED_X                      50.0f      //!< Speed of the mosaic background horizontally
-#define MOSAIC_SPEED_Y                     -50.0f      //!< Speed of the mosaic background vertically
+#define MOSAIC_SPRITE_LAYER 0 //!< Sprite layer where to draw the mosaic tiles
+#define MOSAIC_SPRITE_PRIORITY_IN_LAYER 0 //!< Priority to use in the sprite layer where to draw the mosaic tiles
+#define MOSAIC_SPEED_X 50.0f //!< Speed of the mosaic background horizontally
+#define MOSAIC_SPEED_Y -50.0f //!< Speed of the mosaic background vertically
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CMenu::CMenu(void) : CModeScreen()
+CMenu::CMenu(void)
+    : CModeScreen()
 {
-    // Initialize the pointers to NULL so that we 
+    // Initialize the pointers to NULL so that we
     // can easily detect the ones we forgot to set.
     m_pScores = NULL;
 
@@ -65,21 +65,20 @@ CMenu::CMenu(void) : CModeScreen()
     m_MenuTeam.SetFont(&m_Font);
     m_MenuLevel.SetFont(&m_Font);
 
-    // The menu mode to start with will be set ONCE here 
-    // (not on menu creation with Create() method). The 
-    // reason is we have to keep the menu mode in memory 
-    // even when we finish or start the game menu mode. 
-    // This allows to get back to the last menu mode when 
+    // The menu mode to start with will be set ONCE here
+    // (not on menu creation with Create() method). The
+    // reason is we have to keep the menu mode in memory
+    // even when we finish or start the game menu mode.
+    // This allows to get back to the last menu mode when
     // a battle is over for example.
     m_MenuMode = MENUMODE_BOMBER;
-    
+
     m_GameModeTime = 0.0f;
     m_HaveToExit = false;
     m_ExitGameMode = GAMEMODE_NONE;
     m_ExitGameModeTime = 0.0f;
     m_SongStarted = false;
     m_pMosaic = NULL;
-
 }
 
 //******************************************************************************************************************************
@@ -112,13 +111,7 @@ void CMenu::Create(void)
     m_SongStarted = false;
 
     // Make a random blue mosaic object
-    m_pMosaic = CRandomMosaic::CreateRandomMosaic(m_pDisplay,
-        MOSAIC_SPRITE_LAYER,
-        MOSAIC_SPRITE_PRIORITY_IN_LAYER,
-        MOSAIC_SPEED_X,
-        MOSAIC_SPEED_Y,
-        MOSAICCOLOR_BLUE,
-        false);
+    m_pMosaic = CRandomMosaic::CreateRandomMosaic(m_pDisplay, MOSAIC_SPRITE_LAYER, MOSAIC_SPRITE_PRIORITY_IN_LAYER, MOSAIC_SPEED_X, MOSAIC_SPEED_Y, MOSAICCOLOR_BLUE, false);
 
     // Assure all scores are set to zero
     m_pScores->Reset();
@@ -129,7 +122,6 @@ void CMenu::Create(void)
     // created/destroyed, then the current menu mode is the
     // last one that was set.
     StartMenuMode(m_MenuMode);
-
 }
 
 //******************************************************************************************************************************
@@ -153,7 +145,7 @@ void CMenu::Destroy(void)
 
     // Terminate menu mode. The current menu mode remains
     // the same so that it can be used in the next call to
-    // the Create() method. This allows to get back to the 
+    // the Create() method. This allows to get back to the
     // last menu mode when a battle is over for example.
     FinishMenuMode();
 }
@@ -162,19 +154,13 @@ void CMenu::Destroy(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMenu::OpenInput(void)
-{
-    m_pInput->GetMainInput().Open();
-}
+void CMenu::OpenInput(void) { m_pInput->GetMainInput().Open(); }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMenu::CloseInput(void)
-{
-    m_pInput->GetMainInput().Close();
-}
+void CMenu::CloseInput(void) { m_pInput->GetMainInput().Close(); }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -215,11 +201,21 @@ EGameMode CMenu::Update(void)
         // Update the object corresponding to the current menu mode
         switch (m_MenuMode)
         {
-        case MENUMODE_BOMBER: MenuAction = m_MenuBomber.Update(); break;
-        case MENUMODE_INPUT: MenuAction = m_MenuInput.Update(); break;
-        case MENUMODE_MATCH: MenuAction = m_MenuMatch.Update(); break;
-        case MENUMODE_TEAM: MenuAction = m_MenuTeam.Update(); break;
-        case MENUMODE_LEVEL: MenuAction = m_MenuLevel.Update(); break;
+        case MENUMODE_BOMBER:
+            MenuAction = m_MenuBomber.Update();
+            break;
+        case MENUMODE_INPUT:
+            MenuAction = m_MenuInput.Update();
+            break;
+        case MENUMODE_MATCH:
+            MenuAction = m_MenuMatch.Update();
+            break;
+        case MENUMODE_TEAM:
+            MenuAction = m_MenuTeam.Update();
+            break;
+        case MENUMODE_LEVEL:
+            MenuAction = m_MenuLevel.Update();
+            break;
         }
 
         //-------------------------------------
@@ -241,7 +237,7 @@ EGameMode CMenu::Update(void)
                 case MENUMODE_BOMBER:
                 {
                     // There is no previous menu mode. We have to switch to the
-                    // game title screen (and therefore ask for another game mode). 
+                    // game title screen (and therefore ask for another game mode).
                     // Before that we have to make a black screen.
 
                     // We have to make a nice black screen and exit this game mode
@@ -292,7 +288,6 @@ EGameMode CMenu::Update(void)
                             PlayerInput = 0;
                             m_pOptions->SetPlayerInput(Player, PlayerInput);
                         }
-
                     }
 
                     // Save the previous menu mode to set
@@ -364,7 +359,6 @@ EGameMode CMenu::Update(void)
                             PlayerInput = 0;
                             m_pOptions->SetPlayerInput(Player, PlayerInput);
                         }
-
                     }
 
                     // Save the next menu mode to set
@@ -417,7 +411,7 @@ EGameMode CMenu::Update(void)
                 case MENUMODE_LEVEL:
                 {
                     // There is no next menu mode. We have to switch to the
-                    // game match screen (and therefore ask for another game mode). 
+                    // game match screen (and therefore ask for another game mode).
                     // Before that we have to make a black screen.
 
                     // We have to make a nice black screen and exit this game mode
@@ -443,11 +437,10 @@ EGameMode CMenu::Update(void)
             }
         }
     }
-    // The minimum mode duration has elapsed AND we have to exit, 
+    // The minimum mode duration has elapsed AND we have to exit,
     // so we have to make the last black screen
     else if (m_GameModeTime - m_ExitGameModeTime <= MENU_BLACKSCREEN_DURATION)
     {
-
     }
     // Last black screen is complete! Get out of here!
     else
@@ -464,7 +457,7 @@ EGameMode CMenu::Update(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-// Set a new menu mode. Creates the object 
+// Set a new menu mode. Creates the object
 // corresponding to the new menu mode.
 
 void CMenu::StartMenuMode(EMenuMode MenuMode)
@@ -475,11 +468,21 @@ void CMenu::StartMenuMode(EMenuMode MenuMode)
     // Create the object corresponding to the new menu mode
     switch (m_MenuMode)
     {
-    case MENUMODE_BOMBER: m_MenuBomber.Create(); break;
-    case MENUMODE_INPUT: m_MenuInput.Create(); break;
-    case MENUMODE_MATCH: m_MenuMatch.Create(); break;
-    case MENUMODE_TEAM: m_MenuTeam.Create(); break;
-    case MENUMODE_LEVEL: m_MenuLevel.Create(); break;
+    case MENUMODE_BOMBER:
+        m_MenuBomber.Create();
+        break;
+    case MENUMODE_INPUT:
+        m_MenuInput.Create();
+        break;
+    case MENUMODE_MATCH:
+        m_MenuMatch.Create();
+        break;
+    case MENUMODE_TEAM:
+        m_MenuTeam.Create();
+        break;
+    case MENUMODE_LEVEL:
+        m_MenuLevel.Create();
+        break;
     }
 }
 
@@ -487,7 +490,7 @@ void CMenu::StartMenuMode(EMenuMode MenuMode)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-// Set no menu mode. Destroys the object 
+// Set no menu mode. Destroys the object
 // corresponding to the current menu mode.
 
 void CMenu::FinishMenuMode(void)
@@ -495,11 +498,21 @@ void CMenu::FinishMenuMode(void)
     // Destroy the object corresponding to the current menu mode
     switch (m_MenuMode)
     {
-    case MENUMODE_BOMBER: m_MenuBomber.Destroy(); break;
-    case MENUMODE_INPUT: m_MenuInput.Destroy(); break;
-    case MENUMODE_MATCH: m_MenuMatch.Destroy(); break;
-    case MENUMODE_TEAM: m_MenuTeam.Destroy(); break;
-    case MENUMODE_LEVEL: m_MenuLevel.Destroy(); break;
+    case MENUMODE_BOMBER:
+        m_MenuBomber.Destroy();
+        break;
+    case MENUMODE_INPUT:
+        m_MenuInput.Destroy();
+        break;
+    case MENUMODE_MATCH:
+        m_MenuMatch.Destroy();
+        break;
+    case MENUMODE_TEAM:
+        m_MenuTeam.Destroy();
+        break;
+    case MENUMODE_LEVEL:
+        m_MenuLevel.Destroy();
+        break;
     }
 
     // Don't modify current menu mode! Leave it as it is.
@@ -546,14 +559,24 @@ void CMenu::Display(void)
         // Display the object corresponding to the current menu mode
         switch (m_MenuMode)
         {
-        case MENUMODE_BOMBER: m_MenuBomber.Display(); break;
-        case MENUMODE_INPUT: m_MenuInput.Display();  break;
-        case MENUMODE_MATCH: m_MenuMatch.Display();  break;
-        case MENUMODE_TEAM: m_MenuTeam.Display();  break;
-        case MENUMODE_LEVEL: m_MenuLevel.Display();  break;
+        case MENUMODE_BOMBER:
+            m_MenuBomber.Display();
+            break;
+        case MENUMODE_INPUT:
+            m_MenuInput.Display();
+            break;
+        case MENUMODE_MATCH:
+            m_MenuMatch.Display();
+            break;
+        case MENUMODE_TEAM:
+            m_MenuTeam.Display();
+            break;
+        case MENUMODE_LEVEL:
+            m_MenuLevel.Display();
+            break;
         }
     }
-    // The minimum mode duration has elapsed AND we have to exit, 
+    // The minimum mode duration has elapsed AND we have to exit,
     // so we have to make the last black screen
     else if (m_GameModeTime - m_ExitGameModeTime <= MENU_BLACKSCREEN_DURATION)
     {

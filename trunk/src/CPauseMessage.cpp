@@ -22,35 +22,34 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CPauseMessage.cpp
  *  \brief Pause message
  */
 
-#include "StdAfx.h"
 #include "CPauseMessage.h"
-#include "CSound.h"
-#include "CScroller.h"
 #include "CDisplay.h"
+#include "CScroller.h"
+#include "CSound.h"
+#include "StdAfx.h"
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CPauseMessage::CPauseMessage (CDisplay* pDisplay, CSound* pSound)
+CPauseMessage::CPauseMessage(CDisplay* pDisplay, CSound* pSound)
 {
-    ASSERT (pDisplay != NULL);
-    ASSERT (pSound != NULL);
+    ASSERT(pDisplay != NULL);
+    ASSERT(pSound != NULL);
 
     m_pDisplay = pDisplay;
     m_pSound = pSound;
-    
+
     // Pause or unpause the samples and songs being played
-    m_pSound->SetPause (true);
+    m_pSound->SetPause(true);
 
     // Play the pause sound
-    m_pSound->PlaySample (SAMPLE_PAUSE);
+    m_pSound->PlaySample(SAMPLE_PAUSE);
 
     // Not waiting since we must start by moving
     m_Waiting = false;
@@ -59,18 +58,17 @@ CPauseMessage::CPauseMessage (CDisplay* pDisplay, CSound* pSound)
     m_HaveToGetOut = false;
 
     // Create the scroller object that will be used to move and display the pause message sprite
-    m_Scroller.Create ((VIEW_WIDTH - 202) / 2, -16, 69, 16, 0.0f, 300.0f, -1.0f);   // 202 is X size of pause message sprite
-
+    m_Scroller.Create((VIEW_WIDTH - 202) / 2, -16, 69, 16, 0.0f, 300.0f, -1.0f); // 202 is X size of pause message sprite
 }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CPauseMessage::~CPauseMessage (void)
+CPauseMessage::~CPauseMessage(void)
 {
     // Unpause the samples and songs being played
-    m_pSound->SetPause (false);
+    m_pSound->SetPause(false);
 
     // Delete the scroller
     m_Scroller.Destroy();
@@ -80,13 +78,13 @@ CPauseMessage::~CPauseMessage (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CPauseMessage::Update (float DeltaTime)
+void CPauseMessage::Update(float DeltaTime)
 {
     // If we don't have to wait
     if (!m_Waiting)
     {
         // Update the scroller (move)
-        m_Scroller.Update (DeltaTime);
+        m_Scroller.Update(DeltaTime);
 
         // If we don't have to get out of the screen and the message must stop moving
         if (!m_HaveToGetOut && m_Scroller.GetPositionY() >= 96)
@@ -101,42 +99,39 @@ void CPauseMessage::Update (float DeltaTime)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CPauseMessage::Display (void)
+void CPauseMessage::Display(void)
 {
     // We need to prepare a clip structure of the size of the game view
     // because of the tiled background which moves to animate
     RECT Clip;
-    Clip.left   = 0;
-    Clip.top    = 0;
-    Clip.right  = VIEW_WIDTH;
+    Clip.left = 0;
+    Clip.top = 0;
+    Clip.right = VIEW_WIDTH;
     Clip.bottom = VIEW_HEIGHT;
 
     // Draw the pause message
-    m_pDisplay->DrawSprite (m_Scroller.GetPositionX(),   // Position of the current tile
-                            m_Scroller.GetPositionY(),                      
-                            NULL,                           // Draw entire tile
-                            &Clip,                          // Clip with game view
-                            BMP_PAUSE,
-                            0, 
-                            700, 
-                            -1);
+    m_pDisplay->DrawSprite(m_Scroller.GetPositionX(), // Position of the current tile
+        m_Scroller.GetPositionY(),
+        NULL, // Draw entire tile
+        &Clip, // Clip with game view
+        BMP_PAUSE, 0, 700, -1);
 }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CPauseMessage::GetOut (void)
+void CPauseMessage::GetOut(void)
 {
     // Don't tell the pause message to get out if he is not waiting for you
-    ASSERT (m_Waiting);    
+    ASSERT(m_Waiting);
 
     // The pause message is now getting out of the screen
     m_Waiting = false;
     m_HaveToGetOut = true;
 
     // Play the pause sound
-    m_pSound->PlaySample (SAMPLE_PAUSE);
+    m_pSound->PlaySample(SAMPLE_PAUSE);
 }
 
 //******************************************************************************************************************************

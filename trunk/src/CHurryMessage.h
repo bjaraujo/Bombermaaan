@@ -19,7 +19,6 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CHurryMessage.h
  *  \brief Header file of the hurry message
@@ -41,17 +40,15 @@ class CSound;
 class CHurryMessage
 {
 private:
-
-    CDisplay*   m_pDisplay;
-    CSound*     m_pSound;
-    CScroller   m_Scroller;
+    CDisplay* m_pDisplay;
+    CSound* m_pSound;
+    CScroller m_Scroller;
 
 public:
-
-                CHurryMessage (CDisplay* pDisplay, CSound* pSound);
-                ~CHurryMessage (void);
-    bool        Update (float DeltaTime);
-    void        Display (void);
+    CHurryMessage(CDisplay* pDisplay, CSound* pSound);
+    ~CHurryMessage(void);
+    bool Update(float DeltaTime);
+    void Display(void);
 };
 
 //******************************************************************************************************************************

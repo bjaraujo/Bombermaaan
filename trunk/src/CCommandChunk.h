@@ -19,7 +19,6 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CCommandChunk.h
  *  \brief Header file of the command chunk
@@ -34,7 +33,7 @@
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-#define MAX_STEPS_IN_COMMAND_CHUNK      8
+#define MAX_STEPS_IN_COMMAND_CHUNK 8
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -51,56 +50,51 @@ struct SCommandStep
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-// POD CLASS 
+// POD CLASS
 
 class CCommandChunk
 {
 private:
+    SCommandStep m_Steps[MAX_STEPS_IN_COMMAND_CHUNK];
+    int m_NumberOfSteps;
 
-    SCommandStep            m_Steps [MAX_STEPS_IN_COMMAND_CHUNK];
-    int                     m_NumberOfSteps;
-                                                        
-public:                                                 
-
-    void                    Create (void);                      //!< 
-    void                    Destroy (void);                     //!< 
-    void                    Reset (void);                       //!< 
-    void                    Store (EBomberMove BomberMove, EBomberAction BomberAction, float DeltaTime);
-    inline EBomberMove      GetStepMove (int Step);
-    inline EBomberAction    GetStepAction (int Step);
-    inline float            GetStepDuration (int Step);
-    inline int              GetNumberOfSteps (void);
+public:
+    void Create(void); //!<
+    void Destroy(void); //!<
+    void Reset(void); //!<
+    void Store(EBomberMove BomberMove, EBomberAction BomberAction, float DeltaTime);
+    inline EBomberMove GetStepMove(int Step);
+    inline EBomberAction GetStepAction(int Step);
+    inline float GetStepDuration(int Step);
+    inline int GetNumberOfSteps(void);
 };
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline EBomberMove CCommandChunk::GetStepMove (int Step)
+inline EBomberMove CCommandChunk::GetStepMove(int Step)
 {
     ASSERT(Step >= 0);
     ASSERT(Step < m_NumberOfSteps);
     return m_Steps[Step].BomberMove;
 }
 
-inline EBomberAction CCommandChunk::GetStepAction (int Step)
+inline EBomberAction CCommandChunk::GetStepAction(int Step)
 {
     ASSERT(Step >= 0);
     ASSERT(Step < m_NumberOfSteps);
     return m_Steps[Step].BomberAction;
 }
 
-inline float CCommandChunk::GetStepDuration (int Step)
+inline float CCommandChunk::GetStepDuration(int Step)
 {
     ASSERT(Step >= 0);
     ASSERT(Step < m_NumberOfSteps);
     return m_Steps[Step].Duration;
 }
 
-inline int CCommandChunk::GetNumberOfSteps (void)
-{
-    return m_NumberOfSteps;
-}
+inline int CCommandChunk::GetNumberOfSteps(void) { return m_NumberOfSteps; }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************

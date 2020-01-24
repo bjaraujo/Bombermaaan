@@ -22,7 +22,6 @@
 
     ************************************************************************************/
 
-
 /**
  *  \file WinMain.cpp
  *  \brief Entry point of the program for both Linux and Windows
@@ -34,11 +33,11 @@
 #endif
 
 #ifdef _DEBUG_MEMORY
-#include <vld.h> 
+#include <vld.h>
 #endif
 
-#include "StdAfx.h"
 #include "CGame.h"
+#include "StdAfx.h"
 
 #include "Bombermaaan.h"
 
@@ -49,7 +48,6 @@
  *
  *  Bombermaaan is a classic Bomberman game, also similar to Dynablaster.
  */
-
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -62,18 +60,18 @@
 #ifdef WIN32
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdline, int nCmdShow)
 #else
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 #endif
 {
 
 #ifdef CRASH_REPORT
     CR_INSTALL_INFO info;
     memset(&info, 0, sizeof(CR_INSTALL_INFO));
-    info.cb = sizeof(CR_INSTALL_INFO);                        // Size of the structure
-    info.pszAppName = _T("Bombermaaan");                      // App name
-    info.pszAppVersion = _T(APP_VERSION_INFO);                // App version
-    info.pszEmailSubject = _T("Bombermaaan Error Report");    // Email subject
-    info.pszEmailTo = _T("bjaraujo@github.com");              // Email recipient address
+    info.cb = sizeof(CR_INSTALL_INFO); // Size of the structure
+    info.pszAppName = _T("Bombermaaan"); // App name
+    info.pszAppVersion = _T(APP_VERSION_INFO); // App version
+    info.pszEmailSubject = _T("Bombermaaan Error Report"); // Email subject
+    info.pszEmailTo = _T("bjaraujo@github.com"); // Email recipient address
     info.dwFlags = CR_INST_NO_GUI | CR_INST_DONT_SEND_REPORT;
 
     // Install crash handlers
@@ -92,10 +90,10 @@ int main(int argc, char **argv)
 
 #ifndef WIN32
     HINSTANCE hInstance = 0;
-    char **lpCmdline = argv;
+    char** lpCmdline = argv;
 #endif
 
-    // Create the CGame instance    
+    // Create the CGame instance
     CGame Game(hInstance, lpCmdline);
 
     // If creating the game failed

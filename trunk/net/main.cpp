@@ -1,145 +1,144 @@
 
 #include <conio.h>
-#include <stdio.h>
-#include <time.h>
 #include <iostream>
+#include <stdio.h>
 #include <string>
+#include <time.h>
 
-#include "anyoption.h"
 #include "aes256.hpp"
+#include "anyoption.h"
 
 #include "CNetwork.h"
 
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
 
-	AnyOption opt;
+    AnyOption opt;
 
-	opt.addUsage("");
-	opt.addUsage("Usage: ");
-	opt.addUsage("");
-	opt.addUsage(" -h  --help  		  Prints this help ");
-	opt.addUsage(" -s  --server       Starts as server");
-	opt.addUsage(" -c  --client [ip]  Starts as client");
-	opt.addUsage(" -n  --nick [nick]  Chat nick name");
-	opt.addUsage("");
+    opt.addUsage("");
+    opt.addUsage("Usage: ");
+    opt.addUsage("");
+    opt.addUsage(" -h  --help  		  Prints this help ");
+    opt.addUsage(" -s  --server       Starts as server");
+    opt.addUsage(" -c  --client [ip]  Starts as client");
+    opt.addUsage(" -n  --nick [nick]  Chat nick name");
+    opt.addUsage("");
 
-	opt.setFlag("help", 'h');
-	opt.setFlag("server", 's');
-	opt.setOption("client", 'c');
-	opt.setOption("nick", 'n');
+    opt.setFlag("help", 'h');
+    opt.setFlag("server", 's');
+    opt.setOption("client", 'c');
+    opt.setOption("nick", 'n');
 
-	opt.processCommandArgs(argc, argv);
+    opt.processCommandArgs(argc, argv);
 
-	if (!opt.hasOptions()) {
-		opt.printUsage();
-		return 0;
-	}
+    if (!opt.hasOptions())
+    {
+        opt.printUsage();
+        return 0;
+    }
 
-	if (opt.getFlag("help") || opt.getFlag('h'))
-		opt.printUsage();
+    if (opt.getFlag("help") || opt.getFlag('h'))
+        opt.printUsage();
 
-	const int portNum = 1234;
+    const int portNum = 1234;
 
-	const int passwordLength = 8;
-	char password[passwordLength + 1];
-	char *aNickName;
+    const int passwordLength = 8;
+    char password[passwordLength + 1];
+    char* aNickName;
 
-	srand((unsigned int)time(NULL));
+    srand((unsigned int)time(NULL));
 
-	CNetwork Network;
+    CNetwork Network;
 
-	if (opt.getValue("nick") != NULL || opt.getValue('n') != NULL)
-	{
-		aNickName = opt.getValue("nick");
-		std::cout << "nick = " << aNickName << endl;
-	}
+    if (opt.getValue("nick") != NULL || opt.getValue('n') != NULL)
+    {
+        aNickName = opt.getValue("nick");
+        std::cout << "nick = " << aNickName << endl;
+    }
 
-	if (opt.getFlag("server") || opt.getFlag('s'))
-	{
-		std::cout << "*** STARTING AS SERVER" << std::endl;
-		Network.SetNetworkMode(NETWORKMODE_SERVER);
+    if (opt.getFlag("server") || opt.getFlag('s'))
+    {
+        std::cout << "*** STARTING AS SERVER" << std::endl;
+        Network.SetNetworkMode(NETWORKMODE_SERVER);
 
-		std::cout << "Password: ";
-		for (int i = 0; i < passwordLength; i++)
-		{
-			if (i % 2 == 0)
-				password[i] = 0x41 + rand() % 26;
-			else
-				password[i] = 0x30 + rand() % 10;
+        std::cout << "Password: ";
+        for (int i = 0; i < passwordLength; i++)
+        {
+            if (i % 2 == 0)
+                password[i] = 0x41 + rand() % 26;
+            else
+                password[i] = 0x30 + rand() % 10;
 
-			std::cout << password[i];
-		}
+            std::cout << password[i];
+        }
 
-		std::cout << std::endl;
+        std::cout << std::endl;
 
-		std::cout << "Waiting for client to connect..." << std::endl;
+        std::cout << "Waiting for client to connect..." << std::endl;
 
-		if (!Network.Connect("", portNum))
-		{
-			std::cout << "Unable to connect!" << std::endl;
-			return -1;
-		}
+        if (!Network.Connect("", portNum))
+        {
+            std::cout << "Unable to connect!" << std::endl;
+            return -1;
+        }
+    }
+    else if (opt.getValue("client") || opt.getValue('c'))
+    {
+        std::cout << "*** STARTING AS CLIENT" << std::endl;
+        Network.SetNetworkMode(NETWORKMODE_CLIENT);
 
-	}
-	else if (opt.getValue("client") || opt.getValue('c'))
-	{
-		std::cout << "*** STARTING AS CLIENT" << std::endl;
-		Network.SetNetworkMode(NETWORKMODE_CLIENT);
+        std::cout << "Connecting to: " << opt.getValue("client") << std::endl;
 
-		std::cout << "Connecting to: " << opt.getValue("client") << std::endl;
+        if (!Network.Connect(opt.getValue("client"), portNum))
+        {
+            std::cout << "Unable to connect!" << std::endl;
+            return -1;
+        }
+    }
 
-		if (!Network.Connect(opt.getValue("client"), portNum))
-		{
-			std::cout << "Unable to connect!" << std::endl;
-			return -1;
-		}
-	}
+    int len = 0;
 
-	int len = 0;
+    char anotherNickName[80];
 
-	char anotherNickName[80];
+    if (Network.NetworkMode() == NETWORKMODE_SERVER)
+    {
+        std::cout << "Successfully connected to client." << std::endl;
 
-	if (Network.NetworkMode() == NETWORKMODE_SERVER)
-	{
-		std::cout << "Successfully connected to client." << std::endl;
+        Network.Send(SOCKET_CLIENT, aNickName, 80);
+        Network.Receive(SOCKET_CLIENT, &anotherNickName[0], 80);
+        std::cout << "Talking to: " << anotherNickName << std::endl;
+    }
+    else if (Network.NetworkMode() == NETWORKMODE_CLIENT)
+    {
+        std::cout << "Successfully connected to server." << std::endl;
 
-		Network.Send(SOCKET_CLIENT, aNickName, 80);
-		Network.Receive(SOCKET_CLIENT, &anotherNickName[0], 80);
-		std::cout << "Talking to: " << anotherNickName << std::endl;
+        Network.Send(SOCKET_SERVER, aNickName, 80);
+        Network.Receive(SOCKET_SERVER, &anotherNickName[0], 80);
+        std::cout << "Talking to: " << anotherNickName << std::endl;
 
-	}
-	else if (Network.NetworkMode() == NETWORKMODE_CLIENT)
-	{
-		std::cout << "Successfully connected to server." << std::endl;
+        char line[256];
 
-		Network.Send(SOCKET_SERVER, aNickName, 80);
-		Network.Receive(SOCKET_SERVER, &anotherNickName[0], 80);
-		std::cout << "Talking to: " << anotherNickName << std::endl;
+        cout << "Enter password: ";
+        cin.get(line, 256);
 
-		char line[256];
+        for (int i = 0; i < passwordLength; i++)
+            password[i] = line[i];
+    }
 
-		cout << "Enter password: ";
-		cin.get(line, 256);
+    ByteArray key;
 
-		for (int i = 0; i < passwordLength; i++)
-			password[i] = line[i];
+    for (int i = 0; i < passwordLength; i++)
+        key.push_back(password[i]);
 
-	}
-
-	ByteArray key;
-
-	for (int i = 0; i < passwordLength; i++)
-		key.push_back(password[i]);
-
-	Aes256 aes(key);
+    Aes256 aes(key);
 
     char sendBuffer[512];
     char recieveBuffer[512];
 
     std::cout << "> ";
 
-    while (true) {
+    while (true)
+    {
 
         // Send message
         if (_kbhit())
@@ -159,8 +158,6 @@ int main(int argc, char **argv)
             else
             {
                 std::cout << cur;
-
-
             }
 
             if (cur != 13 && len < 511)
@@ -168,7 +165,6 @@ int main(int argc, char **argv)
 
                 if (cur != 8)
                     sendBuffer[len++] = cur;
-
             }
             else
             {
@@ -177,20 +173,18 @@ int main(int argc, char **argv)
 
                 std::cout << std::endl;
 
-				ByteArray sendBufferEnc;
-				aes.encrypt(key, (unsigned char*)sendBuffer, len, sendBufferEnc);
-				
+                ByteArray sendBufferEnc;
+                aes.encrypt(key, (unsigned char*)sendBuffer, len, sendBufferEnc);
+
                 if (Network.NetworkMode() == NETWORKMODE_SERVER)
-					Network.Send(SOCKET_CLIENT, (char *)sendBufferEnc.data(), sendBufferEnc.size());
+                    Network.Send(SOCKET_CLIENT, (char*)sendBufferEnc.data(), sendBufferEnc.size());
                 else if (Network.NetworkMode() == NETWORKMODE_CLIENT)
-					Network.Send(SOCKET_SERVER, (char *)sendBufferEnc.data(), sendBufferEnc.size());
+                    Network.Send(SOCKET_SERVER, (char*)sendBufferEnc.data(), sendBufferEnc.size());
 
                 len = 0;
 
-				std::cout << "> ";
-
+                std::cout << "> ";
             }
-
         }
 
         Sleep(20);
@@ -199,7 +193,8 @@ int main(int argc, char **argv)
         int Received = 0;
         int Bufsize = 512;
 
-        do {
+        do
+        {
 
             if (Network.NetworkMode() == NETWORKMODE_SERVER)
                 Received += Network.ReceiveNonBlocking(SOCKET_CLIENT, &recieveBuffer[Received], Bufsize);
@@ -223,13 +218,13 @@ int main(int argc, char **argv)
         {
             std::cout << std::endl;
 
-			ByteArray recvBufferEnc;
-			aes.decrypt(key, (unsigned char*)recieveBuffer, Received, recvBufferEnc);
+            ByteArray recvBufferEnc;
+            aes.decrypt(key, (unsigned char*)recieveBuffer, Received, recvBufferEnc);
 
             if (Network.NetworkMode() == NETWORKMODE_SERVER)
-				std::cout << anotherNickName << ": " << recvBufferEnc.data() << std::endl;
-			else if (Network.NetworkMode() == NETWORKMODE_CLIENT)
-				std::cout << anotherNickName << ": " << recvBufferEnc.data() << std::endl;
+                std::cout << anotherNickName << ": " << recvBufferEnc.data() << std::endl;
+            else if (Network.NetworkMode() == NETWORKMODE_CLIENT)
+                std::cout << anotherNickName << ": " << recvBufferEnc.data() << std::endl;
 
             // Beep
             std::cout << '\a';
@@ -239,11 +234,8 @@ int main(int argc, char **argv)
             // Add current buffer
             for (int i = 0; i < len; i++)
                 std::cout << sendBuffer[i];
-
         }
-
     };
 
     return 0;
-
 }

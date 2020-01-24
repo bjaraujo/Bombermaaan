@@ -20,7 +20,6 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CTimer.h
  *  \brief Header file of the timer
@@ -53,19 +52,17 @@
 class CTimer
 {
 private:
-
-    __int64 m_StartClock;       // Clock value on start
-    double m_InvRate;           // Inversed rate of the clock
-    double m_Time;              // Latest saved time value
-    float m_DeltaTime;          // Latest saved delta time value
-    bool m_Pause;               // Is the timer paused?
-    float m_DeltaTimeAtPause;   // Delta time saved on pause and restored on resume
-    float m_Speed;              // Coefficient to apply to the deltatime before returning it
+    __int64 m_StartClock; // Clock value on start
+    double m_InvRate; // Inversed rate of the clock
+    double m_Time; // Latest saved time value
+    float m_DeltaTime; // Latest saved delta time value
+    bool m_Pause; // Is the timer paused?
+    float m_DeltaTimeAtPause; // Delta time saved on pause and restored on resume
+    float m_Speed; // Coefficient to apply to the deltatime before returning it
 
 private:
-
     // This method returns the time value at this moment
-    double GetCurrentTime ()
+    double GetCurrentTime()
     {
         __int64 EndClock;
 
@@ -77,20 +74,19 @@ private:
     }
 
 public:
-
     // The CTimer constructor initializes the windows
     // timer and throws an exception if there is an error.
-    CTimer (void)
+    CTimer(void)
     {
         __int64 Rate;
 
         // Get the number of counts per second
         // If it failed
 
-        if(!QueryPerformanceFrequency((LARGE_INTEGER*)&Rate))
+        if (!QueryPerformanceFrequency((LARGE_INTEGER*)&Rate))
         {
             // Log failure
-            theLog.WriteLine ("Timer           => !!! QueryPerformanceFrequency failed.");
+            theLog.WriteLine("Timer           => !!! QueryPerformanceFrequency failed.");
         }
 
         // Usually the rate will be 1193180
@@ -98,17 +94,17 @@ public:
         if (Rate == 0)
         {
             // Log failure
-            theLog.WriteLine ("Timer           => !!! Rate is zero.");
+            theLog.WriteLine("Timer           => !!! Rate is zero.");
         }
 
         m_InvRate = 1.0 / (double)Rate;
 
         // Get the number of counts
         // If it failed
-        if(!QueryPerformanceCounter((LARGE_INTEGER*)&m_StartClock))
+        if (!QueryPerformanceCounter((LARGE_INTEGER*)&m_StartClock))
         {
             // Log failure
-            theLog.WriteLine ("Timer           => !!! QueryPerformanceCounter failed.");
+            theLog.WriteLine("Timer           => !!! QueryPerformanceCounter failed.");
         }
 
         // Initialize some members
@@ -121,16 +117,16 @@ public:
 
     // This method updates the time value and deltatime
     // value of the timer.
-    void Update ()
+    void Update()
     {
         // Without the sleep, the clouds hopped and the mouse pointer froze (tracker item #1870410)
-        Sleep( 1 );
+        Sleep(1);
 
         // The timer must not be paused
-        ASSERT (!m_Pause);
+        ASSERT(!m_Pause);
 
         // Get the current time value
-        double Time = GetCurrentTime ();
+        double Time = GetCurrentTime();
 
         // If timer has already been updated
         if (m_Time > 0.0)
@@ -146,41 +142,42 @@ public:
         }
     }
 
-    // Pauses the timer, so that the delta time value is 
+    // Pauses the timer, so that the delta time value is
     // still right when resuming.
-    void Pause (void)
+    void Pause(void)
     {
-        if (!m_Pause)                                       // Timer must not be already paused
+        if (!m_Pause) // Timer must not be already paused
         {
-            m_Pause = true;                                 // Set pause
-            m_DeltaTimeAtPause = m_DeltaTime;               // Save deltatime
+            m_Pause = true; // Set pause
+            m_DeltaTimeAtPause = m_DeltaTime; // Save deltatime
         }
     }
 
     // Resume after a pause
-    void Resume (void)
-    {                                                       
-        if (m_Pause)                                        // Timer must not be already unpaused
+    void Resume(void)
+    {
+        if (m_Pause) // Timer must not be already unpaused
         {
-            m_Pause = false;                                // Set unpaused
+            m_Pause = false; // Set unpaused
             m_Time = GetCurrentTime() - m_DeltaTimeAtPause; // Update time
-            m_DeltaTime = m_DeltaTimeAtPause;               // Update deltatime
+            m_DeltaTime = m_DeltaTimeAtPause; // Update deltatime
         }
     }
 
     // Set coefficient to apply to the deltatime before returning it
-    void SetSpeed (float Speed)
-    {
-        m_Speed = Speed;
-    }
+    void SetSpeed(float Speed) { m_Speed = Speed; }
 
     // These methods are used to get the time and deltatime values
-    float GetDeltaTime (void) { ASSERT(!m_Pause); return m_DeltaTime * m_Speed; }
-    double GetTime (void) { ASSERT(!m_Pause); return m_Time; }
+    float GetDeltaTime(void)
+    {
+        ASSERT(!m_Pause);
+        return m_DeltaTime * m_Speed;
+    }
+    double GetTime(void)
+    {
+        ASSERT(!m_Pause);
+        return m_Time;
+    }
 };
-
-
-
-
 
 #endif

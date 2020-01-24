@@ -36,26 +36,27 @@
 
 #include "StdAfx.h" // this is the StdAfx.H in the Bombermaaan directory
 
-#define RCFILE      "res.rc"
-#define HFILE       "res.h"
+#define RCFILE "res.rc"
+#define HFILE "res.h"
 
-#define RESDATAC    "ResData.c"
+#define RESDATAC "ResData.c"
 
 #define BUFSIZE 1024
 
 #ifndef MIN
-#define MIN(_x,_y)  ((_x) < (_y) ? (_x) : (_y))
+#define MIN(_x, _y) ((_x) < (_y) ? (_x) : (_y))
 #endif
 
 // data structures
 typedef struct _SRES
 {
     int r_number;
-    char *r_name;
-    char *r_path;
+    char* r_name;
+    char* r_path;
 } SRES;
 
-enum {
+enum
+{
     TYPE_BITMAP = 0,
     TYPE_SOUND,
     NUM_TYPES
@@ -65,9 +66,9 @@ using namespace std;
 
 // function prototypes
 void determineResourceCount(std::ifstream& rcfile, std::ifstream& hfile, int& rcBitmapCount, int& rcSoundCount, int& hBitmapCount, int& hSoundCount);
-bool buildResourceArrayWithHeader(int hBitmapCount, int hSoundCount, std::ifstream& hfile, filebuf *hbuf, int& bitmapNo, int& soundNo);
-int findResourceElement(int type, const char *name, int count);
-bool completeResourceArrayWithRC(int rcBitmapCount, int rcSoundCount, std::ifstream& rcfile, filebuf *rcbuf, int& bitmapNo, int& soundNo);
+bool buildResourceArrayWithHeader(int hBitmapCount, int hSoundCount, std::ifstream& hfile, filebuf* hbuf, int& bitmapNo, int& soundNo);
+int findResourceElement(int type, const char* name, int count);
+bool completeResourceArrayWithRC(int rcBitmapCount, int rcSoundCount, std::ifstream& rcfile, filebuf* rcbuf, int& bitmapNo, int& soundNo);
 bool generateSourceCode(int hBitmapCount, int hSoundCount, int realBitmapCount, int realSoundCount);
 
 string RES_DIR;

@@ -22,26 +22,25 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CScores.cpp
  *  \brief The scores
  */
 
-#include "StdAfx.h"
 #include "CScores.h"
 #include "COptions.h"
+#include "StdAfx.h"
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CScores::CScores (void)
+CScores::CScores(void)
 {
-    // Initialize the pointers to NULL so that we 
+    // Initialize the pointers to NULL so that we
     // can easily detect the ones we forgot to set.
     m_pOptions = NULL;
-    
+
     Reset();
 }
 
@@ -49,7 +48,7 @@ CScores::CScores (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CScores::~CScores (void)
+CScores::~CScores(void)
 {
     // Nothing to do
 }
@@ -58,10 +57,10 @@ CScores::~CScores (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CScores::Reset (void)
-{   
+void CScores::Reset(void)
+{
     // Reset player scores
-    for (int Player = 0 ; Player < MAX_PLAYERS ; Player++)
+    for (int Player = 0; Player < MAX_PLAYERS; Player++)
     {
         m_Scores[Player] = 0;
     }
@@ -74,7 +73,7 @@ void CScores::Reset (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CScores::RaisePlayerScore (int Player)
+void CScores::RaisePlayerScore(int Player)
 {
     // If maximum has not been reached
     if (m_Scores[Player] < m_pOptions->GetBattleCount())
@@ -88,7 +87,7 @@ void CScores::RaisePlayerScore (int Player)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CScores::RaiseDrawGamesCount (void)
+void CScores::RaiseDrawGamesCount(void)
 {
     // If maximum has not been reached
     if (m_DrawGamesCount < MAX_DRAWGAME_SCORE)

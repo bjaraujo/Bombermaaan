@@ -19,7 +19,6 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CCloudManager.h
  *  \brief Header file of the cloud manager
@@ -36,7 +35,7 @@ class CDisplay;
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-#define NUMBER_OF_CLOUDS        3
+#define NUMBER_OF_CLOUDS 3
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -46,30 +45,25 @@ class CDisplay;
 class CCloudManager
 {
 private:
+    CDisplay* m_pDisplay;
+    CScroller m_Clouds[NUMBER_OF_CLOUDS];
+    int m_CloudSprites[NUMBER_OF_CLOUDS];
 
-    CDisplay*       m_pDisplay;
-    CScroller       m_Clouds[NUMBER_OF_CLOUDS];
-    int             m_CloudSprites[NUMBER_OF_CLOUDS];
-   
 public:
-
-                    CCloudManager (void);
-                    ~CCloudManager (void);
-    inline void     SetDisplay (CDisplay* pDisplay);
-    void            Create (void);
-    void            Destroy (void);
-    void            Update (float DeltaTime);
-    void            Display (void);
+    CCloudManager(void);
+    ~CCloudManager(void);
+    inline void SetDisplay(CDisplay* pDisplay);
+    void Create(void);
+    void Destroy(void);
+    void Update(float DeltaTime);
+    void Display(void);
 };
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline void CCloudManager::SetDisplay (CDisplay* pDisplay)
-{
-    m_pDisplay = pDisplay;
-}
+inline void CCloudManager::SetDisplay(CDisplay* pDisplay) { m_pDisplay = pDisplay; }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************

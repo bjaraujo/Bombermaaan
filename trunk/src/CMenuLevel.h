@@ -19,7 +19,6 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CMenuLevel.h
  *  \brief Header file of the level menu
@@ -38,22 +37,20 @@
 class CMenuLevel : public CMenuBase
 {
 private:
-
-    void            OnCreate (void);
-    void            OnDestroy (void);
-    void            OnUp (void);
-    void            OnDown (void);
-    void            OnLeft (void);
-    void            OnRight (void);
-    void            OnPrevious (void);
-    void            OnNext (void);
-    void            OnUpdate (void);
-    void            OnDisplay (void);
+    void OnCreate(void);
+    void OnDestroy(void);
+    void OnUp(void);
+    void OnDown(void);
+    void OnLeft(void);
+    void OnRight(void);
+    void OnPrevious(void);
+    void OnNext(void);
+    void OnUpdate(void);
+    void OnDisplay(void);
 
 public:
-
-    CMenuLevel (void);
-    virtual ~CMenuLevel (void);
+    CMenuLevel(void);
+    virtual ~CMenuLevel(void);
 };
 
 //******************************************************************************************************************************

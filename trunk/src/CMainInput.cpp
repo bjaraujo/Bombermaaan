@@ -23,88 +23,85 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CMainInput.cpp
  *  \brief The main input device for menu and system controls
  */
 
-#include "StdAfx.h"
 #include "CMainInput.h"
+#include "StdAfx.h"
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-#define MENU_CONTROL_DELAY      0.400f  //!< Time (in seconds) that should elapse before the control starts repeating
-#define MENU_CONTROL_RATE       0.180f  //!< Time (in seconds) that should elapse between two repetitions when repeating
+#define MENU_CONTROL_DELAY 0.400f //!< Time (in seconds) that should elapse before the control starts repeating
+#define MENU_CONTROL_RATE 0.180f //!< Time (in seconds) that should elapse between two repetitions when repeating
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CMainInput::CMainInput (void)
+CMainInput::CMainInput(void)
 {
     m_pTimer = NULL;
     m_pDirectInput = NULL;
-    
-    m_MenuControls[MENU_UP].Key       = KEYBOARD_UP;
-    m_MenuControls[MENU_DOWN].Key     = KEYBOARD_DOWN;
-    m_MenuControls[MENU_LEFT].Key     = KEYBOARD_LEFT;
-    m_MenuControls[MENU_RIGHT].Key    = KEYBOARD_RIGHT;
+
+    m_MenuControls[MENU_UP].Key = KEYBOARD_UP;
+    m_MenuControls[MENU_DOWN].Key = KEYBOARD_DOWN;
+    m_MenuControls[MENU_LEFT].Key = KEYBOARD_LEFT;
+    m_MenuControls[MENU_RIGHT].Key = KEYBOARD_RIGHT;
     m_MenuControls[MENU_PREVIOUS].Key = KEYBOARD_BACK;
-    m_MenuControls[MENU_NEXT1].Key    = KEYBOARD_RETURN;
-    m_MenuControls[MENU_NEXT2].Key    = KEYBOARD_NUMPADENTER;
-    m_MenuControls[MENU_NEXT3].Key    = KEYBOARD_SPACE;
-    
+    m_MenuControls[MENU_NEXT1].Key = KEYBOARD_RETURN;
+    m_MenuControls[MENU_NEXT2].Key = KEYBOARD_NUMPADENTER;
+    m_MenuControls[MENU_NEXT3].Key = KEYBOARD_SPACE;
+
     for (int Control = 0; Control < NUMBER_OF_SYSTEM_CONTROLS; Control++)
     {
         m_SystemControls[Control].State = false;
         m_SystemControls[Control].Pressing = false;
-    }    
+    }
 }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CMainInput::~CMainInput (void)
-{
-}
+CMainInput::~CMainInput(void) {}
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMainInput::Create (void)
+void CMainInput::Create(void)
 {
-    ASSERT (m_pTimer != NULL);
-    ASSERT (m_pDirectInput != NULL);
+    ASSERT(m_pTimer != NULL);
+    ASSERT(m_pDirectInput != NULL);
 
     // Set the key index to use for each menu control
-    m_MenuControls[MENU_UP].Key       = KEYBOARD_UP;
-    m_MenuControls[MENU_DOWN].Key     = KEYBOARD_DOWN;
-    m_MenuControls[MENU_LEFT].Key     = KEYBOARD_LEFT;
-    m_MenuControls[MENU_RIGHT].Key    = KEYBOARD_RIGHT;
+    m_MenuControls[MENU_UP].Key = KEYBOARD_UP;
+    m_MenuControls[MENU_DOWN].Key = KEYBOARD_DOWN;
+    m_MenuControls[MENU_LEFT].Key = KEYBOARD_LEFT;
+    m_MenuControls[MENU_RIGHT].Key = KEYBOARD_RIGHT;
     m_MenuControls[MENU_PREVIOUS].Key = KEYBOARD_BACK;
-    m_MenuControls[MENU_NEXT1].Key    = KEYBOARD_RETURN;
-    m_MenuControls[MENU_NEXT2].Key    = KEYBOARD_NUMPADENTER;
-    m_MenuControls[MENU_NEXT3].Key    = KEYBOARD_SPACE;
+    m_MenuControls[MENU_NEXT1].Key = KEYBOARD_RETURN;
+    m_MenuControls[MENU_NEXT2].Key = KEYBOARD_NUMPADENTER;
+    m_MenuControls[MENU_NEXT3].Key = KEYBOARD_SPACE;
 
     int Control;
 
     // Set the 'zero' state for each menu control
-    for (Control = 0 ; Control < NUMBER_OF_MENU_CONTROLS ; Control++)
+    for (Control = 0; Control < NUMBER_OF_MENU_CONTROLS; Control++)
     {
-        m_MenuControls[Control].PressTime  = 0.0f;
+        m_MenuControls[Control].PressTime = 0.0f;
         m_MenuControls[Control].RepeatTime = 0.0f;
-        m_MenuControls[Control].Active     = false;
+        m_MenuControls[Control].Active = false;
     }
 
     m_SystemControls[SYSTEM_PAUSE].Key = KEYBOARD_P;
     m_SystemControls[SYSTEM_BREAK].Key = KEYBOARD_ESCAPE;
 
-    for (Control = 0 ; Control < NUMBER_OF_SYSTEM_CONTROLS ; Control++)
+    for (Control = 0; Control < NUMBER_OF_SYSTEM_CONTROLS; Control++)
     {
         m_SystemControls[Control].State = false;
         m_SystemControls[Control].Pressing = false;
@@ -115,58 +112,47 @@ void CMainInput::Create (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMainInput::Destroy (void)
-{
-}
+void CMainInput::Destroy(void) {}
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMainInput::Open (void)
-{
-    m_pDirectInput->OpenKeyboard ();
-}
+void CMainInput::Open(void) { m_pDirectInput->OpenKeyboard(); }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CMainInput::IsOpened (void)
-{
-    return m_pDirectInput->IsKeyboardOpened ();
-}
+bool CMainInput::IsOpened(void) { return m_pDirectInput->IsKeyboardOpened(); }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMainInput::Close (void)
-{
-    m_pDirectInput->CloseKeyboard ();
-}
+void CMainInput::Close(void) { m_pDirectInput->CloseKeyboard(); }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMainInput::Update (void)
+void CMainInput::Update(void)
 {
     // Update the keyboard state
-    m_pDirectInput->UpdateKeyboard ();
+    m_pDirectInput->UpdateKeyboard();
 
-    // Contains whether the currently tested menu control is active 
+    // Contains whether the currently tested menu control is active
     // on the device (not taking control repetition into account)
     bool ControlActiveOnDevice;
-    
+
     int Control;
 
     // Test each menu control
-    for (Control = 0 ; Control < NUMBER_OF_MENU_CONTROLS ; Control++)
-    {   
+    for (Control = 0; Control < NUMBER_OF_MENU_CONTROLS; Control++)
+    {
         // Get the ABSOLUTE menu control state : is the menu control active on the device?
-        ControlActiveOnDevice = m_pDirectInput->GetKey (m_MenuControls[Control].Key);
-        
+        ControlActiveOnDevice = m_pDirectInput->GetKey(m_MenuControls[Control].Key);
+
         // If the menu control is active on the device
         if (ControlActiveOnDevice)
         {
@@ -176,7 +162,7 @@ void CMainInput::Update (void)
                 // The menu control is active right now (but only for once)
                 m_MenuControls[Control].Active = true;
                 // Increase the time since the menu control has been active
-                m_MenuControls[Control].PressTime += m_pTimer->GetDeltaTime ();
+                m_MenuControls[Control].PressTime += m_pTimer->GetDeltaTime();
             }
             // If the menu control has been active but the repeat delay has not elapsed yet
             else if (m_MenuControls[Control].PressTime < MENU_CONTROL_DELAY)
@@ -184,46 +170,35 @@ void CMainInput::Update (void)
                 // The menu control is not active until the repeat delay has not elapsed
                 m_MenuControls[Control].Active = false;
                 // Increase the time since the menu control has been active
-                m_MenuControls[Control].PressTime += m_pTimer->GetDeltaTime ();
-                
+                m_MenuControls[Control].PressTime += m_pTimer->GetDeltaTime();
             }
             // If the menu control has been active and the repeat delay has entirely elapsed
             else
             {
-                // If the menu control has a repeat rate
-                if (MENU_CONTROL_RATE != 0.0f)
+                // If the menu control must start a repetition
+                if (m_MenuControls[Control].RepeatTime == 0.0f)
                 {
-                    // If the menu control must start a repetition
-                    if (m_MenuControls[Control].RepeatTime == 0.0f)
-                    {
-                        // The menu control is active right now (but only for once)
-                        m_MenuControls[Control].Active = true;
-                        // Increase the time since the menu control repetition has started
-                        m_MenuControls[Control].RepeatTime += m_pTimer->GetDeltaTime ();
-                    }
-                    // If the menu control has been repeating but the repeat rate has not elapsed yet
-                    else if (m_MenuControls[Control].RepeatTime < MENU_CONTROL_RATE)
-                    {
-                        // The menu control is not active until a new repetition of this menu control starts
-                        m_MenuControls[Control].Active = false;
-                        // Increase the time since the menu control current repetition has started
-                        m_MenuControls[Control].RepeatTime += m_pTimer->GetDeltaTime ();
-                    }
-                    // If the menu control has been repeating and the repeat 
-                    // rate of the current repetition has entirely elapsed
-                    else 
-                    {
-                        // The menu control is not active until a new repetition of this menu control starts
-                        m_MenuControls[Control].Active = false;
-                        // Next time, start a new repetition for the current menu control
-                        m_MenuControls[Control].RepeatTime = 0.0f;
-                    }
+                    // The menu control is active right now (but only for once)
+                    m_MenuControls[Control].Active = true;
+                    // Increase the time since the menu control repetition has started
+                    m_MenuControls[Control].RepeatTime += m_pTimer->GetDeltaTime();
                 }
-                // If the menu control doesn't have a repeat rate
+                // If the menu control has been repeating but the repeat rate has not elapsed yet
+                else if (m_MenuControls[Control].RepeatTime < MENU_CONTROL_RATE)
+                {
+                    // The menu control is not active until a new repetition of this menu control starts
+                    m_MenuControls[Control].Active = false;
+                    // Increase the time since the menu control current repetition has started
+                    m_MenuControls[Control].RepeatTime += m_pTimer->GetDeltaTime();
+                }
+                // If the menu control has been repeating and the repeat
+                // rate of the current repetition has entirely elapsed
                 else
                 {
-                    // The menu control is ALWAYS active
-                    m_MenuControls[Control].Active = true;
+                    // The menu control is not active until a new repetition of this menu control starts
+                    m_MenuControls[Control].Active = false;
+                    // Next time, start a new repetition for the current menu control
+                    m_MenuControls[Control].RepeatTime = 0.0f;
                 }
             }
         }
@@ -239,17 +214,14 @@ void CMainInput::Update (void)
 
     // State is true only when the control becomes active
 
-    for (Control = 0 ; Control < NUMBER_OF_SYSTEM_CONTROLS ; Control++)
+    for (Control = 0; Control < NUMBER_OF_SYSTEM_CONTROLS; Control++)
     {
-        if (m_pDirectInput->GetKey (m_SystemControls[Control].Key) && 
-            !m_SystemControls[Control].State &&
-            !m_SystemControls[Control].Pressing)
+        if (m_pDirectInput->GetKey(m_SystemControls[Control].Key) && !m_SystemControls[Control].State && !m_SystemControls[Control].Pressing)
         {
             m_SystemControls[Control].State = true;
             m_SystemControls[Control].Pressing = true;
         }
-        else if (!m_pDirectInput->GetKey (m_SystemControls[Control].Key) && 
-                 m_SystemControls[Control].Pressing)
+        else if (!m_pDirectInput->GetKey(m_SystemControls[Control].Key) && m_SystemControls[Control].Pressing)
         {
             m_SystemControls[Control].State = false;
             m_SystemControls[Control].Pressing = false;

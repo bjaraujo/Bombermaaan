@@ -23,14 +23,13 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CArenaSnapshot.cpp
  *  \brief Arena snapshot for network exchange
  */
 
-#include "StdAfx.h"
 #include "CArenaSnapshot.h"
+#include "StdAfx.h"
 
 #include <string.h>
 
@@ -44,23 +43,19 @@
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CArenaSnapshot::Create (void)
-{
-}
+void CArenaSnapshot::Create(void) {}
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CArenaSnapshot::Destroy (void)
-{
-}
+void CArenaSnapshot::Destroy(void) {}
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CArenaSnapshot::Begin (void)
+void CArenaSnapshot::Begin(void)
 {
     m_Position = 0;
 
@@ -73,16 +68,16 @@ void CArenaSnapshot::Begin (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CArenaSnapshot::ReadInteger (int* pValue)
+void CArenaSnapshot::ReadInteger(int* pValue)
 {
     ASSERT(m_Position + sizeof(int) < ARENA_SNAPSHOT_SIZE);
 
     memcpy(pValue, &m_Buffer[m_Position], sizeof(int)); // #3078839
-    
+
 #ifdef ENABLE_PRINT_CONSOLE
     theConsole.Write("READ INT %d FROM POS %d\n", *pValue, m_Position);
 #endif
-    
+
     m_Position += sizeof(int);
 }
 
@@ -90,7 +85,7 @@ void CArenaSnapshot::ReadInteger (int* pValue)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CArenaSnapshot::ReadFloat (float* pValue)
+void CArenaSnapshot::ReadFloat(float* pValue)
 {
     ASSERT(m_Position + sizeof(float) < ARENA_SNAPSHOT_SIZE);
 
@@ -107,7 +102,7 @@ void CArenaSnapshot::ReadFloat (float* pValue)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CArenaSnapshot::ReadBoolean (bool* pValue)
+void CArenaSnapshot::ReadBoolean(bool* pValue)
 {
     ASSERT(m_Position + sizeof(bool) < ARENA_SNAPSHOT_SIZE);
 
@@ -124,10 +119,10 @@ void CArenaSnapshot::ReadBoolean (bool* pValue)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CArenaSnapshot::WriteInteger (int Value)
+void CArenaSnapshot::WriteInteger(int Value)
 {
     ASSERT(m_Position + sizeof(int) < ARENA_SNAPSHOT_SIZE);
-    
+
     memcpy(&m_Buffer[m_Position], &Value, sizeof(int)); // #3078839
 
 #ifdef ENABLE_PRINT_CONSOLE
@@ -141,7 +136,7 @@ void CArenaSnapshot::WriteInteger (int Value)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CArenaSnapshot::WriteFloat (float Value)
+void CArenaSnapshot::WriteFloat(float Value)
 {
     ASSERT(m_Position + sizeof(float) < ARENA_SNAPSHOT_SIZE);
 
@@ -158,7 +153,7 @@ void CArenaSnapshot::WriteFloat (float Value)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CArenaSnapshot::WriteBoolean (bool Value)
+void CArenaSnapshot::WriteBoolean(bool Value)
 {
     ASSERT(m_Position + sizeof(bool) < ARENA_SNAPSHOT_SIZE);
 

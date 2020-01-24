@@ -19,7 +19,6 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CMenuYesNo.h
  *  \brief Header file of the yes/no menu
@@ -28,6 +27,7 @@
 #ifndef __CMENUYESNO_H__
 #define __CMENUYESNO_H__
 
+#include "StdAfx.h"
 #include "CFont.h"
 
 class CDisplay;
@@ -43,61 +43,47 @@ class CTimer;
 class CMenuYesNo
 {
 private:
+    CDisplay* m_pDisplay; //!< Link to display object to use
+    CInput* m_pInput; //!< Link to input object to use
+    CSound* m_pSound; //!< Link to sound object to use
+    CTimer* m_pTimer;
+    CFont m_Font; //!< Font object used to draw text
+    bool m_YesNo;
+    char m_Title[25];
+    bool m_Active;
+    bool m_WasSoundPaused; //!< Was the sound paused when the Yes/No message box had to appear?
 
-    CDisplay*           m_pDisplay;             //!< Link to display object to use
-    CInput*             m_pInput;               //!< Link to input object to use
-    CSound*             m_pSound;               //!< Link to sound object to use
-    CTimer*             m_pTimer;
-    CFont               m_Font;                 //!< Font object used to draw text
-    bool                m_YesNo;
-    char                m_Title[25];
-    bool                m_Active;
-    bool                m_WasSoundPaused;       //!< Was the sound paused when the Yes/No message box had to appear?
-    
 public:
-
-                        CMenuYesNo (void);
-                        ~CMenuYesNo (void);
-    inline void         SetDisplay (CDisplay *pDisplay);    //!< Set link to the display object to use
-    inline void         SetInput (CInput *pInput);          //!< Set link to the input object to use
-    inline void         SetTimer (CTimer *pTimer);          //!< Set link to the timer object to use
-    inline void         SetSound (CSound *pSound);          //!< Set link to the sound object to use
-    void                Create (void);
-    void                Destroy (void);
-    EGameMode           Update (EGameMode CurrentGameMode); //!< Update the object and return what was chosen
-    void                Display (void);
-    inline bool         IsActive (void);
+    CMenuYesNo(void);
+    ~CMenuYesNo(void);
+    inline void SetDisplay(CDisplay* pDisplay); //!< Set link to the display object to use
+    inline void SetInput(CInput* pInput); //!< Set link to the input object to use
+    inline void SetTimer(CTimer* pTimer); //!< Set link to the timer object to use
+    inline void SetSound(CSound* pSound); //!< Set link to the sound object to use
+    void Create(void);
+    void Destroy(void);
+    EGameMode Update(EGameMode CurrentGameMode); //!< Update the object and return what was chosen
+    void Display(void);
+    inline bool IsActive(void);
 };
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline void CMenuYesNo::SetDisplay (CDisplay *pDisplay)
+inline void CMenuYesNo::SetDisplay(CDisplay* pDisplay)
 {
     m_pDisplay = pDisplay;
-    m_Font.SetDisplay (pDisplay);
+    m_Font.SetDisplay(pDisplay);
 }
 
-inline void CMenuYesNo::SetInput (CInput *pInput)
-{
-    m_pInput = pInput;
-}
+inline void CMenuYesNo::SetInput(CInput* pInput) { m_pInput = pInput; }
 
-inline void CMenuYesNo::SetTimer (CTimer *pTimer)
-{
-    m_pTimer = pTimer;
-}
+inline void CMenuYesNo::SetTimer(CTimer* pTimer) { m_pTimer = pTimer; }
 
-inline void CMenuYesNo::SetSound (CSound *pSound)
-{
-    m_pSound = pSound;
-}
+inline void CMenuYesNo::SetSound(CSound* pSound) { m_pSound = pSound; }
 
-inline bool CMenuYesNo::IsActive (void)
-{
-    return m_Active;
-}
+inline bool CMenuYesNo::IsActive(void) { return m_Active; }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************

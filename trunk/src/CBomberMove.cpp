@@ -23,26 +23,25 @@
 
     ************************************************************************************/
 
-
 /**
  *  \file CBomberMove.cpp
  *  \brief Bomber moves
  */
 
-#include "StdAfx.h"
 #include "CBomberMove.h"
-#include "CBomber.h"
 #include "CArena.h"
 #include "CArenaSnapshot.h"
+#include "CBomber.h"
+#include "StdAfx.h"
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-// Add these values (in pixels) to the bomber position in order 
+// Add these values (in pixels) to the bomber position in order
 // to get the position of the bomb the bomber is holding
-#define BOMBER_TO_HELD_BOMB_POSITION_X  0
-#define BOMBER_TO_HELD_BOMB_POSITION_Y  -17
+#define BOMBER_TO_HELD_BOMB_POSITION_X 0
+#define BOMBER_TO_HELD_BOMB_POSITION_Y -17
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -52,31 +51,27 @@ CBomberMove::CBomberMove(void)
 {
     m_pArena = NULL;
     m_Player = -1;
-    
+
     m_X = -1;
     m_Y = -1;
-    
+
     m_iX = -1;
     m_iY = -1;
-    
+
     m_BlockX = -1;
     m_BlockY = -1;
-    
+
     m_BomberMove = BOMBERMOVE_NONE;
     m_LastRealBomberMove = BOMBERMOVE_NONE;
     m_Turning = TURNING_NOTTURNING;
     m_CouldMove = false;
-    
 }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CBomberMove::~CBomberMove(void)
-{
-
-}
+CBomberMove::~CBomberMove(void) {}
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -112,9 +107,7 @@ void CBomberMove::Create(int BlockX, int BlockY, int Player)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CBomberMove::Destroy(void)
-{
-}
+void CBomberMove::Destroy(void) {}
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -123,16 +116,14 @@ void CBomberMove::Destroy(void)
 void CBomberMove::Command(EBomberMove BomberMove)
 {
     // If the bomber is currently lifting or throwing or punching a bomb
-    if (m_pArena->GetBomber(m_Player).GetState() == BOMBERSTATE_LIFT ||
-        m_pArena->GetBomber(m_Player).GetState() == BOMBERSTATE_THROW ||
-        m_pArena->GetBomber(m_Player).GetState() == BOMBERSTATE_PUNCH)
+    if (m_pArena->GetBomber(m_Player).GetState() == BOMBERSTATE_LIFT || m_pArena->GetBomber(m_Player).GetState() == BOMBERSTATE_THROW || m_pArena->GetBomber(m_Player).GetState() == BOMBERSTATE_PUNCH)
     {
         // Then he cannot move.
         m_BomberMove = BOMBERMOVE_NONE;
     }
     else
     {
-        // The given BomberMove will be modified 
+        // The given BomberMove will be modified
         // according to the bomber's sickness. When updating,
         // these modified BomberMove will be used.
         switch (m_pArena->GetBomber(m_Player).GetSickness())
@@ -158,15 +149,33 @@ void CBomberMove::Command(EBomberMove BomberMove)
             // Invert move
             switch (BomberMove)
             {
-            case BOMBERMOVE_NONE:      m_BomberMove = BOMBERMOVE_NONE;         break;
-            case BOMBERMOVE_UP:        m_BomberMove = BOMBERMOVE_DOWN;         break;
-            case BOMBERMOVE_DOWN:      m_BomberMove = BOMBERMOVE_UP;           break;
-            case BOMBERMOVE_LEFT:      m_BomberMove = BOMBERMOVE_RIGHT;        break;
-            case BOMBERMOVE_RIGHT:     m_BomberMove = BOMBERMOVE_LEFT;         break;
-            case BOMBERMOVE_UPLEFT:    m_BomberMove = BOMBERMOVE_DOWNRIGHT;    break;
-            case BOMBERMOVE_UPRIGHT:   m_BomberMove = BOMBERMOVE_DOWNLEFT;     break;
-            case BOMBERMOVE_DOWNLEFT:  m_BomberMove = BOMBERMOVE_UPRIGHT;      break;
-            case BOMBERMOVE_DOWNRIGHT: m_BomberMove = BOMBERMOVE_UPLEFT;       break;
+            case BOMBERMOVE_NONE:
+                m_BomberMove = BOMBERMOVE_NONE;
+                break;
+            case BOMBERMOVE_UP:
+                m_BomberMove = BOMBERMOVE_DOWN;
+                break;
+            case BOMBERMOVE_DOWN:
+                m_BomberMove = BOMBERMOVE_UP;
+                break;
+            case BOMBERMOVE_LEFT:
+                m_BomberMove = BOMBERMOVE_RIGHT;
+                break;
+            case BOMBERMOVE_RIGHT:
+                m_BomberMove = BOMBERMOVE_LEFT;
+                break;
+            case BOMBERMOVE_UPLEFT:
+                m_BomberMove = BOMBERMOVE_DOWNRIGHT;
+                break;
+            case BOMBERMOVE_UPRIGHT:
+                m_BomberMove = BOMBERMOVE_DOWNLEFT;
+                break;
+            case BOMBERMOVE_DOWNLEFT:
+                m_BomberMove = BOMBERMOVE_UPRIGHT;
+                break;
+            case BOMBERMOVE_DOWNRIGHT:
+                m_BomberMove = BOMBERMOVE_UPLEFT;
+                break;
             }
 
             break;
@@ -215,8 +224,8 @@ void CBomberMove::Command(EBomberMove BomberMove)
 
             break;
         }
-	case NUMBER_SICKNESSES:
-	    assert(false);
+        case NUMBER_SICKNESSES:
+            assert(false);
         }
     }
 }
@@ -256,54 +265,78 @@ void CBomberMove::Update(float DeltaTime)
         switch (m_BomberMove)
         {
         case BOMBERMOVE_UPLEFT:
-            if (TurnTest(BOMBERMOVE_UP) == TURNING_UPLEFT_UP)                  m_BomberMove = BOMBERMOVE_UP;
-            else if (TurnTest(BOMBERMOVE_LEFT) == TURNING_UPLEFT_LEFT)         m_BomberMove = BOMBERMOVE_LEFT;
-            else if (CanMove(BOMBERMOVE_UP) == CANMOVE_FREEWAY)                m_BomberMove = BOMBERMOVE_UP;
-            else if (CanMove(BOMBERMOVE_LEFT) == CANMOVE_FREEWAY)              m_BomberMove = BOMBERMOVE_LEFT;
-            else if (CanMove(BOMBERMOVE_UP) != CANMOVE_CANNOT)                 m_BomberMove = BOMBERMOVE_UP;
-            else                                                               m_BomberMove = BOMBERMOVE_LEFT;
+            if (TurnTest(BOMBERMOVE_UP) == TURNING_UPLEFT_UP)
+                m_BomberMove = BOMBERMOVE_UP;
+            else if (TurnTest(BOMBERMOVE_LEFT) == TURNING_UPLEFT_LEFT)
+                m_BomberMove = BOMBERMOVE_LEFT;
+            else if (CanMove(BOMBERMOVE_UP) == CANMOVE_FREEWAY)
+                m_BomberMove = BOMBERMOVE_UP;
+            else if (CanMove(BOMBERMOVE_LEFT) == CANMOVE_FREEWAY)
+                m_BomberMove = BOMBERMOVE_LEFT;
+            else if (CanMove(BOMBERMOVE_UP) != CANMOVE_CANNOT)
+                m_BomberMove = BOMBERMOVE_UP;
+            else
+                m_BomberMove = BOMBERMOVE_LEFT;
             break;
 
         case BOMBERMOVE_UPRIGHT:
-            if (TurnTest(BOMBERMOVE_UP) == TURNING_UPRIGHT_UP)                 m_BomberMove = BOMBERMOVE_UP;
-            else if (TurnTest(BOMBERMOVE_RIGHT) == TURNING_UPRIGHT_RIGHT)      m_BomberMove = BOMBERMOVE_RIGHT;
-            else if (CanMove(BOMBERMOVE_UP) == CANMOVE_FREEWAY)                m_BomberMove = BOMBERMOVE_UP;
-            else if (CanMove(BOMBERMOVE_RIGHT) == CANMOVE_FREEWAY)             m_BomberMove = BOMBERMOVE_RIGHT;
-            else if (CanMove(BOMBERMOVE_UP) != CANMOVE_CANNOT)                 m_BomberMove = BOMBERMOVE_UP;
-            else                                                               m_BomberMove = BOMBERMOVE_RIGHT;
+            if (TurnTest(BOMBERMOVE_UP) == TURNING_UPRIGHT_UP)
+                m_BomberMove = BOMBERMOVE_UP;
+            else if (TurnTest(BOMBERMOVE_RIGHT) == TURNING_UPRIGHT_RIGHT)
+                m_BomberMove = BOMBERMOVE_RIGHT;
+            else if (CanMove(BOMBERMOVE_UP) == CANMOVE_FREEWAY)
+                m_BomberMove = BOMBERMOVE_UP;
+            else if (CanMove(BOMBERMOVE_RIGHT) == CANMOVE_FREEWAY)
+                m_BomberMove = BOMBERMOVE_RIGHT;
+            else if (CanMove(BOMBERMOVE_UP) != CANMOVE_CANNOT)
+                m_BomberMove = BOMBERMOVE_UP;
+            else
+                m_BomberMove = BOMBERMOVE_RIGHT;
             break;
 
         case BOMBERMOVE_DOWNLEFT:
-            if (TurnTest(BOMBERMOVE_DOWN) == TURNING_DOWNLEFT_DOWN)            m_BomberMove = BOMBERMOVE_DOWN;
-            else if (TurnTest(BOMBERMOVE_LEFT) == TURNING_DOWNLEFT_LEFT)       m_BomberMove = BOMBERMOVE_LEFT;
-            else if (CanMove(BOMBERMOVE_DOWN) == CANMOVE_FREEWAY)              m_BomberMove = BOMBERMOVE_DOWN;
-            else if (CanMove(BOMBERMOVE_LEFT) == CANMOVE_FREEWAY)              m_BomberMove = BOMBERMOVE_LEFT;
-            else if (CanMove(BOMBERMOVE_DOWN) != CANMOVE_CANNOT)               m_BomberMove = BOMBERMOVE_DOWN;
-            else                                                               m_BomberMove = BOMBERMOVE_LEFT;
+            if (TurnTest(BOMBERMOVE_DOWN) == TURNING_DOWNLEFT_DOWN)
+                m_BomberMove = BOMBERMOVE_DOWN;
+            else if (TurnTest(BOMBERMOVE_LEFT) == TURNING_DOWNLEFT_LEFT)
+                m_BomberMove = BOMBERMOVE_LEFT;
+            else if (CanMove(BOMBERMOVE_DOWN) == CANMOVE_FREEWAY)
+                m_BomberMove = BOMBERMOVE_DOWN;
+            else if (CanMove(BOMBERMOVE_LEFT) == CANMOVE_FREEWAY)
+                m_BomberMove = BOMBERMOVE_LEFT;
+            else if (CanMove(BOMBERMOVE_DOWN) != CANMOVE_CANNOT)
+                m_BomberMove = BOMBERMOVE_DOWN;
+            else
+                m_BomberMove = BOMBERMOVE_LEFT;
             break;
 
         case BOMBERMOVE_DOWNRIGHT:
-            if (TurnTest(BOMBERMOVE_DOWN) == TURNING_DOWNRIGHT_DOWN)           m_BomberMove = BOMBERMOVE_DOWN;
-            else if (TurnTest(BOMBERMOVE_RIGHT) == TURNING_DOWNRIGHT_RIGHT)    m_BomberMove = BOMBERMOVE_RIGHT;
-            else if (CanMove(BOMBERMOVE_DOWN) == CANMOVE_FREEWAY)              m_BomberMove = BOMBERMOVE_DOWN;
-            else if (CanMove(BOMBERMOVE_RIGHT) == CANMOVE_FREEWAY)             m_BomberMove = BOMBERMOVE_RIGHT;
-            else if (CanMove(BOMBERMOVE_DOWN) != CANMOVE_CANNOT)               m_BomberMove = BOMBERMOVE_DOWN;
-            else                                                               m_BomberMove = BOMBERMOVE_RIGHT;
+            if (TurnTest(BOMBERMOVE_DOWN) == TURNING_DOWNRIGHT_DOWN)
+                m_BomberMove = BOMBERMOVE_DOWN;
+            else if (TurnTest(BOMBERMOVE_RIGHT) == TURNING_DOWNRIGHT_RIGHT)
+                m_BomberMove = BOMBERMOVE_RIGHT;
+            else if (CanMove(BOMBERMOVE_DOWN) == CANMOVE_FREEWAY)
+                m_BomberMove = BOMBERMOVE_DOWN;
+            else if (CanMove(BOMBERMOVE_RIGHT) == CANMOVE_FREEWAY)
+                m_BomberMove = BOMBERMOVE_RIGHT;
+            else if (CanMove(BOMBERMOVE_DOWN) != CANMOVE_CANNOT)
+                m_BomberMove = BOMBERMOVE_DOWN;
+            else
+                m_BomberMove = BOMBERMOVE_RIGHT;
             break;
 
         default:
             break;
         }
 
-        // If the move is no more than one pixel then there is no problem. 
+        // If the move is no more than one pixel then there is no problem.
         // Otherwise move pixel by pixel in order not to avoid any collision.
-        float fPixelsLeft = fPixels;    // How many pixels left. Used to set m_CouldMove
+        float fPixelsLeft = fPixels; // How many pixels left. Used to set m_CouldMove
 
         while (true)
         {
             if (fPixelsLeft >= 1.0f)
             {
-                // If you can't move by one pixel 
+                // If you can't move by one pixel
                 // then you can't move at all
                 if (!TryMove(1.0f))
                     break;
@@ -313,17 +346,17 @@ void CBomberMove::Update(float DeltaTime)
             }
             else
             {
-                // If you can move by one pixel then 
+                // If you can move by one pixel then
                 // you can move by less than one pixel
                 if (TryMove(fPixelsLeft))
-                    fPixelsLeft = 0.0f;     // You moved
+                    fPixelsLeft = 0.0f; // You moved
 
                 // Finished moving
                 break;
             }
         }
 
-        // If the bomber could move by any number of pixels 
+        // If the bomber could move by any number of pixels
         // or part of pixels then he could move
         m_CouldMove = (fPixelsLeft < fPixels);
 
@@ -340,7 +373,6 @@ void CBomberMove::Update(float DeltaTime)
 
         ASSERT(m_BlockY >= 0);
         ASSERT(m_BlockY < ARENA_HEIGHT);
-
     }
 
     // If the bomber is holding a bomb
@@ -408,10 +440,10 @@ void CBomberMove::ReadSnapshot(CArenaSnapshot& Snapshot)
 // of the 3 following methods TryMove, CanMove, TurnTest.
 // They're not all uppercase for readability.
 
-#define ToBlock(a)          (m_pArena->ToBlock (a))
-#define HalfBlock           (BLOCK_SIZE / 2)
-#define TurnLimit           (HalfBlock / 4)
-#define BlockedLimit        (-HalfBlock + (HalfBlock / 4))
+#define ToBlock(a) (m_pArena->ToBlock(a))
+#define HalfBlock (BLOCK_SIZE / 2)
+#define TurnLimit (HalfBlock / 4)
+#define BlockedLimit (-HalfBlock + (HalfBlock / 4))
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -429,16 +461,13 @@ void CBomberMove::ReadSnapshot(CArenaSnapshot& Snapshot)
 bool CBomberMove::TryMove(float fPixels)
 {
     // The m_BomberMove must describe a SINGLE DIRECTION. If not, infinite loop.
-    ASSERT(m_BomberMove != BOMBERMOVE_UPLEFT   &&
-        m_BomberMove != BOMBERMOVE_UPRIGHT  &&
-        m_BomberMove != BOMBERMOVE_DOWNLEFT &&
-        m_BomberMove != BOMBERMOVE_DOWNRIGHT);
+    ASSERT(m_BomberMove != BOMBERMOVE_UPLEFT && m_BomberMove != BOMBERMOVE_UPRIGHT && m_BomberMove != BOMBERMOVE_DOWNLEFT && m_BomberMove != BOMBERMOVE_DOWNRIGHT);
 
     CBomber* pBomber = &m_pArena->GetBomber(m_Player);
 
     // Compute coordinates
-    int X = int(m_X) + HalfBlock;   // Modified integer current coordinates (x+hb and y+hb to point to center)
-    int Y = int(m_Y) + HalfBlock;   // Note : we Have to compute int(m_X) and int(m_Y) because they change
+    int X = int(m_X) + HalfBlock; // Modified integer current coordinates (x+hb and y+hb to point to center)
+    int Y = int(m_Y) + HalfBlock; // Note : we Have to compute int(m_X) and int(m_Y) because they change
 
     int iter = 0;
 
@@ -1015,12 +1044,12 @@ ECanMove CBomberMove::CanMove(EBomberMove TestMove)
     ASSERT(TestMove != BOMBERMOVE_NONE && TestMove != BOMBERMOVE_UPLEFT && TestMove != BOMBERMOVE_UPRIGHT && TestMove != BOMBERMOVE_DOWNLEFT && TestMove != BOMBERMOVE_DOWNRIGHT);
 
     CBomber* pBomber = &m_pArena->GetBomber(m_Player);
-    EBomberMove BomberMove = TestMove;      // Temporary move variable in order not to modify the real one
-    ETurning Turning = m_Turning;           // Temporary turning variable in order not to modify the real one
-    ECanMove CanMove = CANMOVE_FREEWAY;     // The variable that will be returned. Assume the way is free.
+    EBomberMove BomberMove = TestMove; // Temporary move variable in order not to modify the real one
+    ETurning Turning = m_Turning; // Temporary turning variable in order not to modify the real one
+    ECanMove CanMove = CANMOVE_FREEWAY; // The variable that will be returned. Assume the way is free.
 
     // Compute coordinates
-    int X = m_iX + HalfBlock;   // Modified integer current coordinates (x+hb and y+hb to point to center)
+    int X = m_iX + HalfBlock; // Modified integer current coordinates (x+hb and y+hb to point to center)
     int Y = m_iY + HalfBlock;
 
     int iter = 0;
@@ -1585,11 +1614,11 @@ ETurning CBomberMove::TurnTest(EBomberMove TestMove)
     ASSERT(TestMove != BOMBERMOVE_UPLEFT && TestMove != BOMBERMOVE_UPRIGHT && TestMove != BOMBERMOVE_DOWNLEFT && TestMove != BOMBERMOVE_DOWNRIGHT);
 
     CBomber* pBomber = &m_pArena->GetBomber(m_Player);
-    EBomberMove BomberMove = TestMove;  // Temporary go variable in order not to modify the real one
-    ETurning Turning = m_Turning;       // Temporary turning variable in order not to modify the real one
+    EBomberMove BomberMove = TestMove; // Temporary go variable in order not to modify the real one
+    ETurning Turning = m_Turning; // Temporary turning variable in order not to modify the real one
 
     // Compute coordinates
-    int X = m_iX + HalfBlock;       // Modified integer current coordinates (x+hb and y+hb to point to center)
+    int X = m_iX + HalfBlock; // Modified integer current coordinates (x+hb and y+hb to point to center)
     int Y = m_iY + HalfBlock;
 
     int iter = 0;
@@ -2111,5 +2140,3 @@ ETurning CBomberMove::TurnTest(EBomberMove TestMove)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
-
-

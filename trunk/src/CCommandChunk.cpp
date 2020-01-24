@@ -22,45 +22,37 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CCommandChunk.cpp
  *  \brief Command chunk
  */
 
-#include "StdAfx.h"
 #include "CCommandChunk.h"
+#include "StdAfx.h"
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CCommandChunk::Create (void)
-{
-}
+void CCommandChunk::Create(void) {}
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CCommandChunk::Destroy (void)
-{
-}
+void CCommandChunk::Destroy(void) {}
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CCommandChunk::Reset (void)
-{
-    m_NumberOfSteps = 0;
-}
+void CCommandChunk::Reset(void) { m_NumberOfSteps = 0; }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CCommandChunk::Store (EBomberMove BomberMove, EBomberAction BomberAction, float DeltaTime)
+void CCommandChunk::Store(EBomberMove BomberMove, EBomberAction BomberAction, float DeltaTime)
 {
     // If there is no step yet
     if (m_NumberOfSteps == 0)
@@ -76,13 +68,12 @@ void CCommandChunk::Store (EBomberMove BomberMove, EBomberAction BomberAction, f
     else
     {
         // If the latest step has a different move or action than the ones we have to add
-        if (m_Steps[m_NumberOfSteps - 1].BomberMove != BomberMove ||
-            m_Steps[m_NumberOfSteps - 1].BomberAction != BomberAction)
+        if (m_Steps[m_NumberOfSteps - 1].BomberMove != BomberMove || m_Steps[m_NumberOfSteps - 1].BomberAction != BomberAction)
         {
             ASSERT(m_NumberOfSteps < MAX_STEPS_IN_COMMAND_CHUNK);
 
             if (m_NumberOfSteps < MAX_STEPS_IN_COMMAND_CHUNK)
-            {            
+            {
                 // This is a new step
                 m_Steps[m_NumberOfSteps].BomberMove = BomberMove;
                 m_Steps[m_NumberOfSteps].BomberAction = BomberAction;

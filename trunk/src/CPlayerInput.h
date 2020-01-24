@@ -20,7 +20,6 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CPlayerInput.h
  *  \brief Header file of a player's input
@@ -41,11 +40,11 @@
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-#define MAX_PLAYER_INPUT_NAME_LENGTH    16      //!< Maximum length of a string containing a player input name
+#define MAX_PLAYER_INPUT_NAME_LENGTH 16 //!< Maximum length of a string containing a player input name
 
-#define NO_ACTIVATED_CONTROL    -1
+#define NO_ACTIVATED_CONTROL -1
 
-#define MAX_CONTROL_NAME_LENGTH     20
+#define MAX_CONTROL_NAME_LENGTH 20
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -54,113 +53,75 @@
 class CPlayerInput
 {
 private:
+    InputClass* m_pDirectInput;
+    COptions* m_pOptions;
+    int m_PlayerInput;
+    char m_Name[MAX_PLAYER_INPUT_NAME_LENGTH];
+    char m_ControlName[MAX_CONTROL_NAME_LENGTH];
 
-    InputClass*         m_pDirectInput;
-    COptions*           m_pOptions;
-    int                 m_PlayerInput;
-    char                m_Name [MAX_PLAYER_INPUT_NAME_LENGTH];
-    char                m_ControlName [MAX_CONTROL_NAME_LENGTH];
-
-    void                CreateName (void);
+    void CreateName(void);
 
 public:
-
-                        CPlayerInput();
-                        ~CPlayerInput();
-    inline InputClass*  GetDirectInput (void);
-    inline void         SetDirectInput (InputClass* pDirectInput);
-    inline void         SetOptions (COptions* pOptions);
-    void                Create (int PlayerInput);
-    void                Destroy (void);
-    void                Open (void);
-    bool                IsOpened (void);
-    void                Close (void);
-    inline const char*  GetName (void);
-    void                Update (void);
-    inline bool         TestUp (void);
-    inline bool         TestDown (void);
-    inline bool         TestLeft (void);
-    inline bool         TestRight (void);
-    inline bool         TestAction1 (void);
-    inline bool         TestAction2 (void);
-    inline bool         TestMenuNext (void);
-    inline bool         TestPause (void);
-    int                 GetActivatedControl (void);
-    const char*         GetControlName (int Control);
-    bool                TestControl (int Control);
-    bool                TestMenuControl (int MenuControl);
+    CPlayerInput();
+    ~CPlayerInput();
+    inline InputClass* GetDirectInput(void);
+    inline void SetDirectInput(InputClass* pDirectInput);
+    inline void SetOptions(COptions* pOptions);
+    void Create(int PlayerInput);
+    void Destroy(void);
+    void Open(void);
+    bool IsOpened(void);
+    void Close(void);
+    inline const char* GetName(void);
+    void Update(void);
+    inline bool TestUp(void);
+    inline bool TestDown(void);
+    inline bool TestLeft(void);
+    inline bool TestRight(void);
+    inline bool TestAction1(void);
+    inline bool TestAction2(void);
+    inline bool TestMenuNext(void);
+    inline bool TestPause(void);
+    int GetActivatedControl(void);
+    const char* GetControlName(int Control);
+    bool TestControl(int Control);
+    bool TestMenuControl(int MenuControl);
 };
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline InputClass* CPlayerInput::GetDirectInput (void)
-{
-    return m_pDirectInput;
-}
+inline InputClass* CPlayerInput::GetDirectInput(void) { return m_pDirectInput; }
 
-inline void CPlayerInput::SetDirectInput (InputClass* pDirectInput)
-{
-    m_pDirectInput = pDirectInput;
-}
+inline void CPlayerInput::SetDirectInput(InputClass* pDirectInput) { m_pDirectInput = pDirectInput; }
 
-inline void CPlayerInput::SetOptions (COptions* pOptions)
-{
-    m_pOptions = pOptions;
-}
+inline void CPlayerInput::SetOptions(COptions* pOptions) { m_pOptions = pOptions; }
 
-inline const char* CPlayerInput::GetName (void)
-{
-    return m_Name;
-}
+inline const char* CPlayerInput::GetName(void) { return m_Name; }
 
-inline bool CPlayerInput::TestUp (void)
-{
-    return TestControl (CONTROL_UP);
-}
+inline bool CPlayerInput::TestUp(void) { return TestControl(CONTROL_UP); }
 
-inline bool CPlayerInput::TestDown (void)
-{
-    return TestControl (CONTROL_DOWN);
-}
+inline bool CPlayerInput::TestDown(void) { return TestControl(CONTROL_DOWN); }
 
-inline bool CPlayerInput::TestLeft (void)
-{
-    return TestControl (CONTROL_LEFT);
-}
+inline bool CPlayerInput::TestLeft(void) { return TestControl(CONTROL_LEFT); }
 
-inline bool CPlayerInput::TestRight (void)
-{
-    return TestControl (CONTROL_RIGHT);
-}
+inline bool CPlayerInput::TestRight(void) { return TestControl(CONTROL_RIGHT); }
 
-inline bool CPlayerInput::TestAction1 (void)
-{
-    return TestControl (CONTROL_ACTION1);
-}
+inline bool CPlayerInput::TestAction1(void) { return TestControl(CONTROL_ACTION1); }
 
-inline bool CPlayerInput::TestAction2 (void)
-{
-    return TestControl (CONTROL_ACTION2);
-}
+inline bool CPlayerInput::TestAction2(void) { return TestControl(CONTROL_ACTION2); }
 
 //! The "menu next" button was pressed?
 
-inline bool CPlayerInput::TestMenuNext (void)
-{
-    return TestMenuControl (JOYSTICK_BUTTON_MENU_NEXT);
-}
+inline bool CPlayerInput::TestMenuNext(void) { return TestMenuControl(JOYSTICK_BUTTON_MENU_NEXT); }
 
 //! The "pause" button was pressed?
 
-inline bool CPlayerInput::TestPause (void)
-{
-    return TestMenuControl (JOYSTICK_BUTTON_BREAK);
-}
+inline bool CPlayerInput::TestPause(void) { return TestMenuControl(JOYSTICK_BUTTON_BREAK); }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-#endif  // __CPLAYERINPUT_H__
+#endif // __CPLAYERINPUT_H__

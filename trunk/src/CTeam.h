@@ -19,7 +19,6 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CTeam.h
  *  \brief Header file of a team
@@ -35,20 +34,17 @@
 class CTeam
 {
 private:
-    
-    int             m_TeamId;
-    bool            m_Victorious;                   //!< Has the team won the current match?
-        
-public:
+    int m_TeamId;
+    bool m_Victorious; //!< Has the team won the current match?
 
-                    CTeam();                           //!< Constructor. Initialize some members.
-    virtual         ~CTeam();                          //!< Destructor. Does nothing.
-    
-    void            SetTeamId(int TeamId);
-    int             GetTeamId();
-    void            SetVictorious(bool Victorious);
-    bool            IsVictorious(void);
-    
+public:
+    CTeam(); //!< Constructor. Initialize some members.
+    virtual ~CTeam(); //!< Destructor. Does nothing.
+
+    void SetTeamId(int TeamId);
+    int GetTeamId();
+    void SetVictorious(bool Victorious);
+    bool IsVictorious(void);
 };
 
-#endif  // __CTEAM_H__
+#endif // __CTEAM_H__

@@ -19,7 +19,6 @@ along with Bombermaaan.  If not, see <http://www.gnu.org/licenses/>.
 
 ************************************************************************************/
 
-
 /**
 *  \file CNetwork.h
 *  \brief Header for network communication
@@ -30,8 +29,8 @@ along with Bombermaaan.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "SDL_net.h"
 
-#include "CCommandChunk.h"
 #include "CArenaSnapshot.h"
+#include "CCommandChunk.h"
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -56,7 +55,6 @@ enum ESocketType
 class CNetwork
 {
 private:
-
     ENetworkMode m_NetworkMode;
 
     TCPsocket m_Socket;
@@ -64,28 +62,26 @@ private:
     SDLNet_SocketSet m_socketSet;
 
 public:
-
     CNetwork();
     ~CNetwork(void);
 
-    ENetworkMode   NetworkMode();
-    void           SetNetworkMode(ENetworkMode NetworkMode);
+    ENetworkMode NetworkMode();
+    void SetNetworkMode(ENetworkMode NetworkMode);
 
-    bool           Connect(const char* IpAddressString, int port);
-    bool           Disconnect();
+    bool Connect(const char* IpAddressString, int port);
+    bool Disconnect();
 
-    bool           Send(ESocketType SocketType, const char* buf, int len);
-    int            Receive(ESocketType SocketType, char* buf, int len);
-    int            ReceiveNonBlocking(ESocketType SocketType, char* buf, int len);
+    bool Send(ESocketType SocketType, const char* buf, int len);
+    int Receive(ESocketType SocketType, char* buf, int len);
+    int ReceiveNonBlocking(ESocketType SocketType, char* buf, int len);
 
-    bool           SendCommandChunk(const CCommandChunk& CommandChunk);
-    bool           ReceiveCommandChunk(CCommandChunk& CommandChunk);
+    bool SendCommandChunk(const CCommandChunk& CommandChunk);
+    bool ReceiveCommandChunk(CCommandChunk& CommandChunk);
 
-    bool           SendSnapshot(const CArenaSnapshot& Snapshot);
-    bool           ReceiveSnapshot(CArenaSnapshot& Snapshot);
+    bool SendSnapshot(const CArenaSnapshot& Snapshot);
+    bool ReceiveSnapshot(CArenaSnapshot& Snapshot);
 
-    unsigned long  CheckSum(const char *buf);
-
+    unsigned long CheckSum(const char* buf);
 };
 
 //******************************************************************************************************************************

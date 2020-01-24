@@ -22,26 +22,24 @@
 
     ************************************************************************************/
 
-
 /**
  *  \file CWindow.cpp
  *  \brief Implementation of the CWindow class
  */
 
-#include "StdAfx.h"
 #include "CWindow.h"
+#include "StdAfx.h"
 
 #ifdef ALLEGRO
-    #include "allegro.h"
-    #include "winalleg.h"
+#include "allegro.h"
+#include "winalleg.h"
 #else
-    #include "SDL.h"
+#include "SDL.h"
 #endif
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
-
 
 // Default WinProc
 // HackHackHack!!! We have to do this because the real WinProc is in the class. This is very very hard to
@@ -58,36 +56,34 @@
 static LRESULT CALLBACK DefaultWinProc(HWND hwnd, unsigned int msg, WPARAM wParam, LPARAM lParam)
 {
     LPCREATESTRUCT lpcs;
-    CWindow *pWindow;
+    CWindow* pWindow;
 
-    pWindow = (CWindow *)GetWindowLong(hwnd, 0);  // Pointer to the (C++ object that is the) window.
-    if (!pWindow)       // Not stored yet ?
+    pWindow = (CWindow*)GetWindowLong(hwnd, 0); // Pointer to the (C++ object that is the) window.
+    if (!pWindow) // Not stored yet ?
     {
-        if (msg == WM_CREATE)       // The window is being created !! lParam contains the CreateStruct.
+        if (msg == WM_CREATE) // The window is being created !! lParam contains the CreateStruct.
         {
             lpcs = (LPCREATESTRUCT)lParam;
-            pWindow = (CWindow *)lpcs->lpCreateParams;      // Get the CWindow * we stored during CreateWindowEx
+            pWindow = (CWindow*)lpcs->lpCreateParams; // Get the CWindow * we stored during CreateWindowEx
             SetWindowLong(hwnd, 0, (LONG)pWindow);
 
-            return pWindow->WinProc(msg, wParam, lParam);  // Call its WinProc
+            return pWindow->WinProc(msg, wParam, lParam); // Call its WinProc
         }
-        else return DefWindowProc(hwnd, msg, wParam, lParam);  // this should never be called
+        else
+            return DefWindowProc(hwnd, msg, wParam, lParam); // this should never be called
     }
-    else    // We got a CWindow * using GetWindowLong so it was already stored
+    else // We got a CWindow * using GetWindowLong so it was already stored
     {
         return pWindow->WinProc(msg, wParam, lParam);
     }
 }
 #endif
 
-
-
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-
-CWindow::CWindow(HINSTANCE hInstance, const char *pWindowTitle, int IconResourceID)
+CWindow::CWindow(HINSTANCE hInstance, const char* pWindowTitle, int IconResourceID)
 {
     m_hWnd = NULL;
     m_Active = false;
@@ -97,74 +93,70 @@ CWindow::CWindow(HINSTANCE hInstance, const char *pWindowTitle, int IconResource
     WNDCLASSEX WndClassEx;
     WndClassEx.cbSize = sizeof(WNDCLASSEX);
     WndClassEx.lpszClassName = "Class name";
-    WndClassEx.lpfnWndProc = DefaultWinProc;        // Biiiig Hack. See the function DefaultWinProc
+    WndClassEx.lpfnWndProc = DefaultWinProc; // Biiiig Hack. See the function DefaultWinProc
     WndClassEx.style = CS_VREDRAW | CS_HREDRAW;
     WndClassEx.hInstance = hInstance;
     WndClassEx.hIcon = LoadIcon(NULL, IDI_APPLICATION);
     WndClassEx.hIconSm = NULL;
-    WndClassEx.hCursor = LoadCursor (NULL, IDC_ARROW);
-    WndClassEx.hbrBackground = (HBRUSH) (COLOR_WINDOW + 1);
+    WndClassEx.hCursor = LoadCursor(NULL, IDC_ARROW);
+    WndClassEx.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
     WndClassEx.lpszMenuName = NULL;
     WndClassEx.cbClsExtra = 0;
-    WndClassEx.cbWndExtra = sizeof(CWindow *);  // We'll store the 'this' pointer in the extra allocated bytes
+    WndClassEx.cbWndExtra = sizeof(CWindow*); // We'll store the 'this' pointer in the extra allocated bytes
 
     // Prepare the window's styles (default ones)
-    DWORD Style = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU & ~WS_THICKFRAME & ~WS_MAXIMIZEBOX/* | WS_MINIMIZEBOX*/;
+    DWORD Style = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU & ~WS_THICKFRAME & ~WS_MAXIMIZEBOX /* | WS_MINIMIZEBOX*/;
     DWORD ExStyle = 0;
 
     // If registering the window class failed
-    if (!RegisterClassEx (&WndClassEx))
+    if (!RegisterClassEx(&WndClassEx))
     {
         // Log failure
-        theLog.WriteLine ("Window          => !!! Could not register window class.");
+        theLog.WriteLine("Window          => !!! Could not register window class.");
     }
 
     // Create the window
-    m_hWnd = CreateWindowEx (ExStyle,           // Extended style
-        "Class name",      // ClassName
-        pWindowTitle,      // Title
-        Style,             // Style
-        CW_USEDEFAULT,     // Position
+    m_hWnd = CreateWindowEx(ExStyle, // Extended style
+        "Class name", // ClassName
+        pWindowTitle, // Title
+        Style, // Style
+        CW_USEDEFAULT, // Position
         CW_USEDEFAULT,
-        CW_USEDEFAULT,     // Size
+        CW_USEDEFAULT, // Size
         CW_USEDEFAULT,
-        NULL,              // Parent window
-        NULL,              // Menu
-        hInstance,         // Handle to instance
-        this);             // Pointer to window creation data
+        NULL, // Parent window
+        NULL, // Menu
+        hInstance, // Handle to instance
+        this); // Pointer to window creation data
     // (Allows us to store the 'this' pointer)
 
     // If it failed
     if (m_hWnd == NULL)
     {
         // Log failure
-        theLog.WriteLine ("Window          => !!! Could not create the window.");
+        theLog.WriteLine("Window          => !!! Could not create the window.");
     }
 
     // If an icon was specified
     if (IconResourceID != -1)
     {
         // Check if the resource ID seems to be valid
-        ASSERT (IconResourceID >= 0);
+        ASSERT(IconResourceID >= 0);
 
         // Load the icon specified by the resource ID
-        HICON hIcon = LoadIcon (hInstance, MAKEINTRESOURCE(IDI_BOMBER));
-        ASSERT (hIcon != NULL);
+        HICON hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_BOMBER));
+        ASSERT(hIcon != NULL);
 
         // Tell the window to set this icon
-        PostMessage (m_hWnd, WM_SETICON, (WPARAM) ICON_BIG, (LPARAM) hIcon);
+        PostMessage(m_hWnd, WM_SETICON, (WPARAM)ICON_BIG, (LPARAM)hIcon);
     }
 #endif
     // the icon in Linux is loaded in CVideoSDL
 }
 
-
-
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
-
-
 
 CWindow::~CWindow()
 {
@@ -173,62 +165,82 @@ CWindow::~CWindow()
     if (m_hWnd != NULL)
     {
         // Destroy the window
-        DestroyWindow (m_hWnd);
+        DestroyWindow(m_hWnd);
         m_hWnd = NULL;
     }
 #endif
 }
 
-
-
-
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
-
 
 void CWindow::SetClientSize(int ClientWidth, int ClientHeight)
 {
 #ifdef DIRECTX
     RECT rc;
-    SetRect (&rc, 0, 0, ClientWidth, ClientHeight);
-    AdjustWindowRectEx (&rc, GetWindowStyle(m_hWnd), (int)GetMenu (m_hWnd), GetWindowExStyle (m_hWnd));
-    SetWindowPos (m_hWnd, HWND_NOTOPMOST, 0, 0, rc.right - rc.left, rc.bottom - rc.top, SWP_NOMOVE);
+    SetRect(&rc, 0, 0, ClientWidth, ClientHeight);
+    AdjustWindowRectEx(&rc, GetWindowStyle(m_hWnd), (int)GetMenu(m_hWnd), GetWindowExStyle(m_hWnd));
+    SetWindowPos(m_hWnd, HWND_NOTOPMOST, 0, 0, rc.right - rc.left, rc.bottom - rc.top, SWP_NOMOVE);
 #endif
 }
 
-
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
-
-
-
 
 #ifdef WIN32
 LRESULT CALLBACK CWindow::WinProc(unsigned int msg, WPARAM wParam, LPARAM lParam)
 #else
-void CWindow::WinProc (unsigned int msg, WPARAM wParam, LPARAM lParam)
+void CWindow::WinProc(unsigned int msg, WPARAM wParam, LPARAM lParam)
 #endif
 {
     switch (msg)
     {
-    case WM_CREATE:         OnCreate(m_hWnd, wParam, lParam);  break;
-    case WM_INITDIALOG:     OnInitDialog(wParam, lParam);      break;
-    case WM_ACTIVATEAPP:    OnActivateApp(wParam, lParam);     break;
-    case WM_SIZE:           OnSize(wParam, lParam);            break;
-    case WM_MOVE:           OnMove(wParam, lParam);            break;
-    case WM_PAINT:          OnPaint(wParam, lParam);           break;
-    case WM_KEYDOWN:        OnKeyDown(wParam, lParam);         break;
-    case WM_KEYUP:          OnKeyUp(wParam, lParam);           break;
-    case WM_COMMAND:        OnCommand(wParam, lParam);         break;
-    case WM_SYSCOMMAND:     OnSysCommand(wParam, lParam);      break;
-    case WM_CLOSE:          OnClose(wParam, lParam);           break;
-    case WM_DESTROY:        OnDestroy(wParam, lParam);         break;
+    case WM_CREATE:
+        OnCreate(m_hWnd, wParam, lParam);
+        break;
+    case WM_INITDIALOG:
+        OnInitDialog(wParam, lParam);
+        break;
+    case WM_ACTIVATEAPP:
+        OnActivateApp(wParam, lParam);
+        break;
+    case WM_SIZE:
+        OnSize(wParam, lParam);
+        break;
+    case WM_MOVE:
+        OnMove(wParam, lParam);
+        break;
+    case WM_PAINT:
+        OnPaint(wParam, lParam);
+        break;
+    case WM_KEYDOWN:
+        OnKeyDown(wParam, lParam);
+        break;
+    case WM_KEYUP:
+        OnKeyUp(wParam, lParam);
+        break;
+    case WM_COMMAND:
+        OnCommand(wParam, lParam);
+        break;
+    case WM_SYSCOMMAND:
+        OnSysCommand(wParam, lParam);
+        break;
+    case WM_CLOSE:
+        OnClose(wParam, lParam);
+        break;
+    case WM_DESTROY:
+        OnDestroy(wParam, lParam);
+        break;
 #ifndef DIRECTX_INPUT
-    case SDL_JOYAXISMOTION: OnJoystickAxis(wParam, lParam);        break;
+    case SDL_JOYAXISMOTION:
+        OnJoystickAxis(wParam, lParam);
+        break;
     case SDL_JOYBUTTONDOWN:
-    case SDL_JOYBUTTONUP:    OnJoystickButton(wParam, lParam);    break;
+    case SDL_JOYBUTTONUP:
+        OnJoystickButton(wParam, lParam);
+        break;
 #endif
     }
 
@@ -243,7 +255,6 @@ void CWindow::WinProc (unsigned int msg, WPARAM wParam, LPARAM lParam)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-
 void CWindow::Show()
 {
 #ifdef DIRECTX
@@ -252,13 +263,9 @@ void CWindow::Show()
 #endif
 }
 
-
-
-
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
-
 
 // The Message Loop. It pumps the messages, manages them. If the window has some
 // idle time, it calls OnWindowActive().
@@ -271,16 +278,16 @@ void CWindow::MessagePump()
     while (true)
     {
         // Manage the messages if some are waiting
-        if (PeekMessage (&msg, NULL, 0, 0, PM_NOREMOVE))
+        if (PeekMessage(&msg, NULL, 0, 0, PM_NOREMOVE))
         {
-            if (!GetMessage (&msg, NULL, 0, 0 ))
+            if (!GetMessage(&msg, NULL, 0, 0))
             {
                 m_hWnd = NULL;
                 break;
             }
 
-            TranslateMessage (&msg);
-            DispatchMessage (&msg);
+            TranslateMessage(&msg);
+            DispatchMessage(&msg);
         }
         // No message to manage ?
         else
@@ -288,7 +295,7 @@ void CWindow::MessagePump()
             if (m_Active)
             {
                 // call the virtual activity method
-                OnWindowActive ();
+                OnWindowActive();
             }
             else
             {
@@ -304,7 +311,8 @@ void CWindow::MessagePump()
     WinProc(WM_ACTIVATEAPP, WA_ACTIVE, 0);
 
     // Start main game loop here
-    while (!quit) {
+    while (!quit)
+    {
         while (SDL_PollEvent(&event))
         {
             switch (event.type)
@@ -317,16 +325,16 @@ void CWindow::MessagePump()
                 WinProc(WM_KEYUP, event.key.keysym.sym, event.key.keysym.mod);
                 break;
 
-            case SDL_JOYAXISMOTION:  // Handle Joystick Motion
+            case SDL_JOYAXISMOTION: // Handle Joystick Motion
                 WinProc(SDL_JOYAXISMOTION, (WPARAM)&event.jaxis, (LPARAM)&event);
                 break;
 
-            case SDL_JOYBUTTONDOWN:  // Handle Joystick buttons
+            case SDL_JOYBUTTONDOWN: // Handle Joystick buttons
             case SDL_JOYBUTTONUP:
                 WinProc(event.type, (WPARAM)&event.jbutton, (LPARAM)&event);
                 break;
 
-            case SDL_VIDEORESIZE:     // resize our window
+            case SDL_VIDEORESIZE: // resize our window
                 WinProc(WM_SIZE, (WPARAM)&event.resize, (LPARAM)&event);
                 break;
 
@@ -357,57 +365,34 @@ void CWindow::MessagePump()
 #endif
 }
 
-
-
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
-
-
 
 void CWindow::OnWindowActive()
 {
     // Nothing by default
 }
 
-
-
-
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
-
-
 
 // Handles the WM_CREATE message (Sent once after window creation)
 
-void CWindow::OnCreate(HWND hwnd, WPARAM wParam, LPARAM lParam)
-{
-
-}
-
-
+void CWindow::OnCreate(HWND hwnd, WPARAM wParam, LPARAM lParam) {}
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
-
-
 
 // Handles the WM_INITDIALOG message (Sent once before a dialog box is displayed)
 
-void CWindow::OnInitDialog(WPARAM wParam, LPARAM lParam)
-{
-
-}
-
-
-
+void CWindow::OnInitDialog(WPARAM wParam, LPARAM lParam) {}
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
-
 
 // Handles the WM_ACTIVATEAPP message  (Sent when a window belonging to a different
 // application than the active window is about to be activated)
@@ -418,13 +403,9 @@ void CWindow::OnActivateApp(WPARAM wParam, LPARAM lParam)
     m_Active = (wParam == WA_ACTIVE) || (wParam == WA_CLICKACTIVE);
 }
 
-
-
-
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
-
 
 // Handles the WM_SIZE message (Sent after the window's size has changed)
 
@@ -436,125 +417,74 @@ void CWindow::OnSize(WPARAM wParam, LPARAM lParam)
 #endif
 }
 
-
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
-
-
-
 
 // Handles the WM_MOVE message (Sent after the window has been moved)
 
-void CWindow::OnMove(WPARAM wParam, LPARAM lParam)
-{
-
-}
-
-
-
+void CWindow::OnMove(WPARAM wParam, LPARAM lParam) {}
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
-
 
 // Handles the WM_PAINT message (Sent when Windows or another application makes a
 // request to paint a portion of the application's window)
 
-void CWindow::OnPaint(WPARAM wParam, LPARAM lParam)
-{
-
-}
-
-
+void CWindow::OnPaint(WPARAM wParam, LPARAM lParam) {}
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
-
-
 
 // Handles the WM_KEYDOWN message (Posted to the window with the keyboard focus when
 // a nonsystem key is pressed (ALT not pressed)).
 
-void CWindow::OnKeyDown(WPARAM wParam, LPARAM lParam)
-{
-
-}
-
-
+void CWindow::OnKeyDown(WPARAM wParam, LPARAM lParam) {}
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
-
-
 
 // Handles the WM_KEYUP message (Posted to the window with the keyboard focus when
 // a nonsystem key is released (ALT not pressed)).
 
-void CWindow::OnKeyUp(WPARAM wParam, LPARAM lParam)
-{
-
-}
-
-
+void CWindow::OnKeyUp(WPARAM wParam, LPARAM lParam) {}
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
-
-
 
 // Handles the WM_TIMER message (Sent after each interval specified in the SetTimer
 // function used to install a timer).
 
-void CWindow::OnTimer(WPARAM wParam, LPARAM lParam)
-{
-
-}
-
-
+void CWindow::OnTimer(WPARAM wParam, LPARAM lParam) {}
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
-
-
 
 // Handles the WM_COMMAND message (Sent when the user selects a command item from a
 // menu, when a control sends a notification message to its parent window, or when an
 // accelerator keystroke is translated)
 
-void CWindow::OnCommand(WPARAM wParam, LPARAM lParam)
-{
-
-}
-
+void CWindow::OnCommand(WPARAM wParam, LPARAM lParam) {}
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
-
-
 
 // Handles the WM_SYSCOMMAND message (A window receives this message when the user
 // chooses a command from the window menu (also known as the System menu or Control
 // menu) or when the user chooses the Maximize button or Minimize button.)
 // Returns whether to call the default window proc or not after handling this message
 
-bool CWindow::OnSysCommand(WPARAM wParam, LPARAM lParam)
-{
-    return true;
-}
-
+bool CWindow::OnSysCommand(WPARAM wParam, LPARAM lParam) { return true; }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
-
-
 
 // Handles the WM_CLOSE message (Sent as a signal that a window or an application
 // should terminate)
@@ -562,17 +492,13 @@ bool CWindow::OnSysCommand(WPARAM wParam, LPARAM lParam)
 void CWindow::OnClose(WPARAM wParam, LPARAM lParam)
 {
 #ifdef DIRECTX
-    DestroyWindow (m_hWnd); // Posts WM_DESTROY
+    DestroyWindow(m_hWnd); // Posts WM_DESTROY
 #endif
 }
 
-
-
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
-
-
 
 // Handles the WM_DESTROY message (Sent when a window is being destroyed. It is sent
 // to the window procedure of the window being destroyed after the window is removed
@@ -581,39 +507,27 @@ void CWindow::OnClose(WPARAM wParam, LPARAM lParam)
 void CWindow::OnDestroy(WPARAM wParam, LPARAM lParam)
 {
 #ifdef DIRECTX
-    PostQuitMessage (0); // Posts WM_QUIT
+    PostQuitMessage(0); // Posts WM_QUIT
 #endif
 }
 
-
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
-
 
 #ifndef DIRECTX_INPUT
 // Handles the SDL_JOYAXISMOTION message (SDL only).
 
-void CWindow::OnJoystickAxis(WPARAM wParam, LPARAM lParam)
-{
-
-}
-
+void CWindow::OnJoystickAxis(WPARAM wParam, LPARAM lParam) {}
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
-
-
 
 // Handles the SDL_JOYBUTTONDOWN/-UP message (SDL only).
 
-void CWindow::OnJoystickButton(WPARAM wParam, LPARAM lParam)
-{
-
-}
-
+void CWindow::OnJoystickButton(WPARAM wParam, LPARAM lParam) {}
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************

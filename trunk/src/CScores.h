@@ -19,7 +19,6 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CScores.h
  *  \brief Header file for the scores during a game
@@ -27,6 +26,8 @@
 
 #ifndef __CSCORES_H__
 #define __CSCORES_H__
+
+#include "StdAfx.h"
 
 class COptions;
 
@@ -37,44 +38,33 @@ class COptions;
 class CScores
 {
 private:
-
-    COptions*       m_pOptions;                 //!< Link to the options object to use
-    int             m_Scores[MAX_PLAYERS];      //!< Score of each player
-    int             m_DrawGamesCount;           //!< Number of draw games
+    COptions* m_pOptions; //!< Link to the options object to use
+    int m_Scores[MAX_PLAYERS]; //!< Score of each player
+    int m_DrawGamesCount; //!< Number of draw games
 
 public:
-
-                    CScores();
-                    ~CScores();
-    inline void     SetOptions (COptions *pOptions);    //!< Set link to the options object to use
-    void            Reset (void);                       //!< Reset the scores to zero
-    void            RaisePlayerScore (int Player);      //!< Add one to the score of the specified player
-    void            RaiseDrawGamesCount (void);         //!< Add one to the draw games count
-    inline int      GetPlayerScore (int Player);        //!< Get the score of a player
-    inline int      GetDrawGamesCount (void);           //!< Get how many draw games there were
+    CScores();
+    ~CScores();
+    inline void SetOptions(COptions* pOptions); //!< Set link to the options object to use
+    void Reset(void); //!< Reset the scores to zero
+    void RaisePlayerScore(int Player); //!< Add one to the score of the specified player
+    void RaiseDrawGamesCount(void); //!< Add one to the draw games count
+    inline int GetPlayerScore(int Player); //!< Get the score of a player
+    inline int GetDrawGamesCount(void); //!< Get how many draw games there were
 };
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline void CScores::SetOptions (COptions *pOptions)
-{
-    m_pOptions = pOptions;
-}
+inline void CScores::SetOptions(COptions* pOptions) { m_pOptions = pOptions; }
 
-inline int CScores::GetPlayerScore (int Player)
-{
-    return m_Scores[Player];
-}
+inline int CScores::GetPlayerScore(int Player) { return m_Scores[Player]; }
 
-inline int CScores::GetDrawGamesCount (void)
-{
-    return m_DrawGamesCount;
-}
+inline int CScores::GetDrawGamesCount(void) { return m_DrawGamesCount; }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-#endif  // __CSCORES_H__
+#endif // __CSCORES_H__

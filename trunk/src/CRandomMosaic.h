@@ -19,7 +19,6 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CRandomMosaic.h
  *  \brief Header file of a random mosaic
@@ -64,18 +63,10 @@ enum EMosaicColor
 class CRandomMosaic
 {
 private:
-
     static SMosaicTileProperties m_MosaicTileProperties[4][2];
 
 public:
-
-    static CMosaic* CreateRandomMosaic (CDisplay* pDisplay, 
-                                        int SpriteLayer, 
-                                        int PriorityInLayer, 
-                                        float SpeedX, 
-                                        float SpeedY, 
-                                        EMosaicColor Color,
-                                        bool IsSolid);
+    static CMosaic* CreateRandomMosaic(CDisplay* pDisplay, int SpriteLayer, int PriorityInLayer, float SpeedX, float SpeedY, EMosaicColor Color, bool IsSolid);
 };
 
 //******************************************************************************************************************************

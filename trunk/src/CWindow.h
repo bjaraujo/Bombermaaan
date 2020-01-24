@@ -19,7 +19,6 @@
 
     ************************************************************************************/
 
-
 /**
  *  \file CWindow.h
  *  \brief Header file of the CWindow class
@@ -33,7 +32,7 @@
 //******************************************************************************************************************************
 
 #ifdef WIN32
-#define WIN32_LEAN_AND_MEAN     // Exclude rarely-used stuff from Windows headers
+#define WIN32_LEAN_AND_MEAN // Exclude rarely-used stuff from Windows headers
 #include <windows.h>
 #else
 #include "WinReplace.h"
@@ -47,34 +46,31 @@
 class CWindow
 {
 protected:
-
     HWND m_hWnd;
     bool m_Active;
 
 protected:
-
-    virtual void OnCreate(HWND hwnd, WPARAM wParam, LPARAM lParam);        // WM_CREATE
-    virtual void OnInitDialog(WPARAM wParam, LPARAM lParam);               // WM_INITDIALOG
-    virtual void OnActivateApp(WPARAM wParam, LPARAM lParam);              // WM_ACTIVATEAPP
-    virtual void OnSize(WPARAM wParam, LPARAM lParam);                     // WM_SIZE
-    virtual void OnMove(WPARAM wParam, LPARAM lParam);                     // WM_MOVE
-    virtual void OnPaint(WPARAM wParam, LPARAM lParam);                    // WM_PAINT
-    virtual void OnKeyDown(WPARAM wParam, LPARAM lParam);                  // WM_KEYDOWN
-    virtual void OnKeyUp(WPARAM wParam, LPARAM lParam);                    // WM_KEYUP
-    virtual void OnTimer(WPARAM wParam, LPARAM lParam);                    // WM_TIMER
-    virtual void OnCommand(WPARAM wParam, LPARAM lParam);                  // WM_COMMAND
-    virtual bool OnSysCommand(WPARAM wParam, LPARAM lParam);               // WM_SYSCOMMAND
-    virtual void OnClose(WPARAM wParam, LPARAM lParam);                    // WM_CLOSE
-    virtual void OnDestroy(WPARAM wParam, LPARAM lParam);                  // WM_DESTROY
+    virtual void OnCreate(HWND hwnd, WPARAM wParam, LPARAM lParam); // WM_CREATE
+    virtual void OnInitDialog(WPARAM wParam, LPARAM lParam); // WM_INITDIALOG
+    virtual void OnActivateApp(WPARAM wParam, LPARAM lParam); // WM_ACTIVATEAPP
+    virtual void OnSize(WPARAM wParam, LPARAM lParam); // WM_SIZE
+    virtual void OnMove(WPARAM wParam, LPARAM lParam); // WM_MOVE
+    virtual void OnPaint(WPARAM wParam, LPARAM lParam); // WM_PAINT
+    virtual void OnKeyDown(WPARAM wParam, LPARAM lParam); // WM_KEYDOWN
+    virtual void OnKeyUp(WPARAM wParam, LPARAM lParam); // WM_KEYUP
+    virtual void OnTimer(WPARAM wParam, LPARAM lParam); // WM_TIMER
+    virtual void OnCommand(WPARAM wParam, LPARAM lParam); // WM_COMMAND
+    virtual bool OnSysCommand(WPARAM wParam, LPARAM lParam); // WM_SYSCOMMAND
+    virtual void OnClose(WPARAM wParam, LPARAM lParam); // WM_CLOSE
+    virtual void OnDestroy(WPARAM wParam, LPARAM lParam); // WM_DESTROY
 #ifndef DIRECTX_INPUT
-    virtual void OnJoystickAxis(WPARAM wParam, LPARAM lParam);             // SDL_JOYAXISMOTION
-    virtual void OnJoystickButton(WPARAM wParam, LPARAM lParam);           // SDL_JOYBUTTONDOWN/-UP
+    virtual void OnJoystickAxis(WPARAM wParam, LPARAM lParam); // SDL_JOYAXISMOTION
+    virtual void OnJoystickButton(WPARAM wParam, LPARAM lParam); // SDL_JOYBUTTONDOWN/-UP
 #endif
     virtual void OnWindowActive(void);
 
 public:
-
-    CWindow(HINSTANCE hInstance, const char *pWindowTitle, int IconResourceID = -1);
+    CWindow(HINSTANCE hInstance, const char* pWindowTitle, int IconResourceID = -1);
 
     virtual ~CWindow(void);
     void SetClientSize(int ClientWidth, int ClientHeight);
@@ -83,13 +79,12 @@ public:
 #ifdef WIN32
     LRESULT CALLBACK WinProc(unsigned int msg, WPARAM wParam, LPARAM lParam);
 #else
-    void WinProc (unsigned int msg, WPARAM wParam, LPARAM lParam);
+    void WinProc(unsigned int msg, WPARAM wParam, LPARAM lParam);
 #endif
 };
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
-
 
 #endif

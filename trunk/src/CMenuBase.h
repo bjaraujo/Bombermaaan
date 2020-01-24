@@ -19,7 +19,6 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CMenuBase.h
  *  \brief Header file of the menu base
@@ -27,6 +26,8 @@
 
 #ifndef __CMENUBASE_H__
 #define __CMENUBASE_H__
+
+#include "StdAfx.h"
 
 class CDisplay;
 class CInput;
@@ -42,86 +43,65 @@ class CFont;
 class CMenuBase
 {
 private:
-
-    float           m_MenuModeTime;         //!< Time (in seconds) that elapsed since this menu mode has started
-    bool            m_HaveToExit;           //!< Do we have to exit this menu mode?
-    EMenuAction     m_ExitMenuAction;       //!< Menu action to ask for when exiting (after transition)
-    float           m_ExitMenuModeTime;     //!< Menu mode time when we realized we have to exit (used for transition)
+    float m_MenuModeTime; //!< Time (in seconds) that elapsed since this menu mode has started
+    bool m_HaveToExit; //!< Do we have to exit this menu mode?
+    EMenuAction m_ExitMenuAction; //!< Menu action to ask for when exiting (after transition)
+    float m_ExitMenuModeTime; //!< Menu mode time when we realized we have to exit (used for transition)
 
 protected:
+    CDisplay* m_pDisplay;
+    CSound* m_pSound;
+    CInput* m_pInput;
+    COptions* m_pOptions;
+    CTimer* m_pTimer;
+    CFont* m_pFont;
 
-    CDisplay*       m_pDisplay;
-    CSound*         m_pSound;
-    CInput*         m_pInput;
-    COptions*       m_pOptions;
-    CTimer*         m_pTimer;
-    CFont*          m_pFont;
+    virtual void OnCreate(void) = 0;
+    virtual void OnDestroy(void) = 0;
+    virtual void OnUpdate(void) = 0;
+    virtual void OnDisplay(void) = 0;
+    virtual void OnUp(void) = 0;
+    virtual void OnDown(void) = 0;
+    virtual void OnLeft(void) = 0;
+    virtual void OnRight(void) = 0;
+    virtual void OnPrevious(void) = 0;
+    virtual void OnNext(void) = 0;
 
-    virtual void    OnCreate (void) = 0;
-    virtual void    OnDestroy (void) = 0;
-    virtual void    OnUpdate (void) = 0;
-    virtual void    OnDisplay (void) = 0;
-    virtual void    OnUp (void) = 0;
-    virtual void    OnDown (void) = 0;
-    virtual void    OnLeft (void) = 0;
-    virtual void    OnRight (void) = 0;
-    virtual void    OnPrevious (void) = 0;
-    virtual void    OnNext (void) = 0;
+    void Exit(EMenuAction ExitMenuAction);
 
-    void            Exit (EMenuAction ExitMenuAction);
-    
 public:
+    CMenuBase(void);
+    virtual ~CMenuBase(void);
 
-    CMenuBase (void);
-    virtual ~CMenuBase (void);
+    inline void SetDisplay(CDisplay* pDisplay);
+    inline void SetSound(CSound* pSound);
+    inline void SetInput(CInput* pInput);
+    inline void SetOptions(COptions* pOptions);
+    inline void SetTimer(CTimer* pTimer);
+    inline void SetFont(CFont* pFont);
 
-    inline void     SetDisplay (CDisplay *pDisplay);
-    inline void     SetSound (CSound *pSound);
-    inline void     SetInput (CInput *pInput);
-    inline void     SetOptions (COptions *pOptions);
-    inline void     SetTimer (CTimer *pTimer);
-    inline void     SetFont (CFont *pFont);
+    void Create(void);
+    void Destroy(void);
 
-    void            Create (void);
-    void            Destroy (void);
-
-    EMenuAction     Update (void);
-    void            Display (void);
+    EMenuAction Update(void);
+    void Display(void);
 };
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline void CMenuBase::SetDisplay (CDisplay *pDisplay)
-{
-    m_pDisplay = pDisplay;
-}
+inline void CMenuBase::SetDisplay(CDisplay* pDisplay) { m_pDisplay = pDisplay; }
 
-inline void CMenuBase::SetSound (CSound *pSound)
-{
-    m_pSound = pSound;
-}
+inline void CMenuBase::SetSound(CSound* pSound) { m_pSound = pSound; }
 
-inline void CMenuBase::SetInput (CInput *pInput)
-{
-    m_pInput = pInput;
-}
+inline void CMenuBase::SetInput(CInput* pInput) { m_pInput = pInput; }
 
-inline void CMenuBase::SetOptions (COptions *pOptions)
-{
-    m_pOptions = pOptions;
-}
+inline void CMenuBase::SetOptions(COptions* pOptions) { m_pOptions = pOptions; }
 
-inline void CMenuBase::SetTimer (CTimer *pTimer)
-{
-    m_pTimer = pTimer;
-}
+inline void CMenuBase::SetTimer(CTimer* pTimer) { m_pTimer = pTimer; }
 
-inline void CMenuBase::SetFont (CFont *pFont) 
-{ 
-    m_pFont = pFont; 
-}
+inline void CMenuBase::SetFont(CFont* pFont) { m_pFont = pFont; }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************

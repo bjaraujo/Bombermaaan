@@ -22,14 +22,13 @@
 
     ************************************************************************************/
 
-
 /**
  *  \file CVideoDX.cpp
  *  \brief Direct draw function calls on Windows
  */
 
-#include "StdAfx.h"
 #include "CVideoDX.h"
+#include "StdAfx.h"
 
 static const char* GetDirectDrawError(HRESULT hRet);
 static HRESULT WINAPI AddDisplayMode(LPDDSURFACEDESC2 lpDDSurfaceDesc, LPVOID lpContext);
@@ -51,7 +50,6 @@ CVideoDX::CVideoDX(void)
     m_ColorKey = 0;
     m_OriginX = 0;
     m_OriginY = 0;
-		
 }
 
 //******************************************************************************************************************************
@@ -79,7 +77,7 @@ static HRESULT WINAPI AddDisplayMode(LPDDSURFACEDESC2 lpDDSurfaceDesc, LPVOID lp
 
     pDisplayModes->push_back(DisplayMode);
 
-    // Continue enumerating display modes       
+    // Continue enumerating display modes
     return DDENUMRET_OK;
 }
 
@@ -104,7 +102,7 @@ bool CVideoDX::Create(int Width, int Height, int Depth, bool FullScreen)
     DDSURFACEDESC2 ddsd;
 
     //! Create directdraw object
-    hRet = DirectDrawCreateEx(NULL, (LPVOID *)&m_pDD, IID_IDirectDraw7, NULL);
+    hRet = DirectDrawCreateEx(NULL, (LPVOID*)&m_pDD, IID_IDirectDraw7, NULL);
 
     // If it failed
     if (hRet != DD_OK)
@@ -124,7 +122,7 @@ bool CVideoDX::Create(int Width, int Height, int Depth, bool FullScreen)
     }
 
     //! Enumerate all display modes (without taking refresh rates into account)
-    m_pDD->EnumDisplayModes(0, NULL, (LPVOID *)&m_AvailableDisplayModes, AddDisplayMode);
+    m_pDD->EnumDisplayModes(0, NULL, (LPVOID*)&m_AvailableDisplayModes, AddDisplayMode);
 
     // If desired mode is windowed mode
     if (!m_FullScreen)
@@ -521,14 +519,7 @@ void CVideoDX::OnWindowMove()
  *  @see SetOrigin()
  */
 
-void CVideoDX::DrawSprite(int PositionX,
-    int PositionY,
-    RECT *pZone,
-    RECT *pClip,
-    int SpriteTable,
-    int Sprite,
-    int SpriteLayer,
-    int PriorityInLayer)
+void CVideoDX::DrawSprite(int PositionX, int PositionY, RECT* pZone, RECT* pClip, int SpriteTable, int Sprite, int SpriteLayer, int PriorityInLayer)
 {
 
     // Check if the parameters are valid
@@ -539,7 +530,7 @@ void CVideoDX::DrawSprite(int PositionX,
     SDrawingRequest DrawingRequest;
 
     // Save the sprite pointer
-    SSprite *pSprite = &m_SpriteTables[SpriteTable][Sprite];
+    SSprite* pSprite = &m_SpriteTables[SpriteTable][Sprite];
 
     // If we have to take care of clipping
     if (pClip != NULL)
@@ -549,10 +540,7 @@ void CVideoDX::DrawSprite(int PositionX,
         int SpriteSizeY = pSprite->ZoneY2 - pSprite->ZoneY1;
 
         // If the sprite is completely out of the clip rect
-        if (PositionX >= pClip->right ||
-            PositionY >= pClip->bottom ||
-            PositionX + SpriteSizeX < pClip->left ||
-            PositionY + SpriteSizeY < pClip->top)
+        if (PositionX >= pClip->right || PositionY >= pClip->bottom || PositionX + SpriteSizeX < pClip->left || PositionY + SpriteSizeY < pClip->top)
         {
             // Get out, don't even register the drawing request
             return;
@@ -649,12 +637,7 @@ void CVideoDX::DrawSprite(int PositionX,
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CVideoDX::DrawDebugRectangle(int PositionX,
-    int PositionY,
-    int w, int h,
-    BYTE r, BYTE g, BYTE b,
-    int SpriteLayer,
-    int PriorityInLayer)
+void CVideoDX::DrawDebugRectangle(int PositionX, int PositionY, int w, int h, BYTE r, BYTE g, BYTE b, int SpriteLayer, int PriorityInLayer)
 {
     // Prepare a drawing request
     SDebugDrawingRequest DrawingRequest;
@@ -688,10 +671,7 @@ void CVideoDX::DrawDebugRectangle(int PositionX,
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CVideoDX::RemoveAllDebugRectangles()
-{
-    m_DebugDrawingRequests.clear();
-}
+void CVideoDX::RemoveAllDebugRectangles() { m_DebugDrawingRequests.clear(); }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -750,7 +730,7 @@ bool CVideoDX::SetTransparentColor(int Red, int Green, int Blue)
     WORD wGBitCount = GetNumberOfBits(pf.dwGBitMask);
     WORD wBBitCount = GetNumberOfBits(pf.dwBBitMask);
 
-    // Compute RGB color components to use for the color key 
+    // Compute RGB color components to use for the color key
     // according to transparency color RGB components
     DWORD r = (Red >> (8 - wRBitCount)) << (wGBitCount + wBBitCount);
     DWORD g = (Green >> (8 - wGBitCount)) << wBBitCount;
@@ -953,7 +933,7 @@ bool CVideoDX::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spri
         {
             // Prepare a sprite
             SSprite Sprite;
-            Sprite.SurfaceNumber = m_Surfaces.size() - 1;       // The surface we just added to the container
+            Sprite.SurfaceNumber = m_Surfaces.size() - 1; // The surface we just added to the container
             Sprite.ZoneX1 = ZoneX1;
             Sprite.ZoneY1 = ZoneY1;
             Sprite.ZoneX2 = ZoneX2;
@@ -992,8 +972,7 @@ bool CVideoDX::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spri
 
     // TODO:
 
-	return true;
-
+    return true;
 }
 
 //******************************************************************************************************************************
@@ -1053,10 +1032,10 @@ void CVideoDX::UpdateAll(void)
     while (!m_DrawingRequests.empty())
     {
         // Save the top drawing request
-        const SDrawingRequest &DR = m_DrawingRequests.top();
+        const SDrawingRequest& DR = m_DrawingRequests.top();
 
         // Save the sprite as specified by this drawing request
-        const SSprite *pSprite = &m_SpriteTables[DR.SpriteTable][DR.Sprite];
+        const SSprite* pSprite = &m_SpriteTables[DR.SpriteTable][DR.Sprite];
 
         // Build a RECT structure containing the zone to draw
         RECT SourceRect;
@@ -1066,11 +1045,7 @@ void CVideoDX::UpdateAll(void)
         SourceRect.bottom = DR.ZoneY2;
 
         // Blit the surface zone on the back buffer
-        m_pBackBuffer->BltFast(DR.PositionX,
-            DR.PositionY,
-            m_Surfaces[pSprite->SurfaceNumber].pSurface,
-            &SourceRect,
-            m_Surfaces[pSprite->SurfaceNumber].BlitParameters);
+        m_pBackBuffer->BltFast(DR.PositionX, DR.PositionY, m_Surfaces[pSprite->SurfaceNumber].pSurface, &SourceRect, m_Surfaces[pSprite->SurfaceNumber].BlitParameters);
 
         // Pop the drawing request to go to the next
         m_DrawingRequests.pop();
@@ -1114,7 +1089,7 @@ void CVideoDX::UpdateAll(void)
             for (it = m_DebugDrawingRequests.begin(); it < m_DebugDrawingRequests.end(); it++)
             {
                 // Save the top drawing request
-                const SDebugDrawingRequest &DR = *it;
+                const SDebugDrawingRequest& DR = *it;
 
                 // determine colour
                 DWORD r = (DR.R >> (8 - wGBitCount)) << (wGBitCount + wBBitCount);
@@ -1129,17 +1104,15 @@ void CVideoDX::UpdateAll(void)
                 BlitRect.bottom = DR.PositionY + DR.ZoneY2;
 
                 // check valid values
-                if (BlitRect.left < 0 || BlitRect.right < 0 ||
-                    BlitRect.bottom < 0 || BlitRect.top < 0)
+                if (BlitRect.left < 0 || BlitRect.right < 0 || BlitRect.bottom < 0 || BlitRect.top < 0)
                     continue;
-                if ((DWORD)BlitRect.left > ddsd.dwWidth || (DWORD)BlitRect.right > ddsd.dwWidth ||
-                    (DWORD)BlitRect.bottom > ddsd.dwHeight || (DWORD)BlitRect.top > ddsd.dwHeight)
+                if ((DWORD)BlitRect.left > ddsd.dwWidth || (DWORD)BlitRect.right > ddsd.dwWidth || (DWORD)BlitRect.bottom > ddsd.dwHeight || (DWORD)BlitRect.top > ddsd.dwHeight)
                     continue;
                 if (BlitRect.left > BlitRect.right || BlitRect.bottom < BlitRect.top)
                     continue;
 
                 // Apply Alpha Blending
-                BYTE *SurfacePointer = (BYTE*)ddsd.lpSurface;
+                BYTE* SurfacePointer = (BYTE*)ddsd.lpSurface;
                 DWORD Result;
                 DWORD SourceColour;
                 DWORD DestColour = (r | g | b);
@@ -1161,8 +1134,7 @@ void CVideoDX::UpdateAll(void)
                         {
                             SourceColour = *((WORD*)SurfacePointer);
 
-                            Result = ((SourceColour & 0xF7DE) >> 1) +
-                                ((DestColour & 0xF7DE) >> 1);
+                            Result = ((SourceColour & 0xF7DE) >> 1) + ((DestColour & 0xF7DE) >> 1);
 
                             *((DWORD*)SurfacePointer) = Result;
                             SurfacePointer += 2;
@@ -1181,8 +1153,7 @@ void CVideoDX::UpdateAll(void)
                         do
                         {
                             SourceColour = *((DWORD*)SurfacePointer);
-                            Result = ((SourceColour & 0xFEFEFE) >> 1) +
-                                ((DestColour & 0xFEFEFE) >> 1);
+                            Result = ((SourceColour & 0xFEFEFE) >> 1) + ((DestColour & 0xFEFEFE) >> 1);
 
                             *((WORD*)SurfacePointer) = (WORD)(Result & 0xFFFF);
                             SurfacePointer += 2;
@@ -1203,8 +1174,7 @@ void CVideoDX::UpdateAll(void)
                         do
                         {
                             SourceColour = *((DWORD*)SurfacePointer);
-                            Result = ((SourceColour & 0xFEFEFE) >> 1) +
-                                ((DestColour & 0xFEFEFE) >> 1);
+                            Result = ((SourceColour & 0xFEFEFE) >> 1) + ((DestColour & 0xFEFEFE) >> 1);
 
                             *((WORD*)SurfacePointer) = (WORD)(Result & 0xFFFF);
                             SurfacePointer += 2;
@@ -1237,9 +1207,7 @@ bool CVideoDX::IsModeAvailable(int Width, int Height, int Depth)
     for (unsigned int i = 0; i < m_AvailableDisplayModes.size(); i++)
     {
         // If this is the display mode we are looking for
-        if (m_AvailableDisplayModes[i].Width == Width &&
-            m_AvailableDisplayModes[i].Height == Height &&
-            m_AvailableDisplayModes[i].Depth == Depth)
+        if (m_AvailableDisplayModes[i].Width == Width && m_AvailableDisplayModes[i].Height == Height && m_AvailableDisplayModes[i].Depth == Depth)
         {
             // Then it's available
             return true;
@@ -1258,125 +1226,244 @@ static const char* GetDirectDrawError(HRESULT hRet)
 {
     switch (hRet)
     {
-    case DD_OK: return "DD_OK";
-    case DDERR_ALREADYINITIALIZED: return "DDERR_ALREADYINITIALIZED";
-    case DDERR_BLTFASTCANTCLIP: return "DDERR_BLTFASTCANTCLIP";
-    case DDERR_CANNOTATTACHSURFACE: return "DDERR_CANNOTATTACHSURFACE";
-    case DDERR_CANNOTDETACHSURFACE: return "DDERR_CANNOTDETACHSURFACE";
-    case DDERR_CANTCREATEDC: return "DDERR_CANTCREATEDC";
-    case DDERR_CANTDUPLICATE: return "DDERR_CANTDUPLICATE";
-    case DDERR_CANTLOCKSURFACE: return "DDERR_CANTLOCKSURFACE";
-    case DDERR_CANTPAGELOCK: return "DDERR_CANTPAGELOCK";
-    case DDERR_CANTPAGEUNLOCK: return "DDERR_CANTPAGEUNLOCK";
-    case DDERR_CLIPPERISUSINGHWND: return "DDERR_CLIPPERISUSINGHWND";
-    case DDERR_COLORKEYNOTSET: return "DDERR_COLORKEYNOTSET";
-    case DDERR_CURRENTLYNOTAVAIL: return "DDERR_CURRENTLYNOTAVAIL";
-    case DDERR_DDSCAPSCOMPLEXREQUIRED: return "DDERR_DDSCAPSCOMPLEXREQUIRED";
-    case DDERR_DCALREADYCREATED: return "DDERR_DCALREADYCREATED";
-    case DDERR_DEVICEDOESNTOWNSURFACE: return "DDERR_DEVICEDOESNTOWNSURFACE";
-    case DDERR_DIRECTDRAWALREADYCREATED: return "DDERR_DIRECTDRAWALREADYCREATED";
-    case DDERR_EXCEPTION: return "DDERR_EXCEPTION";
-    case DDERR_EXCLUSIVEMODEALREADYSET: return "DDERR_EXCLUSIVEMODEALREADYSET";
-    case DDERR_EXPIRED: return "DDERR_EXPIRED";
-    case DDERR_GENERIC: return "DDERR_GENERIC";
-    case DDERR_HEIGHTALIGN: return "DDERR_HEIGHTALIGN";
-    case DDERR_HWNDALREADYSET: return "DDERR_HWNDALREADYSET";
-    case DDERR_HWNDSUBCLASSED: return "DDERR_HWNDSUBCLASSED";
-    case DDERR_IMPLICITLYCREATED: return "DDERR_IMPLICITLYCREATED";
-    case DDERR_INCOMPATIBLEPRIMARY: return "DDERR_INCOMPATIBLEPRIMARY";
-    case DDERR_INVALIDCAPS: return "DDERR_INVALIDCAPS";
-    case DDERR_INVALIDCLIPLIST: return "DDERR_INVALIDCLIPLIST";
-    case DDERR_INVALIDDIRECTDRAWGUID: return "DDERR_INVALIDDIRECTDRAWGUID";
-    case DDERR_INVALIDMODE: return "DDERR_INVALIDMODE";
-    case DDERR_INVALIDOBJECT: return "DDERR_INVALIDOBJECT";
-    case DDERR_INVALIDPARAMS: return "DDERR_INVALIDPARAMS";
-    case DDERR_INVALIDPIXELFORMAT: return "DDERR_INVALIDPIXELFORMAT";
-    case DDERR_INVALIDPOSITION: return "DDERR_INVALIDPOSITION";
-    case DDERR_INVALIDRECT: return "DDERR_INVALIDRECT";
-    case DDERR_INVALIDSTREAM: return "DDERR_INVALIDSTREAM";
-    case DDERR_INVALIDSURFACETYPE: return "DDERR_INVALIDSURFACETYPE";
-    case DDERR_LOCKEDSURFACES: return "DDERR_LOCKEDSURFACES";
-    case DDERR_MOREDATA: return "DDERR_MOREDATA";
-    case DDERR_NEWMODE: return "DDERR_NEWMODE";
-    case DDERR_NO3D: return "DDERR_NO3D";
-    case DDERR_NOALPHAHW: return "DDERR_NOALPHAHW";
-    case DDERR_NOBLTHW: return "DDERR_NOBLTHW";
-    case DDERR_NOCLIPLIST: return "DDERR_NOCLIPLIST";
-    case DDERR_NOCLIPPERATTACHED: return "DDERR_NOCLIPPERATTACHED";
-    case DDERR_NOCOLORCONVHW: return "DDERR_NOCOLORCONVHW";
-    case DDERR_NOCOLORKEY: return "DDERR_NOCOLORKEY";
-    case DDERR_NOCOLORKEYHW: return "DDERR_NOCOLORKEYHW";
-    case DDERR_NOCOOPERATIVELEVELSET: return "DDERR_NOCOOPERATIVELEVELSET";
-    case DDERR_NODC: return "DDERR_NODC";
-    case DDERR_NODDROPSHW: return "DDERR_NODDROPSHW";
-    case DDERR_NODIRECTDRAWHW: return "DDERR_NODIRECTDRAWHW";
-    case DDERR_NODIRECTDRAWSUPPORT: return "DDERR_NODIRECTDRAWSUPPORT";
-    case DDERR_NODRIVERSUPPORT: return "DDERR_NODRIVERSUPPORT";
-    case DDERR_NOEMULATION: return "DDERR_NOEMULATION";
-    case DDERR_NOEXCLUSIVEMODE: return "DDERR_NOEXCLUSIVEMODE";
-    case DDERR_NOFLIPHW: return "DDERR_NOFLIPHW";
-    case DDERR_NOFOCUSWINDOW: return "DDERR_NOFOCUSWINDOW";
-    case DDERR_NOGDI: return "DDERR_NOGDI";
-    case DDERR_NOHWND: return "DDERR_NOHWND";
-    case DDERR_NOMIPMAPHW: return "DDERR_NOMIPMAPHW";
-    case DDERR_NOMIRRORHW: return "DDERR_NOMIRRORHW";
-    case DDERR_NOMONITORINFORMATION: return "DDERR_NOMONITORINFORMATION";
-    case DDERR_NONONLOCALVIDMEM: return "DDERR_NONONLOCALVIDMEM";
-    case DDERR_NOOPTIMIZEHW: return "DDERR_NOOPTIMIZEHW";
-    case DDERR_NOOVERLAYDEST: return "DDERR_NOOVERLAYDEST";
-    case DDERR_NOOVERLAYHW: return "DDERR_NOOVERLAYHW";
-    case DDERR_NOPALETTEATTACHED: return "DDERR_NOPALETTEATTACHED";
-    case DDERR_NOPALETTEHW: return "DDERR_NOPALETTEHW";
-    case DDERR_NORASTEROPHW: return "DDERR_NORASTEROPHW";
-    case DDERR_NOROTATIONHW: return "DDERR_NOROTATIONHW";
-    case DDERR_NOSTEREOHARDWARE: return "DDERR_NOSTEREOHARDWARE";
-    case DDERR_NOSTRETCHHW: return "DDERR_NOSTRETCHHW";
-    case DDERR_NOSURFACELEFT: return "DDERR_NOSURFACELEFT";
-    case DDERR_NOT4BITCOLOR: return "DDERR_NOT4BITCOLOR";
-    case DDERR_NOT4BITCOLORINDEX: return "DDERR_NOT4BITCOLORINDEX";
-    case DDERR_NOT8BITCOLOR: return "DDERR_NOT8BITCOLOR";
-    case DDERR_NOTAOVERLAYSURFACE: return "DDERR_NOTAOVERLAYSURFACE";
-    case DDERR_NOTEXTUREHW: return "DDERR_NOTEXTUREHW";
-    case DDERR_NOTFLIPPABLE: return "DDERR_NOTFLIPPABLE";
-    case DDERR_NOTFOUND: return "DDERR_NOTFOUND";
-    case DDERR_NOTINITIALIZED: return "DDERR_NOTINITIALIZED";
-    case DDERR_NOTLOADED: return "DDERR_NOTLOADED";
-    case DDERR_NOTLOCKED: return "DDERR_NOTLOCKED";
-    case DDERR_NOTPAGELOCKED: return "DDERR_NOTPAGELOCKED";
-    case DDERR_NOTPALETTIZED: return "DDERR_NOTPALETTIZED";
-    case DDERR_NOVSYNCHW: return "DDERR_NOVSYNCHW";
-    case DDERR_NOZBUFFERHW: return "DDERR_NOZBUFFERHW";
-    case DDERR_NOZOVERLAYHW: return "DDERR_NOZOVERLAYHW";
-    case DDERR_OUTOFCAPS: return "DDERR_OUTOFCAPS";
-    case DDERR_OUTOFMEMORY: return "DDERR_OUTOFMEMORY";
-    case DDERR_OUTOFVIDEOMEMORY: return "DDERR_OUTOFVIDEOMEMORY";
-    case DDERR_OVERLAPPINGRECTS: return "DDERR_OVERLAPPINGRECTS";
-    case DDERR_OVERLAYCANTCLIP: return "DDERR_OVERLAYCANTCLIP";
-    case DDERR_OVERLAYCOLORKEYONLYONEACTIVE: return "DDERR_OVERLAYCOLORKEYONLYONEACTIVE";
-    case DDERR_OVERLAYNOTVISIBLE: return "DDERR_OVERLAYNOTVISIBLE";
-    case DDERR_PALETTEBUSY: return "DDERR_PALETTEBUSY";
-    case DDERR_PRIMARYSURFACEALREADYEXISTS: return "DDERR_PRIMARYSURFACEALREADYEXISTS";
-    case DDERR_REGIONTOOSMALL: return "DDERR_REGIONTOOSMALL";
-    case DDERR_SURFACEALREADYATTACHED: return "DDERR_SURFACEALREADYATTACHED";
-    case DDERR_SURFACEALREADYDEPENDENT: return "DDERR_SURFACEALREADYDEPENDENT";
-    case DDERR_SURFACEBUSY: return "DDERR_SURFACEBUSY";
-    case DDERR_SURFACEISOBSCURED: return "DDERR_SURFACEISOBSCURED";
-    case DDERR_SURFACELOST: return "DDERR_SURFACELOST";
-    case DDERR_SURFACENOTATTACHED: return "DDERR_SURFACENOTATTACHED";
-    case DDERR_TESTFINISHED: return "DDERR_TESTFINISHED";
-    case DDERR_TOOBIGHEIGHT: return "DDERR_TOOBIGHEIGHT";
-    case DDERR_TOOBIGSIZE: return "DDERR_TOOBIGSIZE";
-    case DDERR_TOOBIGWIDTH: return "DDERR_TOOBIGWIDTH";
-    case DDERR_UNSUPPORTED: return "DDERR_UNSUPPORTED";
-    case DDERR_UNSUPPORTEDFORMAT: return "DDERR_UNSUPPORTEDFORMAT";
-    case DDERR_UNSUPPORTEDMASK: return "DDERR_UNSUPPORTEDMASK";
-    case DDERR_UNSUPPORTEDMODE: return "DDERR_UNSUPPORTEDMODE";
-    case DDERR_VERTICALBLANKINPROGRESS: return "DDERR_VERTICALBLANKINPROGRESS";
-    case DDERR_VIDEONOTACTIVE: return "DDERR_VIDEONOTACTIVE";
-    case DDERR_WASSTILLDRAWING: return "DDERR_WASSTILLDRAWING";
-    case DDERR_WRONGMODE: return "DDERR_WRONGMODE";
-    case DDERR_XALIGN: return "DDERR_XALIGN";
-    default: return "Unknown DirectDraw error!";
+    case DD_OK:
+        return "DD_OK";
+    case DDERR_ALREADYINITIALIZED:
+        return "DDERR_ALREADYINITIALIZED";
+    case DDERR_BLTFASTCANTCLIP:
+        return "DDERR_BLTFASTCANTCLIP";
+    case DDERR_CANNOTATTACHSURFACE:
+        return "DDERR_CANNOTATTACHSURFACE";
+    case DDERR_CANNOTDETACHSURFACE:
+        return "DDERR_CANNOTDETACHSURFACE";
+    case DDERR_CANTCREATEDC:
+        return "DDERR_CANTCREATEDC";
+    case DDERR_CANTDUPLICATE:
+        return "DDERR_CANTDUPLICATE";
+    case DDERR_CANTLOCKSURFACE:
+        return "DDERR_CANTLOCKSURFACE";
+    case DDERR_CANTPAGELOCK:
+        return "DDERR_CANTPAGELOCK";
+    case DDERR_CANTPAGEUNLOCK:
+        return "DDERR_CANTPAGEUNLOCK";
+    case DDERR_CLIPPERISUSINGHWND:
+        return "DDERR_CLIPPERISUSINGHWND";
+    case DDERR_COLORKEYNOTSET:
+        return "DDERR_COLORKEYNOTSET";
+    case DDERR_CURRENTLYNOTAVAIL:
+        return "DDERR_CURRENTLYNOTAVAIL";
+    case DDERR_DDSCAPSCOMPLEXREQUIRED:
+        return "DDERR_DDSCAPSCOMPLEXREQUIRED";
+    case DDERR_DCALREADYCREATED:
+        return "DDERR_DCALREADYCREATED";
+    case DDERR_DEVICEDOESNTOWNSURFACE:
+        return "DDERR_DEVICEDOESNTOWNSURFACE";
+    case DDERR_DIRECTDRAWALREADYCREATED:
+        return "DDERR_DIRECTDRAWALREADYCREATED";
+    case DDERR_EXCEPTION:
+        return "DDERR_EXCEPTION";
+    case DDERR_EXCLUSIVEMODEALREADYSET:
+        return "DDERR_EXCLUSIVEMODEALREADYSET";
+    case DDERR_EXPIRED:
+        return "DDERR_EXPIRED";
+    case DDERR_GENERIC:
+        return "DDERR_GENERIC";
+    case DDERR_HEIGHTALIGN:
+        return "DDERR_HEIGHTALIGN";
+    case DDERR_HWNDALREADYSET:
+        return "DDERR_HWNDALREADYSET";
+    case DDERR_HWNDSUBCLASSED:
+        return "DDERR_HWNDSUBCLASSED";
+    case DDERR_IMPLICITLYCREATED:
+        return "DDERR_IMPLICITLYCREATED";
+    case DDERR_INCOMPATIBLEPRIMARY:
+        return "DDERR_INCOMPATIBLEPRIMARY";
+    case DDERR_INVALIDCAPS:
+        return "DDERR_INVALIDCAPS";
+    case DDERR_INVALIDCLIPLIST:
+        return "DDERR_INVALIDCLIPLIST";
+    case DDERR_INVALIDDIRECTDRAWGUID:
+        return "DDERR_INVALIDDIRECTDRAWGUID";
+    case DDERR_INVALIDMODE:
+        return "DDERR_INVALIDMODE";
+    case DDERR_INVALIDOBJECT:
+        return "DDERR_INVALIDOBJECT";
+    case DDERR_INVALIDPARAMS:
+        return "DDERR_INVALIDPARAMS";
+    case DDERR_INVALIDPIXELFORMAT:
+        return "DDERR_INVALIDPIXELFORMAT";
+    case DDERR_INVALIDPOSITION:
+        return "DDERR_INVALIDPOSITION";
+    case DDERR_INVALIDRECT:
+        return "DDERR_INVALIDRECT";
+    case DDERR_INVALIDSTREAM:
+        return "DDERR_INVALIDSTREAM";
+    case DDERR_INVALIDSURFACETYPE:
+        return "DDERR_INVALIDSURFACETYPE";
+    case DDERR_LOCKEDSURFACES:
+        return "DDERR_LOCKEDSURFACES";
+    case DDERR_MOREDATA:
+        return "DDERR_MOREDATA";
+    case DDERR_NEWMODE:
+        return "DDERR_NEWMODE";
+    case DDERR_NO3D:
+        return "DDERR_NO3D";
+    case DDERR_NOALPHAHW:
+        return "DDERR_NOALPHAHW";
+    case DDERR_NOBLTHW:
+        return "DDERR_NOBLTHW";
+    case DDERR_NOCLIPLIST:
+        return "DDERR_NOCLIPLIST";
+    case DDERR_NOCLIPPERATTACHED:
+        return "DDERR_NOCLIPPERATTACHED";
+    case DDERR_NOCOLORCONVHW:
+        return "DDERR_NOCOLORCONVHW";
+    case DDERR_NOCOLORKEY:
+        return "DDERR_NOCOLORKEY";
+    case DDERR_NOCOLORKEYHW:
+        return "DDERR_NOCOLORKEYHW";
+    case DDERR_NOCOOPERATIVELEVELSET:
+        return "DDERR_NOCOOPERATIVELEVELSET";
+    case DDERR_NODC:
+        return "DDERR_NODC";
+    case DDERR_NODDROPSHW:
+        return "DDERR_NODDROPSHW";
+    case DDERR_NODIRECTDRAWHW:
+        return "DDERR_NODIRECTDRAWHW";
+    case DDERR_NODIRECTDRAWSUPPORT:
+        return "DDERR_NODIRECTDRAWSUPPORT";
+    case DDERR_NODRIVERSUPPORT:
+        return "DDERR_NODRIVERSUPPORT";
+    case DDERR_NOEMULATION:
+        return "DDERR_NOEMULATION";
+    case DDERR_NOEXCLUSIVEMODE:
+        return "DDERR_NOEXCLUSIVEMODE";
+    case DDERR_NOFLIPHW:
+        return "DDERR_NOFLIPHW";
+    case DDERR_NOFOCUSWINDOW:
+        return "DDERR_NOFOCUSWINDOW";
+    case DDERR_NOGDI:
+        return "DDERR_NOGDI";
+    case DDERR_NOHWND:
+        return "DDERR_NOHWND";
+    case DDERR_NOMIPMAPHW:
+        return "DDERR_NOMIPMAPHW";
+    case DDERR_NOMIRRORHW:
+        return "DDERR_NOMIRRORHW";
+    case DDERR_NOMONITORINFORMATION:
+        return "DDERR_NOMONITORINFORMATION";
+    case DDERR_NONONLOCALVIDMEM:
+        return "DDERR_NONONLOCALVIDMEM";
+    case DDERR_NOOPTIMIZEHW:
+        return "DDERR_NOOPTIMIZEHW";
+    case DDERR_NOOVERLAYDEST:
+        return "DDERR_NOOVERLAYDEST";
+    case DDERR_NOOVERLAYHW:
+        return "DDERR_NOOVERLAYHW";
+    case DDERR_NOPALETTEATTACHED:
+        return "DDERR_NOPALETTEATTACHED";
+    case DDERR_NOPALETTEHW:
+        return "DDERR_NOPALETTEHW";
+    case DDERR_NORASTEROPHW:
+        return "DDERR_NORASTEROPHW";
+    case DDERR_NOROTATIONHW:
+        return "DDERR_NOROTATIONHW";
+    case DDERR_NOSTEREOHARDWARE:
+        return "DDERR_NOSTEREOHARDWARE";
+    case DDERR_NOSTRETCHHW:
+        return "DDERR_NOSTRETCHHW";
+    case DDERR_NOSURFACELEFT:
+        return "DDERR_NOSURFACELEFT";
+    case DDERR_NOT4BITCOLOR:
+        return "DDERR_NOT4BITCOLOR";
+    case DDERR_NOT4BITCOLORINDEX:
+        return "DDERR_NOT4BITCOLORINDEX";
+    case DDERR_NOT8BITCOLOR:
+        return "DDERR_NOT8BITCOLOR";
+    case DDERR_NOTAOVERLAYSURFACE:
+        return "DDERR_NOTAOVERLAYSURFACE";
+    case DDERR_NOTEXTUREHW:
+        return "DDERR_NOTEXTUREHW";
+    case DDERR_NOTFLIPPABLE:
+        return "DDERR_NOTFLIPPABLE";
+    case DDERR_NOTFOUND:
+        return "DDERR_NOTFOUND";
+    case DDERR_NOTINITIALIZED:
+        return "DDERR_NOTINITIALIZED";
+    case DDERR_NOTLOADED:
+        return "DDERR_NOTLOADED";
+    case DDERR_NOTLOCKED:
+        return "DDERR_NOTLOCKED";
+    case DDERR_NOTPAGELOCKED:
+        return "DDERR_NOTPAGELOCKED";
+    case DDERR_NOTPALETTIZED:
+        return "DDERR_NOTPALETTIZED";
+    case DDERR_NOVSYNCHW:
+        return "DDERR_NOVSYNCHW";
+    case DDERR_NOZBUFFERHW:
+        return "DDERR_NOZBUFFERHW";
+    case DDERR_NOZOVERLAYHW:
+        return "DDERR_NOZOVERLAYHW";
+    case DDERR_OUTOFCAPS:
+        return "DDERR_OUTOFCAPS";
+    case DDERR_OUTOFMEMORY:
+        return "DDERR_OUTOFMEMORY";
+    case DDERR_OUTOFVIDEOMEMORY:
+        return "DDERR_OUTOFVIDEOMEMORY";
+    case DDERR_OVERLAPPINGRECTS:
+        return "DDERR_OVERLAPPINGRECTS";
+    case DDERR_OVERLAYCANTCLIP:
+        return "DDERR_OVERLAYCANTCLIP";
+    case DDERR_OVERLAYCOLORKEYONLYONEACTIVE:
+        return "DDERR_OVERLAYCOLORKEYONLYONEACTIVE";
+    case DDERR_OVERLAYNOTVISIBLE:
+        return "DDERR_OVERLAYNOTVISIBLE";
+    case DDERR_PALETTEBUSY:
+        return "DDERR_PALETTEBUSY";
+    case DDERR_PRIMARYSURFACEALREADYEXISTS:
+        return "DDERR_PRIMARYSURFACEALREADYEXISTS";
+    case DDERR_REGIONTOOSMALL:
+        return "DDERR_REGIONTOOSMALL";
+    case DDERR_SURFACEALREADYATTACHED:
+        return "DDERR_SURFACEALREADYATTACHED";
+    case DDERR_SURFACEALREADYDEPENDENT:
+        return "DDERR_SURFACEALREADYDEPENDENT";
+    case DDERR_SURFACEBUSY:
+        return "DDERR_SURFACEBUSY";
+    case DDERR_SURFACEISOBSCURED:
+        return "DDERR_SURFACEISOBSCURED";
+    case DDERR_SURFACELOST:
+        return "DDERR_SURFACELOST";
+    case DDERR_SURFACENOTATTACHED:
+        return "DDERR_SURFACENOTATTACHED";
+    case DDERR_TESTFINISHED:
+        return "DDERR_TESTFINISHED";
+    case DDERR_TOOBIGHEIGHT:
+        return "DDERR_TOOBIGHEIGHT";
+    case DDERR_TOOBIGSIZE:
+        return "DDERR_TOOBIGSIZE";
+    case DDERR_TOOBIGWIDTH:
+        return "DDERR_TOOBIGWIDTH";
+    case DDERR_UNSUPPORTED:
+        return "DDERR_UNSUPPORTED";
+    case DDERR_UNSUPPORTEDFORMAT:
+        return "DDERR_UNSUPPORTEDFORMAT";
+    case DDERR_UNSUPPORTEDMASK:
+        return "DDERR_UNSUPPORTEDMASK";
+    case DDERR_UNSUPPORTEDMODE:
+        return "DDERR_UNSUPPORTEDMODE";
+    case DDERR_VERTICALBLANKINPROGRESS:
+        return "DDERR_VERTICALBLANKINPROGRESS";
+    case DDERR_VIDEONOTACTIVE:
+        return "DDERR_VIDEONOTACTIVE";
+    case DDERR_WASSTILLDRAWING:
+        return "DDERR_WASSTILLDRAWING";
+    case DDERR_WRONGMODE:
+        return "DDERR_WRONGMODE";
+    case DDERR_XALIGN:
+        return "DDERR_XALIGN";
+    default:
+        return "Unknown DirectDraw error!";
     }
 }
 

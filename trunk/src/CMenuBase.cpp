@@ -22,43 +22,42 @@
 
 ************************************************************************************/
 
-
 /**
  *  \file CMenuBase.cpp
  *  \brief The menu base
  */
 
-#include "StdAfx.h"
 #include "CMenuBase.h"
-#include "CMenu.h"
 #include "CDisplay.h"
-#include "CInput.h"
-#include "COptions.h"
-#include "CTimer.h"
 #include "CFont.h"
+#include "CInput.h"
+#include "CMenu.h"
+#include "COptions.h"
 #include "CSound.h"
+#include "CTimer.h"
+#include "StdAfx.h"
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-#define TRANSITION_DURATION         0.350f    //!< Duration of the transition that happens before exiting
+#define TRANSITION_DURATION 0.350f //!< Duration of the transition that happens before exiting
 
-#define FONT_SPRITELAYER            1       //!< Sprite layer where to draw characters using the font
+#define FONT_SPRITELAYER 1 //!< Sprite layer where to draw characters using the font
 
-#define FRAME_POSITION_X            30      //!< Position of the menu frame
-#define FRAME_POSITION_Y            52
-#define FRAME_SPRITE                0       //!< Sprite number of the menu frame sprite 
-#define FRAME_PRIORITY              1       //!< Priority to use in the menu sprite layer when drawing the frame
-#define FRAME_SPRITELAYER           0       //!< Sprite layer where to draw the menu frame
+#define FRAME_POSITION_X 30 //!< Position of the menu frame
+#define FRAME_POSITION_Y 52
+#define FRAME_SPRITE 0 //!< Sprite number of the menu frame sprite
+#define FRAME_PRIORITY 1 //!< Priority to use in the menu sprite layer when drawing the frame
+#define FRAME_SPRITELAYER 0 //!< Sprite layer where to draw the menu frame
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CMenuBase::CMenuBase (void)
+CMenuBase::CMenuBase(void)
 {
-    // Initialize the pointers to NULL so that we 
+    // Initialize the pointers to NULL so that we
     // can easily detect the ones we forgot to set.
     m_pDisplay = NULL;
     m_pInput = NULL;
@@ -66,19 +65,18 @@ CMenuBase::CMenuBase (void)
     m_pOptions = NULL;
     m_pTimer = NULL;
     m_pFont = NULL;
-    
+
     m_MenuModeTime = 0.0f;
     m_HaveToExit = false;
     m_ExitMenuAction = MENUACTION_NONE;
     m_ExitMenuModeTime = 0.0f;
-
 }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CMenuBase::~CMenuBase (void)
+CMenuBase::~CMenuBase(void)
 {
     // Nothing to do
 }
@@ -87,15 +85,15 @@ CMenuBase::~CMenuBase (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMenuBase::Create (void)
+void CMenuBase::Create(void)
 {
     // Check if all the objects to communicate with are set
-    ASSERT (m_pDisplay != NULL);
-    ASSERT (m_pSound != NULL);
-    ASSERT (m_pInput != NULL);
-    ASSERT (m_pOptions != NULL);
-    ASSERT (m_pTimer != NULL);
-    ASSERT (m_pFont != NULL);
+    ASSERT(m_pDisplay != NULL);
+    ASSERT(m_pSound != NULL);
+    ASSERT(m_pInput != NULL);
+    ASSERT(m_pOptions != NULL);
+    ASSERT(m_pTimer != NULL);
+    ASSERT(m_pFont != NULL);
 
     // Reset menu mode time (no time has been elapsed in this menu mode yet)
     m_MenuModeTime = 0.0f;
@@ -104,9 +102,9 @@ void CMenuBase::Create (void)
     m_HaveToExit = false;
 
     // Create and initialize the font for our needs
-    m_pFont->Create ();
-    m_pFont->SetShadow (false);
-    m_pFont->SetSpriteLayer (FONT_SPRITELAYER);
+    m_pFont->Create();
+    m_pFont->SetShadow(false);
+    m_pFont->SetSpriteLayer(FONT_SPRITELAYER);
 
     OnCreate();
 }
@@ -115,22 +113,22 @@ void CMenuBase::Create (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMenuBase::Destroy (void)
+void CMenuBase::Destroy(void)
 {
     // Destroy the font
-    m_pFont->Destroy ();
+    m_pFont->Destroy();
 
     OnDestroy();
 }
-    
+
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-EMenuAction CMenuBase::Update (void)
+EMenuAction CMenuBase::Update(void)
 {
     // Increase time elapsed in this menu mode
-    m_MenuModeTime += m_pTimer->GetDeltaTime ();
+    m_MenuModeTime += m_pTimer->GetDeltaTime();
 
     // If we don't have to exit this menu mode yet
     if (!m_HaveToExit)
@@ -140,52 +138,52 @@ EMenuAction CMenuBase::Update (void)
         {
             // Don't play menu next sound because the choices of the user
             // could not be correct and we may have to play an error sound instead.
-            
-            OnNext ();
+
+            OnNext();
         }
         // If PREVIOUS control is pressed
         else if (m_pInput->GetMainInput().TestPrevious())
         {
             // Play the menu previous sound
-            m_pSound->PlaySample (SAMPLE_MENU_PREVIOUS);
+            m_pSound->PlaySample(SAMPLE_MENU_PREVIOUS);
 
-            OnPrevious ();
+            OnPrevious();
         }
         // If UP control is pressed
         else if (m_pInput->GetMainInput().TestUp())
         {
             // Play the menu beep sound
-            m_pSound->PlaySample (SAMPLE_MENU_BEEP);
+            m_pSound->PlaySample(SAMPLE_MENU_BEEP);
 
-            OnUp ();
+            OnUp();
         }
         // If DOWN control is pressed
         else if (m_pInput->GetMainInput().TestDown())
         {
             // Play the menu beep sound
-            m_pSound->PlaySample (SAMPLE_MENU_BEEP);
+            m_pSound->PlaySample(SAMPLE_MENU_BEEP);
 
-            OnDown ();
+            OnDown();
         }
         // If LEFT control is pressed
         else if (m_pInput->GetMainInput().TestLeft())
         {
             // Play the menu beep sound
-            m_pSound->PlaySample (SAMPLE_MENU_BEEP);
+            m_pSound->PlaySample(SAMPLE_MENU_BEEP);
 
-            OnLeft ();
+            OnLeft();
         }
         // If RIGHT control is pressed
         else if (m_pInput->GetMainInput().TestRight())
         {
             // Play the menu beep sound
-            m_pSound->PlaySample (SAMPLE_MENU_BEEP);
+            m_pSound->PlaySample(SAMPLE_MENU_BEEP);
 
-            OnRight ();
+            OnRight();
         }
 
         // Update the menu screen
-        OnUpdate ();
+        OnUpdate();
     }
     // If the transition has been entirely done (enough time has elapsed)
     else if (m_MenuModeTime >= m_ExitMenuModeTime + TRANSITION_DURATION)
@@ -203,25 +201,18 @@ EMenuAction CMenuBase::Update (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMenuBase::Display (void)
+void CMenuBase::Display(void)
 {
     // If we don't have to exit this menu mode yet
     if (!m_HaveToExit)
     {
-        m_pDisplay->SetOrigin (0, 0);
+        m_pDisplay->SetOrigin(0, 0);
 
         // Draw the menu frame sprite
-        m_pDisplay->DrawSprite (FRAME_POSITION_X, 
-                                FRAME_POSITION_Y, 
-                                NULL, 
-                                NULL, 
-                                BMP_MENU_FRAME_1, 
-                                FRAME_SPRITE, 
-                                FRAME_SPRITELAYER, 
-                                FRAME_PRIORITY);
+        m_pDisplay->DrawSprite(FRAME_POSITION_X, FRAME_POSITION_Y, NULL, NULL, BMP_MENU_FRAME_1, FRAME_SPRITE, FRAME_SPRITELAYER, FRAME_PRIORITY);
 
         // Display the menu screen
-        OnDisplay ();
+        OnDisplay();
     }
 }
 
@@ -229,7 +220,7 @@ void CMenuBase::Display (void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMenuBase::Exit (EMenuAction ExitMenuAction)
+void CMenuBase::Exit(EMenuAction ExitMenuAction)
 {
     // Start exiting this menu mode
     m_HaveToExit = true;
