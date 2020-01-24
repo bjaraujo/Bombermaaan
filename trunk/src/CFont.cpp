@@ -70,7 +70,7 @@ CFont::CFont(void)
 {
     // Initialize the pointers to NULL so that we
     // can easily detect the ones we forgot to set.
-    m_pDisplay = NULL;
+    m_pDisplay = nullptr;
 
     m_SpriteLayer = 0;
     m_DrawShadow = false;
@@ -96,7 +96,7 @@ CFont::~CFont(void)
 void CFont::Create(void)
 {
     // Check if all the objects to communicate with are set
-    ASSERT(m_pDisplay != NULL);
+    ASSERT(m_pDisplay != nullptr);
 
     // Set default text/shadow color
     m_TextColorOffset = GetColorOffset(FONTCOLOR_WHITE);

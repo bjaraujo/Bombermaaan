@@ -44,8 +44,8 @@
 
 CMainInput::CMainInput(void)
 {
-    m_pTimer = NULL;
-    m_pDirectInput = NULL;
+    m_pTimer = nullptr;
+    m_pDirectInput = nullptr;
 
     m_MenuControls[MENU_UP].Key = KEYBOARD_UP;
     m_MenuControls[MENU_DOWN].Key = KEYBOARD_DOWN;
@@ -75,8 +75,8 @@ CMainInput::~CMainInput(void) {}
 
 void CMainInput::Create(void)
 {
-    ASSERT(m_pTimer != NULL);
-    ASSERT(m_pDirectInput != NULL);
+    ASSERT(m_pTimer != nullptr);
+    ASSERT(m_pDirectInput != nullptr);
 
     // Set the key index to use for each menu control
     m_MenuControls[MENU_UP].Key = KEYBOARD_UP;

@@ -60,7 +60,7 @@ public:
 
 inline void CAiManager::SetArena(CArena* pArena)
 {
-    ASSERT(pArena != NULL);
+    ASSERT(pArena != nullptr);
     m_Arena.SetArena(pArena);
 }
 

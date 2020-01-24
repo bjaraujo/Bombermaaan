@@ -56,9 +56,9 @@ int CAiBomber::m_BurnMark[4][6] = { { 0, 0, 0, 0, 0, 0 }, { 10, 8, 5, 3, 2, 1 },
 
 CAiBomber::CAiBomber(void)
 {
-    m_pDisplay = NULL;
-    m_pArena = NULL;
-    m_pBomber = NULL;
+    m_pDisplay = nullptr;
+    m_pArena = nullptr;
+    m_pBomber = nullptr;
     m_Player = -1;
 
     m_NumAccessible = 0;
@@ -105,7 +105,7 @@ CAiBomber::~CAiBomber(void) {}
 
 void CAiBomber::Create(int Player)
 {
-    ASSERT(m_pArena != NULL);
+    ASSERT(m_pArena != nullptr);
     m_Player = Player;
 
     // Wait a little before thinking for the first time
@@ -130,7 +130,7 @@ void CAiBomber::Create(int Player)
 void CAiBomber::Destroy(void)
 {
 #if defined(DEBUG_DRAW_ACCESSIBLE_BLOCKS) || defined(DEBUG_DRAW_PSEUDOACCESSIBLE_BLOCKS) || defined(DEBUG_DRAW_BEST_BLOCKS_MODEDEFENCE)
-    if (m_pDisplay != NULL)
+    if (m_pDisplay != nullptr)
         m_pDisplay->RemoveAllDebugRectangles();
 #endif
 }
@@ -272,7 +272,7 @@ bool CAiBomber::EnemyNearAndFront(EEnemyDirection* direction, bool BeyondArenaFr
 
     if (m_pArena->GetArena()->IsBomb(m_BlockHereX, m_BlockHereY))
     {
-        if (direction != NULL)
+        if (direction != nullptr)
             *direction = ENEMYDIRECTION_UNKNOWN;
         return false;
     }
@@ -295,7 +295,7 @@ bool CAiBomber::EnemyNearAndFront(EEnemyDirection* direction, bool BeyondArenaFr
         if (Index != m_Player && m_pArena->GetArena()->GetBomber(Index).GetTeam()->GetTeamId() != m_pArena->GetArena()->GetBomber(m_Player).GetTeam()->GetTeamId() && m_pArena->GetArena()->GetBomber(Index).GetBlockX() == m_BlockHereX && m_pArena->GetArena()->GetBomber(Index).GetBlockY() == m_BlockHereY)
         {
             // There is an enemy near our bomber
-            if (direction != NULL)
+            if (direction != nullptr)
                 *direction = ENEMYDIRECTION_HERE;
             return true;
         }
@@ -360,7 +360,7 @@ bool CAiBomber::EnemyNearAndFront(EEnemyDirection* direction, bool BeyondArenaFr
             {
                 // We have an enemy bomber to the right that is near
                 // and in front of our bomber.
-                if (direction != NULL)
+                if (direction != nullptr)
                     *direction = ENEMYDIRECTION_RIGHT;
                 return true;
             }
@@ -440,7 +440,7 @@ bool CAiBomber::EnemyNearAndFront(EEnemyDirection* direction, bool BeyondArenaFr
             {
                 // We have an enemy bomber to the left that is near
                 // and in front of our bomber.
-                if (direction != NULL)
+                if (direction != nullptr)
                     *direction = ENEMYDIRECTION_LEFT;
                 return true;
             }
@@ -519,7 +519,7 @@ bool CAiBomber::EnemyNearAndFront(EEnemyDirection* direction, bool BeyondArenaFr
             {
                 // We have an enemy bomber above that is near
                 // and in front of our bomber.
-                if (direction != NULL)
+                if (direction != nullptr)
                     *direction = ENEMYDIRECTION_ABOVE;
                 return true;
             }
@@ -599,7 +599,7 @@ bool CAiBomber::EnemyNearAndFront(EEnemyDirection* direction, bool BeyondArenaFr
             {
                 // We have an enemy bomber above that is near
                 // and in front of our bomber.
-                if (direction != NULL)
+                if (direction != nullptr)
                     *direction = ENEMYDIRECTION_BELOW;
                 return true;
             }
@@ -1888,7 +1888,7 @@ void CAiBomber::ModeDefence(float /*DeltaTime*/)
     w = m_pArena->GetArena()->ToPosition(1);
     h = m_pArena->GetArena()->ToPosition(1);
 
-    if (m_pDisplay != NULL)
+    if (m_pDisplay != nullptr)
     {
         if (Found)
         {
@@ -1941,7 +1941,7 @@ void CAiBomber::ModeDefence(float /*DeltaTime*/)
             r += 64;
             g += 64;
             b += 64;
-            if (m_pDisplay != NULL)
+            if (m_pDisplay != nullptr)
             {
 
                 m_pDisplay->DrawDebugRectangle(m_pArena->GetArena()->ToPosition(BestBlockX), m_pArena->GetArena()->ToPosition(BestBlockY), w, h, r, g, b, AIDEBUG_SPRITELAYER, PRIORITY_UNUSED);
@@ -2117,7 +2117,7 @@ void CAiBomber::ModeDefence(float /*DeltaTime*/)
         r += 127;
         g += 127;
         b += 127;
-        if (m_pDisplay != NULL)
+        if (m_pDisplay != nullptr)
         {
 
             m_pDisplay->DrawDebugRectangle(m_pArena->GetArena()->ToPosition(BestBlockX), m_pArena->GetArena()->ToPosition(BestBlockY), w, h, r, g, b, AIDEBUG_SPRITELAYER, PRIORITY_UNUSED);
@@ -2816,7 +2816,7 @@ void CAiBomber::UpdateAccessibility()
     w = m_pArena->GetArena()->ToPosition(1);
     h = m_pArena->GetArena()->ToPosition(1);
 
-    if (m_pDisplay != NULL)
+    if (m_pDisplay != nullptr)
     {
         for (BlockX = m_BlockHereX - AI_VIEW_SIZE; BlockX < m_BlockHereX + AI_VIEW_SIZE; BlockX++)
         {
@@ -2980,7 +2980,7 @@ void CAiBomber::UpdateAccessibility()
     w = m_pArena->GetArena()->ToPosition(1);
     h = m_pArena->GetArena()->ToPosition(1);
 
-    if (m_pDisplay != NULL)
+    if (m_pDisplay != nullptr)
     {
         for (BlockX = m_BlockHereX - AI_VIEW_SIZE; BlockX < m_BlockHereX + AI_VIEW_SIZE; BlockX++)
         {

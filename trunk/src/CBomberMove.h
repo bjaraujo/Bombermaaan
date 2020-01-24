@@ -136,7 +136,7 @@ public:
 
 inline void CBomberMove::SetArena(CArena* pArena)
 {
-    ASSERT(pArena != NULL);
+    ASSERT(pArena != nullptr);
     m_pArena = pArena;
 }
 

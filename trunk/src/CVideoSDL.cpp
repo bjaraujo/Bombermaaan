@@ -42,9 +42,9 @@ static void AddDisplayMode(int width, int height, int depth, std::vector<SDispla
 
 CVideoSDL::CVideoSDL(void)
 {
-    m_hWnd = NULL;
-    m_pBackBuffer = NULL;
-    m_pPrimary = NULL;
+    m_hWnd = nullptr;
+    m_pBackBuffer = nullptr;
+    m_pPrimary = nullptr;
     m_Width = 0;
     m_Height = 0;
     m_Depth = 0;
@@ -94,8 +94,8 @@ bool CVideoSDL::Create(int Width, int Height, int Depth, bool FullScreen)
     m_Depth = Depth;
     m_FullScreen = FullScreen;
 
-    m_pBackBuffer = NULL;
-    m_pPrimary = NULL;
+    m_pBackBuffer = nullptr;
+    m_pPrimary = nullptr;
     m_ColorKey = 0;
 
     SDL_Rect** modes;
@@ -209,7 +209,7 @@ bool CVideoSDL::Create(int Width, int Height, int Depth, bool FullScreen)
 
     SDL_Surface* icon = SDL_LoadBMP_RW(rwIcon, 0);
 
-    if (icon != NULL)
+    if (icon != nullptr)
     {
         if (SDL_SetColorKey(icon, SDL_SRCCOLORKEY, SDL_MapRGB(icon->format, 0x00, 0xff, 0x00)) == 0)
         {
@@ -247,7 +247,7 @@ void CVideoSDL::Destroy(void)
     FreeSprites();
 
     // If a SDLVideo object exists
-    if (m_pPrimary != NULL)
+    if (m_pPrimary != nullptr)
     {
         // If we are in fullscreen mode
         if (m_FullScreen)
@@ -257,22 +257,22 @@ void CVideoSDL::Destroy(void)
         }
 
         // If the back buffer surface exists
-        if (m_pBackBuffer != NULL)
+        if (m_pBackBuffer != nullptr)
         {
             // Release it
             SDL_FreeSurface(m_pBackBuffer);
-            m_pBackBuffer = NULL;
+            m_pBackBuffer = nullptr;
 
             // Log release
             theLog.WriteLine("SDLVideo        => Backbuffer surface was released.");
         }
 
         // If the primary surface exists
-        if (m_pPrimary != NULL)
+        if (m_pPrimary != nullptr)
         {
             // Release it
             SDL_FreeSurface(m_pPrimary);
-            m_pPrimary = NULL;
+            m_pPrimary = nullptr;
 
             // Log release
             theLog.WriteLine("SDLVideo        => Primary surface was released.");
@@ -337,7 +337,7 @@ void CVideoSDL::DrawSprite(int PositionX, int PositionY, RECT* pZone, RECT* pCli
     SSprite* pSprite = &m_SpriteTables[SpriteTable][Sprite];
 
     // If we have to take care of clipping
-    if (pClip != NULL)
+    if (pClip != nullptr)
     {
         // Save the sprite size
         int SpriteSizeX = pSprite->ZoneX2 - pSprite->ZoneX1;
@@ -520,7 +520,7 @@ bool CVideoSDL::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spr
     SSurface Surface;
 
     // Create a SDLVideo surface for this bitmap
-    SDL_Surface* ddsd = NULL;
+    SDL_Surface* ddsd = nullptr;
 
 #ifdef WIN32
 
@@ -858,11 +858,11 @@ void CVideoSDL::FreeSprites(void)
     for (unsigned int i = 0; i < m_Surfaces.size(); i++)
     {
         // If the surface exists
-        if (m_Surfaces[i].pSurface != NULL)
+        if (m_Surfaces[i].pSurface != nullptr)
         {
             // Release it
             SDL_FreeSurface(m_Surfaces[i].pSurface);
-            m_Surfaces[i].pSurface = NULL;
+            m_Surfaces[i].pSurface = nullptr;
         }
     }
 
@@ -952,17 +952,17 @@ void CVideoSDL::UpdateAll(void)
         // create surface
         SDL_Surface* rectangle = SDL_CreateRGBSurface(SDL_HWSURFACE | SDL_SRCALPHA, SourceRect.w, SourceRect.h, 32, rmask, gmask, bmask, amask);
 
-        SDL_Surface* reals = NULL;
+        SDL_Surface* reals = nullptr;
 
         SDL_SetAlpha(rectangle, SDL_SRCALPHA | SDL_RLEACCEL, 128);
 
         // fill with rectangle
-        if (rectangle != NULL && SDL_FillRect(rectangle, NULL, SDL_MapRGBA(rectangle->format, r, g, b, 128)) == 0)
+        if (rectangle != nullptr && SDL_FillRect(rectangle, NULL, SDL_MapRGBA(rectangle->format, r, g, b, 128)) == 0)
         {
             reals = SDL_DisplayFormatAlpha(rectangle);
 
             // Blit the surface zone on the back buffer
-            if (reals != NULL && SDL_BlitSurface(reals, &SourceRect, m_pPrimary, &DestRect) < 0)
+            if (reals != nullptr && SDL_BlitSurface(reals, &SourceRect, m_pPrimary, &DestRect) < 0)
             {
                 // blitting failed
                 theLog.WriteLine("SDLVideo        => !!! SDLVideo error is : %s.", GetSDLVideoError());
@@ -970,7 +970,7 @@ void CVideoSDL::UpdateAll(void)
         }
 
         SDL_FreeSurface(rectangle);
-        if (reals != NULL)
+        if (reals != nullptr)
             SDL_FreeSurface(reals);
 
         // do not Pop the drawing request (there is a separate function)

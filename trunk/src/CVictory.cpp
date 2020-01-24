@@ -153,7 +153,7 @@ CVictory::CVictory(void)
 {
     // Initialize the pointers to NULL so that we
     // can easily detect the ones we forgot to set.
-    m_pScores = NULL;
+    m_pScores = nullptr;
 
     m_ModeTime = 0.0f;
 
@@ -201,7 +201,7 @@ void CVictory::Create(void)
     CModeScreen::Create();
 
     // Check if all the objects to communicate with are set
-    ASSERT(m_pScores != NULL);
+    ASSERT(m_pScores != nullptr);
 
     // No time has been spent in this mode yet
     m_ModeTime = 0.0f;

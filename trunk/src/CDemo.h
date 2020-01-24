@@ -126,7 +126,7 @@ inline void CDemo::SetDisplay(CDisplay* pDisplay)
 
 inline void CDemo::SetOptions(COptions* pOptions)
 {
-    ASSERT(pOptions != NULL);
+    ASSERT(pOptions != nullptr);
 
     CModeScreen::SetOptions(pOptions);
 

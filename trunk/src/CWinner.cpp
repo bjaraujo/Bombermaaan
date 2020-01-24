@@ -139,8 +139,8 @@ CWinner::CWinner(void)
 {
     // Initialize the pointers to NULL so that we
     // can easily detect the ones we forgot to set.
-    m_pScores = NULL;
-    m_pMatch = NULL;
+    m_pScores = nullptr;
+    m_pMatch = nullptr;
 
     m_LightSpriteOffset = 0;
     m_HappyBomberSpriteOffset = 0;
@@ -151,7 +151,7 @@ CWinner::CWinner(void)
     m_SadBomberTimer = 0;
 
     m_PlayedSound = false;
-    m_pMosaic = NULL;
+    m_pMosaic = nullptr;
 
     m_ModeTime = 0.0f;
     m_ExitModeTime = 0.0f;
@@ -183,8 +183,8 @@ void CWinner::Create(void)
     CModeScreen::Create();
 
     // Check if all the objects to communicate with are set
-    ASSERT(m_pScores != NULL);
-    ASSERT(m_pMatch != NULL);
+    ASSERT(m_pScores != nullptr);
+    ASSERT(m_pMatch != nullptr);
 
     // Reset animation timers
     m_LightsTimer = 0.0f;

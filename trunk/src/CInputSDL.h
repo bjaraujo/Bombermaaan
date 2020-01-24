@@ -323,7 +323,7 @@ inline void CInputSDL::OpenJoystick(int Joystick)
         m_pJoysticks[Joystick]->pDevice = SDL_JoystickOpen(Joystick);
 
         // Set the opened state according to the return value
-        m_pJoysticks[Joystick]->Opened = (m_pJoysticks[Joystick]->pDevice != NULL);
+        m_pJoysticks[Joystick]->Opened = (m_pJoysticks[Joystick]->pDevice != nullptr);
     }
 }
 
@@ -347,7 +347,7 @@ inline void CInputSDL::CloseJoystick(int Joystick)
 
         // We are sure this joystick is not opened */
         m_pJoysticks[Joystick]->Opened = false;
-        m_pJoysticks[Joystick]->pDevice = NULL;
+        m_pJoysticks[Joystick]->pDevice = nullptr;
     }
 }
 

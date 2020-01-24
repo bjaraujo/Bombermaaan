@@ -39,9 +39,9 @@ CInput::CInput(void)
 {
     // Initialize the pointers to NULL so that we
     // can easily detect the ones we forgot to set.
-    m_pOptions = NULL;
-    m_pTimer = NULL;
-    m_PlayerInput = NULL;
+    m_pOptions = nullptr;
+    m_pTimer = nullptr;
+    m_PlayerInput = nullptr;
 
     // Set the input object used by the main input
     m_MainInput.SetInput(&m_input);
@@ -63,8 +63,8 @@ CInput::~CInput(void)
 bool CInput::Create(void)
 {
     // Check if all the objects to communicate with are set
-    ASSERT(m_pOptions != NULL);
-    ASSERT(m_pTimer != NULL);
+    ASSERT(m_pOptions != nullptr);
+    ASSERT(m_pTimer != nullptr);
 
     // If we could not create the DirectInput interface
     if (!m_input.Create())

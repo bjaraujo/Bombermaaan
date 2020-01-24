@@ -94,12 +94,12 @@ CBoard::CBoard(void)
 {
     // Initialize the pointers to NULL so that we
     // can easily detect the ones we forgot to set.
-    m_pClock = NULL;
-    m_pDisplay = NULL;
-    m_pOptions = NULL;
-    m_pTimer = NULL;
-    m_pScores = NULL;
-    m_pArena = NULL;
+    m_pClock = nullptr;
+    m_pDisplay = nullptr;
+    m_pOptions = nullptr;
+    m_pTimer = nullptr;
+    m_pScores = nullptr;
+    m_pArena = nullptr;
 
     m_ClockBottomTimer = 0.0f;
     m_ClockTopTimer = 0.0f;
@@ -123,12 +123,12 @@ CBoard::~CBoard(void) {}
 void CBoard::Create(void)
 {
     // Check if all the objects to communicate with are set
-    ASSERT(m_pDisplay != NULL);
-    ASSERT(m_pClock != NULL);
-    ASSERT(m_pOptions != NULL);
-    ASSERT(m_pTimer != NULL);
-    ASSERT(m_pScores != NULL);
-    ASSERT(m_pArena != NULL);
+    ASSERT(m_pDisplay != nullptr);
+    ASSERT(m_pClock != nullptr);
+    ASSERT(m_pOptions != nullptr);
+    ASSERT(m_pTimer != nullptr);
+    ASSERT(m_pScores != nullptr);
+    ASSERT(m_pArena != nullptr);
 
     // Reset clock animation timers
     m_ClockBottomTimer = 0.0f;

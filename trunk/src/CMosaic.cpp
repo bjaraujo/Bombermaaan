@@ -67,7 +67,7 @@ CMosaic::~CMosaic(void) { Destroy(); }
 
 void CMosaic::Create(int SpriteTable, int Sprite, int SpriteLayer, int PriorityInLayer, int SpriteWidth, int SpriteHeight, int TileCountX, int TileCountY, float SpeedX, float SpeedY)
 {
-    ASSERT(m_pDisplay != NULL);
+    ASSERT(m_pDisplay != nullptr);
 
     // Currently, this class has to be used with a positive SpeedX and a negative SpeedY.
     ASSERT(SpeedX >= 0.0f);

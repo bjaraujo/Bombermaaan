@@ -42,7 +42,7 @@
 CSound::CSound(void)
 {
     // No connection to the resources yet
-    m_hModule = NULL;
+    m_hModule = nullptr;
 
     // Sound is unpaused
     m_GlobalPause = false;
@@ -52,10 +52,10 @@ CSound::CSound(void)
 
     for (i = 0; i < NUM_SAMPLES; i++)
     {
-        m_Samples[i] = NULL;
+        m_Samples[i] = nullptr;
     }
 
-    m_CurrentSong = NULL;
+    m_CurrentSong = nullptr;
     m_ESong = SONG_NONE;
 
     m_SoundOK = false;
@@ -122,22 +122,22 @@ void CSound::Destroy(void)
         // Stop and free all samples that are playing
         for (i = 0; i < NUM_SAMPLES; i++)
         {
-            if (m_Samples[i] != NULL)
+            if (m_Samples[i] != nullptr)
             {
                 Mix_FreeChunk(m_Samples[i]);
 
                 // Free the sample slot
-                m_Samples[i] = NULL;
+                m_Samples[i] = nullptr;
             }
         }
 
         // Free the current song
-        if (m_CurrentSong != NULL)
+        if (m_CurrentSong != nullptr)
         {
             Mix_FreeMusic(m_CurrentSong);
 
             // Free the song slot
-            m_CurrentSong = NULL;
+            m_CurrentSong = nullptr;
         }
     }
 
@@ -214,7 +214,7 @@ bool CSound::LoadSample(ESample Sample, int ResourceID, const char* file)
 void CSound::FreeSample(ESample Sample)
 {
     // If the sample slot is not free
-    if (m_Samples[Sample] != NULL)
+    if (m_Samples[Sample] != nullptr)
     {
         // halt playback on all channels
         Mix_HaltChannel(-1);
@@ -223,7 +223,7 @@ void CSound::FreeSample(ESample Sample)
         Mix_FreeChunk(m_Samples[Sample]);
 
         // Free the sample slot
-        m_Samples[Sample] = NULL;
+        m_Samples[Sample] = nullptr;
     }
 }
 
@@ -292,18 +292,18 @@ bool CSound::LoadSong(ESong Song, int ResourceID, const char* file)
 void CSound::FreeSong(ESong Song)
 {
     // If the song slot is not free
-    if (m_CurrentSong != NULL)
+    if (m_CurrentSong != nullptr)
     {
         Mix_HaltMusic();
         Mix_FreeMusic(m_CurrentSong);
 
-        m_CurrentSong = NULL;
+        m_CurrentSong = nullptr;
     }
 
-    if (m_rwSong != NULL)
+    if (m_rwSong != nullptr)
     {
         SDL_RWclose(m_rwSong);
-        m_rwSong = NULL;
+        m_rwSong = nullptr;
     }
 }
 
@@ -408,7 +408,7 @@ void CSound::PlaySong(ESong Song)
     if (m_SoundOK)
     {
         // If a song exists free it unless it is the same
-        if (m_CurrentSong != NULL && m_ESong != Song)
+        if (m_CurrentSong != nullptr && m_ESong != Song)
             FreeSong(Song);
 
         // note: songs are loaded dynamically because of an error in libmikmod (used by SDL_mixer)
@@ -459,7 +459,7 @@ void CSound::StopSong(ESong Song)
     if (m_SoundOK)
     {
         // If the song exists
-        if (m_CurrentSong != NULL)
+        if (m_CurrentSong != nullptr)
         {
             // Stop playing current song (we don't know which one is playing)
             FreeSong(m_ESong);
@@ -477,7 +477,7 @@ void CSound::PlaySample(ESample Sample)
     if (m_SoundOK)
     {
         // If the sample exists
-        if (m_Samples[Sample] != NULL)
+        if (m_Samples[Sample] != nullptr)
         {
             // Start playing this sample
             Mix_PlayChannel(-1, m_Samples[Sample], 0);
@@ -524,7 +524,7 @@ void CSound::SetSongVolume(ESong Song, int VolumePerCent)
     if (m_SoundOK)
     {
         // If this song exists
-        if (m_CurrentSong != NULL)
+        if (m_CurrentSong != nullptr)
         {
             Mix_VolumeMusic(VolumePerCent * MIX_MAX_VOLUME / 100);
         }

@@ -108,7 +108,7 @@ private:
     void ModeWalk(float DeltaTime);
     void UpdateAccessibility(void);
     bool GoTo(int GoalBlockX, int GoalBlockY); // Modify the commands to send to the bomber so that it moves to the specified goal
-    bool EnemyNearAndFront(EEnemyDirection* direction = NULL, bool BeyondArenaFrontiers = false); // Returns true if a bomber enemy is near the bomber and in front of him
+    bool EnemyNearAndFront(EEnemyDirection* direction = nullptr, bool BeyondArenaFrontiers = false); // Returns true if a bomber enemy is near the bomber and in front of him
     bool EnemyNearRemoteFuseBomb(CBomb& bomb);
     bool TeamMateNearRemoteFuseBomb(CBomb& bomb);
     bool DropBombOK(int BlockX, int BlockY);
@@ -131,13 +131,13 @@ public:
 
 inline void CAiBomber::SetArena(CAiArena* pArena)
 {
-    ASSERT(pArena != NULL);
+    ASSERT(pArena != nullptr);
     m_pArena = pArena;
 }
 
 inline void CAiBomber::SetDisplay(CDisplay* pDisplay)
 {
-    ASSERT(pDisplay != NULL);
+    ASSERT(pDisplay != nullptr);
 
     // Save the display object pointer to pass to elements
     m_pDisplay = pDisplay;

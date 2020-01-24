@@ -114,7 +114,7 @@ CControls::CControls(void)
     m_WaitingForInput = false;
     m_WaitingForInputAfter = 0.0f;
     m_SongStarted = false;
-    m_pMosaic = NULL;
+    m_pMosaic = nullptr;
 }
 
 //******************************************************************************************************************************

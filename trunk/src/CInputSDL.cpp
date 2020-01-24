@@ -46,8 +46,8 @@
 
 CInputSDL::CInputSDL(void)
 {
-    m_hWnd = NULL;
-    m_hInstance = NULL;
+    m_hWnd = nullptr;
+    m_hInstance = nullptr;
     m_Ready = false;
 
     m_KeyboardOpened = false;
@@ -119,7 +119,7 @@ bool CInputSDL::Create(void)
             pJoystick->Opened = false;
 
             // Set the joystick's device to NULL (will be created later)
-            pJoystick->pDevice = NULL;
+            pJoystick->pDevice = nullptr;
 
             m_pJoysticks.push_back(pJoystick); // the joystick is not opened
 
@@ -148,7 +148,7 @@ void CInputSDL::Destroy(void)
         {
             // Release the joystick SDLinput device
             SDL_JoystickClose(m_pJoysticks[Index]->pDevice);
-            m_pJoysticks[Index]->pDevice = NULL;
+            m_pJoysticks[Index]->pDevice = nullptr;
 
             // Delete the joystick variable
             delete m_pJoysticks[Index];
@@ -178,7 +178,7 @@ bool CInputSDL::UpdateDevice(SDL_Joystick* pDevice, void* pState, int StateSize)
 bool CInputSDL::UpdateDevice(void* pState, int StateSize)
 {
 
-    Uint8* keyState = SDL_GetKeyState(NULL);
+    Uint8* keyState = SDL_GetKeyState(nullptr);
 
     for (int i = 0; i < StateSize; i++)
         SetKey(i, keyState[i] == 1);

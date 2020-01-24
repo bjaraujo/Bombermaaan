@@ -42,9 +42,9 @@
 
 CAiManager::CAiManager(void)
 {
-    m_pDisplay = NULL;
+    m_pDisplay = nullptr;
     for (int Player = 0; Player < MAX_PLAYERS; Player++)
-        m_pBombers[Player] = NULL;
+        m_pBombers[Player] = nullptr;
 }
 
 //******************************************************************************************************************************
@@ -84,10 +84,10 @@ void CAiManager::Destroy(void)
 
     for (int Player = 0; Player < MAX_PLAYERS; Player++)
     {
-        if (m_pBombers[Player] != NULL)
+        if (m_pBombers[Player] != nullptr)
         {
             delete m_pBombers[Player];
-            m_pBombers[Player] = NULL;
+            m_pBombers[Player] = nullptr;
         }
     }
 }
@@ -101,7 +101,7 @@ void CAiManager::Update(float DeltaTime)
     m_Arena.Update(DeltaTime);
 
     for (int Player = 0; Player < MAX_PLAYERS; Player++)
-        if (m_pBombers[Player] != NULL)
+        if (m_pBombers[Player] != nullptr)
             m_pBombers[Player]->Update(DeltaTime);
 }
 

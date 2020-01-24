@@ -40,8 +40,8 @@
 CPlayerInput::CPlayerInput(void)
 {
     m_PlayerInput = -1;
-    m_pDirectInput = NULL;
-    m_pOptions = NULL;
+    m_pDirectInput = nullptr;
+    m_pOptions = nullptr;
     m_Name[0] = '\0';
     m_ControlName[0] = '\0';
 }
@@ -61,8 +61,8 @@ CPlayerInput::~CPlayerInput(void)
 
 void CPlayerInput::Create(int PlayerInput)
 {
-    ASSERT(m_pDirectInput != NULL);
-    ASSERT(m_pOptions != NULL);
+    ASSERT(m_pDirectInput != nullptr);
+    ASSERT(m_pOptions != nullptr);
     ASSERT(PlayerInput >= 0);
 
     m_PlayerInput = PlayerInput;

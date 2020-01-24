@@ -89,7 +89,7 @@ CDrawGame::CDrawGame(void)
 {
     // Initialize the pointers to NULL so that we
     // can easily detect the ones we forgot to set.
-    m_pScores = NULL;
+    m_pScores = nullptr;
 
     m_ModeTime = 0.0f;
     m_FlagTimer = 0.0f;
@@ -124,7 +124,7 @@ void CDrawGame::Create(void)
     CModeScreen::Create();
 
     // Check if all the objects to communicate with are set
-    ASSERT(m_pScores != NULL);
+    ASSERT(m_pScores != nullptr);
 
     // Reset mode time
     m_ModeTime = 0.0f;

@@ -298,9 +298,9 @@ public:
         const SI_CHAR* pComment;
         int nOrder;
 
-        Entry(const SI_CHAR* a_pszItem = NULL, int a_nOrder = 0)
+        Entry(const SI_CHAR* a_pszItem = nullptr, int a_nOrder = 0)
             : pItem(a_pszItem)
-            , pComment(NULL)
+            , pComment(nullptr)
             , nOrder(a_nOrder)
         {
         }
@@ -806,7 +806,7 @@ public:
         @return a_pDefault      Key was not found in the section
         @return other           Value of the key
      */
-    const SI_CHAR* GetValue(const SI_CHAR* a_pSection, const SI_CHAR* a_pKey, const SI_CHAR* a_pDefault = NULL, bool* a_pHasMultiple = NULL) const;
+    const SI_CHAR* GetValue(const SI_CHAR* a_pSection, const SI_CHAR* a_pKey, const SI_CHAR* a_pDefault = nullptr, bool* a_pHasMultiple = nullptr) const;
 
     /** Retrieve a numeric value for a specific key. If multiple keys are enabled
         (see SetMultiKey) then only the first value associated with that key
@@ -821,7 +821,7 @@ public:
         @return a_nDefault      Key was not found in the section
         @return other           Value of the key
      */
-    long GetLongValue(const SI_CHAR* a_pSection, const SI_CHAR* a_pKey, long a_nDefault = 0, bool* a_pHasMultiple = NULL) const;
+    long GetLongValue(const SI_CHAR* a_pSection, const SI_CHAR* a_pKey, long a_nDefault = 0, bool* a_pHasMultiple = nullptr) const;
 
     /** Retrieve a boolean value for a specific key. If multiple keys are enabled
         (see SetMultiKey) then only the first value associated with that key
@@ -841,7 +841,7 @@ public:
         @return a_nDefault      Key was not found in the section
         @return other           Value of the key
      */
-    bool GetBoolValue(const SI_CHAR* a_pSection, const SI_CHAR* a_pKey, bool a_bDefault = false, bool* a_pHasMultiple = NULL) const;
+    bool GetBoolValue(const SI_CHAR* a_pSection, const SI_CHAR* a_pKey, bool a_bDefault = false, bool* a_pHasMultiple = nullptr) const;
 
     /** Add or update a section or value. This will always insert
         when multiple keys are enabled.
@@ -866,7 +866,7 @@ public:
         @return SI_UPDATED  Value was updated
         @return SI_INSERTED Value was inserted
      */
-    SI_Error SetValue(const SI_CHAR* a_pSection, const SI_CHAR* a_pKey, const SI_CHAR* a_pValue, const SI_CHAR* a_pComment = NULL) { return AddEntry(a_pSection, a_pKey, a_pValue, a_pComment, true); }
+    SI_Error SetValue(const SI_CHAR* a_pSection, const SI_CHAR* a_pKey, const SI_CHAR* a_pValue, const SI_CHAR* a_pComment = nullptr) { return AddEntry(a_pSection, a_pKey, a_pValue, a_pComment, true); }
 
     /** Add or update a numeric value. This will always insert
         when multiple keys are enabled.
@@ -884,7 +884,7 @@ public:
         @return SI_UPDATED  Value was updated
         @return SI_INSERTED Value was inserted
      */
-    SI_Error SetLongValue(const SI_CHAR* a_pSection, const SI_CHAR* a_pKey, long a_nValue, const SI_CHAR* a_pComment = NULL, bool a_bUseHex = false);
+    SI_Error SetLongValue(const SI_CHAR* a_pSection, const SI_CHAR* a_pKey, long a_nValue, const SI_CHAR* a_pComment = nullptr, bool a_bUseHex = false);
 
     /** Add or update a boolean value. This will always insert
         when multiple keys are enabled.
@@ -899,7 +899,7 @@ public:
         @return SI_UPDATED  Value was updated
         @return SI_INSERTED Value was inserted
      */
-    SI_Error SetBoolValue(const SI_CHAR* a_pSection, const SI_CHAR* a_pKey, bool a_nValue, const SI_CHAR* a_pComment = NULL);
+    SI_Error SetBoolValue(const SI_CHAR* a_pSection, const SI_CHAR* a_pKey, bool a_nValue, const SI_CHAR* a_pComment = nullptr);
 
     /** Delete an entire section, or a key from a section. Note that the
         data returned by GetSection is invalid and must not be used after
@@ -1046,7 +1046,7 @@ template <class SI_CHAR, class SI_STRLESS, class SI_CONVERTER>
 CSimpleIniTempl<SI_CHAR, SI_STRLESS, SI_CONVERTER>::CSimpleIniTempl(bool a_bIsUtf8, bool a_bAllowMultiKey, bool a_bAllowMultiLine)
     : m_pData(0)
     , m_uDataLen(0)
-    , m_pFileComment(NULL)
+    , m_pFileComment(nullptr)
     , m_bStoreIsUtf8(a_bIsUtf8)
     , m_bAllowMultiKey(a_bAllowMultiKey)
     , m_bAllowMultiLine(a_bAllowMultiLine)
@@ -1060,9 +1060,9 @@ template <class SI_CHAR, class SI_STRLESS, class SI_CONVERTER> void CSimpleIniTe
 {
     // remove all data
     delete[] m_pData;
-    m_pData = NULL;
+    m_pData = nullptr;
     m_uDataLen = 0;
-    m_pFileComment = NULL;
+    m_pFileComment = nullptr;
     if (!m_data.empty())
     {
         m_data.erase(m_data.begin(), m_data.end());
@@ -1082,7 +1082,7 @@ template <class SI_CHAR, class SI_STRLESS, class SI_CONVERTER> void CSimpleIniTe
 
 template <class SI_CHAR, class SI_STRLESS, class SI_CONVERTER> SI_Error CSimpleIniTempl<SI_CHAR, SI_STRLESS, SI_CONVERTER>::LoadFile(const char* a_pszFile)
 {
-    FILE* fp = NULL;
+    FILE* fp = nullptr;
 #if __STDC_WANT_SECURE_LIB__ && !_WIN32_WCE
     fopen_s(&fp, a_pszFile, "rb");
 #else // !__STDC_WANT_SECURE_LIB__
@@ -1101,7 +1101,7 @@ template <class SI_CHAR, class SI_STRLESS, class SI_CONVERTER> SI_Error CSimpleI
 template <class SI_CHAR, class SI_STRLESS, class SI_CONVERTER> SI_Error CSimpleIniTempl<SI_CHAR, SI_STRLESS, SI_CONVERTER>::LoadFile(const SI_WCHAR_T* a_pwszFile)
 {
 #ifdef _WIN32
-    FILE* fp = NULL;
+    FILE* fp = nullptr;
 #if __STDC_WANT_SECURE_LIB__ && !_WIN32_WCE
     _wfopen_s(&fp, a_pwszFile, L"rb");
 #else // !__STDC_WANT_SECURE_LIB__
@@ -1202,13 +1202,13 @@ template <class SI_CHAR, class SI_STRLESS, class SI_CONVERTER> SI_Error CSimpleI
     const static SI_CHAR empty = 0;
     SI_CHAR* pWork = pData;
     const SI_CHAR* pSection = &empty;
-    const SI_CHAR* pItem = NULL;
-    const SI_CHAR* pVal = NULL;
-    const SI_CHAR* pComment = NULL;
+    const SI_CHAR* pItem = nullptr;
+    const SI_CHAR* pVal = nullptr;
+    const SI_CHAR* pComment = nullptr;
 
     // We copy the strings if we are loading data into this class when we
     // already have stored some.
-    bool bCopyStrings = (m_pData != NULL);
+    bool bCopyStrings = (m_pData != nullptr);
 
     // find a file comment if it exists, this is a comment that starts at the
     // beginning of the file and continues until the first blank line.
@@ -1280,9 +1280,9 @@ template <class SI_CHAR, class SI_STRLESS, class SI_CONVERTER> SI_Error CSimpleI
 
 template <class SI_CHAR, class SI_STRLESS, class SI_CONVERTER> bool CSimpleIniTempl<SI_CHAR, SI_STRLESS, SI_CONVERTER>::FindEntry(SI_CHAR*& a_pData, const SI_CHAR*& a_pSection, const SI_CHAR*& a_pKey, const SI_CHAR*& a_pVal, const SI_CHAR*& a_pComment) const
 {
-    a_pComment = NULL;
+    a_pComment = nullptr;
 
-    SI_CHAR* pTrail = NULL;
+    SI_CHAR* pTrail = nullptr;
     while (*a_pData)
     {
         // skip spaces and empty lines
@@ -1343,8 +1343,8 @@ template <class SI_CHAR, class SI_STRLESS, class SI_CONVERTER> bool CSimpleIniTe
                 ++a_pData;
             }
 
-            a_pKey = NULL;
-            a_pVal = NULL;
+            a_pKey = nullptr;
+            a_pVal = nullptr;
             return true;
         }
 
@@ -1582,7 +1582,7 @@ template <class SI_CHAR, class SI_STRLESS, class SI_CONVERTER> bool CSimpleIniTe
     // if we didn't find a comment at all then return false
     if (a_pVal == a_pData)
     {
-        a_pVal = NULL;
+        a_pVal = nullptr;
         return false;
     }
 
@@ -1927,7 +1927,7 @@ template <class SI_CHAR, class SI_STRLESS, class SI_CONVERTER> int CSimpleIniTem
 
     // otherwise we need to count them
     int nCount = 0;
-    const SI_CHAR* pLastKey = NULL;
+    const SI_CHAR* pLastKey = nullptr;
     typename TKeyVal::const_iterator iKeyVal = section.begin();
     for (int n = 0; iKeyVal != section.end(); ++iKeyVal, ++n)
     {
@@ -1976,7 +1976,7 @@ template <class SI_CHAR, class SI_STRLESS, class SI_CONVERTER> bool CSimpleIniTe
     }
 
     const TKeyVal& section = iSection->second;
-    const SI_CHAR* pLastKey = NULL;
+    const SI_CHAR* pLastKey = nullptr;
     typename TKeyVal::const_iterator iKeyVal = section.begin();
     for (int n = 0; iKeyVal != section.end(); ++iKeyVal, ++n)
     {
@@ -1992,7 +1992,7 @@ template <class SI_CHAR, class SI_STRLESS, class SI_CONVERTER> bool CSimpleIniTe
 
 template <class SI_CHAR, class SI_STRLESS, class SI_CONVERTER> SI_Error CSimpleIniTempl<SI_CHAR, SI_STRLESS, SI_CONVERTER>::SaveFile(const char* a_pszFile, bool a_bAddSignature) const
 {
-    FILE* fp = NULL;
+    FILE* fp = nullptr;
 #if __STDC_WANT_SECURE_LIB__ && !_WIN32_WCE
     fopen_s(&fp, a_pszFile, "wb");
 #else // !__STDC_WANT_SECURE_LIB__
@@ -2672,14 +2672,14 @@ template <class SI_CHAR> class SI_ConvertW
 
 protected:
     SI_ConvertW()
-        : m_pEncoding(NULL)
-        , m_pConverter(NULL)
+        : m_pEncoding(nullptr)
+        , m_pConverter(nullptr)
     {
     }
 
 public:
     SI_ConvertW(bool a_bStoreIsUtf8)
-        : m_pConverter(NULL)
+        : m_pConverter(nullptr)
     {
         m_pEncoding = a_bStoreIsUtf8 ? "UTF-8" : NULL;
     }
@@ -2689,7 +2689,7 @@ public:
     SI_ConvertW& operator=(const SI_ConvertW& rhs)
     {
         m_pEncoding = rhs.m_pEncoding;
-        m_pConverter = NULL;
+        m_pConverter = nullptr;
         return *this;
     }
     ~SI_ConvertW()

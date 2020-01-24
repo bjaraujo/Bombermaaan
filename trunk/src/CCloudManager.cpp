@@ -37,7 +37,7 @@
 
 CCloudManager::CCloudManager(void)
 {
-    m_pDisplay = NULL;
+    m_pDisplay = nullptr;
 
     m_CloudSprites[0] = BMP_TITLE_CLOUD_1;
     m_CloudSprites[1] = BMP_TITLE_CLOUD_2;
@@ -56,7 +56,7 @@ CCloudManager::~CCloudManager(void) { Destroy(); }
 
 void CCloudManager::Create(void)
 {
-    ASSERT(m_pDisplay != NULL);
+    ASSERT(m_pDisplay != nullptr);
 
     // Set the sprite for each cloud
     m_CloudSprites[0] = BMP_TITLE_CLOUD_1;

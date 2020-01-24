@@ -92,7 +92,7 @@ CCredits::CCredits(void)
     m_ExitModeTime = 0.0f;
     m_Cursor = 0;
     m_SongStarted = false;
-    m_pMosaic = NULL;
+    m_pMosaic = nullptr;
 }
 
 //******************************************************************************************************************************

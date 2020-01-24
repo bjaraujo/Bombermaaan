@@ -49,7 +49,7 @@
 
 CBomberMove::CBomberMove(void)
 {
-    m_pArena = NULL;
+    m_pArena = nullptr;
     m_Player = -1;
 
     m_X = -1;
@@ -79,7 +79,7 @@ CBomberMove::~CBomberMove(void) {}
 
 void CBomberMove::Create(int BlockX, int BlockY, int Player)
 {
-    ASSERT(m_pArena != NULL);
+    ASSERT(m_pArena != nullptr);
 
     ASSERT(BlockX >= 0);
     ASSERT(BlockX < ARENA_WIDTH);

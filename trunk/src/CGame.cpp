@@ -98,13 +98,13 @@ CGame::CGame(HINSTANCE hInstance, char** pCommandLine)
 #endif
 {
     m_GameMode = GAMEMODE_NONE;
-    m_hModule = NULL;
+    m_hModule = nullptr;
 #ifdef WIN32
     m_hInstance = hInstance;
 #else
-    m_hInstance = NULL;
+    m_hInstance = nullptr;
 #endif
-    SEED_RANDOM((unsigned)time(NULL));
+    SEED_RANDOM((unsigned)time(nullptr));
 
     //
     // Set the window title
@@ -161,8 +161,8 @@ bool CGame::Create(char** pCommandLine, int pCommandLineCount)
     // There is no check if the parameters are surrounded by spaces, or at the beginning of the line,
     // or the end. So "-----__/-h999" would also match (the -h is found).
 #ifdef WIN32
-    if (strstr(pCommandLine, "-?") != NULL || strstr(pCommandLine, "--help") != NULL || // Not really necessary, since "-?" already did the job
-        strstr(pCommandLine, "--license") != NULL || strstr(pCommandLine, "--show-license") != NULL || strstr(pCommandLine, "/?") != NULL)
+    if (strstr(pCommandLine, "-?") != nullptr || strstr(pCommandLine, "--help") != nullptr || // Not really necessary, since "-?" already did the job
+        strstr(pCommandLine, "--license") != nullptr || strstr(pCommandLine, "--show-license") != nullptr || strstr(pCommandLine, "/?") != nullptr)
 #else
     bool helpRequested = false;
 
@@ -234,7 +234,7 @@ bool CGame::Create(char** pCommandLine, int pCommandLineCount)
 
 #ifdef WIN32
     // The "--use-appdata-dir" switch creates config and log file in the user's %APPDATA% directory (Windows)
-    bool useAppDataFolder = (strstr(pCommandLine, "--use-appdata-dir") != NULL);
+    bool useAppDataFolder = (strstr(pCommandLine, "--use-appdata-dir") != nullptr);
 #else
     // In linux do the opposite - it's more useful if we save our data in ~/.Bombermaaan
     bool useAppDataFolder = true;
@@ -492,7 +492,7 @@ bool CGame::Create(char** pCommandLine, int pCommandLineCount)
     m_Display.SetWindowHandle(m_hWnd);
     m_Display.SetModuleHandle(m_hModule);
 #else
-    m_Display.SetModuleHandle(NULL);
+    m_Display.SetModuleHandle(nullptr);
 #endif // WIN32
 
 #ifdef SDL
@@ -595,7 +595,7 @@ bool CGame::Create(char** pCommandLine, int pCommandLineCount)
 #ifdef WIN32
     m_Sound.SetModuleHandle(m_hModule);
 #else
-    m_Sound.SetModuleHandle(NULL);
+    m_Sound.SetModuleHandle(nullptr);
 #endif
 
     // If creating the display and setting the display mode failed
@@ -632,7 +632,7 @@ bool CGame::Create(char** pCommandLine, int pCommandLineCount)
 
 #ifdef WIN32
     pos = strstr(pCommandLine, "--client");
-    if (pos != NULL)
+    if (pos != nullptr)
     {
         strcpy(IpAddressString, pos + 9);
         OutputDebugString("*** STARTING GAME AS CLIENT\n");
@@ -641,7 +641,7 @@ bool CGame::Create(char** pCommandLine, int pCommandLineCount)
     else
     {
         pos = strstr(pCommandLine, "-c");
-        if (pos != NULL)
+        if (pos != nullptr)
         {
             strcpy(IpAddressString, pos + 3);
             OutputDebugString("*** STARTING GAME AS CLIENT\n");
@@ -650,7 +650,7 @@ bool CGame::Create(char** pCommandLine, int pCommandLineCount)
     }
 
     pos = strstr(pCommandLine, "--host");
-    if (pos != NULL)
+    if (pos != nullptr)
     {
         strcpy(IpAddressString, pos + 7);
         OutputDebugString("*** STARTING GAME AS SERVER\n");
@@ -659,7 +659,7 @@ bool CGame::Create(char** pCommandLine, int pCommandLineCount)
     else
     {
         pos = strstr(pCommandLine, "-h");
-        if (pos != NULL)
+        if (pos != nullptr)
         {
             strcpy(IpAddressString, pos + 3);
             OutputDebugString("*** STARTING GAME AS SERVER\n");
@@ -761,13 +761,13 @@ void CGame::Destroy(void)
 #endif
 
     // If there is a connection to the resources
-    if (m_hModule != NULL)
+    if (m_hModule != nullptr)
     {
         // Close the connection to the resources
 #ifdef WIN32
         FreeLibrary(m_hModule);
 #endif // WIN32
-        m_hModule = NULL;
+        m_hModule = nullptr;
     }
 
 #ifdef ENABLE_CONSOLE
@@ -862,7 +862,7 @@ void CGame::OnWindowActive(void)
     {
         //! - Update the object corresponding to the current game mode and let it tell the next game mode
         CModeScreen* modeScreen = GetGameModeObject(m_GameMode);
-        if (modeScreen != NULL)
+        if (modeScreen != nullptr)
             NextGameMode = modeScreen->Update();
     }
 
@@ -884,7 +884,7 @@ void CGame::OnWindowActive(void)
     //! Display the object corresponding to the current game mode
     CModeScreen* modeScreen = GetGameModeObject(m_GameMode);
 
-    if (modeScreen != NULL)
+    if (modeScreen != nullptr)
         modeScreen->Display();
 
     //! Display the menu yes/no if needed
@@ -942,7 +942,7 @@ void CGame::StartGameMode(EGameMode GameMode)
     {
         // Create the object corresponding to the new game mode
         CModeScreen* modeScreen = GetGameModeObject(m_GameMode);
-        if (modeScreen != NULL)
+        if (modeScreen != nullptr)
             modeScreen->Create();
     }
 }
@@ -959,7 +959,7 @@ void CGame::FinishGameMode(void)
 {
     //! Destroy the object corresponding to the new game mode
     CModeScreen* modeScreen = GetGameModeObject(m_GameMode);
-    if (modeScreen != NULL)
+    if (modeScreen != nullptr)
         modeScreen->Destroy();
 
     //! Set no game mode
@@ -1003,7 +1003,7 @@ void CGame::OnActivateApp(WPARAM wParam, LPARAM lParam)
         // Open the needed players inputs according to current game mode
         // Create the object corresponding to the new game mode
         CModeScreen* modeScreen = GetGameModeObject(m_GameMode);
-        if (modeScreen != NULL)
+        if (modeScreen != nullptr)
             modeScreen->OpenInput();
     }
     // If the window loses the focus
@@ -1023,7 +1023,7 @@ void CGame::OnActivateApp(WPARAM wParam, LPARAM lParam)
 
         // Close the needed players inputs according to current game mode
         // Create the object corresponding to the new game mode
-        if (GetGameModeObject(m_GameMode) != NULL)
+        if (GetGameModeObject(m_GameMode) != nullptr)
             GetGameModeObject(m_GameMode)->CloseInput();
     }
 }

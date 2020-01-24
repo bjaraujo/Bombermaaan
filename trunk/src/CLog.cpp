@@ -119,7 +119,7 @@ bool CLog::Open(const char* pFilename)
         GetLocalTime(&LocalTime);
 #else
         struct tm* LocalTime;
-        time_t curTime = time(NULL);
+        time_t curTime = time(nullptr);
         LocalTime = localtime(&curTime);
 #endif
 
@@ -168,7 +168,7 @@ bool CLog::Close()
         GetLocalTime(&LocalTime);
 #else
         struct tm* LocalTime;
-        time_t curTime = time(NULL);
+        time_t curTime = time(nullptr);
         LocalTime = localtime(&curTime);
 #endif
 
@@ -247,7 +247,7 @@ long CLog::Write(const char* pMessage, ...)
             GetLocalTime(&LocalTime);
 #else
             struct tm* LocalTime;
-            time_t curTime = time(NULL);
+            time_t curTime = time(nullptr);
             LocalTime = localtime(&curTime);
 #endif
 
@@ -319,7 +319,7 @@ long CLog::WriteLine(const char* pMessage, ...)
             GetLocalTime(&LocalTime);
 #else
             struct tm* LocalTime;
-            time_t curTime = time(NULL);
+            time_t curTime = time(nullptr);
             LocalTime = localtime(&curTime);
 #endif
 
@@ -391,7 +391,7 @@ long CLog::WriteDebugMsg(EDebugSection section, const char* pMessage, ...)
             GetLocalTime(&LocalTime);
 #else
             struct tm* LocalTime;
-            time_t curTime = time(NULL);
+            time_t curTime = time(nullptr);
             LocalTime = localtime(&curTime);
 #endif
 

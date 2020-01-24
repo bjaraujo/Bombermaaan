@@ -38,9 +38,9 @@
 CElement::CElement(void)
 {
     m_Exist = false;
-    m_pDisplay = NULL;
-    m_pSound = NULL;
-    m_pArena = NULL;
+    m_pDisplay = nullptr;
+    m_pSound = nullptr;
+    m_pArena = nullptr;
 }
 
 //******************************************************************************************************************************
@@ -56,9 +56,9 @@ CElement::~CElement(void) {}
 void CElement::Create(void)
 {
     m_Exist = true;
-    ASSERT(m_pArena != NULL);
-    ASSERT(m_pDisplay != NULL);
-    ASSERT(m_pSound != NULL);
+    ASSERT(m_pArena != nullptr);
+    ASSERT(m_pDisplay != nullptr);
+    ASSERT(m_pSound != nullptr);
 }
 
 //******************************************************************************************************************************
@@ -68,9 +68,9 @@ void CElement::Create(void)
 void CElement::Destroy(void)
 {
     m_Exist = false;
-    m_pDisplay = NULL;
-    m_pSound = NULL;
-    m_pArena = NULL;
+    m_pDisplay = nullptr;
+    m_pSound = nullptr;
+    m_pArena = nullptr;
 }
 
 //******************************************************************************************************************************

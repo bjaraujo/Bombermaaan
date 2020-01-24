@@ -39,8 +39,8 @@
 
 CHurryMessage::CHurryMessage(CDisplay* pDisplay, CSound* pSound)
 {
-    ASSERT(pDisplay != NULL);
-    ASSERT(pSound != NULL);
+    ASSERT(pDisplay != nullptr);
+    ASSERT(pSound != nullptr);
 
     m_pDisplay = pDisplay;
     m_pSound = pSound;

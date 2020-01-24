@@ -42,7 +42,7 @@
 CDisplay::CDisplay(void)
 {
     // No connection to the resources yet
-    m_hModule = NULL;
+    m_hModule = nullptr;
 
     // Reset view origin
     m_ViewOriginX = 0;
@@ -66,7 +66,7 @@ bool CDisplay::Create(int Width, int Height, bool FullScreen)
 {
     // Check if we have a connection with the resources
 #ifndef LOAD_RESOURCES_FROM_FILES
-    ASSERT(m_hModule != NULL);
+    ASSERT(m_hModule != nullptr);
 #endif
 
     int Depth = 32;

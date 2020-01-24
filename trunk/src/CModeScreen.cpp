@@ -48,11 +48,11 @@ CModeScreen::CModeScreen()
 {
     // Initialize the pointers to NULL so that we
     // can easily detect the ones we forgot to set.
-    m_pDisplay = NULL;
-    m_pInput = NULL;
-    m_pOptions = NULL;
-    m_pTimer = NULL;
-    m_pSound = NULL;
+    m_pDisplay = nullptr;
+    m_pInput = nullptr;
+    m_pOptions = nullptr;
+    m_pTimer = nullptr;
+    m_pSound = nullptr;
 }
 
 //******************************************************************************************************************************
@@ -71,11 +71,11 @@ CModeScreen::~CModeScreen(void)
 void CModeScreen::Create(void)
 {
     // Check if all the objects to communicate with are set
-    ASSERT(m_pDisplay != NULL);
-    ASSERT(m_pInput != NULL);
-    ASSERT(m_pOptions != NULL);
-    ASSERT(m_pTimer != NULL);
-    ASSERT(m_pSound != NULL);
+    ASSERT(m_pDisplay != nullptr);
+    ASSERT(m_pInput != nullptr);
+    ASSERT(m_pOptions != nullptr);
+    ASSERT(m_pTimer != nullptr);
+    ASSERT(m_pSound != nullptr);
 
     OpenInput();
 }

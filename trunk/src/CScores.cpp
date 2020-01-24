@@ -39,7 +39,7 @@ CScores::CScores(void)
 {
     // Initialize the pointers to NULL so that we
     // can easily detect the ones we forgot to set.
-    m_pOptions = NULL;
+    m_pOptions = nullptr;
 
     Reset();
 }

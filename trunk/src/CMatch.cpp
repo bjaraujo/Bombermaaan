@@ -70,8 +70,8 @@ CMatch::CMatch(void)
 
     m_AiManager.SetArena(&m_Arena);
 
-    m_pPauseMessage = NULL;
-    m_pHurryMessage = NULL;
+    m_pPauseMessage = nullptr;
+    m_pHurryMessage = nullptr;
 
     m_MatchOver = false;
     m_WinnerTeam = NO_WINNER_TEAM;
@@ -83,7 +83,7 @@ CMatch::CMatch(void)
     m_ForceDrawGame = false;
 
 #ifdef NETWORK_MODE
-    m_pNetwork = NULL;
+    m_pNetwork = nullptr;
 #endif
 
     m_CurrentSong = SONG_NONE;
@@ -147,7 +147,7 @@ void CMatch::Create(void)
 #ifdef WIN32
             DWORD TickCount = GetTickCount();
 #else
-            DWORD TickCount = time(NULL);
+            DWORD TickCount = time(nullptr);
 #endif
 
             m_pNetwork->Send(SOCKET_CLIENT, (const char*)&TickCount, sizeof(DWORD));
@@ -266,10 +266,10 @@ void CMatch::Destroy(void)
 void CMatch::DestroyPauseMessage(void)
 {
     // Delete the pause message object
-    if (m_pPauseMessage != NULL)
+    if (m_pPauseMessage != nullptr)
     {
         delete m_pPauseMessage;
-        m_pPauseMessage = NULL;
+        m_pPauseMessage = nullptr;
     }
 }
 
@@ -280,10 +280,10 @@ void CMatch::DestroyPauseMessage(void)
 void CMatch::DestroyHurryUpMessage(void)
 {
     // Delete the hurry message object
-    if (m_pHurryMessage != NULL)
+    if (m_pHurryMessage != nullptr)
     {
         delete m_pHurryMessage;
-        m_pHurryMessage = NULL;
+        m_pHurryMessage = nullptr;
     }
 }
 
@@ -612,7 +612,7 @@ void CMatch::ManagePauseMessage(void)
     }
 
     // If the pause message is created
-    if (m_pPauseMessage != NULL)
+    if (m_pPauseMessage != nullptr)
     {
         // Update the pause message
         m_pPauseMessage->Update(m_pTimer->GetDeltaTime());
@@ -628,7 +628,7 @@ void CMatch::ManagePauseMessage(void)
         {
             // Delete the pause message object
             delete m_pPauseMessage;
-            m_pPauseMessage = NULL;
+            m_pPauseMessage = nullptr;
         }
     }
 }
@@ -763,14 +763,14 @@ void CMatch::ManageHurryUpMessage(void)
     }
 
     // If the hurry message exists
-    if (m_pHurryMessage != NULL)
+    if (m_pHurryMessage != nullptr)
     {
         // Update the hurry message. If it has finished its behaviour
         if (m_pHurryMessage->Update(m_pTimer->GetDeltaTime()))
         {
             // Delete the hurry message object
             delete m_pHurryMessage;
-            m_pHurryMessage = NULL;
+            m_pHurryMessage = nullptr;
         }
     }
 }
@@ -1125,7 +1125,7 @@ void CMatch::DisplayMatchScreen(void)
 void CMatch::DisplayHurryUpMessage(void)
 {
     // If the hurry message exists
-    if (m_pHurryMessage != NULL)
+    if (m_pHurryMessage != nullptr)
     {
         // Display the hurry message
         m_pHurryMessage->Display();
@@ -1139,7 +1139,7 @@ void CMatch::DisplayHurryUpMessage(void)
 void CMatch::DisplayPauseMessage(void)
 {
     // If the match is paused
-    if (m_pPauseMessage != NULL)
+    if (m_pPauseMessage != nullptr)
     {
         // Display the pause message
         m_pPauseMessage->Display();

@@ -90,19 +90,19 @@ public:
 
 inline void CAiArena::SetArena(CArena* pArena)
 {
-    ASSERT(pArena != NULL);
+    ASSERT(pArena != nullptr);
     m_pArena = pArena;
 }
 
 inline CArena* CAiArena::GetArena(void)
 {
-    ASSERT(m_pArena != NULL);
+    ASSERT(m_pArena != nullptr);
     return m_pArena;
 }
 
 inline void CAiArena::SetDisplay(CDisplay* pDisplay)
 {
-    ASSERT(pDisplay != NULL);
+    ASSERT(pDisplay != nullptr);
     // Save the display object pointer to pass to elements
     m_pDisplay = pDisplay;
 }

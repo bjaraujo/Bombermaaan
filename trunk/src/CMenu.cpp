@@ -56,7 +56,7 @@ CMenu::CMenu(void)
 {
     // Initialize the pointers to NULL so that we
     // can easily detect the ones we forgot to set.
-    m_pScores = NULL;
+    m_pScores = nullptr;
 
     // Set the font object the menu screen objects have to communicate with
     m_MenuBomber.SetFont(&m_Font);
@@ -78,7 +78,7 @@ CMenu::CMenu(void)
     m_ExitGameMode = GAMEMODE_NONE;
     m_ExitGameModeTime = 0.0f;
     m_SongStarted = false;
-    m_pMosaic = NULL;
+    m_pMosaic = nullptr;
 }
 
 //******************************************************************************************************************************
@@ -99,7 +99,7 @@ void CMenu::Create(void)
     CModeScreen::Create();
 
     // Check if all the objects to communicate with are set
-    ASSERT(m_pScores != NULL);
+    ASSERT(m_pScores != nullptr);
 
     // Reset game mode time (no time has been elapsed in this game mode yet)
     m_GameModeTime = 0.0f;

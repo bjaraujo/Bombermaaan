@@ -63,9 +63,9 @@ CArena::CArena(void)
 {
     // Initialize the pointers to NULL so that we
     // can easily detect the ones we forgot to set.
-    m_pDisplay = NULL;
-    m_pSound = NULL;
-    m_pOptions = NULL;
+    m_pDisplay = nullptr;
+    m_pSound = nullptr;
+    m_pOptions = nullptr;
 
     m_BombsInUse = 0;
 
@@ -739,7 +739,7 @@ void CArena::Update(float DeltaTime)
 void CArena::Display(void)
 {
     // If a display object was specified
-    if (m_pDisplay != NULL)
+    if (m_pDisplay != nullptr)
     {
         // Set the display origin where to draw the arena elements from
         m_pDisplay->SetOrigin(ARENA_POSITION_X, ARENA_POSITION_Y);
@@ -1082,7 +1082,7 @@ void CArena::NewBomber(int BlockX, int BlockY, int Player)
     ASSERT(BlockY >= 0 && BlockY < ARENA_HEIGHT);
     ASSERT(Player >= 0 && Player < MAX_PLAYERS);
     ASSERT(!m_Bombers[Player].Exist());
-    ASSERT(m_pOptions != NULL);
+    ASSERT(m_pOptions != nullptr);
 
     // Create the bomber and map the player number with it
     m_Bombers[Player].SetArena(this);

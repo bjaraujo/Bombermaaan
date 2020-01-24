@@ -301,7 +301,7 @@ bool COptions::LoadConfiguration(void)
     FILE* pConfigFile = fopen(oldconfigFileName.c_str(), "rb");
 
     // If the old configuration file exists
-    if (pConfigFile != NULL)
+    if (pConfigFile != nullptr)
     {
         theLog.WriteLine("Options         => Note: Reading old configuration file (config.dat) values now. Once the XML file is written, you may delete the old configuration file.");
 
@@ -578,8 +578,8 @@ bool COptions::LoadLevels(std::string dynamicDataFolder, std::string pgmFolder)
 
 #ifndef WIN32
     // initialise OUR data structure
-    FindData.name = NULL;
-    FindData.suffix = NULL;
+    FindData.name = nullptr;
+    FindData.suffix = nullptr;
 #endif
 
     //-------------------------------------------

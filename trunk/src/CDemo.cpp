@@ -70,7 +70,7 @@ CDemo::CDemo(void)
 
     m_AiManager.SetArena(&m_Arena);
 
-    m_pHurryMessage = NULL;
+    m_pHurryMessage = nullptr;
 
     m_MatchOver = false;
     m_CurrentSong = SONG_NONE;
@@ -251,10 +251,10 @@ void CDemo::StopSong(void)
 void CDemo::DestroyHurryUpMessage(void)
 {
     // Delete the hurry message object
-    if (m_pHurryMessage != NULL)
+    if (m_pHurryMessage != nullptr)
     {
         delete m_pHurryMessage;
-        m_pHurryMessage = NULL;
+        m_pHurryMessage = nullptr;
     }
 }
 
@@ -443,14 +443,14 @@ void CDemo::ManageHurryUpMessage(void)
     }
 
     // If the hurry message exists
-    if (m_pHurryMessage != NULL)
+    if (m_pHurryMessage != nullptr)
     {
         // Update the hurry message. If it has finished its behaviour
         if (m_pHurryMessage->Update(m_pTimer->GetDeltaTime()))
         {
             // Delete the hurry message object
             delete m_pHurryMessage;
-            m_pHurryMessage = NULL;
+            m_pHurryMessage = nullptr;
         }
     }
 }
@@ -657,7 +657,7 @@ void CDemo::DisplayMatchScreen(void)
 void CDemo::DisplayHurryUpMessage(void)
 {
     // If the hurry message exists
-    if (m_pHurryMessage != NULL)
+    if (m_pHurryMessage != nullptr)
     {
         // Display the hurry message
         m_pHurryMessage->Display();

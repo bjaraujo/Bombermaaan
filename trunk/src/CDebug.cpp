@@ -39,10 +39,10 @@
 
 CDebug::CDebug()
 {
-    m_pTimer = NULL;
-    m_pGame = NULL;
+    m_pTimer = nullptr;
+    m_pGame = nullptr;
 
-    m_pMatch = NULL;
+    m_pMatch = nullptr;
     m_GameSpeed = 0.0f;
     m_CanBombersDie = true;
     m_CanBombersBeSick = true;
@@ -64,9 +64,9 @@ CDebug::~CDebug() {}
 
 void CDebug::Create()
 {
-    ASSERT(m_pTimer != NULL);
-    ASSERT(m_pGame != NULL);
-    ASSERT(m_pMatch != NULL);
+    ASSERT(m_pTimer != nullptr);
+    ASSERT(m_pGame != nullptr);
+    ASSERT(m_pMatch != nullptr);
 
     // Set initial game debug variables
     m_GameSpeed = 1.0f;

@@ -59,8 +59,8 @@ static CFont m_Font;
 
 CAiArena::CAiArena(void)
 {
-    m_pArena = NULL;
-    m_pDisplay = NULL;
+    m_pArena = nullptr;
+    m_pDisplay = nullptr;
 
     for (int i = 0; i < MAX_DEAD_END; i++)
     {
@@ -93,7 +93,7 @@ CAiArena::~CAiArena(void) {}
 
 void CAiArena::Create(void)
 {
-    ASSERT(m_pArena != NULL);
+    ASSERT(m_pArena != nullptr);
 
 #if defined(DEBUG_DRAW_SOFTWALL_BLOCKS) || defined(DEBUG_DRAW_BURNWALLDANGER_BLOCKS) || defined(DEBUG_DRAW_BOMB_OWNERS)
     m_Font.SetDisplay(m_pDisplay);
@@ -114,7 +114,7 @@ void CAiArena::Create(void)
 void CAiArena::Destroy(void)
 {
 #if defined(DEBUG_DRAW_SOFTWALL_BLOCKS) || defined(DEBUG_DRAW_BURNWALLDANGER_BLOCKS) || defined(DEBUG_DRAW_BOMB_OWNERS)
-    if (m_pDisplay != NULL)
+    if (m_pDisplay != nullptr)
         m_pDisplay->RemoveAllDebugRectangles();
 #endif
 }
@@ -497,7 +497,7 @@ void CAiArena::Update(float DeltaTime)
     w = m_pArena->ToPosition(1);
     h = m_pArena->ToPosition(1);
 
-    if (m_pDisplay != NULL)
+    if (m_pDisplay != nullptr)
     {
         m_pDisplay->RemoveAllDebugRectangles();
         for (BlockX = 0; BlockX < ARENA_WIDTH; BlockX++)
@@ -1017,7 +1017,7 @@ void CAiArena::Update(float DeltaTime)
     w = m_pArena->ToPosition(1);
     h = m_pArena->ToPosition(1);
 
-    if (m_pDisplay != NULL)
+    if (m_pDisplay != nullptr)
     {
         for (BlockX = 0; BlockX < ARENA_WIDTH; BlockX++)
         {

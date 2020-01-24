@@ -41,8 +41,8 @@ CArenaCloser::CArenaCloser(void)
 {
     // Initialize the pointers to NULL so that we
     // can easily detect the ones we forgot to set.
-    m_pArena = NULL;
-    m_pOptions = NULL;
+    m_pArena = nullptr;
+    m_pOptions = nullptr;
 
     m_TimeBetweenTwoBlockClosures = 0.0f;
     m_TimeLeftBeforeClosingNextBlock = 0.0f;
@@ -91,8 +91,8 @@ void CArenaCloser::Destroy(void) { Stop(); }
 void CArenaCloser::Start(void)
 {
     // Check if the pointers were all set
-    ASSERT(m_pArena != NULL);
-    ASSERT(m_pOptions != NULL);
+    ASSERT(m_pArena != nullptr);
+    ASSERT(m_pOptions != nullptr);
 
     // Make some dummy variables
     int TotalSeconds = m_pOptions->GetTimeUpMinutes() * 60 + m_pOptions->GetTimeUpSeconds();

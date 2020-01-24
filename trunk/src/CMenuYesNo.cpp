@@ -55,10 +55,10 @@
 
 CMenuYesNo::CMenuYesNo(void)
 {
-    m_pDisplay = NULL;
-    m_pInput = NULL;
-    m_pSound = NULL;
-    m_pTimer = NULL;
+    m_pDisplay = nullptr;
+    m_pInput = nullptr;
+    m_pSound = nullptr;
+    m_pTimer = nullptr;
 
     m_YesNo = true;
     m_Active = false;
@@ -79,10 +79,10 @@ CMenuYesNo::~CMenuYesNo(void) {}
 void CMenuYesNo::Create(void)
 {
     // Check if the links to the objects to communicate with are valid
-    ASSERT(m_pDisplay != NULL);
-    ASSERT(m_pInput != NULL);
-    ASSERT(m_pSound != NULL);
-    ASSERT(m_pTimer != NULL);
+    ASSERT(m_pDisplay != nullptr);
+    ASSERT(m_pInput != nullptr);
+    ASSERT(m_pSound != nullptr);
+    ASSERT(m_pTimer != nullptr);
 
     // Initialize the font
     m_Font.Create();

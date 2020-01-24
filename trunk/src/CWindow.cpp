@@ -85,7 +85,7 @@ static LRESULT CALLBACK DefaultWinProc(HWND hwnd, unsigned int msg, WPARAM wPara
 
 CWindow::CWindow(HINSTANCE hInstance, const char* pWindowTitle, int IconResourceID)
 {
-    m_hWnd = NULL;
+    m_hWnd = nullptr;
     m_Active = false;
 
     // Init the window class
@@ -97,10 +97,10 @@ CWindow::CWindow(HINSTANCE hInstance, const char* pWindowTitle, int IconResource
     WndClassEx.style = CS_VREDRAW | CS_HREDRAW;
     WndClassEx.hInstance = hInstance;
     WndClassEx.hIcon = LoadIcon(NULL, IDI_APPLICATION);
-    WndClassEx.hIconSm = NULL;
+    WndClassEx.hIconSm = nullptr;
     WndClassEx.hCursor = LoadCursor(NULL, IDC_ARROW);
     WndClassEx.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
-    WndClassEx.lpszMenuName = NULL;
+    WndClassEx.lpszMenuName = nullptr;
     WndClassEx.cbClsExtra = 0;
     WndClassEx.cbWndExtra = sizeof(CWindow*); // We'll store the 'this' pointer in the extra allocated bytes
 
@@ -145,7 +145,7 @@ CWindow::CWindow(HINSTANCE hInstance, const char* pWindowTitle, int IconResource
 
         // Load the icon specified by the resource ID
         HICON hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_BOMBER));
-        ASSERT(hIcon != NULL);
+        ASSERT(hIcon != nullptr);
 
         // Tell the window to set this icon
         PostMessage(m_hWnd, WM_SETICON, (WPARAM)ICON_BIG, (LPARAM)hIcon);
@@ -162,11 +162,11 @@ CWindow::~CWindow()
 {
     // If the window exists
 #ifdef DIRECTX
-    if (m_hWnd != NULL)
+    if (m_hWnd != nullptr)
     {
         // Destroy the window
         DestroyWindow(m_hWnd);
-        m_hWnd = NULL;
+        m_hWnd = nullptr;
     }
 #endif
 }
@@ -282,7 +282,7 @@ void CWindow::MessagePump()
         {
             if (!GetMessage(&msg, NULL, 0, 0))
             {
-                m_hWnd = NULL;
+                m_hWnd = nullptr;
                 break;
             }
 
