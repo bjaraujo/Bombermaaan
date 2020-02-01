@@ -276,12 +276,12 @@ bool CGame::Create(char** pCommandLine, int pCommandLineCount)
             lastSlash = strrchr(buf, '/');
             if (lastSlash == NULL)
             {
-                pgmDirectory.append("");
+                pgmFolder.append("");
             }
             else if (lastSlash == buf)
             {
                 // root directory
-                pgmDirectory.append("/");
+                pgmFolder.append("/");
             }
             else
             {
@@ -293,7 +293,7 @@ bool CGame::Create(char** pCommandLine, int pCommandLineCount)
                 strncpy(tempPath, buf, lastSlash - buf);
                 tempPath[lastSlash - buf] = '\0';
 
-                pgmDirectory.append(tempPath);
+                pgmFolder.append(tempPath);
 
                 delete[] tempPath;
             }
@@ -301,19 +301,19 @@ bool CGame::Create(char** pCommandLine, int pCommandLineCount)
         else
         {
             // assume that we're in the correct working dir
-            pgmDirectory.append("");
+            pgmFolder.append("");
         }
     }
     else
     {
         // assume that we're in the correct working dir
-        pgmDirectory.append("");
+        pgmFolder.append("");
     }
 
     // check for existance
-    if (stat(pgmDirectory.c_str(), &selftest) == -1 || !S_ISDIR(selftest.st_mode))
+    if (stat(pgmFolder.c_str(), &selftest) == -1 || !S_ISDIR(selftest.st_mode))
     {
-        pgmDirectory.clear(); // use current directory
+        pgmFolder.clear(); // use current directory
     }
 #endif
 
