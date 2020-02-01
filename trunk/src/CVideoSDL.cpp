@@ -651,6 +651,7 @@ bool CVideoSDL::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spr
 
     // Blit the bitmap onto the SDLVideo surface
     Surface.pSurface = ddsd;
+    Surface.BlitParameters = 0;
 
     //----------------------------------------------
     // Set the surface transparency color if needed
@@ -769,6 +770,7 @@ bool CVideoSDL::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spr
 
     // Blit the bitmap onto the SDLVideo surface
     Surface.pSurface = ddsd;
+    Surface.BlitParameters = 0;
 
     //----------------------------------------------
     // Set the surface transparency color if needed
