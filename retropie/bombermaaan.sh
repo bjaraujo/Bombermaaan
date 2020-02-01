@@ -20,7 +20,7 @@ function depends_bombermaaan() {
 }
 
 function sources_bombermaaan() {
-    gitPullOrClone "$md_build" https://github.com/bjaraujo/Bombermaaan.git
+    gitPullOrClone "$md_build" https://github.com/bjaraujo/Bombermaaan.git 1.9.7.2126
 }
 
 function build_bombermaaan() {
