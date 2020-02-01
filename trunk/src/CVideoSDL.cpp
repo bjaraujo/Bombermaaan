@@ -334,7 +334,6 @@ void CVideoSDL::OnWindowMove() {}
 
 void CVideoSDL::DrawSprite(int PositionX, int PositionY, RECT* pZone, RECT* pClip, int SpriteTable, int Sprite, int SpriteLayer, int PriorityInLayer)
 {
-
     // Prepare a drawing request
     SDrawingRequest DrawingRequest;
 

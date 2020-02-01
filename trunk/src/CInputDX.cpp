@@ -69,7 +69,7 @@ CInputDX::~CInputDX(void)
 struct SEnumParam
 {
     LPDIRECTINPUT8 pDI;
-    vector<LPDIRECTINPUTDEVICE8> pDevices;
+    std::vector<LPDIRECTINPUTDEVICE8> pDevices;
 };
 
 //******************************************************************************************************************************

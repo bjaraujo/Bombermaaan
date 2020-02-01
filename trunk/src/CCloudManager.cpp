@@ -114,7 +114,8 @@ void CCloudManager::Display()
         Clip.bottom = VIEW_HEIGHT;
 
         // Draw the scroller sprite
-        m_pDisplay->DrawSprite(m_Clouds[i].GetPositionX(), // Position of the current tile
+        m_pDisplay->DrawSprite(
+            m_Clouds[i].GetPositionX(), // Position of the current tile
             m_Clouds[i].GetPositionY(),
             NULL, // Draw entire tile
             &Clip, // Clip with game view

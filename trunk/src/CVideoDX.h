@@ -156,7 +156,7 @@ private:
     DWORD m_ColorKey; //!< Color key for transparent surfaces
     std::priority_queue<SDrawingRequest> m_DrawingRequests; //!< Automatically sorted drawing requests queue
     std::vector<SDebugDrawingRequest> m_DebugDrawingRequests; //!< vector of drawing requests for debugging purposes
-    std::vector<std::vector<SSprite>> m_SpriteTables; //!< Available sprite tables
+    std::map<int, std::vector<SSprite>> m_SpriteTables; //!< Available sprite tables
     int m_OriginX; //!< Origin position where to draw from
     int m_OriginY;
     std::vector<SDisplayMode> m_AvailableDisplayModes;
@@ -173,7 +173,7 @@ public:
     bool Create(int Width, int Height, int Depth, bool FullScreen);
     void Destroy(void);
     bool SetTransparentColor(int Red, int Green, int Blue);
-    bool LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, HBITMAP hBitmap);
+    bool LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, int BMP_ID, HBITMAP hBitmap);
     bool LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, const char* file);
     void FreeSprites(void);
     void OnWindowMove(void);

@@ -68,7 +68,7 @@ CVideoDX::~CVideoDX(void)
 static HRESULT WINAPI AddDisplayMode(LPDDSURFACEDESC2 lpDDSurfaceDesc, LPVOID lpContext)
 {
     // The DirectInput device that will be created
-    vector<SDisplayMode>* pDisplayModes = (vector<SDisplayMode>*)lpContext;
+    std::vector<SDisplayMode>* pDisplayModes = (std::vector<SDisplayMode>*)lpContext;
 
     SDisplayMode DisplayMode;
     DisplayMode.Width = lpDDSurfaceDesc->dwWidth;
@@ -81,7 +81,7 @@ static HRESULT WINAPI AddDisplayMode(LPDDSURFACEDESC2 lpDDSurfaceDesc, LPVOID lp
     return DDENUMRET_OK;
 }
 
-void CVideoDX::SetProgramFolder(const std::string& pgmFolder);
+void CVideoDX::SetProgramFolder(const std::string& pgmFolder)
 {
     m_pgmFolder = pgmFolder;
 }
@@ -526,11 +526,6 @@ void CVideoDX::OnWindowMove()
 
 void CVideoDX::DrawSprite(int PositionX, int PositionY, RECT* pZone, RECT* pClip, int SpriteTable, int Sprite, int SpriteLayer, int PriorityInLayer)
 {
-
-    // Check if the parameters are valid
-    ASSERT(SpriteTable >= 0 && SpriteTable < (int)m_SpriteTables.size());
-    ASSERT(Sprite >= 0 && Sprite < (int)m_SpriteTables[SpriteTable].size());
-
     // Prepare a drawing request
     SDrawingRequest DrawingRequest;
 
@@ -752,7 +747,7 @@ bool CVideoDX::SetTransparentColor(int Red, int Green, int Blue)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CVideoDX::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, HBITMAP hBitmap)
+bool CVideoDX::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, int BMP_ID, HBITMAP hBitmap)
 {
     HRESULT hRet;
 
@@ -923,7 +918,7 @@ bool CVideoDX::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spri
     //---------------------------
 
     // Prepare a sprite table
-    vector<SSprite> SpriteTable;
+    std::vector<SSprite> SpriteTable;
 
     // Variable rectangle coordinates that will be passed during sprite creations
     int ZoneX1 = 1;
@@ -962,7 +957,7 @@ bool CVideoDX::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spri
     }
 
     // Store the sprite table
-    m_SpriteTables.push_back(SpriteTable);
+    m_SpriteTables[BMP_ID] = SpriteTable;
 
     // Everything went right
     return true;
@@ -1056,7 +1051,7 @@ void CVideoDX::UpdateAll(void)
         m_DrawingRequests.pop();
     }
 
-    vector<SDebugDrawingRequest>::iterator it;
+    std::vector<SDebugDrawingRequest>::iterator it;
 
     // Debug rectangles?
     if (m_DebugDrawingRequests.size() > 0)

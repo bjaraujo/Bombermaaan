@@ -29,6 +29,7 @@
 
 #define DIRECTINPUT_VERSION 0x0800 // Use DirectInput 7
 #include <DINPUT.H>
+#include "StdAfx.h"
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -192,7 +193,7 @@ private:
     char m_KeyRealName[MAX_KEYS][MAX_PATH]; //!< Real name (the one given by Windows) of each key on the system keyboard
     char m_KeyFriendlyName[MAX_KEYS][MAX_PATH]; //!< More friendly name for each key
 
-    vector<SJoystick*> m_pJoysticks; //!< All joystick DirectInput devices installed in Windows
+    std::vector<SJoystick*> m_pJoysticks; //!< All joystick DirectInput devices installed in Windows
 
     bool UpdateDevice(LPDIRECTINPUTDEVICE8 pDevice, void* pState, int StateSize);
     void MakeKeyFriendlyNames(void);
