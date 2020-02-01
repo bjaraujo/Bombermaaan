@@ -37,20 +37,20 @@
 class CMenuLevel : public CMenuBase
 {
 private:
-    void OnCreate(void);
-    void OnDestroy(void);
-    void OnUp(void);
-    void OnDown(void);
-    void OnLeft(void);
-    void OnRight(void);
-    void OnPrevious(void);
-    void OnNext(void);
-    void OnUpdate(void);
-    void OnDisplay(void);
+    void OnCreate();
+    void OnDestroy();
+    void OnUp();
+    void OnDown();
+    void OnLeft();
+    void OnRight();
+    void OnPrevious();
+    void OnNext();
+    void OnUpdate();
+    void OnDisplay();
 
 public:
-    CMenuLevel(void);
-    virtual ~CMenuLevel(void);
+    CMenuLevel();
+    virtual ~CMenuLevel();
 };
 
 //******************************************************************************************************************************

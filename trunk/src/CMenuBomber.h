@@ -41,20 +41,20 @@ private:
     bool m_Blinking[MAX_PLAYERS]; //!< Is the bomber head (given its index) currently blinking?
     float m_BlinkTimer[MAX_PLAYERS]; //!< Time left to wait before toggling the corresponding blink state
 
-    void OnCreate(void);
-    void OnDestroy(void);
-    void OnUpdate(void);
-    void OnDisplay(void);
-    void OnUp(void);
-    void OnDown(void);
-    void OnLeft(void);
-    void OnRight(void);
-    void OnPrevious(void);
-    void OnNext(void);
+    void OnCreate();
+    void OnDestroy();
+    void OnUpdate();
+    void OnDisplay();
+    void OnUp();
+    void OnDown();
+    void OnLeft();
+    void OnRight();
+    void OnPrevious();
+    void OnNext();
 
 public:
-    CMenuBomber(void);
-    virtual ~CMenuBomber(void);
+    CMenuBomber();
+    virtual ~CMenuBomber();
 };
 
 //******************************************************************************************************************************

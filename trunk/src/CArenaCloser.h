@@ -65,28 +65,28 @@ private:
     float m_TimeLeftBeforeClosingNextBlock; //!< Time left in seconds before the next block should start closing
     bool m_IsClosing; //!< Is the arena currently closing?
 
-    void CreateSpiralClosing(void); //!< Prepare the closure data for a spiral arena closure
-    void CreateHorizontalClosing(void); //!< Prepare the closure data for an horizontal arena closure
-    void CreateVerticalClosing(void); //!< Prepare the closure data for a vertical arena closure
+    void CreateSpiralClosing(); //!< Prepare the closure data for a spiral arena closure
+    void CreateHorizontalClosing(); //!< Prepare the closure data for an horizontal arena closure
+    void CreateVerticalClosing(); //!< Prepare the closure data for a vertical arena closure
 
 public:
-    CArenaCloser(void); //!< Constructor
-    ~CArenaCloser(void); //!< Destructor
+    CArenaCloser(); //!< Constructor
+    ~CArenaCloser(); //!< Destructor
     inline void SetArena(CArena* pArena); //!< Set the arena to close
     inline void SetOptions(COptions* pOptions); //!< Set the options object to use
-    void Create(void); //!< Initialize the arena closer (this doesn't start closure)
-    void Destroy(void); //!< Uninitialize the arena closer (frees any allocated memory)
-    void Start(void); //!< Start to close the arena
-    void Stop(void); //!< Stop closing the arena
+    void Create(); //!< Initialize the arena closer (this doesn't start closure)
+    void Destroy(); //!< Uninitialize the arena closer (frees any allocated memory)
+    void Start(); //!< Start to close the arena
+    void Stop(); //!< Stop closing the arena
     void Update(float DeltaTime); //!< Close the arena if closure has started
     void WriteSnapshot(CArenaSnapshot& Snapshot);
     void ReadSnapshot(CArenaSnapshot& Snapshot);
-    inline bool IsClosing(void); //!< Is the arena currently closing?
+    inline bool IsClosing(); //!< Is the arena currently closing?
     inline int GetNextBlockPositionX(int Index); //!< Get the X position (in blocks) of the block that will be closed next
     inline int GetNextBlockPositionY(int Index); //!< Get the Y position (in blocks) of the block that will be closed next
-    inline int GetNumberOfBlocksLeft(void); //!< Get the number of blocks the arena closer still has to close.
-    inline float GetTimeBetweenTwoBlockClosures(void); //!< Get the time (in seconds) that elapses between the closure of one block and the closure of the next block
-    inline float GetTimeLeftBeforeClosingNextBlock(void); //!< Get the time left (in seconds) before the next block should start closing
+    inline int GetNumberOfBlocksLeft(); //!< Get the number of blocks the arena closer still has to close.
+    inline float GetTimeBetweenTwoBlockClosures(); //!< Get the time (in seconds) that elapses between the closure of one block and the closure of the next block
+    inline float GetTimeLeftBeforeClosingNextBlock(); //!< Get the time left (in seconds) before the next block should start closing
 };
 
 //******************************************************************************************************************************
@@ -97,17 +97,17 @@ inline void CArenaCloser::SetArena(CArena* pArena) { m_pArena = pArena; }
 
 inline void CArenaCloser::SetOptions(COptions* pOptions) { m_pOptions = pOptions; }
 
-inline bool CArenaCloser::IsClosing(void) { return m_IsClosing; }
+inline bool CArenaCloser::IsClosing() { return m_IsClosing; }
 
 inline int CArenaCloser::GetNextBlockPositionX(int Index) { return m_ClosureData[Index].X; }
 
 inline int CArenaCloser::GetNextBlockPositionY(int Index) { return m_ClosureData[Index].Y; }
 
-inline int CArenaCloser::GetNumberOfBlocksLeft(void) { return m_ClosureData.size(); }
+inline int CArenaCloser::GetNumberOfBlocksLeft() { return m_ClosureData.size(); }
 
-inline float CArenaCloser::GetTimeBetweenTwoBlockClosures(void) { return m_TimeBetweenTwoBlockClosures; }
+inline float CArenaCloser::GetTimeBetweenTwoBlockClosures() { return m_TimeBetweenTwoBlockClosures; }
 
-inline float CArenaCloser::GetTimeLeftBeforeClosingNextBlock(void) { return m_TimeLeftBeforeClosingNextBlock; }
+inline float CArenaCloser::GetTimeLeftBeforeClosingNextBlock() { return m_TimeLeftBeforeClosingNextBlock; }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************

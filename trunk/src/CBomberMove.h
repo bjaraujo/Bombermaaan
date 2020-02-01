@@ -112,22 +112,22 @@ private:
     bool IsObstacle(int X, int Y); //!< Return whether there is a wall or a bomb on the specified block.
 
 public:
-    CBomberMove(void); //!< Constructor
-    ~CBomberMove(void); //!< Destructor
+    CBomberMove(); //!< Constructor
+    ~CBomberMove(); //!< Destructor
     void Create(int BlockX, int BlockY, int Player); //!< Initialize the object
-    void Destroy(void); //!< Free any memory allocated by this object
+    void Destroy(); //!< Free any memory allocated by this object
     void Update(float DeltaTime); //!< Make the bomber move according to the bomber move command it received.
     void WriteSnapshot(CArenaSnapshot& Snapshot);
     void ReadSnapshot(CArenaSnapshot& Snapshot);
     void Command(EBomberMove BomberMove); //!< Give a move order to the bomber for next update.
     inline void SetArena(CArena* pArena); //!< Set the arena to use
-    inline int GetBlockX(void); //!< Return the block position X of the bomber
-    inline int GetBlockY(void); //!< Return the block position Y of the bomber
-    inline int GetX(void); //!< Get the integer X position (in pixels) of the bomber in the arena
-    inline int GetY(void); //!< Get the integer Y position (in pixels) of the bomber in the arena
-    inline bool CouldMove(void); //!< Return whether the bomber could move the last time he tried
-    inline EBomberMove GetMove(void); //!< Return the current move order the bomber has to perform
-    inline EBomberMove GetLastRealMove(void); //!< Return the direction where the bomber was going the last time he really moved.
+    inline int GetBlockX(); //!< Return the block position X of the bomber
+    inline int GetBlockY(); //!< Return the block position Y of the bomber
+    inline int GetX(); //!< Get the integer X position (in pixels) of the bomber in the arena
+    inline int GetY(); //!< Get the integer Y position (in pixels) of the bomber in the arena
+    inline bool CouldMove(); //!< Return whether the bomber could move the last time he tried
+    inline EBomberMove GetMove(); //!< Return the current move order the bomber has to perform
+    inline EBomberMove GetLastRealMove(); //!< Return the direction where the bomber was going the last time he really moved.
 };
 
 //******************************************************************************************************************************
@@ -140,7 +140,7 @@ inline void CBomberMove::SetArena(CArena* pArena)
     m_pArena = pArena;
 }
 
-inline int CBomberMove::GetBlockX(void)
+inline int CBomberMove::GetBlockX()
 {
     ASSERT(m_BlockX >= 0);
     ASSERT(m_BlockX < ARENA_WIDTH);
@@ -151,7 +151,7 @@ inline int CBomberMove::GetBlockX(void)
     return m_BlockX;
 }
 
-inline int CBomberMove::GetBlockY(void)
+inline int CBomberMove::GetBlockY()
 {
     ASSERT(m_BlockX >= 0);
     ASSERT(m_BlockX < ARENA_WIDTH);
@@ -162,15 +162,15 @@ inline int CBomberMove::GetBlockY(void)
     return m_BlockY;
 }
 
-inline int CBomberMove::GetX(void) { return m_iX; }
+inline int CBomberMove::GetX() { return m_iX; }
 
-inline int CBomberMove::GetY(void) { return m_iY; }
+inline int CBomberMove::GetY() { return m_iY; }
 
-inline bool CBomberMove::CouldMove(void) { return m_CouldMove; }
+inline bool CBomberMove::CouldMove() { return m_CouldMove; }
 
-inline EBomberMove CBomberMove::GetMove(void) { return m_BomberMove; }
+inline EBomberMove CBomberMove::GetMove() { return m_BomberMove; }
 
-inline EBomberMove CBomberMove::GetLastRealMove(void) { return m_LastRealBomberMove; }
+inline EBomberMove CBomberMove::GetLastRealMove() { return m_LastRealBomberMove; }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************

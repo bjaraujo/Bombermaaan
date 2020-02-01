@@ -47,8 +47,8 @@ protected:
     CDisplay* m_pDisplay; //!< Link to the display object to use
     CSound* m_pSound; //!< Link to the sound object to use
 
-    void Create(void); //!< Initialize the element. You need to call this on creation ( Create() )of the inherited class.
-    void Destroy(void); //!< Uninitialize the element. You need to call this on destruction ( Destroy() ) of the inherited class.
+    void Create(); //!< Initialize the element. You need to call this on creation ( Create() )of the inherited class.
+    void Destroy(); //!< Uninitialize the element. You need to call this on destruction ( Destroy() ) of the inherited class.
     virtual void OnWriteSnapshot(CArenaSnapshot& Snapshot) = 0;
     virtual void OnReadSnapshot(CArenaSnapshot& Snapshot) = 0;
 
@@ -59,10 +59,10 @@ public:
     virtual inline void SetDisplay(CDisplay* pDisplay); //!< Set link to the display object to use
     virtual inline void SetSound(CSound* pSound); //!< Set link to the sound object to use
     virtual bool Update(float DeltaTime) = 0; //!< Update the element. Return whether the element should be deleted by the arena.
-    virtual void Display(void) = 0; //!< Display the element.
+    virtual void Display() = 0; //!< Display the element.
     void WriteSnapshot(CArenaSnapshot& Snapshot);
     void ReadSnapshot(CArenaSnapshot& Snapshot);
-    inline bool Exist(void); //!< Return whether the element exists (i.e. should be updated and displayed)
+    inline bool Exist(); //!< Return whether the element exists (i.e. should be updated and displayed)
 };
 
 //******************************************************************************************************************************
@@ -75,7 +75,7 @@ inline void CElement::SetDisplay(CDisplay* pDisplay) { m_pDisplay = pDisplay; }
 
 inline void CElement::SetSound(CSound* pSound) { m_pSound = pSound; }
 
-inline bool CElement::Exist(void) { return m_Exist; }
+inline bool CElement::Exist() { return m_Exist; }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************

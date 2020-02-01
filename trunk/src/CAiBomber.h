@@ -99,14 +99,14 @@ private:
     static int m_BurnMark[4][6];
 
     void SetComputerMode(EComputerMode ComputerMode); // Set the mode of the computer player
-    void ModeThink(void);
+    void ModeThink();
     void ModeItem(float /*DeltaTime*/);
     void ModeAttack();
     void ModeThrow();
     void ModeSecondAction();
     void ModeDefence(float /*DeltaTime*/);
     void ModeWalk(float DeltaTime);
-    void UpdateAccessibility(void);
+    void UpdateAccessibility();
     bool GoTo(int GoalBlockX, int GoalBlockY); // Modify the commands to send to the bomber so that it moves to the specified goal
     bool EnemyNearAndFront(EEnemyDirection* direction = nullptr, bool BeyondArenaFrontiers = false); // Returns true if a bomber enemy is near the bomber and in front of him
     bool EnemyNearRemoteFuseBomb(CBomb& bomb);
@@ -116,12 +116,12 @@ private:
     int ItemMark(int BlockX, int BlockY);
 
 public:
-    CAiBomber(void);
-    virtual ~CAiBomber(void);
+    CAiBomber();
+    virtual ~CAiBomber();
     inline void SetArena(CAiArena* pArena);
     inline void SetDisplay(CDisplay* pDisplay);
     void Create(int Player);
-    void Destroy(void);
+    void Destroy();
     void Update(float DeltaTime);
 };
 

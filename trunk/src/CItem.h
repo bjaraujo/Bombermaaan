@@ -116,40 +116,40 @@ private:
     EItemFlying m_Flying; //!< Is the item currently flying and in which direction?
     float m_FlyTime; //!< How long (in seconds) has the item been flying?
 
-    void SetSprites(void); //!< Set the sprite numbers according to the item type
+    void SetSprites(); //!< Set the sprite numbers according to the item type
 
 public:
-    CItem(void); //!< Constructor (initialize the base class)
-    virtual ~CItem(void); //!< Destructor (uninitialize the base class)
+    CItem(); //!< Constructor (initialize the base class)
+    virtual ~CItem(); //!< Destructor (uninitialize the base class)
     void Create(int BlockX, int BlockY, EItemType Type, bool Fumes, bool FlyingRandom); //!< Initialize the item
-    void Destroy(void); //!< Uninitialize the item
+    void Destroy(); //!< Uninitialize the item
     bool Update(float DeltaTime); //!< Update the item and return whether the item should be deleted by the arena
-    void Display(void); //!< Display the item
+    void Display(); //!< Display the item
     void OnWriteSnapshot(CArenaSnapshot& Snapshot);
     void OnReadSnapshot(CArenaSnapshot& Snapshot);
     void Burn(EBurnDirection BurnDirection); //!< Make the item react when an explosion hits this item. The direction of the hit is specified.
-    void Crush(void); //!< Make the item react when crushed by a wall.
+    void Crush(); //!< Make the item react when crushed by a wall.
     static bool CreateItems(CArena* pArena, EItemPlace ItemPlace, int NumberOfItemBombs, int NumberOfItemFlames, int NumberOfItemRollers, int NumberOfItemKicks, int NumberOfItemSkulls, int NumberOfItemThrow, int NumberOfItemPunch, int NumberOfItemRemote, int NumberOfItemShield, int NumberOfItemStrongWeak); //!< Create the specified amount of items in an arena, in the specified EItemPlace.
-    inline int GetBlockX(void); //!< Return the block position X of the item
-    inline int GetBlockY(void); //!< Return the block position Y of the item
-    inline bool IsBurning(void); //!< Return whether the item is burning
-    inline EItemType GetType(void); //!< Return the type of the item
-    inline bool IsFlying(void); //!< Return whether the item is currently flying.
+    inline int GetBlockX(); //!< Return the block position X of the item
+    inline int GetBlockY(); //!< Return the block position Y of the item
+    inline bool IsBurning(); //!< Return whether the item is burning
+    inline EItemType GetType(); //!< Return the type of the item
+    inline bool IsFlying(); //!< Return whether the item is currently flying.
 };
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline int CItem::GetBlockX(void) { return m_BlockX; }
+inline int CItem::GetBlockX() { return m_BlockX; }
 
-inline int CItem::GetBlockY(void) { return m_BlockY; }
+inline int CItem::GetBlockY() { return m_BlockY; }
 
-inline bool CItem::IsBurning(void) { return m_Burning; }
+inline bool CItem::IsBurning() { return m_Burning; }
 
-inline EItemType CItem::GetType(void) { return m_Type; }
+inline EItemType CItem::GetType() { return m_Type; }
 
-inline bool CItem::IsFlying(void) { return m_Flying != ITEMFLYING_NONE; }
+inline bool CItem::IsFlying() { return m_Flying != ITEMFLYING_NONE; }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************

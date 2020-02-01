@@ -83,7 +83,7 @@
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CCredits::CCredits(void)
+CCredits::CCredits()
     : CModeScreen()
 {
 
@@ -99,7 +99,7 @@ CCredits::CCredits(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CCredits::~CCredits(void)
+CCredits::~CCredits()
 {
     // Nothing to do!
 }
@@ -110,7 +110,7 @@ CCredits::~CCredits(void)
 
 // Before using a CCredits, you must create it.
 
-void CCredits::Create(void)
+void CCredits::Create()
 {
 
     CModeScreen::Create();
@@ -142,7 +142,7 @@ void CCredits::Create(void)
 
 // When a CCredits is not needed anymore, you should destroy it
 
-void CCredits::Destroy(void)
+void CCredits::Destroy()
 {
     CModeScreen::Destroy();
 
@@ -158,13 +158,13 @@ void CCredits::Destroy(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CCredits::OpenInput(void) {}
+void CCredits::OpenInput() {}
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CCredits::CloseInput(void) {}
+void CCredits::CloseInput() {}
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -180,7 +180,7 @@ void CCredits::CloseInput(void) {}
 // When the screen should continue, it returns GAMEMODE_GREETS to keep this mode.
 // When the screen has ended, it returns GAMEMODE_TITLE to start the title screen.
 
-EGameMode CCredits::Update(void)
+EGameMode CCredits::Update()
 {
     // Increase elapsed time since mode has started
     m_ModeTime += m_pTimer->GetDeltaTime();
@@ -236,7 +236,7 @@ EGameMode CCredits::Update(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CCredits::Display(void)
+void CCredits::Display()
 {
     // If we have to make the first black screen
     if (m_ModeTime <= CREDITS_BLACKSCREEN_DURATION)

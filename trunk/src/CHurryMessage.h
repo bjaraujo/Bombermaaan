@@ -46,9 +46,9 @@ private:
 
 public:
     CHurryMessage(CDisplay* pDisplay, CSound* pSound);
-    ~CHurryMessage(void);
+    ~CHurryMessage();
     bool Update(float DeltaTime);
-    void Display(void);
+    void Display();
 };
 
 //******************************************************************************************************************************

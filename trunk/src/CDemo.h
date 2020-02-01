@@ -76,24 +76,24 @@ private:
     int m_ExitGameMode; //!< Game mode to ask for when exiting
     bool m_HaveToExit; //!< Do we have to exit this mode?
 
-    void CreateMainComponents(void);
-    void CreateComputerPlayers(void);
-    void CreateFont(void);
-    void SetupOptions(void);
-    void DestroyComputerPlayers(void);
-    void DestroyHurryUpMessage(void);
-    void DestroyMainComponents(void);
-    void PlaySong(void);
-    void StopSong(void);
-    void ProcessPlayerCommands(void);
-    void ManageExit(void);
-    void UpdateMatch(void);
-    void UpdateDemoText(void);
-    void ManageHurryUpMessage(void);
-    void ManageMatchOver(void);
-    void DisplayDemoText(void);
-    void DisplayMatchScreen(void);
-    void DisplayHurryUpMessage(void);
+    void CreateMainComponents();
+    void CreateComputerPlayers();
+    void CreateFont();
+    void SetupOptions();
+    void DestroyComputerPlayers();
+    void DestroyHurryUpMessage();
+    void DestroyMainComponents();
+    void PlaySong();
+    void StopSong();
+    void ProcessPlayerCommands();
+    void ManageExit();
+    void UpdateMatch();
+    void UpdateDemoText();
+    void ManageHurryUpMessage();
+    void ManageMatchOver();
+    void DisplayDemoText();
+    void DisplayMatchScreen();
+    void DisplayHurryUpMessage();
 
 public:
     CDemo(); //!< Constructor. Initialize some members.
@@ -103,13 +103,13 @@ public:
     inline void SetScores(CScores* pScores); //!< Set link to the scores object to use
     inline void SetTimer(CTimer* pTimer); //!< Set link to the timer object to use
     inline void SetSound(CSound* pSound); //!< Set link to the sound object to use
-    void Create(void); //!< Initialize the object
-    void Destroy(void); //!< Uninitialize the object
-    void Reset(void); //!< Reset the object
-    void OpenInput(void); //!< Get access to the input this object needs
-    void CloseInput(void); //!< Release access to the input this object needs
-    EGameMode Update(void); //!< Update the object and return what game mode should be set
-    void Display(void); //!< Display on the screen
+    void Create(); //!< Initialize the object
+    void Destroy(); //!< Uninitialize the object
+    void Reset(); //!< Reset the object
+    void OpenInput(); //!< Get access to the input this object needs
+    void CloseInput(); //!< Release access to the input this object needs
+    EGameMode Update(); //!< Update the object and return what game mode should be set
+    void Display(); //!< Display on the screen
 };
 
 //******************************************************************************************************************************

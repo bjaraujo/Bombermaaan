@@ -59,7 +59,7 @@
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CArena::CArena(void)
+CArena::CArena()
 {
     // Initialize the pointers to NULL so that we
     // can easily detect the ones we forgot to set.
@@ -102,7 +102,7 @@ CArena::~CArena() {}
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CArena::Create(void)
+void CArena::Create()
 {
     m_Prediction = false;
     m_ArenaCloser.Create();
@@ -357,7 +357,7 @@ CArena& CArena::operator=(const CArena& Arena)
 
 // Deletes every existing element
 
-void CArena::Destroy(void)
+void CArena::Destroy()
 {
     m_ArenaCloser.Destroy();
 
@@ -505,7 +505,7 @@ void CArena::UpdateSingleBomber(int Player, float DeltaTime)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CArena::UpdateView(void)
+void CArena::UpdateView()
 {
     int Index;
     int BlockX;
@@ -736,7 +736,7 @@ void CArena::Update(float DeltaTime)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CArena::Display(void)
+void CArena::Display()
 {
     // If a display object was specified
     if (m_pDisplay != nullptr)

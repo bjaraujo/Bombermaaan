@@ -141,7 +141,7 @@ int CBomb::m_BounceMoveY[NUMBER_OF_BOMBFLY_DIRECTIONS][3] = {
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CBomb::CBomb(void)
+CBomb::CBomb()
     : CElement()
 {
 
@@ -181,7 +181,7 @@ CBomb::CBomb(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CBomb::~CBomb(void) {}
+CBomb::~CBomb() {}
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -249,7 +249,7 @@ void CBomb::Create(int BlockX, int BlockY, int FlameSize, float TimeLeft, int Ow
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CBomb::Destroy(void) { CElement::Destroy(); }
+void CBomb::Destroy() { CElement::Destroy(); }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -259,7 +259,7 @@ void CBomb::Destroy(void) { CElement::Destroy(); }
 // explosion in the arena, Then the bomb is dead and can
 // be deleted by the arena.
 
-void CBomb::Explode(void)
+void CBomb::Explode()
 {
 
 #ifdef _DEBUG
@@ -317,7 +317,7 @@ void CBomb::Explode(void)
 
 // This is called by walls crushing the bomb.
 
-void CBomb::Crush(void)
+void CBomb::Crush()
 {
 #ifdef _DEBUG
     debugLog.WriteDebugMsg(DEBUGSECT_BOMB, "Bomb crushing [x=%02d, y=%02d, owner=%d].", m_BlockX, m_BlockY, m_OwnerPlayer);
@@ -334,7 +334,7 @@ void CBomb::Crush(void)
 // is called by flames touching the bomb or by the remote
 // trigger. The bomb will then explode very soon.
 
-void CBomb::Burn(void)
+void CBomb::Burn()
 {
 #ifdef _DEBUG
     debugLog.WriteDebugMsg(DEBUGSECT_BOMB, "Bomb burning [x=%02d, y=%02d, owner=%d].", m_BlockX, m_BlockY, m_OwnerPlayer);
@@ -797,7 +797,7 @@ bool CBomb::Update(float DeltaTime)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CBomb::Display(void)
+void CBomb::Display()
 {
     int SpriteTable = (m_BeingHeld || m_BombFly != BOMBFLY_NONE) ? BOMB_SPRITELAYER_ABOVE_BOMBERS : BOMB_SPRITELAYER_BELOW_BOMBERS;
 
@@ -1417,7 +1417,7 @@ void CBomb::Bounce(float DeltaTime)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CBomb::CenterOnBlock(void)
+void CBomb::CenterOnBlock()
 {
     m_iX = m_pArena->ToPosition(m_BlockX);
     m_iY = m_pArena->ToPosition(m_BlockY);

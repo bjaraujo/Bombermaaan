@@ -123,7 +123,7 @@ private:
     CArena(const CArena& Arena);
     void ClearBlock(int X, int Y);
     void UpdateElements(float DeltaTime);
-    void UpdateView(void);
+    void UpdateView();
     inline bool GetBlockHas(int BlockX, int BlockY, TBlockHas BlockHas);
     inline void SetBlockHas(int BlockX, int BlockY, TBlockHas BlockHas);
     void DeleteBomber(int Index);
@@ -134,19 +134,19 @@ private:
     void DeleteFloor(int Index);
 
 public:
-    CArena(void);
-    ~CArena(void);
+    CArena();
+    ~CArena();
     CArena& operator=(const CArena& Arena);
 
     inline void SetDisplay(CDisplay* pDisplay);
     inline void SetSound(CSound* pSound);
     inline void SetOptions(COptions* pOptions);
 
-    void Create(void);
-    void Destroy(void);
+    void Create();
+    void Destroy();
     void Update(float DeltaTime);
     void UpdateSingleBomber(int Player, float DeltaTime);
-    void Display(void);
+    void Display();
 
     void WriteSnapshot(CArenaSnapshot& Snapshot);
     void ReadSnapshot(CArenaSnapshot& Snapshot);
@@ -154,7 +154,7 @@ public:
     inline bool IsPrediction();
     inline void SetPrediction(bool Active);
 
-    inline CArenaCloser& GetArenaCloser(void);
+    inline CArenaCloser& GetArenaCloser();
 
     inline CBomber& GetBomber(int Index);
     inline CBomb& GetBomb(int Index);
@@ -163,15 +163,15 @@ public:
     inline CExplosion& GetExplosion(int Index);
     inline CFloor& GetFloor(int Index);
 
-    inline int MaxFloors(void);
-    inline int MaxWalls(void);
-    inline int MaxBombs(void);
-    inline int MaxItems(void);
-    inline int MaxExplosions(void);
-    inline int MaxBombers(void);
-    inline int MaxTeams(void);
+    inline int MaxFloors();
+    inline int MaxWalls();
+    inline int MaxBombs();
+    inline int MaxItems();
+    inline int MaxExplosions();
+    inline int MaxBombers();
+    inline int MaxTeams();
 
-    inline int BombsInUse(void);
+    inline int BombsInUse();
 
     void NewFloor(int BlockX, int BlockY, EBlockType BlockType);
     void NewWall(int BlockX, int BlockY, EWallType Type);
@@ -218,7 +218,7 @@ inline bool CArena::IsPrediction() { return m_Prediction; }
 
 inline void CArena::SetPrediction(bool Active) { m_Prediction = Active; }
 
-inline CArenaCloser& CArena::GetArenaCloser(void) { return m_ArenaCloser; }
+inline CArenaCloser& CArena::GetArenaCloser() { return m_ArenaCloser; }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -270,25 +270,25 @@ inline CFloor& CArena::GetFloor(int Index)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline int CArena::MaxFloors(void) { return MAX_FLOORS; }
+inline int CArena::MaxFloors() { return MAX_FLOORS; }
 
-inline int CArena::MaxWalls(void) { return MAX_WALLS; }
+inline int CArena::MaxWalls() { return MAX_WALLS; }
 
-inline int CArena::MaxBombs(void) { return MAX_BOMBS; }
+inline int CArena::MaxBombs() { return MAX_BOMBS; }
 
-inline int CArena::MaxItems(void) { return MAX_ITEMS; }
+inline int CArena::MaxItems() { return MAX_ITEMS; }
 
-inline int CArena::MaxExplosions(void) { return MAX_EXPLOSIONS; }
+inline int CArena::MaxExplosions() { return MAX_EXPLOSIONS; }
 
-inline int CArena::MaxBombers(void) { return MAX_BOMBERS; }
+inline int CArena::MaxBombers() { return MAX_BOMBERS; }
 
-inline int CArena::MaxTeams(void) { return MAX_TEAMS; }
+inline int CArena::MaxTeams() { return MAX_TEAMS; }
 
 /**
  * @brief   return the bomb counter
  * @return  how many bombs are currently used
  */
-inline int CArena::BombsInUse(void) { return m_BombsInUse; }
+inline int CArena::BombsInUse() { return m_BombsInUse; }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************

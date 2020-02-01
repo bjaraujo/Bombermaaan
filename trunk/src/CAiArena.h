@@ -68,10 +68,10 @@ private:
     bool m_WallBurn[ARENA_WIDTH][ARENA_HEIGHT]; // True if a soft wall is burning or is going to burn very soon in this square
 
 public:
-    CAiArena(void);
-    virtual ~CAiArena(void);
+    CAiArena();
+    virtual ~CAiArena();
     inline void SetArena(CArena* pArena);
-    inline CArena* GetArena(void);
+    inline CArena* GetArena();
     inline void SetDisplay(CDisplay* pDisplay);
     inline EDanger GetDanger(int BlockX, int BlockY);
     inline float GetDangerTimeLeft(int BlockX, int BlockY);
@@ -79,8 +79,8 @@ public:
     inline SBlock& GetDeadEndExit(int Exit);
     inline int GetSoftWallNear(int BlockX, int BlockY);
     inline bool GetWallBurn(int BlockX, int BlockY);
-    void Create(void);
-    void Destroy(void);
+    void Create();
+    void Destroy();
     void Update(float DeltaTime);
 };
 
@@ -94,7 +94,7 @@ inline void CAiArena::SetArena(CArena* pArena)
     m_pArena = pArena;
 }
 
-inline CArena* CAiArena::GetArena(void)
+inline CArena* CAiArena::GetArena()
 {
     ASSERT(m_pArena != nullptr);
     return m_pArena;

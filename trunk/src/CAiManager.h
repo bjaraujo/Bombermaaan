@@ -45,12 +45,12 @@ private:
     CDisplay* m_pDisplay;
 
 public:
-    CAiManager(void);
-    virtual ~CAiManager(void);
+    CAiManager();
+    virtual ~CAiManager();
     inline void SetArena(CArena* pArena);
     inline void SetDisplay(CDisplay* pDisplay);
     void Create(COptions* pOptions);
-    void Destroy(void);
+    void Destroy();
     void Update(float DeltaTime);
 };
 

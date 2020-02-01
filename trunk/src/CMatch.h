@@ -90,20 +90,20 @@ private:
     bool m_computerPlayersPresent; //!< True, when there are AI players
     bool m_ForceDrawGame; //!< Force a draw game when only AI bombers are alive?
 
-    void CreateMainComponents(void);
-    void DestroyHurryUpMessage(void);
-    void DestroyPauseMessage(void);
-    void DestroyMainComponents(void);
-    void PlaySong(void);
-    void StopSong(void);
-    void ProcessPlayerCommands(void);
-    void UpdateMatch(void);
-    void ManagePauseMessage(void);
-    void ManageHurryUpMessage(void);
-    void ManageMatchOver(void);
-    void DisplayMatchScreen(void);
-    void DisplayHurryUpMessage(void);
-    void DisplayPauseMessage(void);
+    void CreateMainComponents();
+    void DestroyHurryUpMessage();
+    void DestroyPauseMessage();
+    void DestroyMainComponents();
+    void PlaySong();
+    void StopSong();
+    void ProcessPlayerCommands();
+    void UpdateMatch();
+    void ManagePauseMessage();
+    void ManageHurryUpMessage();
+    void ManageMatchOver();
+    void DisplayMatchScreen();
+    void DisplayHurryUpMessage();
+    void DisplayPauseMessage();
 
 public:
     CMatch(); //!< Constructor. Initialize some members.
@@ -118,14 +118,14 @@ public:
     inline void SetNetwork(CNetwork* pNetwork); //!< Set link to the network object to use
 #endif
 
-    void Create(void); //!< Initialize the object
-    void Destroy(void); //!< Uninitialize the object
-    void OpenInput(void); //!< Get access to the input this object needs
-    void CloseInput(void); //!< Release access to the input this object needs
-    EGameMode Update(void); //!< Update the object and return what game mode should be set
-    void Display(void); //!< Display on the screen
+    void Create(); //!< Initialize the object
+    void Destroy(); //!< Uninitialize the object
+    void OpenInput(); //!< Get access to the input this object needs
+    void CloseInput(); //!< Release access to the input this object needs
+    EGameMode Update(); //!< Update the object and return what game mode should be set
+    void Display(); //!< Display on the screen
 
-    inline int GetWinnerTeam(void); //!< Get the number of the team that won this match
+    inline int GetWinnerTeam(); //!< Get the number of the team that won this match
     inline bool IsPlayerWinner(int Player); //!< Get the if player has won this match
 
 #ifdef _DEBUG_FLAG_1
@@ -177,7 +177,7 @@ inline void CMatch::SetNetwork(CNetwork* pNetwork) { m_pNetwork = pNetwork; }
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline int CMatch::GetWinnerTeam(void) { return m_WinnerTeam; }
+inline int CMatch::GetWinnerTeam() { return m_WinnerTeam; }
 
 inline bool CMatch::IsPlayerWinner(int Player)
 {

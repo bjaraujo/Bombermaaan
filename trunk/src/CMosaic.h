@@ -53,13 +53,13 @@ private:
     int m_iBackgroundPositionY; //!< these coordinates _are_ in the screen coordinates.
 
 public:
-    CMosaic(void);
-    ~CMosaic(void);
+    CMosaic();
+    ~CMosaic();
     inline void SetDisplay(CDisplay* pDisplay);
     void Create(int SpriteTable, int Sprite, int SpriteLayer, int PriorityInLayer, int SpriteWidth, int SpriteHeight, int TileCountX, int TileCountY, float SpeedX, float SpeedY);
-    void Destroy(void);
+    void Destroy();
     void Update(float DeltaTime); //!< Update the mosaic state
-    void Display(void); //!< Display the mosaic in its current state
+    void Display(); //!< Display the mosaic in its current state
 };
 
 //******************************************************************************************************************************

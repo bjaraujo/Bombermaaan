@@ -245,7 +245,7 @@ SBomberSpriteTable CBomber::m_BomberSpriteTables[MAX_NUMBER_OF_STATES] = {
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CBomber::CBomber(void)
+CBomber::CBomber()
     : CElement()
 {
     m_HasExisted = false; // the bomber did not exist, yet.
@@ -303,7 +303,7 @@ CBomber::CBomber(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CBomber::~CBomber(void) {}
+CBomber::~CBomber() {}
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -383,7 +383,7 @@ void CBomber::Create(int BlockX, int BlockY, int Player, COptions* options)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CBomber::Destroy(void)
+void CBomber::Destroy()
 {
     m_BomberMove.Destroy();
 
@@ -394,7 +394,7 @@ void CBomber::Destroy(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CBomber::Die(void)
+void CBomber::Die()
 {
 
 #ifdef _DEBUG
@@ -897,7 +897,7 @@ void CBomber::Action()
  * \sa m_Sickness, m_FlameSize
  */
 
-int CBomber::GetFlameSize(void) { return (m_Sickness != SICK_SMALLFLAME ? m_FlameSize : FLAMESIZE_SMALLFLAME); }
+int CBomber::GetFlameSize() { return (m_Sickness != SICK_SMALLFLAME ? m_FlameSize : FLAMESIZE_SMALLFLAME); }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -911,7 +911,7 @@ int CBomber::GetFlameSize(void) { return (m_Sickness != SICK_SMALLFLAME ? m_Flam
  * \sa m_Sickness
  */
 
-float CBomber::GetBombTime(void)
+float CBomber::GetBombTime()
 {
     switch (m_Sickness)
     {
@@ -928,7 +928,7 @@ float CBomber::GetBombTime(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-int CBomber::GetPixelsPerSecond(void)
+int CBomber::GetPixelsPerSecond()
 {
     switch (m_Sickness)
     {
@@ -1551,7 +1551,7 @@ void CBomber::Contamination()
  *  The sprite table is prepared by Animate().
  */
 
-void CBomber::Display(void)
+void CBomber::Display()
 {
     // If bomber is not dead and the bomber is not invisible
     if (m_Dead != DEAD_DEAD && m_MakeInvisible == false)
@@ -1965,7 +1965,7 @@ void CBomber::TryKickBomb(int BlockX, int BlockY, EBombKick BombKick)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CBomber::Stunt(void)
+void CBomber::Stunt()
 {
     // A bomb bouncing on the bomber's head doesn't do anything if he is dying
     if (m_BomberState == BOMBERSTATE_DEATH)

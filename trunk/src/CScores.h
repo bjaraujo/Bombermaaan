@@ -46,11 +46,11 @@ public:
     CScores();
     ~CScores();
     inline void SetOptions(COptions* pOptions); //!< Set link to the options object to use
-    void Reset(void); //!< Reset the scores to zero
+    void Reset(); //!< Reset the scores to zero
     void RaisePlayerScore(int Player); //!< Add one to the score of the specified player
-    void RaiseDrawGamesCount(void); //!< Add one to the draw games count
+    void RaiseDrawGamesCount(); //!< Add one to the draw games count
     inline int GetPlayerScore(int Player); //!< Get the score of a player
-    inline int GetDrawGamesCount(void); //!< Get how many draw games there were
+    inline int GetDrawGamesCount(); //!< Get how many draw games there were
 };
 
 //******************************************************************************************************************************
@@ -61,7 +61,7 @@ inline void CScores::SetOptions(COptions* pOptions) { m_pOptions = pOptions; }
 
 inline int CScores::GetPlayerScore(int Player) { return m_Scores[Player]; }
 
-inline int CScores::GetDrawGamesCount(void) { return m_DrawGamesCount; }
+inline int CScores::GetDrawGamesCount() { return m_DrawGamesCount; }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************

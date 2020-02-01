@@ -90,7 +90,7 @@
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CBoard::CBoard(void)
+CBoard::CBoard()
 {
     // Initialize the pointers to NULL so that we
     // can easily detect the ones we forgot to set.
@@ -112,7 +112,7 @@ CBoard::CBoard(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CBoard::~CBoard(void) {}
+CBoard::~CBoard() {}
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -120,7 +120,7 @@ CBoard::~CBoard(void) {}
 
 // Before using a CBoard, it must be created.
 
-void CBoard::Create(void)
+void CBoard::Create()
 {
     // Check if all the objects to communicate with are set
     ASSERT(m_pDisplay != nullptr);
@@ -148,7 +148,7 @@ void CBoard::Create(void)
 
 // When a CBoard is not needed anymore, it should be destroyed.
 
-void CBoard::Destroy(void)
+void CBoard::Destroy()
 {
     // Nothing to do!
 }
@@ -159,7 +159,7 @@ void CBoard::Destroy(void)
 
 // The update of the CBoard simply animates the clock
 
-void CBoard::Update(void)
+void CBoard::Update()
 {
     //----------------------------
     // Clock sprite update
@@ -254,7 +254,7 @@ void CBoard::Update(void)
 // This draws every sprite of the board : the background, the clock,
 // current time left, current player scores with the bomber heads.
 
-void CBoard::Display(void)
+void CBoard::Display()
 {
     // Set the origin where to draw
     m_pDisplay->SetOrigin(BOARD_POSITION_X, BOARD_POSITION_Y);

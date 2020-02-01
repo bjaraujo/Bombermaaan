@@ -65,7 +65,7 @@ CPauseMessage::CPauseMessage(CDisplay* pDisplay, CSound* pSound)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CPauseMessage::~CPauseMessage(void)
+CPauseMessage::~CPauseMessage()
 {
     // Unpause the samples and songs being played
     m_pSound->SetPause(false);
@@ -99,7 +99,7 @@ void CPauseMessage::Update(float DeltaTime)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CPauseMessage::Display(void)
+void CPauseMessage::Display()
 {
     // We need to prepare a clip structure of the size of the game view
     // because of the tiled background which moves to animate
@@ -121,7 +121,7 @@ void CPauseMessage::Display(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CPauseMessage::GetOut(void)
+void CPauseMessage::GetOut()
 {
     // Don't tell the pause message to get out if he is not waiting for you
     ASSERT(m_Waiting);

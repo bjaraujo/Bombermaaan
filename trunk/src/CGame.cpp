@@ -249,14 +249,14 @@ bool CGame::Create(char** pCommandLine, int pCommandLineCount)
     }
 #endif
 
-    std::string pgmDirectory;
+    std::string pgmFolder;
 #ifdef WIN32
     // Set the current directory to the directory where the Bombermaaan exe file resides
     // __argv[0] is the full path including the exe file name
     // If we append a "\.." to the full path, we get the location where the dll and exe file(s) are placed
-    pgmDirectory.append(__argv[0]);
-    pgmDirectory.append("\\..");
-    SetCurrentDirectory(pgmDirectory.c_str());
+    pgmFolder.append(__argv[0]);
+    pgmFolder.append("\\..");
+    SetCurrentDirectory(pgmFolder.c_str());
 #else
     // determine level path by resolving the symlink /proc/self/exe
     // (assume something like /usr/bin/Bombermaaan or /usr/games/Bombermaaan)
@@ -472,7 +472,7 @@ bool CGame::Create(char** pCommandLine, int pCommandLineCount)
     }
 #endif
 
-    if (!m_Options.Create(useAppDataFolder, dynamicDataFolder, pgmDirectory))
+    if (!m_Options.Create(useAppDataFolder, dynamicDataFolder, pgmFolder))
     {
         // Get out
         return false;
@@ -597,6 +597,9 @@ bool CGame::Create(char** pCommandLine, int pCommandLineCount)
 #else
     m_Sound.SetModuleHandle(nullptr);
 #endif
+    
+    // Set program folder
+    m_Display.SetProgramFolder(pgmFolder);
 
     // If creating the display and setting the display mode failed
     if (!m_Display.Create(m_Options.GetDisplayMode()))
@@ -614,6 +617,9 @@ bool CGame::Create(char** pCommandLine, int pCommandLineCount)
 
     //! @see ENABLE_SOUND
 #ifdef ENABLE_SOUND
+
+    // Set program folder
+    m_Sound.SetProgramFolder(pgmFolder);
 
     // If creating the sound failed
     if (!m_Sound.Create())
@@ -724,7 +730,7 @@ bool CGame::Create(char** pCommandLine, int pCommandLineCount)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CGame::Destroy(void)
+void CGame::Destroy()
 {
     // Leave a blank line between "game loop" stuff and shutdown
     theLog.Write("\n");
@@ -849,7 +855,7 @@ CModeScreen* CGame::GetGameModeObject(EGameMode GameMode)
  *  This method is called when the window is active.
  */
 
-void CGame::OnWindowActive(void)
+void CGame::OnWindowActive()
 {
     // Prepare a game mode variable to save the mode to set
     EGameMode NextGameMode = m_GameMode;
@@ -955,7 +961,7 @@ void CGame::StartGameMode(EGameMode GameMode)
  *  Finish the current game mode
  */
 
-void CGame::FinishGameMode(void)
+void CGame::FinishGameMode()
 {
     //! Destroy the object corresponding to the new game mode
     CModeScreen* modeScreen = GetGameModeObject(m_GameMode);

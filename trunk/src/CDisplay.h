@@ -63,26 +63,29 @@ private:
     int m_ViewOriginX; //!< Top left corner of the game view
     int m_ViewOriginY;
 
+    std::string m_pgmFolder;
+
     bool Create(int Width, int Height, bool FullScreen); //!< (Re)Create the DirectDraw/SDLVideo interface and (re)load the sprite tables given the resolution
     bool LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, int BMP_ID, const char* file); //!< Load a sprite table given its bitmap data and its properties.
 
 public:
-    CDisplay(void); //!< Initialize some members
-    ~CDisplay(void); //!< Does nothing
+    CDisplay(); //!< Initialize some members
+    ~CDisplay(); //!< Does nothing
+    void SetProgramFolder(const std::string& pgmFolder); //!< Set program folder
     inline void SetWindowHandle(HWND hWnd); //!< Set the handle of the window DirectDraw/SDLVideo has to work with
     inline void SetModuleHandle(HMODULE hModule); //!< Set the handle of the module linked to the resources
     bool Create(EDisplayMode DisplayMode); //!< (Re)Create the DirectDraw/SDLVideo interface and (re)load the sprite tables given the display mode
-    void Destroy(void); //!< Destroy the DirectDraw/SDLVideo interface and the sprite tables
-    inline void OnWindowMove(void); //!< Has to be called when the window moves (WM_MOVE)
-    inline void OnPaint(void); //!< Has to be called when the window has to be repainted (WM_PAINT)
-    inline void Clear(void); //!< Make the window's client area black
-    inline void Update(void); //!< Draw the sprites that DrawSprite recorded and update the window's client area
+    void Destroy(); //!< Destroy the DirectDraw/SDLVideo interface and the sprite tables
+    inline void OnWindowMove(); //!< Has to be called when the window moves (WM_MOVE)
+    inline void OnPaint(); //!< Has to be called when the window has to be repainted (WM_PAINT)
+    inline void Clear(); //!< Make the window's client area black
+    inline void Update(); //!< Draw the sprites that DrawSprite recorded and update the window's client area
     inline void SetOrigin(int OriginX, int OriginY); //!< Set the origin to draw from the game view origin
     inline void DrawSprite(int PositionX, int PositionY, RECT* pZone, RECT* pClip, int SpriteTable, int Sprite, int SpriteLayer, int PriorityInLayer); //!< Record a drawing request that will be executed on next call to Update
     inline void DrawDebugRectangle(int PositionX, int PositionY, int w, int h, BYTE r, BYTE g, BYTE b, int SpriteLayer, int PriorityInLayer); //!< Record a drawing request for debug purposes
-    inline void RemoveAllDebugRectangles(void);
+    inline void RemoveAllDebugRectangles();
 #ifndef DIRECTX
-    inline CVideoSDL& GetSDLVideo(void);
+    inline CVideoSDL& GetSDLVideo();
 #endif
     bool IsDisplayModeAvailable(EDisplayMode DisplayMode);
 };
@@ -111,7 +114,7 @@ inline void CDisplay::SetOrigin(int OriginX, int OriginY)
 #endif
 }
 
-inline void CDisplay::Clear(void)
+inline void CDisplay::Clear()
 {
 #ifdef DIRECTX
     m_VideoDX.Clear();
@@ -120,7 +123,7 @@ inline void CDisplay::Clear(void)
 #endif
 }
 
-inline void CDisplay::Update(void)
+inline void CDisplay::Update()
 {
 #ifdef DIRECTX
     m_VideoDX.UpdateAll();
@@ -129,7 +132,7 @@ inline void CDisplay::Update(void)
 #endif
 }
 
-inline void CDisplay::OnWindowMove(void)
+inline void CDisplay::OnWindowMove()
 {
 #ifdef DIRECTX
     m_VideoDX.OnWindowMove();
@@ -138,7 +141,7 @@ inline void CDisplay::OnWindowMove(void)
 #endif
 }
 
-inline void CDisplay::OnPaint(void)
+inline void CDisplay::OnPaint()
 {
 #ifdef DIRECTX
     m_VideoDX.UpdateScreen();
@@ -165,7 +168,7 @@ inline void CDisplay::DrawDebugRectangle(int PositionX, int PositionY, int w, in
 #endif
 }
 
-inline void CDisplay::RemoveAllDebugRectangles(void)
+inline void CDisplay::RemoveAllDebugRectangles()
 {
 #ifdef DIRECTX
     m_VideoDX.RemoveAllDebugRectangles();
@@ -175,7 +178,7 @@ inline void CDisplay::RemoveAllDebugRectangles(void)
 }
 
 #ifndef DIRECTX
-inline CVideoSDL& CDisplay::GetSDLVideo(void) { return m_VideoSDL; }
+inline CVideoSDL& CDisplay::GetSDLVideo() { return m_VideoSDL; }
 #endif
 
 //******************************************************************************************************************************

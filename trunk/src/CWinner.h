@@ -70,12 +70,12 @@ public:
     virtual ~CWinner(); //!< Destructor. Does nothing.
     inline void SetScores(CScores* pScores); //!< Set link to the scores object to use
     inline void SetMatch(CMatch* pMatch); //!< Set link to the match object to use
-    void Create(void); //!< Initialize the object
-    void Destroy(void); //!< Uninitialize the object
-    void OpenInput(void); //!< Get access to the input this object needs
-    void CloseInput(void); //!< Release access to the input this object needs
-    EGameMode Update(void); //!< Update the object and return what game mode should be set
-    void Display(void); //!< Display on the screen
+    void Create(); //!< Initialize the object
+    void Destroy(); //!< Uninitialize the object
+    void OpenInput(); //!< Get access to the input this object needs
+    void CloseInput(); //!< Release access to the input this object needs
+    EGameMode Update(); //!< Update the object and return what game mode should be set
+    void Display(); //!< Display on the screen
 };
 
 //******************************************************************************************************************************

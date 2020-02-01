@@ -127,12 +127,12 @@ private:
 
 public:
     CLevel(std::string filename_full, std::string filename_short); //!< Constructor.
-    ~CLevel(void); //!< Destructor.
+    ~CLevel(); //!< Destructor.
     bool LoadFromFile(); //!< Load game level data from the file.
     inline EBlockType GetBlockType(int X, int Y);
     inline int GetNumberOfItemsInWalls(EItemType ItemType);
     inline int GetInitialBomberSkills(EBomberSkills BomberSkill);
-    inline const char* GetLevelName(void);
+    inline const char* GetLevelName();
 };
 
 //******************************************************************************************************************************
@@ -161,7 +161,7 @@ inline int CLevel::GetInitialBomberSkills(EBomberSkills BomberSkill)
     return m_InitialBomberSkills[BomberSkill];
 }
 
-inline const char* CLevel::GetLevelName(void) { return m_FilenameShort.c_str(); }
+inline const char* CLevel::GetLevelName() { return m_FilenameShort.c_str(); }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************

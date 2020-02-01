@@ -73,13 +73,13 @@ private:
 public:
     CConsole();
     ~CConsole();
-    static CConsole& GetConsole(void); //!< Get the console singleton
-    void Open(void); //!< Open the console window
-    void Close(void); //!< Close the console window
+    static CConsole& GetConsole(); //!< Get the console singleton
+    void Open(); //!< Open the console window
+    void Close(); //!< Close the console window
     void Write(const char* pMessage, ...); //!< Write a formatted string to the console
-    inline bool IsOpen(void); //!< Returns whether the console window is opened
+    inline bool IsOpen(); //!< Returns whether the console window is opened
     inline void SetTextColor(WORD Color); //!< Set the color to use when writing text to the console
-    inline WORD GetTextColor(void); //!< Get the color to use when writing text to the console
+    inline WORD GetTextColor(); //!< Get the color to use when writing text to the console
     inline void SetFilterRepeatedMessages(bool Filter); //!< Tell whether consecutive identical messages should be filtered or not
 };
 
@@ -87,7 +87,7 @@ public:
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline bool CConsole::IsOpen(void) { return m_Open; }
+inline bool CConsole::IsOpen() { return m_Open; }
 
 inline void CConsole::SetTextColor(WORD Color)
 {
@@ -100,7 +100,7 @@ inline void CConsole::SetTextColor(WORD Color)
     m_Color = Color;
 }
 
-inline WORD CConsole::GetTextColor(void) { return m_Color; }
+inline WORD CConsole::GetTextColor() { return m_Color; }
 
 inline void CConsole::SetFilterRepeatedMessages(bool Filter) { m_FilterRepeatedMessage = Filter; }
 

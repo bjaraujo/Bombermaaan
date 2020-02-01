@@ -68,33 +68,33 @@ private:
     EWallType m_Type; //!< Type of the wall
 
 public:
-    CWall(void); //!< Constructor (initialize the base class)
-    virtual ~CWall(void); //!< Destructor (uninitialize the base class)
+    CWall(); //!< Constructor (initialize the base class)
+    virtual ~CWall(); //!< Destructor (uninitialize the base class)
     void Create(int BlockX, int BlockY, EWallType Type); //!< Initialize the wall
-    void Destroy(void); //!< Uninitialize the wall
+    void Destroy(); //!< Uninitialize the wall
     bool Update(float DeltaTime); //!< Update the wall. Return whether the element should be deleted by the arena.
-    void Display(void); //!< Display the wall
+    void Display(); //!< Display the wall
     void OnWriteSnapshot(CArenaSnapshot& Snapshot);
     void OnReadSnapshot(CArenaSnapshot& Snapshot);
-    void Burn(void); //!< Make the wall react when it is burnt by an explosion
-    void Crush(void); //!< Make the wall react when it is crushed by another wall
-    inline int GetBlockX(void); //!< Return the block position X of the wall
-    inline int GetBlockY(void); //!< Return the block position Y of the wall
-    inline bool IsBurning(void); //!< Return whether the wall is burning
-    inline int GetType(void); //!< Return the type of the wall
+    void Burn(); //!< Make the wall react when it is burnt by an explosion
+    void Crush(); //!< Make the wall react when it is crushed by another wall
+    inline int GetBlockX(); //!< Return the block position X of the wall
+    inline int GetBlockY(); //!< Return the block position Y of the wall
+    inline bool IsBurning(); //!< Return whether the wall is burning
+    inline int GetType(); //!< Return the type of the wall
 };
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline int CWall::GetBlockX(void) { return m_BlockX; }
+inline int CWall::GetBlockX() { return m_BlockX; }
 
-inline int CWall::GetBlockY(void) { return m_BlockY; }
+inline int CWall::GetBlockY() { return m_BlockY; }
 
-inline bool CWall::IsBurning(void) { return m_Burning; }
+inline bool CWall::IsBurning() { return m_Burning; }
 
-inline int CWall::GetType(void) { return m_Type; }
+inline int CWall::GetType() { return m_Type; }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************

@@ -55,7 +55,7 @@ CHurryMessage::CHurryMessage(CDisplay* pDisplay, CSound* pSound)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CHurryMessage::~CHurryMessage(void)
+CHurryMessage::~CHurryMessage()
 {
     // Delete the scroller
     m_Scroller.Destroy();
@@ -85,7 +85,7 @@ bool CHurryMessage::Update(float DeltaTime)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CHurryMessage::Display(void)
+void CHurryMessage::Display()
 {
     // We need to prepare a clip structure of the size of the game view
     // because of the tiled background which moves to animate

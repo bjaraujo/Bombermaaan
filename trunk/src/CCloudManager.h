@@ -50,13 +50,13 @@ private:
     int m_CloudSprites[NUMBER_OF_CLOUDS];
 
 public:
-    CCloudManager(void);
-    ~CCloudManager(void);
+    CCloudManager();
+    ~CCloudManager();
     inline void SetDisplay(CDisplay* pDisplay);
-    void Create(void);
-    void Destroy(void);
+    void Create();
+    void Destroy();
     void Update(float DeltaTime);
-    void Display(void);
+    void Display();
 };
 
 //******************************************************************************************************************************

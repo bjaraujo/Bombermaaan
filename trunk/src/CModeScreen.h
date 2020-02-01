@@ -58,12 +58,12 @@ public:
     inline virtual void SetOptions(COptions* pOptions); //!< Set link to the options object to use
     inline virtual void SetTimer(CTimer* pTimer); //!< Set link to the timer object to use
     inline virtual void SetSound(CSound* pSound); //!< Set link to the sound object to use
-    virtual void Create(void); //!< Initialize the object
-    virtual void Destroy(void); //!< Uninitialize the object
-    virtual void OpenInput(void) = 0; //!< Get access to the input this object needs
-    virtual void CloseInput(void) = 0; //!< Release access to the input this object needs
-    virtual EGameMode Update(void) = 0; //!< Update the object and return what game mode should be set
-    virtual void Display(void) = 0; //!< Display on the screen
+    virtual void Create(); //!< Initialize the object
+    virtual void Destroy(); //!< Uninitialize the object
+    virtual void OpenInput() = 0; //!< Get access to the input this object needs
+    virtual void CloseInput() = 0; //!< Release access to the input this object needs
+    virtual EGameMode Update() = 0; //!< Update the object and return what game mode should be set
+    virtual void Display() = 0; //!< Display on the screen
 };
 
 //******************************************************************************************************************************

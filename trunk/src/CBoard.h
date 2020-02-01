@@ -56,18 +56,18 @@ private:
     bool m_AnimateClock; //!< Should the clock animate?
 
 public:
-    CBoard(void); //!< Constructor. Initialize some members.
-    ~CBoard(void); //!< Destructor. Does nothing.
+    CBoard(); //!< Constructor. Initialize some members.
+    ~CBoard(); //!< Destructor. Does nothing.
     inline void SetDisplay(CDisplay* pDisplay); //!< Set link to the display object to use
     inline void SetOptions(COptions* pOptions); //!< Set link to the options object to use
     inline void SetScores(CScores* pScores); //!< Set link to the scores object to use
     inline void SetClock(CClock* pClock); //!< Set link to the clock object to use
     inline void SetTimer(CTimer* pTimer); //!< Set link to the timer object to use
     inline void SetArena(CArena* pArena); //!< Set link to the arena object to use
-    void Create(void); //!< Initialize the object
-    void Destroy(void); //!< Uninitialize the object
-    void Update(void); //!< Update the board
-    void Display(void); //!< Display the board
+    void Create(); //!< Initialize the object
+    void Destroy(); //!< Uninitialize the object
+    void Update(); //!< Update the board
+    void Display(); //!< Display the board
     inline void SetClockAnimation(bool AnimateClock); //!< Make the board's clock animation active or inactive
 };
 

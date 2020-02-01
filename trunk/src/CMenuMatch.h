@@ -54,20 +54,20 @@ private:
     EMatchOption m_Options[MENUMATCH_OPTIONS_COUNT]; //!< Options of this menu in the right order
     int m_CursorOption; //!< Option the cursor hand is currently pointing to
 
-    void OnCreate(void);
-    void OnDestroy(void);
-    void OnUp(void);
-    void OnDown(void);
-    void OnLeft(void);
-    void OnRight(void);
-    void OnPrevious(void);
-    void OnNext(void);
-    void OnUpdate(void);
-    void OnDisplay(void);
+    void OnCreate();
+    void OnDestroy();
+    void OnUp();
+    void OnDown();
+    void OnLeft();
+    void OnRight();
+    void OnPrevious();
+    void OnNext();
+    void OnUpdate();
+    void OnDisplay();
 
 public:
-    CMenuMatch(void);
-    virtual ~CMenuMatch(void);
+    CMenuMatch();
+    virtual ~CMenuMatch();
 };
 
 //******************************************************************************************************************************

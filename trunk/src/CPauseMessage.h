@@ -48,21 +48,21 @@ private:
 
 public:
     CPauseMessage(CDisplay* pDisplay, CSound* pSound);
-    ~CPauseMessage(void);
+    ~CPauseMessage();
     void Update(float DeltaTime);
-    void Display(void);
-    inline bool IsWaiting(void);
-    void GetOut(void);
-    inline bool IsOutOfBounds(void);
+    void Display();
+    inline bool IsWaiting();
+    void GetOut();
+    inline bool IsOutOfBounds();
 };
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline bool CPauseMessage::IsWaiting(void) { return m_Waiting; }
+inline bool CPauseMessage::IsWaiting() { return m_Waiting; }
 
-inline bool CPauseMessage::IsOutOfBounds(void) { return m_Scroller.OutOfBounds(); }
+inline bool CPauseMessage::IsOutOfBounds() { return m_Scroller.OutOfBounds(); }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************

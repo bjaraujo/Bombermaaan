@@ -56,22 +56,22 @@ protected:
     CTimer* m_pTimer;
     CFont* m_pFont;
 
-    virtual void OnCreate(void) = 0;
-    virtual void OnDestroy(void) = 0;
-    virtual void OnUpdate(void) = 0;
-    virtual void OnDisplay(void) = 0;
-    virtual void OnUp(void) = 0;
-    virtual void OnDown(void) = 0;
-    virtual void OnLeft(void) = 0;
-    virtual void OnRight(void) = 0;
-    virtual void OnPrevious(void) = 0;
-    virtual void OnNext(void) = 0;
+    virtual void OnCreate() = 0;
+    virtual void OnDestroy() = 0;
+    virtual void OnUpdate() = 0;
+    virtual void OnDisplay() = 0;
+    virtual void OnUp() = 0;
+    virtual void OnDown() = 0;
+    virtual void OnLeft() = 0;
+    virtual void OnRight() = 0;
+    virtual void OnPrevious() = 0;
+    virtual void OnNext() = 0;
 
     void Exit(EMenuAction ExitMenuAction);
 
 public:
-    CMenuBase(void);
-    virtual ~CMenuBase(void);
+    CMenuBase();
+    virtual ~CMenuBase();
 
     inline void SetDisplay(CDisplay* pDisplay);
     inline void SetSound(CSound* pSound);
@@ -80,11 +80,11 @@ public:
     inline void SetTimer(CTimer* pTimer);
     inline void SetFont(CFont* pFont);
 
-    void Create(void);
-    void Destroy(void);
+    void Create();
+    void Destroy();
 
-    EMenuAction Update(void);
-    void Display(void);
+    EMenuAction Update();
+    void Display();
 };
 
 //******************************************************************************************************************************

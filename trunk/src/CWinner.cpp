@@ -134,7 +134,7 @@
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CWinner::CWinner(void)
+CWinner::CWinner()
     : CModeScreen()
 {
     // Initialize the pointers to NULL so that we
@@ -167,7 +167,7 @@ CWinner::CWinner(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CWinner::~CWinner(void)
+CWinner::~CWinner()
 {
     // Nothing to do!
 }
@@ -178,7 +178,7 @@ CWinner::~CWinner(void)
 
 // Before using a CWinner, you must create it.
 
-void CWinner::Create(void)
+void CWinner::Create()
 {
     CModeScreen::Create();
 
@@ -224,7 +224,7 @@ void CWinner::Create(void)
 
 // When a CWinner is not needed anymore, you should destroy it
 
-void CWinner::Destroy(void)
+void CWinner::Destroy()
 {
     CModeScreen::Destroy();
 
@@ -237,7 +237,7 @@ void CWinner::Destroy(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CWinner::OpenInput(void)
+void CWinner::OpenInput()
 {
     m_pInput->GetMainInput().Open();
 
@@ -252,7 +252,7 @@ void CWinner::OpenInput(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CWinner::CloseInput(void)
+void CWinner::CloseInput()
 {
     m_pInput->GetMainInput().Close();
 
@@ -267,7 +267,7 @@ void CWinner::CloseInput(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-EGameMode CWinner::Update(void)
+EGameMode CWinner::Update()
 {
     // Increase elapsed time since mode has started
     m_ModeTime += m_pTimer->GetDeltaTime();
@@ -463,7 +463,7 @@ EGameMode CWinner::Update(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CWinner::Display(void)
+void CWinner::Display()
 {
     // If we have to make the first black screen
     if (m_ModeTime <= WINNER_BLACKSCREEN_DURATION)

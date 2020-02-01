@@ -86,11 +86,11 @@ private:
     CMosaic* m_pMosaic; //!< Mosaic object used for the animated mosaic background of the menu screen
 
     void StartMenuMode(EMenuMode MenuMode);
-    void FinishMenuMode(void);
+    void FinishMenuMode();
 
 public:
-    CMenu(void);
-    virtual ~CMenu(void);
+    CMenu();
+    virtual ~CMenu();
 
     inline void SetDisplay(CDisplay* pDisplay); //!< Set link to the display object to use
     inline void SetInput(CInput* pInput); //!< Set link to the input object to use
@@ -98,12 +98,12 @@ public:
     inline void SetSound(CSound* pSound); //!< Set link to the sound object to use
     inline void SetOptions(COptions* pOptions); //!< Set link to the options object to use
     inline void SetScores(CScores* pScores); //!< Set link to the scores object to use
-    void Create(void); //!< Initialize the object
-    void Destroy(void); //!< Uninitialize the object
-    void OpenInput(void); //!< Get access to the input this object needs
-    void CloseInput(void); //!< Release access to the input this object needs
-    EGameMode Update(void); //!< Update the object and return what game mode should be set
-    void Display(void); //!< Display on the screen
+    void Create(); //!< Initialize the object
+    void Destroy(); //!< Uninitialize the object
+    void OpenInput(); //!< Get access to the input this object needs
+    void CloseInput(); //!< Release access to the input this object needs
+    EGameMode Update(); //!< Update the object and return what game mode should be set
+    void Display(); //!< Display on the screen
     void SetMenuMode(EMenuMode MenuMode); //!< Set the current menu mode
 };
 

@@ -54,17 +54,17 @@ private:
     bool m_WasSoundPaused; //!< Was the sound paused when the Yes/No message box had to appear?
 
 public:
-    CMenuYesNo(void);
-    ~CMenuYesNo(void);
+    CMenuYesNo();
+    ~CMenuYesNo();
     inline void SetDisplay(CDisplay* pDisplay); //!< Set link to the display object to use
     inline void SetInput(CInput* pInput); //!< Set link to the input object to use
     inline void SetTimer(CTimer* pTimer); //!< Set link to the timer object to use
     inline void SetSound(CSound* pSound); //!< Set link to the sound object to use
-    void Create(void);
-    void Destroy(void);
+    void Create();
+    void Destroy();
     EGameMode Update(EGameMode CurrentGameMode); //!< Update the object and return what was chosen
-    void Display(void);
-    inline bool IsActive(void);
+    void Display();
+    inline bool IsActive();
 };
 
 //******************************************************************************************************************************
@@ -83,7 +83,7 @@ inline void CMenuYesNo::SetTimer(CTimer* pTimer) { m_pTimer = pTimer; }
 
 inline void CMenuYesNo::SetSound(CSound* pSound) { m_pSound = pSound; }
 
-inline bool CMenuYesNo::IsActive(void) { return m_Active; }
+inline bool CMenuYesNo::IsActive() { return m_Active; }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************

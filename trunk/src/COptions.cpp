@@ -71,7 +71,7 @@ struct SFileInfo
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-COptions::COptions(void)
+COptions::COptions()
 {
 
     m_DisplayMode = DISPLAYMODE_NONE;
@@ -109,7 +109,7 @@ COptions::COptions(const COptions& another) { operator=(another); }
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-COptions::~COptions(void) { Destroy(); }
+COptions::~COptions() { Destroy(); }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -180,13 +180,13 @@ bool COptions::Create(bool useAppDataFolder, std::string dynamicDataFolder, std:
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void COptions::Destroy(void) {}
+void COptions::Destroy() {}
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void COptions::SaveBeforeExit(void)
+void COptions::SaveBeforeExit()
 {
     // Write the values to the XML based configuration file
     WriteXMLData();
@@ -196,7 +196,7 @@ void COptions::SaveBeforeExit(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void COptions::SetDefaultValues(void)
+void COptions::SetDefaultValues()
 {
     // Time of a match (TimeStart) and when the arena closing begins (TimeUp)
     m_TimeUpMinutes = TIMEUP_MINUTES;
@@ -295,7 +295,7 @@ void COptions::SetDefaultValues(void)
  *  This feature will be removed in the future.
  */
 
-bool COptions::LoadConfiguration(void)
+bool COptions::LoadConfiguration()
 {
     // Try to open the old configuration file
     FILE* pConfigFile = fopen(oldconfigFileName.c_str(), "rb");
@@ -625,7 +625,6 @@ bool COptions::LoadLevels(std::string dynamicDataFolder, std::string pgmFolder)
     {
         do
         {
-
             SFileInfo file;
 
             file.fileNameWithoutPath = FindData.name;
@@ -728,7 +727,6 @@ bool COptions::LoadLevels(std::string dynamicDataFolder, std::string pgmFolder)
 
     for (unsigned int CurrentLevel = 0; CurrentLevel < m_Levels.size(); CurrentLevel++)
     {
-
         //theLog.WriteLine ("Options         => Loading level file %s...", levelFileNames_full.at(CurrentLevel).c_str() );
 
         if (!m_Levels.at(CurrentLevel).LoadFromFile())

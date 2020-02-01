@@ -47,14 +47,14 @@ private:
     int m_iPositionY;
 
 public:
-    CScroller(void);
-    ~CScroller(void);
+    CScroller();
+    ~CScroller();
     void Create(int PositionX, int PositionY, int SpriteWidth, int SpriteHeight, float SpeedX, float SpeedY, float LoopTime);
-    void Destroy(void);
+    void Destroy();
     void Update(float DeltaTime);
-    bool OutOfBounds(void);
-    inline int GetPositionX(void);
-    inline int GetPositionY(void);
+    bool OutOfBounds();
+    inline int GetPositionX();
+    inline int GetPositionY();
     inline void SetSpeed(float SpeedX, float SpeedY);
 };
 
@@ -62,9 +62,9 @@ public:
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline int CScroller::GetPositionX(void) { return m_iPositionX; }
+inline int CScroller::GetPositionX() { return m_iPositionX; }
 
-inline int CScroller::GetPositionY(void) { return m_iPositionY; }
+inline int CScroller::GetPositionY() { return m_iPositionY; }
 
 inline void CScroller::SetSpeed(float SpeedX, float SpeedY)
 {

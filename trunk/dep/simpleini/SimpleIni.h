@@ -2381,7 +2381,6 @@ public:
      */
     size_t SizeFromStore(const char* a_pInputData, size_t a_uInputDataLen)
     {
-        (void)a_pInputData;
         SI_ASSERT(a_uInputDataLen != (size_t)-1);
 
         // ASCII/MBCS/UTF-8 needs no conversion

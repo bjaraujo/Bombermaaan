@@ -59,14 +59,14 @@ private:
     int m_NumberOfSteps;
 
 public:
-    void Create(void); //!<
-    void Destroy(void); //!<
-    void Reset(void); //!<
+    void Create(); //!<
+    void Destroy(); //!<
+    void Reset(); //!<
     void Store(EBomberMove BomberMove, EBomberAction BomberAction, float DeltaTime);
     inline EBomberMove GetStepMove(int Step);
     inline EBomberAction GetStepAction(int Step);
     inline float GetStepDuration(int Step);
-    inline int GetNumberOfSteps(void);
+    inline int GetNumberOfSteps();
 };
 
 //******************************************************************************************************************************
@@ -94,7 +94,7 @@ inline float CCommandChunk::GetStepDuration(int Step)
     return m_Steps[Step].Duration;
 }
 
-inline int CCommandChunk::GetNumberOfSteps(void) { return m_NumberOfSteps; }
+inline int CCommandChunk::GetNumberOfSteps() { return m_NumberOfSteps; }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************

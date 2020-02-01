@@ -137,6 +137,7 @@ struct SSurface
 class CVideoSDL
 {
 private:
+    std::string m_pgmFolder; //!< Program folder
     HWND m_hWnd; //!< Window handle
     SDL_Rect m_rcScreen; //!< Window rect in screen coordinates
     SDL_Rect m_rcViewport; //!< Window rect in client coordinates
@@ -159,21 +160,22 @@ private:
     WORD GetNumberOfBits(DWORD dwMask);
 
 public:
-    CVideoSDL(void);
-    ~CVideoSDL(void);
+    CVideoSDL();
+    ~CVideoSDL();
 
     inline void SetWindowHandle(HWND hWnd);
+    void SetProgramFolder(const std::string& pgmFolder); //!< Set program folder
     bool Create(int Width, int Height, int Depth, bool FullScreen);
-    void Destroy(void);
+    void Destroy();
     bool SetTransparentColor(int Red, int Green, int Blue);
     bool LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, int BMP_ID, HBITMAP hBitmap);
     bool LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, int BMP_ID, const char* file);
-    void FreeSprites(void);
-    void OnWindowMove(void);
-    inline void OnPaint(void);
-    void Clear(void);
-    void UpdateAll(void);
-    void UpdateScreen(void);
+    void FreeSprites();
+    void OnWindowMove();
+    inline void OnPaint();
+    void Clear();
+    void UpdateAll();
+    void UpdateScreen();
     inline void SetOrigin(int OriginX, int OriginY);
     inline void SetNewPrimary(SDL_Surface* pSurface);
     void DrawSprite(int PositionX, int PositionY, RECT* pZone, RECT* pClip, int SpriteTable, int Sprite, int SpriteLayer, int PriorityInLayer);
@@ -191,7 +193,7 @@ inline void CVideoSDL::SetWindowHandle(HWND hWnd) { m_hWnd = hWnd; }
 
 inline bool CVideoSDL::IsModeSet(int Width, int Height, int Depth, bool FullScreen) { return m_Width == Width && m_Height == Height && m_Depth == Depth && m_FullScreen == FullScreen; }
 
-inline void CVideoSDL::OnPaint(void) { UpdateScreen(); }
+inline void CVideoSDL::OnPaint() { UpdateScreen(); }
 
 inline void CVideoSDL::SetOrigin(int OriginX, int OriginY)
 {

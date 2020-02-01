@@ -61,7 +61,7 @@ CCommandChunk CommandChunk;
 float TimeElapsedSinceLastCommandChunk = 0.0f;
 CArenaSnapshot Snapshot;
 
-CMatch::CMatch(void)
+CMatch::CMatch()
     : CModeScreen()
 {
     // Set the objects the board has to communicate with
@@ -97,7 +97,7 @@ CMatch::CMatch(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CMatch::~CMatch(void)
+CMatch::~CMatch()
 {
     // Nothing to do!
 }
@@ -108,7 +108,7 @@ CMatch::~CMatch(void)
 
 // Before using a CMatch, you must create it.
 
-void CMatch::Create(void)
+void CMatch::Create()
 {
     CModeScreen::Create();
 
@@ -225,7 +225,7 @@ void CMatch::Create(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMatch::CreateMainComponents(void)
+void CMatch::CreateMainComponents()
 {
     // Create the main components of the match
     m_Board.Create();
@@ -244,7 +244,7 @@ void CMatch::CreateMainComponents(void)
 
 // When a CMatch is not needed anymore, you should destroy it
 
-void CMatch::Destroy(void)
+void CMatch::Destroy()
 {
     CModeScreen::Destroy();
 
@@ -263,7 +263,7 @@ void CMatch::Destroy(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMatch::DestroyPauseMessage(void)
+void CMatch::DestroyPauseMessage()
 {
     // Delete the pause message object
     if (m_pPauseMessage != nullptr)
@@ -277,7 +277,7 @@ void CMatch::DestroyPauseMessage(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMatch::DestroyHurryUpMessage(void)
+void CMatch::DestroyHurryUpMessage()
 {
     // Delete the hurry message object
     if (m_pHurryMessage != nullptr)
@@ -291,7 +291,7 @@ void CMatch::DestroyHurryUpMessage(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMatch::DestroyMainComponents(void)
+void CMatch::DestroyMainComponents()
 {
     // Destroy the main components of the match
     m_Board.Destroy();
@@ -303,7 +303,7 @@ void CMatch::DestroyMainComponents(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMatch::StopSong(void)
+void CMatch::StopSong()
 {
     // If the song is being played
     if (m_IsSongPlaying)
@@ -324,7 +324,7 @@ void CMatch::StopSong(void)
  *  @see CloseInput()
  */
 
-void CMatch::OpenInput(void)
+void CMatch::OpenInput()
 {
     // Scan the players
     for (int Player = 0; Player < MAX_PLAYERS; Player++)
@@ -349,7 +349,7 @@ void CMatch::OpenInput(void)
  *  @see OpenInput()
  */
 
-void CMatch::CloseInput(void)
+void CMatch::CloseInput()
 {
     // Scan the players
     for (int Player = 0; Player < MAX_PLAYERS; Player++)
@@ -371,7 +371,7 @@ void CMatch::CloseInput(void)
  *  \brief Start playing the match song if it hasn't started.
  */
 
-void CMatch::PlaySong(void)
+void CMatch::PlaySong()
 {
     // If there is no song playing right now
     if (!m_IsSongPlaying)
@@ -395,7 +395,7 @@ void CMatch::PlaySong(void)
  *  \brief Receive player commands.
  */
 
-void CMatch::ProcessPlayerCommands(void)
+void CMatch::ProcessPlayerCommands()
 {
     // If the match is not paused
     if (m_pPauseMessage == NULL)
@@ -562,7 +562,7 @@ void CMatch::ProcessPlayerCommands(void)
 // Manage the pause
 //------------------
 
-void CMatch::ManagePauseMessage(void)
+void CMatch::ManagePauseMessage()
 {
     // Check if a joystick pressed the "start" button
     // There is no check which joystick had requested the pause, so the pause can be ended
@@ -637,7 +637,7 @@ void CMatch::ManagePauseMessage(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMatch::UpdateMatch(void)
+void CMatch::UpdateMatch()
 {
     // If the match is not paused
     if (m_pPauseMessage == NULL)
@@ -740,7 +740,7 @@ void CMatch::UpdateMatch(void)
  *  \brief Manage the hurry up message
  */
 
-void CMatch::ManageHurryUpMessage(void)
+void CMatch::ManageHurryUpMessage()
 {
     // If the match is not paused and the hurry up is enabled
     if (m_pPauseMessage == NULL && (m_pOptions->GetTimeUpMinutes() != 0 || m_pOptions->GetTimeUpSeconds() != 0))
@@ -779,7 +779,7 @@ void CMatch::ManageHurryUpMessage(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMatch::ManageMatchOver(void)
+void CMatch::ManageMatchOver()
 {
     //---------------------------------------------------
     // React if the match is over or is going to be over
@@ -1007,7 +1007,7 @@ void CMatch::ManageMatchOver(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-EGameMode CMatch::Update(void)
+EGameMode CMatch::Update()
 {
     // Increase elapsed time since mode has started
     m_ModeTime += m_pTimer->GetDeltaTime();
@@ -1070,7 +1070,7 @@ EGameMode CMatch::Update(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMatch::Display(void)
+void CMatch::Display()
 {
     // If we have to make the first black screen
     if (m_ModeTime <= BLACKSCREEN_DURATION)
@@ -1112,7 +1112,7 @@ void CMatch::Display(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMatch::DisplayMatchScreen(void)
+void CMatch::DisplayMatchScreen()
 {
     m_Board.Display();
     m_Arena.Display();
@@ -1122,7 +1122,7 @@ void CMatch::DisplayMatchScreen(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMatch::DisplayHurryUpMessage(void)
+void CMatch::DisplayHurryUpMessage()
 {
     // If the hurry message exists
     if (m_pHurryMessage != nullptr)
@@ -1136,7 +1136,7 @@ void CMatch::DisplayHurryUpMessage(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CMatch::DisplayPauseMessage(void)
+void CMatch::DisplayPauseMessage()
 {
     // If the match is paused
     if (m_pPauseMessage != nullptr)

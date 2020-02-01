@@ -61,7 +61,7 @@
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CDemo::CDemo(void)
+CDemo::CDemo()
     : CModeScreen()
 {
     // Set the objects the board has to communicate with
@@ -88,7 +88,7 @@ CDemo::CDemo(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CDemo::~CDemo(void)
+CDemo::~CDemo()
 {
     // Nothing to do!
 }
@@ -99,7 +99,7 @@ CDemo::~CDemo(void)
 
 // Before using a CDemo, you must create it.
 
-void CDemo::Create(void)
+void CDemo::Create()
 {
     CModeScreen::Create();
 
@@ -151,7 +151,7 @@ void CDemo::Create(void)
  *  \sa CDemo::SetOptions
  */
 
-void CDemo::SetupOptions(void)
+void CDemo::SetupOptions()
 {
     //! For each player
     for (int Player = 0; Player < MAX_PLAYERS; Player++)
@@ -172,7 +172,7 @@ void CDemo::SetupOptions(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CDemo::CreateMainComponents(void)
+void CDemo::CreateMainComponents()
 {
     // Create the main components of the match
     m_Board.Create();
@@ -189,7 +189,7 @@ void CDemo::CreateMainComponents(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CDemo::CreateFont(void)
+void CDemo::CreateFont()
 {
     // Create and initialize the font for our needs
     m_Font.Create();
@@ -206,7 +206,7 @@ void CDemo::CreateFont(void)
 
 // When a CDemo is not needed anymore, you should destroy it
 
-void CDemo::Destroy(void)
+void CDemo::Destroy()
 {
     CModeScreen::Destroy();
 
@@ -222,7 +222,7 @@ void CDemo::Destroy(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CDemo::DestroyMainComponents(void)
+void CDemo::DestroyMainComponents()
 {
     // Destroy the main components of the match
     m_Board.Destroy();
@@ -234,7 +234,7 @@ void CDemo::DestroyMainComponents(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CDemo::StopSong(void)
+void CDemo::StopSong()
 {
     // If the song is being played
     if (m_IsSongPlaying)
@@ -248,7 +248,7 @@ void CDemo::StopSong(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CDemo::DestroyHurryUpMessage(void)
+void CDemo::DestroyHurryUpMessage()
 {
     // Delete the hurry message object
     if (m_pHurryMessage != nullptr)
@@ -262,19 +262,19 @@ void CDemo::DestroyHurryUpMessage(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CDemo::OpenInput(void) { m_pInput->GetMainInput().Open(); }
+void CDemo::OpenInput() { m_pInput->GetMainInput().Open(); }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CDemo::CloseInput(void) { m_pInput->GetMainInput().Close(); }
+void CDemo::CloseInput() { m_pInput->GetMainInput().Close(); }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-EGameMode CDemo::Update(void)
+EGameMode CDemo::Update()
 {
     // Increase elapsed time since mode has started
     m_ModeTime += m_pTimer->GetDeltaTime();
@@ -326,7 +326,7 @@ EGameMode CDemo::Update(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CDemo::PlaySong(void)
+void CDemo::PlaySong()
 {
     // If there is no song playing right now
     if (!m_IsSongPlaying)
@@ -346,13 +346,13 @@ void CDemo::PlaySong(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CDemo::ProcessPlayerCommands(void) { m_AiManager.Update(m_pTimer->GetDeltaTime()); }
+void CDemo::ProcessPlayerCommands() { m_AiManager.Update(m_pTimer->GetDeltaTime()); }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CDemo::ManageExit(void)
+void CDemo::ManageExit()
 {
     // If the user activates the break control
     if (m_pInput->GetMainInput().TestBreak())
@@ -369,7 +369,7 @@ void CDemo::ManageExit(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CDemo::UpdateMatch(void)
+void CDemo::UpdateMatch()
 {
     // If the hurry up is enabled
     if (m_Options.GetTimeUpMinutes() != 0 || m_Options.GetTimeUpSeconds() != 0)
@@ -402,7 +402,7 @@ void CDemo::UpdateMatch(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CDemo::UpdateDemoText(void)
+void CDemo::UpdateDemoText()
 {
     // Update the time we have spent drawing (or not) the demo text
     m_DemoTextTime += m_pTimer->GetDeltaTime();
@@ -420,7 +420,7 @@ void CDemo::UpdateDemoText(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CDemo::ManageHurryUpMessage(void)
+void CDemo::ManageHurryUpMessage()
 {
     // If the hurry up is enabled
     if (m_Options.GetTimeUpMinutes() != 0 || m_Options.GetTimeUpSeconds() != 0)
@@ -459,7 +459,7 @@ void CDemo::ManageHurryUpMessage(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CDemo::ManageMatchOver(void)
+void CDemo::ManageMatchOver()
 {
     int AliveCount = 0; // Number of alive bombers
     int DyingCount = 0; // Number of dying bombers
@@ -585,7 +585,7 @@ void CDemo::ManageMatchOver(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CDemo::Display(void)
+void CDemo::Display()
 {
     // If we have to make the first black screen
     if (m_ModeTime <= BLACKSCREEN_DURATION)
@@ -630,7 +630,7 @@ void CDemo::Display(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CDemo::DisplayDemoText(void)
+void CDemo::DisplayDemoText()
 {
     // If we have to display the demo text
     if (m_DrawDemoText)
@@ -644,7 +644,7 @@ void CDemo::DisplayDemoText(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CDemo::DisplayMatchScreen(void)
+void CDemo::DisplayMatchScreen()
 {
     m_Board.Display();
     m_Arena.Display();
@@ -654,7 +654,7 @@ void CDemo::DisplayMatchScreen(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CDemo::DisplayHurryUpMessage(void)
+void CDemo::DisplayHurryUpMessage()
 {
     // If the hurry message exists
     if (m_pHurryMessage != nullptr)

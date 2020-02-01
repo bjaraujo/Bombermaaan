@@ -34,7 +34,7 @@
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CClock::CClock(void)
+CClock::CClock()
 {
 
     m_Date = 0.0f;
@@ -56,7 +56,7 @@ CClock::CClock(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CClock::~CClock(void)
+CClock::~CClock()
 {
     // Nothing to do
 }
@@ -107,7 +107,7 @@ void CClock::Create(EClockType ClockType, EClockMode ClockMode, int Hours, int M
 
 // When a CClock is not needed anymore, it should be destroyed
 
-void CClock::Destroy(void)
+void CClock::Destroy()
 {
     // Nothing to do!
 }
@@ -286,7 +286,7 @@ void CClock::Update(float DeltaTime)
 // This resets the clock hours/minutes/seconds/seconds100
 // to the ones that were given on clock creation using Create() method.
 
-void CClock::Reset(void)
+void CClock::Reset()
 {
     // Reset the hours/minutes/seconds/seconds100
     m_Hours = m_StartHours;

@@ -207,25 +207,25 @@ private:
 
     bool UpdateDevice(void* pState, int StateSize);
     bool UpdateDevice(SDL_Joystick* pDevice, void* pState, int StateSize);
-    void MakeKeyFriendlyNames(void);
+    void MakeKeyFriendlyNames();
 
     int m_joystickCount;
 
 public:
-    CInputSDL(void);
-    ~CInputSDL(void);
+    CInputSDL();
+    ~CInputSDL();
     inline void SetWindowHandle(HWND hWnd);
     inline void SetInstanceHandle(HINSTANCE hInstance);
-    bool Create(void);
-    void Destroy(void);
-    inline void OpenKeyboard(void);
-    inline bool IsKeyboardOpened(void);
-    inline void CloseKeyboard(void);
-    void UpdateKeyboard(void);
+    bool Create();
+    void Destroy();
+    inline void OpenKeyboard();
+    inline bool IsKeyboardOpened();
+    inline void CloseKeyboard();
+    void UpdateKeyboard();
     inline bool GetKey(int Key);
     inline void SetKey(int Key, bool KeySet);
     inline const char* GetKeyFriendlyName(int Key);
-    inline int GetJoystickCount(void);
+    inline int GetJoystickCount();
     inline void OpenJoystick(int Joystick);
     inline bool IsJoystickOpened(int Joystick);
     inline void CloseJoystick(int Joystick);
@@ -257,15 +257,15 @@ inline void CInputSDL::SetWindowHandle(HWND hWnd) { m_hWnd = hWnd; }
 
 inline void CInputSDL::SetInstanceHandle(HINSTANCE hInstance) { m_hInstance = hInstance; }
 
-inline void CInputSDL::OpenKeyboard(void) { m_KeyboardOpened = true; }
+inline void CInputSDL::OpenKeyboard() { m_KeyboardOpened = true; }
 
-inline bool CInputSDL::IsKeyboardOpened(void)
+inline bool CInputSDL::IsKeyboardOpened()
 {
     // Return the opened state of the keyboard
     return m_KeyboardOpened;
 }
 
-inline void CInputSDL::CloseKeyboard(void) { m_KeyboardOpened = false; }
+inline void CInputSDL::CloseKeyboard() { m_KeyboardOpened = false; }
 
 inline bool CInputSDL::GetKey(int Key)
 {
@@ -303,7 +303,7 @@ inline const char* CInputSDL::GetKeyFriendlyName(int Key)
     return m_KeyFriendlyName[Key];
 }
 
-inline int CInputSDL::GetJoystickCount(void)
+inline int CInputSDL::GetJoystickCount()
 {
     // Return the number of joysticks installed on the system
     return m_pJoysticks.size();

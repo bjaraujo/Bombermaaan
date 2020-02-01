@@ -46,9 +46,9 @@ private:
     int m_Position;
 
 public:
-    void Create(void); //!<
-    void Destroy(void); //!<
-    void Begin(void);
+    void Create(); //!<
+    void Destroy(); //!<
+    void Begin();
     void ReadInteger(int* pValue);
     void ReadFloat(float* pValue);
     void ReadBoolean(bool* pValue);

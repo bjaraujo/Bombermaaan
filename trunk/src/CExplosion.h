@@ -130,28 +130,28 @@ private:
     void PutFlame(int BlockX, int BlockY, int FlameType); //!< Record a flame whose description is specified
 
 public:
-    CExplosion(void); //!< Constructor (initialize the base class)
-    virtual ~CExplosion(void); //!< Destructor (uninitialize the base class)
+    CExplosion(); //!< Constructor (initialize the base class)
+    virtual ~CExplosion(); //!< Destructor (uninitialize the base class)
     void Create(int BlockX, int BlockY, int FlameSize); //!< Initialize the explosion
-    void Destroy(void); //!< Uninitialize the explosion
+    void Destroy(); //!< Uninitialize the explosion
     bool Update(float DeltaTime); //!< Update the explosion. Return whether the element should be deleted by the arena.
-    void Display(void); //!< Display the explosion
+    void Display(); //!< Display the explosion
     void OnWriteSnapshot(CArenaSnapshot& Snapshot);
     void OnReadSnapshot(CArenaSnapshot& Snapshot);
-    inline int GetBlockX(void); //!< Return the block position X of the center of the explosion
-    inline int GetBlockY(void); //!< Return the block position Y of the center of the explosion
-    inline const std::vector<SFlame>& GetFlames(void); //!< Return the (read-only) flames of the explosions
+    inline int GetBlockX(); //!< Return the block position X of the center of the explosion
+    inline int GetBlockY(); //!< Return the block position Y of the center of the explosion
+    inline const std::vector<SFlame>& GetFlames(); //!< Return the (read-only) flames of the explosions
 };
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline int CExplosion::GetBlockX(void) { return m_BlockX; }
+inline int CExplosion::GetBlockX() { return m_BlockX; }
 
-inline int CExplosion::GetBlockY(void) { return m_BlockY; }
+inline int CExplosion::GetBlockY() { return m_BlockY; }
 
-inline const std::vector<SFlame>& CExplosion::GetFlames(void) { return m_Flames; }
+inline const std::vector<SFlame>& CExplosion::GetFlames() { return m_Flames; }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************

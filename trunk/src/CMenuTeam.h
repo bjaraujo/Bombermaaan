@@ -39,20 +39,20 @@ class CMenuTeam : public CMenuBase
 private:
     int m_CursorPlayer; //!< Cursor used to remember on what player it's pointing to
 
-    void OnCreate(void);
-    void OnDestroy(void);
-    void OnUp(void);
-    void OnDown(void);
-    void OnLeft(void);
-    void OnRight(void);
-    void OnPrevious(void);
-    void OnNext(void);
-    void OnUpdate(void);
-    void OnDisplay(void);
+    void OnCreate();
+    void OnDestroy();
+    void OnUp();
+    void OnDown();
+    void OnLeft();
+    void OnRight();
+    void OnPrevious();
+    void OnNext();
+    void OnUpdate();
+    void OnDisplay();
 
 public:
-    CMenuTeam(void);
-    virtual ~CMenuTeam(void);
+    CMenuTeam();
+    virtual ~CMenuTeam();
 };
 
 //******************************************************************************************************************************

@@ -64,22 +64,22 @@ private:
 #endif
 
 public:
-    CInput(void);
-    ~CInput(void);
+    CInput();
+    ~CInput();
     inline void SetWindowHandle(HWND hWnd); //!< Set the window whose input should be received
     inline void SetInstanceHandle(HINSTANCE hInstance); //!< Set the instance of the application
     inline void SetOptions(COptions* pOptions); //!< Set link to options object to use
     inline void SetTimer(CTimer* pTimer); //!< Set link to timer object to use
-    bool Create(void); //!< Initialize the object
-    void Destroy(void); //!< Uninitialize the object
-    inline CMainInput& GetMainInput(void);
+    bool Create(); //!< Initialize the object
+    void Destroy(); //!< Uninitialize the object
+    inline CMainInput& GetMainInput();
 #ifdef DIRECTX_INPUT
-    inline CInputDX& GetDirectInput(void);
+    inline CInputDX& GetDirectInput();
 #else
-    inline CInputSDL& GetDirectInput(void);
+    inline CInputSDL& GetDirectInput();
 #endif
     inline CPlayerInput& GetPlayerInput(int PlayerInput);
-    inline int GetPlayerInputCount(void);
+    inline int GetPlayerInputCount();
 };
 
 //******************************************************************************************************************************
@@ -106,12 +106,12 @@ inline void CInput::SetTimer(CTimer* pTimer)
     m_MainInput.SetTimer(pTimer);
 }
 
-inline CMainInput& CInput::GetMainInput(void) { return m_MainInput; }
+inline CMainInput& CInput::GetMainInput() { return m_MainInput; }
 
 #ifdef DIRECTX_INPUT
-inline CInputDX& CInput::GetDirectInput(void)
+inline CInputDX& CInput::GetDirectInput()
 #else
-inline CInputSDL& CInput::GetDirectInput(void)
+inline CInputSDL& CInput::GetDirectInput()
 #endif
 {
     return m_input;
@@ -125,7 +125,7 @@ inline CPlayerInput& CInput::GetPlayerInput(int PlayerInput)
     return m_PlayerInput[PlayerInput];
 }
 
-inline int CInput::GetPlayerInputCount(void) { return NUMBER_OF_KEYBOARD_CONFIGURATIONS + m_input.GetJoystickCount(); }
+inline int CInput::GetPlayerInputCount() { return NUMBER_OF_KEYBOARD_CONFIGURATIONS + m_input.GetJoystickCount(); }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************

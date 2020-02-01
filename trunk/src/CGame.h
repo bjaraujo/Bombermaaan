@@ -107,9 +107,9 @@ private:
     void OnJoystickAxis(WPARAM wParam, LPARAM lParam); // SDL_JOYAXISMOTION
     void OnJoystickButton(WPARAM wParam, LPARAM lParam); // SDL_JOYBUTTONDOWN/-UP
 #endif
-    void OnWindowActive(void);
+    void OnWindowActive();
     void StartGameMode(EGameMode GameMode);
-    void FinishGameMode(void);
+    void FinishGameMode();
     CModeScreen* GetGameModeObject(EGameMode GameMode);
 
 public:
@@ -119,14 +119,14 @@ public:
     CGame(HINSTANCE hInstance, char** pCommandLine);
 #endif
 
-    virtual ~CGame(void);
+    virtual ~CGame();
 #ifdef WIN32
     bool Create(const char* pCommandLine);
 #else
     bool Create(char** pCommandLine, int pCommandLineCount);
 #endif
 
-    void Destroy(void);
+    void Destroy();
     inline void SwitchToGameMode(EGameMode GameMode);
 };
 

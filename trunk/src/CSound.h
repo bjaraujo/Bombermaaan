@@ -114,6 +114,7 @@ enum ESong
 class CSound
 {
 private:
+    std::string m_pgmFolder; //!< Program folder
     HMODULE m_hModule; //!< Connection to the resources
     bool m_GlobalPause; //!< Is the sound paused?
     bool m_SoundOK; //!< Could SDL_mixer be initialized? This may be false if there is no sound card
@@ -130,14 +131,15 @@ private:
     void FreeSong(ESong Song);
 
 public:
-    CSound(void);
-    ~CSound(void);
+    CSound();
+    ~CSound();
 
     inline void SetModuleHandle(HMODULE hModule); //!< Set the connection to the resources
-    bool Create(void); //!< Initialize the object
-    void Destroy(void); //!< Uninitialize the object
+    void SetProgramFolder(const std::string& pgmFolder); //!< Set program folder
+    bool Create(); //!< Initialize the object
+    void Destroy(); //!< Uninitialize the object
     void SetPause(bool Pause); //!< Pause or resume the sound
-    inline bool IsPaused(void);
+    inline bool IsPaused();
     void PlaySong(ESong Song); //!< Start playing a song
     void StopSong(ESong Song); //!< Stop playing a specific song
     void PlaySample(ESample Sample); //!< Start playing a sample
@@ -152,7 +154,7 @@ public:
 
 inline void CSound::SetModuleHandle(HMODULE hModule) { m_hModule = hModule; }
 
-inline bool CSound::IsPaused(void) { return m_GlobalPause; }
+inline bool CSound::IsPaused() { return m_GlobalPause; }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************

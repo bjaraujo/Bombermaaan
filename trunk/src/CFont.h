@@ -78,11 +78,11 @@ private:
     int GetColorOffset(EFontColor FontColor);
 
 public:
-    CFont(void);
-    ~CFont(void);
+    CFont();
+    ~CFont();
     inline void SetDisplay(CDisplay* pDisplay);
-    void Create(void);
-    void Destroy(void);
+    void Create();
+    void Destroy();
     inline void SetShadow(bool DrawShadow);
     inline void SetTextColor(EFontColor FontColor);
     inline void SetShadowColor(EFontColor FontColor);

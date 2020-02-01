@@ -67,15 +67,15 @@ protected:
     virtual void OnJoystickAxis(WPARAM wParam, LPARAM lParam); // SDL_JOYAXISMOTION
     virtual void OnJoystickButton(WPARAM wParam, LPARAM lParam); // SDL_JOYBUTTONDOWN/-UP
 #endif
-    virtual void OnWindowActive(void);
+    virtual void OnWindowActive();
 
 public:
     CWindow(HINSTANCE hInstance, const char* pWindowTitle, int IconResourceID = -1);
 
-    virtual ~CWindow(void);
+    virtual ~CWindow();
     void SetClientSize(int ClientWidth, int ClientHeight);
-    void Show(void);
-    void MessagePump(void);
+    void Show();
+    void MessagePump();
 #ifdef WIN32
     LRESULT CALLBACK WinProc(unsigned int msg, WPARAM wParam, LPARAM lParam);
 #else

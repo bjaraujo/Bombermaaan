@@ -44,7 +44,7 @@ public:
     void SetTeamId(int TeamId);
     int GetTeamId();
     void SetVictorious(bool Victorious);
-    bool IsVictorious(void);
+    bool IsVictorious();
 };
 
 #endif // __CTEAM_H__

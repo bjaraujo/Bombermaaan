@@ -92,52 +92,52 @@ private:
     SSystemControl m_SystemControls[NUMBER_OF_SYSTEM_CONTROLS];
 
 public:
-    CMainInput(void);
-    ~CMainInput(void);
-    inline InputClass* GetInput(void);
+    CMainInput();
+    ~CMainInput();
+    inline InputClass* GetInput();
     inline void SetInput(InputClass* pDirectInput);
     inline void SetTimer(CTimer* pTimer);
-    void Create(void);
-    void Destroy(void);
-    void Open(void);
-    bool IsOpened(void);
-    void Close(void);
-    void Update(void);
-    inline bool TestUp(void);
-    inline bool TestDown(void);
-    inline bool TestLeft(void);
-    inline bool TestRight(void);
-    inline bool TestPrevious(void);
-    inline bool TestNext(void);
-    inline bool TestPause(void);
-    inline bool TestBreak(void);
+    void Create();
+    void Destroy();
+    void Open();
+    bool IsOpened();
+    void Close();
+    void Update();
+    inline bool TestUp();
+    inline bool TestDown();
+    inline bool TestLeft();
+    inline bool TestRight();
+    inline bool TestPrevious();
+    inline bool TestNext();
+    inline bool TestPause();
+    inline bool TestBreak();
 };
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline InputClass* CMainInput::GetInput(void) { return m_pDirectInput; }
+inline InputClass* CMainInput::GetInput() { return m_pDirectInput; }
 
 inline void CMainInput::SetInput(InputClass* pDirectInput) { m_pDirectInput = pDirectInput; }
 
 inline void CMainInput::SetTimer(CTimer* pTimer) { m_pTimer = pTimer; }
 
-inline bool CMainInput::TestUp(void) { return m_MenuControls[MENU_UP].Active; }
+inline bool CMainInput::TestUp() { return m_MenuControls[MENU_UP].Active; }
 
-inline bool CMainInput::TestDown(void) { return m_MenuControls[MENU_DOWN].Active; }
+inline bool CMainInput::TestDown() { return m_MenuControls[MENU_DOWN].Active; }
 
-inline bool CMainInput::TestLeft(void) { return m_MenuControls[MENU_LEFT].Active; }
+inline bool CMainInput::TestLeft() { return m_MenuControls[MENU_LEFT].Active; }
 
-inline bool CMainInput::TestRight(void) { return m_MenuControls[MENU_RIGHT].Active; }
+inline bool CMainInput::TestRight() { return m_MenuControls[MENU_RIGHT].Active; }
 
-inline bool CMainInput::TestPrevious(void) { return m_MenuControls[MENU_PREVIOUS].Active; }
+inline bool CMainInput::TestPrevious() { return m_MenuControls[MENU_PREVIOUS].Active; }
 
-inline bool CMainInput::TestNext(void) { return m_MenuControls[MENU_NEXT1].Active || m_MenuControls[MENU_NEXT2].Active || m_MenuControls[MENU_NEXT3].Active; }
+inline bool CMainInput::TestNext() { return m_MenuControls[MENU_NEXT1].Active || m_MenuControls[MENU_NEXT2].Active || m_MenuControls[MENU_NEXT3].Active; }
 
-inline bool CMainInput::TestPause(void) { return m_SystemControls[SYSTEM_PAUSE].State; }
+inline bool CMainInput::TestPause() { return m_SystemControls[SYSTEM_PAUSE].State; }
 
-inline bool CMainInput::TestBreak(void) { return m_SystemControls[SYSTEM_BREAK].State; }
+inline bool CMainInput::TestBreak() { return m_SystemControls[SYSTEM_BREAK].State; }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************

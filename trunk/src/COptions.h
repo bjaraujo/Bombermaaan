@@ -124,39 +124,39 @@ private:
     void WriteXMLData(); //!< Write the options to the XML based configuration file
     void ReadIntFromXML(TiXmlDocument& doc, std::string configNode, std::string attrName, int* value);
     bool LoadLevels(std::string dynamicDataFolder, std::string pgmFolder); //!< Load game levels data and names from the level directory.
-    bool LoadConfiguration(void); //!< Load the configuration file, create default if it does not exist.
+    bool LoadConfiguration(); //!< Load the configuration file, create default if it does not exist.
 
 public:
-    COptions(void); //!< Constructor.
+    COptions(); //!< Constructor.
     COptions(const COptions& another);
-    ~COptions(void); //!< Destructor. Do nothing.
+    ~COptions(); //!< Destructor. Do nothing.
     COptions& operator=(const COptions& Copy); //!< Operator = used to copy an option object.
     bool Create(bool useAppDataFolder, std::string dynamicDataFolder, std::string pgmFolder); //!< Load the options. Create the configuration file if it doesn't exist.
-    void Destroy(void); //!< Free allocated memory.
-    void SaveBeforeExit(void); //!< Write the options to the configuration file
-    inline int GetTimeStartMinutes(void); //!< Get how many minutes in the time when a battle starts
-    inline int GetTimeStartSeconds(void); //!< Get how many seconds in the time when a battle starts
-    inline int GetTimeUpMinutes(void); //!< Get how many minutes in the time when the arena starts closing
-    inline int GetTimeUpSeconds(void); //!< Get how many seconds in the time when the arena starts closing
+    void Destroy(); //!< Free allocated memory.
+    void SaveBeforeExit(); //!< Write the options to the configuration file
+    inline int GetTimeStartMinutes(); //!< Get how many minutes in the time when a battle starts
+    inline int GetTimeStartSeconds(); //!< Get how many seconds in the time when a battle starts
+    inline int GetTimeUpMinutes(); //!< Get how many minutes in the time when the arena starts closing
+    inline int GetTimeUpSeconds(); //!< Get how many seconds in the time when the arena starts closing
     inline void SetTimeStart(int TimeStartMinutes, int TimeStartSeconds); //!< Set the time when a battle starts
     inline void SetTimeUp(int TimeUpMinutes, int TimeUpSeconds); //!< Set the time when the arena starts closing
     inline EBomberType GetBomberType(int Player); //!< Get the bomber type of the specified player
     inline void SetBomberType(int Player, EBomberType BomberType); //!< Set the bomber type of the specified player
-    inline int GetBattleCount(void); //!< Get how many battles to win in order to be victorious
+    inline int GetBattleCount(); //!< Get how many battles to win in order to be victorious
     inline void SetBattleCount(int BattleCount); //!< Set how many battles to win in order to be victorious
     inline int GetPlayerInput(int Player); //!< Get the player input to use for the specified player
     inline void SetPlayerInput(int Player, int PlayerInput); //!< Set the player input to use for the specified player
     inline void SetDisplayMode(EDisplayMode DisplayMode); //!< Set the display mode to use in the CDisplay object
-    inline EDisplayMode GetDisplayMode(void); //!< Set the display mode to use in the CDisplay object
+    inline EDisplayMode GetDisplayMode(); //!< Set the display mode to use in the CDisplay object
     inline int GetControl(int PlayerInput, int Control);
     inline void SetControl(int PlayerInput, int Control, int Value);
     inline EBlockType GetBlockType(int X, int Y);
     inline int GetNumberOfItemsInWalls(EItemType ItemType);
     inline int GetInitialBomberSkills(EBomberSkills BomberSkill);
     inline void SetLevel(int Level);
-    inline int GetLevel(void);
-    inline int GetNumberOfLevels(void);
-    inline const char* GetLevelName(void);
+    inline int GetLevel();
+    inline int GetNumberOfLevels();
+    inline const char* GetLevelName();
     inline EActionAIAlive GetOption_ActionWhenOnlyAIPlayersLeft();
 
     inline void SetBattleMode(EBattleMode BattleMode);
@@ -170,13 +170,13 @@ public:
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline int COptions::GetTimeStartMinutes(void) { return m_TimeStartMinutes; }
+inline int COptions::GetTimeStartMinutes() { return m_TimeStartMinutes; }
 
-inline int COptions::GetTimeStartSeconds(void) { return m_TimeStartSeconds; }
+inline int COptions::GetTimeStartSeconds() { return m_TimeStartSeconds; }
 
-inline int COptions::GetTimeUpMinutes(void) { return m_TimeUpMinutes; }
+inline int COptions::GetTimeUpMinutes() { return m_TimeUpMinutes; }
 
-inline int COptions::GetTimeUpSeconds(void) { return m_TimeUpSeconds; }
+inline int COptions::GetTimeUpSeconds() { return m_TimeUpSeconds; }
 
 inline void COptions::SetTimeStart(int TimeStartMinutes, int TimeStartSeconds)
 {
@@ -196,9 +196,9 @@ inline void COptions::SetBomberType(int Player, EBomberType BomberType) { m_Bomb
 
 inline void COptions::SetBattleMode(EBattleMode BattleMode) { m_BattleMode = BattleMode; }
 
-inline EBattleMode COptions::GetBattleMode(void) { return m_BattleMode; }
+inline EBattleMode COptions::GetBattleMode() { return m_BattleMode; }
 
-inline int COptions::GetBattleCount(void) { return m_BattleCount; }
+inline int COptions::GetBattleCount() { return m_BattleCount; }
 
 inline void COptions::SetBattleCount(int BattleCount) { m_BattleCount = BattleCount; }
 
@@ -219,7 +219,7 @@ inline void COptions::SetPlayerInput(int Player, int PlayerInput)
 
 inline void COptions::SetDisplayMode(EDisplayMode DisplayMode) { m_DisplayMode = DisplayMode; }
 
-inline EDisplayMode COptions::GetDisplayMode(void) { return m_DisplayMode; }
+inline EDisplayMode COptions::GetDisplayMode() { return m_DisplayMode; }
 
 inline int COptions::GetControl(int PlayerInput, int Control)
 {
@@ -265,11 +265,11 @@ inline void COptions::SetLevel(int Level)
     m_Level = Level;
 }
 
-inline int COptions::GetLevel(void) { return m_Level; }
+inline int COptions::GetLevel() { return m_Level; }
 
-inline int COptions::GetNumberOfLevels(void) { return m_Levels.size(); }
+inline int COptions::GetNumberOfLevels() { return m_Levels.size(); }
 
-inline const char* COptions::GetLevelName(void)
+inline const char* COptions::GetLevelName()
 {
     ASSERT(m_Level >= 0 && m_Level < (int)m_Levels.size()); // #3078839
     return m_Levels.at(m_Level).GetLevelName();

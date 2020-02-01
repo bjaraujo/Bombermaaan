@@ -38,20 +38,20 @@ class CMenuInput : public CMenuBase
 private:
     int m_CursorPlayer; //!< Player the cursor hand is currently pointing to
 
-    void OnCreate(void);
-    void OnDestroy(void);
-    void OnUp(void);
-    void OnDown(void);
-    void OnLeft(void);
-    void OnRight(void);
-    void OnPrevious(void);
-    void OnNext(void);
-    void OnUpdate(void);
-    void OnDisplay(void);
+    void OnCreate();
+    void OnDestroy();
+    void OnUp();
+    void OnDown();
+    void OnLeft();
+    void OnRight();
+    void OnPrevious();
+    void OnNext();
+    void OnUpdate();
+    void OnDisplay();
 
 public:
-    CMenuInput(void);
-    virtual ~CMenuInput(void);
+    CMenuInput();
+    virtual ~CMenuInput();
 };
 
 //******************************************************************************************************************************

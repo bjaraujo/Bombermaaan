@@ -40,8 +40,8 @@ static void AddDisplayMode(int width, int height, int depth, std::vector<SDispla
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CVideoSDL::CVideoSDL(void)
-{
+CVideoSDL::CVideoSDL()
+{    
     m_hWnd = nullptr;
     m_pBackBuffer = nullptr;
     m_pPrimary = nullptr;
@@ -60,9 +60,14 @@ CVideoSDL::CVideoSDL(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CVideoSDL::~CVideoSDL(void)
+CVideoSDL::~CVideoSDL()
 {
     // Nothing to do
+}
+
+void CVideoSDL::SetProgramFolder(const std::string& pgmFolder) 
+{ 
+    m_pgmFolder = pgmFolder; 
 }
 
 //******************************************************************************************************************************
@@ -241,7 +246,7 @@ bool CVideoSDL::Create(int Width, int Height, int Depth, bool FullScreen)
 
 // Destroys the SDLVideo interface
 
-void CVideoSDL::Destroy(void)
+void CVideoSDL::Destroy()
 {
     // Free drawing requests, sprite tables, surfaces...
     FreeSprites();
@@ -290,7 +295,7 @@ void CVideoSDL::Destroy(void)
 // Updates the display by blitting the back buffer
 // surface on the primary surface.
 
-void CVideoSDL::UpdateScreen(void)
+void CVideoSDL::UpdateScreen()
 {
 
     HRESULT hRet;
@@ -736,14 +741,18 @@ bool CVideoSDL::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spr
 
     SSurface Surface;
 
-    std::string path(IMAGE_FOLDER);
-
+    std::string path(m_pgmFolder);
 #ifdef WIN32
     path.append("\\");
 #else
     path.append("/");
 #endif
-
+    path.append(IMAGE_FOLDER);
+#ifdef WIN32
+    path.append("\\");
+#else
+    path.append("/");
+#endif
     path.append(file);
 
     SDL_Surface* ddsd = SDL_LoadBMP(path.c_str());
@@ -845,7 +854,7 @@ bool CVideoSDL::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spr
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CVideoSDL::FreeSprites(void)
+void CVideoSDL::FreeSprites()
 {
     // Empty drawing requests queue
     while (!m_DrawingRequests.empty())
@@ -874,9 +883,8 @@ void CVideoSDL::FreeSprites(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CVideoSDL::UpdateAll(void)
+void CVideoSDL::UpdateAll()
 {
-
     // While all the drawing requests have not been executed
     while (!m_DrawingRequests.empty())
     {

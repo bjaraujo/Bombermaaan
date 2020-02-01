@@ -37,7 +37,7 @@
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CPlayerInput::CPlayerInput(void)
+CPlayerInput::CPlayerInput()
 {
     m_PlayerInput = -1;
     m_pDirectInput = nullptr;
@@ -50,7 +50,7 @@ CPlayerInput::CPlayerInput(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CPlayerInput::~CPlayerInput(void)
+CPlayerInput::~CPlayerInput()
 {
     // Nothing to do
 }
@@ -74,7 +74,7 @@ void CPlayerInput::Create(int PlayerInput)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CPlayerInput::CreateName(void)
+void CPlayerInput::CreateName()
 {
     // If the player input is one of the keyboard configurations
     if (m_PlayerInput < NUMBER_OF_KEYBOARD_CONFIGURATIONS)
@@ -94,13 +94,13 @@ void CPlayerInput::CreateName(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CPlayerInput::Destroy(void) {}
+void CPlayerInput::Destroy() {}
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CPlayerInput::Open(void)
+void CPlayerInput::Open()
 {
     // If the player input is one of the keyboard configurations
     if (m_PlayerInput < NUMBER_OF_KEYBOARD_CONFIGURATIONS)
@@ -120,7 +120,7 @@ void CPlayerInput::Open(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CPlayerInput::IsOpened(void)
+bool CPlayerInput::IsOpened()
 {
     // If the player input is one of the keyboard configurations
     if (m_PlayerInput < NUMBER_OF_KEYBOARD_CONFIGURATIONS)
@@ -140,7 +140,7 @@ bool CPlayerInput::IsOpened(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CPlayerInput::Close(void)
+void CPlayerInput::Close()
 {
     // If the player input is one of the keyboard configurations
     if (m_PlayerInput < NUMBER_OF_KEYBOARD_CONFIGURATIONS)
@@ -160,7 +160,7 @@ void CPlayerInput::Close(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CPlayerInput::Update(void)
+void CPlayerInput::Update()
 {
     // If the player input is one of the keyboard configurations
     if (m_PlayerInput < NUMBER_OF_KEYBOARD_CONFIGURATIONS)
@@ -180,7 +180,7 @@ void CPlayerInput::Update(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-int CPlayerInput::GetActivatedControl(void)
+int CPlayerInput::GetActivatedControl()
 {
     // If the player input is one of the keyboard configurations
     if (m_PlayerInput < NUMBER_OF_KEYBOARD_CONFIGURATIONS)

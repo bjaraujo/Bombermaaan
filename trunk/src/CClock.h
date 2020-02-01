@@ -137,33 +137,33 @@ private:
     void CountSeconds100(float& RemainingDate); //!< Count the seconds100 in the remaining date by decreasing the given date and incrementing the seconds100 count progressively
 
 public:
-    CClock(void); //!< Constructor (does nothing)
-    ~CClock(void); //!< Destructor (does nothing)
+    CClock(); //!< Constructor (does nothing)
+    ~CClock(); //!< Destructor (does nothing)
     void Create(EClockType ClockType, EClockMode ClockMode, int Hours, int Minutes, int Seconds, int Seconds100); //!< Initialize the clock
-    void Destroy(void); //!< Uninitialize the clock
+    void Destroy(); //!< Uninitialize the clock
     void Update(float DeltaTime); //!< Update the clock's date
-    void Reset(void); //!< Reset the date to the starting date (which was set on last call to Create())
-    inline void Pause(void); //!< Pause the clock
-    inline void Resume(void); //!< Resume the clock
-    inline int GetHours(void); //!< Get the Hour component of the current date
-    inline int GetMinutes(void); //!< Get the Minute component of the current date
-    inline int GetSeconds(void); //!< Get the Second component of the current date
-    inline int GetSeconds100(void); //!< Get the Second100 component of the current date
+    void Reset(); //!< Reset the date to the starting date (which was set on last call to Create())
+    inline void Pause(); //!< Pause the clock
+    inline void Resume(); //!< Resume the clock
+    inline int GetHours(); //!< Get the Hour component of the current date
+    inline int GetMinutes(); //!< Get the Minute component of the current date
+    inline int GetSeconds(); //!< Get the Second component of the current date
+    inline int GetSeconds100(); //!< Get the Second100 component of the current date
 };
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline void CClock::Pause(void) { m_Pause = true; }
+inline void CClock::Pause() { m_Pause = true; }
 
-inline void CClock::Resume(void) { m_Pause = false; }
+inline void CClock::Resume() { m_Pause = false; }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline int CClock::GetHours(void)
+inline int CClock::GetHours()
 {
     // Assert the clock mode is suitable
     ASSERT(m_ClockMode == CLOCKMODE_HMSC || m_ClockMode == CLOCKMODE_HMS || m_ClockMode == CLOCKMODE_HM);
@@ -175,7 +175,7 @@ inline int CClock::GetHours(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline int CClock::GetMinutes(void)
+inline int CClock::GetMinutes()
 {
     // Assert the clock mode is suitable
     ASSERT(m_ClockMode == CLOCKMODE_HMSC || m_ClockMode == CLOCKMODE_HMS || m_ClockMode == CLOCKMODE_HM || m_ClockMode == CLOCKMODE_MSC || m_ClockMode == CLOCKMODE_MS);
@@ -187,7 +187,7 @@ inline int CClock::GetMinutes(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline int CClock::GetSeconds(void)
+inline int CClock::GetSeconds()
 {
     // Assert the clock mode is suitable
     ASSERT(m_ClockMode == CLOCKMODE_HMSC || m_ClockMode == CLOCKMODE_HMS || m_ClockMode == CLOCKMODE_MSC || m_ClockMode == CLOCKMODE_MS || m_ClockMode == CLOCKMODE_SC || m_ClockMode == CLOCKMODE_S);
@@ -199,7 +199,7 @@ inline int CClock::GetSeconds(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline int CClock::GetSeconds100(void)
+inline int CClock::GetSeconds100()
 {
     // Assert the clock mode is suitable
     ASSERT(m_ClockMode == CLOCKMODE_HMSC || m_ClockMode == CLOCKMODE_MSC || m_ClockMode == CLOCKMODE_SC);

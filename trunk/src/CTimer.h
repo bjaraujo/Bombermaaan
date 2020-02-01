@@ -76,7 +76,7 @@ private:
 public:
     // The CTimer constructor initializes the windows
     // timer and throws an exception if there is an error.
-    CTimer(void)
+    CTimer()
     {
         __int64 Rate;
 
@@ -144,7 +144,7 @@ public:
 
     // Pauses the timer, so that the delta time value is
     // still right when resuming.
-    void Pause(void)
+    void Pause()
     {
         if (!m_Pause) // Timer must not be already paused
         {
@@ -154,7 +154,7 @@ public:
     }
 
     // Resume after a pause
-    void Resume(void)
+    void Resume()
     {
         if (m_Pause) // Timer must not be already unpaused
         {
@@ -168,12 +168,12 @@ public:
     void SetSpeed(float Speed) { m_Speed = Speed; }
 
     // These methods are used to get the time and deltatime values
-    float GetDeltaTime(void)
+    float GetDeltaTime()
     {
         ASSERT(!m_Pause);
         return m_DeltaTime * m_Speed;
     }
-    double GetTime(void)
+    double GetTime()
     {
         ASSERT(!m_Pause);
         return m_Time;

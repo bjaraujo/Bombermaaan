@@ -64,32 +64,32 @@ private:
     EFloorAction m_FloorAction; //!< Action the floor does to objects touching it
 
 public:
-    CFloor(void); //!< Constructor. Initialize the base class.
-    virtual ~CFloor(void); //!< Destructor. Uninitialize the base class.
+    CFloor(); //!< Constructor. Initialize the base class.
+    virtual ~CFloor(); //!< Destructor. Uninitialize the base class.
     void Create(int BlockX, int BlockY, EFloorAction floorAction); //!< Initialize the floor.
-    void Destroy(void); //!< Uninitialize the floor.
+    void Destroy(); //!< Uninitialize the floor.
     bool Update(float /*DeltaTime*/); //!< Update the element. Return whether the element should be deleted by the arena.
-    void Display(void); //!< Display the floor.
+    void Display(); //!< Display the floor.
     void OnWriteSnapshot(CArenaSnapshot& Snapshot);
     void OnReadSnapshot(CArenaSnapshot& Snapshot);
-    void Crush(void); //!< Make the floor react when the floor is crushed by a wall.
-    inline int GetBlockX(void); //!< Return the block position X of the floor
-    inline int GetBlockY(void); //!< Return the block position Y of the floor
-    inline EFloorAction GetFloorAction(void); //!< Return the action of the floor
-    inline bool HasAction(void); //!< Return if the block has a action
+    void Crush(); //!< Make the floor react when the floor is crushed by a wall.
+    inline int GetBlockX(); //!< Return the block position X of the floor
+    inline int GetBlockY(); //!< Return the block position Y of the floor
+    inline EFloorAction GetFloorAction(); //!< Return the action of the floor
+    inline bool HasAction(); //!< Return if the block has a action
 };
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline int CFloor::GetBlockX(void) { return m_BlockX; }
+inline int CFloor::GetBlockX() { return m_BlockX; }
 
-inline int CFloor::GetBlockY(void) { return m_BlockY; }
+inline int CFloor::GetBlockY() { return m_BlockY; }
 
-inline EFloorAction CFloor::GetFloorAction(void) { return m_FloorAction; }
+inline EFloorAction CFloor::GetFloorAction() { return m_FloorAction; }
 
-inline bool CFloor::HasAction(void) { return GetFloorAction() != FLOORACTION_NONE; }
+inline bool CFloor::HasAction() { return GetFloorAction() != FLOORACTION_NONE; }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************

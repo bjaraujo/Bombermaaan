@@ -28,6 +28,7 @@
 #define __CVideoDX_H__
 
 #include <Ddraw.h>
+#include "StdAfx.h"
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -140,6 +141,7 @@ struct SSurface
 class CVideoDX
 {
 private:
+    std::string m_pgmFolder; //!< Program folder
     HWND m_hWnd; //!< Window handle
     RECT m_rcScreen; //!< Window rect in screen coordinates
     RECT m_rcViewport; //!< Window rect in client coordinates
@@ -150,14 +152,14 @@ private:
     LPDIRECTDRAW7 m_pDD; //!< Directdraw object
     LPDIRECTDRAWSURFACE7 m_pBackBuffer; //!< Backbuffer surface
     LPDIRECTDRAWSURFACE7 m_pPrimary; //!< Primary surface
-    vector<SSurface> m_Surfaces; //!< Surfaces
+    std::vector<SSurface> m_Surfaces; //!< Surfaces
     DWORD m_ColorKey; //!< Color key for transparent surfaces
-    priority_queue<SDrawingRequest> m_DrawingRequests; //!< Automatically sorted drawing requests queue
-    vector<SDebugDrawingRequest> m_DebugDrawingRequests; //!< vector of drawing requests for debugging purposes
-    vector<vector<SSprite>> m_SpriteTables; //!< Available sprite tables
+    std::priority_queue<SDrawingRequest> m_DrawingRequests; //!< Automatically sorted drawing requests queue
+    std::vector<SDebugDrawingRequest> m_DebugDrawingRequests; //!< vector of drawing requests for debugging purposes
+    std::vector<std::vector<SSprite>> m_SpriteTables; //!< Available sprite tables
     int m_OriginX; //!< Origin position where to draw from
     int m_OriginY;
-    vector<SDisplayMode> m_AvailableDisplayModes;
+    std::vector<SDisplayMode> m_AvailableDisplayModes;
 
 private:
     WORD GetNumberOfBits(DWORD dwMask);
@@ -167,6 +169,7 @@ public:
     ~CVideoDX(void);
 
     inline void SetWindowHandle(HWND hWnd);
+    void SetProgramFolder(const std::string& pgmFolder);
     bool Create(int Width, int Height, int Depth, bool FullScreen);
     void Destroy(void);
     bool SetTransparentColor(int Red, int Green, int Blue);

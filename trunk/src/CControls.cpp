@@ -102,7 +102,7 @@
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CControls::CControls(void)
+CControls::CControls()
     : CModeScreen()
 {
 
@@ -121,7 +121,7 @@ CControls::CControls(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CControls::~CControls(void)
+CControls::~CControls()
 {
     // Nothing to do!
 }
@@ -132,7 +132,7 @@ CControls::~CControls(void)
 
 // Before using a CControls, you must create it.
 
-void CControls::Create(void)
+void CControls::Create()
 {
     // The first player input is selected
     m_PlayerInput = FIRST_PLAYER_INPUT;
@@ -170,7 +170,7 @@ void CControls::Create(void)
 
 // When a CControls is not needed anymore, you should destroy it
 
-void CControls::Destroy(void)
+void CControls::Destroy()
 {
     CModeScreen::Destroy();
 
@@ -186,7 +186,7 @@ void CControls::Destroy(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CControls::OpenInput(void)
+void CControls::OpenInput()
 {
     // Open the current selected player input
     m_pInput->GetPlayerInput(m_PlayerInput).Open();
@@ -196,7 +196,7 @@ void CControls::OpenInput(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CControls::CloseInput(void)
+void CControls::CloseInput()
 {
     // Close the current selected player input
     m_pInput->GetPlayerInput(m_PlayerInput).Close();
@@ -216,7 +216,7 @@ void CControls::CloseInput(void)
 // When the screen should continue, it returns GAMEMODE_CONTROLS to keep this mode.
 // When the screen has ended, it returns GAMEMODE_TITLE to start the title screen.
 
-EGameMode CControls::Update(void)
+EGameMode CControls::Update()
 {
     // Increase elapsed time since mode has started
     m_ModeTime += m_pTimer->GetDeltaTime();
@@ -419,7 +419,7 @@ EGameMode CControls::Update(void)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CControls::Display(void)
+void CControls::Display()
 {
     // If we have to make the first black screen
     if (m_ModeTime <= CONTROLS_BLACKSCREEN_DURATION)
