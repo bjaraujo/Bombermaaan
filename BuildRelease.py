@@ -77,8 +77,10 @@ print('build: ' + build)
 time.sleep(3)
 
 if platform.system().lower() == 'windows':
+    os.system('"C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/MSBuild/Current/Bin/MSBuild.exe" build/' + build + '/res/Bombermaaan32.vcxproj /p:Configuration=' + configuration + ' /t:Rebuild')
+
     os.system('"C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/MSBuild/Current/Bin/MSBuild.exe" build/' + build + '/src/Bombermaaan.vcxproj /p:Configuration=' + configuration + ' /t:Rebuild')
-       
+    
 elif platform.system().lower() == 'linux':
     os.system('make -C build/' + build + ' clean');
     os.system('make -C build/' + build);
@@ -125,8 +127,8 @@ if not os.path.isdir(strNewFolder):
 # Copy files
 if platform.system().lower() == 'windows':
 
-    shutil.copy2('build/' + build + '/src/' + configuration + '/Bombermaaan.exe', strNewFolder + '/Bombermaaan.exe')
-    shutil.copy2('build/' + build + '/src/' + configuration + '/Bombermaaan32.dll', strNewFolder + '/Bombermaaan32.dll')
+    shutil.copy2('build/' + build + '/bin/Bombermaaan.exe', strNewFolder + '/Bombermaaan.exe')
+    shutil.copy2('build/' + build + '/bin/Bombermaaan32.dll', strNewFolder + '/Bombermaaan32.dll')
         
     shutil.copy2(os.environ.get('SDLDIR')      + '/lib/x86/SDL.dll', strNewFolder + '/SDL.dll')
     shutil.copy2(os.environ.get('SDLMIXERDIR') + '/lib/x86/SDL_mixer.dll', strNewFolder + '/SDL_mixer.dll')
@@ -146,7 +148,7 @@ if platform.system().lower() == 'windows':
         shutil.copy2(os.environ.get('CRASHRPTDIR') + '/bin/CrashRpt1403.dll', strNewFolder + '/CrashRpt1403.dll')
         shutil.copy2(os.environ.get('CRASHRPTDIR') + '/bin/dbghelp.dll', strNewFolder + '/dbghelp.dll')
         shutil.copy2(os.environ.get('CRASHRPTDIR') + '/bin/crashrpt_lang.ini', strNewFolder + '/crashrpt_lang.ini')
-        shutil.copy2('build/' + build + '/src/' + configuration + '/Bombermaaan.pdb', strNewFolder + '/Bombermaaan.pdb')
+        shutil.copy2('build/' + build + '/bin/Bombermaaan.pdb', strNewFolder + '/Bombermaaan.pdb')
 
     if not os.path.isdir(strNewFolder + '/Levels'):
         os.mkdir(strNewFolder + '/Levels')

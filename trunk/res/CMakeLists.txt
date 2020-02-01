@@ -142,8 +142,4 @@ source_group("Resource Files" FILES ${RES_RESOURCES_IMAGES} ${RES_RESOURCES_SOUN
 
 add_library(Bombermaaan32 MODULE ${RES_HEADERS} ${RES_SOURCES} ${RES_RESOURCES_IMAGES} ${RES_RESOURCES_SOUNDS} ${RES_RESOURCES})
 
-if (${CMAKE_CXX_COMPILER_ID} STREQUAL MSVC)
-  add_custom_command(TARGET Bombermaaan32 POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${PROJECT_BINARY_DIR}/$\(Configuration\)/Bombermaaan32.dll ${PROJECT_BINARY_DIR}/../src/$\(Configuration\)/Bombermaaan32.dll)
-endif()
-
 
