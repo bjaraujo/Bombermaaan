@@ -66,9 +66,9 @@ private:
     HANDLE m_StdOut; //!< Handle to console output
     bool m_Open; //!< Is the console opened?
     WORD m_Color; //!< Current text color (background/foreground)
-    char m_Message[2048]; //!< Last message written to the console
     int m_NumberOfRepeatedMessages; //!< How many consecutive identical messages have been sent?
     bool m_FilterRepeatedMessage; //!< Should we manage message repetition by not displaying all consecutive identical messages?
+    char m_Message[2048]; //!< Last message written to the console
 
 public:
     CConsole();

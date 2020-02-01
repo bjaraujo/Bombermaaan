@@ -43,14 +43,14 @@
 //******************************************************************************************************************************
 
 CConsole::CConsole() : 
-    m_Open(false), 
-    m_Color(CONSOLE_FOREGROUND_RED | CONSOLE_FOREGROUND_GREEN | CONSOLE_FOREGROUND_BLUE), 
-    m_FilterRepeatedMessage(true), 
-    m_StdOut(nullptr)
+    m_StdOut(nullptr),
+    m_Open(false),
+    m_Color(CONSOLE_FOREGROUND_RED | CONSOLE_FOREGROUND_GREEN | CONSOLE_FOREGROUND_BLUE),    
+    m_NumberOfRepeatedMessages(0),
+    m_FilterRepeatedMessage(true)
 { 
     // No message
     m_Message[0] = '\0';
-    m_NumberOfRepeatedMessages = 0;
 }
 
 //******************************************************************************************************************************
