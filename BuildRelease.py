@@ -73,17 +73,8 @@ fo.close()
 print('------------ Building release ------------')
 print('version: ' + strNewVersion)
 print('build: ' + build)
-
 time.sleep(3)
-
-if platform.system().lower() == 'windows':
-    os.system('"C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/MSBuild/Current/Bin/MSBuild.exe" build/' + build + '/res/Bombermaaan32.vcxproj /p:Configuration=' + configuration + ' /t:Rebuild')
-
-    os.system('"C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/MSBuild/Current/Bin/MSBuild.exe" build/' + build + '/src/Bombermaaan.vcxproj /p:Configuration=' + configuration + ' /t:Rebuild')
-    
-elif platform.system().lower() == 'linux':
-    os.system('make -C build/' + build + ' clean');
-    os.system('make -C build/' + build);
+os.system('cmake --build build/' + build + ' --config ' + configuration)
 
 # Read version info
 fi = open('trunk/src/Bombermaaan.h', 'r')
@@ -98,9 +89,7 @@ intBuildNumber = 0
 strNewVersion = str(intMajorNumber) + '.' + str(intMinorNumber) + '.' + str(intReleaseNumber) + '.' + str(intBuildNumber)
 
 fi = open('trunk/src/Bombermaaan.h', 'r')
-
 for strLine in strLines:
-
     if 'APP_VERSION_INFO' in strLine.upper(): 
         strPrevVersion = strLine.split(' ')[-1].rstrip().replace('"', '')
                 
@@ -110,7 +99,6 @@ for strLine in strLines:
         intBuildNumber = int(strPrevVersion.split('.')[3])
                         
         strNewVersion = str(intMajorNumber) + '.' + str(intMinorNumber) + '.' + str(intReleaseNumber) + '.' + str(intBuildNumber)
-                            
 fi.close()
 
 if not os.path.exists('releases'):
@@ -126,7 +114,6 @@ if not os.path.isdir(strNewFolder):
 
 # Copy files
 if platform.system().lower() == 'windows':
-
     shutil.copy2('build/' + build + '/bin/Bombermaaan.exe', strNewFolder + '/Bombermaaan.exe')
     shutil.copy2('build/' + build + '/bin/Bombermaaan32.dll', strNewFolder + '/Bombermaaan32.dll')
         
@@ -156,7 +143,6 @@ if platform.system().lower() == 'windows':
         shutil.copy2(file, os.path.join(strNewFolder, 'Levels', os.path.basename(file)))
         
 elif platform.system().lower() == 'linux':
-
     shutil.copy2('build/' + build + '/src/Bombermaaan', strNewFolder + '/Bombermaaan')    
     shutil.copy2('build/' + build + '/resgen/libBombermaaan32.so', strNewFolder + '/libBombermaaan32.so')
 
@@ -186,9 +172,10 @@ shutil.copy2('COPYING.txt', strNewFolder + '/COPYING.txt')
 shutil.copy2('README.md', strNewFolder + '/README.txt')
 
 # Create tag
-os.system('git commit -a -m v' + strNewVersion)
-os.system('git tag v' + strNewVersion)
-os.system('git push --tags')
+if incVersion:
+    os.system('git commit -a -m v' + strNewVersion)
+    os.system('git tag v' + strNewVersion)
+    os.system('git push --tags')
 
 # Create package
 if platform.system().lower() == 'windows':

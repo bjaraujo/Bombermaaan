@@ -109,34 +109,22 @@ CGame::CGame(HINSTANCE hInstance, char** pCommandLine)
     //
     // Set the window title
     //
-
     std::string windowTitle = "Bombermaaan";
 
     windowTitle.append(" ");
     windowTitle.append(APP_VERSION_INFO);
-    windowTitle.append(" - Compiled ");
 
+#ifdef ENABLE_DEBUG_LOG
     // At the end, the windowTitle is "... - Compiled YYYY-MM-DD"
-    bool bAppendDate = true;
+    std::time_t t = std::time(nullptr);
+    std::tm tm = *std::localtime(&t);
 
-    // g++ < 5 does not support std::put_time
-#ifdef __GNUC__
-#if __GNUC__ < 5
-    bAppendDate = false;
+    std::stringstream buffer;
+    buffer << std::put_time(&tm, "%Y-%m-%d");
+
+    windowTitle.append(" - Compiled ");
+    windowTitle.append(buffer.str());
 #endif
-#endif
-
-    if (bAppendDate)
-    {
-        std::time_t t = std::time(nullptr);
-        std::tm tm = *std::localtime(&t);
-
-        std::stringstream buffer;
-        buffer << std::put_time(&tm, "%Y-%m-%d");
-
-        windowTitle.append(" ");
-        windowTitle.append(buffer.str());
-    }
 
 #ifdef DIRECTX
     SetWindowText(m_hWnd, windowTitle.c_str());
