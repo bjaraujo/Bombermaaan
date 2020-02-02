@@ -179,7 +179,8 @@ if incVersion:
 
 # Create package
 if platform.system().lower() == 'windows':
-    os.system('"C:/Program Files (x86)/Inno Setup 5/iscc.exe" installers\InstallScriptWin32.iss')
+    setup = '"C:/Program Files (x86)/Inno Setup 5/iscc.exe"'
+    os.system(setup + ' installers\InstallScriptWin32.iss')
 
 elif platform.system().lower() == 'linux':
     os.system('fpm -s dir -t deb -C ' + strNewFolder \
