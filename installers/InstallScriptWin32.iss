@@ -63,7 +63,9 @@ Source: ..\releases\msvc16-win32\Bombermaaan_{#APP_VERSION_INFO}\SDL_mixer.dll; 
 Source: ..\releases\msvc16-win32\Bombermaaan_{#APP_VERSION_INFO}\SDL_net.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\releases\msvc16-win32\Bombermaaan_{#APP_VERSION_INFO}\smpeg.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\releases\msvc16-win32\Bombermaaan_{#APP_VERSION_INFO}\msvcp140.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\releases\msvc16-win32\Bombermaaan_{#APP_VERSION_INFO}\msvcp140d.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\releases\msvc16-win32\Bombermaaan_{#APP_VERSION_INFO}\vcruntime140.dll; DestDir: {app}; Flags: ignoreversion
+Source: ..\releases\msvc16-win32\Bombermaaan_{#APP_VERSION_INFO}\vcruntime140d.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\releases\msvc16-win32\Bombermaaan_{#APP_VERSION_INFO}\Levels\*.TXT; DestDir: {app}\Levels\
 
 [Icons]
