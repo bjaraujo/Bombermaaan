@@ -128,7 +128,9 @@ if platform.system().lower() == 'windows':
     shutil.copy2(os.environ.get('SDLNETDIR')   + '/lib/x86/SDL_net.dll', strNewFolder + '/SDL_net.dll')
          
     shutil.copy2(os.environ.get('SystemRoot') + '/SysWOW64/msvcp140.dll', strNewFolder + '/msvcp140.dll')
+    shutil.copy2(os.environ.get('SystemRoot') + '/SysWOW64/msvcp140d.dll', strNewFolder + '/msvcp140d.dll')   
     shutil.copy2(os.environ.get('SystemRoot') + '/SysWOW64/vcruntime140.dll', strNewFolder + '/vcruntime140.dll')
+    shutil.copy2(os.environ.get('SystemRoot') + '/SysWOW64/vcruntime140d.dll', strNewFolder + '/vcruntime140d.dll')
 
     if bCrashReport:
         shutil.copy2(os.environ.get('CRASHRPTDIR') + '/bin/CrashSender1403.exe', strNewFolder + '/CrashSender1403.exe')
