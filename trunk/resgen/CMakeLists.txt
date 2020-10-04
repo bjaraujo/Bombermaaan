@@ -14,6 +14,7 @@ source_group("Source Files" FILES ${RESGEN_SOURCES})
 
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/../src
+    ${CMAKE_CURRENT_SOURCE_DIR}/../res
 )
 
 add_executable(ResGen ${RESGEN_HEADERS} ${RESGEN_SOURCES})

@@ -170,6 +170,7 @@ public:
     bool SetTransparentColor(int Red, int Green, int Blue);
     bool LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, int BMP_ID, HBITMAP hBitmap);
     bool LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, int BMP_ID, const char* file);
+
     void FreeSprites();
     void OnWindowMove();
     inline void OnPaint();

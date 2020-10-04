@@ -74,6 +74,7 @@ print('------------ Building release ------------')
 print('version: ' + strNewVersion)
 print('build: ' + build)
 time.sleep(3)
+os.system('cmake -S trunk -B build/' + build)
 os.system('cmake --build build/' + build + ' --config ' + configuration)
 
 # Read version info
@@ -143,8 +144,8 @@ if platform.system().lower() == 'windows':
         shutil.copy2(file, os.path.join(strNewFolder, 'Levels', os.path.basename(file)))
         
 elif platform.system().lower() == 'linux':
-    shutil.copy2('build/' + build + '/src/Bombermaaan', strNewFolder + '/Bombermaaan')    
-    shutil.copy2('build/' + build + '/resgen/libBombermaaan32.so', strNewFolder + '/libBombermaaan32.so')
+    shutil.copy2('build/' + build + '/bin/Bombermaaan', strNewFolder + '/Bombermaaan')    
+    shutil.copy2('build/' + build + '/bin/libBombermaaan32.so', strNewFolder + '/libBombermaaan32.so')
 
     if not os.path.isdir(strNewFolder + '/images'):
         os.mkdir(strNewFolder + '/images')

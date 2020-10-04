@@ -44,7 +44,7 @@ set(CRASH_REPORT OFF CACHE BOOL "Crash report")
 add_subdirectory(dep)
 
 if(WIN32)
-add_subdirectory(res)
+  add_subdirectory(res)
 else()
   if(NOT LOAD_RESOURCES_FROM_FILES)
     add_subdirectory(resgen)
