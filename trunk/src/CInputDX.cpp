@@ -194,7 +194,7 @@ bool CInputDX::Create(void)
             // Initialize the device object instance and get the key's information
             ZeroMemory(&DeviceObjectInstance, sizeof(DIDEVICEOBJECTINSTANCE));
             DeviceObjectInstance.dwSize = sizeof(DIDEVICEOBJECTINSTANCE);
-            HRESULT hRet = m_pKeyboard->GetObjectInfo(&DeviceObjectInstance, Key, DIPH_BYOFFSET);
+            hRet = m_pKeyboard->GetObjectInfo(&DeviceObjectInstance, Key, DIPH_BYOFFSET);
             ASSERT(hRet == DI_OK || hRet == DIERR_OBJECTNOTFOUND);
 
             // Store the key's real name, that is to say the name given by Windows

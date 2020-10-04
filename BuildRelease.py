@@ -14,8 +14,6 @@ elif platform.system().lower() == 'linux':
 # Crash report
 bCrashReport = True
 
-configuration = 'Release'
-
 if bCrashReport:
     configuration = 'RelWithDebInfo'
 
@@ -74,6 +72,11 @@ print('------------ Building release ------------')
 print('version: ' + strNewVersion)
 print('build: ' + build)
 time.sleep(3)
+if platform.system().lower() == 'windows':
+    os.system('cmake -S trunk -B build/' + build)
+elif platform.system().lower() == 'linux':
+    os.system('cmake -S trunk -B build/' + build + ' -G "Ninja" -DLOAD_RESOURCES_FROM_FILES:BOOL=ON')
+
 os.system('cmake --build build/' + build + ' --config ' + configuration)
 
 # Read version info
@@ -143,13 +146,12 @@ if platform.system().lower() == 'windows':
         shutil.copy2(file, os.path.join(strNewFolder, 'Levels', os.path.basename(file)))
         
 elif platform.system().lower() == 'linux':
-    shutil.copy2('build/' + build + '/src/Bombermaaan', strNewFolder + '/Bombermaaan')    
-    shutil.copy2('build/' + build + '/resgen/libBombermaaan32.so', strNewFolder + '/libBombermaaan32.so')
+    shutil.copy2('build/' + build + '/bin/Bombermaaan', strNewFolder + '/Bombermaaan')    
 
     if not os.path.isdir(strNewFolder + '/images'):
         os.mkdir(strNewFolder + '/images')
-    for file in glob.glob('trunk/res/image/*.bmp'):
-        shutil.copy2(file, os.path.join(strNewFolder, 'Images', os.path.basename(file)))
+    for file in glob.glob('trunk/res/images/*.bmp'):
+        shutil.copy2(file, os.path.join(strNewFolder, 'images', os.path.basename(file)))
 
     if not os.path.isdir(strNewFolder + '/sounds'):
         os.mkdir(strNewFolder + '/sounds')

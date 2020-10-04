@@ -290,22 +290,19 @@ bool CDisplay::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spri
         // Get out
         return false;
     }
-#endif
+
     // Create the sprites by giving the sprite table information and the handle to the bitmap.
     // If it fails
 #ifdef DIRECTX
     if (!m_VideoDX.LoadSprites(SpriteTableWidth, SpriteTableHeight, SpriteWidth, SpriteHeight, Transparent, BMP_ID, hBitmap))
 #else
-#ifdef WIN32
     if (!m_VideoSDL.LoadSprites(SpriteTableWidth, SpriteTableHeight, SpriteWidth, SpriteHeight, Transparent, BMP_ID, hBitmap))
-#else
-    if (!m_VideoSDL.LoadSprites(SpriteTableWidth, SpriteTableHeight, SpriteWidth, SpriteHeight, Transparent, BMP_ID))
-#endif
 #endif
     {
         // Get out, failure
         return false;
     }
+#endif
 
 #ifdef WIN32
     // We no longer need the hBitmap so delete it
@@ -321,7 +318,7 @@ bool CDisplay::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spri
     }
 #endif
 
-#else
+#else // LOAD_RESOURCES_FROM_FILES
 
 #ifdef DIRECTX
     if (!m_VideoDX.LoadSprites(SpriteTableWidth, SpriteTableHeight, SpriteWidth, SpriteHeight, Transparent, BMP_ID, file))
@@ -333,7 +330,7 @@ bool CDisplay::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spri
         return false;
     }
 
-#endif
+#endif // LOAD_RESOURCES_FROM_FILES
 
     // Everything went right
     return true;
