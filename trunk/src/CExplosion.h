@@ -126,7 +126,7 @@ private:
 
 #endif // EXPLOSIONS_ORIGINALSTYLE
 
-    void Burn(int X, int Y, EBurnDirection BurnDirection); //!< Globally burn the specified block (walls, unprotected items, ...)
+    void Burn(int BlockX, int BlockY, EBurnDirection BurnDirection); //!< Globally burn the specified block (walls, unprotected items, ...)
     void PutFlame(int BlockX, int BlockY, int FlameType); //!< Record a flame whose description is specified
 
 public:

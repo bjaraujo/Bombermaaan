@@ -1054,7 +1054,7 @@ void CVideoDX::UpdateAll(void)
     std::vector<SDebugDrawingRequest>::iterator it;
 
     // Debug rectangles?
-    if (m_DebugDrawingRequests.size() > 0)
+    if (!m_DebugDrawingRequests.empty())
     {
         DDSURFACEDESC2 ddsd;
 
