@@ -140,10 +140,10 @@ if platform.system().lower() == 'windows':
         shutil.copy2(os.environ.get('CRASHRPTDIR') + '/bin/crashrpt_lang.ini', strNewFolder + '/crashrpt_lang.ini')
         shutil.copy2('build/' + build + '/bin/Bombermaaan.pdb', strNewFolder + '/Bombermaaan.pdb')
 
-    if not os.path.isdir(strNewFolder + '/Levels'):
-        os.mkdir(strNewFolder + '/Levels')
-    for file in glob.glob('trunk/Levels/*.TXT'):
-        shutil.copy2(file, os.path.join(strNewFolder, 'Levels', os.path.basename(file)))
+    if not os.path.isdir(strNewFolder + '/levels'):
+        os.mkdir(strNewFolder + '/levels')
+    for file in glob.glob('trunk/levels/*.TXT'):
+        shutil.copy2(file, os.path.join(strNewFolder, 'levels', os.path.basename(file)))
         
 elif platform.system().lower() == 'linux':
     shutil.copy2('build/' + build + '/bin/Bombermaaan', strNewFolder + '/Bombermaaan')    
