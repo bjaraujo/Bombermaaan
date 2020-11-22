@@ -157,6 +157,7 @@ bool CDisplay::Create(int Width, int Height, bool FullScreen)
             !LoadSprites(1, 1, 138, 46, true, BMP_TITLE_CLOUD_1, "title_cloud_1.bmp") || 
             !LoadSprites(1, 1, 106, 46, true, BMP_TITLE_CLOUD_2, "title_cloud_2.bmp") || 
             !LoadSprites(1, 1, 66, 22, true, BMP_TITLE_CLOUD_3, "title_cloud_3.bmp") || 
+            !LoadSprites(1, 1, 21, 24, true, BMP_TITLE_SNOWFLAKE, "title_snowflake.bmp") || 
             !LoadSprites(18, 1, 16, 16, true, BMP_LEVEL_MINI_TILES, "level_mini_tiles.bmp") || 
             !LoadSprites(5, 1, 24, 20, true, BMP_LEVEL_MINI_BOMBERS, "level_mini_bombers.bmp") || 
             !LoadSprites(7, 5, 42, 44, true, BMP_ARENA_BOMBER_DEATH, "arena_bomber_death.bmp") || 

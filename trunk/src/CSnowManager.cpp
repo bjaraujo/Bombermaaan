@@ -23,118 +23,25 @@
 ************************************************************************************/
 
 /**
- *  \file CScroller.cpp
- *  \brief The scroller used by pause and hurry message
+ *  \file CSnowManager.cpp
+ *  \brief The snow manager
  */
 
-#include "CScroller.h"
+#include "CSnowManager.h"
+#include "CDisplay.h"
 #include "StdAfx.h"
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CScroller::CScroller()
+CSnowManager::CSnowManager()
 {
+    m_pDisplay = nullptr;
 
-    m_SpriteWidth = 0;
-    m_SpriteHeight = 0;
-    m_SpeedX = 0.0f;
-    m_SpeedY = 0.0f;
-    m_LoopTime = 0;
-    m_RemainingLoopTime = 0.0f;
-    m_iPositionX = -1;
-    m_iPositionY = -1;
-    m_fPositionX = (float)m_iPositionX;
-    m_fPositionY = (float)m_iPositionY;
-    m_Looping = false;
-}
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-CScroller::~CScroller() {}
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-void CScroller::Create(int PositionX, int PositionY, int SpriteWidth, int SpriteHeight, float SpeedX, float SpeedY, float LoopTime)
-{
-    ASSERT(LoopTime >= 0.0f || LoopTime == -1.0f);
-
-    m_SpriteWidth = SpriteWidth;
-    m_SpriteHeight = SpriteHeight;
-    m_SpeedX = SpeedX;
-    m_SpeedY = SpeedY;
-    m_LoopTime = LoopTime;
-    m_RemainingLoopTime = 0.0f;
-    m_iPositionX = PositionX;
-    m_iPositionY = PositionY;
-    m_fPositionX = (float)m_iPositionX;
-    m_fPositionY = (float)m_iPositionY;
-    m_Looping = false;
-}
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-void CScroller::Destroy() {}
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-void CScroller::Update(float DeltaTime)
-{
-    if (!m_Looping)
+    for (int i = 0; i < NUMBER_OF_SNOWFLAKES; i++)
     {
-        // Update the scroller position
-        m_fPositionX += m_SpeedX * DeltaTime;
-        m_fPositionY += m_SpeedY * DeltaTime;
-
-        // Compute the new integer position of the scroller
-        m_iPositionX = int(m_fPositionX);
-        m_iPositionY = int(m_fPositionY);
-
-        if (OutOfBounds() && m_LoopTime != -1.0f)
-        {
-            m_RemainingLoopTime = m_LoopTime;
-            m_Looping = true;
-        }
-    }
-    else
-    {
-        m_RemainingLoopTime -= DeltaTime;
-
-        if (m_RemainingLoopTime <= 0.0f)
-        {
-            m_RemainingLoopTime = 0.0f;
-            m_Looping = false;
-
-            if (m_iPositionX + m_SpriteWidth < 0)
-            {
-                m_iPositionX = VIEW_WIDTH;
-                m_fPositionX = (float)m_iPositionX;
-            }
-            else if (m_iPositionX >= VIEW_WIDTH)
-            {
-                m_iPositionX = -m_SpriteWidth;
-                m_fPositionX = (float)m_iPositionX;
-            }
-            else if (m_iPositionY + m_SpriteHeight < 0)
-            {
-                m_iPositionY = VIEW_HEIGHT;
-                m_fPositionY = (float)m_iPositionY;
-            }
-            else if (m_iPositionY >= VIEW_HEIGHT)
-            {
-                m_iPositionY = -m_SpriteHeight;
-                m_fPositionY = (float)m_iPositionY;
-            }
-        }
+        m_SnowSprites[i] = BMP_TITLE_SNOWFLAKE;
     }
 }
 
@@ -142,7 +49,79 @@ void CScroller::Update(float DeltaTime)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CScroller::OutOfBounds() { return (m_iPositionX > VIEW_WIDTH || m_iPositionX + m_SpriteWidth < 0 || m_iPositionY > VIEW_HEIGHT || m_iPositionY + m_SpriteHeight < 0); }
+CSnowManager::~CSnowManager() { Destroy(); }
+
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+
+void CSnowManager::Create()
+{
+    ASSERT(m_pDisplay != nullptr);
+
+    // Set the sprite for each snow
+    
+    // Set the properties of each snow
+    for (int i = 0; i < NUMBER_OF_SNOWFLAKES; i++)
+    {
+        m_SnowSprites[i] = BMP_TITLE_SNOWFLAKE;
+        m_Snows[i].Create(rand() % VIEW_WIDTH, rand() % VIEW_HEIGHT, 21, 24, 0.0f, 50.0f + rand() % 20 * 1.0f, 8.0f);
+    }
+}
+
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+
+void CSnowManager::Destroy()
+{
+    // Destroy the snows
+    for (int i = 0; i < NUMBER_OF_SNOWFLAKES; i++)
+    {
+        m_Snows[i].Destroy();
+    }
+}
+
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+
+void CSnowManager::Update(float DeltaTime)
+{
+    // Update the snows
+    for (int i = 0; i < NUMBER_OF_SNOWFLAKES; i++)
+    {
+        m_Snows[i].Update(DeltaTime);
+    }
+}
+
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+
+void CSnowManager::Display()
+{
+    RECT Clip;
+
+    // Display the snows
+    for (int i = 0; i < NUMBER_OF_SNOWFLAKES; i++)
+    {
+        // We need to prepare a clip structure of the size of the game view
+        // because of the tiled background which moves to animate
+        Clip.left = 0;
+        Clip.top = 0;
+        Clip.right = VIEW_WIDTH;
+        Clip.bottom = VIEW_HEIGHT;
+
+        // Draw the scroller sprite
+        m_pDisplay->DrawSprite(
+            m_Snows[i].GetPositionX(), // Position of the current tile
+            m_Snows[i].GetPositionY(),
+            NULL, // Draw entire tile
+            &Clip, // Clip with game view
+            m_SnowSprites[i], 0, 0, 1);
+    }
+}
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************

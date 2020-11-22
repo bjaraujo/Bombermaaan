@@ -54,6 +54,7 @@ CPlayerInput.h
 CRandomMosaic.h
 CScores.h
 CScroller.h
+CSnowManager.h
 CVideo.h
 CVideoSDL.h
 CSound.h
@@ -119,6 +120,7 @@ CPlayerInput.cpp
 CRandomMosaic.cpp
 CScores.cpp
 CScroller.cpp
+CSnowManager.cpp
 CSound.cpp
 CTitle.cpp
 CTeam.cpp

@@ -4,3 +4,5 @@
 /trunk/tools/BomberMaaanLevel/BomberMaaanLevel/bin
 /releases
 /installers/output
+/openai/gym-bombermaaan/gym_bombermaaan.egg-info
+/openai/gym-bombermaaan/dist

@@ -152,6 +152,9 @@ void CTitle::Create()
 
     // Create the clouds in the sky
     m_CloudManager.Create();
+
+    // Create the snow in the sky
+    m_SnowManager.Create();
 }
 
 //******************************************************************************************************************************
@@ -162,6 +165,9 @@ void CTitle::Destroy()
 {
     // Destroy the clouds in the sky
     m_CloudManager.Destroy();
+
+    // Destroy the snow in the sky
+    m_SnowManager.Destroy();
 
     CModeScreen::Destroy();
 }
@@ -207,6 +213,9 @@ EGameMode CTitle::Update()
 
         // Update the clouds in the sky
         m_CloudManager.Update(m_pTimer->GetDeltaTime());
+
+        // Update the snow in the sky
+        m_SnowManager.Update(m_pTimer->GetDeltaTime());
 
         // Update the moving hand
         m_MovingHandTimer += m_pTimer->GetDeltaTime();
@@ -396,6 +405,9 @@ void CTitle::Display()
 
         // Display the clouds in the sky
         m_CloudManager.Display();
+
+        // Display the snow in the sky
+        m_SnowManager.Display();
 
         // Draw the background sprite
         m_pDisplay->DrawSprite(BACKGROUND_POSITION_X, BACKGROUND_POSITION_Y, NULL, NULL, BMP_TITLE_BACKGROUND, BACKGROUND_SPRITE, BACKGROUND_SPRITE_LAYER, BACKGROUND_SPRITE_PRIORITY_IN_LAYER);

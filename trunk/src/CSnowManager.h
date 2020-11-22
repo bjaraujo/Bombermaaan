@@ -1,7 +1,6 @@
 /************************************************************************************
 
     Copyright (C) 2000-2002, 2007 Thibaut Tollemer
-    Copyright (C) 2007, 2008 Bernd Arnold
 
     This file is part of Bombermaaan.
 
@@ -21,63 +20,53 @@
 ************************************************************************************/
 
 /**
- *  \file CTitle.h
- *  \brief Header file of the title screen
+ *  \file CSnowManager.h
+ *  \brief Header file of the snow manager
  */
 
-#ifndef __CTITLE_H__
-#define __CTITLE_H__
+#ifndef __CSNOWMANAGER_H__
+#define __CSNOWMANAGER_H__
 
-#include "CCloudManager.h"
-#include "CSnowManager.h"
-#include "CModeScreen.h"
+#include "CScroller.h"
+
+class CDisplay;
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-//! The title screen
+#define NUMBER_OF_SNOWFLAKES 30
 
-class CTitle : public CModeScreen
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+//******************************************************************************************************************************
+
+//! This class manages the snow
+class CSnowManager
 {
 private:
-    int m_Cursor; //!< Number of the menu item pointed by the cursor hand
-    bool m_SongStarted; //!< Did we start playing the song after the black screen?
-    CCloudManager m_CloudManager; //!< Manages the clouds in the sky
-    CSnowManager m_SnowManager; //!< Manages the snow in the sky
-    float m_ModeTime; //!< Time (in seconds) that elapsed since the mode has started
-    float m_ExitModeTime; //!< Mode time when we have to start the last black screen
-    EGameMode m_ExitGameMode; //!< Game mode to ask for when exiting
-    bool m_HaveToExit; //!< Do we have to exit this mode?
-    int m_MovingHandDistance; //!< Extra distance between hand and menu
-    float m_MovingHandTimer; //!< Timer used for the moving hand
-    float m_IdleTime; //!< Time this screen is idle
+    CDisplay* m_pDisplay;
+    CScroller m_Snows[NUMBER_OF_SNOWFLAKES];
+    int m_SnowSprites[NUMBER_OF_SNOWFLAKES];
 
 public:
-    CTitle(); //!< Constructor. Initialize some members.
-    virtual ~CTitle(); //!< Destructor. Does nothing.
-    inline void SetDisplay(CDisplay* pDisplay); //!< Set link to the display object to use
-    void Create(); //!< Initialize the object
-    void Destroy(); //!< Uninitialize the object
-    void OpenInput(); //!< Get access to the input this object needs
-    void CloseInput(); //!< Release access to the input this object needs
-    EGameMode Update(); //!< Update the object and return what game mode should be set
-    void Display(); //!< Display on the screen
+    CSnowManager();
+    ~CSnowManager();
+    inline void SetDisplay(CDisplay* pDisplay);
+    void Create();
+    void Destroy();
+    void Update(float DeltaTime);
+    void Display();
 };
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline void CTitle::SetDisplay(CDisplay* pDisplay)
-{
-    CModeScreen::SetDisplay(pDisplay);
-    m_CloudManager.SetDisplay(pDisplay);
-    m_SnowManager.SetDisplay(pDisplay);
-}
+inline void CSnowManager::SetDisplay(CDisplay* pDisplay) { m_pDisplay = pDisplay; }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-#endif // __CTITLE_H__
+#endif // __CSNOWMANAGER_H__

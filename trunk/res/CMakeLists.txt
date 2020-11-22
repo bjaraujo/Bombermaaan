@@ -64,6 +64,7 @@ images/title_bombers.bmp
 images/title_cloud_1.bmp
 images/title_cloud_2.bmp
 images/title_cloud_3.bmp
+images/title_snowflake.bmp
 images/title_menu_items.bmp
 images/title_title.bmp
 images/victory_bomber.bmp
