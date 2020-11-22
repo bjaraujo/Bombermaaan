@@ -73,7 +73,7 @@ print('version: ' + strNewVersion)
 print('build: ' + build)
 time.sleep(3)
 if platform.system().lower() == 'windows':
-    os.system('cmake -S trunk -B build/' + build)
+    os.system('cmake -S trunk -B build/' + build + ' -G "Visual Studio 16 2019" -A Win32')
 elif platform.system().lower() == 'linux':
     os.system('cmake -S trunk -B build/' + build + ' -G "Ninja" -DLOAD_RESOURCES_FROM_FILES:BOOL=ON')
 
