@@ -19,14 +19,8 @@ class BombermaaanEnv(gym.Env):
 
         time.sleep(2)
 
-        x0 = 0
-        y0 = 0
-        x1 = 0
-        y1 = 0
-
         self.whnd = win32gui.FindWindowEx(None, None, None, 'Bombermaaan 2.0.8.2182')
-        if not (self.whnd == 0):
-            x0, y0, x1, y1 = win32gui.GetWindowRect(self.whnd)
+        x0, y0, x1, y1 = win32gui.GetWindowRect(self.whnd)
 
         self.x0 = x0 + 8
         self.y0 = y0 + 1
@@ -40,11 +34,22 @@ class BombermaaanEnv(gym.Env):
         self.observation_space = spaces.Box(low=0, high=255, shape=(self.height, self.width, 3))
                
         self.state = []
-        
+           
+    def press(self, key):
+        win32api.PostMessage(self.whnd, win32con.WM_KEYDOWN, key, 0)
+        time.sleep(0.5)
+        win32api.PostMessage(self.whnd, win32con.WM_KEYUP, key, 0)
+    
     def reset(self):
         self.t = 0
+
         for _ in range(0, 5):
-            win32api.PostMessage(self.whnd, win32con.WM_KEYDOWN, win32con.VK_RETURN, 0)
+            self.press(win32con.VK_RETURN)
+            
+        time.sleep(2)
+            
+        self.alive_img = ImageGrab.grab(bbox =(self.x0 + 76, self.y0 + 32, self.x0 + 95, self.y0 + 52))
+            
         return self.state
         
     def step(self, action):
@@ -52,34 +57,32 @@ class BombermaaanEnv(gym.Env):
         print(action)
         
         if (action == 0):
-            win32api.PostMessage(self.whnd, win32con.WM_KEYDOWN, win32con.VK_UP, 0)
-            time.sleep(0.5)
-            win32api.PostMessage(self.whnd, win32con.WM_KEYUP, win32con.VK_UP, 0)
+            self.press(win32con.VK_UP)
         elif (action == 1):
-            win32api.PostMessage(self.whnd, win32con.WM_KEYDOWN, win32con.VK_DOWN, 0)
-            time.sleep(0.5)
-            win32api.PostMessage(self.whnd, win32con.WM_KEYUP, win32con.VK_DOWN, 0)
+            self.press(win32con.VK_DOWN)
         elif (action == 2):
-            win32api.PostMessage(self.whnd, win32con.WM_KEYDOWN, win32con.VK_LEFT, 0)
-            time.sleep(0.5)
-            win32api.PostMessage(self.whnd, win32con.WM_KEYUP, win32con.VK_LEFT, 0)
+            self.press(win32con.VK_LEFT)
         elif (action == 3):
-            win32api.PostMessage(self.whnd, win32con.WM_KEYDOWN, win32con.VK_RIGHT, 0)
-            time.sleep(0.5)
-            win32api.PostMessage(self.whnd, win32con.WM_KEYUP, win32con.VK_RIGHT, 0)
+            self.press(win32con.VK_RIGHT)
         elif (action == 4):
-            win32api.PostMessage(self.whnd, win32con.WM_KEYDOWN, 0x58, 0)
-            time.sleep(0.5)
-            win32api.PostMessage(self.whnd, win32con.WM_KEYUP, 0x58, 0)
+            self.press(0x58)
         elif (action == 5):
-            win32api.PostMessage(self.whnd, win32con.WM_CHAR, 0x5A, 0)
-            time.sleep(0.5)
-            win32api.PostMessage(self.whnd, win32con.WM_KEYUP, 0x5A, 0)
+            self.press(0x5A)
             
         self.t = self.t + 0.01        
         ob = self.state
-        reward = self.t
-        done = False
+        reward = self.t       
+        
+        img = ImageGrab.grab(bbox =(self.x0 + 76, self.y0 + 32, self.x0 + 95, self.y0 + 52))
+        done = img != self.alive_img
+        
+        if done:
+            self.press(win32con.VK_ESCAPE)
+            self.press(win32con.VK_RETURN)
+            self.reset()
+            
+        print(done)
+        
         return ob, reward, done, {}
                 
     def render(self, mode='human', close=False):
