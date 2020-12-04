@@ -38,15 +38,46 @@ class BombermaaanEnv(gym.Env):
         
         self.action_space = spaces.Discrete(6)
         self.observation_space = spaces.Box(low=0, high=255, shape=(self.height, self.width, 3))
+               
+        self.state = []
         
     def reset(self):
         self.t = 0
-        win32api.PostMessage(self.whnd, win32con.WM_KEYDOWN, win32con.VK_RETURN, 0)
-        return self._get_obs()
+        for _ in range(0, 5):
+            win32api.PostMessage(self.whnd, win32con.WM_KEYDOWN, win32con.VK_RETURN, 0)
+        return self.state
         
     def step(self, action):
-        self.t = self.t + 1
-        ob = self._get_obs()
+
+        print(action)
+        
+        if (action == 0):
+            win32api.PostMessage(self.whnd, win32con.WM_KEYDOWN, win32con.VK_UP, 0)
+            time.sleep(0.5)
+            win32api.PostMessage(self.whnd, win32con.WM_KEYUP, win32con.VK_UP, 0)
+        elif (action == 1):
+            win32api.PostMessage(self.whnd, win32con.WM_KEYDOWN, win32con.VK_DOWN, 0)
+            time.sleep(0.5)
+            win32api.PostMessage(self.whnd, win32con.WM_KEYUP, win32con.VK_DOWN, 0)
+        elif (action == 2):
+            win32api.PostMessage(self.whnd, win32con.WM_KEYDOWN, win32con.VK_LEFT, 0)
+            time.sleep(0.5)
+            win32api.PostMessage(self.whnd, win32con.WM_KEYUP, win32con.VK_LEFT, 0)
+        elif (action == 3):
+            win32api.PostMessage(self.whnd, win32con.WM_KEYDOWN, win32con.VK_RIGHT, 0)
+            time.sleep(0.5)
+            win32api.PostMessage(self.whnd, win32con.WM_KEYUP, win32con.VK_RIGHT, 0)
+        elif (action == 4):
+            win32api.PostMessage(self.whnd, win32con.WM_KEYDOWN, 0x58, 0)
+            time.sleep(0.5)
+            win32api.PostMessage(self.whnd, win32con.WM_KEYUP, 0x58, 0)
+        elif (action == 5):
+            win32api.PostMessage(self.whnd, win32con.WM_CHAR, 0x5A, 0)
+            time.sleep(0.5)
+            win32api.PostMessage(self.whnd, win32con.WM_KEYUP, 0x5A, 0)
+            
+        self.t = self.t + 0.01        
+        ob = self.state
         reward = self.t
         done = False
         return ob, reward, done, {}
@@ -54,6 +85,5 @@ class BombermaaanEnv(gym.Env):
     def render(self, mode='human', close=False):
         img = ImageGrab.grab(bbox =(self.x0, self.y0, self.x1, self.y1))
         return img
-       
-
+      
     
