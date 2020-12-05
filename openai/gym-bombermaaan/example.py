@@ -11,7 +11,6 @@ for _ in range(1000):
     env.render()
     
     action = env.action_space.sample()
-    #action = 1
     ob, reward, done, _ = env.step(action) # take action
     
     print(done)

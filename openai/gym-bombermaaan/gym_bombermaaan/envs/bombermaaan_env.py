@@ -1,3 +1,4 @@
+import os
 import win32process
 import win32gui
 import win32api
@@ -29,7 +30,7 @@ class BombermaaanEnv(gym.Env):
         self.done = False
         self.victory = False            
         self.score = 0
-        self.state = []
+        self.state = None
 
     def get_bombermaaan_window_title(self):
         def callback(handle, data):
@@ -43,7 +44,7 @@ class BombermaaanEnv(gym.Env):
     
     def start(self, path, exe, args):
         startObj = win32process.STARTUPINFO()
-        win32process.CreateProcess(path + '\\' + exe, exe + ' ' + args, None, None, 8, 8, None, path, startObj)
+        win32process.CreateProcess(os.path.join(path, exe), exe + ' ' + args, None, None, 8, 8, None, path, startObj)
     
         time.sleep(2)
 
@@ -97,7 +98,9 @@ class BombermaaanEnv(gym.Env):
             img = ImageGrab.grab(self.head_bbox[i])
             self.bomber_head.append(img)
             self.bomber_dead.append(False)
-            
+        
+        self.state = ImageGrab.grab(bbox =(self.x0, self.y0, self.x1, self.y1))
+        
         return self.state
         
     def step(self, action):
@@ -116,13 +119,12 @@ class BombermaaanEnv(gym.Env):
             self.press(0x5A)
             
         self.score = self.score + 0.01        
-        ob = self.state
+        self.state = ImageGrab.grab(bbox =(self.x0, self.y0, self.x1, self.y1))
 
         if not self.victory:
             alive = 0
             for i in range(0, BOMBERS):
                 img = ImageGrab.grab(self.head_bbox[i])
-                img.save('head' + str(i) + '.png')
                 
                 is_dead = (img != self.bomber_head[i])                
                 if not is_dead:
@@ -133,17 +135,19 @@ class BombermaaanEnv(gym.Env):
             # Check for win
             if not self.bomber_dead[0] and (alive == 1):
                 self.victory = True
-                self.score = self.score + 10.0
             
             if self.bomber_dead[0]:
-                self.score = self.score - 5.0
+                self.score = self.score - 10.0
                 
         self.done = self.victory or self.bomber_dead[0]
 
+        if self.victory:
+            self.score = self.score + 10.0
+
         if self.done:
             time.sleep(2)
-                    
-        return ob, self.score, self.done, {}
+                                    
+        return self.state, self.score, self.done, {}
                 
     def render(self, mode='human', close=False):
         img = ImageGrab.grab(bbox =(self.x0, self.y0, self.x1, self.y1))
