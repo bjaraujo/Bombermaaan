@@ -140,8 +140,8 @@ class BombermaaanEnv(gym.Env):
                 if not self.is_bomber_dead[0] and (alive == 1):
                     self.victory = True
                 
-                if self.is_bomber_dead[0]:
-                    self.score = self.score - 10.0
+                #if self.is_bomber_dead[0]:
+                #    self.score = self.score - 10.0
                 
         self.done = self.victory or self.is_bomber_dead[0]
 
