@@ -44,8 +44,8 @@ class BombermaaanEnv(gym.Env):
         return titles[0]
     
     def start(self, path, exe, args):
-        startObj = win32process.STARTUPINFO()
-        win32process.CreateProcess(os.path.join(path, exe), exe + ' ' + args, None, None, 8, 8, None, path, startObj)
+        self.processInfo = win32process.STARTUPINFO()
+        win32process.CreateProcess(os.path.join(path, exe), exe + ' ' + args, None, None, 8, 8, None, path, self.processInfo)
     
         time.sleep(2)
 

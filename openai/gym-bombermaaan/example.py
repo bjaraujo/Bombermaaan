@@ -2,7 +2,7 @@ import gym
 import gym_bombermaaan
 import numpy as np
 from keras.models import Sequential
-from keras.layers import Dense, Dropout
+from keras.layers import Flatten, Dense, Dropout
 
 def gather_data(env):
     num_trials = 1
@@ -39,14 +39,13 @@ def gather_data(env):
     print('Median: {}'.format(np.median(scores)))
     return trainingX, trainingY
 
-def create_model(w, h, s):
+def create_model(w, h):
     model = Sequential()
-    model.add(Dense(128, input_shape=(h, w, 3), activation="relu"))
-    model.add(Dense(256, activation="relu"))
-    model.add(Dense(512, activation="relu"))
-    model.add(Dense(256, activation="relu"))
-    model.add(Dense(128, activation="relu"))
-    model.add(Dense(s,   activation="linear"))
+    model.add(Dense(16, input_shape=(h, w, 3), activation="relu"))
+    model.add(Flatten())
+    model.add(Dense(32, activation="relu"))
+    model.add(Dense(12, activation="relu"))
+    model.add(Dense(6,   activation="linear"))
 
     model.compile(
         loss='mse',
@@ -57,18 +56,15 @@ def create_model(w, h, s):
 
 def main():
     env = gym.make("bombermaaan-v0")
+
     env.start('D:\\Programming\\Bombermaaan\\releases\\msvc16-win32\\Bombermaaan_2.1.2.2187', 'Bombermaaan.exe', '')
+    trainingX, trainingY = gather_data(env)   
 
-    trainingX, trainingY = gather_data(env)
-
-    print(env.width)
-
-    print(trainingX.shape)
-    print(trainingY.shape)
-
-    model = create_model(env.width, env.height, 6)
-    model.fit(trainingX, trainingY, epochs=5)
+    env.reset()
     
+    model = create_model(env.width, env.height)
+    model.fit(trainingX, trainingY, epochs=5)
+
     scores = []
     num_trials = 50
     sim_steps = 500
@@ -78,16 +74,17 @@ def main():
         score = 0
         for step in range(sim_steps):
             print('Step: {}'.format(step))
-            action = np.argmax(model.predict(observation))
+            action = np.argmax(model.predict(observation.reshape(1, env.height, env.width, 3)))
             observation, reward, done, _ = env.step(action)
             score += reward
             if done:
                 break
         scores.append(score)
-
-    print(np.mean(scores))
+    env.end()
 
     env.close()
+
+    print(np.mean(scores))
 
 if __name__ == "__main__":
     main()
