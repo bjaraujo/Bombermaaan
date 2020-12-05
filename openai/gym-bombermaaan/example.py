@@ -5,9 +5,9 @@ from keras.models import Sequential
 from keras.layers import Flatten, Dense, Dropout
 
 def gather_data(env):
-    num_trials = 1
+    num_trials = 10
     sim_steps = 500
-    min_score = 0.001
+    min_score = 0.5
     trainingX, trainingY = [], []
 
     scores = []
@@ -77,6 +77,7 @@ def main():
         for step in range(sim_steps):
             print('Step: {}'.format(step))
             action = np.argmax(model.predict(observation.reshape(1, env.height, env.width, 3)))
+            print('Action: {}'.format(action))
             observation, reward, done, _ = env.step(action)
             score += reward
             if done:
