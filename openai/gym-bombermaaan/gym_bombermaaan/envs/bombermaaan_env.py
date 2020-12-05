@@ -84,6 +84,7 @@ class BombermaaanEnv(gym.Env):
             self.press(win32con.VK_ESCAPE)
             self.press(win32con.VK_RETURN)
             
+        self.done = False
         self.victory = False
         self.score = 0
 
@@ -121,23 +122,24 @@ class BombermaaanEnv(gym.Env):
         self.score = self.score + 0.01        
         self.state = ImageGrab.grab(bbox =(self.x0, self.y0, self.x1, self.y1))
 
-        if not self.victory:
-            alive = 0
-            for i in range(0, BOMBERS):
-                img = ImageGrab.grab(self.head_bbox[i])
-                
-                is_dead = (img != self.bomber_head[i])                
-                if not is_dead:
-                    alive = alive + 1                
+        if not self.done:
+            if not self.victory:
+                alive = 0
+                for i in range(0, BOMBERS):
+                    img = ImageGrab.grab(self.head_bbox[i])
+                    
+                    is_dead = (img != self.bomber_head[i])                
+                    if not is_dead:
+                        alive = alive + 1                
 
-                self.bomber_dead[i] = is_dead
-        
-            # Check for win
-            if not self.bomber_dead[0] and (alive == 1):
-                self.victory = True
+                    self.bomber_dead[i] = is_dead
             
-            if self.bomber_dead[0]:
-                self.score = self.score - 10.0
+                # Check for win
+                if not self.bomber_dead[0] and (alive == 1):
+                    self.victory = True
+                
+                if self.bomber_dead[0]:
+                    self.score = self.score - 10.0
                 
         self.done = self.victory or self.bomber_dead[0]
 
