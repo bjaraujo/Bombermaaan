@@ -60,10 +60,12 @@ def main():
     env.start('D:\\Programming\\Bombermaaan\\releases\\msvc16-win32\\Bombermaaan_2.1.2.2187', 'Bombermaaan.exe', '')
     trainingX, trainingY = gather_data(env)   
 
-    env.reset()
-    
+    env.pause()
+
     model = create_model(env.width, env.height)
     model.fit(trainingX, trainingY, epochs=5)
+
+    env.pause()
 
     scores = []
     num_trials = 50

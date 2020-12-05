@@ -106,7 +106,10 @@ class BombermaaanEnv(gym.Env):
         self.state = np.array(ImageGrab.grab(self.window_box))
         
         return self.state
-        
+    
+    def pause(self):
+        self.press(0x50)
+
     def step(self, action):
         
         if (action == 0):
