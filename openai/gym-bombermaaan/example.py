@@ -15,6 +15,7 @@ def gather_data(env):
         print('Trial: {}'.format(trial))
         observation = env.reset()
         training_sampleX, training_sampleY = [], []
+        score = 0
         for _ in range(sim_steps):
             # action corresponds to the previous observation so record before step
             action = env.action_space.sample()
@@ -24,7 +25,7 @@ def gather_data(env):
             training_sampleY.append(one_hot_action)
             
             observation, reward, done, _ = env.step(action)
-            score = reward
+            score += reward
             print('score = ' + str(score))
             if done:
                 break
@@ -41,25 +42,17 @@ def gather_data(env):
 def create_model(w, h, s):
     model = Sequential()
     model.add(Dense(128, input_shape=(h, w, 3), activation="relu"))
-    model.add(Dropout(0.6))
-
     model.add(Dense(256, activation="relu"))
-    model.add(Dropout(0.6))
-
     model.add(Dense(512, activation="relu"))
-    model.add(Dropout(0.6))
-
     model.add(Dense(256, activation="relu"))
-    model.add(Dropout(0.6))
-
     model.add(Dense(128, activation="relu"))
-    model.add(Dropout(0.6))
-    model.add(Dense(s, activation="softmax"))
+    model.add(Dense(s,   activation="linear"))
 
     model.compile(
-        loss="categorical_crossentropy",
-        optimizer="adam",
-        metrics=["accuracy"])
+        loss='mse',
+        optimizer='adam',
+        metrics=['accuracy'])
+    
     return model
 
 def main():
@@ -67,6 +60,11 @@ def main():
     env.start('D:\\Programming\\Bombermaaan\\releases\\msvc16-win32\\Bombermaaan_2.1.2.2187', 'Bombermaaan.exe', '')
 
     trainingX, trainingY = gather_data(env)
+
+    print(env.width)
+
+    print(trainingX.shape)
+    print(trainingY.shape)
 
     model = create_model(env.width, env.height, 6)
     model.fit(trainingX, trainingY, epochs=5)
