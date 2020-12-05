@@ -15,10 +15,10 @@ BOMBERMAAAN_PATH = 'D:\\Programming\\Bombermaaan\\releases\\msvc16-win32\\Bomber
 BOMBERMAAAN_COMMAND = 'Bombermaaan.exe --use-appdata-dir'
 BOMBERMAAAN_WORKDIR = 'D:\\Programming\\Bombermaaan\\releases\\msvc16-win32\\Bombermaaan_2.1.2.2187'
 
-BOMBER_HEAD_X = 79
-BOMBER_HEAD_Y = 30 + 5
-BOMBER_HEAD_W = 14
-BOMBER_HEAD_H = 14
+BOMBER_ICON_X = 79
+BOMBER_ICON_Y = 30 + 5
+BOMBER_ICON_W = 14
+BOMBER_ICON_H = 14
 BOMBER_OFFSET_X = 35
 
 BOMBERS = 5
@@ -62,12 +62,14 @@ class BombermaaanEnv(gym.Env):
         self.action_space = spaces.Discrete(6)
         self.observation_space = spaces.Box(low=0, high=255, shape=(self.height, self.width, 3))
         
+        self.window_box = (self.x0, self.y0, self.x1, self.y1)
+        
         self.head_bbox = []
         for i in range(0, BOMBERS):
-            b = bbox =(self.x0 + BOMBER_HEAD_X + BOMBER_OFFSET_X * i, \
-                       self.y0 + BOMBER_HEAD_Y, \
-                       self.x0 + BOMBER_HEAD_X + BOMBER_OFFSET_X * i + BOMBER_HEAD_W, \
-                       self.y0 + BOMBER_HEAD_Y + BOMBER_HEAD_H)
+            b = (self.x0 + BOMBER_ICON_X + BOMBER_OFFSET_X * i, \
+                 self.y0 + BOMBER_ICON_Y, \
+                 self.x0 + BOMBER_ICON_X + BOMBER_OFFSET_X * i + BOMBER_ICON_W, \
+                 self.y0 + BOMBER_ICON_Y + BOMBER_ICON_H)
             self.head_bbox.append(b)
 
     def press(self, key):
@@ -93,14 +95,14 @@ class BombermaaanEnv(gym.Env):
             
         time.sleep(2)
             
-        self.bomber_head = []
-        self.bomber_dead = []
+        self.bomber_icon = []
+        self.is_bomber_dead = []
         for i in range(0, BOMBERS):
             img = ImageGrab.grab(self.head_bbox[i])
-            self.bomber_head.append(img)
-            self.bomber_dead.append(False)
+            self.bomber_icon.append(img)
+            self.is_bomber_dead.append(False)
         
-        self.state = ImageGrab.grab(bbox =(self.x0, self.y0, self.x1, self.y1))
+        self.state = ImageGrab.grab(self.window_box)
         
         return self.state
         
@@ -120,7 +122,7 @@ class BombermaaanEnv(gym.Env):
             self.press(0x5A)
             
         self.score = self.score + 0.01        
-        self.state = ImageGrab.grab(bbox =(self.x0, self.y0, self.x1, self.y1))
+        self.state = ImageGrab.grab(self.window_box)
 
         if not self.done:
             if not self.victory:
@@ -128,20 +130,20 @@ class BombermaaanEnv(gym.Env):
                 for i in range(0, BOMBERS):
                     img = ImageGrab.grab(self.head_bbox[i])
                     
-                    is_dead = (img != self.bomber_head[i])                
+                    is_dead = (img != self.bomber_icon[i])                
                     if not is_dead:
                         alive = alive + 1                
 
-                    self.bomber_dead[i] = is_dead
+                    self.is_bomber_dead[i] = is_dead
             
                 # Check for win
-                if not self.bomber_dead[0] and (alive == 1):
+                if not self.is_bomber_dead[0] and (alive == 1):
                     self.victory = True
                 
-                if self.bomber_dead[0]:
+                if self.is_bomber_dead[0]:
                     self.score = self.score - 10.0
                 
-        self.done = self.victory or self.bomber_dead[0]
+        self.done = self.victory or self.is_bomber_dead[0]
 
         if self.victory:
             self.score = self.score + 10.0
@@ -152,7 +154,7 @@ class BombermaaanEnv(gym.Env):
         return self.state, self.score, self.done, {}
                 
     def render(self, mode='human', close=False):
-        img = ImageGrab.grab(bbox =(self.x0, self.y0, self.x1, self.y1))
+        img = ImageGrab.grab(self.window_box)
         return img
    
         
