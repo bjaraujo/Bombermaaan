@@ -5,6 +5,7 @@ import win32api
 import win32con
 import time
 import gym
+import numpy as np
 from gym import spaces
 from PIL import Image, ImageGrab 
 
@@ -60,7 +61,7 @@ class BombermaaanEnv(gym.Env):
         self.height = self.y1 - self.y0
         
         self.action_space = spaces.Discrete(6)
-        self.observation_space = spaces.Box(low=0, high=255, shape=(self.height, self.width, 3))
+        self.observation_space = spaces.Box(low=0, high=255, shape=(self.height, self.width, 3), dtype=np.uint8)
         
         self.window_box = (self.x0, self.y0, self.x1, self.y1)
         
@@ -102,7 +103,7 @@ class BombermaaanEnv(gym.Env):
             self.bomber_icon.append(img)
             self.is_bomber_dead.append(False)
         
-        self.state = ImageGrab.grab(self.window_box)
+        self.state = np.array(ImageGrab.grab(self.window_box))
         
         return self.state
         
@@ -122,7 +123,7 @@ class BombermaaanEnv(gym.Env):
             self.press(0x5A)
             
         self.score = self.score + 0.01        
-        self.state = ImageGrab.grab(self.window_box)
+        self.state = np.array(ImageGrab.grab(self.window_box))
 
         if not self.done:
             if not self.victory:
@@ -139,9 +140,6 @@ class BombermaaanEnv(gym.Env):
                 # Check for win
                 if not self.is_bomber_dead[0] and (alive == 1):
                     self.victory = True
-                
-                #if self.is_bomber_dead[0]:
-                #    self.score = self.score - 10.0
                 
         self.done = self.victory or self.is_bomber_dead[0]
 

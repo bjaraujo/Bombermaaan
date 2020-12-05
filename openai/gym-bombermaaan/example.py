@@ -5,14 +5,14 @@ from keras.models import Sequential
 from keras.layers import Dense, Dropout
 
 def gather_data(env):
-    num_trials = 20
+    num_trials = 1
     sim_steps = 500
-    min_score = 0.1
+    min_score = 0.001
     trainingX, trainingY = [], []
 
     scores = []
     for trial in range(num_trials):
-        print('trial ' + str(trial))
+        print('Trial: {}'.format(trial))
         observation = env.reset()
         training_sampleX, training_sampleY = [], []
         for _ in range(sim_steps):
@@ -34,13 +34,13 @@ def gather_data(env):
             trainingY += training_sampleY
 
     trainingX, trainingY = np.array(trainingX), np.array(trainingY)
-    print("Average: {}".format(np.mean(scores)))
-    print("Median: {}".format(np.median(scores)))
+    print('Average: {}'.format(np.mean(scores)))
+    print('Median: {}'.format(np.median(scores)))
     return trainingX, trainingY
 
-def create_model():
+def create_model(w, h, s):
     model = Sequential()
-    model.add(Dense(128, input_shape=(4,), activation="relu"))
+    model.add(Dense(128, input_shape=(h, w, 3), activation="relu"))
     model.add(Dropout(0.6))
 
     model.add(Dense(256, activation="relu"))
@@ -54,7 +54,7 @@ def create_model():
 
     model.add(Dense(128, activation="relu"))
     model.add(Dropout(0.6))
-    model.add(Dense(2, activation="softmax"))
+    model.add(Dense(s, activation="softmax"))
 
     model.compile(
         loss="categorical_crossentropy",
@@ -68,19 +68,19 @@ def main():
 
     trainingX, trainingY = gather_data(env)
 
-    model = create_model()
+    model = create_model(env.width, env.height, 6)
     model.fit(trainingX, trainingY, epochs=5)
     
     scores = []
     num_trials = 50
     sim_steps = 500
     for trial in range(num_trials):
-        print('trial ' + str(trial))
+        print('Trial: {}'.format(trial))
         observation = env.reset()
         score = 0
         for step in range(sim_steps):
-            print('step ' + str(step))
-            action = np.argmax(model.predict(observation.reshape(1,4)))
+            print('Step: {}'.format(step))
+            action = np.argmax(model.predict(observation))
             observation, reward, done, _ = env.step(action)
             score += reward
             if done:
