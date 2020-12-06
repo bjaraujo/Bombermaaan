@@ -100,7 +100,8 @@ def main():
     env.start('D:\\Programming\\Bombermaaan\\releases\\msvc16-win32\\Bombermaaan_2.1.2.2187', 'Bombermaaan.exe', '')
     trainingX, trainingY, n = gather_data(env)   
 
-    backend.clear_session()
+    # Clear keras memory?
+    #backend.clear_session()
 
     env.pause()
 
