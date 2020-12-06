@@ -12,10 +12,6 @@ from PIL import Image, ImageGrab
 import logging
 logger = logging.getLogger(__name__)
 
-BOMBERMAAAN_PATH = 'D:\\Programming\\Bombermaaan\\releases\\msvc16-win32\\Bombermaaan_2.1.2.2187\\Bombermaaan.exe'
-BOMBERMAAAN_COMMAND = 'Bombermaaan.exe --use-appdata-dir'
-BOMBERMAAAN_WORKDIR = 'D:\\Programming\\Bombermaaan\\releases\\msvc16-win32\\Bombermaaan_2.1.2.2187'
-
 BOMBER_ICON_X = 79
 BOMBER_ICON_Y = 30 + 5
 BOMBER_ICON_W = 14

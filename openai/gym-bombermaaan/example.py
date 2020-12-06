@@ -28,16 +28,15 @@ def gather_data(env):
 
     scores = []
     for trial in range(num_trials):
-        print('Trial: {}'.format(trial + 1))
+        print('========> Trial: {}'.format(trial + 1))
         observation = env.reset()
         reward = 0
         done = False
-        training_sampleX, training_sampleY = [], []
-        score = 0
-        for _ in range(sim_steps):
-            
+        training_sampleX, training_sampleY = [], []        
+        score = 0        
+        for _ in range(sim_steps):            
             # Action corresponds to the previous observation so record before step
-            if (model and random.random() > 0.5):
+            if (model and random.random() > 0.25):
                 print('-- Neural network --')
                 action = np.argmax(model.predict(observation.reshape(1, env.height, env.width, 3)))
             else:
@@ -116,11 +115,10 @@ def main():
     num_trials = 50
     sim_steps = 500
     for trial in range(num_trials):
-        print('Trial: {}'.format(trial + 1))
+        print('========> Trial: {}'.format(trial + 1))
         observation = env.reset()
         score = 0
-        for step in range(sim_steps):
-            print('Step: {}'.format(step + 1))
+        for _ in range(sim_steps):
             print('-- Neural network --')
             action = np.argmax(model.predict(observation.reshape(1, env.height, env.width, 3)))
             print('Action: {}'.format(action))
