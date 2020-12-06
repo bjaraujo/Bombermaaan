@@ -52,10 +52,10 @@ class BombermaaanEnv(gym.Env):
         self.whnd = win32gui.FindWindowEx(None, None, None, self.get_bombermaaan_window_title())
         self.x0, self.y0, self.x1, self.y1 = win32gui.GetWindowRect(self.whnd)
 
-        self.x0 = self.x0 + 8
-        self.y0 = self.y0 + 1
-        self.x1 = self.x1 - 8
-        self.y1 = self.y1 - 8
+        self.x0 += 8
+        self.y0 += 1
+        self.x1 -= 8
+        self.y1 -= 8
 
         self.width = self.x1 - self.x0
         self.height = self.y1 - self.y0
@@ -89,7 +89,6 @@ class BombermaaanEnv(gym.Env):
             
         self.done = False
         self.victory = False
-        self.score = 0
 
         for _ in range(5):
             self.press(win32con.VK_RETURN)
@@ -103,9 +102,9 @@ class BombermaaanEnv(gym.Env):
             self.bomber_icon.append(img)
             self.is_bomber_dead.append(False)
         
-        self.state = np.array(ImageGrab.grab(self.window_box))
+        state = np.array(ImageGrab.grab(self.window_box))
         
-        return self.state
+        return state
     
     def pause(self):
         self.press(0x50)
@@ -125,8 +124,8 @@ class BombermaaanEnv(gym.Env):
         elif (action == 5):
             self.press(0x5A)
             
-        self.score = self.score + 0.01        
-        self.state = np.array(ImageGrab.grab(self.window_box))
+        reward = 0.01
+        state = np.array(ImageGrab.grab(self.window_box))
 
         if not self.done:
             if not self.victory:
@@ -144,15 +143,18 @@ class BombermaaanEnv(gym.Env):
                 if not self.is_bomber_dead[0] and (alive == 1):
                     self.victory = True
                 
+                if self.is_bomber_dead[0]:
+                    reward = -0.05
+                    
         self.done = self.victory or self.is_bomber_dead[0]
 
         if self.victory:
-            self.score = self.score + 10.0
-
+            reward = 1.0
+            
         if self.done:
             time.sleep(2)
                                     
-        return self.state, self.score, self.done, {}
+        return state, reward, self.done, {}
                 
     def render(self, mode='human', close=False):
         img = ImageGrab.grab(self.window_box)

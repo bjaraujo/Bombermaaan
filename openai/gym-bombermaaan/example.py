@@ -1,14 +1,29 @@
+import os
+import random
 import gym
 import gym_bombermaaan
 import numpy as np
-from keras.models import Sequential
+from keras.models import Sequential, load_model
 from keras.layers import Flatten, Dense, Dropout
 
 def gather_data(env):
+    
     num_trials = 10
     sim_steps = 500
-    min_score = 0.5
+    min_score = 0.0
     trainingX, trainingY = [], []
+
+    score_file_name = 'score.dat'
+    if os.path.exists(score_file_name):
+        with open(score_file_name, 'r') as file:
+            text = file.readline()
+            min_score = float(text)
+
+    model = None
+    model_file_name = 'bombermaaan.h5'
+    file_exists = os.path.exists(model_file_name)
+    if file_exists:
+        model = load_model(model_file_name)
 
     scores = []
     for trial in range(num_trials):
@@ -17,16 +32,24 @@ def gather_data(env):
         training_sampleX, training_sampleY = [], []
         score = 0
         for _ in range(sim_steps):
+            
             # action corresponds to the previous observation so record before step
-            action = env.action_space.sample()
+            if ( random.random() > 0.5 and file_exists):
+                action = np.argmax(model.predict(observation.reshape(1, env.height, env.width, 3)))
+            else:
+                action = env.action_space.sample()
+                
             one_hot_action = np.zeros(6)
             one_hot_action[action] = 1
             training_sampleX.append(observation)
             training_sampleY.append(one_hot_action)
             
             observation, reward, done, _ = env.step(action)
+            
             score += reward
-            print('score = ' + str(score))
+            
+            print('Score = {:.2f}'.format(score))
+            
             if done:
                 break
         if score > min_score:
@@ -35,16 +58,24 @@ def gather_data(env):
             trainingY += training_sampleY
 
     trainingX, trainingY = np.array(trainingX), np.array(trainingY)
-    print('Average: {}'.format(np.mean(scores)))
-    print('Median: {}'.format(np.median(scores)))
+    
+    average_score = np.mean(scores)
+    median_score = np.median(scores)
+
+    with open(score_file_name, 'w') as the_file:
+        the_file.write(str(average_score) + '\n')
+    
+    print('Average: {}'.format(average_score))
+    print('Median: {}'.format(median_score))
+    
     return trainingX, trainingY
 
-def create_model(w, h):
+def create_model(env):
     model = Sequential()
-    model.add(Dense(16, input_shape=(h, w, 3), activation="relu"))
+    model.add(Dense(128, input_shape=(env.height, env.width, 3), activation="relu"))
     model.add(Flatten())
+    model.add(Dense(64, activation="relu"))
     model.add(Dense(32, activation="relu"))
-    model.add(Dense(12, activation="relu"))
     model.add(Dense(6,   activation="linear"))
 
     model.compile(
@@ -55,15 +86,16 @@ def create_model(w, h):
     return model
 
 def main():
-    env = gym.make("bombermaaan-v0")
+    env = gym.make('bombermaaan-v0')
 
     env.start('D:\\Programming\\Bombermaaan\\releases\\msvc16-win32\\Bombermaaan_2.1.2.2187', 'Bombermaaan.exe', '')
     trainingX, trainingY = gather_data(env)   
 
     env.pause()
 
-    model = create_model(env.width, env.height)
-    model.fit(trainingX, trainingY, epochs=5)
+    new_model = create_model(env)
+    new_model.fit(trainingX, trainingY, epochs=5)
+    new_model.save('bombermaaan.h5')
 
     env.pause()
 
@@ -76,10 +108,14 @@ def main():
         score = 0
         for step in range(sim_steps):
             print('Step: {}'.format(step))
-            action = np.argmax(model.predict(observation.reshape(1, env.height, env.width, 3)))
+            action = np.argmax(new_model.predict(observation.reshape(1, env.height, env.width, 3)))
             print('Action: {}'.format(action))
             observation, reward, done, _ = env.step(action)
+            
             score += reward
+            
+            print('Score = {:.2f}'.format(score))
+            
             if done:
                 break
         scores.append(score)
@@ -87,7 +123,8 @@ def main():
 
     env.close()
 
-    print(np.mean(scores))
+    average_score = np.mean(scores)
+    print('Average: {}'.format(average_score))
 
 if __name__ == "__main__":
     main()
