@@ -6,6 +6,7 @@ import numpy as np
 
 from keras.models import Sequential, load_model
 from keras.layers import Flatten, Dense, Dropout
+from keras import backend as backend
 
 def gather_data(env):
     
@@ -28,18 +29,25 @@ def gather_data(env):
 
     scores = []
     for trial in range(num_trials):
-        print('Trial: {}'.format(trial))
+        print('Trial: {}'.format(trial + 1))
         observation = env.reset()
         training_sampleX, training_sampleY = [], []
         score = 0
         for _ in range(sim_steps):
             
-            # action corresponds to the previous observation so record before step
-            if (random.random() > 0.5 and file_exists):
+            # Action corresponds to the previous observation so record before step
+            if (random.random() > 0.75 and file_exists):
+                print('-- Neural network --')
                 action = np.argmax(model.predict(observation.reshape(1, env.height, env.width, 3)))
             else:
-                action = env.action_space.sample()
-                
+                print('-- Random --')
+                if random.random() > 0.9:
+                    action = random.randint(4, 5)
+                else:
+                    action = random.randint(0, 3)
+                      
+            print('Action: {}'.format(action))
+
             one_hot_action = np.zeros(6)
             one_hot_action[action] = 1
             training_sampleX.append(observation)
@@ -53,6 +61,7 @@ def gather_data(env):
             
             if done:
                 break
+                
         if score > min_score:
             scores.append(score)
             trainingX += training_sampleX
@@ -69,7 +78,7 @@ def gather_data(env):
     print('Average: {}'.format(average_score))
     print('Median: {}'.format(median_score))
     
-    return trainingX, trainingY
+    return trainingX, trainingY, len(scores)
 
 def create_model(env):
     model = Sequential()
@@ -89,13 +98,16 @@ def main():
     env = gym.make('bombermaaan-v0')
 
     env.start('D:\\Programming\\Bombermaaan\\releases\\msvc16-win32\\Bombermaaan_2.1.2.2187', 'Bombermaaan.exe', '')
-    trainingX, trainingY = gather_data(env)   
+    trainingX, trainingY, n = gather_data(env)   
+
+    backend.clear_session()
 
     env.pause()
 
-    model = create_model(env)
-    model.fit(trainingX, trainingY, epochs=5)
-    model.save('bombermaaan.h5')
+    if (n > 3):
+        model = create_model(env)
+        model.fit(trainingX, trainingY, epochs=5)
+        model.save('bombermaaan.h5')
 
     env.pause()
 
@@ -103,11 +115,11 @@ def main():
     num_trials = 50
     sim_steps = 500
     for trial in range(num_trials):
-        print('Trial: {}'.format(trial))
+        print('Trial: {}'.format(trial + 1))
         observation = env.reset()
         score = 0
         for step in range(sim_steps):
-            print('Step: {}'.format(step))
+            print('Step: {}'.format(step + 1))
             action = np.argmax(model.predict(observation.reshape(1, env.height, env.width, 3)))
             print('Action: {}'.format(action))
             observation, reward, done, _ = env.step(action)
