@@ -124,7 +124,7 @@ class BombermaaanEnv(gym.Env):
         elif (action == 5):
             self.press(0x5A)
             
-        reward = 0.01
+        reward = 1
         state = np.array(ImageGrab.grab(self.window_box))
 
         if not self.done:
@@ -144,12 +144,12 @@ class BombermaaanEnv(gym.Env):
                     self.victory = True
                 
                 if self.is_bomber_dead[0]:
-                    reward = -0.05
+                    reward = -2
                     
         self.done = self.victory or self.is_bomber_dead[0]
 
         if self.victory:
-            reward = 1.0
+            reward = 10
             
         if self.done:
             time.sleep(2)

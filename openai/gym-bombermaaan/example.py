@@ -18,7 +18,7 @@ def gather_data(env):
     if os.path.exists(score_file_name):
         with open(score_file_name, 'r') as file:
             text = file.readline()
-            min_score = float(text)
+            min_score = int(text)
 
     model = None
     model_file_name = 'bombermaaan.h5'
@@ -35,7 +35,7 @@ def gather_data(env):
         for _ in range(sim_steps):
             
             # action corresponds to the previous observation so record before step
-            if ( random.random() > 0.5 and file_exists):
+            if (random.random() > 0.5 and file_exists):
                 action = np.argmax(model.predict(observation.reshape(1, env.height, env.width, 3)))
             else:
                 action = env.action_space.sample()
@@ -49,7 +49,7 @@ def gather_data(env):
             
             score += reward
             
-            print('Score = {:.2f}'.format(score))
+            print('Score = {}'.format(score))
             
             if done:
                 break
@@ -64,7 +64,7 @@ def gather_data(env):
     median_score = np.median(scores)
 
     with open(score_file_name, 'w') as the_file:
-        the_file.write(str(average_score) + '\n')
+        the_file.write(str(int(average_score)) + '\n')
     
     print('Average: {}'.format(average_score))
     print('Median: {}'.format(median_score))
@@ -73,11 +73,10 @@ def gather_data(env):
 
 def create_model(env):
     model = Sequential()
-    model.add(Dense(128, input_shape=(env.height, env.width, 3), activation="relu"))
+    model.add(Dense(32, input_shape=(env.height, env.width, 3), activation="relu"))
     model.add(Flatten())
-    model.add(Dense(64, activation="relu"))
-    model.add(Dense(32, activation="relu"))
-    model.add(Dense(6,   activation="linear"))
+    model.add(Dense(16, activation="relu"))
+    model.add(Dense(6, activation="linear"))
 
     model.compile(
         loss='mse',
@@ -94,9 +93,9 @@ def main():
 
     env.pause()
 
-    new_model = create_model(env)
-    new_model.fit(trainingX, trainingY, epochs=5)
-    new_model.save('bombermaaan.h5')
+    model = create_model(env)
+    model.fit(trainingX, trainingY, epochs=5)
+    model.save('bombermaaan.h5')
 
     env.pause()
 
@@ -109,13 +108,13 @@ def main():
         score = 0
         for step in range(sim_steps):
             print('Step: {}'.format(step))
-            action = np.argmax(new_model.predict(observation.reshape(1, env.height, env.width, 3)))
+            action = np.argmax(model.predict(observation.reshape(1, env.height, env.width, 3)))
             print('Action: {}'.format(action))
             observation, reward, done, _ = env.step(action)
             
             score += reward
             
-            print('Score = {:.2f}'.format(score))
+            print('Score = {}'.format(score))
             
             if done:
                 break
