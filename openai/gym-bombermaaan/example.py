@@ -3,6 +3,7 @@ import random
 import gym
 import gym_bombermaaan
 import numpy as np
+
 from keras.models import Sequential, load_model
 from keras.layers import Flatten, Dense, Dropout
 
