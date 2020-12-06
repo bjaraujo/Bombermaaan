@@ -5,7 +5,7 @@ import gym_bombermaaan
 import numpy as np
 
 from keras.models import Sequential, load_model
-from keras.layers import Flatten, Dense, Dropout
+from keras.layers import Conv2D, Dense, Flatten, Dropout
 from keras import backend as backend
 
 def gather_data(env):
@@ -23,20 +23,21 @@ def gather_data(env):
 
     model = None
     model_file_name = 'bombermaaan.h5'
-    file_exists = os.path.exists(model_file_name)
-    if file_exists:
+    if os.path.exists(model_file_name):
         model = load_model(model_file_name)
 
     scores = []
     for trial in range(num_trials):
         print('Trial: {}'.format(trial + 1))
         observation = env.reset()
+        reward = 0
+        done = False
         training_sampleX, training_sampleY = [], []
         score = 0
         for _ in range(sim_steps):
             
             # Action corresponds to the previous observation so record before step
-            if (random.random() > 0.75 and file_exists):
+            if (model and random.random() > 0.5):
                 print('-- Neural network --')
                 action = np.argmax(model.predict(observation.reshape(1, env.height, env.width, 3)))
             else:
@@ -49,7 +50,7 @@ def gather_data(env):
             print('Action: {}'.format(action))
 
             one_hot_action = np.zeros(6)
-            one_hot_action[action] = 1
+            one_hot_action[action] = reward
             training_sampleX.append(observation)
             training_sampleY.append(one_hot_action)
             
@@ -81,16 +82,15 @@ def gather_data(env):
     return trainingX, trainingY, len(scores)
 
 def create_model(env):
-    model = Sequential()
-    model.add(Dense(32, input_shape=(env.height, env.width, 3), activation="relu"))
-    model.add(Flatten())
-    model.add(Dense(16, activation="relu"))
-    model.add(Dense(6, activation="linear"))
 
-    model.compile(
-        loss='mse',
-        optimizer='adam',
-        metrics=['accuracy'])
+    model = Sequential()
+    model.add(Conv2D(32, (8, 8), strides=(4, 4), input_shape=(env.height, env.width, 3), activation="relu"))
+    model.add(Conv2D(64, (4, 4), strides=(2, 2), input_shape=(env.height, env.width, 3), activation="relu"))
+    model.add(Conv2D(64, (3, 3), strides=(1, 1), input_shape=(env.height, env.width, 3), activation="relu"))
+    model.add(Flatten())
+    model.add(Dense(512, activation="relu"))
+    model.add(Dense(6, activation="linear"))
+    model.compile(loss='mse', optimizer='adam')
     
     return model
 
@@ -121,6 +121,7 @@ def main():
         score = 0
         for step in range(sim_steps):
             print('Step: {}'.format(step + 1))
+            print('-- Neural network --')
             action = np.argmax(model.predict(observation.reshape(1, env.height, env.width, 3)))
             print('Action: {}'.format(action))
             observation, reward, done, _ = env.step(action)

@@ -93,8 +93,14 @@ class BombermaaanEnv(gym.Env):
         for _ in range(5):
             self.press(win32con.VK_RETURN)
             
-        time.sleep(2)
-            
+        while True:        
+            time.sleep(1)
+            img = ImageGrab.grab(self.window_box)
+            r, g, b = img.getpixel((60, 38))
+
+            if r == 132 and g == 132 and b == 0:
+                break
+        
         self.bomber_icon = []
         self.is_bomber_dead = []
         for i in range(0, BOMBERS):
@@ -144,7 +150,7 @@ class BombermaaanEnv(gym.Env):
                     self.victory = True
                 
                 if self.is_bomber_dead[0]:
-                    reward = -2
+                    reward = -5
                     
         self.done = self.victory or self.is_bomber_dead[0]
 
