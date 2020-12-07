@@ -8,11 +8,29 @@ from keras.models import Sequential, load_model
 from keras.layers import Conv2D, Dense, Flatten, Dropout
 from keras import backend as backend
 
-def gather_data(env):
+def create_model(env):
+
+    model = Sequential()
     
-    num_trials = 2
+    model.add(Conv2D(32, (8, 8), strides=4, input_shape=(env.height, env.width, 3), activation="relu"))
+    model.add(Conv2D(64, (4, 4), strides=2, input_shape=(env.height, env.width, 3), activation="relu"))
+    model.add(Conv2D(64, (3, 3), strides=1, input_shape=(env.height, env.width, 3), activation="relu"))
+     
+    model.add(Flatten())
+    
+    model.add(Dense(512, activation="relu"))
+    model.add(Dense(6, activation="linear"))
+
+    model.compile(loss='mse', optimizer='adam')
+    
+    return model
+
+def train(env, model):
+    
+    num_trials = 20
     sim_steps = 500
-    min_score = 0
+    min_score = 10
+    n = 0
     trainingX, trainingY = [], []
 
     if os.path.exists('score.dat'):
@@ -39,19 +57,20 @@ def gather_data(env):
                 action = np.argmax(model.predict(observation.reshape(1, env.height, env.width, 3)))
             else:
                 print('-- Random --')
-                if random.random() > 0.9:
+                if random.random() > 0.98:
                     action = random.randint(4, 5)
                 else:
                     action = random.randint(0, 3)
-                      
+            
             print('Action: {}'.format(action))
 
             one_hot_action = np.zeros(6)
-            one_hot_action[action] = reward
             training_sampleX.append(observation)
-            training_sampleY.append(one_hot_action)
             
             observation, reward, done, _ = env.step(action)
+
+            one_hot_action[action] = reward
+            training_sampleY.append(one_hot_action)
             
             score += reward
             
@@ -64,6 +83,7 @@ def gather_data(env):
             scores.append(score)
             trainingX += training_sampleX
             trainingY += training_sampleY
+            n += 1
 
     with open('score.dat', 'w') as file:
         file.write(str(min_score + 10) + '\n')
@@ -76,37 +96,15 @@ def gather_data(env):
     print('Average: {}'.format(average_score))
     print('Median: {}'.format(median_score))
             
-    return trainingX, trainingY
-
-def create_model(env):
-
-    model = Sequential()
-    model.add(Conv2D(256, (8, 8), strides=(4, 4), input_shape=(env.height, env.width, 3), activation="relu"))
-    model.add(Conv2D(128, (4, 4), strides=(2, 2), input_shape=(env.height, env.width, 3), activation="relu"))
-    model.add(Flatten())
-    model.add(Dense(256, activation="relu"))
-    model.add(Dense(32, activation="relu"))
-    model.add(Dense(6, activation="linear"))
-    model.compile(loss='mse', optimizer='adam')
-    
-    return model
-
-def main():
-    env = gym.make('bombermaaan-v0')
-
-    env.start('D:\\Programming\\Bombermaaan\\releases\\msvc16-win32\\Bombermaaan_2.1.2.2187', 'Bombermaaan.exe', '')
-    trainingX, trainingY = gather_data(env)   
-
-    # Clear keras memory?
-    #backend.clear_session()
-
     env.pause()
 
-    model = create_model(env)
-    model.fit(trainingX, trainingY, epochs=5)
-    model.save('bombermaaan.h5')
+    if (n > 5):
+        model.fit(trainingX, trainingY, epochs=5)
+        model.save('bombermaaan.h5')
 
-    env.pause()
+    env.pause()          
+
+def play(env, model):
 
     scores = []
     num_trials = 10
@@ -128,8 +126,17 @@ def main():
             if done:
                 break
         scores.append(score)
-    env.end()
 
+def main():
+
+    env = gym.make('bombermaaan-v0')
+    env.start('D:\\Programming\\Bombermaaan\\releases\\msvc16-win32\\Bombermaaan_2.1.2.2187', 'Bombermaaan.exe', '')
+
+    model = create_model(env)
+    train(env, model)   
+    play(env, model)
+
+    env.end()
     env.close()
 
     average_score = np.mean(scores)
