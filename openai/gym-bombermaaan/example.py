@@ -10,21 +10,19 @@ from keras import backend as backend
 
 def gather_data(env):
     
-    num_trials = 10
+    num_trials = 2
     sim_steps = 500
-    min_score = 0.0
+    min_score = 0
     trainingX, trainingY = [], []
 
-    score_file_name = 'score.dat'
-    if os.path.exists(score_file_name):
-        with open(score_file_name, 'r') as file:
+    if os.path.exists('score.dat'):
+        with open('score.dat', 'r') as file:
             text = file.readline()
             min_score = int(text)
-
+            
     model = None
-    model_file_name = 'bombermaaan.h5'
-    if os.path.exists(model_file_name):
-        model = load_model(model_file_name)
+    if os.path.exists('bombermaaan.h5'):
+        model = load_model('bombermaaan.h5')
 
     scores = []
     for trial in range(num_trials):
@@ -67,27 +65,27 @@ def gather_data(env):
             trainingX += training_sampleX
             trainingY += training_sampleY
 
+    with open('score.dat', 'w') as file:
+        file.write(str(min_score + 10) + '\n')
+
     trainingX, trainingY = np.array(trainingX), np.array(trainingY)
     
     average_score = np.mean(scores)
     median_score = np.median(scores)
-
-    with open(score_file_name, 'w') as the_file:
-        the_file.write(str(int(average_score)) + '\n')
     
     print('Average: {}'.format(average_score))
     print('Median: {}'.format(median_score))
-    
-    return trainingX, trainingY, len(scores)
+            
+    return trainingX, trainingY
 
 def create_model(env):
 
     model = Sequential()
-    model.add(Conv2D(32, (8, 8), strides=(4, 4), input_shape=(env.height, env.width, 3), activation="relu"))
-    model.add(Conv2D(64, (4, 4), strides=(2, 2), input_shape=(env.height, env.width, 3), activation="relu"))
-    model.add(Conv2D(64, (3, 3), strides=(1, 1), input_shape=(env.height, env.width, 3), activation="relu"))
+    model.add(Conv2D(256, (8, 8), strides=(4, 4), input_shape=(env.height, env.width, 3), activation="relu"))
+    model.add(Conv2D(128, (4, 4), strides=(2, 2), input_shape=(env.height, env.width, 3), activation="relu"))
     model.add(Flatten())
-    model.add(Dense(512, activation="relu"))
+    model.add(Dense(256, activation="relu"))
+    model.add(Dense(32, activation="relu"))
     model.add(Dense(6, activation="linear"))
     model.compile(loss='mse', optimizer='adam')
     
@@ -97,22 +95,21 @@ def main():
     env = gym.make('bombermaaan-v0')
 
     env.start('D:\\Programming\\Bombermaaan\\releases\\msvc16-win32\\Bombermaaan_2.1.2.2187', 'Bombermaaan.exe', '')
-    trainingX, trainingY, n = gather_data(env)   
+    trainingX, trainingY = gather_data(env)   
 
     # Clear keras memory?
     #backend.clear_session()
 
     env.pause()
 
-    if (n > 3):
-        model = create_model(env)
-        model.fit(trainingX, trainingY, epochs=5)
-        model.save('bombermaaan.h5')
+    model = create_model(env)
+    model.fit(trainingX, trainingY, epochs=5)
+    model.save('bombermaaan.h5')
 
     env.pause()
 
     scores = []
-    num_trials = 50
+    num_trials = 10
     sim_steps = 500
     for trial in range(num_trials):
         print('========> Trial: {}'.format(trial + 1))
