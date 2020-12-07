@@ -286,7 +286,7 @@ void CHelp::Display()
         m_pDisplay->DrawSprite(SCREEN_TEXT_POSITION_X, SCREEN_TITLE_POSITION_Y + 100, NULL, NULL, BMP_LEVEL_MINI_TILES, ITEM_ROLLER, 2, 0);
 
         m_Font.SetTextColor(FONTCOLOR_YELLOW);
-        m_Font.Draw(SCREEN_TEXT_POSITION_X + 30, SCREEN_TITLE_POSITION_Y + 100, "Increses walk speed");
+        m_Font.Draw(SCREEN_TEXT_POSITION_X + 30, SCREEN_TITLE_POSITION_Y + 100, "Increases walk speed");
 
         // Kick help
         m_pDisplay->DrawSprite(SCREEN_TEXT_POSITION_X, SCREEN_TITLE_POSITION_Y + 120, NULL, NULL, BMP_LEVEL_MINI_TILES, ITEM_KICK, 2, 0);
