@@ -27,32 +27,29 @@ def create_model(env):
 
 def train(env, model):
     
-    num_trials = 20
+    num_trials = 5
     sim_steps = 500
-    min_score = 10
+    min_score = 0
     n = 0
-    trainingX, trainingY = [], []
+    
+    training_x = []
+    training_y = []
 
-    if os.path.exists('score.dat'):
-        with open('score.dat', 'r') as file:
-            text = file.readline()
-            min_score = int(text)
-            
     model = None
     if os.path.exists('bombermaaan.h5'):
         model = load_model('bombermaaan.h5')
 
-    scores = []
     for trial in range(num_trials):
         print('========> Trial: {}'.format(trial + 1))
         observation = env.reset()
         reward = 0
         done = False
-        training_sampleX, training_sampleY = [], []        
+        sample_x = []
+        sample_y = []
         score = 0        
         for _ in range(sim_steps):            
             # Action corresponds to the previous observation so record before step
-            if (model and random.random() > 0.25):
+            if (model and random.random() > 0.05):
                 print('-- Neural network --')
                 action = np.argmax(model.predict(observation.reshape(1, env.height, env.width, 3)))
             else:
@@ -65,12 +62,12 @@ def train(env, model):
             print('Action: {}'.format(action))
 
             one_hot_action = np.zeros(6)
-            training_sampleX.append(observation)
+            sample_x.append(observation)
             
             observation, reward, done, _ = env.step(action)
 
             one_hot_action[action] = reward
-            training_sampleY.append(one_hot_action)
+            sample_y.append(one_hot_action)
             
             score += reward
             
@@ -79,34 +76,18 @@ def train(env, model):
             if done:
                 break
                 
-        if score > min_score:
-            scores.append(score)
-            trainingX += training_sampleX
-            trainingY += training_sampleY
-            n += 1
-
-    with open('score.dat', 'w') as file:
-        file.write(str(min_score + 10) + '\n')
-
-    trainingX, trainingY = np.array(trainingX), np.array(trainingY)
-    
-    average_score = np.mean(scores)
-    median_score = np.median(scores)
-    
-    print('Average: {}'.format(average_score))
-    print('Median: {}'.format(median_score))
-            
+            training_x += sample_x
+            training_y += sample_y
+              
     env.pause()
 
-    if (n > 5):
-        model.fit(trainingX, trainingY, epochs=5)
-        model.save('bombermaaan.h5')
+    model.fit(np.array(training_x), np.array(training_y), epochs=5)
+    model.save('bombermaaan.h5')
 
     env.pause()          
 
 def play(env, model):
 
-    scores = []
     num_trials = 10
     sim_steps = 500
     for trial in range(num_trials):
@@ -125,7 +106,6 @@ def play(env, model):
             
             if done:
                 break
-        scores.append(score)
 
 def main():
 

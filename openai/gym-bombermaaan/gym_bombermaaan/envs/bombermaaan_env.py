@@ -130,7 +130,7 @@ class BombermaaanEnv(gym.Env):
         elif (action == 4):
             # Place bomb
             self.press(0x58)
-            reward = 2
+            reward = 1
         elif (action == 5):
             # Detonate bomb
             self.press(0x5A)
@@ -155,12 +155,12 @@ class BombermaaanEnv(gym.Env):
                     self.victory = True
                                     
                 if self.is_bomber_dead[0]:
-                    reward = -5
+                    reward = -10
                     
         self.done = self.victory or self.is_bomber_dead[0]
 
         if self.victory:
-            reward = 10
+            reward = 20
             
         if self.done:
             time.sleep(2)
