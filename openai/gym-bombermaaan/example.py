@@ -12,9 +12,9 @@ def create_model(env):
 
     model = Sequential()
     
-    model.add(Conv2D(32, (8, 8), strides=4, input_shape=(env.height, env.width, 3), activation="relu"))
-    model.add(Conv2D(64, (4, 4), strides=2, input_shape=(env.height, env.width, 3), activation="relu"))
-    model.add(Conv2D(64, (3, 3), strides=1, input_shape=(env.height, env.width, 3), activation="relu"))
+    model.add(Conv2D(32, 8, strides=4, activation="relu", input_shape=(env.height, env.width, 3)))
+    model.add(Conv2D(64, 4, strides=2, activation="relu"))
+    model.add(Conv2D(64, 3, strides=1, activation="relu"))
      
     model.add(Flatten())
     
@@ -25,31 +25,40 @@ def create_model(env):
     
     return model
 
-def train(env, model):
+def train(env, model, eps):
     
-    num_trials = 5
+    num_trials = 20
     sim_steps = 500
-    min_score = 0
     n = 0
-    
+
     training_x = []
     training_y = []
 
     model = None
+
     if os.path.exists('bombermaaan.h5'):
         model = load_model('bombermaaan.h5')
 
+    min_score = 0.0
+    
+    if os.path.exists('score.dat'):
+        with open('score.dat', 'r') as file:
+            text = file.readline()
+            min_score = float(text)
+        
     for trial in range(num_trials):
         print('========> Trial: {}'.format(trial + 1))
+        
         observation = env.reset()
-        reward = 0
-        done = False
+        score = 0.0          
+        reward = 0.0
         sample_x = []
         sample_y = []
-        score = 0        
+        done = False
+        
         for _ in range(sim_steps):            
             # Action corresponds to the previous observation so record before step
-            if (model and random.random() > 0.05):
+            if (model and random.random() > (1.0 - eps)):
                 print('-- Neural network --')
                 action = np.argmax(model.predict(observation.reshape(1, env.height, env.width, 3)))
             else:
@@ -61,51 +70,46 @@ def train(env, model):
             
             print('Action: {}'.format(action))
 
-            one_hot_action = np.zeros(6)
             sample_x.append(observation)
             
             observation, reward, done, _ = env.step(action)
 
+            one_hot_action = np.zeros(6)            
             one_hot_action[action] = reward
-            sample_y.append(one_hot_action)
+
+            # If reward is negative takeaway previous reward as well
+            if reward < 0:
+                i = np.argmax(sample_y[-1])
+                sample_y[-1][i] = -1.0
+                    
+            sample_y.append(one_hot_action)           
             
             score += reward
             
-            print('Score = {}'.format(score))
+            print('Score = {:.1f}'.format(score))
             
             if done:
                 break
-                
+            
+        if score > min_score:
+            min_score = score
             training_x += sample_x
             training_y += sample_y
-              
+            n = n + 1
+             
     env.pause()
+    
+    if n > 0:
+        training_x = np.array(training_x)
+        training_y = np.array(training_y)
 
-    model.fit(np.array(training_x), np.array(training_y), epochs=5)
-    model.save('bombermaaan.h5')
+        if not model:
+            model = create_model(env)
+
+        model.fit(training_x, training_y, epochs=5)
+        model.save('bombermaaan.h5')
 
     env.pause()          
-
-def play(env, model):
-
-    num_trials = 10
-    sim_steps = 500
-    for trial in range(num_trials):
-        print('========> Trial: {}'.format(trial + 1))
-        observation = env.reset()
-        score = 0
-        for _ in range(sim_steps):
-            print('-- Neural network --')
-            action = np.argmax(model.predict(observation.reshape(1, env.height, env.width, 3)))
-            print('Action: {}'.format(action))
-            observation, reward, done, _ = env.step(action)
-            
-            score += reward
-            
-            print('Score = {}'.format(score))
-            
-            if done:
-                break
 
 def main():
 
@@ -113,14 +117,9 @@ def main():
     env.start('D:\\Programming\\Bombermaaan\\releases\\msvc16-win32\\Bombermaaan_2.1.2.2187', 'Bombermaaan.exe', '')
 
     model = create_model(env)
-    train(env, model)   
-    play(env, model)
+    train(env, model, 0.95)
 
-    env.end()
     env.close()
-
-    average_score = np.mean(scores)
-    print('Average: {}'.format(average_score))
 
 if __name__ == "__main__":
     main()
