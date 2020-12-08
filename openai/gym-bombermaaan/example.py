@@ -27,7 +27,7 @@ def create_model(env):
 
 def train(env, model, eps):
     
-    num_trials = 20
+    num_trials = 30
     sim_steps = 500
     n = 0
 
@@ -38,22 +38,25 @@ def train(env, model, eps):
 
     if os.path.exists('bombermaaan.h5'):
         model = load_model('bombermaaan.h5')
-
-    min_score = 0.0
     
     if os.path.exists('score.dat'):
         with open('score.dat', 'r') as file:
             text = file.readline()
             min_score = float(text)
         
+    min_score = 0.0
+    tot_score = 0.0
+    avg_score = 0.0
+    
     for trial in range(num_trials):
         print('========> Trial: {}'.format(trial + 1))
         
         observation = env.reset()
-        score = 0.0          
         reward = 0.0
         sample_x = []
         sample_y = []
+        cur_score = 0.0
+        last_action = 0
         done = False
         
         for _ in range(sim_steps):            
@@ -68,8 +71,14 @@ def train(env, model, eps):
                 else:
                     action = random.randint(0, 3)
             
-            print('Action: {}'.format(action))
+            # Override these actions
+            if last_action == 4 and action >= 4:
+                action = random.randint(0, 3)
+                
+            last_action = action
 
+            print('Action: {}'.format(action))
+            
             sample_x.append(observation)
             
             observation, reward, done, _ = env.step(action)
@@ -84,22 +93,25 @@ def train(env, model, eps):
                     
             sample_y.append(one_hot_action)           
             
-            score += reward
+            cur_score += reward
             
-            print('Score = {:.1f}'.format(score))
+            print('Current score = {:.1f}'.format(cur_score))
             
             if done:
                 break
-            
-        if score > min_score:
-            min_score = score
+        
+        if cur_score > avg_score:
+            n = n + 1
+            tot_score += cur_score
+            avg_score = tot_score / n
             training_x += sample_x
             training_y += sample_y
-            n = n + 1
-             
+
+        print('Average score = {:.1f}'.format(avg_score))
+ 
     env.pause()
     
-    if n > 0:
+    if n > 3:
         training_x = np.array(training_x)
         training_y = np.array(training_y)
 
