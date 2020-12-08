@@ -27,7 +27,7 @@ def create_model(env):
 
 def train(env, model, eps):
     
-    num_trials = 30
+    num_trials = 20
     sim_steps = 500
     n = 0
 
@@ -100,7 +100,7 @@ def train(env, model, eps):
             if done:
                 break
         
-        if cur_score > avg_score:
+        if cur_score > avg_score and cur_score > min_score:
             n = n + 1
             tot_score += cur_score
             avg_score = tot_score / n
@@ -109,6 +109,9 @@ def train(env, model, eps):
 
         print('Average score = {:.1f}'.format(avg_score))
  
+     with open('score.dat', 'w') as file:
+        file.write('{:.1f}'.format(avg_score) + '\n')
+
     env.pause()
     
     if n > 3:
