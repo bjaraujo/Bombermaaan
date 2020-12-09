@@ -25,33 +25,23 @@ def create_model(env):
     
     return model
 
-def train(env, model, eps):
+def train(env, model):
     
-    num_trials = 20
-    sim_steps = 500
-    n = 0
-
-    training_x = []
-    training_y = []
-
     model = None
 
     if os.path.exists('bombermaaan.h5'):
         model = load_model('bombermaaan.h5')
-    
-    min_score = 0.0
-    
-    if os.path.exists('score.dat'):
-        with open('score.dat', 'r') as file:
-            text = file.readline()
-            min_score = float(text)
-            
-    print('Previous minimum score = {:.1f}'.format(min_score))
 
-    for trial in range(num_trials):
+    n = 5
+    scores = [0.0] * n
+    samples_x = [None] * n
+    samples_y = [None] * n
+    
+    eps = 1.0
+    
+    for trial in range(20):
         print('========> Trial: {}'.format(trial + 1))
-        
-        observation = env.reset()
+                
         reward = 0.0
         sample_x = []
         sample_y = []
@@ -59,9 +49,11 @@ def train(env, model, eps):
         last_action = 0
         done = False
         
-        for _ in range(sim_steps):            
+        observation = env.reset()
+                    
+        for _ in range(500):            
             # Action corresponds to the previous observation so record before step
-            if (model and random.random() > (1.0 - eps)):
+            if (model and random.random() > eps):
                 print('-- Neural network --')
                 action = np.argmax(model.predict(observation.reshape(1, env.height, env.width, 3)))
             else:
@@ -87,7 +79,7 @@ def train(env, model, eps):
             one_hot_action[action] = reward
 
             # If reward is negative takeaway previous reward as well
-            if reward < 0:
+            if reward < 0 and len(sample_y) > 0:
                 i = np.argmax(sample_y[-1])
                 sample_y[-1][i] = -1.0
                     
@@ -102,46 +94,49 @@ def train(env, model, eps):
             
             if done:
                 break
+                    
+        if eps > 0.0:
+            eps -= 0.2
         
-        print('Previous minimum score = {:.1f}'.format(min_score))
+        i = np.argmin(scores)
         
-        if n == 0:
-            min_score = cur_score - 1.0
-            
-        if cur_score > min_score:
-            n = n + 1
-            min_score += 10.0
-            training_x += sample_x
-            training_y += sample_y
-        else:
-            min_score -= 5.0
-
-        print('New minimum score = {:.1f}'.format(min_score))
-             
-    with open('score.dat', 'w') as file:
-        file.write('{:.1f}'.format(min_score) + '\n')
-
+        scores[i] = cur_score
+        samples_x[i] = sample_x
+        samples_y[i] = sample_y
+    
+    print('Highest scores')
+    print(scores)
+    
     env.pause()
     
-    if n > 3:
-        training_x = np.array(training_x)
-        training_y = np.array(training_y)
+    training_x = []
+    for i in range(0, len(samples_x)):
+        if samples_x[i]:
+            training_x += samples_x[i]
 
-        if not model:
-            model = create_model(env)
+    training_y = []
+    for i in range(0, len(samples_y)):
+        if samples_y[i]:
+            training_y += samples_y[i]
+   
+    training_x = np.array(training_x)
+    training_y = np.array(training_y)
 
-        model.fit(training_x, training_y, epochs=6)
-        model.save('bombermaaan.h5')
+    if not model:
+        model = create_model(env)
+
+    model.fit(training_x, training_y, epochs=6)
+    model.save('bombermaaan.h5')
 
     env.pause()          
 
 def main():
 
     env = gym.make('bombermaaan-v0')
-    env.start('E:\\Bombermaaan\\releases\\msvc16-win32\\Bombermaaan_2.1.2.2187', 'Bombermaaan.exe', '')
+    env.start('F:\\Bombermaaan\\releases\\msvc16-win32\\Bombermaaan_2.1.2.2187', 'Bombermaaan.exe', '')
 
     model = create_model(env)
-    train(env, model, 0.95)
+    train(env, model)
 
     env.close()
 
