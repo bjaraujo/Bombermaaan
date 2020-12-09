@@ -39,15 +39,15 @@ def train(env, model, eps):
     if os.path.exists('bombermaaan.h5'):
         model = load_model('bombermaaan.h5')
     
+    min_score = 0.0
+    
     if os.path.exists('score.dat'):
         with open('score.dat', 'r') as file:
             text = file.readline()
             min_score = float(text)
-        
-    min_score = 0.0
-    tot_score = 0.0
-    avg_score = 0.0
-    
+            
+    print('Previous minimum score = {:.1f}'.format(min_score))
+
     for trial in range(num_trials):
         print('========> Trial: {}'.format(trial + 1))
         
@@ -95,22 +95,31 @@ def train(env, model, eps):
             
             cur_score += reward
             
+            if env.victory:
+                cur_score += 50.0
+            
             print('Current score = {:.1f}'.format(cur_score))
             
             if done:
                 break
         
-        if cur_score > avg_score and cur_score > min_score:
+        print('Previous minimum score = {:.1f}'.format(min_score))
+        
+        if n == 0:
+            min_score = cur_score - 1.0
+            
+        if cur_score > min_score:
             n = n + 1
-            tot_score += cur_score
-            avg_score = tot_score / n
+            min_score += 10.0
             training_x += sample_x
             training_y += sample_y
+        else:
+            min_score -= 5.0
 
-        print('Average score = {:.1f}'.format(avg_score))
- 
-     with open('score.dat', 'w') as file:
-        file.write('{:.1f}'.format(avg_score) + '\n')
+        print('New minimum score = {:.1f}'.format(min_score))
+             
+    with open('score.dat', 'w') as file:
+        file.write('{:.1f}'.format(min_score) + '\n')
 
     env.pause()
     
@@ -121,7 +130,7 @@ def train(env, model, eps):
         if not model:
             model = create_model(env)
 
-        model.fit(training_x, training_y, epochs=5)
+        model.fit(training_x, training_y, epochs=6)
         model.save('bombermaaan.h5')
 
     env.pause()          
@@ -129,7 +138,7 @@ def train(env, model, eps):
 def main():
 
     env = gym.make('bombermaaan-v0')
-    env.start('D:\\Programming\\Bombermaaan\\releases\\msvc16-win32\\Bombermaaan_2.1.2.2187', 'Bombermaaan.exe', '')
+    env.start('E:\\Bombermaaan\\releases\\msvc16-win32\\Bombermaaan_2.1.2.2187', 'Bombermaaan.exe', '')
 
     model = create_model(env)
     train(env, model, 0.95)

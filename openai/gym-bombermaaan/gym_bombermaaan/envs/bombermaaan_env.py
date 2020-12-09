@@ -115,28 +115,33 @@ class BombermaaanEnv(gym.Env):
         reward = 0.0
         
         if (action == 0):
+            # Go up
             self.press(win32con.VK_UP)
             reward = 1.0
         elif (action == 1):
+            # Go down
             self.press(win32con.VK_DOWN)
             reward = 1.0
         elif (action == 2):
+            # Go left
             self.press(win32con.VK_LEFT)
             reward = 1.0
         elif (action == 3):
+            # Go right
             self.press(win32con.VK_RIGHT)
             reward = 1.0
         elif (action == 4):
             # Place bomb
             self.press(0x58)           
-            reward = 1.0
+            reward = 2.0
         elif (action == 5):
+            # Do nothing
+            reward = 1.0
+        elif (action == 6):
             # Detonate bomb
             self.press(0x5A)
             reward = 0.0
                 
-        self.action = action
-        
         state = np.array(ImageGrab.grab(self.window_box))
 
         if not self.done:
@@ -159,9 +164,6 @@ class BombermaaanEnv(gym.Env):
                     reward = -5.0
                     
         self.done = self.victory or self.is_bomber_dead[0]
-
-        if self.victory:
-            reward = 5.0
             
         if self.done:
             time.sleep(2)
