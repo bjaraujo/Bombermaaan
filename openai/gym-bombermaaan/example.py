@@ -99,10 +99,11 @@ def train(env, model):
             eps -= 0.2
         
         i = np.argmin(scores)
-        
-        scores[i] = cur_score
-        samples_x[i] = sample_x
-        samples_y[i] = sample_y
+
+        if cur_score > scores[i]:
+            scores[i] = cur_score
+            samples_x[i] = sample_x
+            samples_y[i] = sample_y
     
     print('Highest scores')
     print(scores)
@@ -133,7 +134,7 @@ def train(env, model):
 def main():
 
     env = gym.make('bombermaaan-v0')
-    env.start('F:\\Bombermaaan\\releases\\msvc16-win32\\Bombermaaan_2.1.2.2187', 'Bombermaaan.exe', '')
+    env.start('F:\\Bombermaaan\\releases\\msvc16-win32\\Bombermaaan_2.1.2.2192', 'Bombermaaan.exe', '')
 
     model = create_model(env)
     train(env, model)
