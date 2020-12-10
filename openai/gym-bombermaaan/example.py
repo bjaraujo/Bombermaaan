@@ -1,4 +1,5 @@
 import os
+import time
 import random
 import gym
 import gym_bombermaaan
@@ -12,7 +13,7 @@ def create_model(env):
 
     model = Sequential()
     
-    model.add(Conv2D(32, 8, strides=4, activation="relu", input_shape=(env.height, env.width, 3)))
+    model.add(Conv2D(32, 8, strides=4, activation="relu", input_shape=(env.height, env.width, 1)))
     model.add(Conv2D(64, 4, strides=2, activation="relu"))
     model.add(Conv2D(64, 3, strides=1, activation="relu"))
      
@@ -39,6 +40,8 @@ def train(env, model):
     
     eps = 1.0
     
+    time.sleep(2)
+    
     for trial in range(20):
         print('========> Trial: {}'.format(trial + 1))
                 
@@ -55,7 +58,7 @@ def train(env, model):
             # Action corresponds to the previous observation so record before step
             if (model and random.random() > eps):
                 print('-- Neural network --')
-                action = np.argmax(model.predict(observation.reshape(1, env.height, env.width, 3)))
+                action = np.argmax(model.predict(observation.reshape(1, env.height, env.width, 1)))
             else:
                 print('-- Random --')
                 if random.random() > 0.98:
@@ -79,9 +82,9 @@ def train(env, model):
             one_hot_action[action] = reward
 
             # If reward is negative takeaway previous reward as well
-            if reward < 0 and len(sample_y) > 0:
+            if len(sample_y) > 0 and reward < 0:
                 i = np.argmax(sample_y[-1])
-                sample_y[-1][i] = -1.0
+                sample_y[-1][i] = reward
                     
             sample_y.append(one_hot_action)           
             

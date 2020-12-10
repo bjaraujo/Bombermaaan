@@ -7,7 +7,7 @@ import time
 import gym
 import numpy as np
 from gym import spaces
-from PIL import Image, ImageGrab 
+from PIL import Image, ImageGrab, ImageOps
 
 import logging
 logger = logging.getLogger(__name__)
@@ -42,7 +42,7 @@ class BombermaaanEnv(gym.Env):
         self.processInfo = win32process.STARTUPINFO()
         win32process.CreateProcess(os.path.join(path, exe), exe + ' ' + args, None, None, 8, 8, None, path, self.processInfo)
     
-        time.sleep(2)
+        time.sleep(3)
 
         self.whnd = win32gui.FindWindowEx(None, None, None, self.get_bombermaaan_window_title())
         self.x0, self.y0, self.x1, self.y1 = win32gui.GetWindowRect(self.whnd)
@@ -56,7 +56,7 @@ class BombermaaanEnv(gym.Env):
         self.height = self.y1 - self.y0
         
         self.action_space = spaces.Discrete(6)
-        self.observation_space = spaces.Box(low=0, high=255, shape=(self.height, self.width, 3), dtype=np.uint8)
+        self.observation_space = spaces.Box(low=0, high=255, shape=(self.height, self.width, 1), dtype=np.uint8)
         
         self.window_box = (self.x0, self.y0, self.x1, self.y1)
         
@@ -103,7 +103,7 @@ class BombermaaanEnv(gym.Env):
             self.bomber_icon.append(img)
             self.is_bomber_dead.append(False)
         
-        state = np.array(ImageGrab.grab(self.window_box))
+        state = np.array(ImageOps.grayscale(ImageGrab.grab(self.window_box))).reshape(self.height, self.width, 1)
         
         return state
     
@@ -133,7 +133,7 @@ class BombermaaanEnv(gym.Env):
         elif (action == 4):
             # Place bomb
             self.press(0x58)           
-            reward = 2.0
+            reward = 0.5
         elif (action == 5):
             # Do nothing
             reward = 1.0
@@ -141,9 +141,9 @@ class BombermaaanEnv(gym.Env):
             # Detonate bomb
             self.press(0x5A)
             reward = 0.0
-                
-        state = np.array(ImageGrab.grab(self.window_box))
-
+                               
+        state = np.array(ImageOps.grayscale(ImageGrab.grab(self.window_box))).reshape(self.height, self.width, 1)
+        
         if not self.done:
             if not self.victory:
                 alive = 0
@@ -174,4 +174,4 @@ class BombermaaanEnv(gym.Env):
         img = ImageGrab.grab(self.window_box)
         return img
    
-        
+        4
