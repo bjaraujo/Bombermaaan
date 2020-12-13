@@ -424,110 +424,110 @@ void COptions::WriteXMLData()
 {
     // Create document
     TiXmlDocument newConfig;
-    TiXmlDeclaration* decl = new TiXmlDeclaration("1.0", "UTF-8", "");
-    newConfig.LinkEndChild(decl);
+    TiXmlDeclaration decl("1.0", "UTF-8", "");
+    newConfig.LinkEndChild(&decl);
 
     // Root node
-    TiXmlElement* root = new TiXmlElement("Bombermaaan");
-    newConfig.LinkEndChild(root);
+    TiXmlElement root("Bombermaaan");
+    newConfig.LinkEndChild(&root);
 
     // Comment
-    TiXmlComment* comment = new TiXmlComment();
-    comment->SetValue(" Configuration settings for the Bombermaaan game (http://bombermaaan.sf.net/) ");
-    root->LinkEndChild(comment);
+    TiXmlComment comment = TiXmlComment();
+    comment.SetValue(" Configuration settings for the Bombermaaan game (http://bombermaaan.sf.net/) ");
+    root.LinkEndChild(&comment);
 
     // Configuration tree node - all options have this node as parent
-    TiXmlElement* config = new TiXmlElement("Configuration");
-    root->LinkEndChild(config);
+    TiXmlElement config("Configuration");
+    root.LinkEndChild(&config);
 
     //! The revision number is currently 1
-    TiXmlElement* configRev = new TiXmlElement("ConfigRevision");
-    configRev->SetAttribute("value", 1);
-    config->LinkEndChild(configRev);
+    TiXmlElement configRev("ConfigRevision");
+    configRev.SetAttribute("value", 1);
+    config.LinkEndChild(&configRev);
 
     // TimeUp (when will arena close begin)
-    TiXmlElement* configTimeUp = new TiXmlElement("TimeUp");
-    configTimeUp->SetAttribute("minutes", m_TimeUpMinutes);
-    configTimeUp->SetAttribute("seconds", m_TimeUpSeconds);
-    config->LinkEndChild(configTimeUp);
+    TiXmlElement configTimeUp("TimeUp");
+    configTimeUp.SetAttribute("minutes", m_TimeUpMinutes);
+    configTimeUp.SetAttribute("seconds", m_TimeUpSeconds);
+    config.LinkEndChild(&configTimeUp);
 
     // TimeStart (the duration of a match)
-    TiXmlElement* configTimeStart = new TiXmlElement("TimeStart");
-    configTimeStart->SetAttribute("minutes", m_TimeStartMinutes);
-    configTimeStart->SetAttribute("seconds", m_TimeStartSeconds);
-    config->LinkEndChild(configTimeStart);
+    TiXmlElement configTimeStart("TimeStart");
+    configTimeStart.SetAttribute("minutes", m_TimeStartMinutes);
+    configTimeStart.SetAttribute("seconds", m_TimeStartSeconds);
+    config.LinkEndChild(&configTimeStart);
 
     // BattleMode
-    TiXmlElement* configBattleMode = new TiXmlElement("BattleMode");
-    configBattleMode->SetAttribute("value", m_BattleMode);
-    config->LinkEndChild(configBattleMode);
+    TiXmlElement configBattleMode("BattleMode");
+    configBattleMode.SetAttribute("value", m_BattleMode);
+    config.LinkEndChild(&configBattleMode);
 
     // BattleCount
-    TiXmlElement* configBattleCount = new TiXmlElement("BattleCount");
-    configBattleCount->SetAttribute("value", m_BattleCount);
-    config->LinkEndChild(configBattleCount);
+    TiXmlElement configBattleCount("BattleCount");
+    configBattleCount.SetAttribute("value", m_BattleCount);
+    config.LinkEndChild(&configBattleCount);
 
     // LevelFileNumber
-    TiXmlElement* configLevel = new TiXmlElement("LevelFileNumber");
-    configLevel->SetAttribute("value", m_Level);
-    config->LinkEndChild(configLevel);
+    TiXmlElement configLevel("LevelFileNumber");
+    configLevel.SetAttribute("value", m_Level);
+    config.LinkEndChild(&configLevel);
 
     // DisplayMode
-    TiXmlElement* configDisplayMode = new TiXmlElement("DisplayMode");
-    configDisplayMode->SetAttribute("value", (int)m_DisplayMode);
-    config->LinkEndChild(configDisplayMode);
+    TiXmlElement configDisplayMode("DisplayMode");
+    configDisplayMode.SetAttribute("value", (int)m_DisplayMode);
+    config.LinkEndChild(&configDisplayMode);
 
     int i;
 
     // BomberTypes
-    TiXmlElement* configBomberTypes = new TiXmlElement("BomberTypes");
+    TiXmlElement configBomberTypes("BomberTypes");
     for (i = 0; i < MAX_PLAYERS; i++)
     {
         std::ostringstream oss;
         oss << "bomber" << i;
         std::string attributeName = oss.str();
-        configBomberTypes->SetAttribute(attributeName, (int)m_BomberType[i]);
+        configBomberTypes.SetAttribute(attributeName, (int)m_BomberType[i]);
     }
-    config->LinkEndChild(configBomberTypes);
+    config.LinkEndChild(&configBomberTypes);
 
     // BomberTeams
-    TiXmlElement* configBomberTeams = new TiXmlElement("BomberTeams");
+    TiXmlElement configBomberTeams("BomberTeams");
     for (i = 0; i < MAX_PLAYERS; i++)
     {
         std::ostringstream oss;
         oss << "bomber" << i;
         std::string attributeName = oss.str();
-        configBomberTeams->SetAttribute(attributeName, (int)m_BomberTeam[i]);
+        configBomberTeams.SetAttribute(attributeName, (int)m_BomberTeam[i]);
     }
-    config->LinkEndChild(configBomberTeams);
+    config.LinkEndChild(&configBomberTeams);
 
     // PlayerInputs
-    TiXmlElement* configPlayerInputs = new TiXmlElement("PlayerInputs");
+    TiXmlElement configPlayerInputs("PlayerInputs");
     for (i = 0; i < MAX_PLAYERS; i++)
     {
         std::ostringstream oss;
         oss << "bomber" << i;
         std::string attributeName = oss.str();
-        configPlayerInputs->SetAttribute(attributeName, (int)m_PlayerInput[i]);
+        configPlayerInputs.SetAttribute(attributeName, (int)m_PlayerInput[i]);
     }
-    config->LinkEndChild(configPlayerInputs);
+    config.LinkEndChild(&configPlayerInputs);
 
     // ControlList
-    TiXmlElement* configControlList = new TiXmlElement("ControlList");
+    TiXmlElement* configControlList("ControlList");
     for (unsigned int j = 0; j < MAX_PLAYER_INPUT; j++)
     {
-        TiXmlElement* configControl = new TiXmlElement("Control");
-        configControl->SetAttribute("id", j);
+        TiXmlElement configControl("Control");
+        configControl.SetAttribute("id", j);
         for (unsigned int ctrl = 0; ctrl < NUM_CONTROLS; ctrl++)
         {
             std::ostringstream oss;
             oss << "control" << ctrl;
             std::string attributeName = oss.str();
-            configControl->SetAttribute(attributeName, (int)m_Control[j][ctrl]);
+            configControl.SetAttribute(attributeName, (int)m_Control[j][ctrl]);
         }
-        configControlList->LinkEndChild(configControl);
+        configControlList.LinkEndChild(&configControl);
     }
-    config->LinkEndChild(configControlList);
+    config.LinkEndChild(&configControlList);
 
     //
     // Save file
