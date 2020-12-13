@@ -1660,7 +1660,7 @@ puis je serai en mode attaque et je vais jeter la bombe.
 
 void CAiBomber::ModeThrow()
 {
-    EEnemyDirection direction;
+    EEnemyDirection direction = ENEMYDIRECTION_UNKNOWN;
     // Determine direction where i'm throw my bomb.
     bool enemyNearFront = EnemyNearAndFront(&direction, true);
 
