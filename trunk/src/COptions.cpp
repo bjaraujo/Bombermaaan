@@ -513,7 +513,7 @@ void COptions::WriteXMLData()
     config.LinkEndChild(&configPlayerInputs);
 
     // ControlList
-    TiXmlElement* configControlList("ControlList");
+    TiXmlElement configControlList("ControlList");
     for (unsigned int j = 0; j < MAX_PLAYER_INPUT; j++)
     {
         TiXmlElement configControl("Control");
