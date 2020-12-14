@@ -1,5 +1,6 @@
 import os
 import win32process
+import win32ui
 import win32gui
 import win32api
 import win32con
@@ -7,7 +8,7 @@ import time
 import gym
 import numpy as np
 from gym import spaces
-from PIL import Image, ImageGrab, ImageOps
+from PIL import Image, ImageOps
 
 import logging
 logger = logging.getLogger(__name__)
@@ -18,7 +19,13 @@ BOMBER_ICON_W = 14
 BOMBER_ICON_H = 14
 BOMBER_OFFSET_X = 35
 
-BOMBERS = 5
+WHITE_BOMBER_RGB = (255, 248, 255)
+BLACK_BOMBER_RGB = (2, 0, 1)
+RED_BOMBER_RGB = (255, 0, 0)
+BLUE_BOMBER_RGB = (0, 72, 255)
+GREEN_BOMBER_RGB = (79, 183, 0)
+
+MAX_BOMBERS = 5
 
 class BombermaaanEnv(gym.Env):
 
@@ -28,7 +35,7 @@ class BombermaaanEnv(gym.Env):
         self.victory = False            
         self.state = None
 
-    def get_bombermaaan_window_title(self):
+    def get_bombermaaan_window(self):
         def callback(handle, data):
             text = win32gui.GetWindowText(handle)
             if text.startswith('Bombermaaan'):
@@ -44,16 +51,17 @@ class BombermaaanEnv(gym.Env):
     
         time.sleep(3)
 
-        self.whnd = win32gui.FindWindowEx(None, None, None, self.get_bombermaaan_window_title())
-        self.x0, self.y0, self.x1, self.y1 = win32gui.GetWindowRect(self.whnd)
+        self.hwnd = win32gui.FindWindowEx(None, None, None, self.get_bombermaaan_window())
+        x0, y0, x1, y1 = win32gui.GetWindowRect(self.hwnd)
 
-        self.x0 += 8
-        self.y0 += 1
-        self.x1 -= 8
-        self.y1 -= 8
+        x0 += 8
+        y0 += 1
+        x1 -= 8
+        y1 -= 8
         
-        self.score_area = (self.x0, self.y0 + 30, self.x1, self.y0 + 56)        
-        self.play_area = (self.x0, self.y0 + 56, self.x1, self.y1)
+        self.window_area = (0, 0, x1 - x0, y1 - y0)
+        self.score_area = (0, 30, x1 - x0, 56)        
+        self.play_area = (0, 56, x1 - x0, y1 - y0)
 
         self.width = 96
         self.height = 84
@@ -62,56 +70,116 @@ class BombermaaanEnv(gym.Env):
         self.observation_space = spaces.Box(low=0, high=255, shape=(self.height, self.width, 1), dtype=np.uint8)
                 
         self.head_bbox = []
-        for i in range(0, BOMBERS):
-            b = (self.x0 + BOMBER_ICON_X + BOMBER_OFFSET_X * i, \
-                 self.y0 + BOMBER_ICON_Y, \
-                 self.x0 + BOMBER_ICON_X + BOMBER_OFFSET_X * i + BOMBER_ICON_W, \
-                 self.y0 + BOMBER_ICON_Y + BOMBER_ICON_H)
+        for i in range(0, MAX_BOMBERS):
+            b = (BOMBER_ICON_X + BOMBER_OFFSET_X * i, \
+                 BOMBER_ICON_Y, \
+                 BOMBER_ICON_X + BOMBER_OFFSET_X * i + BOMBER_ICON_W, \
+                 BOMBER_ICON_Y + BOMBER_ICON_H)
             self.head_bbox.append(b)
 
-    def press(self, key):
-        win32api.PostMessage(self.whnd, win32con.WM_KEYDOWN, key, 0)
-        time.sleep(0.5)
-        win32api.PostMessage(self.whnd, win32con.WM_KEYUP, key, 0)
+    def grab_screenshot(self, box): 
     
-    def screenshot_play_area(self):
-        img = ImageOps.grayscale(ImageGrab.grab(self.play_area)).resize((self.width, self.height))
+        x0, y0, x1, y1 = win32gui.GetWindowRect(self.hwnd)
+        x0 += 8
+        y0 += 1
+        x1 -= 8
+        y1 -= 8
+        w = x1 - x0
+        h = y1 - y0
+        wDC = win32gui.GetWindowDC(self.hwnd)
+        dcObj = win32ui.CreateDCFromHandle(wDC)
+        cDC = dcObj.CreateCompatibleDC()
+        dataBitMap = win32ui.CreateBitmap()
+        dataBitMap.CreateCompatibleBitmap(dcObj, w, h)
+        cDC.SelectObject(dataBitMap)
+        cDC.BitBlt((-8, -1), (w + 8, h + 1), dcObj, (0, 0), win32con.SRCCOPY)        
+        bmpinfo = dataBitMap.GetInfo()
+        bmpstr = dataBitMap.GetBitmapBits(True)
+        
+        img = Image.frombuffer('RGB', (bmpinfo['bmWidth'], bmpinfo['bmHeight']), bmpstr, 'raw', 'BGRX', 0, 1)    
+        img = img.crop(box)
+        
+        # Free Resources
+        dcObj.DeleteDC()
+        cDC.DeleteDC()
+        win32gui.ReleaseDC(self.hwnd, wDC)
+        win32gui.DeleteObject(dataBitMap.GetHandle())
+    
         return img
         
+    def press(self, key):
+        win32api.PostMessage(self.hwnd, win32con.WM_KEYDOWN, key, 0)
+        time.sleep(0.5)
+        win32api.PostMessage(self.hwnd, win32con.WM_KEYUP, key, 0)
+    
+    def output_bombers(self):
+        for bomber in self.bombers:
+            print(bomber)
+    
     def reset(self):
 
         if self.done:
             if self.victory:
                 self.press(win32con.VK_RETURN)
+                time.sleep(0.5)
                 self.press(win32con.VK_RETURN)
-            self.press(win32con.VK_ESCAPE)
-            self.press(win32con.VK_RETURN)
+                time.sleep(0.5)
             
-        self.done = False
-        self.victory = False
-
+            self.press(win32con.VK_ESCAPE)
+            time.sleep(0.5)
+            self.press(win32con.VK_RETURN)
+            time.sleep(0.5)
+            
         for _ in range(5):
             self.press(win32con.VK_RETURN)
-            time.sleep(0.2)
-            
-        while True:        
-            img = ImageGrab.grab(self.score_area)
+            time.sleep(0.5)
+
+        t = 0
+        while True:
+            img = self.grab_screenshot(self.score_area)            
             r, g, b = img.getpixel((60, 8))
 
             if r == 132 and g == 132 and b == 0:
                 break
-
+            
             time.sleep(1)
+
+            t = t + 1
+
+            if t > 20:
+                self.reset()
         
-        self.bomber_icon = []
-        self.is_bomber_dead = []
-        for i in range(0, BOMBERS):
-            img = ImageGrab.grab(self.head_bbox[i])
-            self.bomber_icon.append(img)
-            self.is_bomber_dead.append(False)
+        img = self.grab_screenshot(self.window_area)
+        
+        self.bombers = []
+        for i in range(0, MAX_BOMBERS):
+            icon = img.crop(self.head_bbox[i])
+            rgb = icon.getpixel((5, 5))
+            
+            icon.save('bomber' + str(i) + '.png')
+            
+            color = None
+            if rgb == WHITE_BOMBER_RGB:
+                color = 'white'
+            if rgb == BLACK_BOMBER_RGB:
+                color = 'black'
+            if rgb == RED_BOMBER_RGB:
+                color = 'red'
+            if rgb == BLUE_BOMBER_RGB:
+                color = 'blue'
+            if rgb == GREEN_BOMBER_RGB:
+                color = 'green'
+        
+            if color:
+                self.bombers.append({'color': color, 'is_dead': False, 'icon': icon})
+        
+        #self.output_bombers()
+        
+        self.done = False
+        self.victory = False
+        
+        state = np.array(ImageOps.grayscale(self.grab_screenshot(self.play_area)).resize((self.width, self.height))).reshape(self.height, self.width, 1)
                 
-        state = np.array(self.screenshot_play_area()).reshape(self.height, self.width, 1)
-        
         return state
     
     def pause(self):
@@ -143,38 +211,50 @@ class BombermaaanEnv(gym.Env):
         elif (action == 5):
             # Place bomb
             self.press(0x58)           
-            reward = 2.0
+            reward = 1.0
         elif (action == 6):
             # Detonate bomb
             self.press(0x5A)
             reward = 0.0
                                
-        state = np.array(self.screenshot_play_area()).reshape(self.height, self.width, 1)
+        state = np.array(ImageOps.grayscale(self.grab_screenshot(self.play_area)).resize((self.width, self.height))).reshape(self.height, self.width, 1)
         
         if not self.done:
             if not self.victory:
+                
+                i = 0
                 alive = 0
-                for i in range(0, BOMBERS):
-                    img = ImageGrab.grab(self.head_bbox[i])
+                
+                img = self.grab_screenshot(self.window_area)
+                
+                for bomber in self.bombers:
+                    icon = img.crop(self.head_bbox[i])
                     
-                    is_dead = (img != self.bomber_icon[i])                
-                    if not is_dead:
-                        alive = alive + 1                
-
-                    self.is_bomber_dead[i] = is_dead
-            
+                    if not bomber['is_dead']:
+                        is_dead = (icon != bomber['icon'])  
+                        if is_dead:
+                            reward = reward * 2.0
+                        bomber['is_dead'] = is_dead
+                        
+                    if not bomber['is_dead']:
+                        alive = alive + 1
+                    
+                    i = i + 1
+                    
+                #self.output_bombers()
+                
                 # Check for death or win                                    
-                if self.is_bomber_dead[0]:
+                if self.bombers[0]['is_dead']:
                     reward = -5.0
                 elif alive == 1:
                     self.victory = True
                     reward = 100.0
                 
-        self.done = self.victory or self.is_bomber_dead[0]
+        self.done = self.victory or self.bombers[0]['is_dead']
                         
         return state, reward, self.done, {}
                 
     def render(self, mode='human', close=False):
 
-        img = ImageGrab.grab(self.play_area)
+        img = self.grab_screenshot(self.play_area)
         return img

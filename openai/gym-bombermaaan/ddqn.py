@@ -2,10 +2,12 @@
 #!/usr/bin/python3
 
 import os
+import time
 import random
 import gym
 import gym_bombermaaan
 import numpy as np
+import matplotlib.pyplot as plt
 from collections import deque
 from keras.models import Sequential
 from keras.layers import Conv2D, Dense, Flatten
@@ -19,10 +21,10 @@ class DQNAgent:
         self.state_size = state_size
         self.action_size = action_size
         self.memory = deque(maxlen=250)
-        self.gamma = 0.9    # discount rate
-        self.epsilon = 1.0  # exploration rate
+        self.gamma = 0.9 # discount rate
+        self.epsilon = 1.0 # exploration rate
         self.epsilon_min = 0.01
-        self.epsilon_decay = 0.95
+        self.epsilon_decay = 0.98
         self.learning_rate = 0.001
         self.model = self._build_model()
         self.target_model = self._build_model()
@@ -102,8 +104,8 @@ class DQNAgent:
 
 if __name__ == '__main__':
     env = gym.make('bombermaaan-v0')
-    env.start('E:\\Bombermaaan\\releases\\msvc16-win32\\Bombermaaan_2.1.2.2192', 'Bombermaaan.exe', '')
-
+    env.start('E:\\Programming\\Bombermaaan\\releases\\msvc16-win32\\Bombermaaan_2.1.2.2192', 'Bombermaaan.exe', '')
+    
     state_size = env.observation_space.shape    
     action_size = env.action_space.n
     agent = DQNAgent(state_size, action_size)
@@ -115,8 +117,16 @@ if __name__ == '__main__':
     batch_size = 64
     done = False
     
-    num_episodes = 50
+    num_episodes = 500
     steps = []
+    
+    plt.ion()
+    plt.show()
+    plt.xlabel('Episode')
+    plt.ylabel('Score')
+    
+    data = []
+    data.append(0)
     
     for e in range(num_episodes):
         state = env.reset()
@@ -130,7 +140,23 @@ if __name__ == '__main__':
             state = next_state
             if done:
                 print('episode: {}/{}, score: {}, e: {:.2}'.format(e + 1, num_episodes, score, agent.epsilon))
+                
+                if env.victory:
+                    print('Victory!')
+                                        
+                data.append(score)
 
+                if e < 20:
+                    plt.xticks(range(0, e + 2, 1))
+                elif e < 200:
+                    plt.xticks(range(0, e + 2, 10))
+                elif e < 2000:
+                    plt.xticks(range(0, e + 2, 100))
+                
+                plt.plot(data)
+                plt.draw()
+                plt.pause(0.01)
+    
                 env.pause()
 
                 steps.reverse()
@@ -149,5 +175,9 @@ if __name__ == '__main__':
                     agent.replay(batch_size)
 
                 break
-                        
+        
+        if e % 10 == 0:
+            agent.save('bombermaaan.h5')
+    
     agent.save('bombermaaan.h5')
+    
