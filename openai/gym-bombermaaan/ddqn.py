@@ -24,7 +24,7 @@ class DQNAgent:
         self.gamma = 0.9 # discount rate
         self.epsilon = 1.0 # exploration rate
         self.epsilon_min = 0.01
-        self.epsilon_decay = 0.98
+        self.epsilon_decay = 0.99
         self.learning_rate = 0.001
         self.model = self._build_model()
         self.target_model = self._build_model()
@@ -48,9 +48,9 @@ class DQNAgent:
         # Neural Net for Deep-Q learning Model
         model = Sequential()
         
-        model.add(Conv2D(64, 8, strides=4, activation="relu", input_shape=self.state_size))
-        model.add(Conv2D(32, 4, strides=2, activation="relu"))
-        model.add(Conv2D(32, 3, strides=1, activation="relu"))
+        model.add(Conv2D(128, 6, strides=3, activation="relu", input_shape=self.state_size))
+        model.add(Conv2D(64, 4, strides=2, activation="relu"))
+        model.add(Conv2D(32, 2, strides=1, activation="relu"))
          
         model.add(Flatten())
         
@@ -70,13 +70,23 @@ class DQNAgent:
         self.memory.append((state, action, reward, next_state, done))
 
     def act(self, state):
-        if np.random.rand() <= self.epsilon:
-            return random.randrange(self.action_size)
-        d1 = self.state_size[0]
-        d2 = self.state_size[1]
-        d3 = self.state_size[2]
-        act_values = self.model.predict(state.reshape(1, d1, d2, d3))
-        return np.argmax(act_values[0])  # returns action
+        action = 0
+        
+        if np.random.rand() < self.epsilon:
+            if np.random.rand() < 0.98:
+                action = np.random.randint(0, 5)
+            else:
+                action = 5
+        else:
+            d1 = self.state_size[0]
+            d2 = self.state_size[1]
+            d3 = self.state_size[2]
+            act_values = self.model.predict(state.reshape(1, d1, d2, d3))
+            action = np.argmax(act_values[0])  # returns action
+            
+            print(act_values)
+        
+        return action
 
     def replay(self, batch_size):
         minibatch = random.sample(self.memory, batch_size)
@@ -112,13 +122,12 @@ if __name__ == '__main__':
     
     if os.path.exists('bombermaaan.h5'):
         agent.load('bombermaaan.h5')
-        agent.epsilon = 0.5
+        agent.epsilon = 0.9
     
-    batch_size = 64
+    batch_size = 32
     done = False
     
-    num_episodes = 500
-    steps = []
+    num_episodes = 1000
     
     plt.ion()
     plt.show()
@@ -129,23 +138,34 @@ if __name__ == '__main__':
     data.append(0)
     
     for e in range(num_episodes):
+        
         state = env.reset()
-        score = 0.0
-        for time in range(250):
-            #env.render()
+        start = time.time()
+        
+        for t in range(1000):
+            
+            #img = env.render(mode = 'ai')
+            #img.save('play' + str(t) + '.png')
+            
             action = agent.act(state)
-            next_state, reward, done, _ = env.step(action)
-            score += reward
-            steps.append((state, action, reward, next_state, done))            
+            next_state, reward, done, _ = env.step(action)            
+            agent.memorize(state, action, reward, next_state, done)
             state = next_state
+
             if done:
-                print('episode: {}/{}, score: {}, e: {:.2}'.format(e + 1, num_episodes, score, agent.epsilon))
+
+                end = time.time()
+                
+                score = end - start
                 
                 if env.victory:
                     print('Victory!')
-                                        
-                data.append(score)
+                    score += 100.0
 
+                data.append(score)
+                
+                env.pause()
+                
                 if e < 20:
                     plt.xticks(range(0, e + 2, 1))
                 elif e < 200:
@@ -156,28 +176,16 @@ if __name__ == '__main__':
                 plt.plot(data)
                 plt.draw()
                 plt.pause(0.01)
-    
-                env.pause()
 
-                steps.reverse()
-                for i in range(len(steps)):
-                    state, action, reward, next_state, done = steps[i]
-                    
-                    if not env.victory and reward > 0.0 and i < 5:
-                        # discount reward 
-                        reward = -1
-                        
-                    agent.memorize(state, action, reward, next_state, done)
+                print('episode: {}/{}, score: {:.1f}, t: {}, e: {:.2f}'.format(e + 1, num_episodes, score, t, agent.epsilon))
                 
                 agent.update_target_model()
-
+                
                 if len(agent.memory) > batch_size:
                     agent.replay(batch_size)
 
                 break
         
-        if e % 10 == 0:
+        if (e + 1) % 10 == 0:
             agent.save('bombermaaan.h5')
-    
-    agent.save('bombermaaan.h5')
     
