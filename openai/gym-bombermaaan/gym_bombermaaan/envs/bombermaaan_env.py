@@ -67,7 +67,7 @@ class BombermaaanEnv(gym.Env):
         self.height = 84
                 
         self.action_space = spaces.Discrete(6)
-        self.observation_space = spaces.Box(low=0, high=255, shape=(self.height, self.width, 1), dtype=np.uint8)
+        self.observation_space = spaces.Box(low=0, high=255, shape=(self.height, self.width, 3), dtype=np.uint8)
                 
         self.head_bbox = []
         for i in range(0, MAX_BOMBERS):
@@ -134,7 +134,6 @@ class BombermaaanEnv(gym.Env):
             self.press(win32con.VK_RETURN)
             time.sleep(0.5)
 
-        t = 0
         while True:
             img = self.grab_screenshot(self.score_area)            
             r, g, b = img.getpixel((60, 8))
@@ -143,11 +142,6 @@ class BombermaaanEnv(gym.Env):
                 break
             
             time.sleep(1)
-
-            t = t + 1
-
-            if t > 20:
-                self.reset()
         
         img = self.grab_screenshot(self.window_area)
         
@@ -155,8 +149,6 @@ class BombermaaanEnv(gym.Env):
         for i in range(0, MAX_BOMBERS):
             icon = img.crop(self.head_bbox[i])
             rgb = icon.getpixel((5, 5))
-            
-            icon.save('bomber' + str(i) + '.png')
             
             color = None
             if rgb == WHITE_BOMBER_RGB:
@@ -178,7 +170,7 @@ class BombermaaanEnv(gym.Env):
         self.done = False
         self.victory = False
         
-        state = np.array(ImageOps.grayscale(self.grab_screenshot(self.play_area)).resize((self.width, self.height))).reshape(self.height, self.width, 1)
+        state = np.array(self.grab_screenshot(self.play_area).resize((self.width, self.height))).reshape(self.height, self.width, 3)
                 
         return state
     
@@ -187,37 +179,31 @@ class BombermaaanEnv(gym.Env):
 
     def step(self, action):
         
-        reward = 0.0
+        reward = 1.0
         
         if (action == 0):
             # Do nothing
-            reward = 1.0
+            self.press(0x0) # dummy key
         elif (action == 1):
             # Go up
             self.press(win32con.VK_UP)
-            reward = 1.0
         elif (action == 2):
             # Go down
             self.press(win32con.VK_DOWN)
-            reward = 1.0
         elif (action == 3):
             # Go left
             self.press(win32con.VK_LEFT)
-            reward = 1.0
         elif (action == 4):
             # Go right
             self.press(win32con.VK_RIGHT)
-            reward = 1.0
         elif (action == 5):
             # Place bomb
             self.press(0x58)           
-            reward = 1.0
         elif (action == 6):
             # Detonate bomb
             self.press(0x5A)
-            reward = 0.0
                                
-        state = np.array(ImageOps.grayscale(self.grab_screenshot(self.play_area)).resize((self.width, self.height))).reshape(self.height, self.width, 1)
+        state = np.array(self.grab_screenshot(self.play_area).resize((self.width, self.height))).reshape(self.height, self.width, 3)
         
         if not self.done:
             if not self.victory:
@@ -232,8 +218,10 @@ class BombermaaanEnv(gym.Env):
                     
                     if not bomber['is_dead']:
                         is_dead = (icon != bomber['icon'])  
-                        if is_dead:
-                            reward = reward * 2.0
+                        
+                        if is_dead and i > 0:
+                            reward += 2.0
+                        
                         bomber['is_dead'] = is_dead
                         
                     if not bomber['is_dead']:
@@ -245,16 +233,22 @@ class BombermaaanEnv(gym.Env):
                 
                 # Check for death or win                                    
                 if self.bombers[0]['is_dead']:
-                    reward = -5.0
+                    reward -= 5.0
                 elif alive == 1:
                     self.victory = True
-                    reward = 100.0
+                    reward += 10.0
                 
         self.done = self.victory or self.bombers[0]['is_dead']
                         
         return state, reward, self.done, {}
                 
     def render(self, mode='human', close=False):
-
-        img = self.grab_screenshot(self.play_area)
+        
+        img = None
+        
+        if mode == 'human':
+            img = self.grab_screenshot(self.play_area)
+        else:
+            img = self.grab_screenshot(self.play_area).resize((self.width, self.height))
+        
         return img
