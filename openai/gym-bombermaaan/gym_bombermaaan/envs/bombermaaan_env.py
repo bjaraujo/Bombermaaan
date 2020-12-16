@@ -32,7 +32,8 @@ class BombermaaanEnv(gym.Env):
     def __init__(self):
 
         self.done = False
-        self.victory = False            
+        self.victory = False
+        self.draw = False
         self.state = None
 
     def get_bombermaaan_window(self):
@@ -119,7 +120,7 @@ class BombermaaanEnv(gym.Env):
     def reset(self):
 
         if self.done:
-            if self.victory:
+            if self.victory or self.draw:
                 self.press(win32con.VK_RETURN)
                 time.sleep(0.5)
                 self.press(win32con.VK_RETURN)
@@ -169,6 +170,7 @@ class BombermaaanEnv(gym.Env):
         
         self.done = False
         self.victory = False
+        self.draw = False
         
         state = np.array(self.grab_screenshot(self.play_area).resize((self.width, self.height))).reshape(self.height, self.width, 3)
                 
@@ -206,7 +208,7 @@ class BombermaaanEnv(gym.Env):
         state = np.array(self.grab_screenshot(self.play_area).resize((self.width, self.height))).reshape(self.height, self.width, 3)
         
         if not self.done:
-            if not self.victory:
+            if not self.victory and not self.draw:
                 
                 i = 0
                 alive = 0
@@ -238,7 +240,11 @@ class BombermaaanEnv(gym.Env):
                     self.victory = True
                     reward += 10.0
                 
-        self.done = self.victory or self.bombers[0]['is_dead']
+                if alive == 0:
+                    self.draw = True
+                    reward += 5.0
+                    
+        self.done = self.victory or self.draw or self.bombers[0]['is_dead']
                         
         return state, reward, self.done, {}
                 
