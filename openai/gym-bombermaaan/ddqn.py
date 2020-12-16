@@ -48,16 +48,14 @@ class DQNAgent:
         # Neural Net for Deep-Q learning Model
         model = Sequential()
         
-        model.add(Conv2D(128, 6, strides=3, activation="relu", input_shape=self.state_size))
-        model.add(Conv2D(64, 4, strides=2, activation="relu"))
-        model.add(Conv2D(32, 2, strides=1, activation="relu"))
-         
+        model.add(Conv2D(256, 3, strides=1, activation='relu', input_shape=self.state_size))
+        model.add(Conv2D(128, 3, strides=2, activation='relu'))
+        model.add(Conv2D(64, 3, strides=3, activation='relu'))
         model.add(Flatten())
-        
-        model.add(Dense(512, activation="relu"))
-        model.add(Dense(128, activation="relu"))
-        model.add(Dense(32, activation="relu"))
-        model.add(Dense(6, activation="linear"))
+        model.add(Dense(512, activation='relu'))
+        model.add(Dense(128, activation='relu'))        
+        model.add(Dense(32, activation='relu'))
+        model.add(Dense(6, activation='linear'))
                 
         model.compile(loss=self._huber_loss, optimizer=Adam(lr=self.learning_rate))
         return model
@@ -161,6 +159,9 @@ if __name__ == '__main__':
                 if env.victory:
                     print('Victory!')
                     score += 100.0
+                elif env.draw:
+                    print('Draw!')
+                    score += 50.0
 
                 data.append(score)
                 
