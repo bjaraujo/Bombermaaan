@@ -113,7 +113,7 @@ class DQNAgent:
 
 if __name__ == '__main__':
     env = gym.make('bombermaaan-v0')
-    env.start('E:\\Programming\\Bombermaaan\\releases\\msvc16-win32\\Bombermaaan_2.1.2.2192', 'Bombermaaan.exe', '')
+    env.start('E:\\Programming\\Bombermaaan\\releases\\msvc16-win32\\Bombermaaan_2.1.4.2203', 'Bombermaaan.exe', '')
     
     state_size = env.observation_space.shape    
     action_size = env.action_space.n
