@@ -60,7 +60,7 @@ Source: ..\releases\msvc16-win32\Bombermaaan_{#APP_VERSION_INFO}\libvorbis-0.dll
 Source: ..\releases\msvc16-win32\Bombermaaan_{#APP_VERSION_INFO}\libvorbisfile-3.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\releases\msvc16-win32\Bombermaaan_{#APP_VERSION_INFO}\SDL.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\releases\msvc16-win32\Bombermaaan_{#APP_VERSION_INFO}\SDL_mixer.dll; DestDir: {app}; Flags: ignoreversion
-Source: ..\releases\msvc16-win32\Bombermaaan_{#APP_VERSION_INFO}\SDL_net.dll; DestDir: {app}; Flags: ignoreversion
+; Source: ..\releases\msvc16-win32\Bombermaaan_{#APP_VERSION_INFO}\SDL_net.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\releases\msvc16-win32\Bombermaaan_{#APP_VERSION_INFO}\smpeg.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\releases\msvc16-win32\Bombermaaan_{#APP_VERSION_INFO}\msvcp140.dll; DestDir: {app}; Flags: ignoreversion
 Source: ..\releases\msvc16-win32\Bombermaaan_{#APP_VERSION_INFO}\vcruntime140.dll; DestDir: {app}; Flags: ignoreversion

@@ -128,7 +128,7 @@ if platform.system().lower() == 'windows':
     shutil.copy2(os.environ.get('SDLMIXERDIR') + '/lib/x86/libvorbis-0.dll', strNewFolder + '/libvorbis-0.dll')
     shutil.copy2(os.environ.get('SDLMIXERDIR') + '/lib/x86/libvorbisfile-3.dll', strNewFolder + '/libvorbisfile-3.dll')
     shutil.copy2(os.environ.get('SDLMIXERDIR') + '/lib/x86/libogg-0.dll', strNewFolder + '/libogg-0.dll')
-    shutil.copy2(os.environ.get('SDLNETDIR')   + '/lib/x86/SDL_net.dll', strNewFolder + '/SDL_net.dll')
+    #shutil.copy2(os.environ.get('SDLNETDIR')   + '/lib/x86/SDL_net.dll', strNewFolder + '/SDL_net.dll')
          
     shutil.copy2(os.environ.get('SystemRoot') + '/SysWOW64/msvcp140.dll', strNewFolder + '/msvcp140.dll')
     shutil.copy2(os.environ.get('SystemRoot') + '/SysWOW64/vcruntime140.dll', strNewFolder + '/vcruntime140.dll')
@@ -181,7 +181,7 @@ if incVersion:
 
 # Create package
 if platform.system().lower() == 'windows':
-    setup = '"C:/Program Files (x86)/Inno Setup 5/iscc.exe"'
+    setup = '"C:/Program Files (x86)/Inno Setup 6/iscc.exe"'
     os.system(setup + ' installers\InstallScriptWin32.iss')
 
 elif platform.system().lower() == 'linux':
