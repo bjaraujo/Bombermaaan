@@ -1,4 +1,4 @@
-# OpenAI gym Bombermaaan
+# OpenAI gym
 
 The [Bombermaaan environment](https://github.com/bjaraujo/Bombermaaan) is an environment which supports continuous state and action spaces.
 
