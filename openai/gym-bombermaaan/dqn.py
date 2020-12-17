@@ -14,8 +14,6 @@ from keras.layers import Conv2D, Dense, Dropout, Flatten
 from keras.optimizers import Adam
 from keras import backend as K
 
-import tensorflow as tf
-
 class DQNAgent:
     def __init__(self, state_size, action_size):
         self.state_size = state_size
