@@ -8,7 +8,7 @@ import gym
 import gym_bombermaaan
 import numpy as np
 import matplotlib.pyplot as plt
-from collections import deque
+from collections import OrderedDict
 from keras.models import Sequential
 from keras.layers import Conv2D, Dense, Dropout, Flatten
 from keras.optimizers import Adam
@@ -18,7 +18,8 @@ class DQNAgent:
     def __init__(self, state_size, action_size):
         self.state_size = state_size
         self.action_size = action_size
-        self.memory = deque(maxlen=1024)
+        self.memory = []
+        self.memory_size = 20
         self.gamma = 0.9 # discount rate
         self.epsilon = 1.0 # exploration rate
         self.epsilon_min = 0.01
@@ -82,19 +83,61 @@ class DQNAgent:
             
         return action
 
-    def memorize(self, state, action, reward):
-        self.memory.append((state, action, reward))
+    def memorize_data(self, data):
 
+        m = {'score': score, 'data': []}
+
+        for state, action, reward in data:
+            m['data'].append((state, action, reward))
+       
+        self.memory.append(m)
+                
+    def memorize(self, score, data):
+        
+        memory_change = False
+        
+        if len(self.memory) < self.memory_size:
+        
+            self.memorize_data(data)
+            
+        else:
+            
+            min_score = self.memory[0]['score']
+            min_index = -1
+            
+            for i in range(len(self.memory)):
+                if self.memory[i]['score'] < min_score:
+                    min_score = self.memory[i]['score']
+                    min_index = i
+            
+            print('minimum score: {:.1f}'.format(min_score))
+            
+            if score > min_score:
+                self.memory.pop(min_index)
+                self.memorize_data(data)        
+                memory_change = True
+
+            avg_score = 0.0
+            for i in range(len(self.memory)):
+                avg_score += self.memory[i]['score']
+
+            avg_score /= len(self.memory)
+
+            print('average score: {:.1f}'.format(avg_score))
+        
+        return memory_change
+        
     def train(self):
         
         states = []
         actions = []
         
-        for state, action, reward in self.memory:
-            action_values = np.zeros(6)            
-            action_values[action] = reward
-            states.append(state)
-            actions.append(action_values)
+        for i in range(len(self.memory)):
+            for state, action, reward in self.memory[i]['data']:
+                action_values = np.zeros(6)            
+                action_values[action] = reward
+                states.append(state)
+                actions.append(action_values)
             
         states = np.array(states)
         actions = np.array(actions)
@@ -113,7 +156,7 @@ class DQNAgent:
 
 if __name__ == '__main__':
     env = gym.make('bombermaaan-v0')
-    env.start('E:\\Programming\\Bombermaaan\\releases\\msvc16-win32\\Bombermaaan_2.1.4.2203', 'Bombermaaan.exe', '')
+    env.start('E:\\Programming\\Bombermaaan\\releases\\msvc16-win32\\Bombermaaan_2.1.4.2204', 'Bombermaaan.exe', '')
     
     state_size = env.observation_space.shape    
     action_size = env.action_space.n
@@ -141,21 +184,18 @@ if __name__ == '__main__':
         state = env.reset()
         start = time.time()
         
-        history = []
+        data = []
         
         for t in range(1000):
             
             #img = env.render(mode = 'ai')
             #img.save('play' + str(t) + '.png')
             
-            if e % 5 == 0:
-                action = agent.random_act()
-            else:
-                action = agent.act(state)
+            action = agent.act(state)
             
             next_state, reward, done, _ = env.step(action)  
 
-            history.append((state, action, reward))
+            data.append((state, action, reward))
                         
             state = next_state
 
@@ -189,10 +229,7 @@ if __name__ == '__main__':
 
                 print('episode: {}/{}, score: {:.1f}, t: {}, e: {:.2f}'.format(e + 1, num_episodes, score, t, agent.epsilon))
 
-                if score > np.mean(scores) or len(scores) < 10:
-                    for state, action, reward in history:                    
-                        agent.memorize(state, action, reward)                
-
+                if agent.memorize(score, data):
                     agent.train()
                     
                 break
