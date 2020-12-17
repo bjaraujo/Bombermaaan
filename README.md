@@ -174,7 +174,7 @@ Crashes dumps are stored in:
 
 ## OpenAI gym
 
-Bombermaaan provides a openai gym environment to train neural networks. The source code can be found in the openai directory.
+Bombermaaan provides an openai gym environment to train neural networks on Windows machines. The source code can be found in the openai directory.
 For more information about openai gym, please visit:
 
 https://gym.openai.com/
