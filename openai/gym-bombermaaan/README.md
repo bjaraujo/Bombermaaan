@@ -9,8 +9,8 @@ The bombermaaan environment state is the 84x96 pixels RGB and the actions space 
 - 1: Go up
 - 2: Go down
 - 3: Go left
-- 3: Go right
-- 4: Place bomb
+- 4: Go right
+- 5: Place bomb
 
 # Installation
 
