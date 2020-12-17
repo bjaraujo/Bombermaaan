@@ -1,7 +1,5 @@
 # OpenAI gym
 
-The [Bombermaaan environment](https://github.com/bjaraujo/Bombermaaan) is an environment which supports continuous state and action spaces.
-
 ## Bombermaaan
 
 The bombermaaan environment state is the 84x96 pixels RGB and the actions space size is 6:
