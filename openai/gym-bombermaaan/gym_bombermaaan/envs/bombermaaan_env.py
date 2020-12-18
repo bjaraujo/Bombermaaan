@@ -64,8 +64,8 @@ class BombermaaanEnv(gym.Env):
         self.score_area = (0, 30, x1 - x0, 56)        
         self.play_area = (0, 56, x1 - x0, y1 - y0)
 
-        self.width = 96
-        self.height = 84
+        self.width = x1 - x0
+        self.height = y1 - y0
                 
         self.action_space = spaces.Discrete(6)
         self.observation_space = spaces.Box(low=0, high=255, shape=(self.height, self.width, 3), dtype=np.uint8)
@@ -172,7 +172,7 @@ class BombermaaanEnv(gym.Env):
         self.victory = False
         self.draw = False
         
-        state = np.array(self.grab_screenshot(self.play_area).resize((self.width, self.height))).reshape(self.height, self.width, 3)
+        state = np.array(self.grab_screenshot(self.play_area))
                 
         return state
     
@@ -205,7 +205,7 @@ class BombermaaanEnv(gym.Env):
             # Detonate bomb
             self.press(0x5A)
                                
-        state = np.array(self.grab_screenshot(self.play_area).resize((self.width, self.height))).reshape(self.height, self.width, 3)
+        state = np.array(self.grab_screenshot(self.play_area))
         
         if not self.done:
             if not self.victory and not self.draw:
@@ -254,7 +254,5 @@ class BombermaaanEnv(gym.Env):
         
         if mode == 'human':
             img = self.grab_screenshot(self.play_area)
-        else:
-            img = self.grab_screenshot(self.play_area).resize((self.width, self.height))
         
         return img
