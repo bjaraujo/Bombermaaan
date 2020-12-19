@@ -80,13 +80,13 @@ void CPlayerInput::CreateName()
     if (m_PlayerInput < NUMBER_OF_KEYBOARD_CONFIGURATIONS)
     {
         // Make a name for the specified keyboard configuration
-        sprintf(m_Name, "KEYBOARD %d", m_PlayerInput + 1);
+        sprintf(m_Name, "KEYBOARD %hu", m_PlayerInput + 1);
     }
     // If the player input is a joystick
     else
     {
         // Make a name for the specified joystick configuration
-        sprintf(m_Name, "JOYSTICK %d", m_PlayerInput - NUMBER_OF_KEYBOARD_CONFIGURATIONS + 1);
+        sprintf(m_Name, "JOYSTICK %hu", m_PlayerInput - NUMBER_OF_KEYBOARD_CONFIGURATIONS + 1);
     }
 }
 

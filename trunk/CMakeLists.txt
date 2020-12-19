@@ -25,7 +25,7 @@ set(GRAPHICS_LIBRARY_OPTION_VALUES "SDL" "Alegro" "DirectX")
 set_property(CACHE GRAPHICS_LIBRARY_OPTION PROPERTY STRINGS ${GRAPHICS_LIBRARY_OPTION_VALUES})
 
 list(FIND GRAPHICS_LIBRARY_OPTION_VALUES ${GRAPHICS_LIBRARY_OPTION} GRAPHICS_LIBRARY_OPTION_INDEX)
-
+    
 if(${GRAPHICS_LIBRARY_OPTION_INDEX} EQUAL 0)
   message("Use SDL only")
   set(USE_SDL ON INTERNAL FORCE) 
@@ -40,9 +40,16 @@ endif()
 set(ENABLE_LOG OFF CACHE BOOL "Enable logging")
 set(ENABLE_DEBUG_LOG OFF CACHE BOOL "Enable debug logging")
 set(ENABLE_DEBUG_KEYS OFF CACHE BOOL "Enable debug keys")
+set(ENABLE_ASAN OFF CACHE BOOL "Enable asan support")
 set(LOAD_RESOURCES_FROM_FILES ON CACHE BOOL "Load resources from files")
 set(NETWORK_MODE OFF CACHE BOOL "Network mode")
 set(CRASH_REPORT OFF CACHE BOOL "Crash report")
+
+if(ENABLE_ASAN)
+  # AddressSanitizer
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O1 -fsanitize=address -fno-omit-frame-pointer -fno-optimize-sibling-calls")
+  set(CMAKE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS} -fsanitize=address -fno-omit-frame-pointer")
+endif() 
 
 add_subdirectory(dep)
 
