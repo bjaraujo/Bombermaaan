@@ -108,8 +108,7 @@ class DQNetwork:
 
         # Log loss and accuracy
         if self.logger is not None:
-            self.logger.to_csv(self.training_history_csv,
-                               [h.history['loss'][0], h.history['acc'][0]])
+            self.logger.to_csv(self.training_history_csv, [h.history['loss'][0], h.history['acc'][0]])
 
     def predict(self, state):
         """

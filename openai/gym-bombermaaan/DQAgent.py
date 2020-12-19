@@ -1,3 +1,5 @@
+import time
+import datetime
 import numpy as np
 from DQNetwork import DQNetwork
 from random import random, randrange, randint
@@ -18,6 +20,8 @@ class DQAgent:
                  load_path=None,
                  logger=None):
 
+        self.start_time = time.time()
+        
         # Parameters
         self.network_input_shape = network_input_shape  # Shape of the DQN input
         self.actions = actions  # Size of the discrete action space
@@ -116,10 +120,13 @@ class DQAgent:
                                  'reward': reward,
                                  'dest': dest,
                                  'final': final})
+
         # Periodically log how many samples we've gathered so far
         if (len(self.experiences) % 100 == 0) and (len(self.experiences) < self.replay_memory_size) and (self.logger is not None):
-            self.logger.log("Gathered %d samples of %d" %
-                            (len(self.experiences), self.replay_memory_size))
+            self.logger.log("Gathered %d samples of %d" % (len(self.experiences), self.replay_memory_size))
+            t = (time.time() - self.start_time) * (self.replay_memory_size - len(self.experiences)) / (len(self.experiences) + 1)            
+            self.logger.log("Estimated time left to gather all samples: %s" % (str(datetime.timedelta(seconds=t))))
+            
 
     def sample_batch(self):
         """

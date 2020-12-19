@@ -198,6 +198,7 @@ if args.train:
 
             # Log episode data in the training csv
             if done or t == args.max_episode_length - 1:
+                env.pause()
                 logger.to_csv(training_csv, [t, score])
                 logger.log("Length: %d; Score: %d\n" % (t + 1, score))
                 break
