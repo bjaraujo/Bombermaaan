@@ -159,7 +159,7 @@ if args.train:
 
             # Select an action using the DQA
             action = DQA.get_action(np.asarray([current_state]))
-
+            
             # Observe reward and next state
             obs, reward, done, info = env.step(action)
             obs = utils.preprocess_observation(obs)

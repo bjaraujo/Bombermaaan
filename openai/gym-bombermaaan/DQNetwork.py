@@ -104,11 +104,11 @@ class DQNetwork:
         h = self.model.fit(x_train,
                            t_train,
                            batch_size=self.minibatch_size,
-                           nb_epoch=1)
+                           epochs=1)
 
         # Log loss and accuracy
         if self.logger is not None:
-            self.logger.to_csv(self.training_history_csv, [h.history['loss'][0], h.history['acc'][0]])
+            self.logger.to_csv(self.training_history_csv, [h.history['loss'][0], h.history['accuracy'][0]])
 
     def predict(self, state):
         """

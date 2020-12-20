@@ -135,7 +135,7 @@ class DQAgent:
         :return: a batch of SARS' tuples
         """
         batch = []
-        for i in xrange(self.minibatch_size):
+        for i in range(self.minibatch_size):
             batch.append(self.experiences[randrange(0, len(self.experiences))])
         return np.asarray(batch)
 

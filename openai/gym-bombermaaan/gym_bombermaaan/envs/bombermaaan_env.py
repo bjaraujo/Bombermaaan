@@ -109,9 +109,9 @@ class BombermaaanEnv(gym.Env):
         return img
         
     def press(self, key, dt=0.5):
-        win32api.PostMessage(self.hwnd, win32con.WM_KEYDOWN, key, 0)
+        win32api.SendMessage(self.hwnd, win32con.WM_KEYDOWN, key, 0)
         time.sleep(dt)
-        win32api.PostMessage(self.hwnd, win32con.WM_KEYUP, key, 0)
+        win32api.SendMessage(self.hwnd, win32con.WM_KEYUP, key, 0)
     
     def output_bombers(self):
         for bomber in self.bombers:
@@ -122,16 +122,14 @@ class BombermaaanEnv(gym.Env):
         if self.done:
             if self.victory or self.draw:
                 self.press(win32con.VK_RETURN, 0.1)
-                time.sleep(1.0)
+                time.sleep(0.5)
                 self.press(win32con.VK_RETURN, 0.1)
-                time.sleep(1.0)
+                time.sleep(0.5)
             
             self.press(win32con.VK_ESCAPE, 0.1)
-            time.sleep(1.0)
+            time.sleep(0.5)
             self.press(win32con.VK_RETURN, 0.1)
-            time.sleep(1.0)
-
-        time.sleep(2.0)
+            time.sleep(0.5)
             
         for _ in range(5):
             time.sleep(0.5)
