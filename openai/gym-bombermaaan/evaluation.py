@@ -6,12 +6,12 @@ import utils
 max_mean_score = 0
 
 
-def evaluate(DQA, args, logger):
+def evaluate(DQA, args, logger, env):
     global max_mean_score
 
     evaluation_csv = 'evaluation.csv'
     logger.to_csv(evaluation_csv, 'length,score')
-    env = gym.make(args.environment)
+    
     scores = list()
     frame_counter = 0
 

@@ -14,6 +14,9 @@ def exit_handler():
     global DQA
     DQA.quit()
 
+BOMBERMAAAN_PATH = 'E:\\Programming\\Bombermaaan\\releases\\msvc16-win32\\Bombermaaan_2.1.4.2204'
+BOMBERMAAAN_EXE = 'Bombermaaan.exe'
+
 IMG_SIZE = (96, 84)
 utils.IMG_SIZE = IMG_SIZE
 
@@ -97,7 +100,7 @@ test_states = []
 
 # Setup
 env = gym.make(args.environment)
-env.start('E:\\Programming\\Bombermaaan\\releases\\msvc16-win32\\Bombermaaan_2.1.4.2204', 'Bombermaaan.exe', '')
+env.start(BOMBERMAAAN_PATH, BOMBERMAAAN_EXE, '')
 
 network_input_shape = (4, 84, 96)  # Dimension ordering: 'th' (channels first)
 DQA = DQAgent(env.action_space.n,
@@ -207,7 +210,7 @@ if args.train:
 
             # Evaluate the agent's performance
             if frame_counter % args.test_freq == 0:
-                t_evaluation, score_evaluation = evaluate(DQA, args, logger)
+                t_evaluation, score_evaluation = evaluate(DQA, args, logger, env)
                 # Log evaluation data
                 logger.to_csv(eval_csv, [t_evaluation, score_evaluation])
 
