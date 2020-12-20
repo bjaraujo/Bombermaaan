@@ -132,8 +132,7 @@ class BombermaaanEnv(gym.Env):
             time.sleep(0.5)
             
         for _ in range(5):
-            time.sleep(0.5)
-            self.press(win32con.VK_RETURN, 0.25)
+            self.press(win32con.VK_RETURN, 0.5)
 
         while True:
             img = self.grab_screenshot(self.score_area)            
