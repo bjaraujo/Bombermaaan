@@ -32,8 +32,6 @@ class BombermaaanEnv(gym.Env):
     def __init__(self):
 
         self.done = False
-        self.victory = False
-        self.draw = False
         self.state = None
 
     def get_bombermaaan_window(self):
@@ -120,11 +118,10 @@ class BombermaaanEnv(gym.Env):
     def reset(self):
 
         if self.done:
-            if self.victory or self.draw:
-                self.press(win32con.VK_RETURN, 0.1)
-                time.sleep(0.5)
-                self.press(win32con.VK_RETURN, 0.1)
-                time.sleep(0.5)
+            self.press(win32con.VK_RETURN, 0.1)
+            time.sleep(0.5)
+            self.press(win32con.VK_RETURN, 0.1)
+            time.sleep(0.5)
             
             self.press(win32con.VK_ESCAPE, 0.1)
             time.sleep(0.5)
@@ -134,7 +131,9 @@ class BombermaaanEnv(gym.Env):
         for _ in range(5):
             self.press(win32con.VK_RETURN, 0.5)
 
-        while True:
+        time.sleep(0.5)
+
+        while True:            
             img = self.grab_screenshot(self.score_area)            
             r, g, b = img.getpixel((60, 8))
 
@@ -142,6 +141,7 @@ class BombermaaanEnv(gym.Env):
                 break
             
             time.sleep(0.25)
+            self.press(win32con.VK_RETURN, 0.5)
         
         img = self.grab_screenshot(self.window_area)
         
@@ -180,7 +180,7 @@ class BombermaaanEnv(gym.Env):
 
     def step(self, action):
         
-        reward = 1.0
+        reward = 0.25
         
         if (action == 0):
             # Do nothing
@@ -207,44 +207,42 @@ class BombermaaanEnv(gym.Env):
         state = np.array(self.grab_screenshot(self.play_area))
         
         if not self.done:
-            if not self.victory and not self.draw:
                 
-                i = 0
-                alive = 0
+            i = 0
+            alive = 0
+            
+            img = self.grab_screenshot(self.window_area)
+            
+            for bomber in self.bombers:
+                icon = img.crop(self.head_bbox[i])
                 
-                img = self.grab_screenshot(self.window_area)
-                
-                for bomber in self.bombers:
-                    icon = img.crop(self.head_bbox[i])
+                if not bomber['is_dead']:
+                    is_dead = (icon != bomber['icon'])  
+                                            
+                    bomber['is_dead'] = is_dead
                     
-                    if not bomber['is_dead']:
-                        is_dead = (icon != bomber['icon'])  
-                        
-                        if is_dead and i > 0:
-                            reward += 2.0
-                        
-                        bomber['is_dead'] = is_dead
-                        
-                    if not bomber['is_dead']:
-                        alive = alive + 1
-                    
-                    i = i + 1
-                    
-                #self.output_bombers()
+                if not bomber['is_dead']:
+                    alive = alive + 1
                 
-                # Check for death or win                                    
-                if self.bombers[0]['is_dead']:
-                    reward -= 5.0
-                elif alive == 1:
-                    self.victory = True
-                    reward += 10.0
+                i = i + 1
                 
-                if alive == 0:
-                    self.draw = True
-                    reward += 5.0
-                    
-        self.done = self.victory or self.draw or self.bombers[0]['is_dead']
-                        
+            #self.output_bombers()
+            
+            # Check for loss
+            if self.bombers[0]['is_dead'] and alive > 0:
+                self.done = True
+                reward = -1.0
+
+            # Check for draw
+            if self.bombers[0]['is_dead'] and alive == 0:
+                self.done = True
+                reward = 0.5
+                
+            # Check for for win
+            if not self.bombers[0]['is_dead'] and alive == 1:
+                self.done = True
+                reward = 1.0
+                         
         return state, reward, self.done, {}
                 
     def render(self, mode='human', close=False):

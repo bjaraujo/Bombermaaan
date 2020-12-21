@@ -1,4 +1,5 @@
 import os
+import time
 import argparse
 import atexit
 import gym
@@ -135,6 +136,9 @@ logger.to_csv(test_csv, 'avg_score,avg_Q')
 episode = 0
 frame_counter = 0
 
+train_agent = False
+evaluate_agent = False
+
 if args.train:
     # Main loop
     while episode < args.max_episodes:
@@ -161,8 +165,9 @@ if args.train:
                 env.render()
 
             # Select an action using the DQA
-            action = DQA.get_action(np.asarray([current_state]))
-                
+            action = DQA.get_action(np.asarray([current_state]))            
+            #print(action)
+            
             # Observe reward and next state
             obs, reward, done, info = env.step(action)
             obs = utils.preprocess_observation(obs)
@@ -178,52 +183,61 @@ if args.train:
                                np.asarray([next_state]),
                                done)
 
-            # Train the agent
-            if t % args.update_freq == 0 and len(DQA.experiences) >= args.replay_start_size:
-                DQA.train()
-                # Every C DQN updates, update DQN_target
-                if DQA.training_count % args.target_network_update_freq == 0 and DQA.training_count >= args.target_network_update_freq:
-                    DQA.reset_target_network()
-                # Log the mean score and mean Q values of test states
-                if DQA.training_count % args.avg_val_computation_freq == 0 and DQA.training_count >= args.avg_val_computation_freq:
-                    logger.to_csv(test_csv,
-                                  [np.mean(test_scores), np.mean(test_mean_q)])
-                    del test_scores[:]
-                    del test_mean_q[:]
-
-            # Linear epsilon annealing
-            if len(DQA.experiences) >= args.replay_start_size:
-                DQA.update_epsilon()
-
             # Update the current state and score
             current_state = next_state
             score += reward
 
-            # Log episode data in the training csv
+            if t % args.update_freq == 0:
+                train_agent = True
+
+            if frame_counter % args.test_freq == 0:
+                evaluate_agent = True
+
             if done or t == args.max_episode_length - 1:
                 env.pause()
+
+                # Train the agent
+                if train_agent and len(DQA.experiences) >= args.replay_start_size:
+                    train_agent = False
+                    DQA.train()
+                    # Every C DQN updates, update DQN_target
+                    if DQA.training_count % args.target_network_update_freq == 0 and DQA.training_count >= args.target_network_update_freq:
+                        DQA.reset_target_network()
+                    # Log the mean score and mean Q values of test states
+                    if DQA.training_count % args.avg_val_computation_freq == 0 and DQA.training_count >= args.avg_val_computation_freq:
+                        logger.to_csv(test_csv, [np.mean(test_scores), np.mean(test_mean_q)])
+                        del test_scores[:]
+                        del test_mean_q[:]
+
+                # Linear epsilon annealing
+                if len(DQA.experiences) >= args.replay_start_size:
+                    DQA.update_epsilon()
+
+                # Log episode data in the training csv
                 logger.to_csv(training_csv, [t, score])
                 logger.log("Length: %d; Score: %d\n" % (t + 1, score))
+
+                # Evaluate the agent's performance
+                if evaluate_agent:
+                    evaluate_agent = False
+                    t_evaluation, score_evaluation = evaluate(DQA, args, logger, env)
+                    # Log evaluation data
+                    logger.to_csv(eval_csv, [t_evaluation, score_evaluation])
+
+                # Hold out a set of test states to monitor the mean Q value
+                if len(test_states) < args.test_states:
+                    # Generate test states
+                    for _ in range(random.randint(1, 5)):
+                        test_states.append(DQA.get_random_state())
+                else:
+                    # Update scores and mean Q values
+                    test_scores.append(score)
+                    test_q_values = [DQA.get_max_q(state) for state in test_states]
+                    test_mean_q.append(np.mean(test_q_values))
+
                 break
-
+                
             t += 1
-
-            # Evaluate the agent's performance
-            if frame_counter % args.test_freq == 0:
-                t_evaluation, score_evaluation = evaluate(DQA, args, logger, env)
-                # Log evaluation data
-                logger.to_csv(eval_csv, [t_evaluation, score_evaluation])
-
-            # Hold out a set of test states to monitor the mean Q value
-            if len(test_states) < args.test_states:
-                # Generate test states
-                for _ in range(random.randint(1, 5)):
-                    test_states.append(DQA.get_random_state())
-            else:
-                # Update scores and mean Q values
-                test_scores.append(score)
-                test_q_values = [DQA.get_max_q(state) for state in test_states]
-                test_mean_q.append(np.mean(test_q_values))
 
         episode += 1
 
