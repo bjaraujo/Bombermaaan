@@ -180,7 +180,7 @@ class BombermaaanEnv(gym.Env):
 
     def step(self, action):
         
-        reward = 0.1
+        reward = 0.2
         
         if (action == 0):
             # Do nothing
