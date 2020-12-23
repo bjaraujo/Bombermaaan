@@ -50,7 +50,7 @@ def evaluate(DQA, args, logger, env):
             if done or t > args.max_episode_length:
                 episode += 1
                 print('Episode %d end\n---------------\nFrame counter: %d\n' % (episode, frame_counter))
-                print('Length: %d, Score: %d\n\n' % (t, score))
+                print('Length: %d, Score: %.1f\n\n' % (t, score))
                 # Save episode data in the evaluation csv
                 logger.to_csv(evaluation_csv, [t, score])
                 break

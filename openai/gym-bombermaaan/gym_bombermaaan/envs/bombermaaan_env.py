@@ -180,7 +180,7 @@ class BombermaaanEnv(gym.Env):
 
     def step(self, action):
         
-        reward = 0.2
+        reward = 0.5
         
         if (action == 0):
             # Do nothing
@@ -239,7 +239,7 @@ class BombermaaanEnv(gym.Env):
             # Check for for win
             if not self.bombers[0]['is_dead'] and alive == 1:
                 self.done = True
-                reward = 20.0
+                reward = 100.0
                          
         return state, reward, self.done, {}
                 

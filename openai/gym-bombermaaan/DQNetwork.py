@@ -67,13 +67,13 @@ class DQNetwork:
                            metrics=['accuracy'])
 
     def train(self, batch, DQN_target):
-        """
+        '''
         Generates inputs and targets from the given batch, trains the model on
         them.
         :param batch: iterable of dictionaries with keys 'source', 'action',
         'dest', 'reward'
         :param DQN_target: a DQNetwork instance to generate targets
-        """
+        '''
         x_train = []
         t_train = []
 
@@ -111,31 +111,31 @@ class DQNetwork:
             self.logger.to_csv(self.training_history_csv, [h.history['loss'][0], h.history['accuracy'][0]])
 
     def predict(self, state):
-        """
+        '''
         Feeds state to the model, returns predicted Q-values.
         :param state: a numpy.array with same shape as the network's input
         :return: numpy.array with predicted Q-values
-        """
+        '''
         state = state.astype(np.float64)
         return self.model.predict(state, batch_size=1)
 
     def save(self, filename=None, append=''):
-        """
+        '''
         Saves the model weights to disk.
-        :param filename: file to which save the weights (must end with ".h5")
-        :param append: suffix to append after "model" in the default filename
+        :param filename: file to which save the weights (must end with '.h5')
+        :param append: suffix to append after 'model' in the default filename
             if no filename is given
-        """
+        '''
         f = ('model%s.h5' % append) if filename is None else filename
         if self.logger is not None:
             self.logger.log('Saving model as %s' % f)
         self.model.save_weights(self.logger.path + f)
 
     def load(self, path):
-        """
+        '''
         Loads the model's weights from path.
         :param path: h5 file from which to load teh weights
-        """
+        '''
         if self.logger is not None:
             self.logger.log('Loading weights from file...')
         self.model.load_weights(path)

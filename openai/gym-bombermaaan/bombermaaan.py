@@ -155,6 +155,9 @@ if args.train:
         # Main episode loop
         t = 0
         frame_counter += 1
+        
+        DQA.reset(episode)
+        
         while t < args.max_episode_length:
             # Stop the episode if it takes too long
             if frame_counter > args.max_frames_number:
@@ -165,8 +168,7 @@ if args.train:
                 env.render()
 
             # Select an action using the DQA
-            action = DQA.get_action(np.asarray([current_state]))            
-            #print(action)
+            action = DQA.get_action(np.asarray([current_state]))
             
             # Observe reward and next state
             obs, reward, done, info = env.step(action)
@@ -186,7 +188,7 @@ if args.train:
             # Update the current state and score
             current_state = next_state
             score += reward
-
+            
             if t % args.update_freq == 0:
                 train_agent = True
 
@@ -196,6 +198,8 @@ if args.train:
             if done or t == args.max_episode_length - 1:
                 env.pause()
 
+                DQA.add_score(episode, score)
+                                    
                 # Train the agent
                 if train_agent and len(DQA.experiences) >= args.replay_start_size:
                     train_agent = False
@@ -215,7 +219,7 @@ if args.train:
 
                 # Log episode data in the training csv
                 logger.to_csv(training_csv, [t, score])
-                logger.log("Length: %d; Score: %d\n" % (t + 1, score))
+                logger.log("Length: %d; Score: %.1f\n" % (t + 1, score))
 
                 # Evaluate the agent's performance
                 if evaluate_agent:
@@ -234,6 +238,9 @@ if args.train:
                     test_scores.append(score)
                     test_q_values = [DQA.get_max_q(state) for state in test_states]
                     test_mean_q.append(np.mean(test_q_values))
+
+                # List GA agents table
+                DQA.list_agents()
 
                 break
                 
