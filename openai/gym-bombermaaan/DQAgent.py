@@ -82,6 +82,7 @@ class DQAgent:
     def add_score(self, episode, score):
         self.QAA[episode % len(self.QAA)].add_score(score)
         self.reproduce_agents()
+        self.enhance_agents()
 
     def get_action(self, state, testing=False, force_random=False):
         '''
@@ -100,6 +101,12 @@ class DQAgent:
         else:
             q_values = self.DQN.predict(state)
             return np.argmax(q_values)
+
+    def set_reward(self, reward):
+        self.QAA[self.cur_ga_agent].set_reward(reward)
+
+    def step(self):
+        self.QAA[self.cur_ga_agent].step()
 
     def get_max_q(self, state):
         '''
@@ -195,18 +202,22 @@ class DQAgent:
             if score:
                 scores[i] = score
         
-        if len(scores) > 6:
+        if len(scores) >= 9:
             min_score_index = min(scores, key=scores.get)
             max_score_index_1st = max(scores, key=scores.get)
             del scores[max_score_index_1st]
             max_score_index_2nd = max(scores, key=scores.get)
-                
-            if self.QAA[min_score_index].nb_games > 0:
+            
+            if self.QAA[min_score_index].nb_games > 2:
                 print('Selecting GA agents %d and %d' % (max_score_index_1st, max_score_index_2nd))
                 new_agent = self.QAA[max_score_index_1st].mate_with(self.QAA[max_score_index_2nd], 0.95) 
                 print('Dropping GA agent %d' % (min_score_index))
                 self.QAA[min_score_index] = new_agent
-        
+    
+    def enhance_agents(self):
+        for i in range(len(self.QAA)):
+            self.QAA[i].enhance()
+    
     def list_agents(self):
         scores = {}
         for i in range(len(self.QAA)):

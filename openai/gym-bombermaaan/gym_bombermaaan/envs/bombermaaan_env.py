@@ -239,7 +239,7 @@ class BombermaaanEnv(gym.Env):
             # Check for for win
             if not self.bombers[0]['is_dead'] and alive == 1:
                 self.done = True
-                reward = 100.0
+                reward = 150.0
                          
         return state, reward, self.done, {}
                 

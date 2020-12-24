@@ -175,6 +175,10 @@ if args.train:
             obs = utils.preprocess_observation(obs)
             next_state = utils.get_next_state(current_state, obs)
 
+            DQA.set_reward(reward)
+
+            DQA.step()
+
             frame_counter += 1
 
             # Store transition in replay memory
