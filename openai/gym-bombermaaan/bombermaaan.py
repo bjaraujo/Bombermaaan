@@ -27,6 +27,8 @@ parser.add_argument('-t', '--train', action='store_true',
                     help='train the agent')
 parser.add_argument('-l', '--load', type=str, default=None,
                     help='load the neural network weights from the given path')
+parser.add_argument('-a', '--load-agents', action='store_true',
+                    help='load the agents')
 parser.add_argument('-v', '--video', action='store_true',
                     help='show video output')
 parser.add_argument('-d', '--debug', action='store_true',
@@ -115,6 +117,7 @@ DQA = DQAgent(env.action_space.n,
               epsilon_decrease_rate=args.epsilon_decrease,
               min_epsilon=args.min_epsilon,
               load_path=args.load,
+              load_agents=args.load_agents,
               logger=logger)
 
 atexit.register(exit_handler)  # Make sure to always save the model when exiting

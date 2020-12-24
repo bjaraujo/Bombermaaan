@@ -19,6 +19,7 @@ class DQAgent:
                  epsilon_decrease_rate=0.99,
                  min_epsilon=0.1,
                  load_path=None,
+                 load_agents=None,
                  logger=None):
 
         self.start_time = time.time()
@@ -73,6 +74,9 @@ class DQAgent:
         self.QAA = []
         for _ in range(10):
             self.QAA.append(GAAgent()) 
+            
+        if load_agents:
+            self.load_agents()
         
     def reset(self, episode):
         self.cur_ga_agent = episode % len(self.QAA)
@@ -232,7 +236,27 @@ class DQAgent:
             print('GA agent %d - Score: %.1f' % (i, score))
             
         print('\n')
-        
+    
+    def save_agents(self):
+        '''
+        Saves the GA agents to a file.
+        ''' 
+        for i in range(len(self.QAA)):
+            file_name = 'agent' + str(i) + '.dat'
+            if self.logger is not None:
+                self.logger.log('Saving GA agent %d as %s' % (i, file_name))
+            self.QAA[i].save(self.logger.path + file_name)
+
+    def load_agents(self):
+        '''
+        Loads the GA agents from a file.
+        ''' 
+        for i in range(len(self.QAA)):
+            file_name = 'agent' + str(i) + '.dat'
+            if self.logger is not None:
+                self.logger.log('Saving GA agent %d as %s' % (i, file_name))
+            self.QAA[i].load(self.logger.path + file_name)
+                    
     def quit(self):
         '''
         Saves the DQN and the target DQN to file.
@@ -242,3 +266,5 @@ class DQAgent:
                 self.logger.log('Quitting...')
             self.DQN.save(append='_DQN')
             self.DQN_target.save(append='_DQN_target')
+            self.save_agents()
+        

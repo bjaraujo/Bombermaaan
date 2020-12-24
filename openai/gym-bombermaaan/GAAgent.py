@@ -69,5 +69,16 @@ class GAAgent:
         self.mutate(new_agent, mutation)
         
         return new_agent
-        
     
+    def save(self, file_path):
+        with open(file_path, 'w') as f:
+            f.write(str(self.score) + '\n')
+            f.write(','.join(np.char.mod('%d', self.actions)) + '\n')
+
+    def load(self, file_path):
+        with open(file_path, 'r') as f:
+            score = f.readline()
+            i = 0
+            for a in f.readline().strip().split(','):
+                self.actions[i] = int(a)
+                i = i + 1
