@@ -3,7 +3,7 @@ import datetime
 import numpy as np
 from GAAgent import GAAgent
 from DQNetwork import DQNetwork
-from random import random, randrange, randint
+from random import random, randrange, randint, choice
 
 
 class DQAgent:
@@ -86,7 +86,6 @@ class DQAgent:
     def add_score(self, episode, score):
         self.QAA[episode % len(self.QAA)].add_score(score)
         self.reproduce_agents()
-        self.enhance_agents()
 
     def get_action(self, state, testing=False, force_random=False):
         '''
@@ -202,26 +201,26 @@ class DQAgent:
         
         scores = {}
         for i in range(len(self.QAA)):
-            score = self.QAA[i].get_score()
-            if score:
-                scores[i] = score
+            if self.QAA[i].nb_games > 1:
+                score = self.QAA[i].get_score()
+                if score:
+                    scores[i] = score
         
-        if len(scores) >= 9:
+        if len(scores) >= 6:
             min_score_index = min(scores, key=scores.get)
             max_score_index_1st = max(scores, key=scores.get)
-            del scores[max_score_index_1st]
-            max_score_index_2nd = max(scores, key=scores.get)
+            max_score_index_2nd = choice(list(scores))
             
-            if self.QAA[min_score_index].nb_games > 2:
-                print('Selecting GA agents %d and %d' % (max_score_index_1st, max_score_index_2nd))
-                new_agent = self.QAA[max_score_index_1st].mate_with(self.QAA[max_score_index_2nd], 0.95) 
-                print('Dropping GA agent %d' % (min_score_index))
-                self.QAA[min_score_index] = new_agent
-    
-    def enhance_agents(self):
-        for i in range(len(self.QAA)):
-            self.QAA[i].enhance()
-    
+            print('Selecting GA agents %d and %d' % (max_score_index_1st, max_score_index_2nd))
+            if random() > 0.5:
+                new_agent = self.QAA[max_score_index_1st].mate_with(self.QAA[max_score_index_2nd], 0.75) 
+            else:
+                new_agent = self.QAA[max_score_index_2nd]
+                new_agent.enhance()
+            
+            print('Dropping GA agent %d' % (min_score_index))
+            self.QAA[min_score_index] = new_agent
+        
     def list_agents(self):
         scores = {}
         for i in range(len(self.QAA)):
@@ -233,7 +232,7 @@ class DQAgent:
 
         for i in sorted_scores:
             score = scores[i]           
-            print('GA agent %d - Score: %.1f' % (i, score))
+            print('GA agent %d - Score: %.1f, Games: %d' % (i, score, self.QAA[i].nb_games))
             
         print('\n')
     

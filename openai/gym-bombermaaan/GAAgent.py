@@ -35,28 +35,30 @@ class GAAgent:
         
     def get_score(self):
         return self.score
-
+            
     def enhance(self):
-        for i in range(MAX_ACTIONS):
-            if self.rewards[i] < 0 and i > 1:
+        for i in range(MAX_ACTIONS):  
+            if self.rewards[i] < 0.0 and i > 1:
                 self.actions[i] = randint(0, 5)
                 self.actions[i-1] = randint(0, 5)
                 self.actions[i-2] = randint(0, 5)
             
     def replicate(self, new_agent, agent1, agent2):
-        for i in range(MAX_ACTIONS):
-            if agent1.rewards[i] > 0:
-                new_agent.actions[i] = agent1.actions[i] if random() > 0.2 else agent2.actions[i]
-            else:
-                if i > 1:
-                    new_agent.actions[i] = agent2.actions[i]
-                    new_agent.actions[i-1] = agent2.actions[i-1]
-                    new_agent.actions[i-2] = agent2.actions[i-2]        
+        for i in range(MAX_ACTIONS):  
+            if i < 10:
+                new_agent.actions[i] = randint(0, 5)
+            else:            
+                if agent1.rewards[i] < 0.0:
+                    new_agent.actions[i] = randint(0, 5)
+                    new_agent.actions[i-1] = randint(0, 5)
+                    new_agent.actions[i-2] = randint(0, 5)
+                else:
+                    new_agent.actions[i] = agent1.actions[i] if random() > 0.25 else agent2.actions[i]
     
     def mutate(self, agent, mutation):
         for i in range(MAX_ACTIONS):
             if random() > mutation:
-                agent.actions[i] = randint(0, 5)        
+                agent.actions[i] = randint(0, 5)
         
     def mate_with(self, agent, mutation):
         new_agent = GAAgent()
