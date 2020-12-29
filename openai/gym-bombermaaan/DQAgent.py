@@ -1,7 +1,6 @@
 import time
 import datetime
 import numpy as np
-from GAAgent import GAAgent
 from DQNetwork import DQNetwork
 from random import random, randrange, randint, choice
 
@@ -19,7 +18,6 @@ class DQAgent:
                  epsilon_decrease_rate=0.99,
                  min_epsilon=0.1,
                  load_path=None,
-                 load_agents=None,
                  logger=None):
 
         self.start_time = time.time()
@@ -68,25 +66,7 @@ class DQAgent:
         )
         # Reset target DQN
         self.DQN_target.model.set_weights(self.DQN.model.get_weights())
-
-        # Genetic algorithm agents
-        self.cur_ga_agent = 0
-        self.QAA = []
-        for _ in range(10):
-            self.QAA.append(GAAgent()) 
-            
-        if load_agents:
-            self.load_agents()
         
-    def reset(self, episode):
-        self.cur_ga_agent = episode % len(self.QAA)
-        self.QAA[self.cur_ga_agent].reset()
-        print('Using GA agent %d' % (self.cur_ga_agent))
-        
-    def add_score(self, episode, score):
-        self.QAA[episode % len(self.QAA)].add_score(score)
-        self.reproduce_agents()
-
     def get_action(self, state, testing=False, force_random=False):
         '''
         Polls DQN for Q-values. Returns argmax(Q) with probability 1-epsilon
@@ -98,18 +78,11 @@ class DQAgent:
         :return: the index of (action associated to) the highest Q-value 
         '''
         is_random = (random() < (self.epsilon if not testing else 0.05))
-        action = self.QAA[self.cur_ga_agent].get_action()
         if force_random or is_random:
-            return action
+            return randint(0, self.actions - 1)
         else:
             q_values = self.DQN.predict(state)
             return np.argmax(q_values)
-
-    def set_reward(self, reward):
-        self.QAA[self.cur_ga_agent].set_reward(reward)
-
-    def step(self):
-        self.QAA[self.cur_ga_agent].step()
 
     def get_max_q(self, state):
         '''
@@ -192,69 +165,6 @@ class DQAgent:
         if self.logger is not None:
             self.logger.log('Updating target network...')
         self.DQN_target.model.set_weights(self.DQN.model.get_weights())
-
-    def reproduce_agents(self):
-        '''
-        Reproduce GA agents.
-        '''
-        print('Reproduce GA agents')
-        
-        scores = {}
-        for i in range(len(self.QAA)):
-            if self.QAA[i].nb_games > 1:
-                score = self.QAA[i].get_score()
-                if score:
-                    scores[i] = score
-        
-        if len(scores) >= 6:
-            min_score_index = min(scores, key=scores.get)
-            max_score_index_1st = max(scores, key=scores.get)
-            max_score_index_2nd = choice(list(scores))
-            
-            print('Selecting GA agents %d and %d' % (max_score_index_1st, max_score_index_2nd))
-            if random() > 0.5:
-                new_agent = self.QAA[max_score_index_1st].mate_with(self.QAA[max_score_index_2nd], 0.75) 
-            else:
-                new_agent = self.QAA[max_score_index_2nd]
-                new_agent.enhance()
-            
-            print('Dropping GA agent %d' % (min_score_index))
-            self.QAA[min_score_index] = new_agent
-        
-    def list_agents(self):
-        scores = {}
-        for i in range(len(self.QAA)):
-            score = self.QAA[i].get_score()
-            if score:
-                scores[i] = score
-
-        sorted_scores = sorted(scores, key=scores.get, reverse=True)
-
-        for i in sorted_scores:
-            score = scores[i]           
-            print('GA agent %d - Score: %.1f, Games: %d' % (i, score, self.QAA[i].nb_games))
-            
-        print('\n')
-    
-    def save_agents(self):
-        '''
-        Saves the GA agents to a file.
-        ''' 
-        for i in range(len(self.QAA)):
-            file_name = 'agent' + str(i) + '.dat'
-            if self.logger is not None:
-                self.logger.log('Saving GA agent %d as %s' % (i, file_name))
-            self.QAA[i].save(self.logger.path + file_name)
-
-    def load_agents(self):
-        '''
-        Loads the GA agents from a file.
-        ''' 
-        for i in range(len(self.QAA)):
-            file_name = 'agent' + str(i) + '.dat'
-            if self.logger is not None:
-                self.logger.log('Saving GA agent %d as %s' % (i, file_name))
-            self.QAA[i].load(self.logger.path + file_name)
                     
     def quit(self):
         '''
@@ -265,5 +175,4 @@ class DQAgent:
                 self.logger.log('Quitting...')
             self.DQN.save(append='_DQN')
             self.DQN_target.save(append='_DQN_target')
-            self.save_agents()
         
