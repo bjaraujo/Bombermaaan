@@ -93,6 +93,8 @@
 
 #define MAX_IDLE_TIME 30.0f // Duration (in seconds) of maximum idle time
 
+#define ENABLE_SNOW false
+
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -154,7 +156,10 @@ void CTitle::Create()
     m_CloudManager.Create();
 
     // Create the snow in the sky
-    m_SnowManager.Create();
+    if (ENABLE_SNOW)
+    {
+        m_SnowManager.Create();
+    }
 }
 
 //******************************************************************************************************************************
@@ -166,8 +171,11 @@ void CTitle::Destroy()
     // Destroy the clouds in the sky
     m_CloudManager.Destroy();
 
-    // Destroy the snow in the sky
-    m_SnowManager.Destroy();
+    if (ENABLE_SNOW)
+    {
+        // Destroy the snow in the sky
+        m_SnowManager.Destroy();
+    }
 
     CModeScreen::Destroy();
 }
@@ -215,7 +223,10 @@ EGameMode CTitle::Update()
         m_CloudManager.Update(m_pTimer->GetDeltaTime());
 
         // Update the snow in the sky
-        m_SnowManager.Update(m_pTimer->GetDeltaTime());
+        if (ENABLE_SNOW)
+        {
+            m_SnowManager.Update(m_pTimer->GetDeltaTime());
+        }
 
         // Update the moving hand
         m_MovingHandTimer += m_pTimer->GetDeltaTime();
@@ -407,7 +418,10 @@ void CTitle::Display()
         m_CloudManager.Display();
 
         // Display the snow in the sky
-        m_SnowManager.Display();
+        if (ENABLE_SNOW)
+        {
+            m_SnowManager.Display();
+        }
 
         // Draw the background sprite
         m_pDisplay->DrawSprite(BACKGROUND_POSITION_X, BACKGROUND_POSITION_Y, NULL, NULL, BMP_TITLE_BACKGROUND, BACKGROUND_SPRITE, BACKGROUND_SPRITE_LAYER, BACKGROUND_SPRITE_PRIORITY_IN_LAYER);
