@@ -25,7 +25,7 @@ jobs:
       shell: bash
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
-          sudo apt-get install libsdl1.2-dev libSDL_mixer1.2-dev 
+          sudo apt-get install libsdl1.2-dev libSDL-mixer1.2-dev 
         elif [ "$RUNNER_OS" == "Windows" ]; then
           curl --output $GITHUB_WORKSPACE/SDL-1.2.15.zip --url https://libsdl.org/release/SDL-devel-1.2.15-VC.zip          
           unzip $GITHUB_WORKSPACE/SDL-1.2.15.zip
