@@ -25,9 +25,10 @@ jobs:
       shell: bash
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
-          sudo apt-get install libsdl1.2-dev libsdl-mixer1.2-dev 
+          apt-get install libsdl1.2-dev libsdl-mixer1.2-dev 
         elif [ "$RUNNER_OS" == "Windows" ]; then
-          choco install -y sdl1
+          echo %VCPKG_ROOT%
+          vcpkg install sdl1:x86-windows
         else
           echo "$RUNNER_OS not supported"
           exit 1
