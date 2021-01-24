@@ -31,8 +31,8 @@ jobs:
           unzip $GITHUB_WORKSPACE/SDL-1.2.15.zip
           setx SDLDIR $GITHUB_WORKSPACE/SDL-1.2.15
           curl --output $GITHUB_WORKSPACE/SDL_mixer-1.2.12.zip --url https://www.libsdl.org/projects/SDL_mixer/release/SDL_mixer-devel-1.2.12-VC.zip
-          unzip $GITHUB_WORKSPACE/SDL_mixer-1.2.12.zip
-          setx SDLMIXERDIR $GITHUB_WORKSPACE/SDL_mixer-1.2.12
+          unzip $GITHUB_WORKSPACE/SDL-mixer-1.2.12.zip
+          setx SDLMIXERDIR $GITHUB_WORKSPACE/SDL-mixer-1.2.12
         else
           echo "$RUNNER_OS not supported"
           exit 1
@@ -55,7 +55,7 @@ jobs:
         if [ "$RUNNER_OS" == "Linux" ]; then
           cmake $GITHUB_WORKSPACE/trunk -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DLOAD_RESOURCES_FROM_FILES:BOOL=OFF 
         elif [ "$RUNNER_OS" == "Windows" ]; then
-          cmake $GITHUB_WORKSPACE/trunk -A Win32 -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DLOAD_RESOURCES_FROM_FILES:BOOL=ON -DSDL_INCLUDE_DIR=$GITHUB_WORKSPACE/SDL-1.2.15/include -DSDL_LIBRARY=$GITHUB_WORKSPACE/SDL-1.2.15/lib/x86/SDL.lib -DSDL_MIXER_INCLUDE_DIR=$GITHUB_WORKSPACE/SDL-mixer-1.2.12/include -DSDL_MIXER_LIBRARY=$GITHUB_WORKSPACE/SDL_mixer-1.2.12/lib/x86/SDL_mixer.lib
+          cmake $GITHUB_WORKSPACE/trunk -A Win32 -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DLOAD_RESOURCES_FROM_FILES:BOOL=ON
         else
           echo "$RUNNER_OS not supported"
           exit 1
