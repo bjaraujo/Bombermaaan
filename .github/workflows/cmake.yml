@@ -27,7 +27,14 @@ jobs:
         if [ "$RUNNER_OS" == "Linux" ]; then
           sudo apt-get install libsdl1.2-dev libsdl-mixer1.2-dev 
         elif [ "$RUNNER_OS" == "Windows" ]; then
-          vcpkg install sdl1:x86-windows
+          mkdir C:\Libraries
+          cd C:\Libraries
+          curl --output SDL-devel-1.2.15-VC.zip --url https://libsdl.org/release/SDL-devel-1.2.15-VC.zip          
+          tar -x -f SDL-devel-1.2.15-VC.zip
+          setx SDLDIR C:\Libraries\SDL-1.2.15
+          curl --output SDL_mixer-devel-1.2.12-VC.zip --url https://www.libsdl.org/projects/SDL_mixer/release/SDL_mixer-devel-1.2.12-VC.zip
+          tar -x -f SDL_mixer-devel-1.2.12-VC.zip
+          setx SDLMIXERDIR C:\Libraries\SDL_mixer-1.2.12
         else
           echo "$RUNNER_OS not supported"
           exit 1
