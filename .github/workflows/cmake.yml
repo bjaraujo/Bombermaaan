@@ -51,7 +51,7 @@ jobs:
         if [ "$RUNNER_OS" == "Linux" ]; then
           cmake $GITHUB_WORKSPACE/trunk -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DLOAD_RESOURCES_FROM_FILES:BOOL=OFF 
         elif [ "$RUNNER_OS" == "Windows" ]; then
-          cmake $GITHUB_WORKSPACE/trunk -DCMAKE_BUILD_TYPE=$BUILD_TYPE -A Win32 -DLOAD_RESOURCES_FROM_FILES:BOOL=ON
+          cmake $GITHUB_WORKSPACE/trunk -DCMAKE_BUILD_TYPE=$BUILD_TYPE -A Win32 -DLOAD_RESOURCES_FROM_FILES:BOOL=ON -DCMAKE_TOOLCHAIN_FILE=%VCPKG_ROOT%\scripts\buildsystems\vcpkg.cmake
         else
           echo "$RUNNER_OS not supported"
           exit 1
