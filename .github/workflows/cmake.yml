@@ -25,7 +25,7 @@ jobs:
       shell: bash
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
-          apt-get install libsdl1.2-dev libsdl-mixer1.2-dev 
+          sudo apt-get install libsdl1.2-dev libsdl-mixer1.2-dev 
         elif [ "$RUNNER_OS" == "Windows" ]; then
           echo %VCPKG_ROOT%
           vcpkg install sdl1:x86-windows
