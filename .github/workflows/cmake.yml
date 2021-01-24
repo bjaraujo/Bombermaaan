@@ -27,7 +27,7 @@ jobs:
         if [ "$RUNNER_OS" == "Linux" ]; then
           sudo apt-get install libsdl1.2-dev libsdl-mixer1.2-dev 
         elif [ "$RUNNER_OS" == "Windows" ]; then
-          vcpkg install sdl1:x86-windows
+          vcpkg integrate install sdl1:x86-windows
         else
           echo "$RUNNER_OS not supported"
           exit 1
@@ -50,7 +50,11 @@ jobs:
         if [ "$RUNNER_OS" == "Linux" ]; then
           cmake $GITHUB_WORKSPACE/trunk -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DLOAD_RESOURCES_FROM_FILES:BOOL=OFF 
         elif [ "$RUNNER_OS" == "Windows" ]; then
-          cmake $GITHUB_WORKSPACE/trunk -DCMAKE_BUILD_TYPE=$BUILD_TYPE -A Win32 -DLOAD_RESOURCES_FROM_FILES:BOOL=ON -DCMAKE_TOOLCHAIN_FILE=$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake
+          echo %VCPKG_ROOT%
+          echo %VCPKG_ROOT%
+          echo %VCPKG_ROOT%
+          echo %VCPKG_ROOT%
+          cmake $GITHUB_WORKSPACE/trunk -DCMAKE_BUILD_TYPE=$BUILD_TYPE -A Win32 -DLOAD_RESOURCES_FROM_FILES:BOOL=ON
         else
           echo "$RUNNER_OS not supported"
           exit 1
