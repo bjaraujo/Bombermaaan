@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Bombermaaan
+Comment=Play a classic 2D bomberman game
+Icon=bombermaaan
+Exec=bombermaaan
+Terminal=false
+StartupNotify=false
+Categories=Game;ArcadeGame;
+Keywords=game;arcade;bomberman;
