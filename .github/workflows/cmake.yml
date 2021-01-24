@@ -42,10 +42,10 @@ jobs:
       # and build directories, but this is only available with CMake 3.13 and higher.  
       # The CMake binaries on the Github Actions machines are (as of this writing) 3.12
       if: matrix.os == 'ubuntu-latest'      
-        run: cmake $GITHUB_WORKSPACE/trunk -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DLOAD_RESOURCES_FROM_FILES:BOOL=ON
+      run: cmake $GITHUB_WORKSPACE/trunk -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DLOAD_RESOURCES_FROM_FILES:BOOL=ON
 
       if: matrix.os == 'windows-latest'      
-        run: cmake $GITHUB_WORKSPACE/trunk -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DLOAD_RESOURCES_FROM_FILES:BOOL=OFF
+      run: cmake $GITHUB_WORKSPACE/trunk -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DLOAD_RESOURCES_FROM_FILES:BOOL=OFF
 
     - name: Build
       working-directory: ${{runner.workspace}}/build
