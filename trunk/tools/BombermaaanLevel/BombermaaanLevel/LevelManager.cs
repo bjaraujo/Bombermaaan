@@ -230,9 +230,10 @@ namespace BombermaaanLevel
             StringBuilder sbLine = new StringBuilder(aLine);
             sbLine[i] = aNewChar;
 
-            aLine = sbLine.ToString();
+            aLine = sbLine.ToString().Trim();
 
-            anIniFile.IniWriteValue("Map", String.Format("Line.{0:00}", j), aLine);
+            if (aLine.Length == 15)
+                anIniFile.IniWriteValue("Map", String.Format("Line.{0:00}", j), aLine);
 
         }
 
