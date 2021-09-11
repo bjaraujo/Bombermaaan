@@ -301,7 +301,7 @@ bool CAiBomber::EnemyNearAndFront(EEnemyDirection* direction, bool BeyondArenaFr
         }
     }
 
-#define MAX_NEAR_DISTANCE 3
+#define MAX_NEAR_DISTANCE 4
 
     //---------------------------------------------------------
     // Check if there is an enemy near our bomber to the right
