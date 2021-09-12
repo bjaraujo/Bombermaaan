@@ -36,7 +36,8 @@
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-#define AI_VIEW_SIZE 6
+#define AI_VIEW_SIZE 12
+#define MAX_NEAR_DISTANCE 5
 #define AIDEBUG_SPRITELAYER 70
 
 // if we want to visualise the accessible blocks for the AI players, uncomment:
@@ -300,8 +301,6 @@ bool CAiBomber::EnemyNearAndFront(EEnemyDirection* direction, bool BeyondArenaFr
             return true;
         }
     }
-
-#define MAX_NEAR_DISTANCE 4
 
     //---------------------------------------------------------
     // Check if there is an enemy near our bomber to the right
