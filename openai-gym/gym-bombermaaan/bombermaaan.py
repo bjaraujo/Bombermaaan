@@ -7,19 +7,52 @@ import gym_bombermaaan
 import numpy as np
 import random
 import utils
+from pathlib import Path
+import pickle
 from DQAgent import DQAgent
 from evaluation import evaluate
 from Logger import Logger
+import pygame
 
 def exit_handler():
     global DQA
     DQA.quit()
-
-BOMBERMAAAN_PATH = 'E:\\Programming\\Bombermaaan\\releases\\msvc16-win32\\Bombermaaan_2.1.4.2204'
+                 
+BOMBERMAAAN_PATH = 'E:\\Projects\\Bombermaaan\\releases\\msvc16-win32\\Bombermaaan_2.2.5.2231'
 BOMBERMAAAN_EXE = 'Bombermaaan.exe'
 
 IMG_SIZE = (96, 84)
 utils.IMG_SIZE = IMG_SIZE
+
+learning_rate = 0.00025
+dropout = 0
+replay_memory_size = 1e6
+minibatch_size = 32
+discount_factor = 0.99
+epsilon = 1
+epsilon_decrease_rate = 9e-7
+min_epsilon = 0.1
+experiences = []
+training_count = 0
+episode = 0
+frame_counter = 0
+
+state_file = Path('data/bombermaaan.pickle')
+if state_file.exists():
+    pickle_in = open(state_file, 'rb')
+    learning_rate = pickle.load(pickle_in)
+    dropout = pickle.load(pickle_in)
+    replay_memory_size = pickle.load(pickle_in)
+    minibatch_size = pickle.load(pickle_in)
+    discount_factor = pickle.load(pickle_in)
+    epsilon = pickle.load(pickle_in)
+    epsilon_decrease_rate = pickle.load(pickle_in)
+    min_epsilon = pickle.load(pickle_in)
+    experiences = pickle.load(pickle_in)
+    training_count = pickle.load(pickle_in)
+    episode = pickle.load(pickle_in)
+    frame_counter = pickle.load(pickle_in)
+    pickle_in.close()    
 
 # I/O
 parser = argparse.ArgumentParser()
@@ -37,9 +70,9 @@ parser.add_argument('-e', '--environment', type=str,
                     help='name of the OpenAI Gym environment to use '
                          '(default: bombermaaan-v0)',
                     default='bombermaaan-v0')
-parser.add_argument('--minibatch-size', type=int, default=32,
+parser.add_argument('--minibatch-size', type=int, default=minibatch_size,
                     help='number of sample to train the DQN at each update')
-parser.add_argument('--replay-memory-size', type=int, default=1e6,
+parser.add_argument('--replay-memory-size', type=int, default=replay_memory_size,
                     help='number of samples stored in the replay memory')
 parser.add_argument('--target-network-update-freq', type=int, default=10e3,
                     help='frequency (number of DQN updates) with which the '
@@ -47,18 +80,18 @@ parser.add_argument('--target-network-update-freq', type=int, default=10e3,
 parser.add_argument('--avg-val-computation-freq', type=int, default=50e3,
                     help='frequency (number of DQN updates) with which the '
                          'average reward and Q value are computed')
-parser.add_argument('--discount-factor', type=float, default=0.99,
+parser.add_argument('--discount-factor', type=float, default=discount_factor,
                     help='discount factor for the environment')
 parser.add_argument('--update-freq', type=int, default=4,
                     help='frequency (number of steps) with which to train the '
                          'DQN')
 parser.add_argument('--learning-rate', type=float, default=0.00025,
                     help='learning rate for optimizer')
-parser.add_argument('--epsilon', type=float, default=1,
+parser.add_argument('--epsilon', type=float, default=epsilon,
                     help='initial exploration rate for the agent')
-parser.add_argument('--min-epsilon', type=float, default=0.1,
+parser.add_argument('--min-epsilon', type=float, default=min_epsilon,
                     help='final exploration rate for the agent')
-parser.add_argument('--epsilon-decrease', type=float, default=9e-7,
+parser.add_argument('--epsilon-decrease', type=float, default=epsilon_decrease_rate,
                     help='rate at which to linearly decrease epsilon')
 parser.add_argument('--replay-start-size', type=int, default=50e3,
                     help='minimum number of transitions (with fully random '
@@ -67,7 +100,7 @@ parser.add_argument('--replay-start-size', type=int, default=50e3,
 parser.add_argument('--initial-random-actions', type=int, default=30,
                     help='number of random actions to be performed by the agent'
                          ' at the beginning of each episode')
-parser.add_argument('--dropout', type=float, default=0.,
+parser.add_argument('--dropout', type=float, default=dropout,
                     help='dropout rate for the DQN')
 parser.add_argument('--max-episodes', type=int, default=np.inf,
                     help='maximum number of episodes that the agent can '
@@ -103,7 +136,7 @@ test_states = []
 env = gym.make(args.environment)
 env.start(BOMBERMAAAN_PATH, BOMBERMAAAN_EXE, '')
 
-network_input_shape = (4, 84, 96)  # Dimension ordering: 'th' (channels first)
+network_input_shape = (4, IMG_SIZE[1], IMG_SIZE[0])  # Dimension ordering: 'th' (channels first)
 DQA = DQAgent(env.action_space.n,
               network_input_shape,
               replay_memory_size=args.replay_memory_size,
@@ -132,12 +165,25 @@ logger.to_csv(training_csv, 'length,score')
 logger.to_csv(eval_csv, 'length,score')
 logger.to_csv(test_csv, 'avg_score,avg_Q')
 
-# Set counters
-episode = 0
-frame_counter = 0
-
 train_agent = False
 evaluate_agent = False
+
+# Restore state
+model_file = Path('data/bombermaaan.h5')
+if model_file.exists():
+    DQA.DQN.model.load_weights(model_file)
+
+model_file = Path('data/bombermaaan_target.h5')
+if model_file.exists():
+    DQA.DQN_target.model.load_weights(model_file)
+
+DQA.experiences = experiences
+DQA.training_count = training_count
+
+if args.video:
+    pygame.init()
+    surface= pygame.display.set_mode((IMG_SIZE[0], IMG_SIZE[1]))
+    pygame.display.set_caption('Image')
 
 if args.train:
     # Main loop
@@ -163,8 +209,12 @@ if args.train:
 
             # Render the game
             if args.video:
-                env.render()
-
+                img = utils.rescale_image(env.render()).convert("RGB")
+                pyg_img = pygame.image.fromstring(img.tobytes(), img.size, img.mode)
+                surface.fill((255,255,255)) 
+                surface.blit(pyg_img, (0, 0)) 
+                pygame.display.update()  
+            
             # Select an action using the DQA
             action = DQA.get_action(np.asarray([current_state]))
             
@@ -240,6 +290,29 @@ if args.train:
             t += 1
 
         episode += 1
+
+        if episode % 10 == 0:
+            data_dir = Path('data')
+            if not os.path.exists('data'):
+                os.mkdir(data_dir)
+                
+            DQA.DQN.model.save_weights('data/bombermaaan.h5')
+            DQA.DQN_target.model.save_weights('data/bombermaaan_target.h5')
+            
+            pickle_out = open('data/bombermaaan.pickle', 'wb')
+            pickle.dump(DQA.learning_rate, pickle_out)
+            pickle.dump(DQA.dropout_prob, pickle_out)
+            pickle.dump(DQA.replay_memory_size, pickle_out)
+            pickle.dump(DQA.minibatch_size, pickle_out)
+            pickle.dump(DQA.discount_factor, pickle_out)
+            pickle.dump(DQA.epsilon, pickle_out)
+            pickle.dump(DQA.epsilon_decrease_rate, pickle_out)
+            pickle.dump(DQA.min_epsilon, pickle_out)
+            pickle.dump(DQA.experiences, pickle_out)
+            pickle.dump(DQA.training_count, pickle_out)
+            pickle.dump(episode, pickle_out)
+            pickle.dump(frame_counter, pickle_out)
+            pickle_out.close()    
 
 if args.eval:
     logger.log(evaluate(DQA, args, logger))

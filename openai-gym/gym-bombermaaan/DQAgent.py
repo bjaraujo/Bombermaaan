@@ -170,9 +170,7 @@ class DQAgent:
         '''
         Saves the DQN and the target DQN to file.
         '''
-        if self.load_path is None:
-            if self.logger is not None:
-                self.logger.log('Quitting...')
-            self.DQN.save(append='_DQN')
-            self.DQN_target.save(append='_DQN_target')
-        
+        if self.logger is not None:
+            self.logger.log('Quitting...')
+        self.DQN.save(append='_DQN')
+        self.DQN_target.save(append='_DQN_target')

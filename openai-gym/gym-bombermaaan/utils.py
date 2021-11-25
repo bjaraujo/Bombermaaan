@@ -5,6 +5,13 @@ IMG_SIZE = None
 
 
 # Functions
+def rescale_image(img):
+    global IMG_SIZE
+    # Convert to gray-scale and resize it
+    image = img.convert('L').resize(IMG_SIZE)
+    # Convert image to array and return it
+    return image
+
 def preprocess_observation(obs):
     global IMG_SIZE
     # Convert to gray-scale and resize it

@@ -134,7 +134,7 @@ class DQNetwork:
     def load(self, path):
         '''
         Loads the model's weights from path.
-        :param path: h5 file from which to load teh weights
+        :param path: h5 file from which to load the weights
         '''
         if self.logger is not None:
             self.logger.log('Loading weights from file...')
