@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application>
+  <id type="desktop">com.github.bjaraujo.Bombermaaan.desktop</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <name>Bombermaaan</name>
+  <summary>Arcade Game</summary>
+  <description>
+    <p>A classic Bomberman game with multiplayer support, cloned on original SNES games. Also similar to Dynablaster.</p>
+    <ul>
+      <li>Original gameplay and fun with minor adjustments</li>
+      <li>Up to 5 players on the same computer</li>
+      <li>Various levels of computer AI</li>
+      <li>Kick-Punch-Throw items mania</li>
+      <li>Keyboard and joystick support</li>
+      <li>Full screen and windowed display modes</li>
+      <li>Various power-ups</li>
+      <li>Various contaminations after skull item is taken</li>
+      <li>Item amount in walls as well as bomber skills on startup can be set on a per-level basis</li>
+    </ul>
+  </description>
+  <screenshots>
+    <screenshot>http://bombermaaan.sourceforge.net/screenshots/screen7.png</screenshot>
+    <screenshot>http://bombermaaan.sourceforge.net/screenshots/screen1.png</screenshot>
+    <screenshot>http://bombermaaan.sourceforge.net/screenshots/screen8.png</screenshot>
+  </screenshots>
+  <url type="homepage">https://github.com/bjaraujo/Bombermaaan/</url>
+  <url type="bugtracker">https://github.com/bjaraujo/Bombermaaan/issues</url>
+  <releases>
+    <release version="2.1.8.2208" date="2021-01-24" />
+  </releases>
+    <content_rating type="oars-1.1">
+    <content_attribute id="violence-cartoon">mild</content_attribute>
+  </content_rating>
+</application>
