@@ -63,3 +63,11 @@ endif()
 
 #add_subdirectory(net)
 add_subdirectory(src)
+
+install(TARGETS Bombermaaan DESTINATION ".")
+install(FILES config/config.xml DESTINATION ".")
+install(DIRECTORY levels DESTINATION ".")
+install(DIRECTORY res/images DESTINATION ".")
+install(DIRECTORY res/sounds DESTINATION ".")
+
+
