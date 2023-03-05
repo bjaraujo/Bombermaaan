@@ -151,7 +151,7 @@ void CDebug::HandleKey(DWORD VirtualKeyCode, DWORD Modifier)
 #ifdef DIRECTX
         case VK_MULTIPLY:
 #else
-        case SDLK_KP_MULTIPLY:
+        case SDL_SCANCODE_KP_MULTIPLY:
 #endif
         {
             m_GameSpeed = 5.0f;
@@ -165,7 +165,7 @@ void CDebug::HandleKey(DWORD VirtualKeyCode, DWORD Modifier)
 #ifdef DIRECTX
         case VK_DIVIDE:
 #else
-        case SDLK_KP_DIVIDE:
+        case SDL_SCANCODE_KP_DIVIDE:
 #endif
         {
             m_GameSpeed = 0.2f;
@@ -179,7 +179,7 @@ void CDebug::HandleKey(DWORD VirtualKeyCode, DWORD Modifier)
 #ifdef DIRECTX
         case VK_RETURN:
 #else
-        case SDLK_RETURN:
+        case SDL_SCANCODE_RETURN:
 #endif
         {
             m_GameSpeed = 1.0f;
@@ -212,7 +212,7 @@ void CDebug::HandleKey(DWORD VirtualKeyCode, DWORD Modifier)
 #ifdef DIRECTX
         case VK_SUBTRACT:
 #else
-        case SDLK_MINUS:
+        case SDL_SCANCODE_MINUS:
 #endif
         {
             m_GameSpeed -= 0.2f;
@@ -231,7 +231,7 @@ void CDebug::HandleKey(DWORD VirtualKeyCode, DWORD Modifier)
 #ifdef DIRECTX
         case VK_F1:
 #else
-        case SDLK_F1:
+        case SDL_SCANCODE_F1:
 #endif
         {
             m_pGame->SwitchToGameMode(GAMEMODE_MATCH);
@@ -242,7 +242,7 @@ void CDebug::HandleKey(DWORD VirtualKeyCode, DWORD Modifier)
 #ifdef DIRECTX
         case VK_F2:
 #else
-        case SDLK_F2:
+        case SDL_SCANCODE_F2:
 #endif
         {
             // Make the bombers invulnerable or not
@@ -255,7 +255,7 @@ void CDebug::HandleKey(DWORD VirtualKeyCode, DWORD Modifier)
 #ifdef DIRECTX
         case VK_F5:
 #else
-        case SDLK_F5:
+        case SDL_SCANCODE_F5:
 #endif
             theConsole.Write("CDebug::HandleKey(...): Ctrl+F5 was pressed. Writing bombs to log...\n");
             m_pMatch->_Debug_WriteBombsToLog();

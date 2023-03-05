@@ -334,18 +334,15 @@ void CWindow::MessagePump()
                 WinProc(event.type, (WPARAM)&event.jbutton, (LPARAM)&event);
                 break;
 
-            case SDL_VIDEORESIZE: // resize our window
-                WinProc(WM_SIZE, (WPARAM)&event.resize, (LPARAM)&event);
+            case SDL_WINDOWEVENT_RESIZED: // resize our window
+                WinProc(WM_SIZE, (WPARAM)&event.window, (LPARAM)&event);
                 break;
 
-            case SDL_ACTIVEEVENT:
-                if (event.active.state != SDL_APPMOUSEFOCUS)
-                {
-                    if (event.active.gain)
-                        WinProc(WM_ACTIVATEAPP, WA_ACTIVE, 0);
-                    else
-                        WinProc(WM_ACTIVATEAPP, 0, 0);
-                }
+            case SDL_WINDOWEVENT_FOCUS_GAINED:
+                WinProc(WM_ACTIVATEAPP, WA_ACTIVE, 0);
+                break;
+            case SDL_WINDOWEVENT_FOCUS_LOST:    
+                WinProc(WM_ACTIVATEAPP, 0, 0);
                 break;
 
             case SDL_QUIT:

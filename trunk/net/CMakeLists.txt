@@ -18,8 +18,8 @@ aes256.cpp
 source_group("Header Files" FILES ${BOMBERMAAAN_NET_HEADERS})
 source_group("Source Files" FILES ${BOMBERMAAAN_NET_SOURCES})
 
-find_package(SDL REQUIRED)
-find_package(SDL_net REQUIRED)
+find_package(SDL2 REQUIRED)
+find_package(SDL2_net REQUIRED)
 
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/../src

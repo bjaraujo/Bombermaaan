@@ -36,112 +36,110 @@
 //******************************************************************************************************************************
 
 #define MAX_JOYSTICK_BUTTONS 32 //!< Maximum number of buttons a joystick can have
-#define MAX_KEYS SDLK_LAST //!< Maximum number of keys a keyboard can have
+#define MAX_KEYS SDL_NUM_SCANCODES //!< Maximum number of keys a keyboard can have
 
-#define KEYBOARD_ESCAPE SDLK_ESCAPE //!< ID for the escape key
-#define KEYBOARD_1 SDLK_1 //!< ID for the 1 key
-#define KEYBOARD_2 SDLK_2
-#define KEYBOARD_3 SDLK_3
-#define KEYBOARD_4 SDLK_4
-#define KEYBOARD_5 SDLK_5
-#define KEYBOARD_6 SDLK_6
-#define KEYBOARD_7 SDLK_7
-#define KEYBOARD_8 SDLK_8
-#define KEYBOARD_9 SDLK_9
-#define KEYBOARD_0 SDLK_0
-#define KEYBOARD_MINUS SDLK_MINUS //!< - on main keyboard
-#define KEYBOARD_EQUALS SDLK_EQUALS
-#define KEYBOARD_BACK SDLK_BACKSPACE //!< backspace
-#define KEYBOARD_TAB SDLK_TAB
-#define KEYBOARD_Q SDLK_q
-#define KEYBOARD_W SDLK_w
-#define KEYBOARD_E SDLK_e
-#define KEYBOARD_R SDLK_r
-#define KEYBOARD_T SDLK_t
-#define KEYBOARD_Y SDLK_y
-#define KEYBOARD_U SDLK_u
-#define KEYBOARD_I SDLK_i
-#define KEYBOARD_O SDLK_o
-#define KEYBOARD_P SDLK_p
-#define KEYBOARD_LBRACKET SDLK_LEFTPAREN
-#define KEYBOARD_RBRACKET SDLK_RIGHTPAREN
-#define KEYBOARD_RETURN SDLK_RETURN //!< Enter on main keyboard
-#define KEYBOARD_LCONTROL SDLK_LCTRL
-#define KEYBOARD_A SDLK_a
-#define KEYBOARD_S SDLK_s
-#define KEYBOARD_D SDLK_d
-#define KEYBOARD_F SDLK_f
-#define KEYBOARD_G SDLK_g
-#define KEYBOARD_H SDLK_h
-#define KEYBOARD_J SDLK_j
-#define KEYBOARD_K SDLK_k
-#define KEYBOARD_L SDLK_l
-#define KEYBOARD_SEMICOLON SDLK_SEMICOLON
-#define KEYBOARD_APOSTROPHE SDLK_QUOTE
-#define KEYBOARD_GRAVE SDLK_BACKQUOTE //!< accent grave
-#define KEYBOARD_LSHIFT SDLK_LSHIFT
-#define KEYBOARD_BACKSLASH SDLK_BACKSLASH
-#define KEYBOARD_Z SDLK_z
-#define KEYBOARD_X SDLK_x
-#define KEYBOARD_C SDLK_c
-#define KEYBOARD_V SDLK_v
-#define KEYBOARD_B SDLK_b
-#define KEYBOARD_N SDLK_n
-#define KEYBOARD_M SDLK_m
-#define KEYBOARD_COMMA SDLK_COMMA
-#define KEYBOARD_PERIOD SDLK_PERIOD //!< . on main keyboard
-#define KEYBOARD_SLASH SDLK_SLASH //!< / on main keyboard
-#define KEYBOARD_RSHIFT SDLK_RSHIFT
-#define KEYBOARD_MULTIPLY SDLK_KP_MULTIPLY //!< * on numeric keypad
-#define KEYBOARD_LMENU SDLK_LALT //!< left Alt
-#define KEYBOARD_SPACE SDLK_SPACE
-#define KEYBOARD_CAPITAL SDLK_CAPSLOCK
-#define KEYBOARD_F1 SDLK_F1
-#define KEYBOARD_F2 SDLK_F2
-#define KEYBOARD_F3 SDLK_F3
-#define KEYBOARD_F4 SDLK_F4
-#define KEYBOARD_F5 SDLK_F5
-#define KEYBOARD_F6 SDLK_F6
-#define KEYBOARD_F7 SDLK_F7
-#define KEYBOARD_F8 SDLK_F8
-#define KEYBOARD_F9 SDLK_F9
-#define KEYBOARD_F10 SDLK_F10
-#define KEYBOARD_NUMLOCK SDLK_NUMLOCK
-#define KEYBOARD_SCROLL SDLK_SCROLLOCK //!< Scroll Lock
-#define KEYBOARD_NUMPAD7 SDLK_KP7
-#define KEYBOARD_NUMPAD8 SDLK_KP8
-#define KEYBOARD_NUMPAD9 SDLK_KP9
-#define KEYBOARD_SUBTRACT SDLK_KP_MINUS //!< - on numeric keypad
-#define KEYBOARD_NUMPAD4 SDLK_KP4
-#define KEYBOARD_NUMPAD5 SDLK_KP5
-#define KEYBOARD_NUMPAD6 SDLK_KP6
-#define KEYBOARD_ADD SDLK_KP_PLUS //!< + on numeric keypad
-#define KEYBOARD_NUMPAD1 SDLK_KP1
-#define KEYBOARD_NUMPAD2 SDLK_KP2
-#define KEYBOARD_NUMPAD3 SDLK_KP3
-#define KEYBOARD_NUMPAD0 SDLK_KP0
-#define KEYBOARD_DECIMAL SDLK_KP_PERIOD //!< . on numeric keypad
-#define KEYBOARD_F11 SDLK_F11
-#define KEYBOARD_F12 SDLK_F12
-#define KEYBOARD_NUMPADENTER SDLK_KP_ENTER //!< Enter on numeric keypad
-#define KEYBOARD_RCONTROL SDLK_RCTRL
-#define KEYBOARD_DIVIDE SDLK_KP_DIVIDE //!< / on numeric keypad
-#define KEYBOARD_SYSRQ SDLK_SYSREQ
-#define KEYBOARD_RMENU SDLK_RALT //!< right Alt
-#define KEYBOARD_PAUSE SDLK_BREAK //!< Pause
-#define KEYBOARD_HOME SDLK_HOME //!< Home on arrow keypad
-#define KEYBOARD_UP SDLK_UP //!< UpArrow on arrow keypad
-#define KEYBOARD_PRIOR SDLK_PAGEUP //!< PgUp on arrow keypad
-#define KEYBOARD_LEFT SDLK_LEFT //!< LeftArrow on arrow keypad
-#define KEYBOARD_RIGHT SDLK_RIGHT //!< RightArrow on arrow keypad
-#define KEYBOARD_END SDLK_END //!< End on arrow keypad
-#define KEYBOARD_DOWN SDLK_DOWN //!< DownArrow on arrow keypad
-#define KEYBOARD_NEXT SDLK_PAGEDOWN //!< PgDn on arrow keypad
-#define KEYBOARD_INSERT SDLK_INSERT //!< Insert on arrow keypad
-#define KEYBOARD_DELETE SDLK_DELETE //!< Delete on arrow keypad
-#define KEYBOARD_LWIN SDLK_LSUPER //!< Left Windows key
-#define KEYBOARD_RWIN SDLK_RSUPER //!< Right Windows key
-#define KEYBOARD_APPS SDLK_MENU //!< AppMenu key
+#define KEYBOARD_ESCAPE SDL_SCANCODE_ESCAPE //!< ID for the escape key
+#define KEYBOARD_1 SDL_SCANCODE_1 //!< ID for the 1 key
+#define KEYBOARD_2 SDL_SCANCODE_2
+#define KEYBOARD_3 SDL_SCANCODE_3
+#define KEYBOARD_4 SDL_SCANCODE_4
+#define KEYBOARD_5 SDL_SCANCODE_5
+#define KEYBOARD_6 SDL_SCANCODE_6
+#define KEYBOARD_7 SDL_SCANCODE_7
+#define KEYBOARD_8 SDL_SCANCODE_8
+#define KEYBOARD_9 SDL_SCANCODE_9
+#define KEYBOARD_0 SDL_SCANCODE_0
+#define KEYBOARD_MINUS SDL_SCANCODE_MINUS //!< - on main keyboard
+#define KEYBOARD_EQUALS SDL_SCANCODE_EQUALS
+#define KEYBOARD_BACK SDL_SCANCODE_BACKSPACE //!< backspace
+#define KEYBOARD_TAB SDL_SCANCODE_TAB
+#define KEYBOARD_Q SDL_SCANCODE_Q
+#define KEYBOARD_W SDL_SCANCODE_W
+#define KEYBOARD_E SDL_SCANCODE_E
+#define KEYBOARD_R SDL_SCANCODE_R
+#define KEYBOARD_T SDL_SCANCODE_T
+#define KEYBOARD_Y SDL_SCANCODE_Y
+#define KEYBOARD_U SDL_SCANCODE_U
+#define KEYBOARD_I SDL_SCANCODE_I
+#define KEYBOARD_O SDL_SCANCODE_O
+#define KEYBOARD_P SDL_SCANCODE_P
+#define KEYBOARD_RETURN SDL_SCANCODE_RETURN //!< Enter on main keyboard
+#define KEYBOARD_LCONTROL SDL_SCANCODE_LCTRL
+#define KEYBOARD_A SDL_SCANCODE_A
+#define KEYBOARD_S SDL_SCANCODE_S
+#define KEYBOARD_D SDL_SCANCODE_D
+#define KEYBOARD_F SDL_SCANCODE_F
+#define KEYBOARD_G SDL_SCANCODE_G
+#define KEYBOARD_H SDL_SCANCODE_H
+#define KEYBOARD_J SDL_SCANCODE_J
+#define KEYBOARD_K SDL_SCANCODE_K
+#define KEYBOARD_L SDL_SCANCODE_L
+#define KEYBOARD_SEMICOLON SDL_SCANCODE_SEMICOLON
+#define KEYBOARD_APOSTROPHE SDL_SCANCODE_APOSTROPHE
+#define KEYBOARD_GRAVE SDL_SCANCODE_GRAVE //!< accent grave
+#define KEYBOARD_LSHIFT SDL_SCANCODE_LSHIFT
+#define KEYBOARD_BACKSLASH SDL_SCANCODE_BACKSLASH
+#define KEYBOARD_Z SDL_SCANCODE_Z
+#define KEYBOARD_X SDL_SCANCODE_X
+#define KEYBOARD_C SDL_SCANCODE_C
+#define KEYBOARD_V SDL_SCANCODE_V
+#define KEYBOARD_B SDL_SCANCODE_B
+#define KEYBOARD_N SDL_SCANCODE_N
+#define KEYBOARD_M SDL_SCANCODE_M
+#define KEYBOARD_COMMA SDL_SCANCODE_COMMA
+#define KEYBOARD_PERIOD SDL_SCANCODE_PERIOD //!< . on main keyboard
+#define KEYBOARD_SLASH SDL_SCANCODE_SLASH //!< / on main keyboard
+#define KEYBOARD_RSHIFT SDL_SCANCODE_RSHIFT
+#define KEYBOARD_MULTIPLY SDL_SCANCODE_KP_MULTIPLY //!< * on numeric keypad
+#define KEYBOARD_LMENU SDL_SCANCODE_LALT //!< left Alt
+#define KEYBOARD_SPACE SDL_SCANCODE_SPACE
+#define KEYBOARD_CAPITAL SDL_SCANCODE_CAPSLOCK
+#define KEYBOARD_F1 SDL_SCANCODE_F1
+#define KEYBOARD_F2 SDL_SCANCODE_F2
+#define KEYBOARD_F3 SDL_SCANCODE_F3
+#define KEYBOARD_F4 SDL_SCANCODE_F4
+#define KEYBOARD_F5 SDL_SCANCODE_F5
+#define KEYBOARD_F6 SDL_SCANCODE_F6
+#define KEYBOARD_F7 SDL_SCANCODE_F7
+#define KEYBOARD_F8 SDL_SCANCODE_F8
+#define KEYBOARD_F9 SDL_SCANCODE_F9
+#define KEYBOARD_F10 SDL_SCANCODE_F10
+#define KEYBOARD_NUMLOCK SDL_SCANCODE_NUMLOCKCLEAR
+#define KEYBOARD_SCROLL SDL_SCANCODE_SCROLLLOCK //!< Scroll Lock
+#define KEYBOARD_NUMPAD7 SDL_SCANCODE_KP_7
+#define KEYBOARD_NUMPAD8 SDL_SCANCODE_KP_8
+#define KEYBOARD_NUMPAD9 SDL_SCANCODE_KP_9
+#define KEYBOARD_SUBTRACT SDL_SCANCODE_KP_MINUS //!< - on numeric keypad
+#define KEYBOARD_NUMPAD4 SDL_SCANCODE_KP_4
+#define KEYBOARD_NUMPAD5 SDL_SCANCODE_KP_5
+#define KEYBOARD_NUMPAD6 SDL_SCANCODE_KP_6
+#define KEYBOARD_ADD SDL_SCANCODE_KP_PLUS //!< + on numeric keypad
+#define KEYBOARD_NUMPAD1 SDL_SCANCODE_KP_1
+#define KEYBOARD_NUMPAD2 SDL_SCANCODE_KP_2
+#define KEYBOARD_NUMPAD3 SDL_SCANCODE_KP_3
+#define KEYBOARD_NUMPAD0 SDL_SCANCODE_KP_0
+#define KEYBOARD_DECIMAL SDL_SCANCODE_KP_PERIOD //!< . on numeric keypad
+#define KEYBOARD_F11 SDL_SCANCODE_F11
+#define KEYBOARD_F12 SDL_SCANCODE_F12
+#define KEYBOARD_NUMPADENTER SDL_SCANCODE_KP_ENTER //!< Enter on numeric keypad
+#define KEYBOARD_RCONTROL SDL_SCANCODE_RCTRL
+#define KEYBOARD_DIVIDE SDL_SCANCODE_KP_DIVIDE //!< / on numeric keypad
+#define KEYBOARD_SYSRQ SDL_SCANCODE_SYSREQ
+#define KEYBOARD_RMENU SDL_SCANCODE_RALT //!< right Alt
+#define KEYBOARD_PAUSE SDL_SCANCODE_PAUSE //!< Pause
+#define KEYBOARD_HOME SDL_SCANCODE_HOME //!< Home on arrow keypad
+#define KEYBOARD_UP SDL_SCANCODE_UP //!< UpArrow on arrow keypad
+#define KEYBOARD_PRIOR SDL_SCANCODE_PAGEUP //!< PgUp on arrow keypad
+#define KEYBOARD_LEFT SDL_SCANCODE_LEFT //!< LeftArrow on arrow keypad
+#define KEYBOARD_RIGHT SDL_SCANCODE_RIGHT //!< RightArrow on arrow keypad
+#define KEYBOARD_END SDL_SCANCODE_END //!< End on arrow keypad
+#define KEYBOARD_DOWN SDL_SCANCODE_DOWN //!< DownArrow on arrow keypad
+#define KEYBOARD_NEXT SDL_SCANCODE_PAGEDOWN //!< PgDn on arrow keypad
+#define KEYBOARD_INSERT SDL_SCANCODE_INSERT //!< Insert on arrow keypad
+#define KEYBOARD_DELETE SDL_SCANCODE_DELETE //!< Delete on arrow keypad
+#define KEYBOARD_LWIN SDL_SCANCODE_LGUI //!< Left Windows key
+#define KEYBOARD_RWIN SDL_SCANCODE_RGUI //!< Right Windows key
+#define KEYBOARD_APPS SDL_SCANCODE_MENU //!< AppMenu key
 
 #define JOYSTICK_UP 0
 #define JOYSTICK_DOWN 1
@@ -205,8 +203,8 @@ private:
 
     std::vector<SJoystick*> m_pJoysticks; //!< All joystick SDLInput devices installed in the system
 
-    bool UpdateDevice(void* pState, int StateSize);
-    bool UpdateDevice(SDL_Joystick* pDevice, void* pState, int StateSize);
+    bool UpdateDevice(void* pState);
+    bool UpdateDevice(SDL_Joystick* pDevice, void* pState);
     void MakeKeyFriendlyNames();
 
     int m_joystickCount;
