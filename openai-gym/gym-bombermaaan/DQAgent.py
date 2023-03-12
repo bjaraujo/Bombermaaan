@@ -79,10 +79,14 @@ class DQAgent:
         '''
         is_random = (random() < (self.epsilon if not testing else 0.05))
         if force_random or is_random:
-            return randint(0, self.actions - 1)
+            action = randint(0, self.actions - 1)
+            if action == self.actions - 1:
+                action = randint(0, self.actions - 1)
         else:
             q_values = self.DQN.predict(state)
-            return np.argmax(q_values)
+            action = np.argmax(q_values)
+
+        return action
 
     def get_max_q(self, state):
         '''

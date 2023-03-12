@@ -532,9 +532,14 @@ void CInputSDL::MakeKeyFriendlyNames()
 #endif
 
             if (c == -1)
-                m_KeyFriendlyName[Key][sizeof(m_KeyFriendlyName[Key]) - 1] = '\0';
-            else
+            {
+                c = sizeof(m_KeyFriendlyName[Key]) - 1;
+            }
+
+            if (c < MAX_PATH) 
+            {
                 m_KeyFriendlyName[Key][c] = '\0';
+            }
 
             break;
         }
