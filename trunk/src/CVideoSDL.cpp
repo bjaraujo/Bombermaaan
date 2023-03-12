@@ -34,7 +34,6 @@
 #include "CVideoSDL.h"
 
 static const char* GetSDLVideoError();
-static void AddDisplayMode(int width, int height, int depth, std::vector<SDisplayMode>& displayModes);
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -74,23 +73,6 @@ void CVideoSDL::SetProgramFolder(const std::string& pgmFolder)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-static void AddDisplayMode(int width, int height, int depth, std::vector<SDisplayMode>& displayModes)
-{
-    // The DirectInput device that will be created
-    SDisplayMode DisplayMode;
-    DisplayMode.Width = width;
-    DisplayMode.Height = height;
-    DisplayMode.Depth = depth;
-
-    displayModes.push_back(DisplayMode);
-
-    return;
-}
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 bool CVideoSDL::Create(int Width, int Height, int Depth, bool FullScreen)
 {
     // Set the display properties
@@ -103,100 +85,43 @@ bool CVideoSDL::Create(int Width, int Height, int Depth, bool FullScreen)
     m_pPrimary = nullptr;
     m_ColorKey = 0;
 
-    SDL_Rect** modes;
+    m_pWindow = SDL_CreateWindow("Bombermaaan",
+                          SDL_WINDOWPOS_UNDEFINED,
+                          SDL_WINDOWPOS_UNDEFINED,
+                          m_Width, m_Height,
+                          FullScreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0);
 
-    int i;
-    bool validMode = false; // is this video mode valid?
-
-    // Enumerate all display modes (without taking refresh rates into account)
-    modes = SDL_ListModes(NULL, SDL_HWSURFACE | SDL_DOUBLEBUF);
-
-    // some mode available?
-    if (modes == (SDL_Rect**)0)
+    if (m_pWindow == NULL)
     {
         // Log failure
-        theLog.WriteLine("SDLVideo        => !!! Could not find any video modes.");
-
-        // Get out
-        return false;
-    }
-    else if (modes == (SDL_Rect**)-1)
-    {
-        // Log success
-        theLog.WriteLine("SDLVideo        => All modes available");
-
-        // so, add 240x234 (window), 320 x 240, 512 x 384, 640 x 480 in 32 bits
-        AddDisplayMode(240, 234, 32, m_AvailableDisplayModes);
-        AddDisplayMode(320, 240, 32, m_AvailableDisplayModes);
-        AddDisplayMode(512, 384, 32, m_AvailableDisplayModes);
-        AddDisplayMode(640, 480, 32, m_AvailableDisplayModes);
-
-        // so this mode is possible
-        validMode = true;
-    }
-    else
-    {
-        // enumerate modes and add certain
-        for (i = 0; modes[i]; ++i)
-        {
-            if ((modes[i]->w == 240 && modes[i]->h == 234) || (modes[i]->w == 320 && modes[i]->h == 240) || (modes[i]->w == 512 && modes[i]->h == 384) || (modes[i]->w == 640 && modes[i]->h == 480))
-            {
-                AddDisplayMode(modes[i]->w, modes[i]->h, 32, m_AvailableDisplayModes);
-
-                // is our requested mode possbile?
-                if (modes[i]->w == m_Width && modes[i]->h == m_Height)
-                {
-                    validMode = true;
-                }
-            }
-        }
-    }
-
-    if (!validMode)
-    {
-        // Log failure
-        theLog.WriteLine("SDLVideo        => !!! Requested video mode %dx%d not found.", m_Width, m_Height);
+        theLog.WriteLine("SDLVideo        => !!! Window could not be created.");
 
         // Get out
         return false;
     }
 
-    // If desired mode is windowed mode
-    if (!m_FullScreen)
+    m_pRenderer = SDL_CreateRenderer(m_pWindow, -1, SDL_RENDERER_PRESENTVSYNC);
+    if (m_pRenderer == NULL)
     {
-        // Log that windowed mode is being initialized
-        theLog.WriteLine("SDLVideo        => Initializing SDLVideo interface for windowed mode %dx%d.", m_Width, m_Height);
+        // Log failure
+        theLog.WriteLine("SDLVideo        => !!! Renderer could not be created.");
 
-        // Get normal windowed mode
-        m_pPrimary = SDL_SetVideoMode(m_Width, m_Height, m_Depth, SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_VIDEO_OPENGL);
-
-        if (m_pPrimary == NULL)
-        {
-            // Log failure
-            theLog.WriteLine("SDLVideo        => !!! Requested video mode could not be set. (primary surface)");
-
-            // Get out
-            return false;
-        }
+        // Get out
+        return false;
     }
-    // If desired mode is a fullscreen mode
-    else
-    {
-        // Log that fullscreen mode is being initialized
-        theLog.WriteLine("SDLVideo        => Initializing SDLVideo interface for fullscreen mode %dx%dx%d.", m_Width, m_Height, m_Depth);
+    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");  // make the scaled rendering look smoother.
+    SDL_RenderSetLogicalSize(m_pRenderer, m_Width, m_Height);
 
-        // Get fullscreen mode
-        m_pPrimary = SDL_SetVideoMode(m_Width, m_Height, m_Depth, SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_VIDEO_OPENGL | SDL_FULLSCREEN);
+    m_pPrimary = SDL_CreateRGBSurface(0, m_Width, m_Height, m_Depth,
+                                        0x00FF0000,
+                                        0x0000FF00,
+                                        0x000000FF,
+                                        0xFF000000);
 
-        if (m_pPrimary == NULL)
-        {
-            // Log failure
-            theLog.WriteLine("SDLVideo        => !!! Requested video mode could not be set. (primary/backbuffer)");
-
-            // Get out
-            return false;
-        }
-    }
+    m_pTexture = SDL_CreateTexture(m_pRenderer,
+                                            SDL_PIXELFORMAT_ARGB8888,
+                                            SDL_TEXTUREACCESS_STREAMING,
+                                            m_Width, m_Height);
 
     // Get the rects of the viewport and screen bounds
     m_rcViewport.x = 0;
@@ -216,9 +141,9 @@ bool CVideoSDL::Create(int Width, int Height, int Depth, bool FullScreen)
 
     if (icon != nullptr)
     {
-        if (SDL_SetColorKey(icon, SDL_SRCCOLORKEY, SDL_MapRGB(icon->format, 0x00, 0xff, 0x00)) == 0)
+        if (SDL_SetColorKey(icon, SDL_TRUE, SDL_MapRGB(icon->format, 0x00, 0xff, 0x00)) == 0)
         {
-            SDL_WM_SetIcon(icon, NULL);
+            //SDL_WM_SetIcon(icon, NULL);
         }
     }
     else
@@ -297,26 +222,10 @@ void CVideoSDL::Destroy()
 
 void CVideoSDL::UpdateScreen()
 {
-
-    HRESULT hRet;
-
-    while (true)
-    {
-        // Update the primary surface by flipping backbuffer and primary surface
-        hRet = SDL_Flip(m_pPrimary);
-        SDL_Delay(15);
-
-        // If it worked fine
-        if (hRet == 0)
-        {
-            // Get out
-            break;
-        }
-
-        // Log failure
-        theLog.WriteLine("SDLVideo        => !!! Updating failed (switching primary/backbuffer).");
-        theLog.WriteLine("SDLVideo        => !!! SDLVideo error is : %s.", GetSDLVideoError());
-    }
+    SDL_UpdateTexture(m_pTexture, NULL, m_pPrimary->pixels, m_pPrimary->pitch);
+    SDL_RenderClear(m_pRenderer);
+    SDL_RenderCopy(m_pRenderer, m_pTexture, NULL, NULL);
+    SDL_RenderPresent(m_pRenderer);
 }
 
 //******************************************************************************************************************************
@@ -482,7 +391,7 @@ void CVideoSDL::RemoveAllDebugRectangles() { m_DebugDrawingRequests.clear(); }
 
 // Makes the display black.
 
-void CVideoSDL::Clear() { SDL_FillRect(m_pPrimary, &m_rcViewport, 0); }
+void CVideoSDL::Clear() { SDL_RenderClear(m_pRenderer); }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -506,9 +415,9 @@ WORD CVideoSDL::GetNumberOfBits(DWORD dwMask)
 bool CVideoSDL::SetTransparentColor(int Red, int Green, int Blue)
 {
     // Get the pixel format of the primary surface
-    SDL_PixelFormat* pf = m_pPrimary->format;
+    /*SDL_PixelFormat* pf = m_pSurface->format;
 
-    m_ColorKey = SDL_MapRGB(pf, Red, Green, Blue);
+    m_ColorKey = SDL_MapRGB(pf, Red, Green, Blue);*/
 
     // Everything went right
     return true;
@@ -559,7 +468,7 @@ bool CVideoSDL::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spr
     amask = 0xff000000;
 #endif
 
-    SDL_Surface* surf = SDL_CreateRGBSurface(SDL_SWSURFACE, Bitmap.bmWidth, Bitmap.bmHeight, Bitmap.bmBitsPixel, rmask, gmask, bmask, amask);
+    SDL_Surface* surf = SDL_CreateRGBSurface(0, Bitmap.bmWidth, Bitmap.bmHeight, Bitmap.bmBitsPixel, rmask, gmask, bmask, amask);
 
     BYTE* bits = new BYTE[Bitmap.bmWidthBytes * Bitmap.bmHeight];
     BYTE* temp = new BYTE[Bitmap.bmWidthBytes * Bitmap.bmHeight];
@@ -661,7 +570,7 @@ bool CVideoSDL::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spr
     if (Transparent)
     {
         // Apply the color key to the surface
-        HRESULT hRet = SDL_SetColorKey(ddsd, SDL_SRCCOLORKEY | SDL_RLEACCEL, SDL_MapRGBA(ddsd->format, 0x00, 0xff, 0x00, 0xff));
+        HRESULT hRet = SDL_SetColorKey(ddsd, SDL_TRUE, SDL_MapRGBA(ddsd->format, 0x00, 0xff, 0x00, 0xff));
 
         // If it failed
         if (hRet != 0)
@@ -680,7 +589,9 @@ bool CVideoSDL::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spr
     //-----------------------
 
     // Add the surface to the surface container
+    //SDL_Texture *sdlTexture = SDL_CreateTextureFromSurface(m_pRenderer, ddsd);
     m_Surfaces.push_back(Surface);
+    //SDL_FreeSurface(ddsd);
 
     //---------------------------
     // Create the sprite table
@@ -780,7 +691,7 @@ bool CVideoSDL::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spr
     if (Transparent)
     {
         // Apply the color key to the surface
-        HRESULT hRet = SDL_SetColorKey(ddsd, SDL_SRCCOLORKEY | SDL_RLEACCEL, SDL_MapRGBA(ddsd->format, 0x00, 0xff, 0x00, 0xff));
+        HRESULT hRet = SDL_SetColorKey(ddsd, SDL_TRUE, SDL_MapRGBA(ddsd->format, 0x00, 0xff, 0x00, 0xff));
 
         // If it failed
         if (hRet != 0)
@@ -799,7 +710,9 @@ bool CVideoSDL::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spr
     //-----------------------
 
     // Add the surface to the surface container
+    //SDL_Texture *sdlTexture = SDL_CreateTextureFromSurface(m_pRenderer, ddsd);
     m_Surfaces.push_back(Surface);
+    //SDL_FreeSurface(ddsd);
 
     //---------------------------
     // Create the sprite table
@@ -959,16 +872,16 @@ void CVideoSDL::UpdateAll()
 #endif
 
         // create surface
-        SDL_Surface* rectangle = SDL_CreateRGBSurface(SDL_HWSURFACE | SDL_SRCALPHA, SourceRect.w, SourceRect.h, 32, rmask, gmask, bmask, amask);
+        SDL_Surface* rectangle = SDL_CreateRGBSurface(0, SourceRect.w, SourceRect.h, 32, rmask, gmask, bmask, amask);
 
         SDL_Surface* reals = nullptr;
 
-        SDL_SetAlpha(rectangle, SDL_SRCALPHA | SDL_RLEACCEL, 128);
+        SDL_SetSurfaceAlphaMod(rectangle, 128);
 
         // fill with rectangle
         if (rectangle != nullptr && SDL_FillRect(rectangle, NULL, SDL_MapRGBA(rectangle->format, r, g, b, 128)) == 0)
         {
-            reals = SDL_DisplayFormatAlpha(rectangle);
+            reals = SDL_ConvertSurfaceFormat(rectangle, SDL_GetWindowPixelFormat(m_pWindow), 0);
 
             // Blit the surface zone on the back buffer
             if (reals != nullptr && SDL_BlitSurface(reals, &SourceRect, m_pPrimary, &DestRect) < 0)

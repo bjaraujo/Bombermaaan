@@ -169,18 +169,18 @@ void CInputSDL::Destroy()
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CInputSDL::UpdateDevice(SDL_Joystick* pDevice, void* pState, int StateSize) { return true; }
+bool CInputSDL::UpdateDevice(SDL_Joystick* pDevice, void* pState) { return true; }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CInputSDL::UpdateDevice(void* pState, int StateSize)
+bool CInputSDL::UpdateDevice(void* pState)
 {
+    int stateSize;
+    const Uint8* keyState = SDL_GetKeyboardState(&stateSize);
 
-    Uint8* keyState = SDL_GetKeyState(nullptr);
-
-    for (int i = 0; i < StateSize; i++)
+    for (int i = 0; i < stateSize; i++)
         SetKey(i, keyState[i] == 1);
 
     return true;
@@ -190,7 +190,7 @@ bool CInputSDL::UpdateDevice(void* pState, int StateSize)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CInputSDL::UpdateKeyboard() { UpdateDevice(m_KeyState, MAX_KEYS); }
+void CInputSDL::UpdateKeyboard() { UpdateDevice(m_KeyState); }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -284,12 +284,6 @@ void CInputSDL::MakeKeyFriendlyNames()
             break;
         case KEYBOARD_P:
             strcpy(m_KeyFriendlyName[Key], "P");
-            break;
-        case KEYBOARD_LBRACKET:
-            strcpy(m_KeyFriendlyName[Key], "L-BRACKET");
-            break;
-        case KEYBOARD_RBRACKET:
-            strcpy(m_KeyFriendlyName[Key], "R-BRACKET");
             break;
         case KEYBOARD_RETURN:
             strcpy(m_KeyFriendlyName[Key], "RETURN");

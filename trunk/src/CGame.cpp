@@ -494,9 +494,7 @@ bool CGame::Create(char** pCommandLine, int pCommandLineCount)
     m_Display.SetModuleHandle(nullptr);
 #endif // WIN32
 
-#ifdef SDL
-    SDL_WM_SetCaption(m_WindowTitle.c_str(), NULL);
-#elif ALLEGRO
+#ifdef ALLEGRO
     set_window_title(m_WindowTitle.c_str());
 #endif
 
