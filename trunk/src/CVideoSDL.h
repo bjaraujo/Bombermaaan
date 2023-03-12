@@ -148,7 +148,7 @@ private:
     SDL_Surface* m_pBackBuffer; //!< Backbuffer surface
     SDL_Surface* m_pPrimary; //!< Primary surface
     SDL_Window* m_pWindow; //!< SDL2 Window
-    SDL_Renderer *m_pRenderer; //!< SDL2 Renderer
+    SDL_Renderer* m_pRenderer; //!< SDL2 Renderer
     SDL_Texture* m_pTexture; //!< SDL2 Texture
     std::vector<SSurface> m_Surfaces; //!< Surfaces
     DWORD m_ColorKey; //!< Color key for transparent surfaces

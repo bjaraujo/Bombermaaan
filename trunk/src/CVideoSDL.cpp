@@ -44,6 +44,9 @@ CVideoSDL::CVideoSDL()
     m_hWnd = nullptr;
     m_pBackBuffer = nullptr;
     m_pPrimary = nullptr;
+    m_pWindow = nullptr;
+    m_pRenderer = nullptr;
+    m_pTexture = nullptr;
     m_Width = 0;
     m_Height = 0;
     m_Depth = 0;
@@ -516,7 +519,7 @@ bool CVideoSDL::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spr
 
     //Finally, convert surface to display format so it displays correctly
 
-    ddsd = SDL_DisplayFormat(surf);
+    ddsd = SDL_ConvertSurfaceFormat(surf, SDL_GetWindowPixelFormat(m_pWindow), 0);
 
     SDL_FreeSurface(surf);
 
