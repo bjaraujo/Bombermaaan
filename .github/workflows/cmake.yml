@@ -25,6 +25,7 @@ jobs:
       shell: bash
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
+          sudo apt update
           sudo apt-get install libsdl2-dev libsdl2-mixer-dev
         elif [ "$RUNNER_OS" == "Windows" ]; then
           curl --output $GITHUB_WORKSPACE/SDL2-devel-2.26.4-VC.zip --url https://libsdl.org/release/SDL2-devel-2.26.4-VC.zip
