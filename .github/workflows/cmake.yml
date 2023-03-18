@@ -52,9 +52,9 @@ jobs:
       # The CMake binaries on the Github Actions machines are (as of this writing) 3.12
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
-          cmake $GITHUB_WORKSPACE/trunk -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DLOAD_RESOURCES_FROM_FILES:BOOL=OFF 
+          cmake $GITHUB_WORKSPACE/trunk -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DLOAD_RESOURCES_FROM_FILES:BOOL=ON 
         elif [ "$RUNNER_OS" == "Windows" ]; then
-          cmake $GITHUB_WORKSPACE/trunk -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DLOAD_RESOURCES_FROM_FILES:BOOL=ON -A Win32 -DSDL2_DIR=$GITHUB_WORKSPACE/SDL2-2.26.4/cmake -DSDL2_mixer_DIR=$GITHUB_WORKSPACE/SDL2_mixer-2.6.3/cmake
+          cmake $GITHUB_WORKSPACE/trunk -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DLOAD_RESOURCES_FROM_FILES:BOOL=OFF -A Win32 -DSDL2_DIR=$GITHUB_WORKSPACE/SDL2-2.26.4/cmake -DSDL2_mixer_DIR=$GITHUB_WORKSPACE/SDL2_mixer-2.6.3/cmake
         else
           echo "$RUNNER_OS not supported"
           exit 1

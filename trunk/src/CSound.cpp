@@ -303,7 +303,7 @@ bool CSound::LoadSong(ESong Song, int ResourceID, const char* file)
     m_rwSong = SDL_RWFromMem(pData, DataSize);
 
     // Open Sample
-    m_CurrentSong = Mix_LoadMUS_RW(m_rwSong);
+    m_CurrentSong = Mix_LoadMUS_RW(m_rwSong, 0);
 
 #else
 
