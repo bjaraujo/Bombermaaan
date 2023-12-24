@@ -254,7 +254,7 @@ bool CGame::Create(char** pCommandLine, int pCommandLineCount)
     // __argv[0] is the full path including the exe file name
     // If we append a "\.." to the full path, we get the location where the dll and exe file(s) are placed
     pgmFolder.append(__argv[0]);
-    pgmFolder.append("\\..");
+    pgmFolder = pgmFolder.substr(0, pgmFolder.find_last_of("\\/"));
     SetCurrentDirectory(pgmFolder.c_str());
 #else
     // determine level path by resolving the symlink /proc/self/exe
@@ -447,7 +447,7 @@ bool CGame::Create(char** pCommandLine, int pCommandLineCount)
 #endif
 
 #ifdef SDL
-    if ((SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_JOYSTICK) == -1))
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_JOYSTICK) == -1)
     {
         theLog.WriteLine("Game            => !!! Could not initialise SDL library");
         theLog.LogLastError();
@@ -1131,7 +1131,6 @@ void CGame::OnKeyUp(WPARAM wParam, LPARAM lParam)
     }
     else
     {
-
         //! Quickly exit the game with Ctrl + F12
         if (wParam == VK_F12)
         {

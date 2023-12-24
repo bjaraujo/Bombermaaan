@@ -88,11 +88,13 @@ bool CVideoSDL::Create(int Width, int Height, int Depth, bool FullScreen)
     m_pPrimary = nullptr;
     m_ColorKey = 0;
 
+    if (m_pWindow)
+        SDL_DestroyWindow(m_pWindow);
+
     m_pWindow = SDL_CreateWindow("Bombermaaan",
                           SDL_WINDOWPOS_UNDEFINED,
                           SDL_WINDOWPOS_UNDEFINED,
-                          m_Width, m_Height,
-                          FullScreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0);
+                          m_Width, m_Height, FullScreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0);
 
     if (m_pWindow == NULL)
     {
@@ -910,19 +912,7 @@ void CVideoSDL::UpdateAll()
 
 bool CVideoSDL::IsModeAvailable(int Width, int Height, int Depth)
 {
-    // Scan all available display modes
-    for (unsigned int i = 0; i < m_AvailableDisplayModes.size(); i++)
-    {
-        // If this is the display mode we are looking for
-        if (m_AvailableDisplayModes[i].Width == Width && m_AvailableDisplayModes[i].Height == Height && m_AvailableDisplayModes[i].Depth == Depth)
-        {
-            // Then it's available
-            return true;
-        }
-    }
-
-    // The display mode was not found so it's not available
-    return false;
+    return true;
 }
 
 //******************************************************************************************************************************

@@ -279,9 +279,7 @@ else()
   add_executable(Bombermaaan ${BOMBERMAAAN_HEADERS} ${BOMBERMAAAN_SOURCES} ${WINREPLACE_HEADERS} ${WINREPLACE_SOURCES})
 endif()
 
-target_link_libraries(Bombermaaan 
-  ${BOMBERMAAAN_LIBRARIES}
-)
+target_link_libraries(Bombermaaan PRIVATE  ${BOMBERMAAAN_LIBRARIES})
 
 find_package(PythonInterp)
 
