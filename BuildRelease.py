@@ -7,7 +7,7 @@ import glob
 
 # Build platform
 if platform.system().lower() == 'windows':
-    build = 'msvc16-win32'
+    build = 'msvc17-win32'
 elif platform.system().lower() == 'linux':
     build = 'gxx-linux-x86'
 
@@ -73,7 +73,7 @@ print('version: ' + strNewVersion)
 print('build: ' + build)
 time.sleep(3)
 if platform.system().lower() == 'windows':
-    os.system('cmake -S trunk -B build/' + build + ' -G "Visual Studio 16 2019" -A Win32 -DLOAD_RESOURCES_FROM_FILES:BOOL=OFF')
+    os.system('cmake -S trunk -B build/' + build + ' -G "Visual Studio 17 2022" -A Win32 -DLOAD_RESOURCES_FROM_FILES:BOOL=OFF')
 elif platform.system().lower() == 'linux':
     os.system('cmake -S trunk -B build/' + build + ' -G "Ninja" -DLOAD_RESOURCES_FROM_FILES:BOOL=ON')
 
@@ -120,24 +120,18 @@ if platform.system().lower() == 'windows':
     shutil.copy2('build/' + build + '/bin/Bombermaaan.exe', strNewFolder + '/Bombermaaan.exe')
     shutil.copy2('build/' + build + '/bin/Bombermaaan32.dll', strNewFolder + '/Bombermaaan32.dll')
         
-    shutil.copy2(os.environ.get('SDLDIR')      + '/lib/x86/SDL.dll', strNewFolder + '/SDL.dll')
-    shutil.copy2(os.environ.get('SDLMIXERDIR') + '/lib/x86/SDL_mixer.dll', strNewFolder + '/SDL_mixer.dll')
-    shutil.copy2(os.environ.get('SDLMIXERDIR') + '/lib/x86/smpeg.dll', strNewFolder + '/smpeg.dll')
-    shutil.copy2(os.environ.get('SDLMIXERDIR') + '/lib/x86/libFLAC-8.dll', strNewFolder + '/libFLAC-8.dll')
-    shutil.copy2(os.environ.get('SDLMIXERDIR') + '/lib/x86/libmikmod-2.dll', strNewFolder + '/libmikmod-2.dll')
-    shutil.copy2(os.environ.get('SDLMIXERDIR') + '/lib/x86/libvorbis-0.dll', strNewFolder + '/libvorbis-0.dll')
-    shutil.copy2(os.environ.get('SDLMIXERDIR') + '/lib/x86/libvorbisfile-3.dll', strNewFolder + '/libvorbisfile-3.dll')
-    shutil.copy2(os.environ.get('SDLMIXERDIR') + '/lib/x86/libogg-0.dll', strNewFolder + '/libogg-0.dll')
-    #shutil.copy2(os.environ.get('SDLNETDIR')   + '/lib/x86/SDL_net.dll', strNewFolder + '/SDL_net.dll')
+    shutil.copy2(os.environ.get('SDL2_DIR') + '/lib/x86/SDL2.dll', strNewFolder + '/SDL2.dll')
+    shutil.copy2(os.environ.get('SDL2_MIXER_DIR') + '/lib/x86/SDL2_mixer.dll', strNewFolder + '/SDL2_mixer.dll')
+    #shutil.copy2(os.environ.get('SDL2_NET_DIR')   + '/lib/x86/SDL2_net.dll', strNewFolder + '/SDL2_net.dll')
          
     shutil.copy2(os.environ.get('SystemRoot') + '/SysWOW64/msvcp140.dll', strNewFolder + '/msvcp140.dll')
     shutil.copy2(os.environ.get('SystemRoot') + '/SysWOW64/vcruntime140.dll', strNewFolder + '/vcruntime140.dll')
 
     if bCrashReport:
-        shutil.copy2(os.environ.get('CRASHRPTDIR') + '/bin/CrashSender1403.exe', strNewFolder + '/CrashSender1403.exe')
-        shutil.copy2(os.environ.get('CRASHRPTDIR') + '/bin/CrashRpt1403.dll', strNewFolder + '/CrashRpt1403.dll')
-        shutil.copy2(os.environ.get('CRASHRPTDIR') + '/bin/dbghelp.dll', strNewFolder + '/dbghelp.dll')
-        shutil.copy2(os.environ.get('CRASHRPTDIR') + '/bin/crashrpt_lang.ini', strNewFolder + '/crashrpt_lang.ini')
+        shutil.copy2(os.environ.get('CRASHRPT_DIR') + '/bin/CrashSender1403.exe', strNewFolder + '/CrashSender1403.exe')
+        shutil.copy2(os.environ.get('CRASHRPT_DIR') + '/bin/CrashRpt1403.dll', strNewFolder + '/CrashRpt1403.dll')
+        shutil.copy2(os.environ.get('CRASHRPT_DIR') + '/bin/dbghelp.dll', strNewFolder + '/dbghelp.dll')
+        shutil.copy2(os.environ.get('CRASHRPT_DIR') + '/bin/crashrpt_lang.ini', strNewFolder + '/crashrpt_lang.ini')
         shutil.copy2('build/' + build + '/bin/Bombermaaan.pdb', strNewFolder + '/Bombermaaan.pdb')
 
     if not os.path.isdir(strNewFolder + '/levels'):
@@ -181,7 +175,7 @@ if incVersion:
 
 # Create package
 if platform.system().lower() == 'windows':
-    setup = '"C:/Program Files (x86)/Inno Setup 6/iscc.exe"'
+    setup = '"D:/Programs/Inno Setup 6/iscc.exe"'
     os.system(setup + ' installers\InstallScriptWin32.iss')
 
 elif platform.system().lower() == 'linux':
