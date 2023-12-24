@@ -2,8 +2,6 @@
 |:--:|:--:|
 |[![Build Status](https://github.com/bjaraujo/Bombermaaan/workflows/CMake/badge.svg)](https://github.com/bjaraujo/Bombermaaan/actions)|[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)|
 
-
-
 # Bombermaaan
 
 ![Main Screen](https://raw.githubusercontent.com/billyaraujo/bombermaaan/master/screenshots/ss01.png) 
@@ -16,6 +14,10 @@
 - 2007, 2008 Bernd Arnold
 - 2008 Jerome Bigot
 - 2008 Markus Drescher
+
+## News
+
+24/12/2023: Using SDL 2
 
 ## License
 
