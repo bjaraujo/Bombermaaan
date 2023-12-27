@@ -398,7 +398,7 @@ void CMatch::PlaySong()
 void CMatch::ProcessPlayerCommands()
 {
     // If the match is not paused
-    if (m_pPauseMessage == NULL)
+    if (m_pPauseMessage == nullptr)
     {
         // Do the AI stuff only when there are AI players
         if (m_computerPlayersPresent)
@@ -598,7 +598,7 @@ void CMatch::ManagePauseMessage()
     if (m_pInput->GetMainInput().TestPause() || joystickRequestedPause)
     {
         // If the pause message is not created
-        if (m_pPauseMessage == NULL)
+        if (m_pPauseMessage == nullptr)
         {
             // Create the pause message
             m_pPauseMessage = new CPauseMessage(m_pDisplay, m_pSound);
@@ -640,7 +640,7 @@ void CMatch::ManagePauseMessage()
 void CMatch::UpdateMatch()
 {
     // If the match is not paused
-    if (m_pPauseMessage == NULL)
+    if (m_pPauseMessage == nullptr)
     {
         int AliveCount_Human = 0; // Number of alive human bombers
         int AliveCount_AI = 0; // Number of alive computer controlled bombers
@@ -743,7 +743,7 @@ void CMatch::UpdateMatch()
 void CMatch::ManageHurryUpMessage()
 {
     // If the match is not paused and the hurry up is enabled
-    if (m_pPauseMessage == NULL && (m_pOptions->GetTimeUpMinutes() != 0 || m_pOptions->GetTimeUpSeconds() != 0))
+    if (m_pPauseMessage == nullptr && (m_pOptions->GetTimeUpMinutes() != 0 || m_pOptions->GetTimeUpSeconds() != 0))
     {
         // Dummy variables
         int ClockTotalSeconds = m_Clock.GetMinutes() * 60 + m_Clock.GetSeconds();
@@ -754,7 +754,7 @@ void CMatch::ManageHurryUpMessage()
         if (ClockTotalSeconds == TimeUpTotalSeconds + 1)
         {
             // If the hurry message doesn't exist
-            if (m_pHurryMessage == NULL)
+            if (m_pHurryMessage == nullptr)
             {
                 // Create the hurry message
                 m_pHurryMessage = new CHurryMessage(m_pDisplay, m_pSound);
@@ -786,7 +786,7 @@ void CMatch::ManageMatchOver()
     //---------------------------------------------------
 
     // If the match is not paused
-    if (m_pPauseMessage == NULL)
+    if (m_pPauseMessage == nullptr)
     {
         int AliveCount = 0; // Number of alive bombers
         int DyingCount = 0; // Number of dying bombers

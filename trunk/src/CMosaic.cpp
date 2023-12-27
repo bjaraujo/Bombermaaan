@@ -37,7 +37,7 @@
 
 CMosaic::CMosaic()
 {
-    m_pDisplay = NULL;
+    m_pDisplay = nullptr;
 
     m_SpriteTable = 0;
     m_Sprite = 0;
@@ -156,7 +156,7 @@ void CMosaic::Display()
             // Draw the background tile
             m_pDisplay->DrawSprite(X, // Position of the current tile
                 Y,
-                NULL, // Draw entire tile
+                nullptr, // Draw entire tile
                 &Clip, // Clip with game view
                 m_SpriteTable, m_Sprite, m_SpriteLayer, m_PriorityInLayer);
 

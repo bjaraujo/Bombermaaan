@@ -429,7 +429,7 @@ void CMenuMatch::OnDisplay()
         if (m_CursorOption == Option)
         {
             // Draw the cursor hand sprite in front of the corresponding option text
-            m_pDisplay->DrawSprite(INITIAL_TEXT_POSITION_X + CURSOR_HAND_SPACE_X, PositionY + CURSOR_HAND_SPACE_Y, NULL, NULL, BMP_MENU_HAND, CURSOR_HAND_SPRITE, MENUMATCH_SPRITELAYER, CURSOR_HAND_PRIORITY);
+            m_pDisplay->DrawSprite(INITIAL_TEXT_POSITION_X + CURSOR_HAND_SPACE_X, PositionY + CURSOR_HAND_SPACE_Y, nullptr, nullptr, BMP_MENU_HAND, CURSOR_HAND_SPRITE, MENUMATCH_SPRITELAYER, CURSOR_HAND_PRIORITY);
         }
 
         // Go down

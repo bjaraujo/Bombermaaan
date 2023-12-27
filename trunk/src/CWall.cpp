@@ -383,8 +383,8 @@ void CWall::Display()
         // Add the sprite in the right layer.
         m_pDisplay->DrawSprite(m_iX, // Top left corner of the wall's block
             m_iY,
-            NULL, // Draw entire sprite
-            NULL, // No need to clip
+            nullptr, // Draw entire sprite
+            nullptr, // No need to clip
             BMP_ARENA_WALL, m_Sprite, WALL_SPRITELAYER, WALL_PRIORITY);
     }
     // If it's a soft wall
@@ -392,8 +392,8 @@ void CWall::Display()
     {
         // Add the sprite in the right layer.
         m_pDisplay->DrawSprite(m_iX, m_iY,
-            NULL, // Draw entire sprite
-            NULL, // No need to clip
+            nullptr, // Draw entire sprite
+            nullptr, // No need to clip
             BMP_ARENA_WALL, m_Sprite, WALL_SPRITELAYER, WALL_PRIORITY);
     }
     // If it's a falling wall
@@ -410,14 +410,14 @@ void CWall::Display()
         // Put the falling wall sprite. It's a flying object, put it in the appropriate layer.
         // The priority in layer depends on the Y position of the block where the wall lands.
         m_pDisplay->DrawSprite(int(m_fX), int(m_fY),
-            NULL, // Draw entire sprite
+            nullptr, // Draw entire sprite
             &Clip, // Clip sprite to arena view!!!
             BMP_ARENA_FLY, m_Sprite, FLY_SPRITELAYER, m_iY);
 
         // Put the shadow sprite.
         m_pDisplay->DrawSprite(m_iX, m_iY,
-            NULL, // Draw entire sprite
-            NULL, // No need to clip
+            nullptr, // Draw entire sprite
+            nullptr, // No need to clip
             BMP_ARENA_FLY, FALLING_SHADOW, WALL_SPRITELAYER, FLYSHADOW_PRIORITY);
     }
 }

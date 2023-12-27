@@ -335,7 +335,7 @@ void CMenuBomber::OnDisplay()
         }
 
         // Draw the bomber head corresponding to the current player
-        m_pDisplay->DrawSprite(INITIAL_TEXT_POSITION_X + BOMBER_HEAD_SPACE_X, PositionY + BOMBER_HEAD_SPACE_Y, NULL, NULL, BMP_MENU_BOMBER,
+        m_pDisplay->DrawSprite(INITIAL_TEXT_POSITION_X + BOMBER_HEAD_SPACE_X, PositionY + BOMBER_HEAD_SPACE_Y, nullptr, nullptr, BMP_MENU_BOMBER,
             Player + (m_Blinking[Player] ? MAX_PLAYERS : 0), // Blinking bomber head sprite or not
             MENUBOMBER_SPRITELAYER, BOMBER_HEAD_PRIORITY);
 
@@ -343,7 +343,7 @@ void CMenuBomber::OnDisplay()
         if (m_CursorPlayer == Player)
         {
             // Draw the cursor hand sprite in front of the corresponding bomber head
-            m_pDisplay->DrawSprite(INITIAL_TEXT_POSITION_X + CURSOR_HAND_SPACE_X, PositionY + CURSOR_HAND_SPACE_Y, NULL, NULL, BMP_MENU_HAND, CURSOR_HAND_SPRITE, MENUBOMBER_SPRITELAYER, CURSOR_HAND_PRIORITY);
+            m_pDisplay->DrawSprite(INITIAL_TEXT_POSITION_X + CURSOR_HAND_SPACE_X, PositionY + CURSOR_HAND_SPACE_Y, nullptr, nullptr, BMP_MENU_HAND, CURSOR_HAND_SPRITE, MENUBOMBER_SPRITELAYER, CURSOR_HAND_PRIORITY);
         }
 
         // Go down

@@ -57,7 +57,7 @@
 
 CMenuBase::CMenuBase()
 {
-    // Initialize the pointers to NULL so that we
+    // Initialize the pointers to nullptr so that we
     // can easily detect the ones we forgot to set.
     m_pDisplay = nullptr;
     m_pInput = nullptr;
@@ -209,7 +209,7 @@ void CMenuBase::Display()
         m_pDisplay->SetOrigin(0, 0);
 
         // Draw the menu frame sprite
-        m_pDisplay->DrawSprite(FRAME_POSITION_X, FRAME_POSITION_Y, NULL, NULL, BMP_MENU_FRAME_1, FRAME_SPRITE, FRAME_SPRITELAYER, FRAME_PRIORITY);
+        m_pDisplay->DrawSprite(FRAME_POSITION_X, FRAME_POSITION_Y, nullptr, nullptr, BMP_MENU_FRAME_1, FRAME_SPRITE, FRAME_SPRITELAYER, FRAME_PRIORITY);
 
         // Display the menu screen
         OnDisplay();

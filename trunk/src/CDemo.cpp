@@ -434,7 +434,7 @@ void CDemo::ManageHurryUpMessage()
         if (ClockTotalSeconds == TimeUpTotalSeconds + 1)
         {
             // If the hurry message doesn't exist
-            if (m_pHurryMessage == NULL)
+            if (m_pHurryMessage == nullptr)
             {
                 // Create the hurry message
                 m_pHurryMessage = new CHurryMessage(m_pDisplay, m_pSound);

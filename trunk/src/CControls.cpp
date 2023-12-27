@@ -435,7 +435,7 @@ void CControls::Display()
         m_pMosaic->Display();
 
         // Draw the menu frame sprite
-        m_pDisplay->DrawSprite(FRAME_POSITION_X, FRAME_POSITION_Y, NULL, NULL, BMP_MENU_FRAME_1, FRAME_SPRITE, FRAME_SPRITELAYER, FRAME_PRIORITY);
+        m_pDisplay->DrawSprite(FRAME_POSITION_X, FRAME_POSITION_Y, nullptr, nullptr, BMP_MENU_FRAME_1, FRAME_SPRITE, FRAME_SPRITELAYER, FRAME_PRIORITY);
 
         // Draw the title of the screen
         m_Font.SetTextColor(FONTCOLOR_WHITE);
@@ -536,7 +536,7 @@ void CControls::Display()
             if (m_Cursor == MenuItemIndex)
             {
                 // Display the cursor hand
-                m_pDisplay->DrawSprite(ALL_MENU_ITEMS_POSITION_X + SPACE_X_FROM_MENU_ITEM_TO_CURSOR_HAND, MenuItemPositionY + SPACE_Y_FROM_MENU_ITEM_TO_CURSOR_HAND, NULL, NULL, BMP_MENU_HAND, SPRITE_CURSOR_HAND, CONTROLS_CURSOR_HAND_SPRITE_LAYER, PRIORITY_UNUSED);
+                m_pDisplay->DrawSprite(ALL_MENU_ITEMS_POSITION_X + SPACE_X_FROM_MENU_ITEM_TO_CURSOR_HAND, MenuItemPositionY + SPACE_Y_FROM_MENU_ITEM_TO_CURSOR_HAND, nullptr, nullptr, BMP_MENU_HAND, SPRITE_CURSOR_HAND, CONTROLS_CURSOR_HAND_SPRITE_LAYER, PRIORITY_UNUSED);
             }
 
             // Go down : next menu item to display

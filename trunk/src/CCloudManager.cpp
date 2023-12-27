@@ -117,7 +117,7 @@ void CCloudManager::Display()
         m_pDisplay->DrawSprite(
             m_Clouds[i].GetPositionX(), // Position of the current tile
             m_Clouds[i].GetPositionY(),
-            NULL, // Draw entire tile
+            nullptr, // Draw entire tile
             &Clip, // Clip with game view
             m_CloudSprites[i], 0, 0, 1);
     }

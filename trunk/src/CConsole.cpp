@@ -147,7 +147,7 @@ void CConsole::Write(const char* pMessage, ...)
                 // Send the formatted string to the console output
 #ifdef WIN32
                 DWORD Count;
-                WriteConsole(m_StdOut, Message, strlen(Message), &Count, NULL);
+                WriteConsole(m_StdOut, Message, strlen(Message), &Count, nullptr);
 #else
                 fprintf(m_StdOut, "%s", Message);
 #endif
@@ -170,7 +170,7 @@ void CConsole::Write(const char* pMessage, ...)
                 {
 #ifdef WIN32
                     DWORD Count;
-                    WriteConsole(m_StdOut, ".", 1, &Count, NULL);
+                    WriteConsole(m_StdOut, ".", 1, &Count, nullptr);
 #else
                     fprintf(m_StdOut, ",");
 #endif
@@ -183,7 +183,7 @@ void CConsole::Write(const char* pMessage, ...)
             // Send the formatted string to the console output
 #ifdef WIN32
             DWORD Count;
-            WriteConsole(m_StdOut, Message, strlen(Message), &Count, NULL);
+            WriteConsole(m_StdOut, Message, strlen(Message), &Count, nullptr);
 #else
             fprintf(m_StdOut, "%s", Message);
 #endif

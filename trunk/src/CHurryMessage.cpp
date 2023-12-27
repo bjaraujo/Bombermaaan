@@ -98,7 +98,7 @@ void CHurryMessage::Display()
     // Draw the hurry message
     m_pDisplay->DrawSprite(m_Scroller.GetPositionX(), // Position of the current tile
         m_Scroller.GetPositionY(),
-        NULL, // Draw entire tile
+        nullptr, // Draw entire tile
         &Clip, // Clip with game view
         BMP_HURRY, 0, 700, -1);
 }

@@ -554,8 +554,8 @@ void CItem::Display()
             {
                 // Draw the item sprite in the right layer. Priority is not used.
                 m_pDisplay->DrawSprite(m_iX, m_iY,
-                    NULL, // Draw entire sprite
-                    NULL, // No need to clip
+                    nullptr, // Draw entire sprite
+                    nullptr, // No need to clip
                     BMP_ARENA_ITEM, m_Sprite, ITEM_SPRITELAYER, 0);
 
                 // If the fumes animation is playing
@@ -563,16 +563,16 @@ void CItem::Display()
                 {
                     int fumesOffset = 16;
                     // Draw the upper left part of the fumes
-                    m_pDisplay->DrawSprite(m_iX - fumesOffset, m_iY - fumesOffset, NULL, NULL, BMP_ARENA_FUMES, m_FumeSprite + 3 * 0, 50, m_iY - 4);
+                    m_pDisplay->DrawSprite(m_iX - fumesOffset, m_iY - fumesOffset, nullptr, nullptr, BMP_ARENA_FUMES, m_FumeSprite + 3 * 0, 50, m_iY - 4);
 
                     // Draw the upper right part of the fumes
-                    m_pDisplay->DrawSprite(m_iX + fumesOffset, m_iY - fumesOffset, NULL, NULL, BMP_ARENA_FUMES, m_FumeSprite + 3 * 1, 50, m_iY - 4);
+                    m_pDisplay->DrawSprite(m_iX + fumesOffset, m_iY - fumesOffset, nullptr, nullptr, BMP_ARENA_FUMES, m_FumeSprite + 3 * 1, 50, m_iY - 4);
 
                     // Draw the lower right part of the fumes
-                    m_pDisplay->DrawSprite(m_iX + fumesOffset, m_iY + fumesOffset, NULL, NULL, BMP_ARENA_FUMES, m_FumeSprite + 3 * 2, 50, m_iY + 4);
+                    m_pDisplay->DrawSprite(m_iX + fumesOffset, m_iY + fumesOffset, nullptr, nullptr, BMP_ARENA_FUMES, m_FumeSprite + 3 * 2, 50, m_iY + 4);
 
                     // Draw the lower left part of the fumes
-                    m_pDisplay->DrawSprite(m_iX - fumesOffset, m_iY + fumesOffset, NULL, NULL, BMP_ARENA_FUMES, m_FumeSprite + 3 * 3, 50, m_iY + 4);
+                    m_pDisplay->DrawSprite(m_iX - fumesOffset, m_iY + fumesOffset, nullptr, nullptr, BMP_ARENA_FUMES, m_FumeSprite + 3 * 3, 50, m_iY + 4);
                 }
             }
             // If item is burning
@@ -580,14 +580,14 @@ void CItem::Display()
             {
                 // Draw the fire sprite in the arena layer. Priority in layer depends on m_iY.
                 m_pDisplay->DrawSprite(m_iX + FIRE_OFFSETX, m_iY + FIRE_OFFSETY,
-                    NULL, // Draw entire sprite
-                    NULL, // No need to clip
+                    nullptr, // Draw entire sprite
+                    nullptr, // No need to clip
                     BMP_ARENA_FIRE, m_Sprite, FIRE_SPRITELAYER, m_iY);
 
                 // Draw the item sprite in the right layer. Priority is not used.
                 m_pDisplay->DrawSprite(m_iX, m_iY,
-                    NULL, // Draw entire sprite
-                    NULL, // No need to clip
+                    nullptr, // Draw entire sprite
+                    nullptr, // No need to clip
                     BMP_ARENA_ITEM, m_Sprite0, ITEM_SPRITELAYER, PRIORITY_UNUSED);
             }
         }
@@ -606,7 +606,7 @@ void CItem::Display()
         // Draw the flying item sprite. It's a flying object, put it in the appropriate layer.
         // The priority in layer depends on the Y position of the item.
         m_pDisplay->DrawSprite(m_iX, m_iY,
-            NULL, // Draw entire sprite
+            nullptr, // Draw entire sprite
             &Clip, // Clip sprite to arena view!!!
             BMP_ARENA_FLY, m_Sprite, FLY_SPRITELAYER, m_iY);
     }

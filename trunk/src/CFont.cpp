@@ -68,7 +68,7 @@
 
 CFont::CFont()
 {
-    // Initialize the pointers to NULL so that we
+    // Initialize the pointers to nullptr so that we
     // can easily detect the ones we forgot to set.
     m_pDisplay = nullptr;
 
@@ -203,7 +203,7 @@ void CFont::DrawString(int PositionX, int PositionY, const char* pString)
             // Draw current character in string. The offset corresponding to
             // the current font color is added to the character offset in order
             // to get the chosen color for characters.
-            m_pDisplay->DrawSprite(PositionX, PositionY, NULL, NULL, BMP_GLOBAL_FONT, m_TextColorOffset + CharacterOffset, m_SpriteLayer, TEXT_PRIORITY);
+            m_pDisplay->DrawSprite(PositionX, PositionY, nullptr, nullptr, BMP_GLOBAL_FONT, m_TextColorOffset + CharacterOffset, m_SpriteLayer, TEXT_PRIORITY);
 
             // If we have to draw a shadow under the text
             if (m_DrawShadow)
@@ -211,7 +211,7 @@ void CFont::DrawString(int PositionX, int PositionY, const char* pString)
                 // Draw the text shadow
                 m_pDisplay->DrawSprite(PositionX + m_ShadowOffsetX, // Apply shadow offset which depends
                     PositionY + m_ShadowOffsetY, // on the chosen shadow direction.
-                    NULL, NULL, BMP_GLOBAL_FONT, m_ShadowColorOffset + CharacterOffset, m_SpriteLayer, SHADOW_PRIORITY);
+                    nullptr, nullptr, BMP_GLOBAL_FONT, m_ShadowColorOffset + CharacterOffset, m_SpriteLayer, SHADOW_PRIORITY);
             }
         }
 

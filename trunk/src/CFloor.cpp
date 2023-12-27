@@ -138,8 +138,8 @@ void CFloor::Display()
 
         // Add the sprite in the layer. Priority is not used.
         m_pDisplay->DrawSprite(m_iX, m_iY,
-            NULL, // Draw entire sprite
-            NULL, // No need to clip
+            nullptr, // Draw entire sprite
+            nullptr, // No need to clip
             BMP_ARENA_FLOOR, Sprite, FLOOR_SPRITELAYER, PRIORITY_UNUSED);
 
         Sprite = -1;
@@ -165,8 +165,8 @@ void CFloor::Display()
         if (Sprite != -1)
         {
             m_pDisplay->DrawSprite(m_iX, m_iY,
-                NULL, // Draw entire sprite
-                NULL, // No need to clip
+                nullptr, // Draw entire sprite
+                nullptr, // No need to clip
                 BMP_ARENA_ARROWS, Sprite, ACTION_SPRITELAYER, PRIORITY_UNUSED);
         }
     }

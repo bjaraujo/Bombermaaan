@@ -253,7 +253,7 @@ void CCredits::Display()
         m_pMosaic->Display();
 
         // Draw the menu frame sprite
-        m_pDisplay->DrawSprite(FRAME_POSITION_X, FRAME_POSITION_Y, NULL, NULL, BMP_MENU_FRAME_1, FRAME_SPRITE, FRAME_SPRITELAYER, FRAME_PRIORITY);
+        m_pDisplay->DrawSprite(FRAME_POSITION_X, FRAME_POSITION_Y, nullptr, nullptr, BMP_MENU_FRAME_1, FRAME_SPRITE, FRAME_SPRITELAYER, FRAME_PRIORITY);
 
         // Draw the title of the screen
         m_Font.SetTextColor(FONTCOLOR_WHITE);

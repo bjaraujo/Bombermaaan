@@ -117,7 +117,7 @@ void CSnowManager::Display()
         m_pDisplay->DrawSprite(
             m_Snows[i].GetPositionX(), // Position of the current tile
             m_Snows[i].GetPositionY(),
-            NULL, // Draw entire tile
+            nullptr, // Draw entire tile
             &Clip, // Clip with game view
             m_SnowSprites[i], 0, 0, 1);
     }

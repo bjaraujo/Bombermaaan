@@ -1559,16 +1559,16 @@ void CBomber::Display()
 
         // Add the sprite in the layer. Priority in bomber sprite layer depends on m_iY.
         m_pDisplay->DrawSprite(m_BomberMove.GetX() + BOMBER_OFFSETX, m_BomberMove.GetY() + BOMBER_OFFSETY,
-            NULL, // Draw entire sprite
-            NULL, // No need to clip
+            nullptr, // Draw entire sprite
+            nullptr, // No need to clip
             m_Page, m_Sprite, BOMBER_SPRITELAYER, m_BomberMove.GetY());
 
         if (m_SpriteOverlay > 0)
         {
 
             m_pDisplay->DrawSprite(m_BomberMove.GetX() + BOMBER_OFFSETX, m_BomberMove.GetY() + BOMBER_OFFSETY,
-                NULL, // Draw entire sprite
-                NULL, // No need to clip
+                nullptr, // Draw entire sprite
+                nullptr, // No need to clip
                 m_Page, m_SpriteOverlay, BOMBER_SPRITELAYER, m_BomberMove.GetY() + 1);
         }
     }

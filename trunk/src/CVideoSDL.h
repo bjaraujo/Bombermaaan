@@ -145,7 +145,6 @@ private:
     int m_Height; //!< Display height when fullscreen
     int m_Depth; //!< Display depth when fullscreen
     bool m_FullScreen; //!< Is it fullscreen?
-    SDL_Surface* m_pBackBuffer; //!< Backbuffer surface
     SDL_Surface* m_pPrimary; //!< Primary surface
     SDL_Window* m_pWindow; //!< SDL2 Window
     SDL_Renderer* m_pRenderer; //!< SDL2 Renderer

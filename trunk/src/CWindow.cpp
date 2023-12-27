@@ -96,9 +96,9 @@ CWindow::CWindow(HINSTANCE hInstance, const char* pWindowTitle, int IconResource
     WndClassEx.lpfnWndProc = DefaultWinProc; // Biiiig Hack. See the function DefaultWinProc
     WndClassEx.style = CS_VREDRAW | CS_HREDRAW;
     WndClassEx.hInstance = hInstance;
-    WndClassEx.hIcon = LoadIcon(NULL, IDI_APPLICATION);
+    WndClassEx.hIcon = LoadIcon(nullptr, IDI_APPLICATION);
     WndClassEx.hIconSm = nullptr;
-    WndClassEx.hCursor = LoadCursor(NULL, IDC_ARROW);
+    WndClassEx.hCursor = LoadCursor(nullptr, IDC_ARROW);
     WndClassEx.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
     WndClassEx.lpszMenuName = nullptr;
     WndClassEx.cbClsExtra = 0;
@@ -124,14 +124,14 @@ CWindow::CWindow(HINSTANCE hInstance, const char* pWindowTitle, int IconResource
         CW_USEDEFAULT,
         CW_USEDEFAULT, // Size
         CW_USEDEFAULT,
-        NULL, // Parent window
-        NULL, // Menu
+        nullptr, // Parent window
+        nullptr, // Menu
         hInstance, // Handle to instance
         this); // Pointer to window creation data
     // (Allows us to store the 'this' pointer)
 
     // If it failed
-    if (m_hWnd == NULL)
+    if (m_hWnd == nullptr)
     {
         // Log failure
         theLog.WriteLine("Window          => !!! Could not create the window.");
@@ -278,9 +278,9 @@ void CWindow::MessagePump()
     while (true)
     {
         // Manage the messages if some are waiting
-        if (PeekMessage(&msg, NULL, 0, 0, PM_NOREMOVE))
+        if (PeekMessage(&msg, nullptr, 0, 0, PM_NOREMOVE))
         {
-            if (!GetMessage(&msg, NULL, 0, 0))
+            if (!GetMessage(&msg, nullptr, 0, 0))
             {
                 m_hWnd = nullptr;
                 break;

@@ -264,68 +264,68 @@ void CHelp::Display()
         m_pMosaic->Display();
 
         // Draw the menu frame sprite
-        m_pDisplay->DrawSprite(FRAME_POSITION_X, FRAME_POSITION_Y, NULL, NULL, BMP_MENU_FRAME_1, FRAME_SPRITE, FRAME_SPRITELAYER, FRAME_PRIORITY);
+        m_pDisplay->DrawSprite(FRAME_POSITION_X, FRAME_POSITION_Y, nullptr, nullptr, BMP_MENU_FRAME_1, FRAME_SPRITE, FRAME_SPRITELAYER, FRAME_PRIORITY);
 
         // Draw the title of the screen
         m_Font.SetTextColor(FONTCOLOR_WHITE);
         m_Font.DrawCenteredX(0, VIEW_WIDTH, SCREEN_TITLE_POSITION_Y, SCREEN_HELP_TITLE_STRING);
 
         // Bomb help
-        m_pDisplay->DrawSprite(SCREEN_TEXT_POSITION_X, SCREEN_TITLE_POSITION_Y + 60, NULL, NULL, BMP_LEVEL_MINI_TILES, ITEM_BOMB, 2, 0);
+        m_pDisplay->DrawSprite(SCREEN_TEXT_POSITION_X, SCREEN_TITLE_POSITION_Y + 60, nullptr, nullptr, BMP_LEVEL_MINI_TILES, ITEM_BOMB, 2, 0);
 
         m_Font.SetTextColor(FONTCOLOR_YELLOW);
         m_Font.Draw(SCREEN_TEXT_POSITION_X + 30, SCREEN_TITLE_POSITION_Y + 60, "Increments number of bombs");
 
         // Flame help
-        m_pDisplay->DrawSprite(SCREEN_TEXT_POSITION_X, SCREEN_TITLE_POSITION_Y + 80, NULL, NULL, BMP_LEVEL_MINI_TILES, ITEM_FLAME, 2, 0);
+        m_pDisplay->DrawSprite(SCREEN_TEXT_POSITION_X, SCREEN_TITLE_POSITION_Y + 80, nullptr, nullptr, BMP_LEVEL_MINI_TILES, ITEM_FLAME, 2, 0);
 
         m_Font.SetTextColor(FONTCOLOR_YELLOW);
         m_Font.Draw(SCREEN_TEXT_POSITION_X + 30, SCREEN_TITLE_POSITION_Y + 80, "Increments flame size");
 
         // Roller help
-        m_pDisplay->DrawSprite(SCREEN_TEXT_POSITION_X, SCREEN_TITLE_POSITION_Y + 100, NULL, NULL, BMP_LEVEL_MINI_TILES, ITEM_ROLLER, 2, 0);
+        m_pDisplay->DrawSprite(SCREEN_TEXT_POSITION_X, SCREEN_TITLE_POSITION_Y + 100, nullptr, nullptr, BMP_LEVEL_MINI_TILES, ITEM_ROLLER, 2, 0);
 
         m_Font.SetTextColor(FONTCOLOR_YELLOW);
         m_Font.Draw(SCREEN_TEXT_POSITION_X + 30, SCREEN_TITLE_POSITION_Y + 100, "Increases walk speed");
 
         // Kick help
-        m_pDisplay->DrawSprite(SCREEN_TEXT_POSITION_X, SCREEN_TITLE_POSITION_Y + 120, NULL, NULL, BMP_LEVEL_MINI_TILES, ITEM_KICK, 2, 0);
+        m_pDisplay->DrawSprite(SCREEN_TEXT_POSITION_X, SCREEN_TITLE_POSITION_Y + 120, nullptr, nullptr, BMP_LEVEL_MINI_TILES, ITEM_KICK, 2, 0);
 
         m_Font.SetTextColor(FONTCOLOR_YELLOW);
         m_Font.Draw(SCREEN_TEXT_POSITION_X + 30, SCREEN_TITLE_POSITION_Y + 120, "Ability to kick bombs");
 
         // Throw help
-        m_pDisplay->DrawSprite(SCREEN_TEXT_POSITION_X, SCREEN_TITLE_POSITION_Y + 140, NULL, NULL, BMP_LEVEL_MINI_TILES, ITEM_THROW, 2, 0);
+        m_pDisplay->DrawSprite(SCREEN_TEXT_POSITION_X, SCREEN_TITLE_POSITION_Y + 140, nullptr, nullptr, BMP_LEVEL_MINI_TILES, ITEM_THROW, 2, 0);
 
         m_Font.SetTextColor(FONTCOLOR_YELLOW);
         m_Font.Draw(SCREEN_TEXT_POSITION_X + 30, SCREEN_TITLE_POSITION_Y + 140, "Ability to throw bombs");
 
         // Punch help
-        m_pDisplay->DrawSprite(SCREEN_TEXT_POSITION_X, SCREEN_TITLE_POSITION_Y + 160, NULL, NULL, BMP_LEVEL_MINI_TILES, ITEM_PUNCH, 2, 0);
+        m_pDisplay->DrawSprite(SCREEN_TEXT_POSITION_X, SCREEN_TITLE_POSITION_Y + 160, nullptr, nullptr, BMP_LEVEL_MINI_TILES, ITEM_PUNCH, 2, 0);
 
         m_Font.SetTextColor(FONTCOLOR_YELLOW);
         m_Font.Draw(SCREEN_TEXT_POSITION_X + 30, SCREEN_TITLE_POSITION_Y + 160, "Ability to punch bombs");
 
         // Remote help
-        m_pDisplay->DrawSprite(SCREEN_TEXT_POSITION_X, SCREEN_TITLE_POSITION_Y + 180, NULL, NULL, BMP_LEVEL_MINI_TILES, ITEM_REMOTES, 2, 0);
+        m_pDisplay->DrawSprite(SCREEN_TEXT_POSITION_X, SCREEN_TITLE_POSITION_Y + 180, nullptr, nullptr, BMP_LEVEL_MINI_TILES, ITEM_REMOTES, 2, 0);
 
         m_Font.SetTextColor(FONTCOLOR_YELLOW);
         m_Font.Draw(SCREEN_TEXT_POSITION_X + 30, SCREEN_TITLE_POSITION_Y + 180, "Remote detonate");
 
         // Shield help
-        m_pDisplay->DrawSprite(SCREEN_TEXT_POSITION_X, SCREEN_TITLE_POSITION_Y + 200, NULL, NULL, BMP_LEVEL_MINI_TILES, ITEM_SHIELD, 2, 0);
+        m_pDisplay->DrawSprite(SCREEN_TEXT_POSITION_X, SCREEN_TITLE_POSITION_Y + 200, nullptr, nullptr, BMP_LEVEL_MINI_TILES, ITEM_SHIELD, 2, 0);
 
         m_Font.SetTextColor(FONTCOLOR_YELLOW);
         m_Font.Draw(SCREEN_TEXT_POSITION_X + 30, SCREEN_TITLE_POSITION_Y + 200, "Shields one bomb blast");
 
         // Strong/weak help
-        m_pDisplay->DrawSprite(SCREEN_TEXT_POSITION_X, SCREEN_TITLE_POSITION_Y + 220, NULL, NULL, BMP_LEVEL_MINI_TILES, ITEM_STRONGWEAK, 2, 0);
+        m_pDisplay->DrawSprite(SCREEN_TEXT_POSITION_X, SCREEN_TITLE_POSITION_Y + 220, nullptr, nullptr, BMP_LEVEL_MINI_TILES, ITEM_STRONGWEAK, 2, 0);
 
         m_Font.SetTextColor(FONTCOLOR_YELLOW);
         m_Font.Draw(SCREEN_TEXT_POSITION_X + 30, SCREEN_TITLE_POSITION_Y + 220, "Strong/weak item");
 
         // Skull help
-        m_pDisplay->DrawSprite(SCREEN_TEXT_POSITION_X, SCREEN_TITLE_POSITION_Y + 240, NULL, NULL, BMP_LEVEL_MINI_TILES, ITEM_SKULL, 2, 0);
+        m_pDisplay->DrawSprite(SCREEN_TEXT_POSITION_X, SCREEN_TITLE_POSITION_Y + 240, nullptr, nullptr, BMP_LEVEL_MINI_TILES, ITEM_SKULL, 2, 0);
 
         m_Font.SetTextColor(FONTCOLOR_YELLOW);
         m_Font.Draw(SCREEN_TEXT_POSITION_X + 30, SCREEN_TITLE_POSITION_Y + 240, "Sickness");

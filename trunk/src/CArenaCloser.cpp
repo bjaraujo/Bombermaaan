@@ -39,7 +39,7 @@
 
 CArenaCloser::CArenaCloser()
 {
-    // Initialize the pointers to NULL so that we
+    // Initialize the pointers to nullptr so that we
     // can easily detect the ones we forgot to set.
     m_pArena = nullptr;
     m_pOptions = nullptr;

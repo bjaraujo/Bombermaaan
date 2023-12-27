@@ -790,8 +790,8 @@ void CExplosion::Display()
         // explosion : FlameSprite = FlameType + ExplosionState
         m_pDisplay->DrawSprite(m_pArena->ToPosition(m_Flames[i].BlockX), // Position X
             m_pArena->ToPosition(m_Flames[i].BlockY), // Position Y
-            NULL, // Draw entire sprite
-            NULL, // No need to clip
+            nullptr, // Draw entire sprite
+            nullptr, // No need to clip
             BMP_ARENA_FLAME, // Sprite table number
             m_Flames[i].FlameType + m_State, // Sprite number
             EXPLOSION_SPRITELAYER, // Sprite layer number

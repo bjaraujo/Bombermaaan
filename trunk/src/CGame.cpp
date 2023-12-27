@@ -179,7 +179,7 @@ bool CGame::Create(char** pCommandLine, int pCommandLineCount)
     {
         // Display a message box
 #ifdef WIN32
-        MessageBox(NULL,
+        MessageBox(nullptr,
 #else
         fprintf(stdout,
 #endif
@@ -273,7 +273,7 @@ bool CGame::Create(char** pCommandLine, int pCommandLineCount)
 
             // now we have the path of the app, strip app name.
             lastSlash = strrchr(buf, '/');
-            if (lastSlash == NULL)
+            if (lastSlash == nullptr)
             {
                 pgmFolder.append("");
             }
@@ -286,7 +286,7 @@ bool CGame::Create(char** pCommandLine, int pCommandLineCount)
             {
                 // find out ../
                 char* tempPath = new char[lastSlash - buf + 1];
-                if (tempPath == NULL)
+                if (tempPath == nullptr)
                     return false;
 
                 strncpy(tempPath, buf, lastSlash - buf);
@@ -340,7 +340,7 @@ bool CGame::Create(char** pCommandLine, int pCommandLineCount)
         dynamicDataFolder.append("\\Bombermaaan\\");
 
         // Create the Bombermaaan directory
-        if (!CreateDirectory(dynamicDataFolder.c_str(), NULL))
+        if (!CreateDirectory(dynamicDataFolder.c_str(), nullptr))
         {
             // Exit the game if the folder cannot be created and it doesn't exist already
             if (GetLastError() != ERROR_ALREADY_EXISTS)
@@ -435,7 +435,7 @@ bool CGame::Create(char** pCommandLine, int pCommandLineCount)
     m_hModule = LoadLibrary(NAME_OF_BOMBERMAN_DLL);
 
     // If it failed
-    if (m_hModule == NULL)
+    if (m_hModule == nullptr)
     {
         // Log error
         theLog.WriteLine("Game            => !!! Could not load " NAME_OF_BOMBERMAN_DLL ".");
@@ -459,7 +459,7 @@ bool CGame::Create(char** pCommandLine, int pCommandLineCount)
     install_timer();
     install_keyboard();
     install_joystick(JOY_TYPE_AUTODETECT);
-    install_sound(DIGI_AUTODETECT, MIDI_AUTODETECT, NULL);
+    install_sound(DIGI_AUTODETECT, MIDI_AUTODETECT, nullptr);
 
     set_color_depth(32);
 #elif DIRECTX
@@ -841,7 +841,7 @@ CModeScreen* CGame::GetGameModeObject(EGameMode GameMode)
     }
 
     // There is no object manager for this game mode
-    return NULL;
+    return nullptr;
 }
 
 //******************************************************************************************************************************

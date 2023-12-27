@@ -424,13 +424,13 @@ void CTitle::Display()
         }
 
         // Draw the background sprite
-        m_pDisplay->DrawSprite(BACKGROUND_POSITION_X, BACKGROUND_POSITION_Y, NULL, NULL, BMP_TITLE_BACKGROUND, BACKGROUND_SPRITE, BACKGROUND_SPRITE_LAYER, BACKGROUND_SPRITE_PRIORITY_IN_LAYER);
+        m_pDisplay->DrawSprite(BACKGROUND_POSITION_X, BACKGROUND_POSITION_Y, nullptr, nullptr, BMP_TITLE_BACKGROUND, BACKGROUND_SPRITE, BACKGROUND_SPRITE_LAYER, BACKGROUND_SPRITE_PRIORITY_IN_LAYER);
 
         // Draw the bombers
-        m_pDisplay->DrawSprite(BOMBERS_POSITION_X, BOMBERS_POSITION_Y, NULL, NULL, BMP_TITLE_BOMBERS, BOMBERS_SPRITE, BOMBERS_SPRITE_LAYER, BOMBERS_SPRITE_PRIORITY_IN_LAYER);
+        m_pDisplay->DrawSprite(BOMBERS_POSITION_X, BOMBERS_POSITION_Y, nullptr, nullptr, BMP_TITLE_BOMBERS, BOMBERS_SPRITE, BOMBERS_SPRITE_LAYER, BOMBERS_SPRITE_PRIORITY_IN_LAYER);
 
         // Draw the title of the game
-        m_pDisplay->DrawSprite(TITLE_POSITION_X, TITLE_POSITION_Y, NULL, NULL, BMP_TITLE_TITLE, TITLE_SPRITE, TITLE_SPRITE_LAYER, TITLE_SPRITE_PRIORITY_IN_LAYER);
+        m_pDisplay->DrawSprite(TITLE_POSITION_X, TITLE_POSITION_Y, nullptr, nullptr, BMP_TITLE_TITLE, TITLE_SPRITE, TITLE_SPRITE_LAYER, TITLE_SPRITE_PRIORITY_IN_LAYER);
 
         // Position Y on the screen of the first menu item in this screen
         int MenuItemPositionY = FIRST_MENU_ITEM_POSITION_Y;
@@ -439,7 +439,7 @@ void CTitle::Display()
         for (int MenuItemIndex = 0; MenuItemIndex < NUMBER_OF_MENU_ITEMS; MenuItemIndex++)
         {
             // Display the menu item
-            m_pDisplay->DrawSprite(ALL_MENU_ITEMS_POSITION_X, MenuItemPositionY, NULL, NULL, BMP_TITLE_MENU_ITEMS,
+            m_pDisplay->DrawSprite(ALL_MENU_ITEMS_POSITION_X, MenuItemPositionY, nullptr, nullptr, BMP_TITLE_MENU_ITEMS,
                 MenuItemIndex * 2 + (m_Cursor == MenuItemIndex ? 1 : 0), // Sprite of the menu item + color
                 MENU_ITEM_SPRITE_LAYER, MENU_ITEM_SPRITE_PRIORITY_IN_LAYER);
 
@@ -447,7 +447,7 @@ void CTitle::Display()
             if (m_Cursor == MenuItemIndex)
             {
                 // Display the cursor hand
-                m_pDisplay->DrawSprite(ALL_MENU_ITEMS_POSITION_X + SPACE_X_FROM_MENU_ITEM_TO_CURSOR_HAND + m_MovingHandDistance, MenuItemPositionY, NULL, NULL, BMP_MENU_HAND_TITLE, CURSOR_HAND_SPRITE, CURSOR_HAND_SPRITE_LAYER, CURSOR_HAND_SPRITE_PRIORITY_IN_LAYER);
+                m_pDisplay->DrawSprite(ALL_MENU_ITEMS_POSITION_X + SPACE_X_FROM_MENU_ITEM_TO_CURSOR_HAND + m_MovingHandDistance, MenuItemPositionY, nullptr, nullptr, BMP_MENU_HAND_TITLE, CURSOR_HAND_SPRITE, CURSOR_HAND_SPRITE_LAYER, CURSOR_HAND_SPRITE_PRIORITY_IN_LAYER);
             }
 
             // Go down : next menu item to display

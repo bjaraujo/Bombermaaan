@@ -282,7 +282,7 @@ bool CDisplay::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spri
     HBITMAP hBitmap = (HBITMAP)LoadImage(m_hModule, MAKEINTRESOURCE(BMP_ID), IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION);
 
     // If it failed
-    if (hBitmap == NULL)
+    if (hBitmap == nullptr)
     {
         // Log failure
         theLog.WriteLine("Display         => !!! Could not load resource image (%d) and create handle to bitmap.", BMP_ID);

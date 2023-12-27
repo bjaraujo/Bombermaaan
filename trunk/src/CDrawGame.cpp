@@ -87,7 +87,7 @@
 CDrawGame::CDrawGame()
     : CModeScreen()
 {
-    // Initialize the pointers to NULL so that we
+    // Initialize the pointers to nullptr so that we
     // can easily detect the ones we forgot to set.
     m_pScores = nullptr;
 
@@ -309,26 +309,26 @@ void CDrawGame::Display()
 
         // Draw the main sprite
         m_pDisplay->DrawSprite(DRAWGAME_MAIN_POSITION_X, DRAWGAME_MAIN_POSITION_Y,
-            NULL, // Draw entire sprite
-            NULL, // No need to clip
+            nullptr, // Draw entire sprite
+            nullptr, // No need to clip
             BMP_DRAWGAME_MAIN, DRAWGAME_MAIN_SPRITE, DRAWGAME_SPRITE_LAYER, DRAWGAME_MAIN_PRIORITY);
 
         // Draw the flag
         m_pDisplay->DrawSprite(DRAWGAME_FLAG_POSITION_X, DRAWGAME_FLAG_POSITION_Y,
-            NULL, // Draw entire sprite
-            NULL, // No need to clip
+            nullptr, // Draw entire sprite
+            nullptr, // No need to clip
             BMP_DRAWGAME_FLAG, m_FlagSprite, DRAWGAME_SPRITE_LAYER, DRAWGAME_FLAG_PRIORITY);
 
         // Draw the big fume
         m_pDisplay->DrawSprite(DRAWGAME_BIGFUME_POSITION_X, DRAWGAME_BIGFUME_POSITION_Y,
-            NULL, // Draw entire sprite
-            NULL, // No need to clip
+            nullptr, // Draw entire sprite
+            nullptr, // No need to clip
             BMP_DRAWGAME_FUMES, m_BigFumeSprite, DRAWGAME_SPRITE_LAYER, DRAWGAME_FUME_PRIORITY);
 
         // Draw the small fume
         m_pDisplay->DrawSprite(DRAWGAME_SMALLFUME_POSITION_X, DRAWGAME_SMALLFUME_POSITION_Y,
-            NULL, // Draw entire sprite
-            NULL, // No need to clip
+            nullptr, // Draw entire sprite
+            nullptr, // No need to clip
             BMP_DRAWGAME_FUMES, m_SmallFumeSprite, DRAWGAME_SPRITE_LAYER, DRAWGAME_FUME_PRIORITY);
     }
     // If it's time to make the last black screen

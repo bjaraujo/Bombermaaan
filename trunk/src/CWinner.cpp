@@ -137,7 +137,7 @@
 CWinner::CWinner()
     : CModeScreen()
 {
-    // Initialize the pointers to NULL so that we
+    // Initialize the pointers to nullptr so that we
     // can easily detect the ones we forgot to set.
     m_pScores = nullptr;
     m_pMatch = nullptr;
@@ -504,8 +504,8 @@ void CWinner::Display()
 
         // Draw the big title
         m_pDisplay->DrawSprite(SCOREBOARD_TITLE_POSITION_X, SCOREBOARD_TITLE_POSITION_Y,
-            NULL, // Draw entire sprite
-            NULL, // No need to clip
+            nullptr, // Draw entire sprite
+            nullptr, // No need to clip
             BMP_WINNER_TITLE, SCOREBOARD_SPRITE, WINNER_SPRITE_LAYER, WINNER_SCOREBOARD_PRIORITY);
 
         //----------------------------------
@@ -519,20 +519,20 @@ void CWinner::Display()
         {
             // Draw one light for the first full row. The sprite number determines the light color.
             m_pDisplay->DrawSprite(LIGHTS_FULLROW1_POSITION_X + Column * LIGHTS_SPACE_X, LIGHTS_FULLROW1_POSITION_Y,
-                NULL, // Draw entire sprite
-                NULL, // No need to clip
+                nullptr, // Draw entire sprite
+                nullptr, // No need to clip
                 BMP_WINNER_LIGHTS, (m_LightSpriteOffset + Light) % LIGHTS_COLORS_COUNT, WINNER_SPRITE_LAYER, WINNER_LIGHTS_PRIORITY);
 
             // Draw one light for the second full row. The sprite number determines the light color.
             m_pDisplay->DrawSprite(LIGHTS_FULLROW2_POSITION_X + Column * LIGHTS_SPACE_X, LIGHTS_FULLROW2_POSITION_Y,
-                NULL, // Draw entire sprite
-                NULL, // No need to clip
+                nullptr, // Draw entire sprite
+                nullptr, // No need to clip
                 BMP_WINNER_LIGHTS, (m_LightSpriteOffset + Light) % LIGHTS_COLORS_COUNT, WINNER_SPRITE_LAYER, WINNER_LIGHTS_PRIORITY);
 
             // Draw one light for the third full row. The sprite number determines the light color.
             m_pDisplay->DrawSprite(LIGHTS_FULLROW3_POSITION_X + Column * LIGHTS_SPACE_X, LIGHTS_FULLROW3_POSITION_Y,
-                NULL, // Draw entire sprite
-                NULL, // No need to clip
+                nullptr, // Draw entire sprite
+                nullptr, // No need to clip
                 BMP_WINNER_LIGHTS, (m_LightSpriteOffset + Light) % LIGHTS_COLORS_COUNT, WINNER_SPRITE_LAYER, WINNER_LIGHTS_PRIORITY);
 
             // One more light! This allows to scan the colors.
@@ -550,14 +550,14 @@ void CWinner::Display()
         {
             // Draw one light for the first full column. The sprite number determines the light color.
             m_pDisplay->DrawSprite(LIGHTS_FULLCOLUMN1_POSITION_X, LIGHTS_FULLCOLUMN1_POSITION_Y + Row * LIGHTS_SPACE_Y,
-                NULL, // Draw entire sprite
-                NULL, // No need to clip
+                nullptr, // Draw entire sprite
+                nullptr, // No need to clip
                 BMP_WINNER_LIGHTS, (m_LightSpriteOffset + Light) % LIGHTS_COLORS_COUNT, WINNER_SPRITE_LAYER, WINNER_LIGHTS_PRIORITY);
 
             // Draw one light for the second full column. The sprite number determines the light color.
             m_pDisplay->DrawSprite(LIGHTS_FULLCOLUMN2_POSITION_X, LIGHTS_FULLCOLUMN2_POSITION_Y + Row * LIGHTS_SPACE_Y,
-                NULL, // Draw entire sprite
-                NULL, // No need to clip
+                nullptr, // Draw entire sprite
+                nullptr, // No need to clip
                 BMP_WINNER_LIGHTS, (m_LightSpriteOffset + Light) % LIGHTS_COLORS_COUNT, WINNER_SPRITE_LAYER, WINNER_LIGHTS_PRIORITY);
 
             // One more light! This allows to scan the colors.
@@ -575,8 +575,8 @@ void CWinner::Display()
         {
             // Draw one light for the semi column. The sprite number determines the light color.
             m_pDisplay->DrawSprite(LIGHTS_SEMICOLUMN_POSITION_X, LIGHTS_SEMICOLUMN_POSITION_Y + Row * LIGHTS_SPACE_Y,
-                NULL, // Draw entire sprite
-                NULL, // No need to clip
+                nullptr, // Draw entire sprite
+                nullptr, // No need to clip
                 BMP_WINNER_LIGHTS, (m_LightSpriteOffset + Light) % LIGHTS_COLORS_COUNT, WINNER_SPRITE_LAYER, WINNER_LIGHTS_PRIORITY);
 
             // One more light! This allows to scan the colors.
@@ -602,8 +602,8 @@ void CWinner::Display()
 
                 // Draw the bomber head
                 m_pDisplay->DrawSprite(BOMBER_INITIAL_POSITION_X, BOMBER_INITIAL_POSITION_Y + Player * BOMBER_SPACE_Y,
-                    NULL, // Draw entire sprite
-                    NULL, // No need to clip
+                    nullptr, // Draw entire sprite
+                    nullptr, // No need to clip
                     BMP_WINNER_BOMBER,
                     BomberSprite, // Appropriate bomber sprite (color + happiness)
                     WINNER_SPRITE_LAYER, WINNER_BOMBER_PRIORITY);
@@ -621,8 +621,8 @@ void CWinner::Display()
                     }
                     // Draw the coin
                     m_pDisplay->DrawSprite(COINS_INITIAL_POSITION_X + Coin * COINS_SPACE_X, COINS_INITIAL_POSITION_Y + Player * COINS_SPACE_Y,
-                        NULL, // Draw entire sprite
-                        NULL, // No need to clip
+                        nullptr, // Draw entire sprite
+                        nullptr, // No need to clip
                         BMP_WINNER_COIN, currentCoinSprite, WINNER_SPRITE_LAYER, WINNER_COIN_PRIORITY);
                 }
             }
@@ -631,8 +631,8 @@ void CWinner::Display()
             {
                 // Draw a cross sprite of the color of the bomber
                 m_pDisplay->DrawSprite(BOMBER_INITIAL_POSITION_X + CROSS_SPACE_X, BOMBER_INITIAL_POSITION_Y + CROSS_SPACE_Y + Player * BOMBER_SPACE_Y,
-                    NULL, // Draw entire sprite
-                    NULL, // No need to clip
+                    nullptr, // Draw entire sprite
+                    nullptr, // No need to clip
                     BMP_WINNER_CROSS,
                     Player, // Appropriate color
                     WINNER_SPRITE_LAYER, WINNER_CROSS_PRIORITY);

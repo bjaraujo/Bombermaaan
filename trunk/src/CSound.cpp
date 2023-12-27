@@ -203,7 +203,7 @@ bool CSound::LoadSample(ESample Sample, int ResourceID, const char* file)
     SDL_RWops* rwSample;
 
     // Check if the sample slot is free
-    ASSERT(m_Samples[Sample] == NULL);
+    ASSERT(m_Samples[Sample] == nullptr);
 
     LPVOID pData;
     DWORD DataSize;
@@ -225,7 +225,7 @@ bool CSound::LoadSample(ESample Sample, int ResourceID, const char* file)
 #else
 
     // Check if the sample slot is free
-    ASSERT(m_Samples[Sample] == NULL);
+    ASSERT(m_Samples[Sample] == nullptr);
 
     std::string path(m_pgmFolder);
 #ifdef WIN32
@@ -285,7 +285,7 @@ void CSound::FreeSample(ESample Sample)
 bool CSound::LoadSong(ESong Song, int ResourceID, const char* file)
 {
     // Check if the song slot is free
-    ASSERT(m_CurrentSong == NULL);
+    ASSERT(m_CurrentSong == nullptr);
 
 #ifndef LOAD_RESOURCES_FROM_FILES
 
@@ -369,7 +369,7 @@ bool CSound::GetSoundResource(int ResourceID, LPVOID& pData, DWORD& DataSize)
     HRSRC hResource = FindResource(m_hModule, MAKEINTRESOURCE(ResourceID), "SOUND");
 
     // If it failed
-    if (hResource == NULL)
+    if (hResource == nullptr)
     {
         // Log failure
         theLog.WriteLine("Sound           => !!! Could not find resource.");
@@ -383,7 +383,7 @@ bool CSound::GetSoundResource(int ResourceID, LPVOID& pData, DWORD& DataSize)
     HGLOBAL hGlobal = LoadResource(m_hModule, hResource);
 
     // If it failed
-    if (hGlobal == NULL)
+    if (hGlobal == nullptr)
     {
         // Log failure
         theLog.WriteLine("Sound           => !!! Could not load resource.");
@@ -397,7 +397,7 @@ bool CSound::GetSoundResource(int ResourceID, LPVOID& pData, DWORD& DataSize)
     pData = LockResource(hGlobal);
 
     // If it failed
-    if (pData == NULL)
+    if (pData == nullptr)
     {
         // Log failure
         theLog.WriteLine("Sound           => !!! Could not lock resource.");
@@ -465,7 +465,7 @@ void CSound::PlaySong(ESong Song)
 
         // note: songs are loaded dynamically because of an error in libmikmod (used by SDL_mixer)
         // load new song (if necessary)
-        if (m_ESong != Song || m_CurrentSong == NULL)
+        if (m_ESong != Song || m_CurrentSong == nullptr)
         {
             switch (Song)
             {

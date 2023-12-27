@@ -151,7 +151,7 @@
 CVictory::CVictory()
     : CModeScreen()
 {
-    // Initialize the pointers to NULL so that we
+    // Initialize the pointers to nullptr so that we
     // can easily detect the ones we forgot to set.
     m_pScores = nullptr;
 
@@ -658,7 +658,7 @@ void CVictory::Display()
 
                 // Draw the crowd tile
                 m_pDisplay->DrawSprite(CROWD_INITIAL_TILE_X + TileX * CROWD_TILES_SPACE_X, CROWD_INITIAL_TILE_Y + TileY * CROWD_TILES_SPACE_Y + OffsetY,
-                    NULL, // Draw entire sprite
+                    nullptr, // Draw entire sprite
                     &Clip, // Clip to game view
                     BMP_VICTORY_CROWD, Color % CROWD_COLORS_COUNT, VICTORY_CROWD_LAYER, TileY);
             }
@@ -676,7 +676,7 @@ void CVictory::Display()
         {
             // Draw one background sprite tile
             m_pDisplay->DrawSprite(VICTORYWALL_TILES_INITIAL_X + TileX * VICTORYWALL_TILE_SPACE_X, VICTORYWALL_TILES_INITIAL_Y,
-                NULL, // Draw entire sprite
+                nullptr, // Draw entire sprite
                 &Clip, // Clip to game view
                 BMP_VICTORY_WALL, VICTORYWALL_TILE_SPRITE, VICTORY_WALL_LAYER, PRIORITY_UNUSED);
         }
@@ -739,8 +739,8 @@ void CVictory::Display()
                     // the current frame in the winner animation ; and using the color offset, which
                     // allows to select the bomber color.
                     m_pDisplay->DrawSprite(WinnerInitialX + WinnerBombersCount * WINNER_BOMBER_SPACE_X, WINNER_BOMBER_POSITION_Y,
-                        NULL, // Draw entire sprite
-                        NULL, // No need to clip
+                        nullptr, // Draw entire sprite
+                        nullptr, // No need to clip
                         BMP_VICTORY_BOMBER, m_WinnerBomberSprite + Player * BOMBER_SPRITES_COUNT_PER_COLOR, VICTORY_BOMBER_LAYER, PRIORITY_UNUSED);
 
                     // One more winner
@@ -754,8 +754,8 @@ void CVictory::Display()
                     // the current frame in the loser animation ; and using the color offset, which
                     // allows to select the bomber color.
                     m_pDisplay->DrawSprite(LoserInitialX + LoserBombersCount * LOSER_BOMBER_SPACE_X, LOSER_BOMBER_POSITION_Y,
-                        NULL, // Draw entire sprite
-                        NULL, // No need to clip
+                        nullptr, // Draw entire sprite
+                        nullptr, // No need to clip
                         BMP_VICTORY_BOMBER, m_LoserBomberSprite + Player * BOMBER_SPRITES_COUNT_PER_COLOR, VICTORY_BOMBER_LAYER, PRIORITY_UNUSED);
 
                     // One more loser
@@ -816,7 +816,7 @@ void CVictory::Display()
 
             // Draw the confetti sprite
             m_pDisplay->DrawSprite((int)m_Confettis[Confetti].PositionX, (int)m_Confettis[Confetti].PositionY,
-                NULL, // Draw entire sprite
+                nullptr, // Draw entire sprite
                 &Clip, // Clip to game view
                 ConfettiSpriteTable,
                 WinnerPlayer * CONFETTIS_COUNT_PER_COLOR + m_Confettis[Confetti].Sprite, // Get the confetti sprite of the color of the winner
@@ -828,7 +828,7 @@ void CVictory::Display()
         //-------------------------------
 
         m_pDisplay->DrawSprite(VICTORY_TITLE_POSITION_X, VICTORY_TITLE_POSITION_Y,
-            NULL, // Draw entire sprite
+            nullptr, // Draw entire sprite
             &Clip, // Clip to game view
             BMP_VICTORY_TITLE, VICTORY_TITLE_SPRITE, VICTORY_TITLE_LAYER, PRIORITY_UNUSED);
     }

@@ -42,7 +42,6 @@ static const char* GetSDLVideoError();
 CVideoSDL::CVideoSDL()
 {    
     m_hWnd = nullptr;
-    m_pBackBuffer = nullptr;
     m_pPrimary = nullptr;
     m_pWindow = nullptr;
     m_pRenderer = nullptr;
@@ -84,19 +83,20 @@ bool CVideoSDL::Create(int Width, int Height, int Depth, bool FullScreen)
     m_Depth = Depth;
     m_FullScreen = FullScreen;
 
-    m_pBackBuffer = nullptr;
     m_pPrimary = nullptr;
     m_ColorKey = 0;
 
     if (m_pWindow)
+    {
         SDL_DestroyWindow(m_pWindow);
+    }
 
     m_pWindow = SDL_CreateWindow("Bombermaaan",
                           SDL_WINDOWPOS_UNDEFINED,
                           SDL_WINDOWPOS_UNDEFINED,
                           m_Width, m_Height, FullScreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0);
 
-    if (m_pWindow == NULL)
+    if (m_pWindow == nullptr)
     {
         // Log failure
         theLog.WriteLine("SDLVideo        => !!! Window could not be created.");
@@ -106,7 +106,7 @@ bool CVideoSDL::Create(int Width, int Height, int Depth, bool FullScreen)
     }
 
     m_pRenderer = SDL_CreateRenderer(m_pWindow, -1, SDL_RENDERER_PRESENTVSYNC);
-    if (m_pRenderer == NULL)
+    if (m_pRenderer == nullptr)
     {
         // Log failure
         theLog.WriteLine("SDLVideo        => !!! Renderer could not be created.");
@@ -114,6 +114,7 @@ bool CVideoSDL::Create(int Width, int Height, int Depth, bool FullScreen)
         // Get out
         return false;
     }
+
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");  // make the scaled rendering look smoother.
     SDL_RenderSetLogicalSize(m_pRenderer, m_Width, m_Height);
 
@@ -148,7 +149,7 @@ bool CVideoSDL::Create(int Width, int Height, int Depth, bool FullScreen)
     {
         if (SDL_SetColorKey(icon, SDL_TRUE, SDL_MapRGB(icon->format, 0x00, 0xff, 0x00)) == 0)
         {
-            //SDL_WM_SetIcon(icon, NULL);
+            //SDL_WM_SetIcon(icon, nullptr);
         }
     }
     else
@@ -182,8 +183,11 @@ void CVideoSDL::Destroy()
     FreeSprites();
 
     // If a SDLVideo object exists
-    if (m_pPrimary != nullptr)
+    if (m_pPrimary)
     {
+        // Release it
+        SDL_FreeSurface(m_pPrimary);
+
         // If we are in fullscreen mode
         if (m_FullScreen)
         {
@@ -191,30 +195,13 @@ void CVideoSDL::Destroy()
             SDL_ShowCursor(true);
         }
 
-        // If the back buffer surface exists
-        if (m_pBackBuffer != nullptr)
-        {
-            // Release it
-            SDL_FreeSurface(m_pBackBuffer);
-            m_pBackBuffer = nullptr;
-
-            // Log release
-            theLog.WriteLine("SDLVideo        => Backbuffer surface was released.");
-        }
-
-        // If the primary surface exists
-        if (m_pPrimary != nullptr)
-        {
-            // Release it
-            SDL_FreeSurface(m_pPrimary);
-            m_pPrimary = nullptr;
-
-            // Log release
-            theLog.WriteLine("SDLVideo        => Primary surface was released.");
-        }
-
         // Log release
-        theLog.WriteLine("SDLVideo        => SDLVideo object was released.");
+        theLog.WriteLine("SDLVideo        => Primary surface was released.");
+    }
+
+    if (m_pWindow)
+    {
+        SDL_DestroyWindow(m_pWindow);
     }
 }
 
@@ -227,9 +214,9 @@ void CVideoSDL::Destroy()
 
 void CVideoSDL::UpdateScreen()
 {
-    SDL_UpdateTexture(m_pTexture, NULL, m_pPrimary->pixels, m_pPrimary->pitch);
+    SDL_UpdateTexture(m_pTexture, nullptr, m_pPrimary->pixels, m_pPrimary->pitch);
     SDL_RenderClear(m_pRenderer);
-    SDL_RenderCopy(m_pRenderer, m_pTexture, NULL, NULL);
+    SDL_RenderCopy(m_pRenderer, m_pTexture, nullptr, nullptr);
     SDL_RenderPresent(m_pRenderer);
 }
 
@@ -553,7 +540,7 @@ bool CVideoSDL::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spr
 #endif
 
     // If it failed
-    if (ddsd == NULL)
+    if (ddsd == nullptr)
     {
         // Log failure
         theLog.WriteLine("SDLVideo        => !!! Could not create surface.");
@@ -674,7 +661,7 @@ bool CVideoSDL::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spr
     SDL_Surface* ddsd = SDL_LoadBMP(path.c_str());
 
     // If it failed
-    if (ddsd == NULL)
+    if (ddsd == nullptr)
     {
         // Log failure
         theLog.WriteLine("SDLVideo        => !!! Could not create surface.");
@@ -884,7 +871,7 @@ void CVideoSDL::UpdateAll()
         SDL_SetSurfaceAlphaMod(rectangle, 128);
 
         // fill with rectangle
-        if (rectangle != nullptr && SDL_FillRect(rectangle, NULL, SDL_MapRGBA(rectangle->format, r, g, b, 128)) == 0)
+        if (rectangle != nullptr && SDL_FillRect(rectangle, nullptr, SDL_MapRGBA(rectangle->format, r, g, b, 128)) == 0)
         {
             reals = SDL_ConvertSurfaceFormat(rectangle, SDL_GetWindowPixelFormat(m_pWindow), 0);
 

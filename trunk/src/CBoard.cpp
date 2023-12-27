@@ -92,7 +92,7 @@
 
 CBoard::CBoard()
 {
-    // Initialize the pointers to NULL so that we
+    // Initialize the pointers to nullptr so that we
     // can easily detect the ones we forgot to set.
     m_pClock = nullptr;
     m_pDisplay = nullptr;
@@ -264,8 +264,8 @@ void CBoard::Display()
     //-----------------------------------
 
     m_pDisplay->DrawSprite(BOARD_BACKGROUND_POSITION_X, BOARD_BACKGROUND_POSITION_Y,
-        NULL, // Draw entire background
-        NULL, // No need to clip
+        nullptr, // Draw entire background
+        nullptr, // No need to clip
         BMP_BOARD_BACKGROUND, SPRITE_BOARD_BACKGROUND, BOARD_SPRITELAYER, BOARD_BACKGROUND_PRIORITY);
 
     //-----------------------------------
@@ -274,14 +274,14 @@ void CBoard::Display()
 
     // Draw the clock bottom part
     m_pDisplay->DrawSprite(CLOCKBOTTOM_POSITION_X, CLOCKBOTTOM_POSITION_Y,
-        NULL, // Draw entire sprite
-        NULL, // No need to clip
+        nullptr, // Draw entire sprite
+        nullptr, // No need to clip
         BMP_BOARD_CLOCK_BOTTOM, m_ClockBottomSprite, BOARD_SPRITELAYER, BOARD_OBJECTS_PRIORITY);
 
     // Draw the clock top part
     m_pDisplay->DrawSprite(CLOCKTOP_POSITION_X, CLOCKTOP_POSITION_Y,
-        NULL, // Draw entire sprite
-        NULL, // No need to clip
+        nullptr, // Draw entire sprite
+        nullptr, // No need to clip
         BMP_BOARD_CLOCK_TOP, m_ClockTopSprite, BOARD_SPRITELAYER, BOARD_OBJECTS_PRIORITY);
 
     //-----------------------------------
@@ -299,14 +299,14 @@ void CBoard::Display()
 
         // Draw the number of minutes left
         m_pDisplay->DrawSprite(TIME_POSITION_X, TIME_POSITION_Y,
-            NULL, // Draw entire sprite
-            NULL, // No need to clip
+            nullptr, // Draw entire sprite
+            nullptr, // No need to clip
             BMP_BOARD_TIME, Minutes, BOARD_SPRITELAYER, BOARD_OBJECTS_PRIORITY);
 
         // Draw the ":" symbol
         m_pDisplay->DrawSprite(TIME_POSITION_X + TIME_DIGIT_SPACE, TIME_POSITION_Y,
-            NULL, // Draw entire sprite
-            NULL, // No need to clip
+            nullptr, // Draw entire sprite
+            nullptr, // No need to clip
             BMP_BOARD_TIME, SPRITE_SEMICOLON, BOARD_SPRITELAYER, BOARD_OBJECTS_PRIORITY);
 
         // Get each digit of the two-digit seconds number
@@ -327,13 +327,13 @@ void CBoard::Display()
 
         // Draw the two characters to draw the number of seconds
         m_pDisplay->DrawSprite(TIME_POSITION_X + TIME_DIGIT_SPACE * 2, TIME_POSITION_Y,
-            NULL, // Draw entire sprite
-            NULL, // No need to clip
+            nullptr, // Draw entire sprite
+            nullptr, // No need to clip
             BMP_BOARD_TIME, Seconds10, BOARD_SPRITELAYER, BOARD_OBJECTS_PRIORITY);
 
         m_pDisplay->DrawSprite(TIME_POSITION_X + TIME_DIGIT_SPACE * 3, TIME_POSITION_Y,
-            NULL, // Draw entire sprite
-            NULL, // No need to clip
+            nullptr, // Draw entire sprite
+            nullptr, // No need to clip
             BMP_BOARD_TIME, Seconds1, BOARD_SPRITELAYER, BOARD_OBJECTS_PRIORITY);
     }
     // If there is an infinite time for the battle
@@ -341,27 +341,27 @@ void CBoard::Display()
     {
         // Draw the first dash "-"
         m_pDisplay->DrawSprite(TIME_POSITION_X, TIME_POSITION_Y,
-            NULL, // Draw entire sprite
-            NULL, // No need to clip
+            nullptr, // Draw entire sprite
+            nullptr, // No need to clip
             BMP_BOARD_TIME, SPRITE_DASH, BOARD_SPRITELAYER, BOARD_OBJECTS_PRIORITY);
 
         // Draw the ":" symbol
         m_pDisplay->DrawSprite(TIME_POSITION_X + TIME_DIGIT_SPACE, TIME_POSITION_Y,
-            NULL, // Draw entire sprite
-            NULL, // No need to clip
+            nullptr, // Draw entire sprite
+            nullptr, // No need to clip
             BMP_BOARD_TIME, SPRITE_SEMICOLON, BOARD_SPRITELAYER, BOARD_OBJECTS_PRIORITY);
 
         // Draw the second dash "-"
         m_pDisplay->DrawSprite(TIME_POSITION_X + TIME_DIGIT_SPACE * 2, TIME_POSITION_Y,
-            NULL, // Draw entire sprite
-            NULL, // No need to clip
+            nullptr, // Draw entire sprite
+            nullptr, // No need to clip
             BMP_BOARD_TIME, SPRITE_DASH, BOARD_SPRITELAYER, BOARD_OBJECTS_PRIORITY);
 
         // Draw the third dash "-"
         m_pDisplay->DrawSprite(TIME_POSITION_X + TIME_DIGIT_SPACE * 3 + 1, // +1 for the look
             TIME_POSITION_Y,
-            NULL, // Draw entire sprite
-            NULL, // No need to clip
+            nullptr, // Draw entire sprite
+            nullptr, // No need to clip
             BMP_BOARD_TIME, SPRITE_DASH, BOARD_SPRITELAYER, BOARD_OBJECTS_PRIORITY);
     }
 
@@ -387,14 +387,14 @@ void CBoard::Display()
 
             // Draw the player's bomber head
             m_pDisplay->DrawSprite(ScoreX, ScoreY,
-                NULL, // Draw entire sprite
-                NULL, // No need to clip
+                nullptr, // Draw entire sprite
+                nullptr, // No need to clip
                 BMP_BOARD_HEADS, DeadHeadOffset + Player, BOARD_SPRITELAYER, BOARD_OBJECTS_PRIORITY);
 
             // Draw the score
             m_pDisplay->DrawSprite(ScoreX + HEAD_TO_SCORE_X_OFFSET, ScoreY + HEAD_TO_SCORE_Y_OFFSET,
-                NULL, // Draw entire sprite
-                NULL, // No need to clip
+                nullptr, // Draw entire sprite
+                nullptr, // No need to clip
                 BMP_BOARD_SCORE, m_pScores->GetPlayerScore(Player), BOARD_SPRITELAYER, BOARD_OBJECTS_PRIORITY);
 
             // Next score to draw on the right
@@ -404,14 +404,14 @@ void CBoard::Display()
 
     // Display flag
     m_pDisplay->DrawSprite(ScoreX, ScoreY,
-        NULL, // Draw entire sprite
-        NULL, // No need to clip
+        nullptr, // Draw entire sprite
+        nullptr, // No need to clip
         BMP_BOARD_DRAWGAME, 0, BOARD_SPRITELAYER, BOARD_OBJECTS_PRIORITY);
 
     // Draw the number of draw games
     m_pDisplay->DrawSprite(ScoreX + HEAD_TO_SCORE_X_OFFSET, ScoreY + HEAD_TO_SCORE_Y_OFFSET,
-        NULL, // Draw entire sprite
-        NULL, // No need to clip
+        nullptr, // Draw entire sprite
+        nullptr, // No need to clip
         BMP_BOARD_SCORE, m_pScores->GetDrawGamesCount(), BOARD_SPRITELAYER, BOARD_OBJECTS_PRIORITY);
 }
 

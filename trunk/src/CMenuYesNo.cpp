@@ -232,12 +232,12 @@ void CMenuYesNo::Display()
         m_pDisplay->SetOrigin(0, 0);
 
         // Draw the menu frame sprite
-        m_pDisplay->DrawSprite(164, 73, NULL, NULL, BMP_MENU_FRAME_2, 0, 800, -1);
+        m_pDisplay->DrawSprite(164, 73, nullptr, nullptr, BMP_MENU_FRAME_2, 0, 800, -1);
 
         m_Font.SetTextColor(FONTCOLOR_WHITE);
         m_Font.DrawCenteredX(0, VIEW_WIDTH, 93, m_Title);
 
-        m_pDisplay->DrawSprite(INITIAL_TEXT_POSITION_X + CURSOR_HAND_SPACE_X, INITIAL_TEXT_POSITION_Y + (m_YesNo ? 0 : TEXT_SPACE_Y) + CURSOR_HAND_SPACE_Y, NULL, NULL, BMP_MENU_HAND, CURSOR_HAND_SPRITE, 801, -1);
+        m_pDisplay->DrawSprite(INITIAL_TEXT_POSITION_X + CURSOR_HAND_SPACE_X, INITIAL_TEXT_POSITION_Y + (m_YesNo ? 0 : TEXT_SPACE_Y) + CURSOR_HAND_SPACE_Y, nullptr, nullptr, BMP_MENU_HAND, CURSOR_HAND_SPRITE, 801, -1);
 
         m_Font.SetTextColor((m_YesNo ? FONTCOLOR_YELLOW : FONTCOLOR_WHITE));
         m_Font.Draw(INITIAL_TEXT_POSITION_X, INITIAL_TEXT_POSITION_Y, "YES");
