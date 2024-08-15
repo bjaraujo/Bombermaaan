@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<application>
-  <id type="desktop">com.github.bjaraujo.Bombermaaan.desktop</id>
+<component type="desktop-application">
+  <id>com.github.bjaraujo.Bombermaaan.desktop</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0-or-later</project_license>
+  <developer_name>Billy Araujo</developer_name>
   <name>Bombermaaan</name>
   <summary>Arcade Game</summary>
   <description>
@@ -20,16 +21,28 @@
     </ul>
   </description>
   <screenshots>
-    <screenshot>http://bombermaaan.sourceforge.net/screenshots/screen7.png</screenshot>
-    <screenshot>http://bombermaaan.sourceforge.net/screenshots/screen1.png</screenshot>
-    <screenshot>http://bombermaaan.sourceforge.net/screenshots/screen8.png</screenshot>
+    <screenshot type="default">
+      <image>https://bombermaaan.sourceforge.net/screenshots/screen7.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://bombermaaan.sourceforge.net/screenshots/screen1.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://bombermaaan.sourceforge.net/screenshots/screen8.png</image>
+    </screenshot>
   </screenshots>
   <url type="homepage">https://github.com/bjaraujo/Bombermaaan/</url>
   <url type="bugtracker">https://github.com/bjaraujo/Bombermaaan/issues</url>
   <releases>
-    <release version="2.1.8.2208" date="2021-01-24" />
+    <release version="2.2.8.2275" date="2023-12-24">
+      <url>https://github.com/bjaraujo/Bombermaaan/releases/tag/v2.2.8.2275</url>
+    </release>
+    <release version="2.1.8.2208" date="2021-01-24">
+      <url>https://github.com/bjaraujo/Bombermaaan/releases/tag/v2.1.8.2208</url>
+    </release>
   </releases>
     <content_rating type="oars-1.1">
     <content_attribute id="violence-cartoon">mild</content_attribute>
   </content_rating>
-</application>
+  <launchable type="desktop-id">bombermaaan.desktop</launchable>
+</component>
