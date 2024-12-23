@@ -303,7 +303,7 @@ CBomber::CBomber()
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CBomber::~CBomber() {}
+CBomber::~CBomber() = default;
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -656,7 +656,7 @@ void CBomber::Action()
                     if (m_UsedBombs < m_TotalBombs)
                     {
                         // If no wall and no bomb and no explosion at his position
-                        if ((!IsObstacle(m_BomberMove.GetBlockX(), m_BomberMove.GetBlockY()) && !m_pArena->IsExplosion(m_BomberMove.GetBlockX(), m_BomberMove.GetBlockY())))
+                        if (!IsObstacle(m_BomberMove.GetBlockX(), m_BomberMove.GetBlockY()) && !m_pArena->IsExplosion(m_BomberMove.GetBlockX(), m_BomberMove.GetBlockY()))
                         {
                             // So we can limit the number of dropped bombs
                             int droppedBombsNow = 0;
@@ -692,16 +692,13 @@ void CBomber::Action()
                                 deltay = 0;
                                 break;
                             default:
-                                deltax = 0;
-                                deltay = 0;
-                                assert(false);
+                                ASSERT(false);
                                 break; // Prevents "variable not initialized" warning -- should never happen
                             }
 
                             // Start with the bomber's current position
-                            int x, y;
-                            x = m_BomberMove.GetBlockX();
-                            y = m_BomberMove.GetBlockY();
+                            int x = m_BomberMove.GetBlockX();
+                            int y = m_BomberMove.GetBlockY();
 
                             while (true)
                             {
@@ -897,7 +894,7 @@ void CBomber::Action()
  * \sa m_Sickness, m_FlameSize
  */
 
-int CBomber::GetFlameSize() { return (m_Sickness != SICK_SMALLFLAME ? m_FlameSize : FLAMESIZE_SMALLFLAME); }
+int CBomber::GetFlameSize() const { return (m_Sickness != SICK_SMALLFLAME ? m_FlameSize : FLAMESIZE_SMALLFLAME); }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -928,7 +925,7 @@ float CBomber::GetBombTime()
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-int CBomber::GetPixelsPerSecond()
+int CBomber::GetPixelsPerSecond() const
 {
     switch (m_Sickness)
     {
@@ -1915,7 +1912,7 @@ void CBomber::ItemEffect(EItemType Type)
         Heal();
 
         // Play a random pick sound
-        m_pSound->PlaySample((RANDOM(100) >= 50 ? SAMPLE_PICK_ITEM_1 : SAMPLE_PICK_ITEM_2));
+        m_pSound->PlaySample(RANDOM(100) >= 50 ? SAMPLE_PICK_ITEM_1 : SAMPLE_PICK_ITEM_2);
     }
 }
 
@@ -1926,7 +1923,7 @@ void CBomber::ItemEffect(EItemType Type)
 // Tell if there is an obstacle at (BlockX,BlockY).
 // An obstacle is a wall or a bomb for bombers.
 
-bool CBomber::IsObstacle(int BlockX, int BlockY) { return (m_pArena->IsWall(BlockX, BlockY) || m_pArena->IsBomb(BlockX, BlockY)); }
+bool CBomber::IsObstacle(int BlockX, int BlockY) const { return (m_pArena->IsWall(BlockX, BlockY) || m_pArena->IsBomb(BlockX, BlockY)); }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************

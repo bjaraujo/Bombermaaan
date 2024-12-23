@@ -35,14 +35,12 @@
 #include "CFloor.h"
 #include "CItem.h"
 #include "CWall.h"
+#include "COptions.h"
 
 class CClock;
 class CDisplay;
 class CSound;
-//class COptions;
 class CArenaSnapshot;
-
-#include "COptions.h"
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -55,7 +53,7 @@ class CArenaSnapshot;
 // the following flags must be turned on : BLOCKHAS_FLOOR,
 // BLOCKHAS_WALL, BLOCKHAS_WALLSOFT, BLOCKHAS_ITEM, BLOCKHAS_ITEMBOMB.
 
-typedef int TBlockHas;
+using TBlockHas = int;
 
 #define BLOCKHAS_NONE (1 << 0) //!< The block has nothing in it
 #define BLOCKHAS_FLOOR (1 << 1) //!< The block has a floor
@@ -124,7 +122,7 @@ private:
     void ClearBlock(int X, int Y);
     void UpdateElements(float DeltaTime);
     void UpdateView();
-    inline bool GetBlockHas(int BlockX, int BlockY, TBlockHas BlockHas);
+    inline bool GetBlockHas(int BlockX, int BlockY, TBlockHas BlockHas) const;
     inline void SetBlockHas(int BlockX, int BlockY, TBlockHas BlockHas);
     void DeleteBomber(int Index);
     void DeleteBomb(int Index);
@@ -138,9 +136,9 @@ public:
     ~CArena();
     CArena& operator=(const CArena& Arena);
 
-    inline void SetDisplay(CDisplay* pDisplay);
-    inline void SetSound(CSound* pSound);
-    inline void SetOptions(COptions* pOptions);
+    void SetDisplay(CDisplay* pDisplay);
+    void SetSound(CSound* pSound);
+    void SetOptions(COptions* pOptions);
 
     void Create();
     void Destroy();
@@ -151,27 +149,27 @@ public:
     void WriteSnapshot(CArenaSnapshot& Snapshot);
     void ReadSnapshot(CArenaSnapshot& Snapshot);
 
-    inline bool IsPrediction();
-    inline void SetPrediction(bool Active);
+    bool IsPrediction() const;
+    void SetPrediction(bool Active);
 
-    inline CArenaCloser& GetArenaCloser();
+    CArenaCloser& GetArenaCloser();
 
-    inline CBomber& GetBomber(int Index);
-    inline CBomb& GetBomb(int Index);
-    inline CWall& GetWall(int Index);
-    inline CItem& GetItem(int Index);
-    inline CExplosion& GetExplosion(int Index);
-    inline CFloor& GetFloor(int Index);
+    CBomber& GetBomber(int Index);
+    CBomb& GetBomb(int Index);
+    CWall& GetWall(int Index);
+    CItem& GetItem(int Index);
+    CExplosion& GetExplosion(int Index);
+    CFloor& GetFloor(int Index);
 
-    inline int MaxFloors();
-    inline int MaxWalls();
-    inline int MaxBombs();
-    inline int MaxItems();
-    inline int MaxExplosions();
-    inline int MaxBombers();
-    inline int MaxTeams();
+    int MaxFloors() const;
+    int MaxWalls() const;
+    int MaxBombs() const;
+    int MaxItems() const;
+    int MaxExplosions() const;
+    int MaxBombers() const;
+    int MaxTeams() const;
 
-    inline int BombsInUse();
+    int BombsInUse() const;
 
     void NewFloor(int BlockX, int BlockY, EBlockType BlockType);
     void NewWall(int BlockX, int BlockY, EWallType Type);
@@ -182,39 +180,39 @@ public:
 
     EFloorAction GetFloorAction(int BlockX, int BlockY);
 
-    inline int ToBlock(int Position);
-    inline int ToPosition(int Block);
+    int ToBlock(int Position) const;
+    int ToPosition(int Block) const;
 
-    inline bool IsWall(int BlockX, int BlockY);
-    inline bool IsSoftWall(int BlockX, int BlockY);
-    inline bool IsHardWall(int BlockX, int BlockY);
-    inline bool IsFallingWall(int BlockX, int BlockY);
-    inline bool IsBurningWall(int BlockX, int BlockY);
-    inline bool IsItem(int BlockX, int BlockY);
-    inline bool IsBombItem(int BlockX, int BlockY);
-    inline bool IsFlameItem(int BlockX, int BlockY);
-    inline bool IsRollerItem(int BlockX, int BlockY);
-    inline bool IsKickItem(int BlockX, int BlockY);
-    inline bool IsSkullItem(int BlockX, int BlockY);
-    inline bool IsThrowItem(int BlockX, int BlockY);
-    inline bool IsPunchItem(int BlockX, int BlockY);
-    inline bool IsRemoteItem(int BlockX, int BlockY);
-    inline bool IsBurningItem(int BlockX, int BlockY);
-    inline bool IsBomb(int BlockX, int BlockY);
-    inline bool IsFlame(int BlockX, int BlockY);
-    inline bool IsExplosion(int BlockX, int BlockY);
-    inline bool IsBomber(int BlockX, int BlockY);
-    inline bool IsAliveBomber(int BlockX, int BlockY);
-    inline bool IsDyingBomber(int BlockX, int BlockY);
-    inline bool IsFloor(int BlockX, int BlockY);
-    inline bool IsFloorWithMoveEffect(int BlockX, int BlockY);
+    bool IsWall(int BlockX, int BlockY) const;
+    bool IsSoftWall(int BlockX, int BlockY) const;
+    bool IsHardWall(int BlockX, int BlockY) const;
+    bool IsFallingWall(int BlockX, int BlockY) const;
+    bool IsBurningWall(int BlockX, int BlockY) const;
+    bool IsItem(int BlockX, int BlockY) const;
+    bool IsBombItem(int BlockX, int BlockY) const;
+    bool IsFlameItem(int BlockX, int BlockY) const;
+    bool IsRollerItem(int BlockX, int BlockY) const;
+    bool IsKickItem(int BlockX, int BlockY) const;
+    bool IsSkullItem(int BlockX, int BlockY) const;
+    bool IsThrowItem(int BlockX, int BlockY) const;
+    bool IsPunchItem(int BlockX, int BlockY) const;
+    bool IsRemoteItem(int BlockX, int BlockY) const;
+    bool IsBurningItem(int BlockX, int BlockY) const;
+    bool IsBomb(int BlockX, int BlockY) const;
+    bool IsFlame(int BlockX, int BlockY) const;
+    bool IsExplosion(int BlockX, int BlockY) const;
+    bool IsBomber(int BlockX, int BlockY) const;
+    bool IsAliveBomber(int BlockX, int BlockY) const;
+    bool IsDyingBomber(int BlockX, int BlockY) const;
+    bool IsFloor(int BlockX, int BlockY) const;
+    bool IsFloorWithMoveEffect(int BlockX, int BlockY) const;
 };
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline bool CArena::IsPrediction() { return m_Prediction; }
+inline bool CArena::IsPrediction() const { return m_Prediction; }
 
 inline void CArena::SetPrediction(bool Active) { m_Prediction = Active; }
 
@@ -270,31 +268,31 @@ inline CFloor& CArena::GetFloor(int Index)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline int CArena::MaxFloors() { return MAX_FLOORS; }
+inline int CArena::MaxFloors() const { return MAX_FLOORS; }
 
-inline int CArena::MaxWalls() { return MAX_WALLS; }
+inline int CArena::MaxWalls() const { return MAX_WALLS; }
 
-inline int CArena::MaxBombs() { return MAX_BOMBS; }
+inline int CArena::MaxBombs() const { return MAX_BOMBS; }
 
-inline int CArena::MaxItems() { return MAX_ITEMS; }
+inline int CArena::MaxItems() const { return MAX_ITEMS; }
 
-inline int CArena::MaxExplosions() { return MAX_EXPLOSIONS; }
+inline int CArena::MaxExplosions() const { return MAX_EXPLOSIONS; }
 
-inline int CArena::MaxBombers() { return MAX_BOMBERS; }
+inline int CArena::MaxBombers() const { return MAX_BOMBERS; }
 
-inline int CArena::MaxTeams() { return MAX_TEAMS; }
+inline int CArena::MaxTeams() const { return MAX_TEAMS; }
 
 /**
  * @brief   return the bomb counter
  * @return  how many bombs are currently used
  */
-inline int CArena::BombsInUse() { return m_BombsInUse; }
+inline int CArena::BombsInUse() const { return m_BombsInUse; }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline bool CArena::GetBlockHas(int BlockX, int BlockY, TBlockHas BlockHas)
+inline bool CArena::GetBlockHas(int BlockX, int BlockY, TBlockHas BlockHas) const
 {
     // Check coordinates
     ASSERT(BlockX >= 0 && BlockX < ARENA_WIDTH);
@@ -381,51 +379,51 @@ inline void CArena::SetOptions(COptions* pOptions)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline bool CArena::IsWall(int BlockX, int BlockY) { return GetBlockHas(BlockX, BlockY, BLOCKHAS_WALL); }
+inline bool CArena::IsWall(int BlockX, int BlockY) const { return GetBlockHas(BlockX, BlockY, BLOCKHAS_WALL); }
 
-inline bool CArena::IsSoftWall(int BlockX, int BlockY) { return GetBlockHas(BlockX, BlockY, BLOCKHAS_WALLSOFT); }
+inline bool CArena::IsSoftWall(int BlockX, int BlockY) const { return GetBlockHas(BlockX, BlockY, BLOCKHAS_WALLSOFT); }
 
-inline bool CArena::IsHardWall(int BlockX, int BlockY) { return GetBlockHas(BlockX, BlockY, BLOCKHAS_WALLHARD); }
+inline bool CArena::IsHardWall(int BlockX, int BlockY) const { return GetBlockHas(BlockX, BlockY, BLOCKHAS_WALLHARD); }
 
-inline bool CArena::IsFallingWall(int BlockX, int BlockY) { return GetBlockHas(BlockX, BlockY, BLOCKHAS_WALLFALLING); }
+inline bool CArena::IsFallingWall(int BlockX, int BlockY) const { return GetBlockHas(BlockX, BlockY, BLOCKHAS_WALLFALLING); }
 
-inline bool CArena::IsBurningWall(int BlockX, int BlockY) { return GetBlockHas(BlockX, BlockY, BLOCKHAS_WALLBURNING); }
+inline bool CArena::IsBurningWall(int BlockX, int BlockY) const { return GetBlockHas(BlockX, BlockY, BLOCKHAS_WALLBURNING); }
 
-inline bool CArena::IsItem(int BlockX, int BlockY) { return GetBlockHas(BlockX, BlockY, BLOCKHAS_ITEM); }
+inline bool CArena::IsItem(int BlockX, int BlockY) const { return GetBlockHas(BlockX, BlockY, BLOCKHAS_ITEM); }
 
-inline bool CArena::IsBombItem(int BlockX, int BlockY) { return GetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMBOMB); }
+inline bool CArena::IsBombItem(int BlockX, int BlockY) const { return GetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMBOMB); }
 
-inline bool CArena::IsFlameItem(int BlockX, int BlockY) { return GetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMFLAME); }
+inline bool CArena::IsFlameItem(int BlockX, int BlockY) const { return GetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMFLAME); }
 
-inline bool CArena::IsRollerItem(int BlockX, int BlockY) { return GetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMROLLER); }
+inline bool CArena::IsRollerItem(int BlockX, int BlockY) const { return GetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMROLLER); }
 
-inline bool CArena::IsKickItem(int BlockX, int BlockY) { return GetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMKICK); }
+inline bool CArena::IsKickItem(int BlockX, int BlockY) const { return GetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMKICK); }
 
-inline bool CArena::IsSkullItem(int BlockX, int BlockY) { return GetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMSKULL); }
+inline bool CArena::IsSkullItem(int BlockX, int BlockY) const { return GetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMSKULL); }
 
-inline bool CArena::IsThrowItem(int BlockX, int BlockY) { return GetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMTHROW); }
+inline bool CArena::IsThrowItem(int BlockX, int BlockY) const { return GetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMTHROW); }
 
-inline bool CArena::IsPunchItem(int BlockX, int BlockY) { return GetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMPUNCH); }
+inline bool CArena::IsPunchItem(int BlockX, int BlockY) const { return GetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMPUNCH); }
 
-inline bool CArena::IsRemoteItem(int BlockX, int BlockY) { return GetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMREMOTE); }
+inline bool CArena::IsRemoteItem(int BlockX, int BlockY) const { return GetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMREMOTE); }
 
-inline bool CArena::IsBurningItem(int BlockX, int BlockY) { return GetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMBURNING); }
+inline bool CArena::IsBurningItem(int BlockX, int BlockY) const { return GetBlockHas(BlockX, BlockY, BLOCKHAS_ITEMBURNING); }
 
-inline bool CArena::IsBomb(int BlockX, int BlockY) { return GetBlockHas(BlockX, BlockY, BLOCKHAS_BOMB); }
+inline bool CArena::IsBomb(int BlockX, int BlockY) const { return GetBlockHas(BlockX, BlockY, BLOCKHAS_BOMB); }
 
-inline bool CArena::IsFlame(int BlockX, int BlockY) { return GetBlockHas(BlockX, BlockY, BLOCKHAS_FLAME); }
+inline bool CArena::IsFlame(int BlockX, int BlockY) const { return GetBlockHas(BlockX, BlockY, BLOCKHAS_FLAME); }
 
-inline bool CArena::IsExplosion(int BlockX, int BlockY) { return GetBlockHas(BlockX, BlockY, BLOCKHAS_EXPLOSION); }
+inline bool CArena::IsExplosion(int BlockX, int BlockY) const { return GetBlockHas(BlockX, BlockY, BLOCKHAS_EXPLOSION); }
 
-inline bool CArena::IsBomber(int BlockX, int BlockY) { return GetBlockHas(BlockX, BlockY, BLOCKHAS_BOMBER); }
+inline bool CArena::IsBomber(int BlockX, int BlockY) const { return GetBlockHas(BlockX, BlockY, BLOCKHAS_BOMBER); }
 
-inline bool CArena::IsAliveBomber(int BlockX, int BlockY) { return GetBlockHas(BlockX, BlockY, BLOCKHAS_BOMBERALIVE); }
+inline bool CArena::IsAliveBomber(int BlockX, int BlockY) const { return GetBlockHas(BlockX, BlockY, BLOCKHAS_BOMBERALIVE); }
 
-inline bool CArena::IsDyingBomber(int BlockX, int BlockY) { return GetBlockHas(BlockX, BlockY, BLOCKHAS_BOMBERDYING); }
+inline bool CArena::IsDyingBomber(int BlockX, int BlockY) const { return GetBlockHas(BlockX, BlockY, BLOCKHAS_BOMBERDYING); }
 
-inline bool CArena::IsFloor(int BlockX, int BlockY) { return GetBlockHas(BlockX, BlockY, BLOCKHAS_FLOOR); }
+inline bool CArena::IsFloor(int BlockX, int BlockY) const { return GetBlockHas(BlockX, BlockY, BLOCKHAS_FLOOR); }
 
-inline bool CArena::IsFloorWithMoveEffect(int BlockX, int BlockY)
+inline bool CArena::IsFloorWithMoveEffect(int BlockX, int BlockY) const
 {
     ASSERT(IsFloor(BlockX, BlockY));
 
@@ -436,9 +434,9 @@ inline bool CArena::IsFloorWithMoveEffect(int BlockX, int BlockY)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline int CArena::ToBlock(int Position) { return (Position / BLOCK_SIZE); }
+inline int CArena::ToBlock(int Position) const { return (Position / BLOCK_SIZE); }
 
-inline int CArena::ToPosition(int Block) { return (Block * BLOCK_SIZE); }
+inline int CArena::ToPosition(int Block) const { return (Block * BLOCK_SIZE); }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************

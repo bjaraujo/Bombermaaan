@@ -129,9 +129,9 @@ public:
     CLevel(std::string filename_full, std::string filename_short); //!< Constructor.
     ~CLevel(); //!< Destructor.
     bool LoadFromFile(); //!< Load game level data from the file.
-    inline EBlockType GetBlockType(int X, int Y);
-    inline int GetNumberOfItemsInWalls(EItemType ItemType);
-    inline int GetInitialBomberSkills(EBomberSkills BomberSkill);
+    inline EBlockType GetBlockType(int X, int Y) const;
+    inline int GetNumberOfItemsInWalls(EItemType ItemType) const;
+    inline int GetInitialBomberSkills(EBomberSkills BomberSkill) const;
     inline const char* GetLevelName();
 };
 
@@ -139,7 +139,7 @@ public:
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-inline EBlockType CLevel::GetBlockType(int X, int Y)
+inline EBlockType CLevel::GetBlockType(int X, int Y) const
 {
     ASSERT(X >= 0 && X < ARENA_WIDTH);
     ASSERT(Y >= 0 && Y < ARENA_HEIGHT);
@@ -147,14 +147,14 @@ inline EBlockType CLevel::GetBlockType(int X, int Y)
     return m_ArenaData[X][Y];
 }
 
-inline int CLevel::GetNumberOfItemsInWalls(EItemType ItemType)
+inline int CLevel::GetNumberOfItemsInWalls(EItemType ItemType) const
 {
     ASSERT(ItemType > ITEM_NONE && ItemType < NUMBER_OF_ITEMS);
 
     return m_NumberOfItemsInWalls[ItemType];
 }
 
-inline int CLevel::GetInitialBomberSkills(EBomberSkills BomberSkill)
+inline int CLevel::GetInitialBomberSkills(EBomberSkills BomberSkill) const
 {
     ASSERT(BomberSkill > BOMBERSKILL_DUMMYFIRST && BomberSkill < NUMBER_OF_BOMBERSKILLS);
 

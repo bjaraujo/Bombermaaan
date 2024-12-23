@@ -44,13 +44,14 @@ CSound::CSound()
     // No connection to the resources yet
     m_hModule = nullptr;
 
+    // No song yet
+    m_rwSong = nullptr;
+
     // Sound is unpaused
     m_GlobalPause = false;
 
     // Reset the sample and song pointers
-    int i;
-
-    for (i = 0; i < NUM_SAMPLES; i++)
+    for (int i = 0; i < NUM_SAMPLES; i++)
     {
         m_Samples[i] = nullptr;
     }
@@ -65,10 +66,7 @@ CSound::CSound()
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CSound::~CSound()
-{
-    // Nothing to do
-}
+CSound::~CSound() = default;
 
 void CSound::SetProgramFolder(const std::string& pgmFolder) 
 { 
@@ -542,7 +540,7 @@ void CSound::PlaySample(ESample Sample)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CSound::StopAllSamples()
+void CSound::StopAllSamples() const
 {
     // If the sound works
     if (m_SoundOK)

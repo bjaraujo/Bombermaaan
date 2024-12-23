@@ -165,7 +165,7 @@ public:
     CVideoSDL();
     ~CVideoSDL();
 
-    inline void SetWindowHandle(HWND hWnd);
+    void SetWindowHandle(HWND hWnd);
     void SetProgramFolder(const std::string& pgmFolder); //!< Set program folder
     bool Create(int Width, int Height, int Depth, bool FullScreen);
     void Destroy();
@@ -175,16 +175,16 @@ public:
 
     void FreeSprites();
     void OnWindowMove();
-    inline void OnPaint();
+    void OnPaint();
     void Clear();
     void UpdateAll();
     void UpdateScreen();
-    inline void SetOrigin(int OriginX, int OriginY);
-    inline void SetNewPrimary(SDL_Surface* pSurface);
+    void SetOrigin(int OriginX, int OriginY);
+    void SetNewPrimary(SDL_Surface* pSurface);
     void DrawSprite(int PositionX, int PositionY, RECT* pZone, RECT* pClip, int SpriteTable, int Sprite, int SpriteLayer, int PriorityInLayer);
     void DrawDebugRectangle(int PositionX, int PositionY, int w, int h, Uint8 r, Uint8 g, Uint8 b, int SpriteLayer, int PriorityInLayer);
     void RemoveAllDebugRectangles();
-    inline bool IsModeSet(int Width, int Height, int Depth, bool FullScreen);
+    bool IsModeSet(int Width, int Height, int Depth, bool FullScreen) const;
     bool IsModeAvailable(int Width, int Height, int Depth);
 };
 
@@ -194,7 +194,8 @@ public:
 
 inline void CVideoSDL::SetWindowHandle(HWND hWnd) { m_hWnd = hWnd; }
 
-inline bool CVideoSDL::IsModeSet(int Width, int Height, int Depth, bool FullScreen) { return m_Width == Width && m_Height == Height && m_Depth == Depth && m_FullScreen == FullScreen; }
+inline bool CVideoSDL::IsModeSet(int Width, int Height, int Depth, bool FullScreen) const 
+{ return m_Width == Width && m_Height == Height && m_Depth == Depth && m_FullScreen == FullScreen; }
 
 inline void CVideoSDL::OnPaint() { UpdateScreen(); }
 

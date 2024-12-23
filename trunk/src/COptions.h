@@ -134,36 +134,36 @@ public:
     bool Create(bool useAppDataFolder, std::string dynamicDataFolder, std::string pgmFolder); //!< Load the options. Create the configuration file if it doesn't exist.
     void Destroy(); //!< Free allocated memory.
     void SaveBeforeExit(); //!< Write the options to the configuration file
-    inline int GetTimeStartMinutes(); //!< Get how many minutes in the time when a battle starts
-    inline int GetTimeStartSeconds(); //!< Get how many seconds in the time when a battle starts
-    inline int GetTimeUpMinutes(); //!< Get how many minutes in the time when the arena starts closing
-    inline int GetTimeUpSeconds(); //!< Get how many seconds in the time when the arena starts closing
-    inline void SetTimeStart(int TimeStartMinutes, int TimeStartSeconds); //!< Set the time when a battle starts
-    inline void SetTimeUp(int TimeUpMinutes, int TimeUpSeconds); //!< Set the time when the arena starts closing
-    inline EBomberType GetBomberType(int Player); //!< Get the bomber type of the specified player
-    inline void SetBomberType(int Player, EBomberType BomberType); //!< Set the bomber type of the specified player
-    inline int GetBattleCount(); //!< Get how many battles to win in order to be victorious
-    inline void SetBattleCount(int BattleCount); //!< Set how many battles to win in order to be victorious
-    inline int GetPlayerInput(int Player); //!< Get the player input to use for the specified player
-    inline void SetPlayerInput(int Player, int PlayerInput); //!< Set the player input to use for the specified player
-    inline void SetDisplayMode(EDisplayMode DisplayMode); //!< Set the display mode to use in the CDisplay object
-    inline EDisplayMode GetDisplayMode(); //!< Set the display mode to use in the CDisplay object
-    inline int GetControl(int PlayerInput, int Control);
-    inline void SetControl(int PlayerInput, int Control, int Value);
-    inline EBlockType GetBlockType(int X, int Y);
-    inline int GetNumberOfItemsInWalls(EItemType ItemType);
-    inline int GetInitialBomberSkills(EBomberSkills BomberSkill);
-    inline void SetLevel(int Level);
-    inline int GetLevel();
-    inline int GetNumberOfLevels();
-    inline const char* GetLevelName();
-    inline EActionAIAlive GetOption_ActionWhenOnlyAIPlayersLeft();
+    int GetTimeStartMinutes(); //!< Get how many minutes in the time when a battle starts
+    int GetTimeStartSeconds(); //!< Get how many seconds in the time when a battle starts
+    int GetTimeUpMinutes(); //!< Get how many minutes in the time when the arena starts closing
+    int GetTimeUpSeconds(); //!< Get how many seconds in the time when the arena starts closing
+    void SetTimeStart(int TimeStartMinutes, int TimeStartSeconds); //!< Set the time when a battle starts
+    void SetTimeUp(int TimeUpMinutes, int TimeUpSeconds); //!< Set the time when the arena starts closing
+    EBomberType GetBomberType(int Player); //!< Get the bomber type of the specified player
+    void SetBomberType(int Player, EBomberType BomberType); //!< Set the bomber type of the specified player
+    int GetBattleCount(); //!< Get how many battles to win in order to be victorious
+    void SetBattleCount(int BattleCount); //!< Set how many battles to win in order to be victorious
+    int GetPlayerInput(int Player); //!< Get the player input to use for the specified player
+    void SetPlayerInput(int Player, int PlayerInput); //!< Set the player input to use for the specified player
+    void SetDisplayMode(EDisplayMode DisplayMode); //!< Set the display mode to use in the CDisplay object
+    EDisplayMode GetDisplayMode(); //!< Set the display mode to use in the CDisplay object
+    int GetControl(int PlayerInput, int Control);
+    void SetControl(int PlayerInput, int Control, int Value);
+    EBlockType GetBlockType(int X, int Y);
+    int GetNumberOfItemsInWalls(EItemType ItemType);
+    int GetInitialBomberSkills(EBomberSkills BomberSkill);
+    void SetLevel(int Level);
+    int GetLevel();
+    int GetNumberOfLevels();
+    const char* GetLevelName();
+    EActionAIAlive GetOption_ActionWhenOnlyAIPlayersLeft() const;
 
-    inline void SetBattleMode(EBattleMode BattleMode);
-    inline EBattleMode GetBattleMode();
+    void SetBattleMode(EBattleMode BattleMode);
+    EBattleMode GetBattleMode();
 
-    inline EBomberTeam GetBomberTeam(int Player); //!< Get the bomber team of the specified player
-    inline void SetBomberTeam(int Player, EBomberTeam BomberTeam); //!< Set the bomber team of the specified player
+    EBomberTeam GetBomberTeam(int Player); //!< Get the bomber team of the specified player
+    void SetBomberTeam(int Player, EBomberTeam BomberTeam); //!< Set the bomber team of the specified player
 };
 
 //******************************************************************************************************************************
@@ -275,12 +275,10 @@ inline const char* COptions::GetLevelName()
     return m_Levels.at(m_Level).GetLevelName();
 }
 
-inline EActionAIAlive COptions::GetOption_ActionWhenOnlyAIPlayersLeft()
+inline EActionAIAlive COptions::GetOption_ActionWhenOnlyAIPlayersLeft() const
 {
     //! @TODO This should really be an option
     return ACTIONONLYAIPLAYERSALIVE_CONTINUEGAME;
-    // return ACTIONONLYAIPLAYERSALIVE_SPEEDUPGAME;
-    // return ACTIONONLYAIPLAYERSALIVE_ENDMATCHDRAWGAME;
 }
 
 inline EBomberTeam COptions::GetBomberTeam(int Player) { return m_BomberTeam[Player]; }

@@ -139,11 +139,11 @@ public:
     bool Create(); //!< Initialize the object
     void Destroy(); //!< Uninitialize the object
     void SetPause(bool Pause); //!< Pause or resume the sound
-    inline bool IsPaused();
+    inline bool IsPaused() const;
     void PlaySong(ESong Song); //!< Start playing a song
     void StopSong(ESong Song); //!< Stop playing a specific song
     void PlaySample(ESample Sample); //!< Start playing a sample
-    void StopAllSamples(); //!< Stops all samples
+    void StopAllSamples() const; //!< Stops all samples
     void SetSampleVolume(int VolumePerCent); //!< Set the volume for all samples
     void SetSongVolume(ESong Song, int VolumePerCent); //!< Set the volume for a specific song
 };
@@ -154,7 +154,7 @@ public:
 
 inline void CSound::SetModuleHandle(HMODULE hModule) { m_hModule = hModule; }
 
-inline bool CSound::IsPaused() { return m_GlobalPause; }
+inline bool CSound::IsPaused() const { return m_GlobalPause; }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************

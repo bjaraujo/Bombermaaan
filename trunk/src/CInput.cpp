@@ -51,10 +51,7 @@ CInput::CInput()
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CInput::~CInput()
-{
-    // Do nothing
-}
+CInput::~CInput() = default;
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -76,11 +73,13 @@ bool CInput::Create()
     // Initialize the main input
     m_MainInput.Create();
 
+    auto PlayerCount = GetPlayerInputCount();
+
     // Allocate a player input object for every available ones
-    m_PlayerInput = new CPlayerInput[GetPlayerInputCount()];
+    m_PlayerInput = new CPlayerInput[PlayerCount];
 
     // Initialize every player input object
-    for (int PlayerInput = 0; PlayerInput < GetPlayerInputCount(); PlayerInput++)
+    for (int PlayerInput = 0; PlayerInput < PlayerCount; PlayerInput++)
     {
         m_PlayerInput[PlayerInput].SetDirectInput(&m_input);
         m_PlayerInput[PlayerInput].SetOptions(m_pOptions);

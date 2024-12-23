@@ -2408,8 +2408,6 @@ void CAiBomber::ModeWalk(float DeltaTime)
             else
                 m_BomberMove = BOMBERMOVE_NONE;
         }
-
-        //WriteConsole ("HG - ");
     }
     else
     {
@@ -2439,8 +2437,6 @@ void CAiBomber::ModeWalk(float DeltaTime)
             else
                 m_BomberMove = BOMBERMOVE_NONE;
         }
-
-        //WriteConsole ("HD - ");
     }
 
     // If the bomber move is a real move

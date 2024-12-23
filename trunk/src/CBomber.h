@@ -192,14 +192,14 @@ protected:
     // These methods are protected so that bombers can check
     // each other's positions for the contamination ability.
 
-    inline void SetSickness(ESick Sickness); //!< Set the current sickness of the bomber.
-    inline int GetX(); //!< Get the integer X position (in pixels) of the bomber in the arena
-    inline int GetY(); //!< Get the integer Y position (in pixels) of the bomber in the arena
+    void SetSickness(ESick Sickness); //!< Set the current sickness of the bomber.
+    int GetX(); //!< Get the integer X position (in pixels) of the bomber in the arena
+    int GetY(); //!< Get the integer Y position (in pixels) of the bomber in the arena
 
 public:
     CBomber(); //!< Constructor (initialize the base class)
     virtual ~CBomber(); //!< Destructor (uninitialize the base class)
-    inline void SetArena(CArena* pArena); //!< Redefinition of the inherited method.
+    void SetArena(CArena* pArena); //!< Redefinition of the inherited method.
     void Create(int BlockX, int BlockY, int Player, COptions* options); //!< Initialize the bomber
     void Destroy(); //!< Uninitialize the bomber
     bool Update(float DeltaTime); //!< Update the bomber. Return whether the element should be deleted by the arena.
@@ -212,36 +212,36 @@ public:
     void Stunt(); //!< Make the bomber react when a bomb bounces on his head
     void ItemEffect(EItemType Type); //!< Apply the effects of the specified item type on the bomber.
     void TryKickBomb(int BlockX, int BlockY, EBombKick BombKick); //!< Kick a bomb if there is one on the specified block.
-    int GetFlameSize(); //!< Get the current flame size of the bombs dropped by the bomber. Depends on its current sickness.
-    int GetPixelsPerSecond(); //!< Return the speed (in pixels per second) the bomber can walk.
-    bool IsObstacle(int BlockX, int BlockY); //!< Return whether there is a wall or a bomb on the specified block.
-    inline bool IsAlive(); //!< Return whether the bomber is alive (not dead and not dying)
-    inline bool IsDying(); //!< Return whether the bomber is dying
-    inline bool IsDead(); //!< Return whether the bomber is dead (but not dying)
-    inline bool IsActor(); //!< Return whether the bomber can currently do something (i.e. execute commands).
-    inline int GetBlockX(); //!< Return the block position X of the bomber
-    inline int GetBlockY(); //!< Return the block position Y of the bomber
-    inline int GetPlayer(); //!< Return the number of the player who controls this bomber
-    inline ESick GetSickness(); //!< Return the bomber's sickness value
-    inline bool CanKickBombs(); //!< Return whether the bomber is able to kick bombs
-    inline bool CanThrowBombs(); //!< Return whether the bomber is able to throw bombs
-    inline bool CanPunchBombs(); //!< Return whether the bomber is able to punch bombs
-    inline bool CanRemoteFuseBombs(); //!< Return whether the bomber is able to remote fuse bombs
-    inline bool HasShield(); //!< Return whether the bomber has shield
-    inline float TimeSinceLastSick(); //!< Return time after last sick event
-    inline int GetUsedBombsCount(); //!< Return how many bombs the bomber are currently ticking in the arena
-    inline int GetBombItemsCount(); //!< Return how many bomb items the bomber has picked up
-    inline int GetFlameItemsCount(); //!< Return how many flame items the bomber has picked up
-    inline int GetRollerItemsCount(); //!< Return how many roller items the bomber has picked up
-    inline int GetTotalBombs(); //!< Return how many bombs the bomber can currently drop
-    inline EBomberState GetState(); //!< Return the state of the bomber
-    inline int GetBombIndex(); //!< Return the index of the bomb the bomber is possibly holding, lifting, or punching (if the bomber is throwing, this index is -1).
-    inline bool HasExisted(); //!< Return the has existed status variable
-    inline void ResetHasExisted(); //!< Reset the existed status variable to false
-    inline EBomberType GetBomberType(); //!< Return the bomber type (@see EBomberType)
+    int GetFlameSize() const; //!< Get the current flame size of the bombs dropped by the bomber. Depends on its current sickness.
+    int GetPixelsPerSecond() const; //!< Return the speed (in pixels per second) the bomber can walk.
+    bool IsObstacle(int BlockX, int BlockY) const; //!< Return whether there is a wall or a bomb on the specified block.
+    bool IsAlive() const; //!< Return whether the bomber is alive (not dead and not dying)
+    bool IsDying() const; //!< Return whether the bomber is dying
+    bool IsDead() const; //!< Return whether the bomber is dead (but not dying)
+    bool IsActor() const; //!< Return whether the bomber can currently do something (i.e. execute commands).
+    int GetBlockX(); //!< Return the block position X of the bomber
+    int GetBlockY(); //!< Return the block position Y of the bomber
+    int GetPlayer() const; //!< Return the number of the player who controls this bomber
+    ESick GetSickness() const; //!< Return the bomber's sickness value
+    bool CanKickBombs() const; //!< Return whether the bomber is able to kick bombs
+    bool CanThrowBombs() const; //!< Return whether the bomber is able to throw bombs
+    bool CanPunchBombs() const; //!< Return whether the bomber is able to punch bombs
+    bool CanRemoteFuseBombs() const; //!< Return whether the bomber is able to remote fuse bombs
+    bool HasShield() const; //!< Return whether the bomber has shield
+    float TimeSinceLastSick() const; //!< Return time after last sick event
+    int GetUsedBombsCount() const; //!< Return how many bombs the bomber are currently ticking in the arena
+    int GetBombItemsCount() const; //!< Return how many bomb items the bomber has picked up
+    int GetFlameItemsCount() const; //!< Return how many flame items the bomber has picked up
+    int GetRollerItemsCount() const; //!< Return how many roller items the bomber has picked up
+    int GetTotalBombs() const; //!< Return how many bombs the bomber can currently drop
+    EBomberState GetState(); //!< Return the state of the bomber
+    int GetBombIndex(); //!< Return the index of the bomb the bomber is possibly holding, lifting, or punching (if the bomber is throwing, this index is -1).
+    bool HasExisted() const; //!< Return the has existed status variable
+    void ResetHasExisted(); //!< Reset the existed status variable to false
+    EBomberType GetBomberType(); //!< Return the bomber type (@see EBomberType)
 
-    inline void SetTeam(CTeam* pTeam); //!< Set the team
-    inline CTeam* GetTeam(); //!< Return the team
+    void SetTeam(CTeam* pTeam); //!< Set the team
+    CTeam* GetTeam(); //!< Return the team
 };
 
 //******************************************************************************************************************************
@@ -254,27 +254,27 @@ inline void CBomber::SetArena(CArena* pArena)
     m_BomberMove.SetArena(pArena);
 }
 
-inline bool CBomber::IsAlive() { return m_Dead == DEAD_ALIVE; }
+inline bool CBomber::IsAlive() const { return m_Dead == DEAD_ALIVE; }
 
-inline bool CBomber::IsDying() { return m_Dead == DEAD_DYING; }
+inline bool CBomber::IsDying() const { return m_Dead == DEAD_DYING; }
 
-inline bool CBomber::IsDead() { return m_Dead == DEAD_DEAD; }
+inline bool CBomber::IsDead() const { return m_Dead == DEAD_DEAD; }
 
-inline bool CBomber::IsActor() { return m_Dead == DEAD_ALIVE && m_BomberState != BOMBERSTATE_STUNT; }
+inline bool CBomber::IsActor() const { return m_Dead == DEAD_ALIVE && m_BomberState != BOMBERSTATE_STUNT; }
 
 inline int CBomber::GetBlockX() { return m_BomberMove.GetBlockX(); }
 
 inline int CBomber::GetBlockY() { return m_BomberMove.GetBlockY(); }
 
-inline int CBomber::GetPlayer() { return m_Player; }
+inline int CBomber::GetPlayer() const { return m_Player; }
 
-inline ESick CBomber::GetSickness() { return m_Sickness; }
+inline ESick CBomber::GetSickness() const { return m_Sickness; }
 
-inline bool CBomber::CanKickBombs() { return m_NumberOfKickItems > 0; }
+inline bool CBomber::CanKickBombs() const { return m_NumberOfKickItems > 0; }
 
-inline bool CBomber::CanThrowBombs() { return m_NumberOfThrowItems > 0; }
+inline bool CBomber::CanThrowBombs() const { return m_NumberOfThrowItems > 0; }
 
-inline bool CBomber::CanPunchBombs() { return m_NumberOfPunchItems > 0; }
+inline bool CBomber::CanPunchBombs() const { return m_NumberOfPunchItems > 0; }
 
 /**
  *  The bomber can remote fuse bombs, if all of these conditions are met:
@@ -285,21 +285,21 @@ inline bool CBomber::CanPunchBombs() { return m_NumberOfPunchItems > 0; }
  *  its time is up.
  */
 
-inline bool CBomber::CanRemoteFuseBombs() { return m_NumberOfRemoteItems > 0; }
+inline bool CBomber::CanRemoteFuseBombs() const { return m_NumberOfRemoteItems > 0; }
 
-inline bool CBomber::HasShield() { return m_ShieldTime > 0.0f; }
+inline bool CBomber::HasShield() const { return m_ShieldTime > 0.0f; }
 
-inline float CBomber::TimeSinceLastSick() { return m_TimeSinceLastSick; }
+inline float CBomber::TimeSinceLastSick() const { return m_TimeSinceLastSick; }
 
-inline int CBomber::GetUsedBombsCount() { return m_UsedBombs; }
+inline int CBomber::GetUsedBombsCount() const { return m_UsedBombs; }
 
-inline int CBomber::GetBombItemsCount() { return m_NumberOfBombItems; }
+inline int CBomber::GetBombItemsCount() const { return m_NumberOfBombItems; }
 
-inline int CBomber::GetFlameItemsCount() { return m_NumberOfFlameItems; }
+inline int CBomber::GetFlameItemsCount() const { return m_NumberOfFlameItems; }
 
-inline int CBomber::GetRollerItemsCount() { return m_NumberOfRollerItems; }
+inline int CBomber::GetRollerItemsCount() const { return m_NumberOfRollerItems; }
 
-inline int CBomber::GetTotalBombs() { return m_NumberOfBombItems + 1; }
+inline int CBomber::GetTotalBombs() const { return m_NumberOfBombItems + 1; }
 
 inline int CBomber::GetX() { return m_BomberMove.GetX(); }
 
@@ -324,7 +324,7 @@ inline int CBomber::GetBombIndex()
     return m_BombIndex;
 }
 
-inline bool CBomber::HasExisted() { return m_HasExisted; }
+inline bool CBomber::HasExisted() const { return m_HasExisted; }
 
 inline void CBomber::ResetHasExisted() { m_HasExisted = false; }
 

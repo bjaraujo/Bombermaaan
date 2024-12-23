@@ -204,7 +204,7 @@ private:
     std::vector<SJoystick*> m_pJoysticks; //!< All joystick SDLInput devices installed in the system
 
     bool UpdateDevice(void* pState);
-    bool UpdateDevice(SDL_Joystick* pDevice, void* pState);
+    bool UpdateDevice(SDL_Joystick* pDevice, void* pState) const;
     void MakeKeyFriendlyNames();
 
     int m_joystickCount;
@@ -212,355 +212,40 @@ private:
 public:
     CInputSDL();
     ~CInputSDL();
-    inline void SetWindowHandle(HWND hWnd);
-    inline void SetInstanceHandle(HINSTANCE hInstance);
+    void SetWindowHandle(HWND hWnd);
+    void SetInstanceHandle(HINSTANCE hInstance);
     bool Create();
     void Destroy();
-    inline void OpenKeyboard();
-    inline bool IsKeyboardOpened();
-    inline void CloseKeyboard();
+    void OpenKeyboard();
+    bool IsKeyboardOpened() const;
+    void CloseKeyboard();
     void UpdateKeyboard();
-    inline bool GetKey(int Key);
-    inline void SetKey(int Key, bool KeySet);
-    inline const char* GetKeyFriendlyName(int Key);
-    inline int GetJoystickCount();
-    inline void OpenJoystick(int Joystick);
-    inline bool IsJoystickOpened(int Joystick);
-    inline void CloseJoystick(int Joystick);
-    void UpdateJoystick(int Joystick);
-    inline int GetJoystickAxisX(int Joystick);
-    inline int GetJoystickAxisY(int Joystick);
-    inline bool GetJoystickButton(int Joystick, int Button);
-    inline void SetJoystickAxisX(int Joystick, int AxisX);
-    inline void SetJoystickAxisY(int Joystick, int AxisY);
-    inline void SetJoystickButton(int Joystick, int Button, bool onoff);
+    bool GetKey(int Key) const;
+    void SetKey(int Key, bool KeySet);
+    const char* GetKeyFriendlyName(int Key) const;
+    int GetJoystickCount() const;
+    void OpenJoystick(int Joystick);
+    bool IsJoystickOpened(int Joystick);
+    void CloseJoystick(int Joystick);
+    void UpdateJoystick(int Joystick) const;
+    int GetJoystickAxisX(int Joystick);
+    int GetJoystickAxisY(int Joystick);
+    bool GetJoystickButton(int Joystick, int Button);
+    void SetJoystickAxisX(int Joystick, int AxisX);
+    void SetJoystickAxisY(int Joystick, int AxisY);
+    void SetJoystickButton(int Joystick, int Button, bool onoff);
 
-    inline bool TestUp(int Joystick);
-    inline bool TestDown(int Joystick);
-    inline bool TestLeft(int Joystick);
-    inline bool TestRight(int Joystick);
-    inline bool TestNext(int Joystick);
-    inline bool TestPrevious(int Joystick);
-    inline bool TestBreak(int Joystick);
-    inline bool TestStart(int Joystick);
+    bool TestUp(int Joystick);
+    bool TestDown(int Joystick);
+    bool TestLeft(int Joystick);
+    bool TestRight(int Joystick);
+    bool TestNext(int Joystick);
+    bool TestPrevious(int Joystick);
+    bool TestBreak(int Joystick);
+    bool TestStart(int Joystick);
 };
 
 typedef CInputSDL InputClass;
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-inline void CInputSDL::SetWindowHandle(HWND hWnd) { m_hWnd = hWnd; }
-
-inline void CInputSDL::SetInstanceHandle(HINSTANCE hInstance) { m_hInstance = hInstance; }
-
-inline void CInputSDL::OpenKeyboard() { m_KeyboardOpened = true; }
-
-inline bool CInputSDL::IsKeyboardOpened()
-{
-    // Return the opened state of the keyboard
-    return m_KeyboardOpened;
-}
-
-inline void CInputSDL::CloseKeyboard() { m_KeyboardOpened = false; }
-
-inline bool CInputSDL::GetKey(int Key)
-{
-    // Assert the key number is correct
-    ASSERT(Key >= 0 && Key < MAX_KEYS);
-
-    // Return the state of the key
-    return (m_KeyState[Key] & 0x80) != 0;
-}
-
-inline void CInputSDL::SetKey(int Key, bool KeySet)
-{
-    // Assert the key number is correct
-    ASSERT(Key >= 0 && Key < MAX_KEYS);
-
-    // Set/remove state of the key
-    if (KeySet)
-    {
-        m_KeyState[Key] |= 0x80;
-    }
-    else
-    {
-        m_KeyState[Key] &= ~0x80;
-    }
-
-    return;
-}
-
-inline const char* CInputSDL::GetKeyFriendlyName(int Key)
-{
-    // Assert the key number is correct
-    ASSERT(Key >= 0 && Key < MAX_KEYS);
-
-    // Return the name of the key
-    return m_KeyFriendlyName[Key];
-}
-
-inline int CInputSDL::GetJoystickCount()
-{
-    // Return the number of joysticks installed on the system
-    return m_pJoysticks.size();
-}
-
-inline void CInputSDL::OpenJoystick(int Joystick)
-{
-
-    // Check if the joystick number is correct
-    if (Joystick >= 0 && Joystick < (int)m_pJoysticks.size())
-    {
-
-        if (m_pJoysticks[Joystick]->Opened)
-            return;
-
-        // Try to acquire the joystick
-        m_pJoysticks[Joystick]->pDevice = SDL_JoystickOpen(Joystick);
-
-        // Set the opened state according to the return value
-        m_pJoysticks[Joystick]->Opened = (m_pJoysticks[Joystick]->pDevice != nullptr);
-    }
-}
-
-inline bool CInputSDL::IsJoystickOpened(int Joystick)
-{
-    // Check if the joystick number is correct
-    ASSERT(Joystick >= 0 && Joystick < (int)m_pJoysticks.size());
-
-    // Return the opened state of this joystick
-    return m_pJoysticks[Joystick]->Opened;
-}
-
-inline void CInputSDL::CloseJoystick(int Joystick)
-{
-    // Check if the joystick number is correct
-    if (Joystick >= 0 && Joystick < (int)m_pJoysticks.size())
-    {
-
-        // Release access to this joystick
-        SDL_JoystickClose(m_pJoysticks[Joystick]->pDevice);
-
-        // We are sure this joystick is not opened */
-        m_pJoysticks[Joystick]->Opened = false;
-        m_pJoysticks[Joystick]->pDevice = nullptr;
-    }
-}
-
-inline int CInputSDL::GetJoystickAxisX(int Joystick)
-{
-    // Check if the joystick number is correct
-    ASSERT(Joystick >= 0 && Joystick < (int)m_pJoysticks.size());
-
-    // Return the value of the X axis of this joystick
-    return m_pJoysticks[Joystick]->State.lX;
-}
-
-inline int CInputSDL::GetJoystickAxisY(int Joystick)
-{
-    // Check if the joystick number is correct
-    ASSERT(Joystick >= 0 && Joystick < (int)m_pJoysticks.size());
-
-    // Return the value of the Y axis of this joystick
-    return m_pJoysticks[Joystick]->State.lY;
-}
-
-inline bool CInputSDL::GetJoystickButton(int Joystick, int Button)
-{
-    // Check if the joystick number is correct
-    ASSERT(Joystick >= 0 && Joystick < (int)m_pJoysticks.size());
-
-    // Assert the button number is correct
-    ASSERT(Button >= 0 && Button < MAX_JOYSTICK_BUTTONS);
-
-    // Return the state of the specified button on this joystick
-    return (m_pJoysticks[Joystick]->State.rgbButtons[Button] & 0x80) != 0;
-}
-
-inline void CInputSDL::SetJoystickAxisX(int Joystick, int AxisX)
-{
-    // Check if the joystick number is correct
-    ASSERT(Joystick >= 0 && Joystick < (int)m_pJoysticks.size());
-
-    // Set the value of the X axis of this joystick
-    m_pJoysticks[Joystick]->State.lX = AxisX;
-
-    return;
-}
-
-inline void CInputSDL::SetJoystickAxisY(int Joystick, int AxisY)
-{
-    // Check if the joystick number is correct
-    ASSERT(Joystick >= 0 && Joystick < (int)m_pJoysticks.size());
-
-    // Set the value of the Y axis of this joystick
-    m_pJoysticks[Joystick]->State.lY = AxisY;
-
-    return;
-}
-
-inline void CInputSDL::SetJoystickButton(int Joystick, int Button, bool onoff)
-{
-    // Check if the joystick number is correct
-    ASSERT(Joystick >= 0 && Joystick < (int)m_pJoysticks.size());
-
-    // Assert the button number is correct
-    ASSERT(Button >= 0 && Button < MAX_JOYSTICK_BUTTONS);
-
-    // Return the state of the specified button on this joystick
-    if (onoff)
-    {
-        m_pJoysticks[Joystick]->State.rgbButtons[Button] |= 0x80;
-    }
-    else
-    {
-        m_pJoysticks[Joystick]->State.rgbButtons[Button] &= ~0x80;
-    }
-
-    return;
-}
-
-inline bool CInputSDL::TestUp(int Joystick)
-{
-
-    if (Joystick >= 0 && Joystick < (int)m_pJoysticks.size())
-    {
-
-        m_joystickCount++;
-
-        if (m_joystickCount > 200)
-        {
-
-            if (m_pJoysticks[Joystick]->State.lY < -JOYSTICK_AXIS_THRESHOLD)
-            {
-                m_joystickCount = 0;
-                return true;
-            }
-        }
-    }
-
-    return false;
-}
-
-inline bool CInputSDL::TestDown(int Joystick)
-{
-
-    if (Joystick >= 0 && Joystick < (int)m_pJoysticks.size())
-    {
-
-        m_joystickCount++;
-
-        if (m_joystickCount > 200)
-        {
-
-            if (m_pJoysticks[Joystick]->State.lY > +JOYSTICK_AXIS_THRESHOLD)
-            {
-                m_joystickCount = 0;
-                return true;
-            }
-        }
-    }
-
-    return false;
-}
-
-inline bool CInputSDL::TestLeft(int Joystick)
-{
-
-    if (Joystick >= 0 && Joystick < (int)m_pJoysticks.size())
-    {
-
-        m_joystickCount++;
-
-        if (m_joystickCount > 200)
-        {
-
-            if (m_pJoysticks[Joystick]->State.lX < -JOYSTICK_AXIS_THRESHOLD)
-            {
-                m_joystickCount = 0;
-                return true;
-            }
-        }
-    }
-
-    return false;
-}
-
-inline bool CInputSDL::TestRight(int Joystick)
-{
-
-    if (Joystick >= 0 && Joystick < (int)m_pJoysticks.size())
-    {
-
-        m_joystickCount++;
-
-        if (m_joystickCount > 200)
-        {
-
-            if (m_pJoysticks[Joystick]->State.lX > +JOYSTICK_AXIS_THRESHOLD)
-            {
-                m_joystickCount = 0;
-                return true;
-            }
-        }
-    }
-
-    return false;
-}
-
-inline bool CInputSDL::TestNext(int Joystick)
-{
-
-    if (Joystick >= 0 && Joystick < (int)m_pJoysticks.size())
-    {
-
-        if ((m_pJoysticks[Joystick]->State.rgbButtons[JOYSTICK_BUTTON_MENU_NEXT - NUMBER_OF_JOYSTICK_DIRECTIONS] & 0x80) != 0)
-            return true;
-    }
-
-    return false;
-}
-
-inline bool CInputSDL::TestPrevious(int Joystick)
-{
-
-    if (Joystick >= 0 && Joystick < (int)m_pJoysticks.size())
-    {
-
-        if ((m_pJoysticks[Joystick]->State.rgbButtons[JOYSTICK_BUTTON_MENU_PREVIOUS - NUMBER_OF_JOYSTICK_DIRECTIONS] & 0x80) != 0)
-            return true;
-    }
-
-    return false;
-}
-
-inline bool CInputSDL::TestBreak(int Joystick)
-{
-
-    if (Joystick >= 0 && Joystick < (int)m_pJoysticks.size())
-    {
-
-        if ((m_pJoysticks[Joystick]->State.rgbButtons[JOYSTICK_BUTTON_BREAK - NUMBER_OF_JOYSTICK_DIRECTIONS] & 0x80) != 0)
-            return true;
-    }
-
-    return false;
-}
-
-inline bool CInputSDL::TestStart(int Joystick)
-{
-
-    if (Joystick >= 0 && Joystick < (int)m_pJoysticks.size())
-    {
-
-        if ((m_pJoysticks[Joystick]->State.rgbButtons[JOYSTICK_BUTTON_START - NUMBER_OF_JOYSTICK_DIRECTIONS] & 0x80) != 0)
-            return true;
-    }
-
-    return false;
-}
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************

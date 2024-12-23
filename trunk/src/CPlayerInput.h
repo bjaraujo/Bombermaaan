@@ -64,24 +64,24 @@ private:
 public:
     CPlayerInput();
     ~CPlayerInput();
-    inline InputClass* GetDirectInput();
-    inline void SetDirectInput(InputClass* pDirectInput);
-    inline void SetOptions(COptions* pOptions);
+    InputClass* GetDirectInput();
+    void SetDirectInput(InputClass* pDirectInput);
+    void SetOptions(COptions* pOptions);
     void Create(int PlayerInput);
     void Destroy();
     void Open();
     bool IsOpened();
     void Close();
-    inline const char* GetName();
+    const char* GetName() const;
     void Update();
-    inline bool TestUp();
-    inline bool TestDown();
-    inline bool TestLeft();
-    inline bool TestRight();
-    inline bool TestAction1();
-    inline bool TestAction2();
-    inline bool TestMenuNext();
-    inline bool TestPause();
+    bool TestUp();
+    bool TestDown();
+    bool TestLeft();
+    bool TestRight();
+    bool TestAction1();
+    bool TestAction2();
+    bool TestMenuNext();
+    bool TestPause();
     int GetActivatedControl();
     const char* GetControlName(int Control);
     bool TestControl(int Control);
@@ -98,7 +98,7 @@ inline void CPlayerInput::SetDirectInput(InputClass* pDirectInput) { m_pDirectIn
 
 inline void CPlayerInput::SetOptions(COptions* pOptions) { m_pOptions = pOptions; }
 
-inline const char* CPlayerInput::GetName() { return m_Name; }
+inline const char* CPlayerInput::GetName() const { return m_Name; }
 
 inline bool CPlayerInput::TestUp() { return TestControl(CONTROL_UP); }
 

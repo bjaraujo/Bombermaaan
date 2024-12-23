@@ -61,10 +61,7 @@ CInputSDL::CInputSDL()
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CInputSDL::~CInputSDL()
-{
-    // Nothing to do
-}
+CInputSDL::~CInputSDL() = default;
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -93,15 +90,13 @@ bool CInputSDL::Create()
         // Reset the keyboard state
         memset(m_KeyState, 0, MAX_KEYS);
 
-        //SDL_EnableKeyRepeat(100, SDL_DEFAULT_REPEAT_INTERVAL);
-
         // Prepare the friendly name for each key
         MakeKeyFriendlyNames();
 
         // Create all joysticks that are installed on the system
         for (int i = 0; i < SDL_NumJoysticks(); i++)
         {
-            SJoystick* pJoystick = new SJoystick;
+            auto* pJoystick = new SJoystick;
 
             if (pJoystick == nullptr)
             {
@@ -169,7 +164,7 @@ void CInputSDL::Destroy()
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CInputSDL::UpdateDevice(SDL_Joystick* pDevice, void* pState) { return true; }
+bool CInputSDL::UpdateDevice(SDL_Joystick* pDevice, void* pState) const { return true; }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -196,7 +191,7 @@ void CInputSDL::UpdateKeyboard() { UpdateDevice(m_KeyState); }
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CInputSDL::UpdateJoystick(int Joystick) {}
+void CInputSDL::UpdateJoystick(int Joystick) const {}
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -530,7 +525,7 @@ void CInputSDL::MakeKeyFriendlyNames()
                 c = sizeof(m_KeyFriendlyName[Key]) - 1;
             }
 
-            if (c < MAX_PATH) 
+            if (c >= 0 && c < MAX_PATH) 
             {
                 m_KeyFriendlyName[Key][c] = '\0';
             }
@@ -538,6 +533,268 @@ void CInputSDL::MakeKeyFriendlyNames()
             break;
         }
     }
+}
+
+void CInputSDL::SetWindowHandle(HWND hWnd) { m_hWnd = hWnd; }
+
+void CInputSDL::SetInstanceHandle(HINSTANCE hInstance) { m_hInstance = hInstance; }
+
+void CInputSDL::OpenKeyboard() { m_KeyboardOpened = true; }
+
+bool CInputSDL::IsKeyboardOpened() const
+{
+    // Return the opened state of the keyboard
+    return m_KeyboardOpened;
+}
+
+void CInputSDL::CloseKeyboard() { m_KeyboardOpened = false; }
+
+bool CInputSDL::GetKey(int Key) const
+{
+    // Assert the key number is correct
+    ASSERT(Key >= 0 && Key < MAX_KEYS);
+
+    // Return the state of the key
+    return (m_KeyState[Key] & 0x80) != 0;
+}
+
+void CInputSDL::SetKey(int Key, bool KeySet)
+{
+    // Assert the key number is correct
+    ASSERT(Key >= 0 && Key < MAX_KEYS);
+
+    // Set/remove state of the key
+    if (KeySet)
+    {
+        m_KeyState[Key] |= 0x80;
+    }
+    else
+    {
+        m_KeyState[Key] &= ~0x80;
+    }
+
+    return;
+}
+
+const char* CInputSDL::GetKeyFriendlyName(int Key) const
+{
+    // Assert the key number is correct
+    ASSERT(Key >= 0 && Key < MAX_KEYS);
+
+    // Return the name of the key
+    return m_KeyFriendlyName[Key];
+}
+
+int CInputSDL::GetJoystickCount() const
+{
+    // Return the number of joysticks installed on the system
+    return m_pJoysticks.size();
+}
+
+void CInputSDL::OpenJoystick(int Joystick)
+{
+
+    // Check if the joystick number is correct
+    if (Joystick >= 0 && Joystick < (int)m_pJoysticks.size())
+    {
+
+        if (m_pJoysticks[Joystick]->Opened)
+            return;
+
+        // Try to acquire the joystick
+        m_pJoysticks[Joystick]->pDevice = SDL_JoystickOpen(Joystick);
+
+        // Set the opened state according to the return value
+        m_pJoysticks[Joystick]->Opened = (m_pJoysticks[Joystick]->pDevice != nullptr);
+    }
+}
+
+bool CInputSDL::IsJoystickOpened(int Joystick)
+{
+    // Check if the joystick number is correct
+    ASSERT(Joystick >= 0 && Joystick < (int)m_pJoysticks.size());
+
+    // Return the opened state of this joystick
+    return m_pJoysticks[Joystick]->Opened;
+}
+
+void CInputSDL::CloseJoystick(int Joystick)
+{
+    // Check if the joystick number is correct
+    if (Joystick >= 0 && Joystick < (int)m_pJoysticks.size())
+    {
+
+        // Release access to this joystick
+        SDL_JoystickClose(m_pJoysticks[Joystick]->pDevice);
+
+        // We are sure this joystick is not opened */
+        m_pJoysticks[Joystick]->Opened = false;
+        m_pJoysticks[Joystick]->pDevice = nullptr;
+    }
+}
+
+int CInputSDL::GetJoystickAxisX(int Joystick)
+{
+    // Check if the joystick number is correct
+    ASSERT(Joystick >= 0 && Joystick < (int)m_pJoysticks.size());
+
+    // Return the value of the X axis of this joystick
+    return m_pJoysticks[Joystick]->State.lX;
+}
+
+int CInputSDL::GetJoystickAxisY(int Joystick)
+{
+    // Check if the joystick number is correct
+    ASSERT(Joystick >= 0 && Joystick < (int)m_pJoysticks.size());
+
+    // Return the value of the Y axis of this joystick
+    return m_pJoysticks[Joystick]->State.lY;
+}
+
+bool CInputSDL::GetJoystickButton(int Joystick, int Button)
+{
+    // Check if the joystick number is correct
+    ASSERT(Joystick >= 0 && Joystick < (int)m_pJoysticks.size());
+
+    // Assert the button number is correct
+    ASSERT(Button >= 0 && Button < MAX_JOYSTICK_BUTTONS);
+
+    // Return the state of the specified button on this joystick
+    return (m_pJoysticks[Joystick]->State.rgbButtons[Button] & 0x80) != 0;
+}
+
+void CInputSDL::SetJoystickAxisX(int Joystick, int AxisX)
+{
+    // Check if the joystick number is correct
+    ASSERT(Joystick >= 0 && Joystick < (int)m_pJoysticks.size());
+
+    // Set the value of the X axis of this joystick
+    m_pJoysticks[Joystick]->State.lX = AxisX;
+
+    return;
+}
+
+void CInputSDL::SetJoystickAxisY(int Joystick, int AxisY)
+{
+    // Check if the joystick number is correct
+    ASSERT(Joystick >= 0 && Joystick < (int)m_pJoysticks.size());
+
+    // Set the value of the Y axis of this joystick
+    m_pJoysticks[Joystick]->State.lY = AxisY;
+
+    return;
+}
+
+void CInputSDL::SetJoystickButton(int Joystick, int Button, bool onoff)
+{
+    // Check if the joystick number is correct
+    ASSERT(Joystick >= 0 && Joystick < (int)m_pJoysticks.size());
+
+    // Assert the button number is correct
+    ASSERT(Button >= 0 && Button < MAX_JOYSTICK_BUTTONS);
+
+    // Return the state of the specified button on this joystick
+    if (onoff)
+    {
+        m_pJoysticks[Joystick]->State.rgbButtons[Button] |= 0x80;
+    }
+    else
+    {
+        m_pJoysticks[Joystick]->State.rgbButtons[Button] &= ~0x80;
+    }
+
+    return;
+}
+
+bool CInputSDL::TestUp(int Joystick)
+{
+    if (Joystick >= 0 && Joystick < (int)m_pJoysticks.size())
+    {
+        m_joystickCount++;
+
+        if (m_joystickCount > 200 && m_pJoysticks[Joystick]->State.lY < -JOYSTICK_AXIS_THRESHOLD)
+        {
+            m_joystickCount = 0;
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool CInputSDL::TestDown(int Joystick)
+{
+
+    if (Joystick >= 0 && Joystick < (int)m_pJoysticks.size())
+    {
+
+        m_joystickCount++;
+
+        if (m_joystickCount > 200 && m_pJoysticks[Joystick]->State.lY > +JOYSTICK_AXIS_THRESHOLD)
+        {
+            m_joystickCount = 0;
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool CInputSDL::TestLeft(int Joystick)
+{
+    if (Joystick >= 0 && Joystick < (int)m_pJoysticks.size())
+    {
+        m_joystickCount++;
+
+        if (m_joystickCount > 200 && m_pJoysticks[Joystick]->State.lX < -JOYSTICK_AXIS_THRESHOLD)
+        {
+            m_joystickCount = 0;
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool CInputSDL::TestRight(int Joystick)
+{
+    if (Joystick >= 0 && Joystick < (int)m_pJoysticks.size())
+    {
+        m_joystickCount++;
+
+        if (m_joystickCount > 200 && m_pJoysticks[Joystick]->State.lX > +JOYSTICK_AXIS_THRESHOLD)
+        {
+            m_joystickCount = 0;
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool CInputSDL::TestNext(int Joystick)
+{
+    return Joystick >= 0 && Joystick < (int)m_pJoysticks.size()
+        && (m_pJoysticks[Joystick]->State.rgbButtons[JOYSTICK_BUTTON_MENU_NEXT - NUMBER_OF_JOYSTICK_DIRECTIONS] & 0x80) != 0;
+}
+
+bool CInputSDL::TestPrevious(int Joystick)
+{
+    return Joystick >= 0 && Joystick < (int)m_pJoysticks.size()
+        && (m_pJoysticks[Joystick]->State.rgbButtons[JOYSTICK_BUTTON_MENU_PREVIOUS - NUMBER_OF_JOYSTICK_DIRECTIONS] & 0x80)
+        != 0;
+}
+
+bool CInputSDL::TestBreak(int Joystick)
+{
+    return Joystick >= 0 && Joystick < (int)m_pJoysticks.size()
+        && (m_pJoysticks[Joystick]->State.rgbButtons[JOYSTICK_BUTTON_BREAK - NUMBER_OF_JOYSTICK_DIRECTIONS] & 0x80) != 0;
+}
+
+bool CInputSDL::TestStart(int Joystick)
+{
+    return Joystick >= 0 && Joystick < (int)m_pJoysticks.size()
+        && (m_pJoysticks[Joystick]->State.rgbButtons[JOYSTICK_BUTTON_START - NUMBER_OF_JOYSTICK_DIRECTIONS] & 0x80) != 0;
 }
 
 //******************************************************************************************************************************
