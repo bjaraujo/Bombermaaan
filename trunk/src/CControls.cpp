@@ -78,8 +78,6 @@
 #define SPACE_X_FROM_MENU_ITEM_TO_VALUE 90
 #define SPACE_X_FROM_MENU_ITEM_TO_CURSOR_HAND -25
 #define SPACE_Y_FROM_MENU_ITEM_TO_CURSOR_HAND -2
-#define MAX_MENU_ITEM_NAME_LENGTH 50
-#define MAX_MENU_ITEM_VALUE_NAME_LENGTH 50
 
 #define SCREEN_CONTROLS_TITLE_STRING "CONTROLS"
 
@@ -190,6 +188,7 @@ EGameMode CControls::Update()
     // If we have to make the first black screen
     if (m_ModeTime <= CONTROLS_BLACKSCREEN_DURATION)
     {
+        // Do nothing.
     }
     // If we don't have to exit yet
     else if (!m_HaveToExit)
@@ -370,6 +369,7 @@ EGameMode CControls::Update()
     // We have to exit, so we have to make the last black screen
     else if (m_ModeTime - m_ExitModeTime <= CONTROLS_BLACKSCREEN_DURATION)
     {
+        // Do nothing.
     }
     // Last black screen is complete! Get out of here!
     else
@@ -386,6 +386,7 @@ void CControls::Display()
     // If we have to make the first black screen
     if (m_ModeTime <= CONTROLS_BLACKSCREEN_DURATION)
     {
+        // Do nothing.
     }
     // If we don't have to exit yet
     else if (!m_HaveToExit)
@@ -407,8 +408,8 @@ void CControls::Display()
         // Position Y on the screen of the first menu item in this screen
         int MenuItemPositionY = FIRST_MENU_ITEM_POSITION_Y;
 
-        char ItemString[MAX_MENU_ITEM_NAME_LENGTH]; // Name of a menu item
-        char ValueString[MAX_MENU_ITEM_VALUE_NAME_LENGTH]; // Name of the value corresponding to a menu item
+        std::string ItemString; // Name of a menu item
+        std::string ValueString; // Name of the value corresponding to a menu item
 
         // Display each menu item of the screen
         for (int MenuItemIndex = 0; MenuItemIndex < NUMBER_OF_MENU_ITEMS; MenuItemIndex++)
@@ -419,83 +420,70 @@ void CControls::Display()
             {
             case DEVICE_MENU_ITEM:
             {
-                strcpy(ItemString, DEVICE_MENU_ITEM_STRING);
-
                 // Value : name of the selected player input
-                strcpy(ValueString, m_pInput->GetPlayerInput(m_PlayerInput).GetName());
+                ItemString = DEVICE_MENU_ITEM_STRING;
+                ValueString = m_pInput->GetPlayerInput(m_PlayerInput).GetName();
                 break;
             }
 
             case UP_MENU_ITEM:
             {
-                strcpy(ItemString, UP_MENU_ITEM_STRING);
-
                 // Value : name of the control on the selected player input
-                strcpy(ValueString,
-                    m_pInput->GetPlayerInput(m_PlayerInput)
-                        .GetControlName(m_pOptions->GetControl(m_PlayerInput, CONTROL_UP)));
+                ItemString = UP_MENU_ITEM_STRING;
+                ValueString = m_pInput->GetPlayerInput(m_PlayerInput)
+                        .GetControlName(m_pOptions->GetControl(m_PlayerInput, CONTROL_UP));
                 break;
             }
 
             case DOWN_MENU_ITEM:
             {
-                strcpy(ItemString, DOWN_MENU_ITEM_STRING);
-
                 // Value : name of the control on the selected player input
-                strcpy(ValueString,
-                    m_pInput->GetPlayerInput(m_PlayerInput)
-                        .GetControlName(m_pOptions->GetControl(m_PlayerInput, CONTROL_DOWN)));
+                ItemString = DOWN_MENU_ITEM_STRING;
+                ValueString = m_pInput->GetPlayerInput(m_PlayerInput)
+                        .GetControlName(m_pOptions->GetControl(m_PlayerInput, CONTROL_DOWN));
                 break;
             }
 
             case LEFT_MENU_ITEM:
             {
-                strcpy(ItemString, LEFT_MENU_ITEM_STRING);
-
                 // Value : name of the control on the selected player input
-                strcpy(ValueString,
-                    m_pInput->GetPlayerInput(m_PlayerInput)
-                        .GetControlName(m_pOptions->GetControl(m_PlayerInput, CONTROL_LEFT)));
+                ItemString = LEFT_MENU_ITEM_STRING;
+                ValueString = m_pInput->GetPlayerInput(m_PlayerInput)
+                        .GetControlName(m_pOptions->GetControl(m_PlayerInput, CONTROL_LEFT));
                 break;
             }
 
             case RIGHT_MENU_ITEM:
             {
-                strcpy(ItemString, RIGHT_MENU_ITEM_STRING);
-
                 // Value : name of the control on the selected player input
-                strcpy(ValueString,
-                    m_pInput->GetPlayerInput(m_PlayerInput)
-                        .GetControlName(m_pOptions->GetControl(m_PlayerInput, CONTROL_RIGHT)));
+                ItemString = RIGHT_MENU_ITEM_STRING;
+                ValueString = m_pInput->GetPlayerInput(m_PlayerInput)
+                        .GetControlName(m_pOptions->GetControl(m_PlayerInput, CONTROL_RIGHT));
                 break;
             }
 
             case ACTION1_MENU_ITEM:
             {
-                strcpy(ItemString, ACTION1_MENU_ITEM_STRING);
-
                 // Value : name of the control on the selected player input
-                strcpy(ValueString,
-                    m_pInput->GetPlayerInput(m_PlayerInput)
-                        .GetControlName(m_pOptions->GetControl(m_PlayerInput, CONTROL_ACTION1)));
+                ItemString = ACTION1_MENU_ITEM_STRING;
+                ValueString = m_pInput->GetPlayerInput(m_PlayerInput)
+                        .GetControlName(m_pOptions->GetControl(m_PlayerInput, CONTROL_ACTION1));
                 break;
             }
 
             case ACTION2_MENU_ITEM:
             {
-                strcpy(ItemString, ACTION2_MENU_ITEM_STRING);
-
                 // Value : name of the control on the selected player input
-                strcpy(ValueString,
-                    m_pInput->GetPlayerInput(m_PlayerInput)
-                        .GetControlName(m_pOptions->GetControl(m_PlayerInput, CONTROL_ACTION2)));
+                ItemString = ACTION2_MENU_ITEM_STRING;
+                ValueString = m_pInput->GetPlayerInput(m_PlayerInput)
+                        .GetControlName(m_pOptions->GetControl(m_PlayerInput, CONTROL_ACTION2));
                 break;
             }
             }
 
             // Draw the name of the menu item
             m_Font.SetTextColor(FONTCOLOR_GREEN);
-            m_Font.Draw(ALL_MENU_ITEMS_POSITION_X, MenuItemPositionY, ItemString);
+            m_Font.Draw(ALL_MENU_ITEMS_POSITION_X, MenuItemPositionY, ItemString.c_str());
 
             // Don't display the value of the menu item if the users currently wants to reconfigure a control.
             // If we are not about to wait for input and not waiting for input -> then display
@@ -504,7 +492,7 @@ void CControls::Display()
             {
                 // Draw the name of the value corresponding to the menu item
                 m_Font.SetTextColor(FONTCOLOR_YELLOW);
-                m_Font.Draw(ALL_MENU_ITEMS_POSITION_X + SPACE_X_FROM_MENU_ITEM_TO_VALUE, MenuItemPositionY, ValueString);
+                m_Font.Draw(ALL_MENU_ITEMS_POSITION_X + SPACE_X_FROM_MENU_ITEM_TO_VALUE, MenuItemPositionY, ValueString.c_str());
             }
 
             // If the cursor hand is pointing to the current menu item
@@ -523,5 +511,6 @@ void CControls::Display()
     // We have to exit, so we have to make the last black screen
     else if (m_ModeTime - m_ExitModeTime <= CONTROLS_BLACKSCREEN_DURATION)
     {
+        // Do nothing.
     }
 }

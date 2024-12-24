@@ -37,10 +37,10 @@ public:
     CTeam(); //!< Constructor. Initialize some members.
     virtual ~CTeam(); //!< Destructor. Does nothing.
 
-    void SetTeamId(int TeamId);
-    int GetTeamId();
-    void SetVictorious(bool Victorious);
-    bool IsVictorious();
+    void SetTeamId(int TeamId) { m_TeamId = TeamId; }
+    int GetTeamId() const { return m_TeamId; }
+    void SetVictorious(bool Victorious) { m_Victorious = Victorious; }
+    bool IsVictorious() const { return m_Victorious; }
 };
 
 #endif // __CTEAM_H__

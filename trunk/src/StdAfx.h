@@ -38,7 +38,7 @@
 #ifdef WIN32
 #define WIN32_LEAN_AND_MEAN
 #include <io.h>
-#include <windows.h>
+#include <Windows.h>
 #include <windowsx.h> // GetWindowStyle(), GetWindowExStyle()
 #else
 #include "WinReplace.h"
@@ -57,6 +57,7 @@
 #include <stack>
 #include <string>
 #include <vector>
+#include <array>
 
 #ifndef ASSERT
 #define ASSERT assert

@@ -140,6 +140,7 @@ EGameMode CMenu::Update()
     // If we have to make the first black screen
     if (m_GameModeTime <= MENU_BLACKSCREEN_DURATION)
     {
+        // Do nothing.
     }
     // If minimum duration of the mode has not elapsed OR we don't have to exit yet
     else if (!m_HaveToExit)
@@ -407,6 +408,7 @@ EGameMode CMenu::Update()
     // so we have to make the last black screen
     else if (m_GameModeTime - m_ExitGameModeTime <= MENU_BLACKSCREEN_DURATION)
     {
+        // Do nothing.
     }
     // Last black screen is complete! Get out of here!
     else

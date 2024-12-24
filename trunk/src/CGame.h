@@ -92,16 +92,16 @@ private:
     std::string m_WindowTitle;
 #endif
 
-    void OnActivateApp(WPARAM wParam, LPARAM lParam);
-    void OnMove(WPARAM wParam, LPARAM lParam);
-    void OnKeyDown(WPARAM wParam, LPARAM lParam);
-    void OnKeyUp(WPARAM wParam, LPARAM lParam);
-    void OnPaint(WPARAM wParam, LPARAM lParam);
-    bool OnSysCommand(WPARAM wParam, LPARAM lParam);
-    void OnSize(WPARAM wParam, LPARAM lParam);
-    void OnJoystickAxis(WPARAM wParam, LPARAM lParam); // SDL_JOYAXISMOTION
-    void OnJoystickButton(WPARAM wParam, LPARAM lParam); // SDL_JOYBUTTONDOWN/-UP
-    void OnWindowActive();
+    void OnActivateApp(WPARAM wParam, LPARAM lParam) override;
+    void OnMove(WPARAM wParam, LPARAM lParam) override;
+    void OnKeyDown(WPARAM wParam, LPARAM lParam) override;
+    void OnKeyUp(WPARAM wParam, LPARAM lParam) override;
+    void OnPaint(WPARAM wParam, LPARAM lParam) override;
+    bool OnSysCommand(WPARAM wParam, LPARAM lParam) override;
+    void OnSize(WPARAM wParam, LPARAM lParam) override;
+    void OnJoystickAxis(WPARAM wParam, LPARAM lParam) override; // SDL_JOYAXISMOTION
+    void OnJoystickButton(WPARAM wParam, LPARAM lParam) override; // SDL_JOYBUTTONDOWN/-UP
+    void OnWindowActive() override;
     void StartGameMode(EGameMode GameMode);
     void FinishGameMode();
     CModeScreen* GetGameModeObject(EGameMode GameMode);
@@ -121,7 +121,7 @@ public:
 #endif
 
     void Destroy();
-    inline void SwitchToGameMode(EGameMode GameMode);
+    void SwitchToGameMode(EGameMode GameMode);
 };
 
 inline void CGame::SwitchToGameMode(EGameMode GameMode)

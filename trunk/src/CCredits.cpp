@@ -132,10 +132,6 @@ void CCredits::Destroy()
     delete m_pMosaic;
 }
 
-void CCredits::OpenInput() { }
-
-void CCredits::CloseInput() { }
-
 // This updates the controls screen.
 // There are 3 parts in this screen :
 // - a black screen
@@ -154,6 +150,7 @@ EGameMode CCredits::Update()
     // If we have to make the first black screen
     if (m_ModeTime <= CREDITS_BLACKSCREEN_DURATION)
     {
+        // Do nothing.
     }
     // If we don't have to exit yet
     else if (!m_HaveToExit)
@@ -187,6 +184,7 @@ EGameMode CCredits::Update()
     // We have to exit, so we have to make the last black screen
     else if (m_ModeTime - m_ExitModeTime <= CREDITS_BLACKSCREEN_DURATION)
     {
+        // Do nothing.
     }
     // Last black screen is complete! Get out of here!
     else
@@ -203,6 +201,7 @@ void CCredits::Display()
     // If we have to make the first black screen
     if (m_ModeTime <= CREDITS_BLACKSCREEN_DURATION)
     {
+        // Do nothing.
     }
     // If we don't have to exit yet
     else if (!m_HaveToExit)
@@ -232,5 +231,6 @@ void CCredits::Display()
     // We have to exit, so we have to make the last black screen
     else if (m_ModeTime - m_ExitModeTime <= CREDITS_BLACKSCREEN_DURATION)
     {
+        // Do nothing.
     }
 }

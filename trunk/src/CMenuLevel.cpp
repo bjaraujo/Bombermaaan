@@ -111,8 +111,6 @@ void CMenuLevel::OnNext()
     Exit(MENUACTION_NEXT);
 }
 
-void CMenuLevel::OnUpdate() { }
-
 void CMenuLevel::OnDisplay()
 {
     int Player;
@@ -120,7 +118,7 @@ void CMenuLevel::OnDisplay()
     m_pFont->SetTextColor(FONTCOLOR_WHITE);
     m_pFont->DrawCenteredX(0, VIEW_WIDTH - 1, TITLE_TEXT_POSITION_Y, m_pOptions->GetLevelName());
 
-    bool StartPointAvailable[MAX_PLAYERS];
+    std::array<bool, MAX_PLAYERS> StartPointAvailable;
     for (Player = 0; Player < MAX_PLAYERS; Player++)
         StartPointAvailable[Player] = false;
 

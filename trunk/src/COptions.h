@@ -97,7 +97,7 @@ private:
     std::string oldconfigFileName; //!< Full name of the old (binary) config file (including path)
 
     void SetDefaultValues(); //!< Set the default configuration values
-    void WriteXMLData(); //!< Write the options to the XML based configuration file
+    void WriteXMLData() const; //!< Write the options to the XML based configuration file
     void ReadIntFromXML(TiXmlDocument& doc, std::string configNode, std::string attrName, int* value);
     bool LoadLevels(
         std::string dynamicDataFolder, std::string pgmFolder); //!< Load game levels data and names from the level directory.

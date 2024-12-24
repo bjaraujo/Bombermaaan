@@ -93,11 +93,6 @@ void CFont::Create()
     SetShadowDirection(SHADOWDIRECTION_UP);
 }
 
-void CFont::Destroy()
-{
-    // Nothing to do
-}
-
 void CFont::DrawString(int PositionX, int PositionY, const char* pString)
 {
     int CharacterOffset; // Character offset to use to get the character sprite to

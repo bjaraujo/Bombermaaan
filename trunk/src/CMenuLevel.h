@@ -33,16 +33,16 @@
 class CMenuLevel : public CMenuBase
 {
 private:
-    void OnCreate();
-    void OnDestroy();
-    void OnUp();
-    void OnDown();
-    void OnLeft();
-    void OnRight();
-    void OnPrevious();
-    void OnNext();
-    void OnUpdate();
-    void OnDisplay();
+    void OnCreate() override;
+    void OnDestroy() override;
+    void OnUp() override;
+    void OnDown() override;
+    void OnLeft() override;
+    void OnRight() override;
+    void OnPrevious() override;
+    void OnNext() override;
+    void OnUpdate() override { }
+    void OnDisplay() override;
 
 public:
     CMenuLevel();

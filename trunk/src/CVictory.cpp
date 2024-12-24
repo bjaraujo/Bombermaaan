@@ -517,7 +517,7 @@ void CVictory::Display()
     // If we have to make the first black screen
     if (m_ModeTime <= VICTORY_BLACKSCREEN_DURATION)
     {
-        // Do nothing
+        // Do nothing.
     }
     // If we don't have to exit yet
     else if (!m_HaveToExit)
@@ -541,17 +541,14 @@ void CVictory::Display()
         //  Display the crowd
         //---------------------------
 
-        int TileX;
-        int TileY;
-
         // Sprite number determining the color of the bomber in the crow tile.
         int Color = 0;
 
         // For each crowd tiles row to draw
-        for (TileX = 0; TileX < CROWD_TILES_COUNT_X; TileX++)
+        for (int TileX = 0; TileX < CROWD_TILES_COUNT_X; TileX++)
         {
             // For each crowd tiles column to draw
-            for (TileY = 0; TileY < CROWD_TILES_COUNT_Y; TileY++)
+            for (int TileY = 0; TileY < CROWD_TILES_COUNT_Y; TileY++)
             {
                 // Y offset to apply to crow tile position in order to
                 // get a bomber that gets up or sits down.
@@ -559,7 +556,6 @@ void CVictory::Display()
 
                 if (m_CrowdWaveMode == CROWDWAVE_CLASSIC)
                 {
-
                     // The trick to determine the state is to make the modulo
                     // of the sum of column number + row number. We then get
                     // something like this :
@@ -582,7 +578,6 @@ void CVictory::Display()
                 }
                 else if (m_CrowdWaveMode == CROWDWAVE_MEXICAN)
                 {
-
                     // The Mexican wave:
                     // The bombers of the current position are standing (CROWD_OFFSET_GETUP), while the next
                     // and previous bombers are changing their position (CROWD_OFFSET_MOVING).
@@ -603,15 +598,12 @@ void CVictory::Display()
                 }
                 else if (m_CrowdWaveMode == CROWDWAVE_NONE)
                 {
-
                     // The crowd doesn't move at all
                     OffsetY = CROWD_OFFSET_SITDOWN;
                 }
                 else
                 {
-
                     // Should never happen
-                    OffsetY = CROWD_OFFSET_SITDOWN;
                     ASSERT(false);
                 }
 
@@ -632,7 +624,7 @@ void CVictory::Display()
         // Display the victory wall
         //--------------------------
 
-        for (TileX = 0; TileX < VICTORYWALL_TILES_COUNT; TileX++)
+        for (int TileX = 0; TileX < VICTORYWALL_TILES_COUNT; TileX++)
         {
             // Draw one background sprite tile
             m_pDisplay->DrawSprite(VICTORYWALL_TILES_INITIAL_X + TileX * VICTORYWALL_TILE_SPACE_X,
@@ -801,11 +793,11 @@ void CVictory::Display()
     // so we have to make the last black screen
     else if (m_ModeTime - m_ExitModeTime <= VICTORY_BLACKSCREEN_DURATION)
     {
-        // Do nothing
+        // Do nothing.
     }
 }
 
-void CVictory::StopSong()
+void CVictory::StopSong() const
 {
     // Stop playing the victory song
     m_pSound->StopAllSamples();

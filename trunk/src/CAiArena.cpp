@@ -75,7 +75,7 @@ CAiArena::CAiArena()
 
 CAiArena::~CAiArena() = default;
 
-void CAiArena::Create()
+void CAiArena::Create() const
 {
     ASSERT(m_pArena != nullptr);
 
@@ -91,7 +91,7 @@ void CAiArena::Create()
 #endif
 }
 
-void CAiArena::Destroy()
+void CAiArena::Destroy() const
 {
 #if defined(DEBUG_DRAW_SOFTWALL_BLOCKS) || defined(DEBUG_DRAW_BURNWALLDANGER_BLOCKS) || defined(DEBUG_DRAW_BOMB_OWNERS)
     if (m_pDisplay != nullptr)

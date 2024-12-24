@@ -83,7 +83,7 @@ private:
     float m_CrowdTimer; //!< Crowd animation timer
     float m_WinnerBomberTimer; //!< Timer of the animation of the victorious bomber
     float m_LoserBomberTimer; //!< Timer of the animation of the bombers that lost.
-    SConfetti m_Confettis[NUM_CONFETTIS]; //!< The confettis to manage on the screen
+    std::array<SConfetti, NUM_CONFETTIS> m_Confettis; //!< The confettis to manage on the screen
     bool m_HaveToExit; //!< Do we have to exit this mode?
     float m_ExitModeTime; //!< Mode time when we realized we have to exit (used for blackscreen)
     bool m_PlayedSound; //!< Did we start playing the draw game sound?
@@ -101,14 +101,14 @@ private:
 public:
     CVictory(); //!< Constructor. Initialize some members.
     virtual ~CVictory(); //!< Destructor. Does nothing.
-    inline void SetScores(CScores* pScores); //!< Set link to the scores object to use
-    void Create(); //!< Initialize the object
-    void Destroy(); //!< Uninitialize the object
-    void OpenInput(); //!< Get access to the input this object needs
-    void CloseInput(); //!< Release access to the input this object needs
-    EGameMode Update(); //!< Update the object and return what game mode should be set
-    void Display(); //!< Display the game screen
-    void StopSong();
+    void SetScores(CScores* pScores); //!< Set link to the scores object to use
+    void Create() override; //!< Initialize the object
+    void Destroy() override; //!< Uninitialize the object
+    void OpenInput() override; //!< Get access to the input this object needs
+    void CloseInput() override; //!< Release access to the input this object needs
+    EGameMode Update() override; //!< Update the object and return what game mode should be set
+    void Display() override; //!< Display the game screen
+    void StopSong() const;
 };
 
 inline void CVictory::SetScores(CScores* pScores) { m_pScores = pScores; }

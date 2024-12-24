@@ -61,7 +61,7 @@ public:
     inline void SetTimer(CTimer* pTimer); //!< Set link to the timer object to use
     inline void SetArena(CArena* pArena); //!< Set link to the arena object to use
     void Create(); //!< Initialize the object
-    void Destroy(); //!< Uninitialize the object
+    void Destroy() const { } //!< Uninitialize the object
     void Update(); //!< Update the board
     void Display(); //!< Display the board
     inline void SetClockAnimation(bool AnimateClock); //!< Make the board's clock animation active or inactive

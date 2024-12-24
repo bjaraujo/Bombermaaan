@@ -143,10 +143,6 @@ void CHelp::Destroy()
     delete m_pMosaic;
 }
 
-void CHelp::OpenInput() { }
-
-void CHelp::CloseInput() { }
-
 // This updates the controls screen.
 // There are 3 parts in this screen :
 // - a black screen
@@ -165,6 +161,7 @@ EGameMode CHelp::Update()
     // If we have to make the first black screen
     if (m_ModeTime <= HELP_BLACKSCREEN_DURATION)
     {
+        // Do nothing.
     }
     // If we don't have to exit yet
     else if (!m_HaveToExit)
@@ -306,5 +303,6 @@ void CHelp::Display()
     // We have to exit, so we have to make the last black screen
     else if (m_ModeTime - m_ExitModeTime <= HELP_BLACKSCREEN_DURATION)
     {
+        // Do nothing.
     }
 }

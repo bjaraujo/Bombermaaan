@@ -141,6 +141,7 @@ EGameMode CDrawGame::Update()
     // If it's time to make the first black screen
     if (m_ModeTime <= DRAWGAME_BLACKSCREEN_DURATION)
     {
+        // Do nothing.
     }
     // If the maximum duration of the drawgame screen has not elapsed and we don't have to exit this mode yet
     else if (m_ModeTime <= DRAWGAME_BLACKSCREEN_DURATION + DRAWGAME_TITLE_DURATION && !m_HaveToExit)
@@ -244,6 +245,7 @@ EGameMode CDrawGame::Update()
     // If it's time to make the last black screen
     else if (m_ModeTime <= m_ExitModeTime + DRAWGAME_BLACKSCREEN_DURATION)
     {
+        // Do nothing.
     }
     // Last black screen is completed! Get out of here
     else
@@ -261,6 +263,7 @@ void CDrawGame::Display()
     // If it's time to make the first black screen
     if (m_ModeTime <= DRAWGAME_BLACKSCREEN_DURATION)
     {
+        // Do nothing.
     }
     // If the maximum duration of the drawgame screen has not elapsed and we don't have to exit this mode yet
     else if (m_ModeTime <= DRAWGAME_BLACKSCREEN_DURATION + DRAWGAME_TITLE_DURATION && !m_HaveToExit)
@@ -295,5 +298,6 @@ void CDrawGame::Display()
     // If it's time to make the last black screen
     else if (m_ModeTime <= m_ExitModeTime + DRAWGAME_BLACKSCREEN_DURATION)
     {
+        // Do nothing.
     }
 }

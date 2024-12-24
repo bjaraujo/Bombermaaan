@@ -53,13 +53,13 @@ private:
 public:
     CCredits(); //!< Constructor. Initialize some members.
     virtual ~CCredits(); //!< Destructor. Does nothing.
-    inline void SetDisplay(CDisplay* pDisplay); //!< Set link to the display object to use
-    void Create(); //!< Initialize the object
-    void Destroy(); //!< Uninitialize the object
-    void OpenInput(); //!< Get access to the input this object needs
-    void CloseInput(); //!< Release access to the input this object needs
-    EGameMode Update(); //!< Update the object and return what game mode should be set
-    void Display(); //!< Display the game screen
+    void SetDisplay(CDisplay* pDisplay) override; //!< Set link to the display object to use
+    void Create() override; //!< Initialize the object
+    void Destroy() override; //!< Uninitialize the object
+    void OpenInput() override { } //!< Get access to the input this object needs
+    void CloseInput() override { } //!< Release access to the input this object needs
+    EGameMode Update() override; //!< Update the object and return what game mode should be set
+    void Display() override; //!< Display the game screen
 };
 
 inline void CCredits::SetDisplay(CDisplay* pDisplay)

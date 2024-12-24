@@ -147,7 +147,7 @@ private:
     std::vector<SDisplayMode> m_AvailableDisplayModes;
 
 private:
-    WORD GetNumberOfBits(DWORD dwMask);
+    WORD GetNumberOfBits(DWORD dwMask) const;
 
 public:
     CVideoSDL();
@@ -157,14 +157,14 @@ public:
     void SetProgramFolder(const std::string& pgmFolder); //!< Set program folder
     bool Create(int Width, int Height, int Depth, bool FullScreen);
     void Destroy();
-    bool SetTransparentColor(int Red, int Green, int Blue);
+    bool SetTransparentColor(int Red, int Green, int Blue) const;
     bool LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent,
         int BMP_ID, HBITMAP hBitmap);
     bool LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent,
         int BMP_ID, const char* file);
 
     void FreeSprites();
-    void OnWindowMove();
+    void OnWindowMove() const { }
     void OnPaint();
     void Clear();
     void UpdateAll();
@@ -177,7 +177,7 @@ public:
         int PositionX, int PositionY, int w, int h, Uint8 r, Uint8 g, Uint8 b, int SpriteLayer, int PriorityInLayer);
     void RemoveAllDebugRectangles();
     bool IsModeSet(int Width, int Height, int Depth, bool FullScreen) const;
-    bool IsModeAvailable(int Width, int Height, int Depth);
+    bool IsModeAvailable(int Width, int Height, int Depth) const { return true; }
 };
 
 inline void CVideoSDL::SetWindowHandle(HWND hWnd) { m_hWnd = hWnd; }

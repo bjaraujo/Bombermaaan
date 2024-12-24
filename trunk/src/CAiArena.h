@@ -52,29 +52,38 @@ class CAiArena
 private:
     CArena* m_pArena;
     CDisplay* m_pDisplay;
-    EDanger m_Danger[ARENA_WIDTH][ARENA_HEIGHT]; // Danger type of each block of the arena
-    float m_DangerTimeLeft[ARENA_WIDTH][ARENA_HEIGHT];
-    int m_DeadEnd
-        [ARENA_WIDTH]
-        [ARENA_HEIGHT]; // If this block is not in a dead end, this contains -1. Otherwise it contains the number of the dead end where this square is.
-    SBlock m_DeadEndExit[MAX_DEAD_END]; //*** inutile *** // Block position of the exit of each dead end (currently unused)
-    int m_SoftWallNear[ARENA_WIDTH][ARENA_HEIGHT]; // Number of soft walls near this square if there is no wall in this square
-    bool m_WallBurn[ARENA_WIDTH][ARENA_HEIGHT]; // True if a soft wall is burning or is going to burn very soon in this square
+    // Danger type of each block of the arena
+    std::array<std::array<EDanger, ARENA_HEIGHT>, ARENA_WIDTH> m_Danger;
+
+    // Time left for danger on each block
+    std::array<std::array<float, ARENA_HEIGHT>, ARENA_WIDTH> m_DangerTimeLeft;
+
+    // If this block is not in a dead end, this contains -1. Otherwise it contains the number of the dead end where this square is
+    std::array<std::array<int, ARENA_HEIGHT>, ARENA_WIDTH> m_DeadEnd;
+
+    // Block position of the exit of each dead end (currently unused)
+    std::array<SBlock, MAX_DEAD_END> m_DeadEndExit;
+
+    // Number of soft walls near this square if there is no wall in this square
+    std::array<std::array<int, ARENA_HEIGHT>, ARENA_WIDTH> m_SoftWallNear;
+
+    // True if a soft wall is burning or is going to burn very soon in this square
+    std::array<std::array<bool, ARENA_HEIGHT>, ARENA_WIDTH> m_WallBurn; 
 
 public:
     CAiArena();
     virtual ~CAiArena();
-    inline void SetArena(CArena* pArena);
-    inline CArena* GetArena();
-    inline void SetDisplay(CDisplay* pDisplay);
-    inline EDanger GetDanger(int BlockX, int BlockY);
-    inline float GetDangerTimeLeft(int BlockX, int BlockY);
-    inline int GetDeadEnd(int BlockX, int BlockY);
-    inline SBlock& GetDeadEndExit(int Exit);
-    inline int GetSoftWallNear(int BlockX, int BlockY);
-    inline bool GetWallBurn(int BlockX, int BlockY);
-    void Create();
-    void Destroy();
+    void SetArena(CArena* pArena);
+    CArena* GetArena();
+    void SetDisplay(CDisplay* pDisplay);
+    EDanger GetDanger(int BlockX, int BlockY);
+    float GetDangerTimeLeft(int BlockX, int BlockY);
+    int GetDeadEnd(int BlockX, int BlockY);
+    SBlock& GetDeadEndExit(int Exit);
+    int GetSoftWallNear(int BlockX, int BlockY);
+    bool GetWallBurn(int BlockX, int BlockY);
+    void Create() const;
+    void Destroy() const;
     void Update(float DeltaTime);
 };
 

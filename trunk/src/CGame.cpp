@@ -786,34 +786,24 @@ CModeScreen* CGame::GetGameModeObject(EGameMode GameMode)
     {
     case GAMEMODE_TITLE:
         return &m_Title;
-        break;
     case GAMEMODE_DEMO:
         return &m_Demo;
-        break;
     case GAMEMODE_MENU:
         return &m_Menu;
-        break;
     case GAMEMODE_MATCH:
         return &m_Match;
-        break;
     case GAMEMODE_WINNER:
         return &m_Winner;
-        break;
     case GAMEMODE_DRAWGAME:
         return &m_DrawGame;
-        break;
     case GAMEMODE_VICTORY:
         return &m_Victory;
-        break;
     case GAMEMODE_CONTROLS:
         return &m_Controls;
-        break;
     case GAMEMODE_GREETS:
         return &m_Credits;
-        break;
     case GAMEMODE_HELP:
         return &m_Help;
-        break;
     case GAMEMODE_EXIT:
         break;
     default:

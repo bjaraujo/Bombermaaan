@@ -349,7 +349,6 @@ void CDemo::ManageHurryUpMessage()
         int TimeUpTotalSeconds = m_Options.GetTimeUpMinutes() * 60 + m_Options.GetTimeUpSeconds();
 
         //// If the time is between TIMEUP and TIMEUP+1sec
-        //if (ClockTotalSeconds >= TimeUpTotalSeconds && ClockTotalSeconds <= TimeUpTotalSeconds + 1)
         if (ClockTotalSeconds == TimeUpTotalSeconds + 1)
         {
             // If the hurry message doesn't exist
@@ -536,6 +535,7 @@ void CDemo::Display()
     // If the pause is over and we have to make the last black screen
     else if (m_ModeTime <= m_ExitModeTime + BLACKSCREEN_DURATION)
     {
+        // Do nothing.
     }
 }
 

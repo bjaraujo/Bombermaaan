@@ -98,11 +98,17 @@ enum EBomberSkills
 class CLevel
 {
 private:
-    EBlockType m_ArenaData[ARENA_WIDTH][ARENA_HEIGHT]; //!< Arena cells are walls etc.?
     std::string m_FilenameShort; //!< The short level file name without path
     std::string m_FilenameFull; //!< The full name of a level file including path
-    int m_NumberOfItemsInWalls[NUMBER_OF_ITEMS]; //!< The number of items in the soft walls
-    int m_InitialBomberSkills[NUMBER_OF_BOMBERSKILLS]; //!< The initial bomber skills
+
+    //!< Arena cells are walls etc.?
+    std::array<std::array<EBlockType, ARENA_HEIGHT>, ARENA_WIDTH> m_ArenaData;
+
+    //!< The number of items in the soft walls
+    std::array<int, NUMBER_OF_ITEMS> m_NumberOfItemsInWalls; 
+
+    //!< The initial bomber skills
+    std::array<int, NUMBER_OF_BOMBERSKILLS> m_InitialBomberSkills; 
 
     bool LoadVersion1(std::ifstream& File); //!< Load level file version 1
     bool LoadVersion2(
@@ -114,10 +120,10 @@ public:
     CLevel(std::string filename_full, std::string filename_short); //!< Constructor.
     ~CLevel(); //!< Destructor.
     bool LoadFromFile(); //!< Load game level data from the file.
-    inline EBlockType GetBlockType(int X, int Y) const;
-    inline int GetNumberOfItemsInWalls(EItemType ItemType) const;
-    inline int GetInitialBomberSkills(EBomberSkills BomberSkill) const;
-    inline const char* GetLevelName();
+    EBlockType GetBlockType(int X, int Y) const;
+    int GetNumberOfItemsInWalls(EItemType ItemType) const;
+    int GetInitialBomberSkills(EBomberSkills BomberSkill) const;
+    const char* GetLevelName();
 };
 
 inline EBlockType CLevel::GetBlockType(int X, int Y) const

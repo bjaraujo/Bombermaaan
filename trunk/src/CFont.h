@@ -68,14 +68,14 @@ private:
 public:
     CFont();
     ~CFont();
-    inline void SetDisplay(CDisplay* pDisplay);
+    void SetDisplay(CDisplay* pDisplay);
     void Create();
-    void Destroy();
-    inline void SetShadow(bool DrawShadow);
-    inline void SetTextColor(EFontColor FontColor);
-    inline void SetShadowColor(EFontColor FontColor);
+    void Destroy() const { }
+    void SetShadow(bool DrawShadow);
+    void SetTextColor(EFontColor FontColor);
+    void SetShadowColor(EFontColor FontColor);
     void SetShadowDirection(EShadowDirection ShadowDirection);
-    inline void SetSpriteLayer(int SpriteLayer);
+    void SetSpriteLayer(int SpriteLayer);
     void Draw(int PositionX, int PositionY, const char* pString, ...);
     void DrawCenteredX(int BorderLeft, int BorderRight, int PositionY, const char* pString, ...);
     void DrawCenteredY(int PositionX, int BorderUp, int BorderDown, const char* pString, ...);

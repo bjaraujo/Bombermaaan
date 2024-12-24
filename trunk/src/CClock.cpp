@@ -86,13 +86,6 @@ void CClock::Create(EClockType ClockType, EClockMode ClockMode, int Hours, int M
     m_Pause = false;
 }
 
-// When a CClock is not needed anymore, it should be destroyed
-
-void CClock::Destroy()
-{
-    // Nothing to do!
-}
-
 void CClock::CountHours(float& RemainingDate)
 {
     while (RemainingDate >= 3600.0f)

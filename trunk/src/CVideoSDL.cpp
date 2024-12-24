@@ -188,8 +188,6 @@ void CVideoSDL::UpdateScreen()
 // Updates the object : this updates the drawing zones
 // in case the window moves.
 
-void CVideoSDL::OnWindowMove() { }
-
 void CVideoSDL::DrawSprite(
     int PositionX, int PositionY, RECT* pZone, RECT* pClip, int SpriteTable, int Sprite, int SpriteLayer, int PriorityInLayer)
 {
@@ -333,7 +331,7 @@ void CVideoSDL::RemoveAllDebugRectangles() { m_DebugDrawingRequests.clear(); }
 
 void CVideoSDL::Clear() { SDL_RenderClear(m_pRenderer); }
 
-WORD CVideoSDL::GetNumberOfBits(DWORD dwMask)
+WORD CVideoSDL::GetNumberOfBits(DWORD dwMask) const
 {
     WORD wBits = 0;
     while (dwMask)
@@ -344,13 +342,8 @@ WORD CVideoSDL::GetNumberOfBits(DWORD dwMask)
     return wBits;
 }
 
-bool CVideoSDL::SetTransparentColor(int Red, int Green, int Blue)
+bool CVideoSDL::SetTransparentColor(int Red, int Green, int Blue) const
 {
-    // Get the pixel format of the primary surface
-    /*SDL_PixelFormat* pf = m_pSurface->format;
-
-    m_ColorKey = SDL_MapRGB(pf, Red, Green, Blue);*/
-
     // Everything went right
     return true;
 }
@@ -637,9 +630,7 @@ bool CVideoSDL::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spr
     //-----------------------
 
     // Add the surface to the surface container
-    //SDL_Texture *sdlTexture = SDL_CreateTextureFromSurface(m_pRenderer, ddsd);
     m_Surfaces.push_back(Surface);
-    //SDL_FreeSurface(ddsd);
 
     //---------------------------
     // Create the sprite table
@@ -751,10 +742,8 @@ void CVideoSDL::UpdateAll()
         m_DrawingRequests.pop();
     }
 
-    std::vector<SDebugDrawingRequest>::iterator it;
-
     // Debug rectangles?
-    for (it = m_DebugDrawingRequests.begin(); it < m_DebugDrawingRequests.end(); it++)
+    for (auto it = m_DebugDrawingRequests.begin(); it < m_DebugDrawingRequests.end(); it++)
     {
         // Save the top drawing request
         const SDebugDrawingRequest& DR = *it;
@@ -819,7 +808,5 @@ void CVideoSDL::UpdateAll()
     }
     UpdateScreen();
 }
-
-bool CVideoSDL::IsModeAvailable(int Width, int Height, int Depth) { return true; }
 
 static const char* GetSDLVideoError() { return SDL_GetError(); }

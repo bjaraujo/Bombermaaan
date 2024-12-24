@@ -33,17 +33,8 @@
 
 CTeam::CTeam()
 {
-
     m_TeamId = -1;
     m_Victorious = false;
 }
 
 CTeam::~CTeam() = default;
-
-void CTeam::SetTeamId(int TeamId) { m_TeamId = TeamId; }
-
-int CTeam::GetTeamId() { return m_TeamId; }
-
-void CTeam::SetVictorious(bool Victorious) { m_Victorious = Victorious; }
-
-bool CTeam::IsVictorious() { return m_Victorious; }

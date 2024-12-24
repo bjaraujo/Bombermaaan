@@ -327,7 +327,7 @@ bool COptions::LoadConfiguration()
             std::string attributeName = oss.str();
             ReadIntFromXML(configDoc, "BomberTypes", attributeName, (int*)(&m_BomberType[i]));
             ReadIntFromXML(configDoc, "BomberTeams", attributeName, (int*)(&m_BomberTeam[i]));
-            ReadIntFromXML(configDoc, "PlayerInputs", attributeName, (int*)(&m_PlayerInput[i]));
+            ReadIntFromXML(configDoc, "PlayerInputs", attributeName, &m_PlayerInput[i]);
         }
 
         //
@@ -390,67 +390,67 @@ bool COptions::LoadConfiguration()
     return true;
 }
 
-void COptions::WriteXMLData()
+void COptions::WriteXMLData() const
 {
     // Create document
     TiXmlDocument newConfig;
-    TiXmlDeclaration* decl = new TiXmlDeclaration("1.0", "UTF-8", "");
+    auto* decl = new TiXmlDeclaration("1.0", "UTF-8", "");
     newConfig.LinkEndChild(decl);
 
     // Root node
-    TiXmlElement* root = new TiXmlElement("Bombermaaan");
+    auto* root = new TiXmlElement("Bombermaaan");
     newConfig.LinkEndChild(root);
 
     // Comment
-    TiXmlComment* comment = new TiXmlComment();
+    auto* comment = new TiXmlComment();
     comment->SetValue(" Configuration settings for the Bombermaaan game (https://github.com/bjaraujo/Bombermaaan) ");
     root->LinkEndChild(comment);
 
     // Configuration tree node - all options have this node as parent
-    TiXmlElement* config = new TiXmlElement("Configuration");
+    auto* config = new TiXmlElement("Configuration");
     root->LinkEndChild(config);
 
     //! The revision number is currently 1
-    TiXmlElement* configRev = new TiXmlElement("ConfigRevision");
+    auto* configRev = new TiXmlElement("ConfigRevision");
     configRev->SetAttribute("value", 1);
     config->LinkEndChild(configRev);
 
     // TimeUp (when will arena close begin)
-    TiXmlElement* configTimeUp = new TiXmlElement("TimeUp");
+    auto* configTimeUp = new TiXmlElement("TimeUp");
     configTimeUp->SetAttribute("minutes", m_TimeUpMinutes);
     configTimeUp->SetAttribute("seconds", m_TimeUpSeconds);
     config->LinkEndChild(configTimeUp);
 
     // TimeStart (the duration of a match)
-    TiXmlElement* configTimeStart = new TiXmlElement("TimeStart");
+    auto* configTimeStart = new TiXmlElement("TimeStart");
     configTimeStart->SetAttribute("minutes", m_TimeStartMinutes);
     configTimeStart->SetAttribute("seconds", m_TimeStartSeconds);
     config->LinkEndChild(configTimeStart);
 
     // BattleMode
-    TiXmlElement* configBattleMode = new TiXmlElement("BattleMode");
+    auto* configBattleMode = new TiXmlElement("BattleMode");
     configBattleMode->SetAttribute("value", m_BattleMode);
     config->LinkEndChild(configBattleMode);
 
     // BattleCount
-    TiXmlElement* configBattleCount = new TiXmlElement("BattleCount");
+    auto* configBattleCount = new TiXmlElement("BattleCount");
     configBattleCount->SetAttribute("value", m_BattleCount);
     config->LinkEndChild(configBattleCount);
 
     // LevelFileNumber
-    TiXmlElement* configLevel = new TiXmlElement("LevelFileNumber");
+    auto* configLevel = new TiXmlElement("LevelFileNumber");
     configLevel->SetAttribute("value", m_Level);
     config->LinkEndChild(configLevel);
 
     // DisplayMode
-    TiXmlElement* configDisplayMode = new TiXmlElement("DisplayMode");
+    auto* configDisplayMode = new TiXmlElement("DisplayMode");
     configDisplayMode->SetAttribute("value", (int)m_DisplayMode);
     config->LinkEndChild(configDisplayMode);
 
     int i;
 
     // BomberTypes
-    TiXmlElement* configBomberTypes = new TiXmlElement("BomberTypes");
+    auto* configBomberTypes = new TiXmlElement("BomberTypes");
     for (i = 0; i < MAX_PLAYERS; i++)
     {
         std::ostringstream oss;
@@ -461,7 +461,7 @@ void COptions::WriteXMLData()
     config->LinkEndChild(configBomberTypes);
 
     // BomberTeams
-    TiXmlElement* configBomberTeams = new TiXmlElement("BomberTeams");
+    auto* configBomberTeams = new TiXmlElement("BomberTeams");
     for (i = 0; i < MAX_PLAYERS; i++)
     {
         std::ostringstream oss;
@@ -472,21 +472,21 @@ void COptions::WriteXMLData()
     config->LinkEndChild(configBomberTeams);
 
     // PlayerInputs
-    TiXmlElement* configPlayerInputs = new TiXmlElement("PlayerInputs");
+    auto* configPlayerInputs = new TiXmlElement("PlayerInputs");
     for (i = 0; i < MAX_PLAYERS; i++)
     {
         std::ostringstream oss;
         oss << "bomber" << i;
         std::string attributeName = oss.str();
-        configPlayerInputs->SetAttribute(attributeName, (int)m_PlayerInput[i]);
+        configPlayerInputs->SetAttribute(attributeName, m_PlayerInput[i]);
     }
     config->LinkEndChild(configPlayerInputs);
 
     // ControlList
-    TiXmlElement* configControlList = new TiXmlElement("ControlList");
+    auto* configControlList = new TiXmlElement("ControlList");
     for (unsigned int j = 0; j < MAX_PLAYER_INPUT; j++)
     {
-        TiXmlElement* configControl = new TiXmlElement("Control");
+        auto* configControl = new TiXmlElement("Control");
         configControl->SetAttribute("id", j);
         for (unsigned int ctrl = 0; ctrl < NUM_CONTROLS; ctrl++)
         {

@@ -100,10 +100,9 @@ CBoard::CBoard()
     m_AnimateClock = false;
 }
 
-CBoard::~CBoard() { }
+CBoard::~CBoard() = default;
 
 // Before using a CBoard, it must be created.
-
 void CBoard::Create()
 {
     // Check if all the objects to communicate with are set
@@ -126,15 +125,7 @@ void CBoard::Create()
     m_AnimateClock = true;
 }
 
-// When a CBoard is not needed anymore, it should be destroyed.
-
-void CBoard::Destroy()
-{
-    // Nothing to do!
-}
-
 // The update of the CBoard simply animates the clock
-
 void CBoard::Update()
 {
     //----------------------------

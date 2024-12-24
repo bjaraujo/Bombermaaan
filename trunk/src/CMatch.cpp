@@ -49,9 +49,11 @@
 #define PAUSE_DRAWGAME 2.5f //!< Duration (in seconds) of the pause at match end when there is a draw game
 #define PAUSE_WINNER 2.5f //!< Duration (in seconds) of the pause at match end when there is a winner
 
-CCommandChunk CommandChunk;
-float TimeElapsedSinceLastCommandChunk = 0.0f;
-CArenaSnapshot Snapshot;
+#ifdef NETWORK_MODE
+    CCommandChunk CommandChunk;
+    float TimeElapsedSinceLastCommandChunk = 0.0f;
+    CArenaSnapshot Snapshot;
+#endif
 
 CMatch::CMatch()
     : CModeScreen()
@@ -683,7 +685,6 @@ void CMatch::ManageHurryUpMessage()
         int TimeUpTotalSeconds = m_pOptions->GetTimeUpMinutes() * 60 + m_pOptions->GetTimeUpSeconds();
 
         //// If the time is between TIMEUP and TIMEUP+1sec
-        //if (ClockTotalSeconds >= TimeUpTotalSeconds && ClockTotalSeconds <= TimeUpTotalSeconds + 1)
         if (ClockTotalSeconds == TimeUpTotalSeconds + 1)
         {
             // If the hurry message doesn't exist
@@ -741,8 +742,8 @@ void CMatch::ManageMatchOver()
             }
         }
 
-        int TeamCountAlive[MAX_TEAMS]; // Number of bombers on each team
-        int TeamCountDying[MAX_TEAMS]; // Number of bombers on each team
+        static std::array<int, MAX_TEAMS> TeamCountAlive; // Number of bombers on each team
+        static std::array<int, MAX_TEAMS> TeamCountDying; // Number of bombers on each team
 
         for (int Team = 0; Team < MAX_TEAMS; Team++)
         {
@@ -755,7 +756,6 @@ void CMatch::ManageMatchOver()
             // If this bomber exists
             if (m_Arena.GetBomber(Player).Exist())
             {
-
                 int Team = m_Arena.GetBomber(Player).GetTeam()->GetTeamId();
 
                 if (m_Arena.GetBomber(Player).IsAlive())
@@ -998,7 +998,7 @@ void CMatch::Display()
     // If we have to make the first black screen
     if (m_ModeTime <= BLACKSCREEN_DURATION)
     {
-        // Do nothing
+        // Do nothing.
     }
     // If first black screen is done and we have to make a little
     // pause to allow the players to see the arena before playing
@@ -1027,7 +1027,7 @@ void CMatch::Display()
     // If the pause is over and we have to make the last black screen
     else if (m_ModeTime <= m_ExitModeTime + BLACKSCREEN_DURATION)
     {
-        // Do nothing
+        // Do nothing.
     }
 }
 

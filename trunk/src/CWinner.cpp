@@ -432,7 +432,7 @@ void CWinner::Display()
     // If we have to make the first black screen
     if (m_ModeTime <= WINNER_BLACKSCREEN_DURATION)
     {
-        // Do nothing
+        // Do nothing.
     }
     // If minimum duration of the mode has not elapsed OR we don't have to exit yet
     else if (m_ModeTime <= WINNER_MINIMUM_DURATION || !m_HaveToExit)
@@ -616,6 +616,6 @@ void CWinner::Display()
     // so we have to make the last black screen
     else if (m_ModeTime - m_ExitModeTime <= WINNER_BLACKSCREEN_DURATION)
     {
-        // Do nothing
+        // Do nothing.
     }
 }

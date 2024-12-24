@@ -170,6 +170,7 @@ EGameMode CTitle::Update()
     // If we have to make the first black screen
     if (m_ModeTime <= BLACKSCREEN_DURATION)
     {
+        // Do nothing.
     }
     // If the title screen should be active
     else if (!m_HaveToExit)
@@ -351,6 +352,7 @@ EGameMode CTitle::Update()
     // If we have to make the last black screen
     else if (m_ModeTime <= m_ExitModeTime + BLACKSCREEN_DURATION)
     {
+        // Do nothing.
     }
     // If the last black screen is over then ask for another game mode
     else
@@ -368,6 +370,7 @@ void CTitle::Display()
     // If we have to make the first black screen
     if (m_ModeTime <= BLACKSCREEN_DURATION)
     {
+        // Do nothing.
     }
     // If the title screen should be active
     else if (!m_HaveToExit)
@@ -424,5 +427,6 @@ void CTitle::Display()
     // If the pause is over and we have to make the last black screen
     else if (m_ModeTime <= m_ExitModeTime + BLACKSCREEN_DURATION)
     {
+        // Do nothing.
     }
 }

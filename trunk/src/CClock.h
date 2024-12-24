@@ -133,22 +133,22 @@ public:
     ~CClock(); //!< Destructor (does nothing)
     void Create(EClockType ClockType, EClockMode ClockMode, int Hours, int Minutes, int Seconds,
         int Seconds100); //!< Initialize the clock
-    void Destroy(); //!< Uninitialize the clock
+    void Destroy() const { } //!< Uninitialize the clock
     void Update(float DeltaTime); //!< Update the clock's date
     void Reset(); //!< Reset the date to the starting date (which was set on last call to Create())
-    inline void Pause(); //!< Pause the clock
-    inline void Resume(); //!< Resume the clock
-    inline int GetHours(); //!< Get the Hour component of the current date
-    inline int GetMinutes(); //!< Get the Minute component of the current date
-    inline int GetSeconds(); //!< Get the Second component of the current date
-    inline int GetSeconds100(); //!< Get the Second100 component of the current date
+    void Pause(); //!< Pause the clock
+    void Resume(); //!< Resume the clock
+    int GetHours() const; //!< Get the Hour component of the current date
+    int GetMinutes() const; //!< Get the Minute component of the current date
+    int GetSeconds() const; //!< Get the Second component of the current date
+    int GetSeconds100() const; //!< Get the Second100 component of the current date
 };
 
 inline void CClock::Pause() { m_Pause = true; }
 
 inline void CClock::Resume() { m_Pause = false; }
 
-inline int CClock::GetHours()
+inline int CClock::GetHours() const
 {
     // Assert the clock mode is suitable
     ASSERT(m_ClockMode == CLOCKMODE_HMSC || m_ClockMode == CLOCKMODE_HMS || m_ClockMode == CLOCKMODE_HM);
@@ -156,7 +156,7 @@ inline int CClock::GetHours()
     return m_Hours;
 }
 
-inline int CClock::GetMinutes()
+inline int CClock::GetMinutes() const
 {
     // Assert the clock mode is suitable
     ASSERT(m_ClockMode == CLOCKMODE_HMSC || m_ClockMode == CLOCKMODE_HMS || m_ClockMode == CLOCKMODE_HM
@@ -165,7 +165,7 @@ inline int CClock::GetMinutes()
     return m_Minutes;
 }
 
-inline int CClock::GetSeconds()
+inline int CClock::GetSeconds() const
 {
     // Assert the clock mode is suitable
     ASSERT(m_ClockMode == CLOCKMODE_HMSC || m_ClockMode == CLOCKMODE_HMS || m_ClockMode == CLOCKMODE_MSC
@@ -174,7 +174,7 @@ inline int CClock::GetSeconds()
     return m_Seconds;
 }
 
-inline int CClock::GetSeconds100()
+inline int CClock::GetSeconds100() const
 {
     // Assert the clock mode is suitable
     ASSERT(m_ClockMode == CLOCKMODE_HMSC || m_ClockMode == CLOCKMODE_MSC || m_ClockMode == CLOCKMODE_SC);
