@@ -38,65 +38,31 @@
 #include "CSound.h"
 #include "StdAfx.h"
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 #define MENUMATCH_SPRITELAYER 1 //!< Sprite layer where to draw sprites
 
 #define TITLE_TEXT_POSITION_Y 90 //!< Position Y of the title text that is centered on the X axis
-#define WARNING_TEXT_POSITION_Y 350 //!< Position Y of a warning text that is centered on the X axis (will be displayed if starting points are missing for some players)
+#define WARNING_TEXT_POSITION_Y                                                                                              \
+    350 //!< Position Y of a warning text that is centered on the X axis (will be displayed if starting points are missing for some players)
 
 #define MINI_ARENA_POSITION_X 120
 #define MINI_ARENA_POSITION_Y (73 + 60)
 #define TILE_POSITION_TO_BOMBER_POSITION (-4)
 #define MINI_ARENA_TILE_SIZE 16
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 CMenuLevel::CMenuLevel()
     : CMenuBase()
 {
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
+CMenuLevel::~CMenuLevel() = default;
 
-CMenuLevel::~CMenuLevel()
-{
-    // Nothing to do
-}
+void CMenuLevel::OnCreate() { }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
+void CMenuLevel::OnDestroy() { }
 
-void CMenuLevel::OnCreate() {}
+void CMenuLevel::OnUp() { }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-void CMenuLevel::OnDestroy() {}
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-void CMenuLevel::OnUp() {}
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-void CMenuLevel::OnDown() {}
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
+void CMenuLevel::OnDown() { }
 
 void CMenuLevel::OnLeft()
 {
@@ -114,10 +80,6 @@ void CMenuLevel::OnLeft()
     }
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 void CMenuLevel::OnRight()
 {
     // If the last level is selected
@@ -134,19 +96,11 @@ void CMenuLevel::OnRight()
     }
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 void CMenuLevel::OnPrevious()
 {
     // Go to the previous screen
     Exit(MENUACTION_PREVIOUS);
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 void CMenuLevel::OnNext()
 {
@@ -157,15 +111,7 @@ void CMenuLevel::OnNext()
     Exit(MENUACTION_NEXT);
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-void CMenuLevel::OnUpdate() {}
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
+void CMenuLevel::OnUpdate() { }
 
 void CMenuLevel::OnDisplay()
 {
@@ -187,17 +133,24 @@ void CMenuLevel::OnDisplay()
 
             if (BlockType == BLOCKTYPE_HARDWALL)
             {
-                m_pDisplay->DrawSprite(MINI_ARENA_POSITION_X + X * MINI_ARENA_TILE_SIZE, MINI_ARENA_POSITION_Y + Y * MINI_ARENA_TILE_SIZE, nullptr, nullptr, BMP_LEVEL_MINI_TILES, 0, 1, 1);
+                m_pDisplay->DrawSprite(MINI_ARENA_POSITION_X + X * MINI_ARENA_TILE_SIZE,
+                    MINI_ARENA_POSITION_Y + Y * MINI_ARENA_TILE_SIZE, nullptr, nullptr, BMP_LEVEL_MINI_TILES, 0, 1, 1);
             }
             else if (BlockType == BLOCKTYPE_SOFTWALL || BlockType == BLOCKTYPE_RANDOM)
             {
-                m_pDisplay->DrawSprite(MINI_ARENA_POSITION_X + X * MINI_ARENA_TILE_SIZE, MINI_ARENA_POSITION_Y + Y * MINI_ARENA_TILE_SIZE, nullptr, nullptr, BMP_LEVEL_MINI_TILES, 1, 1, 1);
+                m_pDisplay->DrawSprite(MINI_ARENA_POSITION_X + X * MINI_ARENA_TILE_SIZE,
+                    MINI_ARENA_POSITION_Y + Y * MINI_ARENA_TILE_SIZE, nullptr, nullptr, BMP_LEVEL_MINI_TILES, 1, 1, 1);
             }
             else
             {
-                bool Shadow = (Y - 1 >= 0 && (m_pOptions->GetBlockType(X, Y - 1) == BLOCKTYPE_HARDWALL || m_pOptions->GetBlockType(X, Y - 1) == BLOCKTYPE_SOFTWALL || m_pOptions->GetBlockType(X, Y - 1) == BLOCKTYPE_RANDOM));
+                bool Shadow = (Y - 1 >= 0
+                    && (m_pOptions->GetBlockType(X, Y - 1) == BLOCKTYPE_HARDWALL
+                        || m_pOptions->GetBlockType(X, Y - 1) == BLOCKTYPE_SOFTWALL
+                        || m_pOptions->GetBlockType(X, Y - 1) == BLOCKTYPE_RANDOM));
 
-                m_pDisplay->DrawSprite(MINI_ARENA_POSITION_X + X * MINI_ARENA_TILE_SIZE, MINI_ARENA_POSITION_Y + Y * MINI_ARENA_TILE_SIZE, nullptr, nullptr, BMP_LEVEL_MINI_TILES, (Shadow ? 3 : 2), 1, 0);
+                m_pDisplay->DrawSprite(MINI_ARENA_POSITION_X + X * MINI_ARENA_TILE_SIZE,
+                    MINI_ARENA_POSITION_Y + Y * MINI_ARENA_TILE_SIZE, nullptr, nullptr, BMP_LEVEL_MINI_TILES,
+                    (Shadow ? 3 : 2), 1, 0);
 
                 int spriteNumberAction = -1;
 
@@ -251,29 +204,46 @@ void CMenuLevel::OnDisplay()
 
                 if (spriteNumberAction != -1)
                 {
-                    m_pDisplay->DrawSprite(MINI_ARENA_POSITION_X + X * MINI_ARENA_TILE_SIZE, MINI_ARENA_POSITION_Y + Y * MINI_ARENA_TILE_SIZE, nullptr, nullptr, BMP_LEVEL_MINI_TILES, spriteNumberAction, 2, 0);
+                    m_pDisplay->DrawSprite(MINI_ARENA_POSITION_X + X * MINI_ARENA_TILE_SIZE,
+                        MINI_ARENA_POSITION_Y + Y * MINI_ARENA_TILE_SIZE, nullptr, nullptr, BMP_LEVEL_MINI_TILES,
+                        spriteNumberAction, 2, 0);
                 }
 
                 switch (BlockType)
                 {
                 case BLOCKTYPE_WHITEBOMBER:
-                    m_pDisplay->DrawSprite(MINI_ARENA_POSITION_X + X * MINI_ARENA_TILE_SIZE + TILE_POSITION_TO_BOMBER_POSITION, MINI_ARENA_POSITION_Y + Y * MINI_ARENA_TILE_SIZE + TILE_POSITION_TO_BOMBER_POSITION, nullptr, nullptr, BMP_LEVEL_MINI_BOMBERS, 0, 1, 2);
+                    m_pDisplay->DrawSprite(
+                        MINI_ARENA_POSITION_X + X * MINI_ARENA_TILE_SIZE + TILE_POSITION_TO_BOMBER_POSITION,
+                        MINI_ARENA_POSITION_Y + Y * MINI_ARENA_TILE_SIZE + TILE_POSITION_TO_BOMBER_POSITION, nullptr, nullptr,
+                        BMP_LEVEL_MINI_BOMBERS, 0, 1, 2);
                     StartPointAvailable[0] = true;
                     break;
                 case BLOCKTYPE_BLACKBOMBER:
-                    m_pDisplay->DrawSprite(MINI_ARENA_POSITION_X + X * MINI_ARENA_TILE_SIZE + TILE_POSITION_TO_BOMBER_POSITION, MINI_ARENA_POSITION_Y + Y * MINI_ARENA_TILE_SIZE + TILE_POSITION_TO_BOMBER_POSITION, nullptr, nullptr, BMP_LEVEL_MINI_BOMBERS, 1, 1, 2);
+                    m_pDisplay->DrawSprite(
+                        MINI_ARENA_POSITION_X + X * MINI_ARENA_TILE_SIZE + TILE_POSITION_TO_BOMBER_POSITION,
+                        MINI_ARENA_POSITION_Y + Y * MINI_ARENA_TILE_SIZE + TILE_POSITION_TO_BOMBER_POSITION, nullptr, nullptr,
+                        BMP_LEVEL_MINI_BOMBERS, 1, 1, 2);
                     StartPointAvailable[1] = true;
                     break;
                 case BLOCKTYPE_REDBOMBER:
-                    m_pDisplay->DrawSprite(MINI_ARENA_POSITION_X + X * MINI_ARENA_TILE_SIZE + TILE_POSITION_TO_BOMBER_POSITION, MINI_ARENA_POSITION_Y + Y * MINI_ARENA_TILE_SIZE + TILE_POSITION_TO_BOMBER_POSITION, nullptr, nullptr, BMP_LEVEL_MINI_BOMBERS, 2, 1, 2);
+                    m_pDisplay->DrawSprite(
+                        MINI_ARENA_POSITION_X + X * MINI_ARENA_TILE_SIZE + TILE_POSITION_TO_BOMBER_POSITION,
+                        MINI_ARENA_POSITION_Y + Y * MINI_ARENA_TILE_SIZE + TILE_POSITION_TO_BOMBER_POSITION, nullptr, nullptr,
+                        BMP_LEVEL_MINI_BOMBERS, 2, 1, 2);
                     StartPointAvailable[2] = true;
                     break;
                 case BLOCKTYPE_BLUEBOMBER:
-                    m_pDisplay->DrawSprite(MINI_ARENA_POSITION_X + X * MINI_ARENA_TILE_SIZE + TILE_POSITION_TO_BOMBER_POSITION, MINI_ARENA_POSITION_Y + Y * MINI_ARENA_TILE_SIZE + TILE_POSITION_TO_BOMBER_POSITION, nullptr, nullptr, BMP_LEVEL_MINI_BOMBERS, 3, 1, 2);
+                    m_pDisplay->DrawSprite(
+                        MINI_ARENA_POSITION_X + X * MINI_ARENA_TILE_SIZE + TILE_POSITION_TO_BOMBER_POSITION,
+                        MINI_ARENA_POSITION_Y + Y * MINI_ARENA_TILE_SIZE + TILE_POSITION_TO_BOMBER_POSITION, nullptr, nullptr,
+                        BMP_LEVEL_MINI_BOMBERS, 3, 1, 2);
                     StartPointAvailable[3] = true;
                     break;
                 case BLOCKTYPE_GREENBOMBER:
-                    m_pDisplay->DrawSprite(MINI_ARENA_POSITION_X + X * MINI_ARENA_TILE_SIZE + TILE_POSITION_TO_BOMBER_POSITION, MINI_ARENA_POSITION_Y + Y * MINI_ARENA_TILE_SIZE + TILE_POSITION_TO_BOMBER_POSITION, nullptr, nullptr, BMP_LEVEL_MINI_BOMBERS, 4, 1, 2);
+                    m_pDisplay->DrawSprite(
+                        MINI_ARENA_POSITION_X + X * MINI_ARENA_TILE_SIZE + TILE_POSITION_TO_BOMBER_POSITION,
+                        MINI_ARENA_POSITION_Y + Y * MINI_ARENA_TILE_SIZE + TILE_POSITION_TO_BOMBER_POSITION, nullptr, nullptr,
+                        BMP_LEVEL_MINI_BOMBERS, 4, 1, 2);
                     StartPointAvailable[4] = true;
                     break;
                 default:
@@ -295,11 +265,11 @@ void CMenuLevel::OnDisplay()
                 m_pFont->Draw(MINI_ARENA_POSITION_X / 2, WARNING_TEXT_POSITION_Y, "NO START POS:");
                 warningShown = true;
             }
-            m_pDisplay->DrawSprite(VIEW_WIDTH - MINI_ARENA_POSITION_X - (MAX_PLAYERS - Player) * (MINI_ARENA_TILE_SIZE - TILE_POSITION_TO_BOMBER_POSITION * 2) + TILE_POSITION_TO_BOMBER_POSITION, WARNING_TEXT_POSITION_Y + TILE_POSITION_TO_BOMBER_POSITION, nullptr, nullptr, BMP_LEVEL_MINI_BOMBERS, Player, 1, 2);
+            m_pDisplay->DrawSprite(VIEW_WIDTH - MINI_ARENA_POSITION_X
+                    - (MAX_PLAYERS - Player) * (MINI_ARENA_TILE_SIZE - TILE_POSITION_TO_BOMBER_POSITION * 2)
+                    + TILE_POSITION_TO_BOMBER_POSITION,
+                WARNING_TEXT_POSITION_Y + TILE_POSITION_TO_BOMBER_POSITION, nullptr, nullptr, BMP_LEVEL_MINI_BOMBERS, Player,
+                1, 2);
         }
     }
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************

@@ -37,10 +37,6 @@
 #include "CWall.h"
 #include "StdAfx.h"
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 // Explosions sprite layer number
 #define EXPLOSION_SPRITELAYER 30
 
@@ -70,10 +66,6 @@
 #define FLAME_HORIZRIGHT 20
 #define FLAME_CENTER 24
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 CExplosion::CExplosion()
     : CElement()
 {
@@ -97,18 +89,7 @@ CExplosion::CExplosion()
     m_StopRight = false;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-CExplosion::~CExplosion()
-{
-    // Nothing to do
-}
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
+CExplosion::~CExplosion() = default;
 
 void CExplosion::Create(int BlockX, int BlockY, int FlameSize)
 {
@@ -142,7 +123,8 @@ void CExplosion::Create(int BlockX, int BlockY, int FlameSize)
         if (m_BlockX + i < ARENA_WIDTH)
         {
             // If there is a wall or a bomb or an item
-            if (m_pArena->IsWall(m_BlockX + i, m_BlockY) || m_pArena->IsBomb(m_BlockX + i, m_BlockY) || m_pArena->IsItem(m_BlockX + i, m_BlockY) || m_pArena->IsExplosion(m_BlockX + i, m_BlockY))
+            if (m_pArena->IsWall(m_BlockX + i, m_BlockY) || m_pArena->IsBomb(m_BlockX + i, m_BlockY)
+                || m_pArena->IsItem(m_BlockX + i, m_BlockY) || m_pArena->IsExplosion(m_BlockX + i, m_BlockY))
             {
                 // Save the maximum flame size
                 m_FlameSizeRight = i;
@@ -184,7 +166,8 @@ void CExplosion::Create(int BlockX, int BlockY, int FlameSize)
         if (m_BlockX - i >= 0)
         {
             // If there is a wall or a bomb or an item
-            if (m_pArena->IsWall(m_BlockX - i, m_BlockY) || m_pArena->IsBomb(m_BlockX - i, m_BlockY) || m_pArena->IsItem(m_BlockX - i, m_BlockY) || m_pArena->IsExplosion(m_BlockX - i, m_BlockY))
+            if (m_pArena->IsWall(m_BlockX - i, m_BlockY) || m_pArena->IsBomb(m_BlockX - i, m_BlockY)
+                || m_pArena->IsItem(m_BlockX - i, m_BlockY) || m_pArena->IsExplosion(m_BlockX - i, m_BlockY))
             {
                 // Save the maximum flame size
                 m_FlameSizeLeft = i;
@@ -225,7 +208,8 @@ void CExplosion::Create(int BlockX, int BlockY, int FlameSize)
         if (m_BlockY - i >= 0)
         {
             // If there is a wall or a bomb or an item
-            if (m_pArena->IsWall(m_BlockX, m_BlockY - i) || m_pArena->IsBomb(m_BlockX, m_BlockY - i) || m_pArena->IsItem(m_BlockX, m_BlockY - i) || m_pArena->IsExplosion(m_BlockX, m_BlockY - i))
+            if (m_pArena->IsWall(m_BlockX, m_BlockY - i) || m_pArena->IsBomb(m_BlockX, m_BlockY - i)
+                || m_pArena->IsItem(m_BlockX, m_BlockY - i) || m_pArena->IsExplosion(m_BlockX, m_BlockY - i))
             {
                 // Save the maximum flame size
                 m_FlameSizeUp = i;
@@ -265,7 +249,8 @@ void CExplosion::Create(int BlockX, int BlockY, int FlameSize)
         if (m_BlockY + i < ARENA_HEIGHT)
         {
             // If there is a wall or a bomb or an item
-            if (m_pArena->IsWall(m_BlockX, m_BlockY + i) || m_pArena->IsBomb(m_BlockX, m_BlockY + i) || m_pArena->IsItem(m_BlockX, m_BlockY + i) || m_pArena->IsExplosion(m_BlockX, m_BlockY + i))
+            if (m_pArena->IsWall(m_BlockX, m_BlockY + i) || m_pArena->IsBomb(m_BlockX, m_BlockY + i)
+                || m_pArena->IsItem(m_BlockX, m_BlockY + i) || m_pArena->IsExplosion(m_BlockX, m_BlockY + i))
             {
                 // Save the maximum flame size
                 m_FlameSizeDown = i;
@@ -301,19 +286,11 @@ void CExplosion::Create(int BlockX, int BlockY, int FlameSize)
 #endif
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 void CExplosion::Destroy()
 {
     m_Flames.clear();
     CElement::Destroy();
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 // Record a flame and display it if possible
 
@@ -328,10 +305,6 @@ void CExplosion::PutFlame(int BlockX, int BlockY, int FlameType)
     // Store it
     m_Flames.push_back(Flame);
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 // Make the block at (X,Y) burn : burn walls,
 // items, bombers, make bombs explode.
@@ -351,7 +324,8 @@ void CExplosion::Burn(int BlockX, int BlockY, EBurnDirection BurnDirection)
         for (Index = 0; Index < m_pArena->MaxWalls(); Index++)
         {
             // Test existence and position
-            if (m_pArena->GetWall(Index).Exist() && m_pArena->GetWall(Index).GetBlockX() == BlockX && m_pArena->GetWall(Index).GetBlockY() == BlockY)
+            if (m_pArena->GetWall(Index).Exist() && m_pArena->GetWall(Index).GetBlockX() == BlockX
+                && m_pArena->GetWall(Index).GetBlockY() == BlockY)
             {
                 // Make the wall burn
                 m_pArena->GetWall(Index).Burn();
@@ -366,7 +340,8 @@ void CExplosion::Burn(int BlockX, int BlockY, EBurnDirection BurnDirection)
         for (Index = 0; Index < m_pArena->MaxItems(); Index++)
         {
             // Test existence and position
-            if (m_pArena->GetItem(Index).Exist() && m_pArena->GetItem(Index).GetBlockX() == BlockX && m_pArena->GetItem(Index).GetBlockY() == BlockY)
+            if (m_pArena->GetItem(Index).Exist() && m_pArena->GetItem(Index).GetBlockX() == BlockX
+                && m_pArena->GetItem(Index).GetBlockY() == BlockY)
             {
                 // Make the item burn
                 m_pArena->GetItem(Index).Burn(BurnDirection);
@@ -382,7 +357,8 @@ void CExplosion::Burn(int BlockX, int BlockY, EBurnDirection BurnDirection)
         for (Index = 0; Index < m_pArena->MaxBombs(); Index++)
         {
             // Test existence and position
-            if (m_pArena->GetBomb(Index).Exist() && m_pArena->GetBomb(Index).GetBlockX() == BlockX && m_pArena->GetBomb(Index).GetBlockY() == BlockY)
+            if (m_pArena->GetBomb(Index).Exist() && m_pArena->GetBomb(Index).GetBlockX() == BlockX
+                && m_pArena->GetBomb(Index).GetBlockY() == BlockY)
             {
                 // Make the bomb explode soon
                 m_pArena->GetBomb(Index).Burn();
@@ -398,7 +374,8 @@ void CExplosion::Burn(int BlockX, int BlockY, EBurnDirection BurnDirection)
         for (Index = 0; Index < m_pArena->MaxBombers(); Index++)
         {
             // Test existence and position
-            if (m_pArena->GetBomber(Index).Exist() && m_pArena->GetBomber(Index).GetBlockX() == BlockX && m_pArena->GetBomber(Index).GetBlockY() == BlockY)
+            if (m_pArena->GetBomber(Index).Exist() && m_pArena->GetBomber(Index).GetBlockX() == BlockX
+                && m_pArena->GetBomber(Index).GetBlockY() == BlockY)
             {
                 // Make the bomber burn
                 m_pArena->GetBomber(Index).Burn();
@@ -407,10 +384,6 @@ void CExplosion::Burn(int BlockX, int BlockY, EBurnDirection BurnDirection)
         }
     }
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 // The update of an explosion burns every block where
 // flames will appear in the arena. Each ray of flame
@@ -445,7 +418,8 @@ bool CExplosion::Update(float DeltaTime)
         if (m_BlockX + i < ARENA_WIDTH)
         {
             // If there is a wall or a bomb or an item
-            if (m_pArena->IsWall(m_BlockX + i, m_BlockY) || m_pArena->IsBomb(m_BlockX + i, m_BlockY) || m_pArena->IsItem(m_BlockX + i, m_BlockY))
+            if (m_pArena->IsWall(m_BlockX + i, m_BlockY) || m_pArena->IsBomb(m_BlockX + i, m_BlockY)
+                || m_pArena->IsItem(m_BlockX + i, m_BlockY))
             {
                 // Then burn this block
                 Burn(m_BlockX + i, m_BlockY, BURNDIRECTION_RIGHT);
@@ -489,7 +463,8 @@ bool CExplosion::Update(float DeltaTime)
         if (m_BlockX - i >= 0)
         {
             // If there is a wall or a bomb or an item
-            if (m_pArena->IsWall(m_BlockX - i, m_BlockY) || m_pArena->IsBomb(m_BlockX - i, m_BlockY) || m_pArena->IsItem(m_BlockX - i, m_BlockY))
+            if (m_pArena->IsWall(m_BlockX - i, m_BlockY) || m_pArena->IsBomb(m_BlockX - i, m_BlockY)
+                || m_pArena->IsItem(m_BlockX - i, m_BlockY))
             {
                 // Then burn this block
                 Burn(m_BlockX - i, m_BlockY, BURNDIRECTION_LEFT);
@@ -532,7 +507,8 @@ bool CExplosion::Update(float DeltaTime)
         if (m_BlockY - i >= 0)
         {
             // If there is a wall or a bomb or an item
-            if (m_pArena->IsWall(m_BlockX, m_BlockY - i) || m_pArena->IsBomb(m_BlockX, m_BlockY - i) || m_pArena->IsItem(m_BlockX, m_BlockY - i))
+            if (m_pArena->IsWall(m_BlockX, m_BlockY - i) || m_pArena->IsBomb(m_BlockX, m_BlockY - i)
+                || m_pArena->IsItem(m_BlockX, m_BlockY - i))
             {
                 // Then burn this block
                 Burn(m_BlockX, m_BlockY - i, BURNDIRECTION_UP);
@@ -575,7 +551,8 @@ bool CExplosion::Update(float DeltaTime)
         if (m_BlockY + i < ARENA_HEIGHT)
         {
             // If there is a wall or a bomb or an item
-            if (m_pArena->IsWall(m_BlockX, m_BlockY + i) || m_pArena->IsBomb(m_BlockX, m_BlockY + i) || m_pArena->IsItem(m_BlockX, m_BlockY + i))
+            if (m_pArena->IsWall(m_BlockX, m_BlockY + i) || m_pArena->IsBomb(m_BlockX, m_BlockY + i)
+                || m_pArena->IsItem(m_BlockX, m_BlockY + i))
             {
                 // Then burn this block
                 Burn(m_BlockX, m_BlockY + i, BURNDIRECTION_DOWN);
@@ -620,7 +597,8 @@ bool CExplosion::Update(float DeltaTime)
         if (m_BlockX + i < ARENA_WIDTH)
         {
             // If there is a wall or a bomb or an item
-            if (m_pArena->IsWall(m_BlockX + i, m_BlockY) || m_pArena->IsBomb(m_BlockX + i, m_BlockY) || m_pArena->IsItem(m_BlockX + i, m_BlockY))
+            if (m_pArena->IsWall(m_BlockX + i, m_BlockY) || m_pArena->IsBomb(m_BlockX + i, m_BlockY)
+                || m_pArena->IsItem(m_BlockX + i, m_BlockY))
             {
                 // Then burn this block
                 Burn(m_BlockX + i, m_BlockY, BURNDIRECTION_RIGHT);
@@ -655,7 +633,8 @@ bool CExplosion::Update(float DeltaTime)
         if (m_BlockX - i >= 0)
         {
             // If there is a wall or a bomb or an item
-            if (m_pArena->IsWall(m_BlockX - i, m_BlockY) || m_pArena->IsBomb(m_BlockX - i, m_BlockY) || m_pArena->IsItem(m_BlockX - i, m_BlockY))
+            if (m_pArena->IsWall(m_BlockX - i, m_BlockY) || m_pArena->IsBomb(m_BlockX - i, m_BlockY)
+                || m_pArena->IsItem(m_BlockX - i, m_BlockY))
             {
                 // Then burn this block
                 Burn(m_BlockX - i, m_BlockY, BURNDIRECTION_LEFT);
@@ -689,7 +668,8 @@ bool CExplosion::Update(float DeltaTime)
         if (m_BlockY - i >= 0)
         {
             // If there is a wall or a bomb or an item
-            if (m_pArena->IsWall(m_BlockX, m_BlockY - i) || m_pArena->IsBomb(m_BlockX, m_BlockY - i) || m_pArena->IsItem(m_BlockX, m_BlockY - i))
+            if (m_pArena->IsWall(m_BlockX, m_BlockY - i) || m_pArena->IsBomb(m_BlockX, m_BlockY - i)
+                || m_pArena->IsItem(m_BlockX, m_BlockY - i))
             {
                 // Then burn this block
                 Burn(m_BlockX, m_BlockY - i, BURNDIRECTION_UP);
@@ -723,7 +703,8 @@ bool CExplosion::Update(float DeltaTime)
         if (m_BlockY + i < ARENA_HEIGHT)
         {
             // If there is a wall or a bomb or an item
-            if (m_pArena->IsWall(m_BlockX, m_BlockY + i) || m_pArena->IsBomb(m_BlockX, m_BlockY + i) || m_pArena->IsItem(m_BlockX, m_BlockY + i))
+            if (m_pArena->IsWall(m_BlockX, m_BlockY + i) || m_pArena->IsBomb(m_BlockX, m_BlockY + i)
+                || m_pArena->IsItem(m_BlockX, m_BlockY + i))
             {
                 // Then burn this block
                 Burn(m_BlockX, m_BlockY + i, BURNDIRECTION_DOWN);
@@ -776,10 +757,6 @@ bool CExplosion::Update(float DeltaTime)
     return m_Dead;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 void CExplosion::Display()
 {
     // Draw the flames
@@ -798,10 +775,6 @@ void CExplosion::Display()
             PRIORITY_UNUSED);
     }
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 void CExplosion::OnWriteSnapshot(CArenaSnapshot& Snapshot)
 {
@@ -838,8 +811,6 @@ void CExplosion::OnWriteSnapshot(CArenaSnapshot& Snapshot)
 #endif // EXPLOSIONS_ORIGINALSTYLE
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 //****************************************************************************************************************************
 
 void CExplosion::OnReadSnapshot(CArenaSnapshot& Snapshot)
@@ -882,7 +853,3 @@ void CExplosion::OnReadSnapshot(CArenaSnapshot& Snapshot)
 
 #endif // EXPLOSIONS_ORIGINALSTYLE
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************

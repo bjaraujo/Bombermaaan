@@ -39,10 +39,6 @@
 #include "COptions.h"
 #include "StdAfx.h"
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 #define TIMESTART_MINUTES 1
 #define TIMESTART_SECONDS 0
 
@@ -66,10 +62,6 @@ struct SFileInfo
     std::string fileNameWithoutPath;
     std::string fileNameWithPath;
 };
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 COptions::COptions()
 {
@@ -99,21 +91,9 @@ COptions::COptions()
             m_Control[i][j] = 0;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 COptions::COptions(const COptions& another) { operator=(another); }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 COptions::~COptions() { Destroy(); }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 COptions& COptions::operator=(const COptions& Copy)
 {
@@ -146,10 +126,6 @@ COptions& COptions::operator=(const COptions& Copy)
     return *this;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 bool COptions::Create(bool useAppDataFolder, std::string dynamicDataFolder, std::string pgmFolder)
 {
     // Set the file name of the configuration file including full path
@@ -176,25 +152,13 @@ bool COptions::Create(bool useAppDataFolder, std::string dynamicDataFolder, std:
     return true;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-void COptions::Destroy() {}
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
+void COptions::Destroy() { }
 
 void COptions::SaveBeforeExit()
 {
     // Write the values to the XML based configuration file
     WriteXMLData();
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 void COptions::SetDefaultValues()
 {
@@ -282,10 +246,6 @@ void COptions::SetDefaultValues()
     }
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 /**
  *  For migration purposes, the old configuration file is still read.
  *  So your settings should be seamlessly migrated to the new XML format.
@@ -298,14 +258,15 @@ void COptions::SetDefaultValues()
 bool COptions::LoadConfiguration()
 {
     size_t result = 0;
-    
+
     // Try to open the old configuration file
     FILE* pConfigFile = fopen(oldconfigFileName.c_str(), "rb");
 
     // If the old configuration file exists
     if (pConfigFile != nullptr)
     {
-        theLog.WriteLine("Options         => Note: Reading old configuration file (config.dat) values now. Once the XML file is written, you may delete the old configuration file.");
+        theLog.WriteLine("Options         => Note: Reading old configuration file (config.dat) values now. Once the XML file "
+                         "is written, you may delete the old configuration file.");
 
         // Read each configuration value in the file
         result += fread(&m_TimeUpMinutes, sizeof(int), 1, pConfigFile);
@@ -321,7 +282,7 @@ bool COptions::LoadConfiguration()
 
         // The configuration file is not needed anymore
         fclose(pConfigFile);
-        
+
         if (result == 0)
         {
             return false;
@@ -337,11 +298,13 @@ bool COptions::LoadConfiguration()
         // The file could be loaded successfully
         int tempRevision = 0;
         TiXmlHandle configHandle(&configDoc);
-        TiXmlElement* confRevision = configHandle.FirstChild("Bombermaaan").FirstChild("Configuration").FirstChild("ConfigRevision").ToElement();
+        TiXmlElement* confRevision
+            = configHandle.FirstChild("Bombermaaan").FirstChild("Configuration").FirstChild("ConfigRevision").ToElement();
         if (confRevision)
             confRevision->QueryIntAttribute("value", &tempRevision);
 
-        theLog.WriteLine("Options         => Configuration file was successfully loaded and is at revision %d.", tempRevision);
+        theLog.WriteLine(
+            "Options         => Configuration file was successfully loaded and is at revision %d.", tempRevision);
 
         ReadIntFromXML(configDoc, "TimeUp", "minutes", &m_TimeUpMinutes);
         ReadIntFromXML(configDoc, "TimeUp", "seconds", &m_TimeUpSeconds);
@@ -376,7 +339,11 @@ bool COptions::LoadConfiguration()
         TiXmlHandle handle(&configDoc);
 
         // Fetch the element
-        TiXmlElement* element = handle.FirstChild("Bombermaaan").FirstChild("Configuration").FirstChild("ControlList").FirstChild("Control").ToElement();
+        TiXmlElement* element = handle.FirstChild("Bombermaaan")
+                                    .FirstChild("Configuration")
+                                    .FirstChild("ControlList")
+                                    .FirstChild("Control")
+                                    .ToElement();
 
         // If the element exists, go on
         if (element)
@@ -422,10 +389,6 @@ bool COptions::LoadConfiguration()
     // Success
     return true;
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 void COptions::WriteXMLData()
 {
@@ -545,10 +508,6 @@ void COptions::WriteXMLData()
     theLog.WriteLine("Options         => Configuration file was %s written.", (saveOkay ? "successfully" : "not"));
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 /**
  *  \brief Read an integer from the XML document structure.
  *  This function reads an attribute of the node /Bombermaaan/Configuration/NAME, where NAME can be specified by configNode.
@@ -573,10 +532,6 @@ void COptions::ReadIntFromXML(TiXmlDocument& doc, std::string configNode, std::s
     if (element)
         element->QueryIntAttribute(attrName, value);
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 bool COptions::LoadLevels(std::string dynamicDataFolder, std::string pgmFolder)
 {
@@ -697,7 +652,8 @@ bool COptions::LoadLevels(std::string dynamicDataFolder, std::string pgmFolder)
     // Sort
     //---------------------
 #ifdef WIN32
-    sort(files.begin(), files.end(), [&](const SFileInfo& a, const SFileInfo& b) { return (a.fileNameWithoutPath < b.fileNameWithoutPath); });
+    sort(files.begin(), files.end(),
+        [&](const SFileInfo& a, const SFileInfo& b) { return (a.fileNameWithoutPath < b.fileNameWithoutPath); });
 #endif
 
     for (std::vector<SFileInfo>::iterator it = files.begin(); it != files.end(); ++it)
@@ -750,7 +706,3 @@ bool COptions::LoadLevels(std::string dynamicDataFolder, std::string pgmFolder)
     // Everything went right
     return true;
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************

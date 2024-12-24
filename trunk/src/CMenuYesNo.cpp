@@ -34,10 +34,6 @@
 #include "CSound.h"
 #include "StdAfx.h"
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 #define INITIAL_TEXT_POSITION_X 226 //!< Position X of the first option's text in the menu
 #define INITIAL_TEXT_POSITION_Y 117 //!< Position Y of the first option's text in the menu
 #define TEXT_SPACE_Y 15 //!< Space Y in pixels between two options text.
@@ -48,10 +44,6 @@
 
 #define SPRITE_LAYER_FRAME 800 //!< Sprite layer where to draw the menu frame sprite
 #define SPRITE_LAYER_ABOVE_FRAME 801 //!< Sprite layer where to draw the sprites that should be above the menu frame
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 CMenuYesNo::CMenuYesNo()
 {
@@ -66,15 +58,7 @@ CMenuYesNo::CMenuYesNo()
     m_Title[0] = '\0';
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-CMenuYesNo::~CMenuYesNo() {}
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
+CMenuYesNo::~CMenuYesNo() { }
 
 void CMenuYesNo::Create()
 {
@@ -90,19 +74,11 @@ void CMenuYesNo::Create()
     m_Font.SetSpriteLayer(SPRITE_LAYER_ABOVE_FRAME);
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 void CMenuYesNo::Destroy()
 {
     // Uninitialize the font
     m_Font.Destroy();
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 EGameMode CMenuYesNo::Update(EGameMode CurrentGameMode)
 {
@@ -112,7 +88,8 @@ EGameMode CMenuYesNo::Update(EGameMode CurrentGameMode)
     EGameMode NextGameMode = CurrentGameMode;
 
     // If the menu yes/no can be activated (it can't if the game mode doesn't allow it)
-    if (CurrentGameMode != GAMEMODE_CONTROLS && CurrentGameMode != GAMEMODE_DEMO && CurrentGameMode != GAMEMODE_GREETS && CurrentGameMode != GAMEMODE_HELP)
+    if (CurrentGameMode != GAMEMODE_CONTROLS && CurrentGameMode != GAMEMODE_DEMO && CurrentGameMode != GAMEMODE_GREETS
+        && CurrentGameMode != GAMEMODE_HELP)
     {
         // If the escape control is active
         if (m_pInput->GetMainInput().TestBreak())
@@ -219,10 +196,6 @@ EGameMode CMenuYesNo::Update(EGameMode CurrentGameMode)
     return NextGameMode;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 void CMenuYesNo::Display()
 {
     // If the menu is active
@@ -237,7 +210,9 @@ void CMenuYesNo::Display()
         m_Font.SetTextColor(FONTCOLOR_WHITE);
         m_Font.DrawCenteredX(0, VIEW_WIDTH, 93, m_Title);
 
-        m_pDisplay->DrawSprite(INITIAL_TEXT_POSITION_X + CURSOR_HAND_SPACE_X, INITIAL_TEXT_POSITION_Y + (m_YesNo ? 0 : TEXT_SPACE_Y) + CURSOR_HAND_SPACE_Y, nullptr, nullptr, BMP_MENU_HAND, CURSOR_HAND_SPRITE, 801, -1);
+        m_pDisplay->DrawSprite(INITIAL_TEXT_POSITION_X + CURSOR_HAND_SPACE_X,
+            INITIAL_TEXT_POSITION_Y + (m_YesNo ? 0 : TEXT_SPACE_Y) + CURSOR_HAND_SPACE_Y, nullptr, nullptr, BMP_MENU_HAND,
+            CURSOR_HAND_SPRITE, 801, -1);
 
         m_Font.SetTextColor((m_YesNo ? FONTCOLOR_YELLOW : FONTCOLOR_WHITE));
         m_Font.Draw(INITIAL_TEXT_POSITION_X, INITIAL_TEXT_POSITION_Y, "YES");
@@ -246,7 +221,3 @@ void CMenuYesNo::Display()
         m_Font.Draw(INITIAL_TEXT_POSITION_X, INITIAL_TEXT_POSITION_Y + TEXT_SPACE_Y, "NO");
     }
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************

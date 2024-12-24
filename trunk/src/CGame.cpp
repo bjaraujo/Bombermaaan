@@ -52,10 +52,6 @@
 
 #include "Bombermaaan.h"
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 // Define this if the log file should be enabled
 // #define ENABLE_LOG
 
@@ -84,10 +80,6 @@
 #else
 #define NAME_OF_BOMBERMAN_DLL "libBombermaaan32.so"
 #endif
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 #ifdef WIN32
 CGame::CGame(HINSTANCE hInstance, const char* pCommandLine)
@@ -134,18 +126,7 @@ CGame::CGame(HINSTANCE hInstance, char** pCommandLine)
 #endif
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-CGame::~CGame()
-{
-    // Nothing to do
-}
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
+CGame::~CGame() = default;
 
 /**
  *  \brief Creates the main parts of the game and establishes relationships to members
@@ -160,14 +141,18 @@ bool CGame::Create(char** pCommandLine, int pCommandLineCount)
     // There is no check if the parameters are surrounded by spaces, or at the beginning of the line,
     // or the end. So "-----__/-h999" would also match (the -h is found).
 #ifdef WIN32
-    if (strstr(pCommandLine, "-?") != nullptr || strstr(pCommandLine, "--help") != nullptr || // Not really necessary, since "-?" already did the job
-        strstr(pCommandLine, "--license") != nullptr || strstr(pCommandLine, "--show-license") != nullptr || strstr(pCommandLine, "/?") != nullptr)
+    if (strstr(pCommandLine, "-?") != nullptr || strstr(pCommandLine, "--help") != nullptr
+        || // Not really necessary, since "-?" already did the job
+        strstr(pCommandLine, "--license") != nullptr || strstr(pCommandLine, "--show-license") != nullptr
+        || strstr(pCommandLine, "/?") != nullptr)
 #else
     bool helpRequested = false;
 
     for (int i = 0; i < pCommandLineCount; i++)
     {
-        if (strncmp(pCommandLine[i], "-h", 2) == 0 || strncmp(pCommandLine[i], "--help", 6) == 0 || strncmp(pCommandLine[i], "--license", 6) == 0 || strncmp(pCommandLine[i], "--show-license", 6) == 0 || strncmp(pCommandLine[i], "/?", 2) == 0)
+        if (strncmp(pCommandLine[i], "-h", 2) == 0 || strncmp(pCommandLine[i], "--help", 6) == 0
+            || strncmp(pCommandLine[i], "--license", 6) == 0 || strncmp(pCommandLine[i], "--show-license", 6) == 0
+            || strncmp(pCommandLine[i], "/?", 2) == 0)
         {
             helpRequested = true;
             break;
@@ -327,7 +312,8 @@ bool CGame::Create(char** pCommandLine, int pCommandLineCount)
         if (!appDataPath)
         {
 #ifdef WIN32
-            MessageBox(m_hWnd, "Could not get the user application folder (%APPDATA%).\nBombermaaan terminates.", "Error", MB_OK | MB_ICONERROR);
+            MessageBox(m_hWnd, "Could not get the user application folder (%APPDATA%).\nBombermaaan terminates.", "Error",
+                MB_OK | MB_ICONERROR);
 #else
             fprintf(stderr, "Could not determine home directory ($HOME).\nBombermaaan terminates.\n");
 #endif
@@ -362,7 +348,8 @@ bool CGame::Create(char** pCommandLine, int pCommandLineCount)
         }
         else if (mkdir(dynamicDataFolder.c_str(), S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH))
         {
-            fprintf(stderr, "Could not create folder '%s'.\nBombermaaan cannot run without this folder.\n", dynamicDataFolder.c_str());
+            fprintf(stderr, "Could not create folder '%s'.\nBombermaaan cannot run without this folder.\n",
+                dynamicDataFolder.c_str());
             return false;
         }
 #endif
@@ -594,7 +581,7 @@ bool CGame::Create(char** pCommandLine, int pCommandLineCount)
 #else
     m_Sound.SetModuleHandle(nullptr);
 #endif
-    
+
     // Set program folder
     m_Display.SetProgramFolder(pgmFolder);
 
@@ -678,7 +665,8 @@ bool CGame::Create(char** pCommandLine, int pCommandLineCount)
             m_Network.SetNetworkMode(NETWORKMODE_SERVER);
             break;
         }
-        else if ((strncmp(pCommandLine[i], "-c", 2) == 0 || strncmp(pCommandLine[i], "--client", 8) == 0) && pCommandLineCount > i + 1)
+        else if ((strncmp(pCommandLine[i], "-c", 2) == 0 || strncmp(pCommandLine[i], "--client", 8) == 0)
+            && pCommandLineCount > i + 1)
         {
             printf("*** STARTING GAME AS CLIENT\n");
             m_Network.SetNetworkMode(NETWORKMODE_CLIENT);
@@ -722,10 +710,6 @@ bool CGame::Create(char** pCommandLine, int pCommandLineCount)
     // Everything went right
     return true;
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 void CGame::Destroy()
 {
@@ -795,10 +779,6 @@ void CGame::Destroy()
 #endif
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 CModeScreen* CGame::GetGameModeObject(EGameMode GameMode)
 {
     // According to the specified game mode, return a pointer to the object manager of this mode
@@ -843,10 +823,6 @@ CModeScreen* CGame::GetGameModeObject(EGameMode GameMode)
     // There is no object manager for this game mode
     return nullptr;
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 /**
  *  This method is called when the window is active.
@@ -905,10 +881,6 @@ void CGame::OnWindowActive()
     }
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 /**
  *  Set a new game mode. Creates the object corresponding to the new game mode.
  */
@@ -950,10 +922,6 @@ void CGame::StartGameMode(EGameMode GameMode)
     }
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 /**
  *  Finish the current game mode
  */
@@ -968,10 +936,6 @@ void CGame::FinishGameMode()
     //! Set no game mode
     m_GameMode = GAMEMODE_NONE;
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 // This is called when the active state of the window
 // changes. This is NOT called on window creation.
@@ -1031,10 +995,6 @@ void CGame::OnActivateApp(WPARAM wParam, LPARAM lParam)
     }
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 // Called when the window moves.
 
 void CGame::OnMove(WPARAM wParam, LPARAM lParam)
@@ -1045,18 +1005,10 @@ void CGame::OnMove(WPARAM wParam, LPARAM lParam)
     m_Display.OnWindowMove();
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 // When the window is active and a key is pressed down,
 // this method will be called.
 
-void CGame::OnKeyDown(WPARAM wParam, LPARAM lParam) {}
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
+void CGame::OnKeyDown(WPARAM wParam, LPARAM lParam) { }
 
 // When the window is active and a key is released,
 // this method will be called.
@@ -1140,10 +1092,6 @@ void CGame::OnKeyUp(WPARAM wParam, LPARAM lParam)
     }
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 /**
  *  If the window has to be repainted, the display
  *  must be updated to redraw the game screen.
@@ -1155,10 +1103,6 @@ void CGame::OnPaint(WPARAM wParam, LPARAM lParam)
     //! @see CDisplay::OnPaint()
     m_Display.OnPaint();
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 /**
  *  \brief Handles system commands
@@ -1187,10 +1131,6 @@ bool CGame::OnSysCommand(WPARAM wParam, LPARAM lParam)
     return true;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 // Handles the WM_SIZE message (Sent after the window's size has changed)
 
 void CGame::OnSize(WPARAM wParam, LPARAM lParam)
@@ -1200,10 +1140,6 @@ void CGame::OnSize(WPARAM wParam, LPARAM lParam)
     // Removed due to B
 #endif
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 // When the window is active and a joystick axis changes,
 // this method will be called.
@@ -1254,10 +1190,6 @@ void CGame::OnJoystickAxis(WPARAM wParam, LPARAM lParam)
 }
 #endif
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 // When the window is active and a joystick button is pressed/released,
 // this method will be called.
 
@@ -1290,7 +1222,3 @@ void CGame::OnJoystickButton(WPARAM wParam, LPARAM lParam)
     m_pPlayerInput.Update();
 }
 #endif
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************

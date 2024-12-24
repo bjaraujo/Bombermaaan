@@ -37,10 +37,6 @@
 #include "CSound.h"
 #include "StdAfx.h"
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 // Wall sprites
 #define SPRITE_WALLHARD 0
 #define SPRITE_WALLSOFT 1
@@ -90,10 +86,6 @@
 // priority in the wall sprite layer must be higher than WALL_PRIORITY.
 #define FLYSHADOW_PRIORITY 1
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 CWall::CWall()
     : CElement()
 {
@@ -117,15 +109,7 @@ CWall::CWall()
     m_Sprite = 0;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-CWall::~CWall() {}
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
+CWall::~CWall() { }
 
 void CWall::Create(int BlockX, int BlockY, EWallType Type)
 {
@@ -171,15 +155,7 @@ void CWall::Create(int BlockX, int BlockY, EWallType Type)
     m_Dead = false;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 void CWall::Destroy() { CElement::Destroy(); }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 // Called by explosions touching this wall
 
@@ -190,10 +166,6 @@ void CWall::Burn()
         m_Burning = true;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 // Called by falling walls crushing this wall
 
 void CWall::Crush()
@@ -201,10 +173,6 @@ void CWall::Crush()
     // Die at next update
     m_Dead = true;
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 bool CWall::Update(float DeltaTime)
 {
@@ -220,7 +188,8 @@ bool CWall::Update(float DeltaTime)
             for (int Index = 0; Index < m_pArena->MaxBombers(); Index++)
             {
                 // Test existence and position and dead state
-                if (m_pArena->GetBomber(Index).Exist() && m_pArena->GetBomber(Index).GetBlockX() == m_BlockX && m_pArena->GetBomber(Index).GetBlockY() == m_BlockY && m_pArena->GetBomber(Index).IsAlive())
+                if (m_pArena->GetBomber(Index).Exist() && m_pArena->GetBomber(Index).GetBlockX() == m_BlockX
+                    && m_pArena->GetBomber(Index).GetBlockY() == m_BlockY && m_pArena->GetBomber(Index).IsAlive())
                 {
                     // Crush the bomber
                     m_pArena->GetBomber(Index).Crush();
@@ -236,7 +205,8 @@ bool CWall::Update(float DeltaTime)
             for (int Index = 0; Index < m_pArena->MaxBombs(); Index++)
             {
                 // Test existence, state and position
-                if (m_pArena->GetBomb(Index).Exist() && m_pArena->GetBomb(Index).IsOnFloor() && m_pArena->GetBomb(Index).GetBlockX() == m_BlockX && m_pArena->GetBomb(Index).GetBlockY() == m_BlockY)
+                if (m_pArena->GetBomb(Index).Exist() && m_pArena->GetBomb(Index).IsOnFloor()
+                    && m_pArena->GetBomb(Index).GetBlockX() == m_BlockX && m_pArena->GetBomb(Index).GetBlockY() == m_BlockY)
                 {
                     // Crush the bomb
                     m_pArena->GetBomb(Index).Crush();
@@ -257,7 +227,8 @@ bool CWall::Update(float DeltaTime)
             for (int Index = 0; Index < m_pArena->MaxFloors(); Index++)
             {
                 // Test existence and position
-                if (m_pArena->GetFloor(Index).Exist() && m_pArena->GetFloor(Index).GetBlockX() == m_BlockX && m_pArena->GetFloor(Index).GetBlockY() == m_BlockY)
+                if (m_pArena->GetFloor(Index).Exist() && m_pArena->GetFloor(Index).GetBlockX() == m_BlockX
+                    && m_pArena->GetFloor(Index).GetBlockY() == m_BlockY)
                 {
                     // Crush the floor
                     m_pArena->GetFloor(Index).Crush();
@@ -332,7 +303,8 @@ bool CWall::Update(float DeltaTime)
                 for (Index = 0; Index < m_pArena->MaxWalls(); Index++)
                 {
                     // Test position
-                    if (m_pArena->GetWall(Index).Exist() && &m_pArena->GetWall(Index) != this && // Not this one! **** perhaps the type != falling should be
+                    if (m_pArena->GetWall(Index).Exist() && &m_pArena->GetWall(Index) != this
+                        && // Not this one! **** perhaps the type != falling should be
                         m_pArena->GetWall(Index).GetBlockX() == m_BlockX && // **** tested instead of this obscure ptr thing
                         m_pArena->GetWall(Index).GetBlockY() == m_BlockY)
                     {
@@ -351,7 +323,8 @@ bool CWall::Update(float DeltaTime)
                 for (Index = 0; Index < m_pArena->MaxItems(); Index++)
                 {
                     // Test existence and position
-                    if (m_pArena->GetItem(Index).Exist() && m_pArena->GetItem(Index).GetBlockX() == m_BlockX && m_pArena->GetItem(Index).GetBlockY() == m_BlockY)
+                    if (m_pArena->GetItem(Index).Exist() && m_pArena->GetItem(Index).GetBlockX() == m_BlockX
+                        && m_pArena->GetItem(Index).GetBlockY() == m_BlockY)
                     {
                         // Crush the item
                         m_pArena->GetItem(Index).Crush();
@@ -370,10 +343,6 @@ bool CWall::Update(float DeltaTime)
 
     return m_Dead;
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 void CWall::Display()
 {
@@ -422,10 +391,6 @@ void CWall::Display()
     }
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 void CWall::OnWriteSnapshot(CArenaSnapshot& Snapshot)
 {
     Snapshot.WriteInteger(m_iX);
@@ -441,8 +406,6 @@ void CWall::OnWriteSnapshot(CArenaSnapshot& Snapshot)
     Snapshot.WriteInteger(m_Type);
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 //****************************************************************************************************************************
 
 void CWall::OnReadSnapshot(CArenaSnapshot& Snapshot)
@@ -459,7 +422,3 @@ void CWall::OnReadSnapshot(CArenaSnapshot& Snapshot)
     Snapshot.ReadBoolean(&m_Burning);
     Snapshot.ReadInteger((int*)&m_Type);
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************

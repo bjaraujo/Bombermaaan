@@ -37,10 +37,6 @@ class CTimer;
 class CSound;
 class CMosaic;
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 //! The controls screen that appears when choosing Options in the main menu.
 
 class CControls : public CModeScreen
@@ -53,7 +49,8 @@ private:
     int m_Cursor; //!< Number of the menu item the cursor hand is pointing to
     int m_PlayerInput; //!< Number of the currently selected player input (keyboard X, joystick X...)
     bool m_WaitingForInput; //!< Are we waiting for the user to activate the control he wants to reconfigure?
-    float m_WaitingForInputAfter; //!< Time left in seconds to wait before starting to wait for the user to activate the control he wants to reconfigure.
+    float
+        m_WaitingForInputAfter; //!< Time left in seconds to wait before starting to wait for the user to activate the control he wants to reconfigure.
     bool m_SongStarted; //!< Did we start playing the song after the black screen?
     CMosaic* m_pMosaic;
 
@@ -69,18 +66,10 @@ public:
     void Display(); //!< Display the game screen
 };
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 inline void CControls::SetDisplay(CDisplay* pDisplay)
 {
     CModeScreen::SetDisplay(pDisplay);
     m_Font.SetDisplay(m_pDisplay);
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 #endif // __CCONTROLS_H__

@@ -29,12 +29,8 @@
 #ifndef __CLEVEL_H__
 #define __CLEVEL_H__
 
-#include "StdAfx.h"
 #include "CItem.h"
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
+#include "StdAfx.h"
 
 enum EBlockType
 {
@@ -63,10 +59,6 @@ enum EBlockType
     BLOCKTYPE_ITEM_STRONGWEAK //!< A strong/weak item if placed here
 };
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 enum EBomberSkills
 {
     BOMBERSKILL_DUMMYFIRST,
@@ -83,10 +75,6 @@ enum EBomberSkills
     BOMBERSKILL_STRONGWEAKITEMS,
     NUMBER_OF_BOMBERSKILLS
 };
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 // Initial number of items when a new arena is built
 #define INITIAL_ITEMBOMB 11
@@ -106,10 +94,6 @@ enum EBomberSkills
 // Initial number of bombs the bomber can drop
 #define INITIAL_BOMBS 1
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 //! Contains all settings of one level
 class CLevel
 {
@@ -121,7 +105,8 @@ private:
     int m_InitialBomberSkills[NUMBER_OF_BOMBERSKILLS]; //!< The initial bomber skills
 
     bool LoadVersion1(std::ifstream& File); //!< Load level file version 1
-    bool LoadVersion2(std::string filename); //!< Load level file version 2 (requiredRemoteFuse = false) or 3 (requiredRemoteFuse = true)
+    bool LoadVersion2(
+        std::string filename); //!< Load level file version 2 (requiredRemoteFuse = false) or 3 (requiredRemoteFuse = true)
     bool CheckMaxNumberOfItems(unsigned int* sumOfMaxItems); //!< Check if number of max items is valid
     bool Validate(); //!< Check if this level is valid
 
@@ -134,10 +119,6 @@ public:
     inline int GetInitialBomberSkills(EBomberSkills BomberSkill) const;
     inline const char* GetLevelName();
 };
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 inline EBlockType CLevel::GetBlockType(int X, int Y) const
 {
@@ -162,9 +143,5 @@ inline int CLevel::GetInitialBomberSkills(EBomberSkills BomberSkill) const
 }
 
 inline const char* CLevel::GetLevelName() { return m_FilenameShort.c_str(); }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 #endif // __CLEVEL_H__

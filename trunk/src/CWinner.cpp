@@ -39,10 +39,6 @@
 #include "CScores.h"
 #include "StdAfx.h"
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 // Duration (in seconds) of the two black screens
 #define WINNER_BLACKSCREEN_DURATION 0.750f
 
@@ -130,10 +126,6 @@
 #define MOSAIC_SPEED_X 0.0f //!< Speed of the scrolling background horizontally
 #define MOSAIC_SPEED_Y 0.0f //!< Speed of the scrolling background vertically
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 CWinner::CWinner()
     : CModeScreen()
 {
@@ -163,18 +155,7 @@ CWinner::CWinner()
     m_ExitGameMode = GAMEMODE_NONE;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-CWinner::~CWinner()
-{
-    // Nothing to do!
-}
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
+CWinner::~CWinner() = default;
 
 // Before using a CWinner, you must create it.
 
@@ -215,12 +196,9 @@ void CWinner::Create()
     m_PlayedSound = false;
 
     // Make a random green mosaic object
-    m_pMosaic = CRandomMosaic::CreateRandomMosaic(m_pDisplay, MOSAIC_SPRITE_LAYER, MOSAIC_SPRITE_PRIORITY_IN_LAYER, MOSAIC_SPEED_X, MOSAIC_SPEED_Y, MOSAICCOLOR_GREEN, true);
+    m_pMosaic = CRandomMosaic::CreateRandomMosaic(m_pDisplay, MOSAIC_SPRITE_LAYER, MOSAIC_SPRITE_PRIORITY_IN_LAYER,
+        MOSAIC_SPEED_X, MOSAIC_SPEED_Y, MOSAICCOLOR_GREEN, true);
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 // When a CWinner is not needed anymore, you should destroy it
 
@@ -233,10 +211,6 @@ void CWinner::Destroy()
     delete m_pMosaic;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 void CWinner::OpenInput()
 {
     m_pInput->GetMainInput().Open();
@@ -248,10 +222,6 @@ void CWinner::OpenInput()
     }
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 void CWinner::CloseInput()
 {
     m_pInput->GetMainInput().Close();
@@ -262,10 +232,6 @@ void CWinner::CloseInput()
         m_pInput->GetPlayerInput(m_pOptions->GetPlayerInput(i)).Close();
     }
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 EGameMode CWinner::Update()
 {
@@ -409,7 +375,8 @@ EGameMode CWinner::Update()
         // Animate coin
         //-----------------------------
 
-        if (m_CoinSpriteOffset % COINS_SPRITE_COUNT == COINS_STATIC_SPRITE && m_CoinSpriteOffset >= COINS_ANIMATION_TURNS * COINS_SPRITE_COUNT)
+        if (m_CoinSpriteOffset % COINS_SPRITE_COUNT == COINS_STATIC_SPRITE
+            && m_CoinSpriteOffset >= COINS_ANIMATION_TURNS * COINS_SPRITE_COUNT)
         {
             // Don't animate coin any longer
         }
@@ -423,7 +390,8 @@ EGameMode CWinner::Update()
                 m_CoinTime -= COINS_ANIMATION_TIME;
                 // Don't increase the sprite index if the coin turns reached the limit and we
                 // already arrived at the static sprite's index
-                if (m_CoinSpriteOffset % COINS_SPRITE_COUNT != COINS_STATIC_SPRITE || m_CoinSpriteOffset < COINS_ANIMATION_TURNS * COINS_SPRITE_COUNT)
+                if (m_CoinSpriteOffset % COINS_SPRITE_COUNT != COINS_STATIC_SPRITE
+                    || m_CoinSpriteOffset < COINS_ANIMATION_TURNS * COINS_SPRITE_COUNT)
                 {
                     m_CoinSpriteOffset++;
                 }
@@ -459,10 +427,6 @@ EGameMode CWinner::Update()
     return GAMEMODE_WINNER;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 void CWinner::Display()
 {
     // If we have to make the first black screen
@@ -496,7 +460,8 @@ void CWinner::Display()
         //---------------------------
 
         // Set the position from which to display sprites
-        m_pDisplay->SetOrigin(WINNER_DISPLAY_ORIGIN_X + WINNER_SPRITES_OFFSET_X, WINNER_DISPLAY_ORIGIN_Y + WINNER_SPRITES_OFFSET_Y);
+        m_pDisplay->SetOrigin(
+            WINNER_DISPLAY_ORIGIN_X + WINNER_SPRITES_OFFSET_X, WINNER_DISPLAY_ORIGIN_Y + WINNER_SPRITES_OFFSET_Y);
 
         //--------------------------
         // Display SCOREBOARD title
@@ -521,19 +486,22 @@ void CWinner::Display()
             m_pDisplay->DrawSprite(LIGHTS_FULLROW1_POSITION_X + Column * LIGHTS_SPACE_X, LIGHTS_FULLROW1_POSITION_Y,
                 nullptr, // Draw entire sprite
                 nullptr, // No need to clip
-                BMP_WINNER_LIGHTS, (m_LightSpriteOffset + Light) % LIGHTS_COLORS_COUNT, WINNER_SPRITE_LAYER, WINNER_LIGHTS_PRIORITY);
+                BMP_WINNER_LIGHTS, (m_LightSpriteOffset + Light) % LIGHTS_COLORS_COUNT, WINNER_SPRITE_LAYER,
+                WINNER_LIGHTS_PRIORITY);
 
             // Draw one light for the second full row. The sprite number determines the light color.
             m_pDisplay->DrawSprite(LIGHTS_FULLROW2_POSITION_X + Column * LIGHTS_SPACE_X, LIGHTS_FULLROW2_POSITION_Y,
                 nullptr, // Draw entire sprite
                 nullptr, // No need to clip
-                BMP_WINNER_LIGHTS, (m_LightSpriteOffset + Light) % LIGHTS_COLORS_COUNT, WINNER_SPRITE_LAYER, WINNER_LIGHTS_PRIORITY);
+                BMP_WINNER_LIGHTS, (m_LightSpriteOffset + Light) % LIGHTS_COLORS_COUNT, WINNER_SPRITE_LAYER,
+                WINNER_LIGHTS_PRIORITY);
 
             // Draw one light for the third full row. The sprite number determines the light color.
             m_pDisplay->DrawSprite(LIGHTS_FULLROW3_POSITION_X + Column * LIGHTS_SPACE_X, LIGHTS_FULLROW3_POSITION_Y,
                 nullptr, // Draw entire sprite
                 nullptr, // No need to clip
-                BMP_WINNER_LIGHTS, (m_LightSpriteOffset + Light) % LIGHTS_COLORS_COUNT, WINNER_SPRITE_LAYER, WINNER_LIGHTS_PRIORITY);
+                BMP_WINNER_LIGHTS, (m_LightSpriteOffset + Light) % LIGHTS_COLORS_COUNT, WINNER_SPRITE_LAYER,
+                WINNER_LIGHTS_PRIORITY);
 
             // One more light! This allows to scan the colors.
             Light++;
@@ -552,13 +520,15 @@ void CWinner::Display()
             m_pDisplay->DrawSprite(LIGHTS_FULLCOLUMN1_POSITION_X, LIGHTS_FULLCOLUMN1_POSITION_Y + Row * LIGHTS_SPACE_Y,
                 nullptr, // Draw entire sprite
                 nullptr, // No need to clip
-                BMP_WINNER_LIGHTS, (m_LightSpriteOffset + Light) % LIGHTS_COLORS_COUNT, WINNER_SPRITE_LAYER, WINNER_LIGHTS_PRIORITY);
+                BMP_WINNER_LIGHTS, (m_LightSpriteOffset + Light) % LIGHTS_COLORS_COUNT, WINNER_SPRITE_LAYER,
+                WINNER_LIGHTS_PRIORITY);
 
             // Draw one light for the second full column. The sprite number determines the light color.
             m_pDisplay->DrawSprite(LIGHTS_FULLCOLUMN2_POSITION_X, LIGHTS_FULLCOLUMN2_POSITION_Y + Row * LIGHTS_SPACE_Y,
                 nullptr, // Draw entire sprite
                 nullptr, // No need to clip
-                BMP_WINNER_LIGHTS, (m_LightSpriteOffset + Light) % LIGHTS_COLORS_COUNT, WINNER_SPRITE_LAYER, WINNER_LIGHTS_PRIORITY);
+                BMP_WINNER_LIGHTS, (m_LightSpriteOffset + Light) % LIGHTS_COLORS_COUNT, WINNER_SPRITE_LAYER,
+                WINNER_LIGHTS_PRIORITY);
 
             // One more light! This allows to scan the colors.
             Light++;
@@ -577,7 +547,8 @@ void CWinner::Display()
             m_pDisplay->DrawSprite(LIGHTS_SEMICOLUMN_POSITION_X, LIGHTS_SEMICOLUMN_POSITION_Y + Row * LIGHTS_SPACE_Y,
                 nullptr, // Draw entire sprite
                 nullptr, // No need to clip
-                BMP_WINNER_LIGHTS, (m_LightSpriteOffset + Light) % LIGHTS_COLORS_COUNT, WINNER_SPRITE_LAYER, WINNER_LIGHTS_PRIORITY);
+                BMP_WINNER_LIGHTS, (m_LightSpriteOffset + Light) % LIGHTS_COLORS_COUNT, WINNER_SPRITE_LAYER,
+                WINNER_LIGHTS_PRIORITY);
 
             // One more light! This allows to scan the colors.
             Light++;
@@ -620,7 +591,8 @@ void CWinner::Display()
                         currentCoinSprite = m_CoinSpriteOffset % COINS_SPRITE_COUNT;
                     }
                     // Draw the coin
-                    m_pDisplay->DrawSprite(COINS_INITIAL_POSITION_X + Coin * COINS_SPACE_X, COINS_INITIAL_POSITION_Y + Player * COINS_SPACE_Y,
+                    m_pDisplay->DrawSprite(COINS_INITIAL_POSITION_X + Coin * COINS_SPACE_X,
+                        COINS_INITIAL_POSITION_Y + Player * COINS_SPACE_Y,
                         nullptr, // Draw entire sprite
                         nullptr, // No need to clip
                         BMP_WINNER_COIN, currentCoinSprite, WINNER_SPRITE_LAYER, WINNER_COIN_PRIORITY);
@@ -630,7 +602,8 @@ void CWinner::Display()
             else
             {
                 // Draw a cross sprite of the color of the bomber
-                m_pDisplay->DrawSprite(BOMBER_INITIAL_POSITION_X + CROSS_SPACE_X, BOMBER_INITIAL_POSITION_Y + CROSS_SPACE_Y + Player * BOMBER_SPACE_Y,
+                m_pDisplay->DrawSprite(BOMBER_INITIAL_POSITION_X + CROSS_SPACE_X,
+                    BOMBER_INITIAL_POSITION_Y + CROSS_SPACE_Y + Player * BOMBER_SPACE_Y,
                     nullptr, // Draw entire sprite
                     nullptr, // No need to clip
                     BMP_WINNER_CROSS,
@@ -646,7 +619,3 @@ void CWinner::Display()
         // Do nothing
     }
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************

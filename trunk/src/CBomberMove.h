@@ -33,10 +33,6 @@ class CArenaSnapshot;
 
 #include "StdAfx.h"
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 //! Describes a bomber move command
 
 enum EBomberMove
@@ -51,10 +47,6 @@ enum EBomberMove
     BOMBERMOVE_DOWNLEFT, //!< Down and left together
     BOMBERMOVE_DOWNRIGHT //!< Down and right together
 };
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 //! Describes the type of turning of the bomber
 
@@ -71,10 +63,6 @@ enum ETurning
     TURNING_DOWNRIGHT_RIGHT
 };
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 //! Return type of the CanMove method
 
 enum ECanMove
@@ -84,10 +72,6 @@ enum ECanMove
     CANMOVE_AVOID, //!< The bomber can move but has to avoid an obstacle
     CANMOVE_TURN //!< The bomber can move but has to turn around an obstacle
 };
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 //! This class manages the moves of a bomber
 class CBomberMove
@@ -102,13 +86,16 @@ private:
     int m_BlockX; //!< Position X in the arena grid (in blocks).
     int m_BlockY; //!< Position Y in the arena grid (in blocks).
     EBomberMove m_BomberMove; //!< Describes the move that the owner player currently wants the bomber to perform.
-    EBomberMove m_LastRealBomberMove; //!< Describes the last "real" (ie. not BOMBERMOVE_NONE) move the owner player wanted the bomber to perform.
+    EBomberMove
+        m_LastRealBomberMove; //!< Describes the last "real" (ie. not BOMBERMOVE_NONE) move the owner player wanted the bomber to perform.
     ETurning m_Turning; //!< Is the bomber turning around a wall and how
     bool m_CouldMove; //!< Could the bomber move the last time he tried? (used for Inertia sickness)
 
     bool TryMove(float fPixels); //!< Make the bomber move in the current direction (bomber move) and return if he could move.
-    ETurning TurnTest(EBomberMove TestMove); //!< Return what would be the turning state if we tried moving in the specified direction (bomber move).
-    ECanMove CanMove(EBomberMove TestMove); //!< Return the appropriate ECanMove value when trying to go in the current direction (bomber move). This is a virtual test.
+    ETurning TurnTest(EBomberMove
+            TestMove); //!< Return what would be the turning state if we tried moving in the specified direction (bomber move).
+    ECanMove CanMove(EBomberMove
+            TestMove); //!< Return the appropriate ECanMove value when trying to go in the current direction (bomber move). This is a virtual test.
     bool IsObstacle(int X, int Y); //!< Return whether there is a wall or a bomb on the specified block.
 
 public:
@@ -129,10 +116,6 @@ public:
     inline EBomberMove GetMove(); //!< Return the current move order the bomber has to perform
     inline EBomberMove GetLastRealMove(); //!< Return the direction where the bomber was going the last time he really moved.
 };
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 inline void CBomberMove::SetArena(CArena* pArena)
 {
@@ -171,9 +154,5 @@ inline bool CBomberMove::CouldMove() { return m_CouldMove; }
 inline EBomberMove CBomberMove::GetMove() { return m_BomberMove; }
 
 inline EBomberMove CBomberMove::GetLastRealMove() { return m_LastRealBomberMove; }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 #endif

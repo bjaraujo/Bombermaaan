@@ -93,8 +93,12 @@
 #define ARENA_HEIGHT 13 //!< Arena height in blocks
 #define BLOCK_SIZE 32 //!< Block size in pixels
 #define BLOCK_POSITION_SHIFT 8 //!< Shift number when translating position<->block : i.e. position >> 4
-#define VIEW_WIDTH (ARENA_WIDTH * BLOCK_SIZE) // Size of the game view from left to right in pixels (size of client area in windowed mode)
-#define VIEW_HEIGHT (26 + ARENA_HEIGHT * BLOCK_SIZE) // Size of the game view from top to bottom in pixels (size of client area in windowed mode)
+#define VIEW_WIDTH                                                                                                           \
+    (ARENA_WIDTH * BLOCK_SIZE) // Size of the game view from left to right in pixels (size of client area in windowed mode)
+#define VIEW_HEIGHT                                                                                                          \
+    (26                                                                                                                      \
+        + ARENA_HEIGHT                                                                                                       \
+            * BLOCK_SIZE) // Size of the game view from top to bottom in pixels (size of client area in windowed mode)
 
 #define MAX_ITER 50
 

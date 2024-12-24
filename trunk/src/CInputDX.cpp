@@ -402,7 +402,8 @@ bool CInputDX::UpdateDevice(LPDIRECTINPUTDEVICE8 pDevice, void* pState, int Stat
             ASSERT(hRetAcquire == DI_OK || hRetAcquire == S_FALSE || hRetAcquire == DIERR_OTHERAPPHASPRIO);
 
             // Save the current opened state (added dummy && operator which reflects the assertion (to remove g++ warning)
-            Opened = ((hRet == DI_OK || hRet == S_FALSE) && (hRetAcquire == DI_OK || hRetAcquire == S_FALSE || hRetAcquire == DIERR_OTHERAPPHASPRIO));
+            Opened = ((hRet == DI_OK || hRet == S_FALSE)
+                && (hRetAcquire == DI_OK || hRetAcquire == S_FALSE || hRetAcquire == DIERR_OTHERAPPHASPRIO));
 
             // Get out, we cannot do better than trying to reacquire the device
             break;
@@ -436,7 +437,8 @@ void CInputDX::UpdateJoystick(int Joystick)
     ASSERT(m_pJoysticks[Joystick]->Opened);
 
     // Update the device and get the latest real opened state
-    m_pJoysticks[Joystick]->Opened = UpdateDevice(m_pJoysticks[Joystick]->pDevice, &m_pJoysticks[Joystick]->State, sizeof(m_pJoysticks[Joystick]->State));
+    m_pJoysticks[Joystick]->Opened = UpdateDevice(
+        m_pJoysticks[Joystick]->pDevice, &m_pJoysticks[Joystick]->State, sizeof(m_pJoysticks[Joystick]->State));
 }
 
 //******************************************************************************************************************************

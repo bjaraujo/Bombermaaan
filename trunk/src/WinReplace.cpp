@@ -384,7 +384,8 @@ bool NtQueryPerformanceCounter(PLARGE_INTEGER Counter, PLARGE_INTEGER Frequency)
      * to one of 1.193182 MHz, with some care for arithmetic
      * overflow ( will not overflow for 5000 years ) and
      * good accuracy ( 105/88 = 1.19318182) */
-    Counter->QuadPart = (((now.tv_sec - server_start_time.sec) * (ULONGLONG)1000000 + (now.tv_usec - server_start_time.usec)) * 105) / 88;
+    Counter->QuadPart
+        = (((now.tv_sec - server_start_time.sec) * (ULONGLONG)1000000 + (now.tv_usec - server_start_time.usec)) * 105) / 88;
     if (Frequency)
         Frequency->QuadPart = 1193182;
     return true;

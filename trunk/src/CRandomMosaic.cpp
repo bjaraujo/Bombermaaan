@@ -31,10 +31,6 @@
 #include "CMosaic.h"
 #include "StdAfx.h"
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 SMosaicTileProperties CRandomMosaic::m_MosaicTileProperties[4][2] = {
     // PURPLE
     {
@@ -62,11 +58,8 @@ SMosaicTileProperties CRandomMosaic::m_MosaicTileProperties[4][2] = {
 
 };
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-CMosaic* CRandomMosaic::CreateRandomMosaic(CDisplay* pDisplay, int SpriteLayer, int PriorityInLayer, float SpeedX, float SpeedY, EMosaicColor Color, bool IsSolid)
+CMosaic* CRandomMosaic::CreateRandomMosaic(
+    CDisplay* pDisplay, int SpriteLayer, int PriorityInLayer, float SpeedX, float SpeedY, EMosaicColor Color, bool IsSolid)
 {
 
     SMosaicTileProperties* pMosaicTileProperties;
@@ -79,11 +72,9 @@ CMosaic* CRandomMosaic::CreateRandomMosaic(CDisplay* pDisplay, int SpriteLayer, 
     CMosaic* pNewMosaic = new CMosaic;
 
     pNewMosaic->SetDisplay(pDisplay);
-    pNewMosaic->Create(pMosaicTileProperties->SpriteTable, pMosaicTileProperties->Sprite, SpriteLayer, PriorityInLayer, pMosaicTileProperties->Width, pMosaicTileProperties->Height, pMosaicTileProperties->CountX, pMosaicTileProperties->CountY, SpeedX, SpeedY);
+    pNewMosaic->Create(pMosaicTileProperties->SpriteTable, pMosaicTileProperties->Sprite, SpriteLayer, PriorityInLayer,
+        pMosaicTileProperties->Width, pMosaicTileProperties->Height, pMosaicTileProperties->CountX,
+        pMosaicTileProperties->CountY, SpeedX, SpeedY);
 
     return pNewMosaic;
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************

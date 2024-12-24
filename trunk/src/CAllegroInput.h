@@ -529,7 +529,8 @@ inline bool CAllegroInput::TestPrevious(int Joystick)
     if (Joystick >= 0 && Joystick < (int)m_pJoysticks.size())
     {
 
-        if ((m_pJoysticks[Joystick]->State.rgbButtons[JOYSTICK_BUTTON_MENU_PREVIOUS - NUMBER_OF_JOYSTICK_DIRECTIONS] & 0x80) != 0)
+        if ((m_pJoysticks[Joystick]->State.rgbButtons[JOYSTICK_BUTTON_MENU_PREVIOUS - NUMBER_OF_JOYSTICK_DIRECTIONS] & 0x80)
+            != 0)
             return true;
     }
 

@@ -36,10 +36,6 @@
 #include "CExplosion.h"
 #include "StdAfx.h"
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 // Item sprite layer
 #define ITEM_SPRITELAYER 10
 
@@ -127,10 +123,6 @@
 
 #define MINIMUM_FLY_TIME ((3.0f * BLOCK_SIZE) / FLYING_SPEED)
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 CItem::CItem()
     : CElement()
 {
@@ -156,15 +148,7 @@ CItem::CItem()
     m_FlyTime = 0.0f;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-CItem::~CItem() {}
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
+CItem::~CItem() { }
 
 /**
  * @param BlockX the x coordinate in the arena where the item should be created
@@ -210,15 +194,7 @@ void CItem::Create(int BlockX, int BlockY, EItemType Type, bool Fumes, bool Flyi
     }
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 void CItem::Destroy() { CElement::Destroy(); }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 void CItem::SetSprites()
 {
@@ -272,10 +248,6 @@ void CItem::SetSprites()
     m_Sprite = m_Sprite0;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 // Called when contact with flames
 
 void CItem::Burn(EBurnDirection BurnDirection)
@@ -317,18 +289,10 @@ void CItem::Burn(EBurnDirection BurnDirection)
     }
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 // Crush the item (immediate death)
 // Called by rolling bombs and falling walls
 
 void CItem::Crush() { m_Dead = true; }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 bool CItem::Update(float DeltaTime)
 {
@@ -338,7 +302,8 @@ bool CItem::Update(float DeltaTime)
         // Don't update the item at all if it cannot be seen, ie. it is under
         // a soft wall that is not burning or it is under a wall that is not falling.
         // If it can be seen : no wall or burning wall or falling wall
-        if (!m_pArena->IsWall(m_BlockX, m_BlockY) || m_pArena->IsBurningWall(m_BlockX, m_BlockY) || m_pArena->IsFallingWall(m_BlockX, m_BlockY))
+        if (!m_pArena->IsWall(m_BlockX, m_BlockY) || m_pArena->IsBurningWall(m_BlockX, m_BlockY)
+            || m_pArena->IsFallingWall(m_BlockX, m_BlockY))
         {
             // If item is not burning
             if (!m_Burning)
@@ -351,7 +316,8 @@ bool CItem::Update(float DeltaTime)
                     for (int Index = 0; Index < m_pArena->MaxBombers(); Index++)
                     {
                         // Test existence and position and dead state
-                        if (m_pArena->GetBomber(Index).Exist() && m_pArena->GetBomber(Index).GetBlockX() == m_BlockX && m_pArena->GetBomber(Index).GetBlockY() == m_BlockY && m_pArena->GetBomber(Index).IsAlive())
+                        if (m_pArena->GetBomber(Index).Exist() && m_pArena->GetBomber(Index).GetBlockX() == m_BlockX
+                            && m_pArena->GetBomber(Index).GetBlockY() == m_BlockY && m_pArena->GetBomber(Index).IsAlive())
                         {
                             // Do item effect
                             m_pArena->GetBomber(Index).ItemEffect(m_Type);
@@ -458,7 +424,9 @@ bool CItem::Update(float DeltaTime)
 
             if (LandBlockX >= 0 && LandBlockX < ARENA_WIDTH && LandBlockY >= 0 && LandBlockY < ARENA_HEIGHT)
             {
-                if (!m_pArena->IsWall(LandBlockX, LandBlockY) && !m_pArena->IsItem(LandBlockX, LandBlockY) && !m_pArena->IsBomber(LandBlockX, LandBlockY) && !m_pArena->IsBomb(LandBlockX, LandBlockY) && !m_pArena->IsFlame(LandBlockX, LandBlockY))
+                if (!m_pArena->IsWall(LandBlockX, LandBlockY) && !m_pArena->IsItem(LandBlockX, LandBlockY)
+                    && !m_pArena->IsBomber(LandBlockX, LandBlockY) && !m_pArena->IsBomb(LandBlockX, LandBlockY)
+                    && !m_pArena->IsFlame(LandBlockX, LandBlockY))
                 {
                     m_Flying = ITEMFLYING_NONE;
                     m_FlyTime = 0.0f;
@@ -535,10 +503,6 @@ bool CItem::Update(float DeltaTime)
     return m_Dead;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 void CItem::Display()
 {
     // If the item is not flying
@@ -547,7 +511,8 @@ void CItem::Display()
         // Don't display the item at all if it cannot be seen, ie. it is under
         // a soft wall that is not burning or it is under a wall that is not falling.
         // If it can be seen : no wall or burning wall or falling wall
-        if (!m_pArena->IsWall(m_BlockX, m_BlockY) || m_pArena->IsBurningWall(m_BlockX, m_BlockY) || m_pArena->IsFallingWall(m_BlockX, m_BlockY))
+        if (!m_pArena->IsWall(m_BlockX, m_BlockY) || m_pArena->IsBurningWall(m_BlockX, m_BlockY)
+            || m_pArena->IsFallingWall(m_BlockX, m_BlockY))
         {
             // If item is not burning
             if (!m_Burning)
@@ -563,16 +528,20 @@ void CItem::Display()
                 {
                     int fumesOffset = 16;
                     // Draw the upper left part of the fumes
-                    m_pDisplay->DrawSprite(m_iX - fumesOffset, m_iY - fumesOffset, nullptr, nullptr, BMP_ARENA_FUMES, m_FumeSprite + 3 * 0, 50, m_iY - 4);
+                    m_pDisplay->DrawSprite(m_iX - fumesOffset, m_iY - fumesOffset, nullptr, nullptr, BMP_ARENA_FUMES,
+                        m_FumeSprite + 3 * 0, 50, m_iY - 4);
 
                     // Draw the upper right part of the fumes
-                    m_pDisplay->DrawSprite(m_iX + fumesOffset, m_iY - fumesOffset, nullptr, nullptr, BMP_ARENA_FUMES, m_FumeSprite + 3 * 1, 50, m_iY - 4);
+                    m_pDisplay->DrawSprite(m_iX + fumesOffset, m_iY - fumesOffset, nullptr, nullptr, BMP_ARENA_FUMES,
+                        m_FumeSprite + 3 * 1, 50, m_iY - 4);
 
                     // Draw the lower right part of the fumes
-                    m_pDisplay->DrawSprite(m_iX + fumesOffset, m_iY + fumesOffset, nullptr, nullptr, BMP_ARENA_FUMES, m_FumeSprite + 3 * 2, 50, m_iY + 4);
+                    m_pDisplay->DrawSprite(m_iX + fumesOffset, m_iY + fumesOffset, nullptr, nullptr, BMP_ARENA_FUMES,
+                        m_FumeSprite + 3 * 2, 50, m_iY + 4);
 
                     // Draw the lower left part of the fumes
-                    m_pDisplay->DrawSprite(m_iX - fumesOffset, m_iY + fumesOffset, nullptr, nullptr, BMP_ARENA_FUMES, m_FumeSprite + 3 * 3, 50, m_iY + 4);
+                    m_pDisplay->DrawSprite(m_iX - fumesOffset, m_iY + fumesOffset, nullptr, nullptr, BMP_ARENA_FUMES,
+                        m_FumeSprite + 3 * 3, 50, m_iY + 4);
                 }
             }
             // If item is burning
@@ -612,10 +581,6 @@ void CItem::Display()
     }
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 void CItem::OnWriteSnapshot(CArenaSnapshot& Snapshot)
 {
     Snapshot.WriteFloat(m_fX);
@@ -637,8 +602,6 @@ void CItem::OnWriteSnapshot(CArenaSnapshot& Snapshot)
     Snapshot.WriteFloat(m_FlyTime);
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 //****************************************************************************************************************************
 
 void CItem::OnReadSnapshot(CArenaSnapshot& Snapshot)
@@ -662,10 +625,6 @@ void CItem::OnReadSnapshot(CArenaSnapshot& Snapshot)
     Snapshot.ReadFloat(&m_FlyTime);
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 /**
  * Creates a bunch of items in the arena, according to the place where items should be (on the floor, under
  * walls...), and how many items of each type to create. This is used by the arena when building a new arena,
@@ -675,7 +634,9 @@ void CItem::OnReadSnapshot(CArenaSnapshot& Snapshot)
  * @see CArena::Create()
  */
 
-bool CItem::CreateItems(CArena* pArena, EItemPlace ItemPlace, int NumberOfItemBombs, int NumberOfItemFlames, int NumberOfItemRollers, int NumberOfItemKicks, int NumberOfItemSkulls, int NumberOfItemThrow, int NumberOfItemPunch, int NumberOfItemRemote, int NumberOfItemShield, int NumberOfItemStrongWeak)
+bool CItem::CreateItems(CArena* pArena, EItemPlace ItemPlace, int NumberOfItemBombs, int NumberOfItemFlames,
+    int NumberOfItemRollers, int NumberOfItemKicks, int NumberOfItemSkulls, int NumberOfItemThrow, int NumberOfItemPunch,
+    int NumberOfItemRemote, int NumberOfItemShield, int NumberOfItemStrongWeak)
 {
     int X, Y;
     int Index;
@@ -711,7 +672,8 @@ bool CItem::CreateItems(CArena* pArena, EItemPlace ItemPlace, int NumberOfItemBo
         {
             for (Y = 0; Y < ARENA_HEIGHT; Y++)
             {
-                PossibleGrid[X][Y] = !pArena->IsWall(X, Y) && !pArena->IsItem(X, Y) && !pArena->IsAliveBomber(X, Y) && !pArena->IsBomb(X, Y) && !pArena->IsFlame(X, Y);
+                PossibleGrid[X][Y] = !pArena->IsWall(X, Y) && !pArena->IsItem(X, Y) && !pArena->IsAliveBomber(X, Y)
+                    && !pArena->IsBomb(X, Y) && !pArena->IsFlame(X, Y);
             }
         }
 
@@ -753,7 +715,9 @@ bool CItem::CreateItems(CArena* pArena, EItemPlace ItemPlace, int NumberOfItemBo
     if (CountPossible > 0)
     {
         // Reduce number of items to create until it's possible to create them all
-        while (NumberOfItemBombs + NumberOfItemFlames + NumberOfItemRollers + NumberOfItemKicks + NumberOfItemSkulls + NumberOfItemThrow + NumberOfItemPunch + NumberOfItemRemote + NumberOfItemShield + NumberOfItemStrongWeak > CountPossible)
+        while (NumberOfItemBombs + NumberOfItemFlames + NumberOfItemRollers + NumberOfItemKicks + NumberOfItemSkulls
+                + NumberOfItemThrow + NumberOfItemPunch + NumberOfItemRemote + NumberOfItemShield + NumberOfItemStrongWeak
+            > CountPossible)
         {
             // Choose a type of item and reduce the number
             switch (RANDOM(NUMBER_OF_ITEMS))
@@ -802,7 +766,9 @@ bool CItem::CreateItems(CArena* pArena, EItemPlace ItemPlace, int NumberOfItemBo
         }
 
         // While there are still items to create
-        while (NumberOfItemBombs > 0 || NumberOfItemFlames > 0 || NumberOfItemRollers > 0 || NumberOfItemKicks > 0 || NumberOfItemSkulls > 0 || NumberOfItemThrow > 0 || NumberOfItemPunch > 0 || NumberOfItemRemote > 0 || NumberOfItemShield > 0 || NumberOfItemStrongWeak > 0)
+        while (NumberOfItemBombs > 0 || NumberOfItemFlames > 0 || NumberOfItemRollers > 0 || NumberOfItemKicks > 0
+            || NumberOfItemSkulls > 0 || NumberOfItemThrow > 0 || NumberOfItemPunch > 0 || NumberOfItemRemote > 0
+            || NumberOfItemShield > 0 || NumberOfItemStrongWeak > 0)
         {
             // Choose a type of item to create
             EItemType Type = ITEM_NONE;
@@ -881,7 +847,3 @@ bool CItem::CreateItems(CArena* pArena, EItemPlace ItemPlace, int NumberOfItemBo
 
     return Created;
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************

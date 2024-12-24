@@ -27,16 +27,12 @@
 #ifndef __CEXPLOSION_H__
 #define __CEXPLOSION_H__
 
-#include <vector>
 #include "CElement.h"
+#include <vector>
 
 class CArena;
 class CDisplay;
 class CArenaSnapshot;
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 //! Describe a flame created by an explosion.
 /*!
@@ -50,10 +46,6 @@ struct SFlame
     int BlockY; //!< Block position Y of the flame
     int FlameType; //!< Flame type used to know what sprite to draw
 };
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 //! Describe in which direction a flame hits something
 /*!
@@ -70,10 +62,6 @@ enum EBurnDirection
     BURNDIRECTION_LEFT, //!< The element is hit from the right (so go left)
     BURNDIRECTION_RIGHT //!< The element is hit from the left (so go right)
 };
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 //! Mode of the explosion : original style or new style
 /*!
@@ -93,10 +81,6 @@ style, the result does not depend on the explosion duration.
 */
 
 #define EXPLOSIONS_ORIGINALSTYLE
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 //! An element in the arena which represents an explosion.
 
@@ -126,7 +110,8 @@ private:
 
 #endif // EXPLOSIONS_ORIGINALSTYLE
 
-    void Burn(int BlockX, int BlockY, EBurnDirection BurnDirection); //!< Globally burn the specified block (walls, unprotected items, ...)
+    void Burn(int BlockX, int BlockY,
+        EBurnDirection BurnDirection); //!< Globally burn the specified block (walls, unprotected items, ...)
     void PutFlame(int BlockX, int BlockY, int FlameType); //!< Record a flame whose description is specified
 
 public:
@@ -143,18 +128,10 @@ public:
     inline const std::vector<SFlame>& GetFlames(); //!< Return the (read-only) flames of the explosions
 };
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 inline int CExplosion::GetBlockX() { return m_BlockX; }
 
 inline int CExplosion::GetBlockY() { return m_BlockY; }
 
 inline const std::vector<SFlame>& CExplosion::GetFlames() { return m_Flames; }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 #endif // __CEXPLOSION_H__

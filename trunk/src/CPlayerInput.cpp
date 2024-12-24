@@ -33,10 +33,6 @@
 #include "COptions.h"
 #include "StdAfx.h"
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 CPlayerInput::CPlayerInput()
 {
     m_PlayerInput = -1;
@@ -46,18 +42,7 @@ CPlayerInput::CPlayerInput()
     m_ControlName[0] = '\0';
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-CPlayerInput::~CPlayerInput()
-{
-    // Nothing to do
-}
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
+CPlayerInput::~CPlayerInput() = default;
 
 void CPlayerInput::Create(int PlayerInput)
 {
@@ -69,10 +54,6 @@ void CPlayerInput::Create(int PlayerInput)
 
     CreateName();
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 void CPlayerInput::CreateName()
 {
@@ -90,15 +71,7 @@ void CPlayerInput::CreateName()
     }
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-void CPlayerInput::Destroy() {}
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
+void CPlayerInput::Destroy() { }
 
 void CPlayerInput::Open()
 {
@@ -116,10 +89,6 @@ void CPlayerInput::Open()
     }
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 bool CPlayerInput::IsOpened()
 {
     // If the player input is one of the keyboard configurations
@@ -135,10 +104,6 @@ bool CPlayerInput::IsOpened()
         return m_pDirectInput->IsJoystickOpened(m_PlayerInput - NUMBER_OF_KEYBOARD_CONFIGURATIONS);
     }
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 void CPlayerInput::Close()
 {
@@ -156,10 +121,6 @@ void CPlayerInput::Close()
     }
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 void CPlayerInput::Update()
 {
     // If the player input is one of the keyboard configurations
@@ -175,10 +136,6 @@ void CPlayerInput::Update()
         m_pDirectInput->UpdateJoystick(m_PlayerInput - NUMBER_OF_KEYBOARD_CONFIGURATIONS);
     }
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 int CPlayerInput::GetActivatedControl()
 {
@@ -230,10 +187,6 @@ int CPlayerInput::GetActivatedControl()
     return NO_ACTIVATED_CONTROL;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 const char* CPlayerInput::GetControlName(int Control)
 {
     // If the player input is one of the keyboard configurations
@@ -271,10 +224,6 @@ const char* CPlayerInput::GetControlName(int Control)
     return m_ControlName;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 bool CPlayerInput::TestControl(int Control)
 {
     // If the player input is one of the keyboard configurations
@@ -293,28 +242,29 @@ bool CPlayerInput::TestControl(int Control)
             {
             // Changed checks from 0 to 100/-100 so the gamepad is not too sensitive
             case JOYSTICK_UP:
-                return (m_pDirectInput->GetJoystickAxisY(m_PlayerInput - NUMBER_OF_KEYBOARD_CONFIGURATIONS) < -JOYSTICK_AXIS_THRESHOLD);
+                return (m_pDirectInput->GetJoystickAxisY(m_PlayerInput - NUMBER_OF_KEYBOARD_CONFIGURATIONS)
+                    < -JOYSTICK_AXIS_THRESHOLD);
             case JOYSTICK_DOWN:
-                return (m_pDirectInput->GetJoystickAxisY(m_PlayerInput - NUMBER_OF_KEYBOARD_CONFIGURATIONS) > +JOYSTICK_AXIS_THRESHOLD);
+                return (m_pDirectInput->GetJoystickAxisY(m_PlayerInput - NUMBER_OF_KEYBOARD_CONFIGURATIONS)
+                    > +JOYSTICK_AXIS_THRESHOLD);
             case JOYSTICK_LEFT:
-                return (m_pDirectInput->GetJoystickAxisX(m_PlayerInput - NUMBER_OF_KEYBOARD_CONFIGURATIONS) < -JOYSTICK_AXIS_THRESHOLD);
+                return (m_pDirectInput->GetJoystickAxisX(m_PlayerInput - NUMBER_OF_KEYBOARD_CONFIGURATIONS)
+                    < -JOYSTICK_AXIS_THRESHOLD);
             case JOYSTICK_RIGHT:
-                return (m_pDirectInput->GetJoystickAxisX(m_PlayerInput - NUMBER_OF_KEYBOARD_CONFIGURATIONS) > +JOYSTICK_AXIS_THRESHOLD);
+                return (m_pDirectInput->GetJoystickAxisX(m_PlayerInput - NUMBER_OF_KEYBOARD_CONFIGURATIONS)
+                    > +JOYSTICK_AXIS_THRESHOLD);
             }
         }
         else
         {
-            return m_pDirectInput->GetJoystickButton(m_PlayerInput - NUMBER_OF_KEYBOARD_CONFIGURATIONS, OptControl - NUMBER_OF_JOYSTICK_DIRECTIONS);
+            return m_pDirectInput->GetJoystickButton(
+                m_PlayerInput - NUMBER_OF_KEYBOARD_CONFIGURATIONS, OptControl - NUMBER_OF_JOYSTICK_DIRECTIONS);
         }
     }
 
     ASSERT(false);
     return false;
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 /**
  *  \brief Check for a joystick button controlling the menu
@@ -333,9 +283,6 @@ bool CPlayerInput::TestMenuControl(int MenuControl)
     }
 
     // If the player input is a joystick
-    return m_pDirectInput->GetJoystickButton(m_PlayerInput - NUMBER_OF_KEYBOARD_CONFIGURATIONS, MenuControl - NUMBER_OF_JOYSTICK_DIRECTIONS);
+    return m_pDirectInput->GetJoystickButton(
+        m_PlayerInput - NUMBER_OF_KEYBOARD_CONFIGURATIONS, MenuControl - NUMBER_OF_JOYSTICK_DIRECTIONS);
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************

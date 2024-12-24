@@ -37,10 +37,6 @@
 #include "CRandomMosaic.h"
 #include "StdAfx.h"
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 #define CONTROLS_BLACKSCREEN_DURATION 0.750f //!< Duration (in seconds) of the two black screens
 
 #define CONTROLS_DISPLAY_ORIGIN_X 0 //!< Display origin of the screen
@@ -98,10 +94,6 @@
 #define MOSAIC_SPEED_X 50.0f //!< Speed of the mosaic background horizontally
 #define MOSAIC_SPEED_Y -50.0f //!< Speed of the mosaic background vertically
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 CControls::CControls()
     : CModeScreen()
 {
@@ -117,18 +109,7 @@ CControls::CControls()
     m_pMosaic = nullptr;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-CControls::~CControls()
-{
-    // Nothing to do!
-}
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
+CControls::~CControls() = default;
 
 // Before using a CControls, you must create it.
 
@@ -161,12 +142,9 @@ void CControls::Create()
     m_Cursor = FIRST_MENU_ITEM;
 
     // Make a random purple mosaic object
-    m_pMosaic = CRandomMosaic::CreateRandomMosaic(m_pDisplay, MOSAIC_SPRITE_LAYER, MOSAIC_SPRITE_PRIORITY_IN_LAYER, MOSAIC_SPEED_X, MOSAIC_SPEED_Y, MOSAICCOLOR_PURPLE, false);
+    m_pMosaic = CRandomMosaic::CreateRandomMosaic(m_pDisplay, MOSAIC_SPRITE_LAYER, MOSAIC_SPRITE_PRIORITY_IN_LAYER,
+        MOSAIC_SPEED_X, MOSAIC_SPEED_Y, MOSAICCOLOR_PURPLE, false);
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 // When a CControls is not needed anymore, you should destroy it
 
@@ -182,29 +160,17 @@ void CControls::Destroy()
     delete m_pMosaic;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 void CControls::OpenInput()
 {
     // Open the current selected player input
     m_pInput->GetPlayerInput(m_PlayerInput).Open();
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 void CControls::CloseInput()
 {
     // Close the current selected player input
     m_pInput->GetPlayerInput(m_PlayerInput).Close();
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 // This updates the controls screen.
 // There are 3 parts in this screen :
@@ -415,10 +381,6 @@ EGameMode CControls::Update()
     return GAMEMODE_CONTROLS;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 void CControls::Display()
 {
     // If we have to make the first black screen
@@ -435,7 +397,8 @@ void CControls::Display()
         m_pMosaic->Display();
 
         // Draw the menu frame sprite
-        m_pDisplay->DrawSprite(FRAME_POSITION_X, FRAME_POSITION_Y, nullptr, nullptr, BMP_MENU_FRAME_1, FRAME_SPRITE, FRAME_SPRITELAYER, FRAME_PRIORITY);
+        m_pDisplay->DrawSprite(FRAME_POSITION_X, FRAME_POSITION_Y, nullptr, nullptr, BMP_MENU_FRAME_1, FRAME_SPRITE,
+            FRAME_SPRITELAYER, FRAME_PRIORITY);
 
         // Draw the title of the screen
         m_Font.SetTextColor(FONTCOLOR_WHITE);
@@ -468,7 +431,9 @@ void CControls::Display()
                 strcpy(ItemString, UP_MENU_ITEM_STRING);
 
                 // Value : name of the control on the selected player input
-                strcpy(ValueString, m_pInput->GetPlayerInput(m_PlayerInput).GetControlName(m_pOptions->GetControl(m_PlayerInput, CONTROL_UP)));
+                strcpy(ValueString,
+                    m_pInput->GetPlayerInput(m_PlayerInput)
+                        .GetControlName(m_pOptions->GetControl(m_PlayerInput, CONTROL_UP)));
                 break;
             }
 
@@ -477,7 +442,9 @@ void CControls::Display()
                 strcpy(ItemString, DOWN_MENU_ITEM_STRING);
 
                 // Value : name of the control on the selected player input
-                strcpy(ValueString, m_pInput->GetPlayerInput(m_PlayerInput).GetControlName(m_pOptions->GetControl(m_PlayerInput, CONTROL_DOWN)));
+                strcpy(ValueString,
+                    m_pInput->GetPlayerInput(m_PlayerInput)
+                        .GetControlName(m_pOptions->GetControl(m_PlayerInput, CONTROL_DOWN)));
                 break;
             }
 
@@ -486,7 +453,9 @@ void CControls::Display()
                 strcpy(ItemString, LEFT_MENU_ITEM_STRING);
 
                 // Value : name of the control on the selected player input
-                strcpy(ValueString, m_pInput->GetPlayerInput(m_PlayerInput).GetControlName(m_pOptions->GetControl(m_PlayerInput, CONTROL_LEFT)));
+                strcpy(ValueString,
+                    m_pInput->GetPlayerInput(m_PlayerInput)
+                        .GetControlName(m_pOptions->GetControl(m_PlayerInput, CONTROL_LEFT)));
                 break;
             }
 
@@ -495,7 +464,9 @@ void CControls::Display()
                 strcpy(ItemString, RIGHT_MENU_ITEM_STRING);
 
                 // Value : name of the control on the selected player input
-                strcpy(ValueString, m_pInput->GetPlayerInput(m_PlayerInput).GetControlName(m_pOptions->GetControl(m_PlayerInput, CONTROL_RIGHT)));
+                strcpy(ValueString,
+                    m_pInput->GetPlayerInput(m_PlayerInput)
+                        .GetControlName(m_pOptions->GetControl(m_PlayerInput, CONTROL_RIGHT)));
                 break;
             }
 
@@ -504,7 +475,9 @@ void CControls::Display()
                 strcpy(ItemString, ACTION1_MENU_ITEM_STRING);
 
                 // Value : name of the control on the selected player input
-                strcpy(ValueString, m_pInput->GetPlayerInput(m_PlayerInput).GetControlName(m_pOptions->GetControl(m_PlayerInput, CONTROL_ACTION1)));
+                strcpy(ValueString,
+                    m_pInput->GetPlayerInput(m_PlayerInput)
+                        .GetControlName(m_pOptions->GetControl(m_PlayerInput, CONTROL_ACTION1)));
                 break;
             }
 
@@ -513,7 +486,9 @@ void CControls::Display()
                 strcpy(ItemString, ACTION2_MENU_ITEM_STRING);
 
                 // Value : name of the control on the selected player input
-                strcpy(ValueString, m_pInput->GetPlayerInput(m_PlayerInput).GetControlName(m_pOptions->GetControl(m_PlayerInput, CONTROL_ACTION2)));
+                strcpy(ValueString,
+                    m_pInput->GetPlayerInput(m_PlayerInput)
+                        .GetControlName(m_pOptions->GetControl(m_PlayerInput, CONTROL_ACTION2)));
                 break;
             }
             }
@@ -536,7 +511,9 @@ void CControls::Display()
             if (m_Cursor == MenuItemIndex)
             {
                 // Display the cursor hand
-                m_pDisplay->DrawSprite(ALL_MENU_ITEMS_POSITION_X + SPACE_X_FROM_MENU_ITEM_TO_CURSOR_HAND, MenuItemPositionY + SPACE_Y_FROM_MENU_ITEM_TO_CURSOR_HAND, nullptr, nullptr, BMP_MENU_HAND, SPRITE_CURSOR_HAND, CONTROLS_CURSOR_HAND_SPRITE_LAYER, PRIORITY_UNUSED);
+                m_pDisplay->DrawSprite(ALL_MENU_ITEMS_POSITION_X + SPACE_X_FROM_MENU_ITEM_TO_CURSOR_HAND,
+                    MenuItemPositionY + SPACE_Y_FROM_MENU_ITEM_TO_CURSOR_HAND, nullptr, nullptr, BMP_MENU_HAND,
+                    SPRITE_CURSOR_HAND, CONTROLS_CURSOR_HAND_SPRITE_LAYER, PRIORITY_UNUSED);
             }
 
             // Go down : next menu item to display
@@ -548,7 +525,3 @@ void CControls::Display()
     {
     }
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************

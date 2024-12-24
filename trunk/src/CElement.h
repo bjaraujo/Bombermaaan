@@ -32,10 +32,6 @@ class CSound;
 class CArena;
 class CArenaSnapshot;
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 //! The base class for every element of the arena.
 class CElement
 {
@@ -58,16 +54,13 @@ public:
     virtual inline void SetArena(CArena* pArena); //!< Set link to the parent arena in which this element is
     virtual inline void SetDisplay(CDisplay* pDisplay); //!< Set link to the display object to use
     virtual inline void SetSound(CSound* pSound); //!< Set link to the sound object to use
-    virtual bool Update(float DeltaTime) = 0; //!< Update the element. Return whether the element should be deleted by the arena.
+    virtual bool Update(float DeltaTime)
+        = 0; //!< Update the element. Return whether the element should be deleted by the arena.
     virtual void Display() = 0; //!< Display the element.
     void WriteSnapshot(CArenaSnapshot& Snapshot);
     void ReadSnapshot(CArenaSnapshot& Snapshot);
     inline bool Exist(); //!< Return whether the element exists (i.e. should be updated and displayed)
 };
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 inline void CElement::SetArena(CArena* pArena) { m_pArena = pArena; }
 
@@ -76,9 +69,5 @@ inline void CElement::SetDisplay(CDisplay* pDisplay) { m_pDisplay = pDisplay; }
 inline void CElement::SetSound(CSound* pSound) { m_pSound = pSound; }
 
 inline bool CElement::Exist() { return m_Exist; }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 #endif //!< __CELEMENT_H__

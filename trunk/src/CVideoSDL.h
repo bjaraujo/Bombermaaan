@@ -31,10 +31,6 @@
 #include "SDL.h"
 #include "StdAfx.h"
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 struct SSprite
 {
     int SurfaceNumber; //!< Number of the surface in CDisplay that will be the source
@@ -44,20 +40,12 @@ struct SSprite
     int ZoneY2;
 };
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 struct SDisplayMode
 {
     int Width;
     int Height;
     int Depth;
 };
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 // Drawing requests are stored in a CSpriteManager
 // instance. They describe a sprite to draw, and
@@ -83,13 +71,15 @@ struct SDrawingRequest
     // The top layer on the screen is the greatest layer number
     // The top priority is the greatest priority value
 
-    bool operator<(const SDrawingRequest& DR) const { return SpriteLayer > DR.SpriteLayer || (SpriteLayer == DR.SpriteLayer && PriorityInLayer > DR.PriorityInLayer); }
-    bool operator==(const SDrawingRequest& DR) const { return SpriteLayer == DR.SpriteLayer && PriorityInLayer == DR.PriorityInLayer; }
+    bool operator<(const SDrawingRequest& DR) const
+    {
+        return SpriteLayer > DR.SpriteLayer || (SpriteLayer == DR.SpriteLayer && PriorityInLayer > DR.PriorityInLayer);
+    }
+    bool operator==(const SDrawingRequest& DR) const
+    {
+        return SpriteLayer == DR.SpriteLayer && PriorityInLayer == DR.PriorityInLayer;
+    }
 };
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 // Drawing request for debug purposes
 
@@ -116,23 +106,21 @@ struct SDebugDrawingRequest
     // The top layer on the screen is the greatest layer number
     // The top priority is the greatest priority value
 
-    bool operator<(const SDebugDrawingRequest& DR) const { return SpriteLayer > DR.SpriteLayer || (SpriteLayer == DR.SpriteLayer && PriorityInLayer > DR.PriorityInLayer); }
-    bool operator==(const SDebugDrawingRequest& DR) const { return SpriteLayer == DR.SpriteLayer && PriorityInLayer == DR.PriorityInLayer; }
+    bool operator<(const SDebugDrawingRequest& DR) const
+    {
+        return SpriteLayer > DR.SpriteLayer || (SpriteLayer == DR.SpriteLayer && PriorityInLayer > DR.PriorityInLayer);
+    }
+    bool operator==(const SDebugDrawingRequest& DR) const
+    {
+        return SpriteLayer == DR.SpriteLayer && PriorityInLayer == DR.PriorityInLayer;
+    }
 };
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 struct SSurface
 {
     struct SDL_Surface* pSurface; //!< SDL surface
     DWORD BlitParameters; //!< Parameter when blitting, depends on if the surface is transparent
 };
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 class CVideoSDL
 {
@@ -170,8 +158,10 @@ public:
     bool Create(int Width, int Height, int Depth, bool FullScreen);
     void Destroy();
     bool SetTransparentColor(int Red, int Green, int Blue);
-    bool LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, int BMP_ID, HBITMAP hBitmap);
-    bool LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, int BMP_ID, const char* file);
+    bool LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent,
+        int BMP_ID, HBITMAP hBitmap);
+    bool LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent,
+        int BMP_ID, const char* file);
 
     void FreeSprites();
     void OnWindowMove();
@@ -181,21 +171,21 @@ public:
     void UpdateScreen();
     void SetOrigin(int OriginX, int OriginY);
     void SetNewPrimary(SDL_Surface* pSurface);
-    void DrawSprite(int PositionX, int PositionY, RECT* pZone, RECT* pClip, int SpriteTable, int Sprite, int SpriteLayer, int PriorityInLayer);
-    void DrawDebugRectangle(int PositionX, int PositionY, int w, int h, Uint8 r, Uint8 g, Uint8 b, int SpriteLayer, int PriorityInLayer);
+    void DrawSprite(int PositionX, int PositionY, RECT* pZone, RECT* pClip, int SpriteTable, int Sprite, int SpriteLayer,
+        int PriorityInLayer);
+    void DrawDebugRectangle(
+        int PositionX, int PositionY, int w, int h, Uint8 r, Uint8 g, Uint8 b, int SpriteLayer, int PriorityInLayer);
     void RemoveAllDebugRectangles();
     bool IsModeSet(int Width, int Height, int Depth, bool FullScreen) const;
     bool IsModeAvailable(int Width, int Height, int Depth);
 };
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 inline void CVideoSDL::SetWindowHandle(HWND hWnd) { m_hWnd = hWnd; }
 
-inline bool CVideoSDL::IsModeSet(int Width, int Height, int Depth, bool FullScreen) const 
-{ return m_Width == Width && m_Height == Height && m_Depth == Depth && m_FullScreen == FullScreen; }
+inline bool CVideoSDL::IsModeSet(int Width, int Height, int Depth, bool FullScreen) const
+{
+    return m_Width == Width && m_Height == Height && m_Depth == Depth && m_FullScreen == FullScreen;
+}
 
 inline void CVideoSDL::OnPaint() { UpdateScreen(); }
 
@@ -206,9 +196,5 @@ inline void CVideoSDL::SetOrigin(int OriginX, int OriginY)
 }
 
 inline void CVideoSDL::SetNewPrimary(SDL_Surface* pSurface) { m_pPrimary = pSurface; }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 #endif

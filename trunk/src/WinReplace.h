@@ -86,11 +86,11 @@
 // some types
 #ifndef HANDLE
 typedef FILE TMP_HANDLE, *HANDLE;
-#define DECLARE_HANDLE(n)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             \
-    typedef struct n##__                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              \
-    {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 \
-        int i;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        \
-    } * n
+#define DECLARE_HANDLE(n)                                                                                                    \
+    typedef struct n##__                                                                                                     \
+    {                                                                                                                        \
+        int i;                                                                                                               \
+    }* n
 
 DECLARE_HANDLE(HWND);
 DECLARE_HANDLE(HINSTANCE);
@@ -181,7 +181,8 @@ typedef struct sockaddr SOCKADDR;
 typedef struct sockaddr* LPSOCKADDR;
 
 #ifndef _LARGE_INTEGER
-typedef union _LARGE_INTEGER {
+typedef union _LARGE_INTEGER
+{
 #if !defined(NONAMELESSUNION) || defined(__cplusplus)
     struct
     { //_ANONYMOUS_STRUCT

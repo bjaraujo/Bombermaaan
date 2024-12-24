@@ -81,8 +81,14 @@ struct SDrawingRequest
     // The top layer on the screen is the greatest layer number
     // The top priority is the greatest priority value
 
-    bool operator<(const SDrawingRequest& DR) const { return SpriteLayer > DR.SpriteLayer || (SpriteLayer == DR.SpriteLayer && PriorityInLayer > DR.PriorityInLayer); }
-    bool operator==(const SDrawingRequest& DR) const { return SpriteLayer == DR.SpriteLayer && PriorityInLayer == DR.PriorityInLayer; }
+    bool operator<(const SDrawingRequest& DR) const
+    {
+        return SpriteLayer > DR.SpriteLayer || (SpriteLayer == DR.SpriteLayer && PriorityInLayer > DR.PriorityInLayer);
+    }
+    bool operator==(const SDrawingRequest& DR) const
+    {
+        return SpriteLayer == DR.SpriteLayer && PriorityInLayer == DR.PriorityInLayer;
+    }
 };
 
 //******************************************************************************************************************************
@@ -114,8 +120,14 @@ struct SDebugDrawingRequest
     // The top layer on the screen is the greatest layer number
     // The top priority is the greatest priority value
 
-    bool operator<(const SDebugDrawingRequest& DR) const { return SpriteLayer > DR.SpriteLayer || (SpriteLayer == DR.SpriteLayer && PriorityInLayer > DR.PriorityInLayer); }
-    bool operator==(const SDebugDrawingRequest& DR) const { return SpriteLayer == DR.SpriteLayer && PriorityInLayer == DR.PriorityInLayer; }
+    bool operator<(const SDebugDrawingRequest& DR) const
+    {
+        return SpriteLayer > DR.SpriteLayer || (SpriteLayer == DR.SpriteLayer && PriorityInLayer > DR.PriorityInLayer);
+    }
+    bool operator==(const SDebugDrawingRequest& DR) const
+    {
+        return SpriteLayer == DR.SpriteLayer && PriorityInLayer == DR.PriorityInLayer;
+    }
 };
 
 //******************************************************************************************************************************
@@ -164,8 +176,10 @@ public:
     bool Create(int Width, int Height, int Depth, bool FullScreen);
     void Destroy(void);
     bool SetTransparentColor(int Red, int Green, int Blue);
-    bool LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, HBITMAP hBitmap);
-    bool LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, const char* file);
+    bool LoadSprites(
+        int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, HBITMAP hBitmap);
+    bool LoadSprites(
+        int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, const char* file);
     void FreeSprites(void);
     void OnWindowMove(void);
     inline void OnPaint(void);
@@ -174,8 +188,10 @@ public:
     void UpdateScreen(void);
     inline void SetOrigin(int OriginX, int OriginY);
     inline void SetNewPrimary(Allegro_Surface* pSurface);
-    void DrawSprite(int PositionX, int PositionY, RECT* pZone, RECT* pClip, int SpriteTable, int Sprite, int SpriteLayer, int PriorityInLayer);
-    void DrawDebugRectangle(int PositionX, int PositionY, int w, int h, Uint8 r, Uint8 g, Uint8 b, int SpriteLayer, int PriorityInLayer);
+    void DrawSprite(int PositionX, int PositionY, RECT* pZone, RECT* pClip, int SpriteTable, int Sprite, int SpriteLayer,
+        int PriorityInLayer);
+    void DrawDebugRectangle(
+        int PositionX, int PositionY, int w, int h, Uint8 r, Uint8 g, Uint8 b, int SpriteLayer, int PriorityInLayer);
     void RemoveAllDebugRectangles();
     inline bool IsModeSet(int Width, int Height, int Depth, bool FullScreen);
     bool IsModeAvailable(int Width, int Height, int Depth);
@@ -187,7 +203,10 @@ public:
 
 inline void CAllegroVideo::SetWindowHandle(HWND hWnd) { m_hWnd = hWnd; }
 
-inline bool CAllegroVideo::IsModeSet(int Width, int Height, int Depth, bool FullScreen) { return m_Width == Width && m_Height == Height && m_Depth == Depth && m_FullScreen == FullScreen; }
+inline bool CAllegroVideo::IsModeSet(int Width, int Height, int Depth, bool FullScreen)
+{
+    return m_Width == Width && m_Height == Height && m_Depth == Depth && m_FullScreen == FullScreen;
+}
 
 inline void CAllegroVideo::OnPaint(void) { UpdateScreen(); }
 

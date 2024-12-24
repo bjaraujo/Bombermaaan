@@ -32,10 +32,6 @@
 #include "CGame.h"
 #include "StdAfx.h"
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 // Duration (in seconds) of the two black screens
 #define VICTORY_BLACKSCREEN_DURATION 0.750f
 
@@ -88,7 +84,8 @@
 #define WINNER_BOMBER_ANIMATION_TIME_8 (WINNER_BOMBER_ANIMATION_TIME_7 + 0.040f)
 #define WINNER_BOMBER_ANIMATION_TIME_9 (WINNER_BOMBER_ANIMATION_TIME_8 + 0.050f)
 #define WINNER_BOMBER_ANIMATION_TIME_10 (WINNER_BOMBER_ANIMATION_TIME_9 + 0.250f)
-#define WINNER_BOMBER_ANIMATION_TIME_11 (WINNER_BOMBER_ANIMATION_TIME_10 + 0.300f) //!< Sprite before the last sprite (last sprite is infinite)
+#define WINNER_BOMBER_ANIMATION_TIME_11                                                                                      \
+    (WINNER_BOMBER_ANIMATION_TIME_10 + 0.300f) //!< Sprite before the last sprite (last sprite is infinite)
 #define WINNER_BOMBER_SPRITE_0 0 //!< Sprite number for the victorious bomber
 #define WINNER_BOMBER_SPRITE_1 1 //!< (you have to add the color offset to get the
 #define WINNER_BOMBER_SPRITE_2 2 //!<  desired bomber color)
@@ -144,10 +141,6 @@
 #define VICTORY_CONFETTIS_LAYER 3 //!< Sprite layer where to draw the confettis sprites
 #define VICTORY_TITLE_LAYER 4 //!< Sprite layer where to draw the VICTORY! title sprite
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 CVictory::CVictory()
     : CModeScreen()
 {
@@ -181,21 +174,9 @@ CVictory::CVictory()
     }
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-CVictory::~CVictory()
-{
-    // Nothing to do!
-}
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
+CVictory::~CVictory() = default;
 
 // Before using a CVictory, you must create it.
-
 void CVictory::Create()
 {
     CModeScreen::Create();
@@ -253,10 +234,6 @@ void CVictory::Create()
     }
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 // When a CVictory is not needed anymore, you should destroy it
 
 void CVictory::Destroy()
@@ -265,21 +242,9 @@ void CVictory::Destroy()
     StopSong();
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 void CVictory::OpenInput() { m_pInput->GetMainInput().Open(); }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 void CVictory::CloseInput() { m_pInput->GetMainInput().Close(); }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 void CVictory::ResetConfetti(SConfetti* pConfetti)
 {
@@ -298,10 +263,6 @@ void CVictory::ResetConfetti(SConfetti* pConfetti)
     // Fill sprite number
     pConfetti->Sprite = CONFETTI_ANIMATION_SPRITE_0;
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 EGameMode CVictory::Update()
 {
@@ -498,7 +459,9 @@ EGameMode CVictory::Update()
             m_Confettis[Confetti].PositionY += m_Confettis[Confetti].SpeedY * m_pTimer->GetDeltaTime();
 
             // If the confetti is now out of the game view
-            if (m_Confettis[Confetti].PositionX < CONFETTI_LIMIT_LEFT || m_Confettis[Confetti].PositionX > CONFETTI_LIMIT_RIGHT || m_Confettis[Confetti].PositionY > CONFETTI_LIMIT_BOTTOM)
+            if (m_Confettis[Confetti].PositionX < CONFETTI_LIMIT_LEFT
+                || m_Confettis[Confetti].PositionX > CONFETTI_LIMIT_RIGHT
+                || m_Confettis[Confetti].PositionY > CONFETTI_LIMIT_BOTTOM)
             {
                 // Reset the confetti so that it starts again at the top, as a new and different confetti
                 ResetConfetti(&m_Confettis[Confetti]);
@@ -548,10 +511,6 @@ EGameMode CVictory::Update()
     // Stay in this game mode
     return GAMEMODE_VICTORY;
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 void CVictory::Display()
 {
@@ -657,7 +616,8 @@ void CVictory::Display()
                 }
 
                 // Draw the crowd tile
-                m_pDisplay->DrawSprite(CROWD_INITIAL_TILE_X + TileX * CROWD_TILES_SPACE_X, CROWD_INITIAL_TILE_Y + TileY * CROWD_TILES_SPACE_Y + OffsetY,
+                m_pDisplay->DrawSprite(CROWD_INITIAL_TILE_X + TileX * CROWD_TILES_SPACE_X,
+                    CROWD_INITIAL_TILE_Y + TileY * CROWD_TILES_SPACE_Y + OffsetY,
                     nullptr, // Draw entire sprite
                     &Clip, // Clip to game view
                     BMP_VICTORY_CROWD, Color % CROWD_COLORS_COUNT, VICTORY_CROWD_LAYER, TileY);
@@ -675,7 +635,8 @@ void CVictory::Display()
         for (TileX = 0; TileX < VICTORYWALL_TILES_COUNT; TileX++)
         {
             // Draw one background sprite tile
-            m_pDisplay->DrawSprite(VICTORYWALL_TILES_INITIAL_X + TileX * VICTORYWALL_TILE_SPACE_X, VICTORYWALL_TILES_INITIAL_Y,
+            m_pDisplay->DrawSprite(VICTORYWALL_TILES_INITIAL_X + TileX * VICTORYWALL_TILE_SPACE_X,
+                VICTORYWALL_TILES_INITIAL_Y,
                 nullptr, // Draw entire sprite
                 &Clip, // Clip to game view
                 BMP_VICTORY_WALL, VICTORYWALL_TILE_SPRITE, VICTORY_WALL_LAYER, PRIORITY_UNUSED);
@@ -738,10 +699,12 @@ void CVictory::Display()
                     // Sprite number is computed using winner sprite offset, which allows to select
                     // the current frame in the winner animation ; and using the color offset, which
                     // allows to select the bomber color.
-                    m_pDisplay->DrawSprite(WinnerInitialX + WinnerBombersCount * WINNER_BOMBER_SPACE_X, WINNER_BOMBER_POSITION_Y,
+                    m_pDisplay->DrawSprite(WinnerInitialX + WinnerBombersCount * WINNER_BOMBER_SPACE_X,
+                        WINNER_BOMBER_POSITION_Y,
                         nullptr, // Draw entire sprite
                         nullptr, // No need to clip
-                        BMP_VICTORY_BOMBER, m_WinnerBomberSprite + Player * BOMBER_SPRITES_COUNT_PER_COLOR, VICTORY_BOMBER_LAYER, PRIORITY_UNUSED);
+                        BMP_VICTORY_BOMBER, m_WinnerBomberSprite + Player * BOMBER_SPRITES_COUNT_PER_COLOR,
+                        VICTORY_BOMBER_LAYER, PRIORITY_UNUSED);
 
                     // One more winner
                     WinnerBombersCount++;
@@ -756,7 +719,8 @@ void CVictory::Display()
                     m_pDisplay->DrawSprite(LoserInitialX + LoserBombersCount * LOSER_BOMBER_SPACE_X, LOSER_BOMBER_POSITION_Y,
                         nullptr, // Draw entire sprite
                         nullptr, // No need to clip
-                        BMP_VICTORY_BOMBER, m_LoserBomberSprite + Player * BOMBER_SPRITES_COUNT_PER_COLOR, VICTORY_BOMBER_LAYER, PRIORITY_UNUSED);
+                        BMP_VICTORY_BOMBER, m_LoserBomberSprite + Player * BOMBER_SPRITES_COUNT_PER_COLOR,
+                        VICTORY_BOMBER_LAYER, PRIORITY_UNUSED);
 
                     // One more loser
                     LoserBombersCount++;
@@ -819,7 +783,8 @@ void CVictory::Display()
                 nullptr, // Draw entire sprite
                 &Clip, // Clip to game view
                 ConfettiSpriteTable,
-                WinnerPlayer * CONFETTIS_COUNT_PER_COLOR + m_Confettis[Confetti].Sprite, // Get the confetti sprite of the color of the winner
+                WinnerPlayer * CONFETTIS_COUNT_PER_COLOR
+                    + m_Confettis[Confetti].Sprite, // Get the confetti sprite of the color of the winner
                 VICTORY_CONFETTIS_LAYER, PRIORITY_UNUSED);
         }
 
@@ -840,16 +805,8 @@ void CVictory::Display()
     }
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 void CVictory::StopSong()
 {
     // Stop playing the victory song
     m_pSound->StopAllSamples();
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************

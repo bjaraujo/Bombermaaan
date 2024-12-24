@@ -35,10 +35,6 @@
 #include "COptions.h"
 #include "StdAfx.h"
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 #define BLACKSCREEN_DURATION 0.350f // Duration (in seconds) of each of the two black screens
 
 #define DISPLAY_ORIGIN_X 0
@@ -95,10 +91,6 @@
 
 #define ENABLE_SNOW false
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 CTitle::CTitle()
     : CModeScreen()
 {
@@ -117,18 +109,7 @@ CTitle::CTitle()
     m_IdleTime = 0.0f;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-CTitle::~CTitle()
-{
-    // Nothing to do!
-}
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
+CTitle::~CTitle() = default;
 
 void CTitle::Create()
 {
@@ -162,10 +143,6 @@ void CTitle::Create()
     }
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 void CTitle::Destroy()
 {
     // Destroy the clouds in the sky
@@ -180,21 +157,9 @@ void CTitle::Destroy()
     CModeScreen::Destroy();
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 void CTitle::OpenInput() { m_pInput->GetMainInput().Open(); }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 void CTitle::CloseInput() { m_pInput->GetMainInput().Close(); }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 EGameMode CTitle::Update()
 {
@@ -398,10 +363,6 @@ EGameMode CTitle::Update()
     return GAMEMODE_TITLE;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 void CTitle::Display()
 {
     // If we have to make the first black screen
@@ -424,13 +385,16 @@ void CTitle::Display()
         }
 
         // Draw the background sprite
-        m_pDisplay->DrawSprite(BACKGROUND_POSITION_X, BACKGROUND_POSITION_Y, nullptr, nullptr, BMP_TITLE_BACKGROUND, BACKGROUND_SPRITE, BACKGROUND_SPRITE_LAYER, BACKGROUND_SPRITE_PRIORITY_IN_LAYER);
+        m_pDisplay->DrawSprite(BACKGROUND_POSITION_X, BACKGROUND_POSITION_Y, nullptr, nullptr, BMP_TITLE_BACKGROUND,
+            BACKGROUND_SPRITE, BACKGROUND_SPRITE_LAYER, BACKGROUND_SPRITE_PRIORITY_IN_LAYER);
 
         // Draw the bombers
-        m_pDisplay->DrawSprite(BOMBERS_POSITION_X, BOMBERS_POSITION_Y, nullptr, nullptr, BMP_TITLE_BOMBERS, BOMBERS_SPRITE, BOMBERS_SPRITE_LAYER, BOMBERS_SPRITE_PRIORITY_IN_LAYER);
+        m_pDisplay->DrawSprite(BOMBERS_POSITION_X, BOMBERS_POSITION_Y, nullptr, nullptr, BMP_TITLE_BOMBERS, BOMBERS_SPRITE,
+            BOMBERS_SPRITE_LAYER, BOMBERS_SPRITE_PRIORITY_IN_LAYER);
 
         // Draw the title of the game
-        m_pDisplay->DrawSprite(TITLE_POSITION_X, TITLE_POSITION_Y, nullptr, nullptr, BMP_TITLE_TITLE, TITLE_SPRITE, TITLE_SPRITE_LAYER, TITLE_SPRITE_PRIORITY_IN_LAYER);
+        m_pDisplay->DrawSprite(TITLE_POSITION_X, TITLE_POSITION_Y, nullptr, nullptr, BMP_TITLE_TITLE, TITLE_SPRITE,
+            TITLE_SPRITE_LAYER, TITLE_SPRITE_PRIORITY_IN_LAYER);
 
         // Position Y on the screen of the first menu item in this screen
         int MenuItemPositionY = FIRST_MENU_ITEM_POSITION_Y;
@@ -447,7 +411,10 @@ void CTitle::Display()
             if (m_Cursor == MenuItemIndex)
             {
                 // Display the cursor hand
-                m_pDisplay->DrawSprite(ALL_MENU_ITEMS_POSITION_X + SPACE_X_FROM_MENU_ITEM_TO_CURSOR_HAND + m_MovingHandDistance, MenuItemPositionY, nullptr, nullptr, BMP_MENU_HAND_TITLE, CURSOR_HAND_SPRITE, CURSOR_HAND_SPRITE_LAYER, CURSOR_HAND_SPRITE_PRIORITY_IN_LAYER);
+                m_pDisplay->DrawSprite(
+                    ALL_MENU_ITEMS_POSITION_X + SPACE_X_FROM_MENU_ITEM_TO_CURSOR_HAND + m_MovingHandDistance,
+                    MenuItemPositionY, nullptr, nullptr, BMP_MENU_HAND_TITLE, CURSOR_HAND_SPRITE, CURSOR_HAND_SPRITE_LAYER,
+                    CURSOR_HAND_SPRITE_PRIORITY_IN_LAYER);
             }
 
             // Go down : next menu item to display
@@ -459,7 +426,3 @@ void CTitle::Display()
     {
     }
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************

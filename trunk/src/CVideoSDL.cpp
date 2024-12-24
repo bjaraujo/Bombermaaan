@@ -35,12 +35,8 @@
 
 static const char* GetSDLVideoError();
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 CVideoSDL::CVideoSDL()
-{    
+{
     m_hWnd = nullptr;
     m_pPrimary = nullptr;
     m_pWindow = nullptr;
@@ -57,23 +53,9 @@ CVideoSDL::CVideoSDL()
     m_rcViewport = SDL_Rect();
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
+CVideoSDL::~CVideoSDL() = default;
 
-CVideoSDL::~CVideoSDL()
-{
-    // Nothing to do
-}
-
-void CVideoSDL::SetProgramFolder(const std::string& pgmFolder) 
-{ 
-    m_pgmFolder = pgmFolder; 
-}
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
+void CVideoSDL::SetProgramFolder(const std::string& pgmFolder) { m_pgmFolder = pgmFolder; }
 
 bool CVideoSDL::Create(int Width, int Height, int Depth, bool FullScreen)
 {
@@ -91,10 +73,8 @@ bool CVideoSDL::Create(int Width, int Height, int Depth, bool FullScreen)
         SDL_DestroyWindow(m_pWindow);
     }
 
-    m_pWindow = SDL_CreateWindow("Bombermaaan",
-                          SDL_WINDOWPOS_UNDEFINED,
-                          SDL_WINDOWPOS_UNDEFINED,
-                          m_Width, m_Height, FullScreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0);
+    m_pWindow = SDL_CreateWindow("Bombermaaan", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, m_Width, m_Height,
+        FullScreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0);
 
     if (m_pWindow == nullptr)
     {
@@ -115,19 +95,12 @@ bool CVideoSDL::Create(int Width, int Height, int Depth, bool FullScreen)
         return false;
     }
 
-    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");  // make the scaled rendering look smoother.
+    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear"); // make the scaled rendering look smoother.
     SDL_RenderSetLogicalSize(m_pRenderer, m_Width, m_Height);
 
-    m_pPrimary = SDL_CreateRGBSurface(0, m_Width, m_Height, m_Depth,
-                                        0x00FF0000,
-                                        0x0000FF00,
-                                        0x000000FF,
-                                        0xFF000000);
+    m_pPrimary = SDL_CreateRGBSurface(0, m_Width, m_Height, m_Depth, 0x00FF0000, 0x0000FF00, 0x000000FF, 0xFF000000);
 
-    m_pTexture = SDL_CreateTexture(m_pRenderer,
-                                            SDL_PIXELFORMAT_ARGB8888,
-                                            SDL_TEXTUREACCESS_STREAMING,
-                                            m_Width, m_Height);
+    m_pTexture = SDL_CreateTexture(m_pRenderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, m_Width, m_Height);
 
     // Get the rects of the viewport and screen bounds
     m_rcViewport.x = 0;
@@ -149,7 +122,7 @@ bool CVideoSDL::Create(int Width, int Height, int Depth, bool FullScreen)
     {
         if (SDL_SetColorKey(icon, SDL_TRUE, SDL_MapRGB(icon->format, 0x00, 0xff, 0x00)) == 0)
         {
-            //SDL_WM_SetIcon(icon, nullptr);
+            SDL_SetWindowIcon(m_pWindow, icon);
         }
     }
     else
@@ -170,10 +143,6 @@ bool CVideoSDL::Create(int Width, int Height, int Depth, bool FullScreen)
     // Everything went right
     return true;
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 // Destroys the SDLVideo interface
 
@@ -205,10 +174,6 @@ void CVideoSDL::Destroy()
     }
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 // Updates the display by blitting the back buffer
 // surface on the primary surface.
 
@@ -220,20 +185,13 @@ void CVideoSDL::UpdateScreen()
     SDL_RenderPresent(m_pRenderer);
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 // Updates the object : this updates the drawing zones
 // in case the window moves.
 
-void CVideoSDL::OnWindowMove() {}
+void CVideoSDL::OnWindowMove() { }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-void CVideoSDL::DrawSprite(int PositionX, int PositionY, RECT* pZone, RECT* pClip, int SpriteTable, int Sprite, int SpriteLayer, int PriorityInLayer)
+void CVideoSDL::DrawSprite(
+    int PositionX, int PositionY, RECT* pZone, RECT* pClip, int SpriteTable, int Sprite, int SpriteLayer, int PriorityInLayer)
 {
     // Prepare a drawing request
     SDrawingRequest DrawingRequest;
@@ -249,7 +207,8 @@ void CVideoSDL::DrawSprite(int PositionX, int PositionY, RECT* pZone, RECT* pCli
         int SpriteSizeY = pSprite->ZoneY2 - pSprite->ZoneY1;
 
         // If the sprite is completely out of the clip rect
-        if (PositionX >= pClip->right || PositionY >= pClip->bottom || PositionX + SpriteSizeX < pClip->left || PositionY + SpriteSizeY < pClip->top)
+        if (PositionX >= pClip->right || PositionY >= pClip->bottom || PositionX + SpriteSizeX < pClip->left
+            || PositionY + SpriteSizeY < pClip->top)
         {
             // Get out, don't even register the drawing request
             return;
@@ -337,11 +296,8 @@ void CVideoSDL::DrawSprite(int PositionX, int PositionY, RECT* pZone, RECT* pCli
     m_DrawingRequests.push(DrawingRequest);
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-void CVideoSDL::DrawDebugRectangle(int PositionX, int PositionY, int w, int h, Uint8 r, Uint8 g, Uint8 b, int SpriteLayer, int PriorityInLayer)
+void CVideoSDL::DrawDebugRectangle(
+    int PositionX, int PositionY, int w, int h, Uint8 r, Uint8 g, Uint8 b, int SpriteLayer, int PriorityInLayer)
 {
     // Prepare a drawing request
     SDebugDrawingRequest DrawingRequest;
@@ -371,23 +327,11 @@ void CVideoSDL::DrawDebugRectangle(int PositionX, int PositionY, int w, int h, U
     m_DebugDrawingRequests.push_back(DrawingRequest);
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 void CVideoSDL::RemoveAllDebugRectangles() { m_DebugDrawingRequests.clear(); }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 // Makes the display black.
 
 void CVideoSDL::Clear() { SDL_RenderClear(m_pRenderer); }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 WORD CVideoSDL::GetNumberOfBits(DWORD dwMask)
 {
@@ -400,10 +344,6 @@ WORD CVideoSDL::GetNumberOfBits(DWORD dwMask)
     return wBits;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 bool CVideoSDL::SetTransparentColor(int Red, int Green, int Blue)
 {
     // Get the pixel format of the primary surface
@@ -415,11 +355,8 @@ bool CVideoSDL::SetTransparentColor(int Red, int Green, int Blue)
     return true;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-bool CVideoSDL::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, int BMP_ID, HBITMAP hBitmap)
+bool CVideoSDL::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent,
+    int BMP_ID, HBITMAP hBitmap)
 {
 
     SSurface Surface;
@@ -460,7 +397,8 @@ bool CVideoSDL::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spr
     amask = 0xff000000;
 #endif
 
-    SDL_Surface* surf = SDL_CreateRGBSurface(0, Bitmap.bmWidth, Bitmap.bmHeight, Bitmap.bmBitsPixel, rmask, gmask, bmask, amask);
+    SDL_Surface* surf
+        = SDL_CreateRGBSurface(0, Bitmap.bmWidth, Bitmap.bmHeight, Bitmap.bmBitsPixel, rmask, gmask, bmask, amask);
 
     BYTE* bits = new BYTE[Bitmap.bmWidthBytes * Bitmap.bmHeight];
     BYTE* temp = new BYTE[Bitmap.bmWidthBytes * Bitmap.bmHeight];
@@ -635,11 +573,8 @@ bool CVideoSDL::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spr
     return true;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-bool CVideoSDL::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, int BMP_ID, const char* file)
+bool CVideoSDL::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent,
+    int BMP_ID, const char* file)
 {
 
     SSurface Surface;
@@ -756,10 +691,6 @@ bool CVideoSDL::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spr
     return true;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 void CVideoSDL::FreeSprites()
 {
     // Empty drawing requests queue
@@ -784,10 +715,6 @@ void CVideoSDL::FreeSprites()
     // Remove all surfaces
     m_Surfaces.clear();
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 void CVideoSDL::UpdateAll()
 {
@@ -893,21 +820,6 @@ void CVideoSDL::UpdateAll()
     UpdateScreen();
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-bool CVideoSDL::IsModeAvailable(int Width, int Height, int Depth)
-{
-    return true;
-}
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
+bool CVideoSDL::IsModeAvailable(int Width, int Height, int Depth) { return true; }
 
 static const char* GetSDLVideoError() { return SDL_GetError(); }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************

@@ -34,10 +34,6 @@
 #include "WinReplace.h"
 #endif
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 //! Easy access to singleton console object
 #define theConsole CConsole::GetConsole()
 
@@ -55,10 +51,6 @@
 #define CONSOLE_BACKGROUND_BLUE BACKGROUND_BLUE
 #define CONSOLE_BACKGROUND_INTENSITY BACKGROUND_INTENSITY
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 //! CConsole is a class which provides a console window besides the main game window
 class CConsole
 {
@@ -67,7 +59,8 @@ private:
     bool m_Open; //!< Is the console opened?
     WORD m_Color; //!< Current text color (background/foreground)
     int m_NumberOfRepeatedMessages; //!< How many consecutive identical messages have been sent?
-    bool m_FilterRepeatedMessage; //!< Should we manage message repetition by not displaying all consecutive identical messages?
+    bool
+        m_FilterRepeatedMessage; //!< Should we manage message repetition by not displaying all consecutive identical messages?
     char m_Message[2048]; //!< Last message written to the console
 
 public:
@@ -80,12 +73,9 @@ public:
     inline bool IsOpen(); //!< Returns whether the console window is opened
     inline void SetTextColor(WORD Color); //!< Set the color to use when writing text to the console
     inline WORD GetTextColor(); //!< Get the color to use when writing text to the console
-    inline void SetFilterRepeatedMessages(bool Filter); //!< Tell whether consecutive identical messages should be filtered or not
+    inline void SetFilterRepeatedMessages(
+        bool Filter); //!< Tell whether consecutive identical messages should be filtered or not
 };
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 inline bool CConsole::IsOpen() { return m_Open; }
 
@@ -103,9 +93,5 @@ inline void CConsole::SetTextColor(WORD Color)
 inline WORD CConsole::GetTextColor() { return m_Color; }
 
 inline void CConsole::SetFilterRepeatedMessages(bool Filter) { m_FilterRepeatedMessage = Filter; }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 #endif // __CCONSOLE_H__

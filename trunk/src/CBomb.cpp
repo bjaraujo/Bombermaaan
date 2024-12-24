@@ -37,10 +37,6 @@
 #include "CSound.h"
 #include "StdAfx.h"
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 int CBomb::m_ThrowMoveX[NUMBER_OF_BOMBFLY_DIRECTIONS][6] = {
     { 0, 0, 0, 0, 0, 0 }, // BOMBFLY_NONE
     { 0, 0, 0, 0, 0, 0 }, // BOMBFLY_UP
@@ -89,10 +85,6 @@ int CBomb::m_BounceMoveY[NUMBER_OF_BOMBFLY_DIRECTIONS][3] = {
     { -4, 0, 4 }, // BOMBFLY_RIGHT
 };
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 // Time (in seconds) before the bomb explodes when touched by a flame
 #define EXPLODE_SOON 0.080f
 #define MAX_EXPLOSION_TIME 8.0f
@@ -137,10 +129,6 @@ int CBomb::m_BounceMoveY[NUMBER_OF_BOMBFLY_DIRECTIONS][3] = {
 // Bombs can change direction (can be re-kicked) when passing special blocks
 #define BOMB_CAN_CHANGE_DIRECTION_WHEN_KICKED true
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 CBomb::CBomb()
     : CElement()
 {
@@ -177,22 +165,15 @@ CBomb::CBomb()
         m_AnimationTimes[i] = 0.0f;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-CBomb::~CBomb() {}
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
+CBomb::~CBomb() { }
 
 void CBomb::Create(int BlockX, int BlockY, int FlameSize, float TimeLeft, int OwnerPlayer)
 {
     CElement::Create();
 
 #ifdef _DEBUG
-    debugLog.WriteDebugMsg(DEBUGSECT_BOMB, "New bomb [x=%02d, y=%02d, flamesize=%02d, owner=%d].", BlockX, BlockY, FlameSize, OwnerPlayer);
+    debugLog.WriteDebugMsg(
+        DEBUGSECT_BOMB, "New bomb [x=%02d, y=%02d, flamesize=%02d, owner=%d].", BlockX, BlockY, FlameSize, OwnerPlayer);
 #endif
 
     m_iX = m_pArena->ToPosition(BlockX);
@@ -245,15 +226,7 @@ void CBomb::Create(int BlockX, int BlockY, int FlameSize, float TimeLeft, int Ow
     }
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 void CBomb::Destroy() { CElement::Destroy(); }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 // Makes the bomb explode, that is to say create an
 // explosion in the arena, Then the bomb is dead and can
@@ -263,7 +236,8 @@ void CBomb::Explode()
 {
 
 #ifdef _DEBUG
-    debugLog.WriteDebugMsg(DEBUGSECT_BOMB, "Bomb exploding [x=%02d, y=%02d, flamesize=%02d, owner=%d].", m_BlockX, m_BlockY, m_FlameSize, m_OwnerPlayer);
+    debugLog.WriteDebugMsg(DEBUGSECT_BOMB, "Bomb exploding [x=%02d, y=%02d, flamesize=%02d, owner=%d].", m_BlockX, m_BlockY,
+        m_FlameSize, m_OwnerPlayer);
 #endif
 
     // Create the explosion
@@ -311,10 +285,6 @@ void CBomb::Explode()
     m_BombKick = BOMBKICK_NONE;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 // This is called by walls crushing the bomb.
 
 void CBomb::Crush()
@@ -325,10 +295,6 @@ void CBomb::Crush()
 
     Explode();
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 // Shorten the time left before the bomb explodes. This
 // is called by flames touching the bomb or by the remote
@@ -344,10 +310,6 @@ void CBomb::Burn()
         m_TimeLeft = EXPLODE_SOON;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 // Tell the bomb to start moving in a direction.
 // Save the number of the player that kicked the
 // bomb for the kicker to be able to find it.
@@ -359,7 +321,9 @@ void CBomb::StartMoving(EBombKick BombKick, int KickerPlayer)
         return;
 
 #ifdef _DEBUG
-    debugLog.WriteDebugMsg(DEBUGSECT_BOMB, "Bomb starts moving [x=%02d, y=%02d, owner=%d, new_direction=%d, kicker=%d, old_direction=%d].", m_BlockX, m_BlockY, m_OwnerPlayer, BombKick, KickerPlayer, m_BombKick);
+    debugLog.WriteDebugMsg(DEBUGSECT_BOMB,
+        "Bomb starts moving [x=%02d, y=%02d, owner=%d, new_direction=%d, kicker=%d, old_direction=%d].", m_BlockX, m_BlockY,
+        m_OwnerPlayer, BombKick, KickerPlayer, m_BombKick);
 #endif
 
     switch (m_BombKick)
@@ -389,10 +353,6 @@ void CBomb::StartMoving(EBombKick BombKick, int KickerPlayer)
     m_HasToStopMoving = false;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 // Tell the bomb to stop moving as soon
 // as possible.
 
@@ -403,10 +363,6 @@ void CBomb::StopMoving()
     // The bomb has no kicker anymore
     m_KickerPlayer = -1;
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 // Make the bomb move if needed. Move one pixel by one pixel
 // only (or less) so as to manage every collision during the
@@ -429,7 +385,8 @@ void CBomb::ManageMove(float DeltaTime)
             if (m_BombFly == BOMBFLY_NONE)
             {
                 ASSERT(m_pArena != nullptr);
-                if (m_pArena->IsFloorWithMoveEffect(m_BlockX, m_BlockY) && BOMB_CAN_CHANGE_DIRECTION_WHEN_KICKED && (!(m_iX & (BLOCK_SIZE - 1)) && !(m_iY & (BLOCK_SIZE - 1))) && // Taken from below
+                if (m_pArena->IsFloorWithMoveEffect(m_BlockX, m_BlockY) && BOMB_CAN_CHANGE_DIRECTION_WHEN_KICKED
+                    && (!(m_iX & (BLOCK_SIZE - 1)) && !(m_iY & (BLOCK_SIZE - 1))) && // Taken from below
                     m_BombKick != BOMBKICK_NONE // Bomb is still moving (could be reset by TryMove()
                 )
                 {
@@ -513,10 +470,6 @@ void CBomb::ManageMove(float DeltaTime)
     }
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 void CBomb::CrushItem(int BlockX, int BlockY)
 {
     // If there is an item on its way, the item has to be crushed
@@ -526,7 +479,8 @@ void CBomb::CrushItem(int BlockX, int BlockY)
         for (int Index = 0; Index < m_pArena->MaxItems(); Index++)
         {
             // Test existence and position
-            if (m_pArena->GetItem(Index).Exist() && m_pArena->GetItem(Index).GetBlockX() == BlockX && m_pArena->GetItem(Index).GetBlockY() == BlockY)
+            if (m_pArena->GetItem(Index).Exist() && m_pArena->GetItem(Index).GetBlockX() == BlockX
+                && m_pArena->GetItem(Index).GetBlockY() == BlockY)
             {
                 // Crush the item
                 m_pArena->GetItem(Index).Crush();
@@ -537,28 +491,19 @@ void CBomb::CrushItem(int BlockX, int BlockY)
     }
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 // Tell if there is an obstacle at (X,Y).
 // For bombs, an obstacle is a wall, a bomb or a bomber.
 
-bool CBomb::IsObstacle(int BlockX, int BlockY) { return (m_pArena->IsWall(BlockX, BlockY) || m_pArena->IsBomb(BlockX, BlockY) || m_pArena->IsBomber(BlockX, BlockY)); }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
+bool CBomb::IsObstacle(int BlockX, int BlockY)
+{
+    return (m_pArena->IsWall(BlockX, BlockY) || m_pArena->IsBomb(BlockX, BlockY) || m_pArena->IsBomber(BlockX, BlockY));
+}
 
 // These defines are here to simplify the code
 // of the TryMove method. They're not all uppercase for readability.
 
 #define ToBlock(a) (m_pArena->ToBlock(a))
 #define HalfBlock (BLOCK_SIZE / 2)
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 // TryMove tries to move the bomb. If there is no collision, the
 // coordinates will be modified using fPixels (the move length).
@@ -658,10 +603,6 @@ bool CBomb::TryMove(float fPixels)
     return false;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 // Make the bomb tick, explode, move, animate, display
 
 bool CBomb::Update(float DeltaTime)
@@ -698,7 +639,8 @@ bool CBomb::Update(float DeltaTime)
         // Kick this bomb by special blocks
         // Don't start the move if bomb exploded in the meanwhile (m_Dead)
         // Also don't start the move if the bomb is already in action (lifted, held, punched or flying)
-        if (m_BombKick == BOMBKICK_NONE && m_ElapsedTime >= TIME_BEFORE_MOVING_BOMB && !m_Dead && !m_BeingLifted && !m_BeingHeld && !m_BeingPunched && m_BombFly == BOMBFLY_NONE)
+        if (m_BombKick == BOMBKICK_NONE && m_ElapsedTime >= TIME_BEFORE_MOVING_BOMB && !m_Dead && !m_BeingLifted
+            && !m_BeingHeld && !m_BeingPunched && m_BombFly == BOMBFLY_NONE)
         {
             ASSERT(m_pArena != nullptr);
             if (m_pArena->IsFloorWithMoveEffect(m_BlockX, m_BlockY))
@@ -758,7 +700,8 @@ bool CBomb::Update(float DeltaTime)
     // would be better to resolve it in the logic though
     if (m_BeingHeld || m_BeingLifted)
     {
-        if (m_pArena->GetBomber(GetOwnerPlayer()).GetBlockX() != m_BlockX || m_pArena->GetBomber(GetOwnerPlayer()).GetBlockY() != m_BlockY)
+        if (m_pArena->GetBomber(GetOwnerPlayer()).GetBlockX() != m_BlockX
+            || m_pArena->GetBomber(GetOwnerPlayer()).GetBlockY() != m_BlockY)
         {
             m_BeingHeld = false;
             m_BeingLifted = false;
@@ -793,13 +736,10 @@ bool CBomb::Update(float DeltaTime)
     return m_Dead && m_Checked;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 void CBomb::Display()
 {
-    int SpriteTable = (m_BeingHeld || m_BombFly != BOMBFLY_NONE) ? BOMB_SPRITELAYER_ABOVE_BOMBERS : BOMB_SPRITELAYER_BELOW_BOMBERS;
+    int SpriteTable
+        = (m_BeingHeld || m_BombFly != BOMBFLY_NONE) ? BOMB_SPRITELAYER_ABOVE_BOMBERS : BOMB_SPRITELAYER_BELOW_BOMBERS;
 
     // Prepare a clipping rect to pass to the draw sprite function,
     // since the sprite can be out of the arena view.
@@ -822,8 +762,6 @@ void CBomb::Display()
             BMP_ARENA_REMOTE_BOMB, m_Sprite, SpriteTable, PRIORITY_UNUSED);
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 //****************************************************************************************************************************
 
 void CBomb::OnWriteSnapshot(CArenaSnapshot& Snapshot)
@@ -859,8 +797,6 @@ void CBomb::OnWriteSnapshot(CArenaSnapshot& Snapshot)
     Snapshot.WriteBoolean(m_Remote);
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 //****************************************************************************************************************************
 
 void CBomb::OnReadSnapshot(CArenaSnapshot& Snapshot)
@@ -896,10 +832,6 @@ void CBomb::OnReadSnapshot(CArenaSnapshot& Snapshot)
     Snapshot.ReadBoolean(&m_Remote);
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 void CBomb::StartFlying(EBombFly BombFly, EBombFlightType FlightType)
 {
     ASSERT(BombFly != BOMBFLY_NONE);
@@ -913,10 +845,6 @@ void CBomb::StartFlying(EBombFly BombFly, EBombFlightType FlightType)
     m_BeingLifted = false;
     m_BeingHeld = false;
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 void CBomb::ManageFlight(float DeltaTime)
 {
@@ -1351,10 +1279,6 @@ void CBomb::ManageFlight(float DeltaTime)
     }
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 void CBomb::Bounce(float DeltaTime)
 {
     if (!m_Warping)
@@ -1386,7 +1310,8 @@ void CBomb::Bounce(float DeltaTime)
                 assert(Index < m_pArena->MaxBombers());
 
                 // Test existence and position
-                if (m_pArena->GetBomber(Index).Exist() && m_pArena->GetBomber(Index).GetBlockX() == m_BlockX && m_pArena->GetBomber(Index).GetBlockY() == m_BlockY)
+                if (m_pArena->GetBomber(Index).Exist() && m_pArena->GetBomber(Index).GetBlockX() == m_BlockX
+                    && m_pArena->GetBomber(Index).GetBlockY() == m_BlockY)
                 {
                     // Make the bomber stunt
                     m_pArena->GetBomber(Index).Stunt();
@@ -1413,10 +1338,6 @@ void CBomb::Bounce(float DeltaTime)
     m_FlightType = BOMBFLIGHTTYPE_BOUNCE;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 void CBomb::CenterOnBlock()
 {
     m_iX = m_pArena->ToPosition(m_BlockX);
@@ -1424,10 +1345,6 @@ void CBomb::CenterOnBlock()
     m_X = (float)m_iX;
     m_Y = (float)m_iY;
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 #ifdef _DEBUG_FLAG_1
 
@@ -1446,7 +1363,3 @@ void CBomb::_Debug_WriteToLog()
 }
 
 #endif
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************

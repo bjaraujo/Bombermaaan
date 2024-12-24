@@ -43,10 +43,6 @@ class CTeam;
 #include "CBomb.h"
 #include "CItem.h"
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 //! Describes a bomber action command
 
 enum EBomberAction
@@ -55,10 +51,6 @@ enum EBomberAction
     BOMBERACTION_ACTION1, //!< Drop or hold a bomb
     BOMBERACTION_ACTION2 //!< Stop or punch a bomb
 };
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 //! Describes the state of a bomber : what is he doing? what is happening to him?
 enum EBomberState
@@ -73,20 +65,12 @@ enum EBomberState
     MAX_NUMBER_OF_STATES
 };
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 //! Describes a sprite table with bomber sprites inside
 struct SBomberSpriteTable
 {
     int SpriteTableNumber; //!< Number of the sprite table
     int NumberOfSpritesPerColor; //!< Number of sprites representing a single bomber color (white, red, etc).
 };
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 //! Describes the dead state of the bomber
 
@@ -96,10 +80,6 @@ enum EDead
     DEAD_DYING, //!< Almost dead
     DEAD_DEAD //!< Dead
 };
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 /**
  *  \brief Describes a sickness
@@ -123,10 +103,6 @@ enum ESick
     SICK_FLAMEPROOF, //!< Bomber cannot burn
     NUMBER_SICKNESSES //!< Number of sicknesses
 };
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 //! An element in the arena which represents a bomber.
 class CBomber : public CElement
@@ -167,9 +143,11 @@ private:
     float m_StuntTimeElapsed; //!< How many seconds have elapsed since we got stunt?
     EBomberState m_BomberState; //!< State of the bomber, describes what he is currently doing.
     int m_BombIndex; //!< Index of the bomb the bomber is either holding, lifting or punching (when the bomber is throwing, this index is -1).
-    static SBomberSpriteTable m_BomberSpriteTables[MAX_NUMBER_OF_STATES]; //!< Information about the sprite table to use for each bomber state.
+    static SBomberSpriteTable
+        m_BomberSpriteTables[MAX_NUMBER_OF_STATES]; //!< Information about the sprite table to use for each bomber state.
     bool m_MakeInvisible; //!< If true, the bomber isn't visible in the arena (used for contamination)
-    bool m_HasExisted; //!< If true, this bomber exists or has existed in this match (m_Exist is set to false after the bomber' death)
+    bool
+        m_HasExisted; //!< If true, this bomber exists or has existed in this match (m_Exist is set to false after the bomber' death)
     COptions* p_Options; //!< Pointer to the COptions object
     EBomberAction m_CountBomberActionDuration;
     float m_BomberActionDuration;
@@ -185,7 +163,8 @@ private:
     void Heal(); //!< Remove the bomber sickness if he is sick.
     bool TryMove(float fPixels); //!< Make the bomber move in the current direction (bomber move) and return if he could move.
     void Die(); //!< Make the bomber start dying.
-    float GetBombTime(); //!< Get the current bomb time, i.e. the time left before a bomb this bomber drops will explode. It depends on current sickness.
+    float
+    GetBombTime(); //!< Get the current bomb time, i.e. the time left before a bomb this bomber drops will explode. It depends on current sickness.
     void MakeBombFly(EBombFlightType FlightType); //!< Makes the bomber's bomb fly now.
 
 protected:
@@ -206,13 +185,15 @@ public:
     void Display(); //!< Draw the bomber sprite in the right layer.
     void OnWriteSnapshot(CArenaSnapshot& Snapshot);
     void OnReadSnapshot(CArenaSnapshot& Snapshot);
-    void Command(EBomberMove BomberMove, EBomberAction BomberAction); //!< Give a move and action order to the bomber for next update.
+    void Command(
+        EBomberMove BomberMove, EBomberAction BomberAction); //!< Give a move and action order to the bomber for next update.
     void Burn(); //!< Make the bomber react when he is burnt by an explosion
     void Crush(); //!< Make the bomber react when he is crushed by a wall
     void Stunt(); //!< Make the bomber react when a bomb bounces on his head
     void ItemEffect(EItemType Type); //!< Apply the effects of the specified item type on the bomber.
     void TryKickBomb(int BlockX, int BlockY, EBombKick BombKick); //!< Kick a bomb if there is one on the specified block.
-    int GetFlameSize() const; //!< Get the current flame size of the bombs dropped by the bomber. Depends on its current sickness.
+    int
+    GetFlameSize() const; //!< Get the current flame size of the bombs dropped by the bomber. Depends on its current sickness.
     int GetPixelsPerSecond() const; //!< Return the speed (in pixels per second) the bomber can walk.
     bool IsObstacle(int BlockX, int BlockY) const; //!< Return whether there is a wall or a bomb on the specified block.
     bool IsAlive() const; //!< Return whether the bomber is alive (not dead and not dying)
@@ -235,7 +216,8 @@ public:
     int GetRollerItemsCount() const; //!< Return how many roller items the bomber has picked up
     int GetTotalBombs() const; //!< Return how many bombs the bomber can currently drop
     EBomberState GetState(); //!< Return the state of the bomber
-    int GetBombIndex(); //!< Return the index of the bomb the bomber is possibly holding, lifting, or punching (if the bomber is throwing, this index is -1).
+    int
+    GetBombIndex(); //!< Return the index of the bomb the bomber is possibly holding, lifting, or punching (if the bomber is throwing, this index is -1).
     bool HasExisted() const; //!< Return the has existed status variable
     void ResetHasExisted(); //!< Reset the existed status variable to false
     EBomberType GetBomberType(); //!< Return the bomber type (@see EBomberType)
@@ -243,10 +225,6 @@ public:
     void SetTeam(CTeam* pTeam); //!< Set the team
     CTeam* GetTeam(); //!< Return the team
 };
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 inline void CBomber::SetArena(CArena* pArena)
 {
@@ -333,9 +311,5 @@ inline EBomberType CBomber::GetBomberType() { return p_Options->GetBomberType(m_
 inline void CBomber::SetTeam(CTeam* pTeam) { p_Team = pTeam; }
 
 inline CTeam* CBomber::GetTeam() { return p_Team; }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 #endif

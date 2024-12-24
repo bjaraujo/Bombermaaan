@@ -49,14 +49,6 @@
 static CFont m_Font;
 #endif
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 CAiArena::CAiArena()
 {
     m_pArena = nullptr;
@@ -81,15 +73,7 @@ CAiArena::CAiArena()
     }
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 CAiArena::~CAiArena() = default;
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 void CAiArena::Create()
 {
@@ -107,10 +91,6 @@ void CAiArena::Create()
 #endif
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 void CAiArena::Destroy()
 {
 #if defined(DEBUG_DRAW_SOFTWALL_BLOCKS) || defined(DEBUG_DRAW_BURNWALLDANGER_BLOCKS) || defined(DEBUG_DRAW_BOMB_OWNERS)
@@ -118,10 +98,6 @@ void CAiArena::Destroy()
         m_pDisplay->RemoveAllDebugRectangles();
 #endif
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 void CAiArena::Update(float DeltaTime)
 {
@@ -510,7 +486,8 @@ void CAiArena::Update(float DeltaTime)
                     g = gbase + m_SoftWallNear[BlockX][BlockY] * 8;
                     b = bbase + m_SoftWallNear[BlockX][BlockY] * 8;
 
-                    m_pDisplay->DrawDebugRectangle(m_pArena->ToPosition(BlockX), m_pArena->ToPosition(BlockY), w, h, r, g, b, AIARENADEBUG_SPRITELAYER, PRIORITY_UNUSED);
+                    m_pDisplay->DrawDebugRectangle(m_pArena->ToPosition(BlockX), m_pArena->ToPosition(BlockY), w, h, r, g, b,
+                        AIARENADEBUG_SPRITELAYER, PRIORITY_UNUSED);
                 }
             }
         }
@@ -587,7 +564,8 @@ void CAiArena::Update(float DeltaTime)
                             // ignore bomb: when we don't know when a bomb explodes
                             // we can't know when the soft walls around will disappear
                             ThisBombIndex = BombIndex[Index];
-                            IgnoreBomb = m_pArena->GetBomb(Index).IsRemote() && !m_pArena->GetBomber(m_pArena->GetBomb(Index).GetOwnerPlayer()).IsAlive();
+                            IgnoreBomb = m_pArena->GetBomb(Index).IsRemote()
+                                && !m_pArena->GetBomber(m_pArena->GetBomb(Index).GetOwnerPlayer()).IsAlive();
                             break;
                         }
                     }
@@ -649,7 +627,8 @@ void CAiArena::Update(float DeltaTime)
                             // Update time left if this bomb might ignite the other
                             for (int Index = 0; IsBomb && Index < m_pArena->MaxBombs(); Index++)
                             {
-                                if (m_pArena->GetBomb(Index).GetBlockX() == DangerBlockX && m_pArena->GetBomb(Index).GetBlockY() == DangerBlockY)
+                                if (m_pArena->GetBomb(Index).GetBlockX() == DangerBlockX
+                                    && m_pArena->GetBomb(Index).GetBlockY() == DangerBlockY)
                                 {
                                     TimeLeftHere = m_pArena->GetBomb(BombIndex[Index]).GetTimeLeft();
                                     if (TimeLeft > TimeLeftHere)
@@ -734,7 +713,8 @@ void CAiArena::Update(float DeltaTime)
                             // Update time left if this bomb might ignite the other
                             for (int Index = 0; IsBomb && Index < m_pArena->MaxBombs(); Index++)
                             {
-                                if (m_pArena->GetBomb(Index).GetBlockX() == DangerBlockX && m_pArena->GetBomb(Index).GetBlockY() == DangerBlockY)
+                                if (m_pArena->GetBomb(Index).GetBlockX() == DangerBlockX
+                                    && m_pArena->GetBomb(Index).GetBlockY() == DangerBlockY)
                                 {
                                     TimeLeftHere = m_pArena->GetBomb(BombIndex[Index]).GetTimeLeft();
                                     if (TimeLeft > TimeLeftHere)
@@ -818,7 +798,8 @@ void CAiArena::Update(float DeltaTime)
                             // Update time left if this bomb might ignite the other
                             for (int Index = 0; IsBomb && Index < m_pArena->MaxBombs(); Index++)
                             {
-                                if (m_pArena->GetBomb(Index).GetBlockX() == DangerBlockX && m_pArena->GetBomb(Index).GetBlockY() == DangerBlockY)
+                                if (m_pArena->GetBomb(Index).GetBlockX() == DangerBlockX
+                                    && m_pArena->GetBomb(Index).GetBlockY() == DangerBlockY)
                                 {
                                     TimeLeftHere = m_pArena->GetBomb(BombIndex[Index]).GetTimeLeft();
                                     if (TimeLeft > TimeLeftHere)
@@ -903,7 +884,8 @@ void CAiArena::Update(float DeltaTime)
                             // Update time left if this bomb might ignite the other
                             for (int Index = 0; IsBomb && Index < m_pArena->MaxBombs(); Index++)
                             {
-                                if (m_pArena->GetBomb(Index).GetBlockX() == DangerBlockX && m_pArena->GetBomb(Index).GetBlockY() == DangerBlockY)
+                                if (m_pArena->GetBomb(Index).GetBlockX() == DangerBlockX
+                                    && m_pArena->GetBomb(Index).GetBlockY() == DangerBlockY)
                                 {
                                     TimeLeftHere = m_pArena->GetBomb(BombIndex[Index]).GetTimeLeft();
                                     if (TimeLeft > TimeLeftHere)
@@ -1023,7 +1005,8 @@ void CAiArena::Update(float DeltaTime)
         {
             for (BlockY = 0; BlockY < ARENA_HEIGHT; BlockY++)
             {
-                if (m_Danger[BlockX][BlockY] != DANGER_NONE && !m_pArena->IsWall(BlockX, BlockY) && !m_pArena->IsBomb(BlockX, BlockY))
+                if (m_Danger[BlockX][BlockY] != DANGER_NONE && !m_pArena->IsWall(BlockX, BlockY)
+                    && !m_pArena->IsBomb(BlockX, BlockY))
                 {
                     r = rbase;
                     if (m_Danger[BlockX][BlockY] == DANGER_MORTAL)
@@ -1031,15 +1014,18 @@ void CAiArena::Update(float DeltaTime)
 
                     r += MIN(64, (int)floor(m_DangerTimeLeft[BlockX][BlockY] * 30.0));
 
-                    m_pDisplay->DrawDebugRectangle(m_pArena->ToPosition(BlockX), m_pArena->ToPosition(BlockY), w, h, r, 0, 0, AIARENADEBUG_SPRITELAYER, PRIORITY_UNUSED);
+                    m_pDisplay->DrawDebugRectangle(m_pArena->ToPosition(BlockX), m_pArena->ToPosition(BlockY), w, h, r, 0, 0,
+                        AIARENADEBUG_SPRITELAYER, PRIORITY_UNUSED);
 
-                    m_Font.Draw(m_pArena->ToPosition(BlockX), m_pArena->ToPosition(BlockY) + h / 4, "%.1f", floor(m_DangerTimeLeft[BlockX][BlockY] * 10) / 10);
+                    m_Font.Draw(m_pArena->ToPosition(BlockX), m_pArena->ToPosition(BlockY) + h / 4, "%.1f",
+                        floor(m_DangerTimeLeft[BlockX][BlockY] * 10) / 10);
                 }
                 else if (m_WallBurn[BlockX][BlockY])
                 {
                     b = bbase;
 
-                    m_pDisplay->DrawDebugRectangle(m_pArena->ToPosition(BlockX), m_pArena->ToPosition(BlockY), w, h, 0, 0, b, AIARENADEBUG_SPRITELAYER, PRIORITY_UNUSED);
+                    m_pDisplay->DrawDebugRectangle(m_pArena->ToPosition(BlockX), m_pArena->ToPosition(BlockY), w, h, 0, 0, b,
+                        AIARENADEBUG_SPRITELAYER, PRIORITY_UNUSED);
                 }
 
 #ifdef DEBUG_DRAW_BOMB_OWNERS
@@ -1091,7 +1077,8 @@ void CAiArena::Update(float DeltaTime)
                                 }
                             }
 
-                            m_pDisplay->DrawDebugRectangle(m_pArena->ToPosition(BlockX), m_pArena->ToPosition(BlockY), w, h, r, g, b, AIARENADEBUG_SPRITELAYER, PRIORITY_UNUSED);
+                            m_pDisplay->DrawDebugRectangle(m_pArena->ToPosition(BlockX), m_pArena->ToPosition(BlockY), w, h,
+                                r, g, b, AIARENADEBUG_SPRITELAYER, PRIORITY_UNUSED);
                             break;
                         }
                     }
@@ -1102,11 +1089,3 @@ void CAiArena::Update(float DeltaTime)
     }
 #endif
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************

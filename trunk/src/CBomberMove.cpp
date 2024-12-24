@@ -34,18 +34,10 @@
 #include "CBomber.h"
 #include "StdAfx.h"
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 // Add these values (in pixels) to the bomber position in order
 // to get the position of the bomb the bomber is holding
 #define BOMBER_TO_HELD_BOMB_POSITION_X 0
 #define BOMBER_TO_HELD_BOMB_POSITION_Y -17
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 CBomberMove::CBomberMove()
 {
@@ -67,15 +59,7 @@ CBomberMove::CBomberMove()
     m_CouldMove = false;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-CBomberMove::~CBomberMove() {}
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
+CBomberMove::~CBomberMove() { }
 
 void CBomberMove::Create(int BlockX, int BlockY, int Player)
 {
@@ -103,20 +87,14 @@ void CBomberMove::Create(int BlockX, int BlockY, int Player)
     m_CouldMove = false;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-void CBomberMove::Destroy() {}
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
+void CBomberMove::Destroy() { }
 
 void CBomberMove::Command(EBomberMove BomberMove)
 {
     // If the bomber is currently lifting or throwing or punching a bomb
-    if (m_pArena->GetBomber(m_Player).GetState() == BOMBERSTATE_LIFT || m_pArena->GetBomber(m_Player).GetState() == BOMBERSTATE_THROW || m_pArena->GetBomber(m_Player).GetState() == BOMBERSTATE_PUNCH)
+    if (m_pArena->GetBomber(m_Player).GetState() == BOMBERSTATE_LIFT
+        || m_pArena->GetBomber(m_Player).GetState() == BOMBERSTATE_THROW
+        || m_pArena->GetBomber(m_Player).GetState() == BOMBERSTATE_PUNCH)
     {
         // Then he cannot move.
         m_BomberMove = BOMBERMOVE_NONE;
@@ -229,10 +207,6 @@ void CBomberMove::Command(EBomberMove BomberMove)
         }
     }
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 void CBomberMove::Update(float DeltaTime)
 {
@@ -394,10 +368,6 @@ void CBomberMove::Update(float DeltaTime)
     }
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 void CBomberMove::WriteSnapshot(CArenaSnapshot& Snapshot)
 {
     Snapshot.WriteInteger(m_Player);
@@ -413,8 +383,6 @@ void CBomberMove::WriteSnapshot(CArenaSnapshot& Snapshot)
     Snapshot.WriteBoolean(m_CouldMove);
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 //****************************************************************************************************************************
 
 void CBomberMove::ReadSnapshot(CArenaSnapshot& Snapshot)
@@ -432,10 +400,6 @@ void CBomberMove::ReadSnapshot(CArenaSnapshot& Snapshot)
     Snapshot.ReadBoolean(&m_CouldMove);
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 // These defines are here to simplify the code
 // of the 3 following methods TryMove, CanMove, TurnTest.
 // They're not all uppercase for readability.
@@ -444,10 +408,6 @@ void CBomberMove::ReadSnapshot(CArenaSnapshot& Snapshot)
 #define HalfBlock (BLOCK_SIZE / 2)
 #define TurnLimit (HalfBlock / 4)
 #define BlockedLimit (-HalfBlock + (HalfBlock / 4))
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 // TryMove tries to go by fPixels pixels in the current direction and turning state.
 // Bombs which are in the bomber's way will be kicked if the bomber can kick them.
@@ -461,7 +421,8 @@ void CBomberMove::ReadSnapshot(CArenaSnapshot& Snapshot)
 bool CBomberMove::TryMove(float fPixels)
 {
     // The m_BomberMove must describe a SINGLE DIRECTION. If not, infinite loop.
-    ASSERT(m_BomberMove != BOMBERMOVE_UPLEFT && m_BomberMove != BOMBERMOVE_UPRIGHT && m_BomberMove != BOMBERMOVE_DOWNLEFT && m_BomberMove != BOMBERMOVE_DOWNRIGHT);
+    ASSERT(m_BomberMove != BOMBERMOVE_UPLEFT && m_BomberMove != BOMBERMOVE_UPRIGHT && m_BomberMove != BOMBERMOVE_DOWNLEFT
+        && m_BomberMove != BOMBERMOVE_DOWNRIGHT);
 
     CBomber* pBomber = &m_pArena->GetBomber(m_Player);
 
@@ -1029,10 +990,6 @@ bool CBomberMove::TryMove(float fPixels)
     return false;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 // CanMove is very similar to TryMove. CanMove tries to go in the desired direction, but
 // contrary to TryMove, the test are made with a virtual bomber, the real states won't
 // be modified. CanMove returns an information about the test : could he move, did he
@@ -1041,7 +998,8 @@ bool CBomberMove::TryMove(float fPixels)
 ECanMove CBomberMove::CanMove(EBomberMove TestMove)
 {
     // The TestMove must describe a SINGLE DIRECTION. If not, infinite loop.
-    ASSERT(TestMove != BOMBERMOVE_NONE && TestMove != BOMBERMOVE_UPLEFT && TestMove != BOMBERMOVE_UPRIGHT && TestMove != BOMBERMOVE_DOWNLEFT && TestMove != BOMBERMOVE_DOWNRIGHT);
+    ASSERT(TestMove != BOMBERMOVE_NONE && TestMove != BOMBERMOVE_UPLEFT && TestMove != BOMBERMOVE_UPRIGHT
+        && TestMove != BOMBERMOVE_DOWNLEFT && TestMove != BOMBERMOVE_DOWNRIGHT);
 
     CBomber* pBomber = &m_pArena->GetBomber(m_Player);
     EBomberMove BomberMove = TestMove; // Temporary move variable in order not to modify the real one
@@ -1600,10 +1558,6 @@ ECanMove CBomberMove::CanMove(EBomberMove TestMove)
     return CANMOVE_CANNOT;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 // TurnTest is very similar to CanMove. TurnTest makes a virtual bomber move, then when
 // the move is finished (ie the virtual bomber has moved or is blocked), it returns
 // the virtual turning state.
@@ -1611,7 +1565,8 @@ ECanMove CBomberMove::CanMove(EBomberMove TestMove)
 ETurning CBomberMove::TurnTest(EBomberMove TestMove)
 {
     // The TestMove must describe a SINGLE DIRECTION. If not, infinite loop.
-    ASSERT(TestMove != BOMBERMOVE_UPLEFT && TestMove != BOMBERMOVE_UPRIGHT && TestMove != BOMBERMOVE_DOWNLEFT && TestMove != BOMBERMOVE_DOWNRIGHT);
+    ASSERT(TestMove != BOMBERMOVE_UPLEFT && TestMove != BOMBERMOVE_UPRIGHT && TestMove != BOMBERMOVE_DOWNLEFT
+        && TestMove != BOMBERMOVE_DOWNRIGHT);
 
     CBomber* pBomber = &m_pArena->GetBomber(m_Player);
     EBomberMove BomberMove = TestMove; // Temporary go variable in order not to modify the real one
@@ -2136,7 +2091,3 @@ ETurning CBomberMove::TurnTest(EBomberMove TestMove)
     // Can't happen
     return Turning;
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************

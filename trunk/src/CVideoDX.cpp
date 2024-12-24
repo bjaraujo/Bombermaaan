@@ -81,10 +81,7 @@ static HRESULT WINAPI AddDisplayMode(LPDDSURFACEDESC2 lpDDSurfaceDesc, LPVOID lp
     return DDENUMRET_OK;
 }
 
-void CVideoDX::SetProgramFolder(const std::string& pgmFolder)
-{
-    m_pgmFolder = pgmFolder;
-}
+void CVideoDX::SetProgramFolder(const std::string& pgmFolder) { m_pgmFolder = pgmFolder; }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -249,7 +246,8 @@ bool CVideoDX::Create(int Width, int Height, int Depth, bool FullScreen)
     else
     {
         // Log that fullscreen mode is being initialized
-        theLog.WriteLine("DirectDraw      => Initializing DirectDraw interface for fullscreen mode %dx%dx%d.", m_Width, m_Height, m_Depth);
+        theLog.WriteLine(
+            "DirectDraw      => Initializing DirectDraw interface for fullscreen mode %dx%dx%d.", m_Width, m_Height, m_Depth);
 
         // Get exclusive mode
         hRet = m_pDD->SetCooperativeLevel(m_hWnd, DDSCL_EXCLUSIVE | DDSCL_FULLSCREEN);
@@ -524,7 +522,8 @@ void CVideoDX::OnWindowMove()
  *  @see SetOrigin()
  */
 
-void CVideoDX::DrawSprite(int PositionX, int PositionY, RECT* pZone, RECT* pClip, int SpriteTable, int Sprite, int SpriteLayer, int PriorityInLayer)
+void CVideoDX::DrawSprite(
+    int PositionX, int PositionY, RECT* pZone, RECT* pClip, int SpriteTable, int Sprite, int SpriteLayer, int PriorityInLayer)
 {
     // Prepare a drawing request
     SDrawingRequest DrawingRequest;
@@ -540,7 +539,8 @@ void CVideoDX::DrawSprite(int PositionX, int PositionY, RECT* pZone, RECT* pClip
         int SpriteSizeY = pSprite->ZoneY2 - pSprite->ZoneY1;
 
         // If the sprite is completely out of the clip rect
-        if (PositionX >= pClip->right || PositionY >= pClip->bottom || PositionX + SpriteSizeX < pClip->left || PositionY + SpriteSizeY < pClip->top)
+        if (PositionX >= pClip->right || PositionY >= pClip->bottom || PositionX + SpriteSizeX < pClip->left
+            || PositionY + SpriteSizeY < pClip->top)
         {
             // Get out, don't even register the drawing request
             return;
@@ -637,7 +637,8 @@ void CVideoDX::DrawSprite(int PositionX, int PositionY, RECT* pZone, RECT* pClip
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-void CVideoDX::DrawDebugRectangle(int PositionX, int PositionY, int w, int h, BYTE r, BYTE g, BYTE b, int SpriteLayer, int PriorityInLayer)
+void CVideoDX::DrawDebugRectangle(
+    int PositionX, int PositionY, int w, int h, BYTE r, BYTE g, BYTE b, int SpriteLayer, int PriorityInLayer)
 {
     // Prepare a drawing request
     SDebugDrawingRequest DrawingRequest;
@@ -747,7 +748,8 @@ bool CVideoDX::SetTransparentColor(int Red, int Green, int Blue)
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CVideoDX::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, int BMP_ID, HBITMAP hBitmap)
+bool CVideoDX::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent,
+    int BMP_ID, HBITMAP hBitmap)
 {
     HRESULT hRet;
 
@@ -967,7 +969,8 @@ bool CVideoDX::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int Spri
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-bool CVideoDX::LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, const char* file)
+bool CVideoDX::LoadSprites(
+    int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, const char* file)
 {
 
     // TODO:
@@ -1045,7 +1048,8 @@ void CVideoDX::UpdateAll(void)
         SourceRect.bottom = DR.ZoneY2;
 
         // Blit the surface zone on the back buffer
-        m_pBackBuffer->BltFast(DR.PositionX, DR.PositionY, m_Surfaces[pSprite->SurfaceNumber].pSurface, &SourceRect, m_Surfaces[pSprite->SurfaceNumber].BlitParameters);
+        m_pBackBuffer->BltFast(DR.PositionX, DR.PositionY, m_Surfaces[pSprite->SurfaceNumber].pSurface, &SourceRect,
+            m_Surfaces[pSprite->SurfaceNumber].BlitParameters);
 
         // Pop the drawing request to go to the next
         m_DrawingRequests.pop();
@@ -1106,7 +1110,8 @@ void CVideoDX::UpdateAll(void)
                 // check valid values
                 if (BlitRect.left < 0 || BlitRect.right < 0 || BlitRect.bottom < 0 || BlitRect.top < 0)
                     continue;
-                if ((DWORD)BlitRect.left > ddsd.dwWidth || (DWORD)BlitRect.right > ddsd.dwWidth || (DWORD)BlitRect.bottom > ddsd.dwHeight || (DWORD)BlitRect.top > ddsd.dwHeight)
+                if ((DWORD)BlitRect.left > ddsd.dwWidth || (DWORD)BlitRect.right > ddsd.dwWidth
+                    || (DWORD)BlitRect.bottom > ddsd.dwHeight || (DWORD)BlitRect.top > ddsd.dwHeight)
                     continue;
                 if (BlitRect.left > BlitRect.right || BlitRect.bottom < BlitRect.top)
                     continue;
@@ -1207,7 +1212,8 @@ bool CVideoDX::IsModeAvailable(int Width, int Height, int Depth)
     for (unsigned int i = 0; i < m_AvailableDisplayModes.size(); i++)
     {
         // If this is the display mode we are looking for
-        if (m_AvailableDisplayModes[i].Width == Width && m_AvailableDisplayModes[i].Height == Height && m_AvailableDisplayModes[i].Depth == Depth)
+        if (m_AvailableDisplayModes[i].Width == Width && m_AvailableDisplayModes[i].Height == Height
+            && m_AvailableDisplayModes[i].Depth == Depth)
         {
             // Then it's available
             return true;

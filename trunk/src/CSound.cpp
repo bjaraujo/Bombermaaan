@@ -35,9 +35,6 @@
 #include "res.h"
 
 // now using SDL_Mixer library
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 CSound::CSound()
 {
@@ -62,20 +59,9 @@ CSound::CSound()
     m_SoundOK = false;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 CSound::~CSound() = default;
 
-void CSound::SetProgramFolder(const std::string& pgmFolder) 
-{ 
-    m_pgmFolder = pgmFolder;
-}
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
+void CSound::SetProgramFolder(const std::string& pgmFolder) { m_pgmFolder = pgmFolder; }
 
 bool CSound::Create()
 {
@@ -92,54 +78,51 @@ bool CSound::Create()
 
     Mix_AllocateChannels(32); // this was the default in FMOD
 
-    if (!LoadSample(SAMPLE_BOMB_DROP, SND_BOMB_DROP, "bomb_drop.ogg") || 
-        !LoadSample(SAMPLE_BOMBER_DEATH, SND_BOMBER_DEATH, "bomber_death.ogg") || 
-        !LoadSample(SAMPLE_BOMB_BOUNCE, SND_BOMB_BOUNCE, "bomb_bounce.ogg") || 
-        !LoadSample(SAMPLE_BOMBER_PUNCH, SND_BOMBER_PUNCH, "bomber_punch.ogg") || 
-        !LoadSample(SAMPLE_BOMBER_THROW, SND_BOMBER_THROW, "bomber_throw.ogg") || 
-        !LoadSample(SAMPLE_BOMBER_LOSE_ITEM, SND_BOMBER_LOSE_ITEM, "bomber_lose_item.ogg") || 
-        !LoadSample(SAMPLE_BREAK_1, SND_BREAK_1, "break_1.ogg") || 
-        !LoadSample(SAMPLE_BREAK_2, SND_BREAK_2, "break_2.ogg") || 
-        !LoadSample(SAMPLE_DRAW_GAME, SND_DRAW_GAME, "draw_game.ogg") || 
-        !LoadSample(SAMPLE_DRAW_GAME_VOICE, SND_DRAW_GAME_VOICE, "draw_game_voice.ogg") || 
-        !LoadSample(SAMPLE_EXPLOSION_01_1, SND_EXPLOSION_01_1, "explosion_01_1.ogg") || 
-        !LoadSample(SAMPLE_EXPLOSION_01_2, SND_EXPLOSION_01_2, "explosion_01_2.ogg") || 
-        !LoadSample(SAMPLE_EXPLOSION_02_1, SND_EXPLOSION_02_1, "explosion_02_1.ogg") || 
-        !LoadSample(SAMPLE_EXPLOSION_02_2, SND_EXPLOSION_02_2, "explosion_02_2.ogg") || 
-        !LoadSample(SAMPLE_EXPLOSION_03_1, SND_EXPLOSION_03_1, "explosion_03_1.ogg") || 
-        !LoadSample(SAMPLE_EXPLOSION_03_2, SND_EXPLOSION_03_2, "explosion_03_2.ogg") || 
-        !LoadSample(SAMPLE_EXPLOSION_04_1, SND_EXPLOSION_04_1, "explosion_04_1.ogg") || 
-        !LoadSample(SAMPLE_EXPLOSION_04_2, SND_EXPLOSION_04_2, "explosion_04_2.ogg") || 
-        !LoadSample(SAMPLE_EXPLOSION_05_1, SND_EXPLOSION_05_1, "explosion_05_1.ogg") || 
-        !LoadSample(SAMPLE_EXPLOSION_05_2, SND_EXPLOSION_05_2, "explosion_05_2.ogg") || 
-        !LoadSample(SAMPLE_EXPLOSION_06_1, SND_EXPLOSION_06_1, "explosion_06_1.ogg") || 
-        !LoadSample(SAMPLE_EXPLOSION_06_2, SND_EXPLOSION_06_2, "explosion_06_2.ogg") || 
-        !LoadSample(SAMPLE_EXPLOSION_07_1, SND_EXPLOSION_07_1, "explosion_07_1.ogg") || 
-        !LoadSample(SAMPLE_EXPLOSION_07_2, SND_EXPLOSION_07_2, "explosion_07_2.ogg") || 
-        !LoadSample(SAMPLE_EXPLOSION_08_1, SND_EXPLOSION_08_1, "explosion_08_1.ogg") || 
-        !LoadSample(SAMPLE_EXPLOSION_08_2, SND_EXPLOSION_08_2, "explosion_08_2.ogg") || 
-        !LoadSample(SAMPLE_EXPLOSION_09_1, SND_EXPLOSION_09_1, "explosion_09_1.ogg") || 
-        !LoadSample(SAMPLE_EXPLOSION_09_2, SND_EXPLOSION_09_2, "explosion_09_2.ogg") || 
-        !LoadSample(SAMPLE_EXPLOSION_10_1, SND_EXPLOSION_10_1, "explosion_10_1.ogg") || 
-        !LoadSample(SAMPLE_EXPLOSION_10_2, SND_EXPLOSION_10_2, "explosion_10_2.ogg") || 
-        !LoadSample(SAMPLE_HURRY, SND_HURRY, "hurry.ogg") || 
-        !LoadSample(SAMPLE_ITEM_FUMES, SND_ITEM_FUMES, "item_fumes.ogg") || 
-        !LoadSample(SAMPLE_MENU_NEXT, SND_MENU_NEXT, "menu_next.ogg") || 
-        !LoadSample(SAMPLE_MENU_PREVIOUS, SND_MENU_PREVIOUS, "menu_previous.ogg") || 
-        !LoadSample(SAMPLE_MENU_BEEP, SND_MENU_BEEP, "menu_beep.ogg") || 
-        !LoadSample(SAMPLE_MENU_ERROR, SND_MENU_ERROR, "menu_error.ogg") || 
-        !LoadSample(SAMPLE_PAUSE, SND_PAUSE, "pause.ogg") || 
-        !LoadSample(SAMPLE_PICK_ITEM_1, SND_PICK_ITEM_1, "pick_item_1.ogg") || 
-        !LoadSample(SAMPLE_PICK_ITEM_2, SND_PICK_ITEM_2, "pick_item_2.ogg") || 
-        !LoadSample(SAMPLE_RING_DING, SND_RING_DING, "ring_ding.ogg") || 
-        !LoadSample(SAMPLE_SICK_1, SND_SICK_1, "sick_1.ogg") || 
-        !LoadSample(SAMPLE_SICK_2, SND_SICK_2, "sick_2.ogg") || 
-        !LoadSample(SAMPLE_SICK_3, SND_SICK_3, "sick_3.ogg") || 
-        !LoadSample(SAMPLE_VICTORY, SND_VICTORY, "victory.ogg") || 
-        !LoadSample(SAMPLE_VICTORY_VOICE, SND_VICTORY_VOICE, "victory_voice.ogg") || 
-        !LoadSample(SAMPLE_WALL_CLAP_1, SND_WALL_CLAP_1, "wall_clap_1.ogg") || 
-        !LoadSample(SAMPLE_WALL_CLAP_2, SND_WALL_CLAP_2, "wall_clap_2.ogg") || 
-        !LoadSample(SAMPLE_WINNER, SND_WINNER, "winner.ogg"))
+    if (!LoadSample(SAMPLE_BOMB_DROP, SND_BOMB_DROP, "bomb_drop.ogg")
+        || !LoadSample(SAMPLE_BOMBER_DEATH, SND_BOMBER_DEATH, "bomber_death.ogg")
+        || !LoadSample(SAMPLE_BOMB_BOUNCE, SND_BOMB_BOUNCE, "bomb_bounce.ogg")
+        || !LoadSample(SAMPLE_BOMBER_PUNCH, SND_BOMBER_PUNCH, "bomber_punch.ogg")
+        || !LoadSample(SAMPLE_BOMBER_THROW, SND_BOMBER_THROW, "bomber_throw.ogg")
+        || !LoadSample(SAMPLE_BOMBER_LOSE_ITEM, SND_BOMBER_LOSE_ITEM, "bomber_lose_item.ogg")
+        || !LoadSample(SAMPLE_BREAK_1, SND_BREAK_1, "break_1.ogg") || !LoadSample(SAMPLE_BREAK_2, SND_BREAK_2, "break_2.ogg")
+        || !LoadSample(SAMPLE_DRAW_GAME, SND_DRAW_GAME, "draw_game.ogg")
+        || !LoadSample(SAMPLE_DRAW_GAME_VOICE, SND_DRAW_GAME_VOICE, "draw_game_voice.ogg")
+        || !LoadSample(SAMPLE_EXPLOSION_01_1, SND_EXPLOSION_01_1, "explosion_01_1.ogg")
+        || !LoadSample(SAMPLE_EXPLOSION_01_2, SND_EXPLOSION_01_2, "explosion_01_2.ogg")
+        || !LoadSample(SAMPLE_EXPLOSION_02_1, SND_EXPLOSION_02_1, "explosion_02_1.ogg")
+        || !LoadSample(SAMPLE_EXPLOSION_02_2, SND_EXPLOSION_02_2, "explosion_02_2.ogg")
+        || !LoadSample(SAMPLE_EXPLOSION_03_1, SND_EXPLOSION_03_1, "explosion_03_1.ogg")
+        || !LoadSample(SAMPLE_EXPLOSION_03_2, SND_EXPLOSION_03_2, "explosion_03_2.ogg")
+        || !LoadSample(SAMPLE_EXPLOSION_04_1, SND_EXPLOSION_04_1, "explosion_04_1.ogg")
+        || !LoadSample(SAMPLE_EXPLOSION_04_2, SND_EXPLOSION_04_2, "explosion_04_2.ogg")
+        || !LoadSample(SAMPLE_EXPLOSION_05_1, SND_EXPLOSION_05_1, "explosion_05_1.ogg")
+        || !LoadSample(SAMPLE_EXPLOSION_05_2, SND_EXPLOSION_05_2, "explosion_05_2.ogg")
+        || !LoadSample(SAMPLE_EXPLOSION_06_1, SND_EXPLOSION_06_1, "explosion_06_1.ogg")
+        || !LoadSample(SAMPLE_EXPLOSION_06_2, SND_EXPLOSION_06_2, "explosion_06_2.ogg")
+        || !LoadSample(SAMPLE_EXPLOSION_07_1, SND_EXPLOSION_07_1, "explosion_07_1.ogg")
+        || !LoadSample(SAMPLE_EXPLOSION_07_2, SND_EXPLOSION_07_2, "explosion_07_2.ogg")
+        || !LoadSample(SAMPLE_EXPLOSION_08_1, SND_EXPLOSION_08_1, "explosion_08_1.ogg")
+        || !LoadSample(SAMPLE_EXPLOSION_08_2, SND_EXPLOSION_08_2, "explosion_08_2.ogg")
+        || !LoadSample(SAMPLE_EXPLOSION_09_1, SND_EXPLOSION_09_1, "explosion_09_1.ogg")
+        || !LoadSample(SAMPLE_EXPLOSION_09_2, SND_EXPLOSION_09_2, "explosion_09_2.ogg")
+        || !LoadSample(SAMPLE_EXPLOSION_10_1, SND_EXPLOSION_10_1, "explosion_10_1.ogg")
+        || !LoadSample(SAMPLE_EXPLOSION_10_2, SND_EXPLOSION_10_2, "explosion_10_2.ogg")
+        || !LoadSample(SAMPLE_HURRY, SND_HURRY, "hurry.ogg")
+        || !LoadSample(SAMPLE_ITEM_FUMES, SND_ITEM_FUMES, "item_fumes.ogg")
+        || !LoadSample(SAMPLE_MENU_NEXT, SND_MENU_NEXT, "menu_next.ogg")
+        || !LoadSample(SAMPLE_MENU_PREVIOUS, SND_MENU_PREVIOUS, "menu_previous.ogg")
+        || !LoadSample(SAMPLE_MENU_BEEP, SND_MENU_BEEP, "menu_beep.ogg")
+        || !LoadSample(SAMPLE_MENU_ERROR, SND_MENU_ERROR, "menu_error.ogg")
+        || !LoadSample(SAMPLE_PAUSE, SND_PAUSE, "pause.ogg")
+        || !LoadSample(SAMPLE_PICK_ITEM_1, SND_PICK_ITEM_1, "pick_item_1.ogg")
+        || !LoadSample(SAMPLE_PICK_ITEM_2, SND_PICK_ITEM_2, "pick_item_2.ogg")
+        || !LoadSample(SAMPLE_RING_DING, SND_RING_DING, "ring_ding.ogg")
+        || !LoadSample(SAMPLE_SICK_1, SND_SICK_1, "sick_1.ogg") || !LoadSample(SAMPLE_SICK_2, SND_SICK_2, "sick_2.ogg")
+        || !LoadSample(SAMPLE_SICK_3, SND_SICK_3, "sick_3.ogg") || !LoadSample(SAMPLE_VICTORY, SND_VICTORY, "victory.ogg")
+        || !LoadSample(SAMPLE_VICTORY_VOICE, SND_VICTORY_VOICE, "victory_voice.ogg")
+        || !LoadSample(SAMPLE_WALL_CLAP_1, SND_WALL_CLAP_1, "wall_clap_1.ogg")
+        || !LoadSample(SAMPLE_WALL_CLAP_2, SND_WALL_CLAP_2, "wall_clap_2.ogg")
+        || !LoadSample(SAMPLE_WINNER, SND_WINNER, "winner.ogg"))
     { // songs are loaded when they are needed
         // Failure, get out (error is logged by the LoadSample() and LoadSong() methods)
         return false;
@@ -150,10 +133,6 @@ bool CSound::Create()
     // Everything went right
     return true;
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 void CSound::Destroy()
 {
@@ -189,10 +168,6 @@ void CSound::Destroy()
 
     Mix_CloseAudio();
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 bool CSound::LoadSample(ESample Sample, int ResourceID, const char* file)
 {
@@ -256,10 +231,6 @@ bool CSound::LoadSample(ESample Sample, int ResourceID, const char* file)
     return true;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 void CSound::FreeSample(ESample Sample)
 {
     // If the sample slot is not free
@@ -275,10 +246,6 @@ void CSound::FreeSample(ESample Sample)
         m_Samples[Sample] = nullptr;
     }
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 bool CSound::LoadSong(ESong Song, int ResourceID, const char* file)
 {
@@ -333,10 +300,6 @@ bool CSound::LoadSong(ESong Song, int ResourceID, const char* file)
     return true;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 void CSound::FreeSong(ESong Song)
 {
     // If the song slot is not free
@@ -348,7 +311,7 @@ void CSound::FreeSong(ESong Song)
         m_CurrentSong = nullptr;
     }
 
-#ifndef LOAD_RESOURCES_FROM_FILES 
+#ifndef LOAD_RESOURCES_FROM_FILES
     if (m_rwSong != nullptr)
     {
         SDL_RWclose(m_rwSong);
@@ -356,10 +319,6 @@ void CSound::FreeSong(ESong Song)
     }
 #endif
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 bool CSound::GetSoundResource(int ResourceID, LPVOID& pData, DWORD& DataSize)
 {
@@ -423,10 +382,6 @@ bool CSound::GetSoundResource(int ResourceID, LPVOID& pData, DWORD& DataSize)
     return true;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 void CSound::SetPause(bool Pause)
 {
     // If the sound works
@@ -444,10 +399,6 @@ void CSound::SetPause(bool Pause)
         m_GlobalPause = Pause;
     }
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 void CSound::PlaySong(ESong Song)
 {
@@ -499,10 +450,6 @@ void CSound::PlaySong(ESong Song)
     }
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 void CSound::StopSong(ESong Song)
 {
     // If the sound works
@@ -516,10 +463,6 @@ void CSound::StopSong(ESong Song)
         }
     }
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 void CSound::PlaySample(ESample Sample)
 {
@@ -536,10 +479,6 @@ void CSound::PlaySample(ESample Sample)
     }
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 void CSound::StopAllSamples() const
 {
     // If the sound works
@@ -550,10 +489,6 @@ void CSound::StopAllSamples() const
     }
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 void CSound::SetSampleVolume(int VolumePerCent)
 {
     // If the sound works
@@ -563,10 +498,6 @@ void CSound::SetSampleVolume(int VolumePerCent)
         Mix_Volume(-1, VolumePerCent * MIX_MAX_VOLUME / 100);
     }
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 void CSound::SetSongVolume(ESong Song, int VolumePerCent)
 {
@@ -580,7 +511,3 @@ void CSound::SetSongVolume(ESong Song, int VolumePerCent)
         }
     }
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************

@@ -33,10 +33,6 @@ class COptions;
 
 #include <deque>
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 //! Describes a block position to close when the arena is closing
 struct SClosePosition
 {
@@ -44,15 +40,7 @@ struct SClosePosition
     int Y; //!< Block Y position
 };
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 typedef std::deque<SClosePosition> TClosure;
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 //! This class manages the closure of an arena.
 class CArenaCloser
@@ -61,7 +49,8 @@ private:
     CArena* m_pArena; //!< Arena to close
     COptions* m_pOptions; //!< Options object where to find the arena closure settings for this match
     TClosure m_ClosureData; //!< Sequence of block positions which have to be closed in this order.
-    float m_TimeBetweenTwoBlockClosures; //!< How many seconds should elapse after closing a block and before closing the next block?
+    float
+        m_TimeBetweenTwoBlockClosures; //!< How many seconds should elapse after closing a block and before closing the next block?
     float m_TimeLeftBeforeClosingNextBlock; //!< Time left in seconds before the next block should start closing
     bool m_IsClosing; //!< Is the arena currently closing?
 
@@ -85,13 +74,11 @@ public:
     inline int GetNextBlockPositionX(int Index); //!< Get the X position (in blocks) of the block that will be closed next
     inline int GetNextBlockPositionY(int Index); //!< Get the Y position (in blocks) of the block that will be closed next
     inline int GetNumberOfBlocksLeft(); //!< Get the number of blocks the arena closer still has to close.
-    inline float GetTimeBetweenTwoBlockClosures(); //!< Get the time (in seconds) that elapses between the closure of one block and the closure of the next block
-    inline float GetTimeLeftBeforeClosingNextBlock(); //!< Get the time left (in seconds) before the next block should start closing
+    inline float
+    GetTimeBetweenTwoBlockClosures(); //!< Get the time (in seconds) that elapses between the closure of one block and the closure of the next block
+    inline float
+    GetTimeLeftBeforeClosingNextBlock(); //!< Get the time left (in seconds) before the next block should start closing
 };
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 inline void CArenaCloser::SetArena(CArena* pArena) { m_pArena = pArena; }
 
@@ -108,9 +95,5 @@ inline int CArenaCloser::GetNumberOfBlocksLeft() { return m_ClosureData.size(); 
 inline float CArenaCloser::GetTimeBetweenTwoBlockClosures() { return m_TimeBetweenTwoBlockClosures; }
 
 inline float CArenaCloser::GetTimeLeftBeforeClosingNextBlock() { return m_TimeLeftBeforeClosingNextBlock; }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 #endif //__CARENACLOSER_H__

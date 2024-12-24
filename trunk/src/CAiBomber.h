@@ -31,10 +31,6 @@
 
 class CAiArena;
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 //! Describes the mode of the computer player
 enum EComputerMode
 {
@@ -47,10 +43,6 @@ enum EComputerMode
     COMPUTERMODE_WALK //!< Walking in random directions until there is some activity around the bomber
 };
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 //! Describes the direction to the next enemy
 enum EEnemyDirection
 {
@@ -62,23 +54,23 @@ enum EEnemyDirection
     ENEMYDIRECTION_RIGHT
 };
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 class CAiBomber
 {
 private:
     CAiArena* m_pArena;
     CDisplay* m_pDisplay;
     int m_Player;
-    int m_Accessible[ARENA_WIDTH][ARENA_HEIGHT]; // If this block is not accessible to the bomber (walls and bombs are obstacles), this contains -1. Otherwise this contains the distance (in blocks) between the bomber and the square.
+    int m_Accessible
+        [ARENA_WIDTH]
+        [ARENA_HEIGHT]; // If this block is not accessible to the bomber (walls and bombs are obstacles), this contains -1. Otherwise this contains the distance (in blocks) between the bomber and the square.
     int m_PseudoAccessible[ARENA_WIDTH][ARENA_HEIGHT];
     int m_NumAccessible;
-    float m_StopTimeLeft; // Number of seconds left before sending commands to the bomber. Stopping the computer bomber from time to time makes the player more human.
+    float
+        m_StopTimeLeft; // Number of seconds left before sending commands to the bomber. Stopping the computer bomber from time to time makes the player more human.
     int m_ItemGoalBlockX; // Used for item mode only. Coordinates of the block where to go.
     int m_ItemGoalBlockY;
-    bool m_ItemDropBomb; // Used for item mode only. True if the bomber has to drop a bomb when he gets to the item goal block.
+    bool
+        m_ItemDropBomb; // Used for item mode only. True if the bomber has to drop a bomb when he gets to the item goal block.
     int m_BlockWalk;
     float m_WalkTime;
     EComputerMode m_ComputerMode; // Current mode of the computer player
@@ -107,8 +99,10 @@ private:
     void ModeDefence(float /*DeltaTime*/);
     void ModeWalk(float DeltaTime);
     void UpdateAccessibility();
-    bool GoTo(int GoalBlockX, int GoalBlockY); // Modify the commands to send to the bomber so that it moves to the specified goal
-    bool EnemyNearAndFront(EEnemyDirection* direction = nullptr, bool BeyondArenaFrontiers = false); // Returns true if a bomber enemy is near the bomber and in front of him
+    bool GoTo(
+        int GoalBlockX, int GoalBlockY); // Modify the commands to send to the bomber so that it moves to the specified goal
+    bool EnemyNearAndFront(EEnemyDirection* direction = nullptr,
+        bool BeyondArenaFrontiers = false); // Returns true if a bomber enemy is near the bomber and in front of him
     bool EnemyNearRemoteFuseBomb(CBomb& bomb);
     bool TeamMateNearRemoteFuseBomb(CBomb& bomb);
     bool DropBombOK(int BlockX, int BlockY);
@@ -125,10 +119,6 @@ public:
     void Update(float DeltaTime);
 };
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 inline void CAiBomber::SetArena(CAiArena* pArena)
 {
     ASSERT(pArena != nullptr);
@@ -142,9 +132,5 @@ inline void CAiBomber::SetDisplay(CDisplay* pDisplay)
     // Save the display object pointer to pass to elements
     m_pDisplay = pDisplay;
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 #endif

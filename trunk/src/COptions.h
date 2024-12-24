@@ -36,10 +36,6 @@
 #include "CTeam.h"
 #include "tinyxml.h"
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 //! Describes the type of a bomber
 enum EBomberType
 {
@@ -49,29 +45,17 @@ enum EBomberType
     BOMBERTYPE_NET //!< The bomber is controlled by a human player on the network
 };
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 enum EBattleMode
 {
     BATTLEMODE_SINGLE, //!< Single battle mode
     BATTLEMODE_TEAM //!< Team battle mode
 };
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 enum EBomberTeam
 {
     BOMBERTEAM_A, //!< The bomber team A
     BOMBERTEAM_B, //!< The bomber team B
 };
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 enum EActionAIAlive
 {
@@ -80,10 +64,6 @@ enum EActionAIAlive
     ACTIONONLYAIPLAYERSALIVE_ENDMATCHDRAWGAME, //!< The match ends and there is a draw game when only AI players are alive
     ACTIONONLYAIPLAYERSALIVE_SPEEDUPGAME //!< The game speed is increased
 };
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 #define MAX_PLAYER_INPUT 10
 #define NUM_CONTROLS 6
@@ -94,10 +74,6 @@ enum EActionAIAlive
 #define CONTROL_RIGHT 3
 #define CONTROL_ACTION1 4
 #define CONTROL_ACTION2 5
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 //! Contains every option in the game and manages the configuration file
 class COptions
@@ -123,7 +99,8 @@ private:
     void SetDefaultValues(); //!< Set the default configuration values
     void WriteXMLData(); //!< Write the options to the XML based configuration file
     void ReadIntFromXML(TiXmlDocument& doc, std::string configNode, std::string attrName, int* value);
-    bool LoadLevels(std::string dynamicDataFolder, std::string pgmFolder); //!< Load game levels data and names from the level directory.
+    bool LoadLevels(
+        std::string dynamicDataFolder, std::string pgmFolder); //!< Load game levels data and names from the level directory.
     bool LoadConfiguration(); //!< Load the configuration file, create default if it does not exist.
 
 public:
@@ -131,7 +108,8 @@ public:
     COptions(const COptions& another);
     ~COptions(); //!< Destructor. Do nothing.
     COptions& operator=(const COptions& Copy); //!< Operator = used to copy an option object.
-    bool Create(bool useAppDataFolder, std::string dynamicDataFolder, std::string pgmFolder); //!< Load the options. Create the configuration file if it doesn't exist.
+    bool Create(bool useAppDataFolder, std::string dynamicDataFolder,
+        std::string pgmFolder); //!< Load the options. Create the configuration file if it doesn't exist.
     void Destroy(); //!< Free allocated memory.
     void SaveBeforeExit(); //!< Write the options to the configuration file
     int GetTimeStartMinutes(); //!< Get how many minutes in the time when a battle starts
@@ -165,10 +143,6 @@ public:
     EBomberTeam GetBomberTeam(int Player); //!< Get the bomber team of the specified player
     void SetBomberTeam(int Player, EBomberTeam BomberTeam); //!< Set the bomber team of the specified player
 };
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 inline int COptions::GetTimeStartMinutes() { return m_TimeStartMinutes; }
 
@@ -284,9 +258,5 @@ inline EActionAIAlive COptions::GetOption_ActionWhenOnlyAIPlayersLeft() const
 inline EBomberTeam COptions::GetBomberTeam(int Player) { return m_BomberTeam[Player]; }
 
 inline void COptions::SetBomberTeam(int Player, EBomberTeam BomberTeam) { m_BomberTeam[Player] = BomberTeam; }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 #endif // __COPTIONS_H__

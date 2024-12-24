@@ -29,10 +29,6 @@
 
 #include "StdAfx.h"
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 //! Clock type : describes how to make the date evolve
 
 enum EClockType
@@ -40,10 +36,6 @@ enum EClockType
     CLOCKTYPE_CHRONOMETER, //!< Chronometer from a given date A:B:C
     CLOCKTYPE_COUNTDOWN //!< Count down from a given date A:B:C
 };
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 //! Clock mode : describes what time units to count.
 /*! 
@@ -62,10 +54,6 @@ enum EClockMode
     CLOCKMODE_SC, //!< Compute Seconds = total seconds, and Seconds100 for each update
     CLOCKMODE_S //!< Compute Seconds = total seconds, for each update
 };
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 //! CClock is a reusable class which manages a clock with several types and modes.
 /*! 
@@ -131,15 +119,20 @@ private:
     EClockMode m_ClockMode; //!< Mode of the clock
     bool m_Pause; //!< Update the date (or not) when calling Update method
 
-    void CountHours(float& RemainingDate); //!< Count the hours in the remaining date by decreasing the given date and incrementing the hours count progressively
-    void CountMinutes(float& RemainingDate); //!< Count the minutes in the remaining date by decreasing the given date and incrementing the minutes count progressively
-    void CountSeconds(float& RemainingDate); //!< Count the seconds in the remaining date by decreasing the given date and incrementing the seconds count progressively
-    void CountSeconds100(float& RemainingDate); //!< Count the seconds100 in the remaining date by decreasing the given date and incrementing the seconds100 count progressively
+    void CountHours(float&
+            RemainingDate); //!< Count the hours in the remaining date by decreasing the given date and incrementing the hours count progressively
+    void CountMinutes(float&
+            RemainingDate); //!< Count the minutes in the remaining date by decreasing the given date and incrementing the minutes count progressively
+    void CountSeconds(float&
+            RemainingDate); //!< Count the seconds in the remaining date by decreasing the given date and incrementing the seconds count progressively
+    void CountSeconds100(float&
+            RemainingDate); //!< Count the seconds100 in the remaining date by decreasing the given date and incrementing the seconds100 count progressively
 
 public:
     CClock(); //!< Constructor (does nothing)
     ~CClock(); //!< Destructor (does nothing)
-    void Create(EClockType ClockType, EClockMode ClockMode, int Hours, int Minutes, int Seconds, int Seconds100); //!< Initialize the clock
+    void Create(EClockType ClockType, EClockMode ClockMode, int Hours, int Minutes, int Seconds,
+        int Seconds100); //!< Initialize the clock
     void Destroy(); //!< Uninitialize the clock
     void Update(float DeltaTime); //!< Update the clock's date
     void Reset(); //!< Reset the date to the starting date (which was set on last call to Create())
@@ -151,17 +144,9 @@ public:
     inline int GetSeconds100(); //!< Get the Second100 component of the current date
 };
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 inline void CClock::Pause() { m_Pause = true; }
 
 inline void CClock::Resume() { m_Pause = false; }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 inline int CClock::GetHours()
 {
@@ -171,33 +156,23 @@ inline int CClock::GetHours()
     return m_Hours;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 inline int CClock::GetMinutes()
 {
     // Assert the clock mode is suitable
-    ASSERT(m_ClockMode == CLOCKMODE_HMSC || m_ClockMode == CLOCKMODE_HMS || m_ClockMode == CLOCKMODE_HM || m_ClockMode == CLOCKMODE_MSC || m_ClockMode == CLOCKMODE_MS);
+    ASSERT(m_ClockMode == CLOCKMODE_HMSC || m_ClockMode == CLOCKMODE_HMS || m_ClockMode == CLOCKMODE_HM
+        || m_ClockMode == CLOCKMODE_MSC || m_ClockMode == CLOCKMODE_MS);
 
     return m_Minutes;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 inline int CClock::GetSeconds()
 {
     // Assert the clock mode is suitable
-    ASSERT(m_ClockMode == CLOCKMODE_HMSC || m_ClockMode == CLOCKMODE_HMS || m_ClockMode == CLOCKMODE_MSC || m_ClockMode == CLOCKMODE_MS || m_ClockMode == CLOCKMODE_SC || m_ClockMode == CLOCKMODE_S);
+    ASSERT(m_ClockMode == CLOCKMODE_HMSC || m_ClockMode == CLOCKMODE_HMS || m_ClockMode == CLOCKMODE_MSC
+        || m_ClockMode == CLOCKMODE_MS || m_ClockMode == CLOCKMODE_SC || m_ClockMode == CLOCKMODE_S);
 
     return m_Seconds;
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 inline int CClock::GetSeconds100()
 {
@@ -206,9 +181,5 @@ inline int CClock::GetSeconds100()
 
     return m_Seconds100;
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 #endif

@@ -29,10 +29,6 @@
 
 #include "CArena.h"
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 //! Describe the type of danger on a block
 enum EDanger
 {
@@ -51,10 +47,6 @@ struct SBlock
     int BlockY;
 };
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 class CAiArena
 {
 private:
@@ -62,7 +54,9 @@ private:
     CDisplay* m_pDisplay;
     EDanger m_Danger[ARENA_WIDTH][ARENA_HEIGHT]; // Danger type of each block of the arena
     float m_DangerTimeLeft[ARENA_WIDTH][ARENA_HEIGHT];
-    int m_DeadEnd[ARENA_WIDTH][ARENA_HEIGHT]; // If this block is not in a dead end, this contains -1. Otherwise it contains the number of the dead end where this square is.
+    int m_DeadEnd
+        [ARENA_WIDTH]
+        [ARENA_HEIGHT]; // If this block is not in a dead end, this contains -1. Otherwise it contains the number of the dead end where this square is.
     SBlock m_DeadEndExit[MAX_DEAD_END]; //*** inutile *** // Block position of the exit of each dead end (currently unused)
     int m_SoftWallNear[ARENA_WIDTH][ARENA_HEIGHT]; // Number of soft walls near this square if there is no wall in this square
     bool m_WallBurn[ARENA_WIDTH][ARENA_HEIGHT]; // True if a soft wall is burning or is going to burn very soon in this square
@@ -83,10 +77,6 @@ public:
     void Destroy();
     void Update(float DeltaTime);
 };
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 inline void CAiArena::SetArena(CArena* pArena)
 {
@@ -118,9 +108,5 @@ inline SBlock& CAiArena::GetDeadEndExit(int Exit) { return m_DeadEndExit[Exit]; 
 inline int CAiArena::GetSoftWallNear(int BlockX, int BlockY) { return m_SoftWallNear[BlockX][BlockY]; }
 
 inline bool CAiArena::GetWallBurn(int BlockX, int BlockY) { return m_WallBurn[BlockX][BlockY]; }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 #endif

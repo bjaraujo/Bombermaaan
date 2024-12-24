@@ -43,7 +43,7 @@ CNetwork::CNetwork()
 //******************************************************************************************************************************
 //******************************************************************************************************************************
 
-CNetwork::~CNetwork(void) {}
+CNetwork::~CNetwork(void) { }
 
 //******************************************************************************************************************************
 //******************************************************************************************************************************
@@ -254,7 +254,8 @@ bool CNetwork::SendCommandChunk(const CCommandChunk& CommandChunk)
 {
 
     // Send checksum
-    union {
+    union
+    {
         unsigned long LongValue;
         char ByteArray[4];
     } LongBytes;
@@ -275,7 +276,8 @@ bool CNetwork::SendCommandChunk(const CCommandChunk& CommandChunk)
 bool CNetwork::ReceiveCommandChunk(CCommandChunk& CommandChunk)
 {
 
-    union {
+    union
+    {
         unsigned long LongValue;
         char ByteArray[4];
     } LongBytes;
@@ -352,7 +354,8 @@ bool CNetwork::SendSnapshot(const CArenaSnapshot& Snapshot)
 {
 
     // Send checksum
-    union {
+    union
+    {
         unsigned long LongValue;
         char ByteArray[4];
     } LongBytes;
@@ -371,7 +374,8 @@ bool CNetwork::SendSnapshot(const CArenaSnapshot& Snapshot)
 bool CNetwork::ReceiveSnapshot(CArenaSnapshot& Snapshot)
 {
 
-    union {
+    union
+    {
         unsigned long LongValue;
         char ByteArray[4];
     } LongBytes;

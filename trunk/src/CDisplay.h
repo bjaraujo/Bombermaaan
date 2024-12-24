@@ -34,10 +34,6 @@
 #include "CVideoSDL.h"
 #endif
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 enum EDisplayMode
 {
     DISPLAYMODE_NONE,
@@ -46,10 +42,6 @@ enum EDisplayMode
     DISPLAYMODE_FULL3,
     DISPLAYMODE_WINDOWED
 };
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 class CDisplay
 {
@@ -65,8 +57,11 @@ private:
 
     std::string m_pgmFolder;
 
-    bool Create(int Width, int Height, bool FullScreen); //!< (Re)Create the DirectDraw/SDLVideo interface and (re)load the sprite tables given the resolution
-    bool LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent, int BMP_ID, const char* file); //!< Load a sprite table given its bitmap data and its properties.
+    bool Create(int Width, int Height,
+        bool
+            FullScreen); //!< (Re)Create the DirectDraw/SDLVideo interface and (re)load the sprite tables given the resolution
+    bool LoadSprites(int SpriteTableWidth, int SpriteTableHeight, int SpriteWidth, int SpriteHeight, bool Transparent,
+        int BMP_ID, const char* file); //!< Load a sprite table given its bitmap data and its properties.
 
 public:
     CDisplay(); //!< Initialize some members
@@ -74,25 +69,24 @@ public:
     void SetProgramFolder(const std::string& pgmFolder); //!< Set program folder
     inline void SetWindowHandle(HWND hWnd); //!< Set the handle of the window DirectDraw/SDLVideo has to work with
     inline void SetModuleHandle(HMODULE hModule); //!< Set the handle of the module linked to the resources
-    bool Create(EDisplayMode DisplayMode); //!< (Re)Create the DirectDraw/SDLVideo interface and (re)load the sprite tables given the display mode
+    bool Create(EDisplayMode
+            DisplayMode); //!< (Re)Create the DirectDraw/SDLVideo interface and (re)load the sprite tables given the display mode
     void Destroy(); //!< Destroy the DirectDraw/SDLVideo interface and the sprite tables
     inline void OnWindowMove(); //!< Has to be called when the window moves (WM_MOVE)
     inline void OnPaint(); //!< Has to be called when the window has to be repainted (WM_PAINT)
     inline void Clear(); //!< Make the window's client area black
     inline void Update(); //!< Draw the sprites that DrawSprite recorded and update the window's client area
     inline void SetOrigin(int OriginX, int OriginY); //!< Set the origin to draw from the game view origin
-    inline void DrawSprite(int PositionX, int PositionY, RECT* pZone, RECT* pClip, int SpriteTable, int Sprite, int SpriteLayer, int PriorityInLayer); //!< Record a drawing request that will be executed on next call to Update
-    inline void DrawDebugRectangle(int PositionX, int PositionY, int w, int h, BYTE r, BYTE g, BYTE b, int SpriteLayer, int PriorityInLayer); //!< Record a drawing request for debug purposes
+    inline void DrawSprite(int PositionX, int PositionY, RECT* pZone, RECT* pClip, int SpriteTable, int Sprite,
+        int SpriteLayer, int PriorityInLayer); //!< Record a drawing request that will be executed on next call to Update
+    inline void DrawDebugRectangle(int PositionX, int PositionY, int w, int h, BYTE r, BYTE g, BYTE b, int SpriteLayer,
+        int PriorityInLayer); //!< Record a drawing request for debug purposes
     inline void RemoveAllDebugRectangles();
 #ifndef DIRECTX
     inline CVideoSDL& GetSDLVideo();
 #endif
     bool IsDisplayModeAvailable(EDisplayMode DisplayMode);
 };
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 inline void CDisplay::SetWindowHandle(HWND hWnd)
 {
@@ -150,7 +144,8 @@ inline void CDisplay::OnPaint()
 #endif
 }
 
-inline void CDisplay::DrawSprite(int PositionX, int PositionY, RECT* pZone, RECT* pClip, int SpriteTable, int Sprite, int SpriteLayer, int PriorityInLayer)
+inline void CDisplay::DrawSprite(
+    int PositionX, int PositionY, RECT* pZone, RECT* pClip, int SpriteTable, int Sprite, int SpriteLayer, int PriorityInLayer)
 {
 #ifdef DIRECTX
     m_VideoDX.DrawSprite(PositionX, PositionY, pZone, pClip, SpriteTable, Sprite, SpriteLayer, PriorityInLayer);
@@ -159,7 +154,8 @@ inline void CDisplay::DrawSprite(int PositionX, int PositionY, RECT* pZone, RECT
 #endif
 }
 
-inline void CDisplay::DrawDebugRectangle(int PositionX, int PositionY, int w, int h, BYTE r, BYTE g, BYTE b, int SpriteLayer, int PriorityInLayer)
+inline void CDisplay::DrawDebugRectangle(
+    int PositionX, int PositionY, int w, int h, BYTE r, BYTE g, BYTE b, int SpriteLayer, int PriorityInLayer)
 {
 #ifdef DIRECTX
     m_VideoDX.DrawDebugRectangle(PositionX, PositionY, w, h, r, g, b, SpriteLayer, PriorityInLayer);
@@ -180,9 +176,5 @@ inline void CDisplay::RemoveAllDebugRectangles()
 #ifndef DIRECTX
 inline CVideoSDL& CDisplay::GetSDLVideo() { return m_VideoSDL; }
 #endif
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 #endif // __CDISPLAY_H__

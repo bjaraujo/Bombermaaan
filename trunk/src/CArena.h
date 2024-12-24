@@ -34,17 +34,13 @@
 #include "CExplosion.h"
 #include "CFloor.h"
 #include "CItem.h"
-#include "CWall.h"
 #include "COptions.h"
+#include "CWall.h"
 
 class CClock;
 class CDisplay;
 class CSound;
 class CArenaSnapshot;
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 // The EBlockHas enum allows a combination of flags to describe
 // exactly what can be seen (but very basic information about bombers)
@@ -85,10 +81,6 @@ using TBlockHas = int;
 // note hat (1 << 31) is the maximum value for a 32-bit integer
 // BLOCKHAS_ITEMx, where x = {BOMB,FLAME,ROLLER,KICK,THROW,PUNCH,REMOTE} are not necessary
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 #define MAX_FLOORS (ARENA_WIDTH * ARENA_HEIGHT)
 #define MAX_WALLS (2 * ARENA_WIDTH * ARENA_HEIGHT) // Don't forget the falling walls in
 #define MAX_BOMBS 50
@@ -96,10 +88,6 @@ using TBlockHas = int;
 #define MAX_EXPLOSIONS 50
 #define MAX_BOMBERS MAX_PLAYERS
 #define MAX_TEAMS MAX_PLAYERS
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 class CArena
 {
@@ -114,7 +102,9 @@ private:
     CExplosion m_Explosions[MAX_EXPLOSIONS];
     CBomber m_Bombers[MAX_BOMBERS];
     CArenaCloser m_ArenaCloser;
-    TBlockHas m_BlockHas[ARENA_WIDTH][ARENA_HEIGHT]; //!< Simplified view of the arena made using the element containers. This allows a fast access to the basic information of the arena.
+    TBlockHas m_BlockHas
+        [ARENA_WIDTH]
+        [ARENA_HEIGHT]; //!< Simplified view of the arena made using the element containers. This allows a fast access to the basic information of the arena.
     int m_BombsInUse; //!< A counter for bombs in use
     bool m_Prediction;
 
@@ -208,19 +198,11 @@ public:
     bool IsFloorWithMoveEffect(int BlockX, int BlockY) const;
 };
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 inline bool CArena::IsPrediction() const { return m_Prediction; }
 
 inline void CArena::SetPrediction(bool Active) { m_Prediction = Active; }
 
 inline CArenaCloser& CArena::GetArenaCloser() { return m_ArenaCloser; }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 inline CBomber& CArena::GetBomber(int Index)
 {
@@ -264,10 +246,6 @@ inline CFloor& CArena::GetFloor(int Index)
     return m_Floors[Index];
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 inline int CArena::MaxFloors() const { return MAX_FLOORS; }
 
 inline int CArena::MaxWalls() const { return MAX_WALLS; }
@@ -288,10 +266,6 @@ inline int CArena::MaxTeams() const { return MAX_TEAMS; }
  */
 inline int CArena::BombsInUse() const { return m_BombsInUse; }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 inline bool CArena::GetBlockHas(int BlockX, int BlockY, TBlockHas BlockHas) const
 {
     // Check coordinates
@@ -310,10 +284,6 @@ inline void CArena::SetBlockHas(int BlockX, int BlockY, TBlockHas BlockHas)
 
     m_BlockHas[BlockX][BlockY] |= BlockHas;
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 inline void CArena::SetDisplay(CDisplay* pDisplay)
 {
@@ -375,10 +345,6 @@ inline void CArena::SetOptions(COptions* pOptions)
     m_ArenaCloser.SetOptions(pOptions);
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 inline bool CArena::IsWall(int BlockX, int BlockY) const { return GetBlockHas(BlockX, BlockY, BLOCKHAS_WALL); }
 
 inline bool CArena::IsSoftWall(int BlockX, int BlockY) const { return GetBlockHas(BlockX, BlockY, BLOCKHAS_WALLSOFT); }
@@ -430,16 +396,8 @@ inline bool CArena::IsFloorWithMoveEffect(int BlockX, int BlockY) const
     return GetBlockHas(BlockX, BlockY, BLOCKHAS_FLOORWITHMOVEEFFECT);
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 inline int CArena::ToBlock(int Position) const { return (Position / BLOCK_SIZE); }
 
 inline int CArena::ToPosition(int Block) const { return (Block * BLOCK_SIZE); }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 #endif //__CARENA_H__

@@ -37,10 +37,6 @@ class CArenaSnapshot;
 
 #include "CExplosion.h"
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 /**
  *  \brief Describe a type of item
  *
@@ -63,10 +59,6 @@ enum EItemType
     NUMBER_OF_ITEMS //!< The number of items (this includes ITEM_NONE)
 };
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 //! Describes a possible kind of place for new items. See CItem::CreateItems()
 
 enum EItemPlace
@@ -74,10 +66,6 @@ enum EItemPlace
     ITEMPLACE_FLOOR, //!< Create new items on the floor only
     ITEMPLACE_SOFTWALLS //!< Create new items under soft walls only
 };
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 //! Describes the flying state of an item. Is is flying? In which direction?
 
@@ -89,10 +77,6 @@ enum EItemFlying
     ITEMFLYING_LEFT, //!< The item is flying and moving left
     ITEMFLYING_RIGHT //!< The item is flying and moving right
 };
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 //! An element in the arena which represents an item.
 class CItem : public CElement
@@ -127,19 +111,19 @@ public:
     void Display(); //!< Display the item
     void OnWriteSnapshot(CArenaSnapshot& Snapshot);
     void OnReadSnapshot(CArenaSnapshot& Snapshot);
-    void Burn(EBurnDirection BurnDirection); //!< Make the item react when an explosion hits this item. The direction of the hit is specified.
+    void Burn(EBurnDirection
+            BurnDirection); //!< Make the item react when an explosion hits this item. The direction of the hit is specified.
     void Crush(); //!< Make the item react when crushed by a wall.
-    static bool CreateItems(CArena* pArena, EItemPlace ItemPlace, int NumberOfItemBombs, int NumberOfItemFlames, int NumberOfItemRollers, int NumberOfItemKicks, int NumberOfItemSkulls, int NumberOfItemThrow, int NumberOfItemPunch, int NumberOfItemRemote, int NumberOfItemShield, int NumberOfItemStrongWeak); //!< Create the specified amount of items in an arena, in the specified EItemPlace.
+    static bool CreateItems(CArena* pArena, EItemPlace ItemPlace, int NumberOfItemBombs, int NumberOfItemFlames,
+        int NumberOfItemRollers, int NumberOfItemKicks, int NumberOfItemSkulls, int NumberOfItemThrow, int NumberOfItemPunch,
+        int NumberOfItemRemote, int NumberOfItemShield,
+        int NumberOfItemStrongWeak); //!< Create the specified amount of items in an arena, in the specified EItemPlace.
     inline int GetBlockX(); //!< Return the block position X of the item
     inline int GetBlockY(); //!< Return the block position Y of the item
     inline bool IsBurning(); //!< Return whether the item is burning
     inline EItemType GetType(); //!< Return the type of the item
     inline bool IsFlying(); //!< Return whether the item is currently flying.
 };
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 inline int CItem::GetBlockX() { return m_BlockX; }
 
@@ -150,9 +134,5 @@ inline bool CItem::IsBurning() { return m_Burning; }
 inline EItemType CItem::GetType() { return m_Type; }
 
 inline bool CItem::IsFlying() { return m_Flying != ITEMFLYING_NONE; }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 #endif

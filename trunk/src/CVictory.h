@@ -37,10 +37,6 @@ class CSound;
 
 #include "CModeScreen.h"
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 #define NUM_CONFETTIS_LARGE 6 //!< How many large confettis to manage
 #define NUM_CONFETTIS_MEDIUM 10 //!< How many medium confettis to manage
 #define NUM_CONFETTIS_SMALL 6 //!< How many small confettis to manage
@@ -77,10 +73,6 @@ enum ECrowdWave
     NUMBER_CROWDWAVES //!< The number of different crowd waves
 };
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 //! The victory screen that appears after a player has won a match (a match is composed of battles)
 
 class CVictory : public CModeScreen
@@ -95,14 +87,16 @@ private:
     bool m_HaveToExit; //!< Do we have to exit this mode?
     float m_ExitModeTime; //!< Mode time when we realized we have to exit (used for blackscreen)
     bool m_PlayedSound; //!< Did we start playing the draw game sound?
-    bool m_CrowdFlag; //!< This flag allows to make the crowd switch between two states. Some bombers in the crowd get up and other bombers sit down.
+    bool
+        m_CrowdFlag; //!< This flag allows to make the crowd switch between two states. Some bombers in the crowd get up and other bombers sit down.
     int m_WinnerBomberSprite; //!< This is the sprite offset to use to get the current victorious bomber sprite. This sprite offset must be added to the sprite offset determining the color of the bomber.
     int m_LoserBomberSprite; //!< This is the sprite offset to use to get the current loser sprite. This sprite offset must be added to the sprite offset determining the color of the bomber.
     float m_MexicanWaveTimer; //!< Timer of the crowd's Mexican wave animation
     int m_MexicanWavePosition; //!< The current position of the Mexican wave (which row is standing up)
     ECrowdWave m_CrowdWaveMode; //!< Which wave the crowd is doing
 
-    void ResetConfetti(SConfetti* pConfetti); //!< Make a new confetti, make it start at the top of the game view (out of the game view)
+    void ResetConfetti(
+        SConfetti* pConfetti); //!< Make a new confetti, make it start at the top of the game view (out of the game view)
 
 public:
     CVictory(); //!< Constructor. Initialize some members.
@@ -117,14 +111,6 @@ public:
     void StopSong();
 };
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 inline void CVictory::SetScores(CScores* pScores) { m_pScores = pScores; }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 #endif // __CVICTORY_H__

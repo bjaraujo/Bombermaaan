@@ -38,10 +38,6 @@
 #include <iomanip>
 #include <sstream>
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 /*** // Initial number of items when a new arena is built
 #define INITIAL_ITEMBOMB        11
 #define INITIAL_ITEMFLAME       8
@@ -58,9 +54,6 @@
 // Initial number of bombs the bomber can drop
 #define INITIAL_BOMBS           1
 ***/
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 CLevel::CLevel(std::string filename_full, std::string filename_short)
     : m_FilenameShort(filename_short)
@@ -86,15 +79,7 @@ CLevel::CLevel(std::string filename_full, std::string filename_short)
     }
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
-CLevel::~CLevel() {}
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
+CLevel::~CLevel() { }
 
 /**
  *  @param  filename_full    The full file name of the level file
@@ -170,12 +155,14 @@ bool CLevel::LoadFromFile()
     // If there wasn't any problem
     if (!ErrorOccurred)
     {
-        theLog.WriteLine("Options         => Level file %s was successfully loaded (version %d).", m_FilenameShort.c_str(), LevelVersion);
+        theLog.WriteLine(
+            "Options         => Level file %s was successfully loaded (version %d).", m_FilenameShort.c_str(), LevelVersion);
     }
     // If there was a problem
     else
     {
-        theLog.WriteLine("Options         => !!! Could not load level file %s (version %d).", m_FilenameShort.c_str(), LevelVersion);
+        theLog.WriteLine(
+            "Options         => !!! Could not load level file %s (version %d).", m_FilenameShort.c_str(), LevelVersion);
     }
 
     // If we had to stop then there is a problem.
@@ -185,10 +172,6 @@ bool CLevel::LoadFromFile()
     // Everything went right
     return true;
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 bool CLevel::LoadVersion1(std::ifstream& File)
 {
@@ -355,10 +338,6 @@ bool CLevel::LoadVersion1(std::ifstream& File)
     return !StopReadingFile;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 bool CLevel::LoadVersion2(std::string filename)
 {
     // Define INI file
@@ -437,7 +416,8 @@ bool CLevel::LoadVersion2(std::string filename)
 
         if (arenaLine.length() != ARENA_WIDTH)
         {
-            theLog.WriteLine("Options         => !!! Level file is incorrect (Line.%d wrong length %d).", y, arenaLine.length());
+            theLog.WriteLine(
+                "Options         => !!! Level file is incorrect (Line.%d wrong length %d).", y, arenaLine.length());
             return false;
         }
 
@@ -550,13 +530,17 @@ bool CLevel::LoadVersion2(std::string filename)
     m_InitialBomberSkills[BOMBERSKILL_BOMBS] = atoi(iniFile.GetValue("Settings", "BomberSkillsAtStart.MaxBombs", "0"));
     m_InitialBomberSkills[BOMBERSKILL_BOMBITEMS] = atoi(iniFile.GetValue("Settings", "BomberSkillsAtStart.BombItems", "0"));
     m_InitialBomberSkills[BOMBERSKILL_FLAMEITEMS] = atoi(iniFile.GetValue("Settings", "BomberSkillsAtStart.FlameItems", "0"));
-    m_InitialBomberSkills[BOMBERSKILL_ROLLERITEMS] = atoi(iniFile.GetValue("Settings", "BomberSkillsAtStart.RollerItems", "0"));
+    m_InitialBomberSkills[BOMBERSKILL_ROLLERITEMS]
+        = atoi(iniFile.GetValue("Settings", "BomberSkillsAtStart.RollerItems", "0"));
     m_InitialBomberSkills[BOMBERSKILL_KICKITEMS] = atoi(iniFile.GetValue("Settings", "BomberSkillsAtStart.KickItems", "0"));
     m_InitialBomberSkills[BOMBERSKILL_THROWITEMS] = atoi(iniFile.GetValue("Settings", "BomberSkillsAtStart.ThrowItems", "0"));
     m_InitialBomberSkills[BOMBERSKILL_PUNCHITEMS] = atoi(iniFile.GetValue("Settings", "BomberSkillsAtStart.PunchItems", "0"));
-    m_InitialBomberSkills[BOMBERSKILL_REMOTEITEMS] = atoi(iniFile.GetValue("Settings", "BomberSkillsAtStart.RemoteItems", "0"));
-    m_InitialBomberSkills[BOMBERSKILL_SHIELDITEMS] = atoi(iniFile.GetValue("Settings", "BomberSkillsAtStart.ShieldItems", "0"));
-    m_InitialBomberSkills[BOMBERSKILL_STRONGWEAKITEMS] = atoi(iniFile.GetValue("Settings", "BomberSkillsAtStart.StrongWeakItems", "0"));
+    m_InitialBomberSkills[BOMBERSKILL_REMOTEITEMS]
+        = atoi(iniFile.GetValue("Settings", "BomberSkillsAtStart.RemoteItems", "0"));
+    m_InitialBomberSkills[BOMBERSKILL_SHIELDITEMS]
+        = atoi(iniFile.GetValue("Settings", "BomberSkillsAtStart.ShieldItems", "0"));
+    m_InitialBomberSkills[BOMBERSKILL_STRONGWEAKITEMS]
+        = atoi(iniFile.GetValue("Settings", "BomberSkillsAtStart.StrongWeakItems", "0"));
 
     //---------------------
     // Read the ContaminationsNotUsed setting
@@ -570,10 +554,6 @@ bool CLevel::LoadVersion2(std::string filename)
     // Everything went right
     return true;
 }
-
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
 
 /**
  * @brief   check if this level does not exceed the maximum possible number of items
@@ -608,10 +588,6 @@ bool CLevel::CheckMaxNumberOfItems(unsigned int* sumOfMaxItems)
         return true;
 }
 
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-//******************************************************************************************************************************
-
 bool CLevel::Validate()
 {
     unsigned int itemCount;
@@ -621,7 +597,8 @@ bool CLevel::Validate()
     if (!CheckMaxNumberOfItems(&itemCount))
     {
         // Log there is a problem
-        theLog.WriteLine("Options         => !!! Level file is incorrect (Too many items: %d of %d allowed).", itemCount, MAX_ITEMS);
+        theLog.WriteLine(
+            "Options         => !!! Level file is incorrect (Too many items: %d of %d allowed).", itemCount, MAX_ITEMS);
         return false;
     }
 
